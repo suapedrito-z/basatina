@@ -41,7 +41,8 @@ a{color:var(--acc)}
 .topbar{display:flex;align-items:center;gap:10px;padding-bottom:10px}
 #menuBtn{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:10px;width:44px;height:44px;font-size:22px;cursor:pointer;flex:none}
 #logo{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--acc)}
-.topbar h1{margin:0;font-size:18px}
+.topbar h1{margin:0;font-size:17px;line-height:1.15}
+#wx{text-align:right;flex:none;line-height:1.1}#wxTop{font-size:20px;font-weight:700;white-space:nowrap}#wxIco{margin-right:3px}#wxClock{font-size:15px;font-weight:600}#wxDate{font-size:11px;color:var(--mut);white-space:nowrap}
 #drawerBg{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
 #drawerBg.on{opacity:1;pointer-events:auto}
 #drawer{position:fixed;top:0;left:0;bottom:0;width:min(82vw,320px);background:#121b25;border-right:1px solid var(--line);transform:translateX(-102%);transition:transform .22s;z-index:51;overflow-y:auto;padding-bottom:20px}
@@ -59,7 +60,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <body>
 <div class="wrap">
 <header>
-  <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.jpg" onerror="this.style.display='none'"><div><h1>Pedrito Control Río Arga</h1><div id="secTitle" class="note">🗺️ Mapa del río</div></div></div>
+  <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.jpg" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>Pedrito Control Río Arga</h1><div id="secTitle" class="note">🗺️ Mapa del río</div></div><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
 </header>
 <div id="drawerBg"></div>
 <aside id="drawer" aria-label="Menú">
@@ -561,7 +562,7 @@ const _unused=()=>{const b=document.getElementById('fplay');if(fplayT){clearInte
 if(!window.AndroidNet)(async()=>{const info=document.getElementById('fcInfo');let tm=setTimeout(()=>{info.textContent='No se puede leer la previsión ahora mismo (prueba más tarde).';},10000);
   try{const db=await claude.use('db');if(!db){clearTimeout(tm);info.textContent='La previsión no está disponible en esta vista (hace falta haber iniciado sesión).';return;}
     db.doc('live/forecast').onSnapshot(s=>{if(!s.metadata.fromCache)clearTimeout(tm);if(!s.exists){info.textContent='Todavía no hay datos de previsión.';return;}
-      FC=s.data();const up=new Date(FC.updated);info.textContent=`Actualizada: ${up.toLocaleString('es-ES',{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} · llovió ${FC.past72} mm en las últimas 72 h`;fcRender();},
+      FC=s.data();const up=new Date(FC.updated);info.textContent=`Actualizada: ${up.toLocaleString('es-ES',{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} · llovió ${FC.past72} mm en las últimas 72 h`;fcRender();wxRender();},
       e=>{clearTimeout(tm);info.textContent='No se puede leer la previsión ('+e.code+').';});}
   catch(e){clearTimeout(tm);info.textContent='La previsión no está disponible en esta vista.';}})();
 
@@ -622,6 +623,20 @@ if(APP){document.getElementById('dgApp').style.display='';document.getElementByI
   document.getElementById('saihGo').onclick=saihTest;
   document.getElementById('saihShare').onclick=()=>window.AndroidNet.share(saihLast.slice(0,60000));
   setTimeout(appForecast,500);}
+
+/* ---------- reloj, fecha y tiempo actual en Pamplona ---------- */
+function wxIcon(code,hour){const night=hour<8||hour>=19;if(code==null)return'';
+  if(code===0)return night?'🌙':'☀️';if(code<=2)return night?'☁️':'🌤️';if(code===3)return'☁️';if(code===45||code===48)return'🌫️';
+  if(code>=95)return'⛈️';if(code>=85)return'🌨️';if(code>=80)return'🌦️';if(code>=71)return'❄️';if(code>=61)return'🌧️';if(code>=51)return'🌦️';return'🌡️';}
+let WX=null;
+function wxRender(){const d=new Date();document.getElementById('wxClock').textContent=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('wxDate').textContent=d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
+  let t=null,c=null;if(WX){t=WX.t;c=WX.c;}else if(FC&&FC.temp&&FC.t0){const i=Math.max(0,Math.min(FC.temp.length-1,Math.floor((d-new Date(FC.t0))/3600e3)));t=FC.temp[i];
+      c=(FC.code&&FC.code[i]!=null)?FC.code[i]:((FC.snow&&FC.snow[i]>0.05)?73:(FC.rain&&FC.rain[i]>0.1)?61:null);if(c==null&&FC.code==null)c=d.getHours()>=8&&d.getHours()<19?1:0;}
+  document.getElementById('wxIco').textContent=wxIcon(c,d.getHours());document.getElementById('wxT').textContent=t!=null?Math.round(t)+'°':'';}
+async function wxFetch(){if(!APP)return;const r=await netGet('https://api.open-meteo.com/v1/forecast?latitude=42.82&longitude=-1.64&current=temperature_2m,weather_code&timezone=Europe%2FMadrid');
+  try{const j=JSON.parse(r.body);WX={t:j.current.temperature_2m,c:j.current.weather_code};}catch(e){}wxRender();}
+setInterval(wxRender,15000);setTimeout(wxRender,50);if(APP){setTimeout(wxFetch,800);setInterval(wxFetch,15*60e3);}
 /* ---------- arranque ---------- */
 function resizeAll(){try{fx=fitCanvas(fcc);fcRender();if(D)dc.dataset.h=demH(D);mx=fitCanvas(mc);xx=fitCanvas(xc);hx=fitCanvas(hc);dx_=fitCanvas(dc);if(mc.clientWidth>10&&(!view.init||view.s<=0)){fitView();view.init=1}drawXS(G.series&&G.series.length?G.series[G.series.length-1][1]:30,[]);drawHydro();drawDEM();}catch(e){console.warn(e)}}
 window.addEventListener('resize',resizeAll);
