@@ -742,6 +742,16 @@ function kindOf(t){const d=(t.LS_DESCRIPCION||'').toUpperCase(),u=(t.LS_UNID_ING
   if(/PORCENT|%/.test(d)||u==='%')return 'pct';if(/VOLUMEN/.test(d)||/hm/.test(u))return 'vol';
   if(/ENTRADA|APORTA/.test(d))return 'qin';if(/SALIDA|DESAG|DESEMB|TURBIN|ALIVI/.test(d)&&/m3|m³/.test(u))return 'qout';
   if(/CAUDAL/.test(d)||/^Q/.test(y)||/m3\/s|m³\/s/.test(u))return 'q';if(/NIVEL/.test(d)||/^N/.test(y))return 'n';return 'x';}
+
+// lee las filas <tr> de la tabla «Valores actuales» de una ficha del SAIH
+function fichaAdd(map,code,html){const st=map[code]||(map[code]={code,name:code,tags:{}});
+  html.split(/<tr>/i).slice(1).forEach(row=>{const g=re=>{const m=row.match(re);return m?m[1].trim():'';};
+    const desc=g(/aria-label='Señal ([^']*)'/),val=g(/aria-label='Valor ([^']*)'/),fec=g(/aria-label='Fecha ([^']*)'/),tr=g(/aria-label='Tendencia ([^']*)'/);
+    const tag=g(/grafica-senal-([A-Z0-9]+)-/)||desc;if(!desc||!val)return;
+    const vm=val.match(/^(-?[\d.,]+)\s*(.*)$/);if(!vm)return;const v=parseFloat(vm[1].replace(/\./g,'').replace(',','.'));
+    const fm=fec.match(/(\d\d)\/(\d\d)\/(\d{4}) (\d\d:\d\d)/);
+    st.tags[tag]={CW_REMOTA_TXT:code,LS_TAG_TXT:tag,LS_DESCRIPCION:desc.toUpperCase(),VALOR_QM:v,LS_UNID_ING:vm[2],LS_TIPO_SENAL:tag.length>7?tag.slice(7).replace(/\d+$/,''):'',
+      LS_TENDENCIA:tr,ULTIMA_FECHA:fm?`${fm[3]}-${fm[2]}-${fm[1]} ${fm[4]}:00`:fec,DECIMALES_VALOR:/hm|%/.test(vm[2])?1:2};});}
 function cauAdd(map,data){(data.DATOS||[]).forEach(t=>{const c=t.CW_REMOTA_TXT;if(!c)return;const st=map[c]||(map[c]={code:c,name:t.LR_NOMBRE_CORTO,tags:{}});st.tags[t.LS_TAG_TXT||t.CWT_TAG]=t;});}
 function umbralOf(tag){if(!UMB||!tag)return null;let u=UMB.find(x=>x.codigo===tag.LS_TAG_TXT);
   if(!u)u=UMB.find(x=>x.codigo&&x.codigo.slice(0,4)===tag.CW_REMOTA_TXT&&/NRIO/.test(x.codigo));return u;}
@@ -749,7 +759,7 @@ function alertOf(tag){const u=umbralOf(tag),v=Number(tag&&tag.VALOR_QM);if(!u||i
   if(u.col3!=null&&v>=u.col3)return ['🔴 Aviso rojo','#c62828'];if(u.col2!=null&&v>=u.col2)return ['🟠 Aviso naranja','#ef6c00'];
   if(u.col1!=null&&v>=u.col1)return ['🟡 Aviso amarillo','#f9a825'];return ['🟢 Normal (aviso amarillo a '+fmtN(u.col1,2)+' m)','#2e7d32'];}
 function hhmm(f){const m=(f||'').match(/(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d)/);if(!m)return f||'';const today=new Date().toISOString().slice(0,10)===`${m[1]}-${m[2]}-${m[3]}`;return (today?'':m[3]+'/'+m[2]+' ')+m[4]+':'+m[5];}
-function pick(st,k){return st?Object.values(st.tags).find(t=>kindOf(t)===k):null;}
+function pick(st,k){if(!st)return null;const L=Object.values(st.tags).filter(t=>kindOf(t)===k);return L.find(t=>/R[IÍ]O|ARGA|EMBALSE/.test(t.LS_DESCRIPCION))||L[0]||null;}
 function stRow(code,label){const st=CAU&&CAU[code];if(!st)return `<div class="st"><div><b>${label}</b><div class="s">sin datos ahora</div></div></div>`;
   const q=pick(st,'q'),n=pick(st,'n'),main=q||n,al=alertOf(n);
   const v=main?`${fmtN(main.VALOR_QM,main.DECIMALES_VALOR??2)} <span style="font-size:13px">${main.LS_UNID_ING||''}</span>`:'—';
@@ -762,7 +772,8 @@ function cauRender(){const A=document.getElementById('cauArga'),F=document.getEl
   const e=CAU.E025;let h='<div class="card"><b>🏔️ Embalse de Eugui</b>';
   if(!e)h+='<div class="note">Sin datos del embalse ahora.</div>';
   else{const g=k=>pick(e,k),pct=g('pct'),vol=g('vol'),qin=g('qin'),qout=g('qout');
-    if(pct){const p=Math.max(0,Math.min(100,Number(pct.VALOR_QM)));h+=`<div class="row" style="align-items:center"><div class="big">${fmtN(pct.VALOR_QM,1)} %</div><div style="flex:1;height:14px;background:#0b1118;border-radius:7px;overflow:hidden;border:1px solid var(--line)"><div style="width:${p}%;height:100%;background:#2f8fd8"></div></div></div>`;}
+    let pv=pct?Number(pct.VALOR_QM):null,aprox='';if(pv==null&&vol&&/hm/i.test(vol.LS_UNID_ING)){pv=vol.VALOR_QM/21*100;aprox='<div style="font-size:12px;font-weight:400;color:#93a4b5">aprox., con 21 hm³ de capacidad</div>';}
+    if(pv!=null){const p=Math.max(0,Math.min(100,pv));h+=`<div class="row" style="align-items:center"><div class="big">${fmtN(pv,1)} %${aprox}</div><div style="flex:1;height:14px;background:#0b1118;border-radius:7px;overflow:hidden;border:1px solid var(--line)"><div style="width:${p}%;height:100%;background:#2f8fd8"></div></div></div>`;}
     const rows=[[qin,'⬇️ Entra al embalse'],[qout,'⬆️ Sale de la presa'],[vol,'💧 Agua embalsada']].filter(r=>r[0]);
     rows.forEach(([t,l])=>{h+=`<div class="st"><div><b>${l}</b><div class="s">${TREND[t.LS_TENDENCIA]||''} · ${hhmm(t.ULTIMA_FECHA)}</div></div><div class="v">${fmtN(t.VALOR_QM,t.DECIMALES_VALOR??2)} <span style="font-size:13px">${t.LS_UNID_ING||''}</span></div></div>`;});
     const used=new Set([pct,vol,qin,qout].filter(Boolean));
@@ -777,7 +788,12 @@ async function cauFetch(){if(!APP)return cauRender();const info=document.getElem
   const m={};let ok=0;for(const r of [a,b]){try{cauAdd(m,JSON.parse(r.body));ok++;}catch(e){}}
   if(u){try{UMB=JSON.parse(u.body);}catch(e){}}
   if(!ok){info.textContent='❌ No se pudo leer el SAIH ahora (código '+a.code+'). Prueba en un rato.';return;}
-  CAU=m;cauT=Date.now();info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · SAIH Ebro';
+  CAU=m;cauRender();info.textContent='Leyendo las fichas de cada estación…';
+  // el mapa solo trae una señal por estación (el nivel): la ficha de cada estación trae todas (caudal, volumen, %…)
+  const codes=[...CAU_ARGA,...CAU_AFL].map(x=>x[0]).concat(['E025']);
+  for(let i=0;i<codes.length;i+=4){await Promise.all(codes.slice(i,i+4).map(async c=>{const r=await netGet(SAIH+'/api/ficha/procesarTablaValoresActuales?estacion='+c);
+    try{fichaAdd(m,c,JSON.parse(r.body).VALORES_ACTUALES||'');}catch(e){}}));cauRender();}
+  cauT=Date.now();info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · SAIH Ebro';
   cauRender();const ref=cauRefQ();
   if(ref){const fb=document.getElementById('fb');fb.value=Math.round(Math.max(5,Math.min(500,ref.v)));document.getElementById('fbv').textContent=fb.value;if(typeof fcRender==='function')fcRender();}}
 document.getElementById('cauRef').onclick=cauFetch;
