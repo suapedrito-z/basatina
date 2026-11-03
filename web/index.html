@@ -92,7 +92,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <div><div class="note">Caudal del Arga (Burlada/Pamplona)</div><div class="big"><span id="qv">20</span> m³/s</div></div>
     <span id="phase" class="pill">Normal</span>
   </div>
-  <input type="range" id="q" min="5" max="900" value="20" step="1">
+  <input type="range" id="q" min="1" max="900" value="20" step="1">
   <div class="row">
     <button class="btn" data-q="20">Normal</button>
     <button class="btn" data-q="172">Alerta típica</button>
@@ -184,7 +184,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <canvas id="fcc" height="150" style="margin-top:6px"></canvas>
   <div id="fres" style="margin:8px 0;font-weight:600"></div>
   <div class="grid2">
-    <div><label>Caudal ahora en Pamplona: <b id="fbv">20</b> m³/s</label><input type="range" id="fb" min="5" max="500" value="20"></div>
+    <div><label>Caudal ahora en Pamplona: <b id="fbv">20</b> m³/s</label><input type="range" id="fb" min="0.5" max="500" step="0.1" value="20"></div>
     <div><label>¿Y si lloviera más? <b id="fmv">×1</b></label><input type="range" id="fm" min="1" max="6" step="0.5" value="1"></div>
   </div>
   <div class="row"><button class="btn pri" id="fplay">▶ Ver la previsión en el mapa</button></div>
@@ -549,7 +549,7 @@ function fcModel(){if(!FC)return null;const past=(FC.past||[]).map(Number),fut=(
   const C=r.map((_,i)=>{let a=0;for(let j=Math.max(0,i-72);j<i;j++)a+=r[j];return Math.min(.8,.25+.006*a);});
   const runoff=T=>{let q=0;for(let k=0;k<tb&&k<=T;k++){const ri=r[T-k];if(ri>0)q+=ri/1000*C[T-k]*A*uh[k]/3600;}return q;};
   const base=+document.getElementById('fb').value,q0=10+runoff(np),out=[];
-  for(let t=0;t<N;t++)out.push(Math.max(5,10+runoff(np+t)+(base-q0)*Math.exp(-t/30)));
+  const r0=runoff(np);for(let t=0;t<N;t++)out.push(Math.max(0.3,base+runoff(np+t)-r0*Math.exp(-t/30)));
   return out;}
 function fcRender(){const res=document.getElementById('fres');FQ=fcModel();if(!fx||fcc.clientWidth<10)return;
   const W=fcc.clientWidth,H=LH(fcc);fx.fillStyle='#0b1118';fx.fillRect(0,0,W,H);
@@ -751,7 +751,7 @@ function fichaAdd(map,code,html){const st=map[code]||(map[code]={code,name:code,
     const vm=val.match(/^(-?[\d.,]+)\s*(.*)$/);if(!vm)return;const v=parseFloat(vm[1].replace(/\./g,'').replace(',','.'));
     const fm=fec.match(/(\d\d)\/(\d\d)\/(\d{4}) (\d\d:\d\d)/);
     st.tags[tag]={CW_REMOTA_TXT:code,LS_TAG_TXT:tag,LS_DESCRIPCION:desc.toUpperCase(),VALOR_QM:v,LS_UNID_ING:vm[2],LS_TIPO_SENAL:tag.length>7?tag.slice(7).replace(/\d+$/,''):'',
-      LS_TENDENCIA:tr,ULTIMA_FECHA:fm?`${fm[3]}-${fm[2]}-${fm[1]} ${fm[4]}:00`:fec,DECIMALES_VALOR:/hm|%/.test(vm[2])?1:2};});}
+      LS_TENDENCIA:tr,ULTIMA_FECHA:fm?`${fm[3]}-${fm[2]}-${fm[1]} ${fm[4]}:00`:fec,DECIMALES_VALOR:/%/.test(vm[2])?1:2};});}
 function cauAdd(map,data){(data.DATOS||[]).forEach(t=>{const c=t.CW_REMOTA_TXT;if(!c)return;const st=map[c]||(map[c]={code:c,name:t.LR_NOMBRE_CORTO,tags:{}});st.tags[t.LS_TAG_TXT||t.CWT_TAG]=t;});}
 function umbralOf(tag){if(!UMB||!tag)return null;let u=UMB.find(x=>x.codigo===tag.LS_TAG_TXT);
   if(!u)u=UMB.find(x=>x.codigo&&x.codigo.slice(0,4)===tag.CW_REMOTA_TXT&&/NRIO/.test(x.codigo));return u;}
@@ -780,7 +780,9 @@ function cauRender(){const A=document.getElementById('cauArga'),F=document.getEl
       aprox=`estimado por la cota: ${fmtN(z,2)} m, a ${fmtN(628-z,1)} m del máximo (628 m) · ≈ ${fmtN(v,1)} hm³ de 21,39`;}
     if(aprox)aprox='<div style="font-size:12px;font-weight:400;color:#93a4b5">'+aprox+'</div>';
     if(pv!=null){const p=Math.max(0,Math.min(100,pv));h+=`<div class="row" style="align-items:center"><div class="big">${fmtN(pv,1)} %${aprox}</div><div style="flex:1;height:14px;background:#0b1118;border-radius:7px;overflow:hidden;border:1px solid var(--line)"><div style="width:${p}%;height:100%;background:#2f8fd8"></div></div></div>`;}
-    const rows=[[qin,'⬇️ Entra al embalse'],[qout,'⬆️ Sale de la presa'],[vol,'💧 Agua embalsada']].filter(r=>r[0]);
+    // la salida de la presa la mide la estación A152, justo aguas abajo
+    const qo=qout||pick(CAU.A152,'q');
+    const rows=[[qin,'⬇️ Entra al embalse'],[qo,qout?'⬆️ Sale de la presa':'⬆️ Sale de la presa (medido justo aguas abajo)'],[vol,'💧 Agua embalsada']].filter(r=>r[0]);
     rows.forEach(([t,l])=>{h+=`<div class="st"><div><b>${l}</b><div class="s">${TREND[t.LS_TENDENCIA]||''} · ${hhmm(t.ULTIMA_FECHA)}</div></div><div class="v">${fmtN(t.VALOR_QM,t.DECIMALES_VALOR??2)} <span style="font-size:13px">${t.LS_UNID_ING||''}</span></div></div>`;});
     const used=new Set([pct,vol,qin,qout].filter(Boolean));
     Object.values(e.tags).filter(t=>!used.has(t)).forEach(t=>{const d=(t.LS_DESCRIPCION||'').toLowerCase().replace(/^\w/,c=>c.toUpperCase());h+=`<div class="st"><div><b>${d}</b><div class="s">${hhmm(t.ULTIMA_FECHA)}</div></div><div class="v">${fmtN(t.VALOR_QM,t.DECIMALES_VALOR??2)} <span style="font-size:13px">${t.LS_UNID_ING||''}</span></div></div>`;});}
@@ -801,9 +803,9 @@ async function cauFetch(){if(!APP)return cauRender();const info=document.getElem
     try{fichaAdd(m,c,JSON.parse(r.body).VALORES_ACTUALES||'');}catch(e){}}));cauRender();}
   cauT=Date.now();info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · SAIH Ebro';
   cauRender();const ref=cauRefQ();
-  if(ref){const fb=document.getElementById('fb');fb.value=Math.round(Math.max(5,Math.min(500,ref.v)));document.getElementById('fbv').textContent=fb.value;if(typeof fcRender==='function')fcRender();}}
+  if(ref){const fb=document.getElementById('fb');fb.value=(Math.round(Math.max(0.5,Math.min(500,ref.v))*10)/10);document.getElementById('fbv').textContent=fb.value;if(typeof fcRender==='function')fcRender();}}
 document.getElementById('cauRef').onclick=cauFetch;
-document.getElementById('cauMap').onclick=()=>{const r=cauRefQ();if(!r)return;showTab('mapa');setTimeout(()=>{fitView();animateQ(Math.max(5,Math.round(r.v)));},150);};
+document.getElementById('cauMap').onclick=()=>{const r=cauRefQ();if(!r)return;showTab('mapa');setTimeout(()=>{fitView();animateQ(Math.max(1,r.v));},150);};
 document.getElementById('cauPrev').onclick=()=>{showTab('prev');};
 document.getElementById('cauShare').onclick=()=>{if(!CAU||!APP)return;const L=['CAUDAL AHORA '+new Date().toLocaleString('es-ES')];
   Object.values(CAU).forEach(st=>{L.push('# '+st.code+' '+st.name);Object.values(st.tags).forEach(t=>L.push('  '+t.LS_TAG_TXT+' | '+t.LS_DESCRIPCION+' | '+t.VALOR_QM+' '+(t.LS_UNID_ING||'')+' | '+t.LS_TIPO_SENAL+' | '+kindOf(t)+' | '+t.ULTIMA_FECHA));});
