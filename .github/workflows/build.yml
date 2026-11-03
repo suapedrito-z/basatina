@@ -31,9 +31,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           V=$(grep -oP 'versionCode \K\d+' app/build.gradle)
-          cp app/build/outputs/apk/debug/app-debug.apk ControlRioArga.apk
+          cp app/build/outputs/apk/debug/app-debug.apk PedritoControlRioArga.apk
           if gh release view "v$V" >/dev/null 2>&1; then
-            echo "La versión $V ya estaba publicada"
+            # la versión ya existe: solo añade (o reemplaza) el APK con el nombre bonito
+            gh release upload "v$V" PedritoControlRioArga.apk --clobber
           else
-            gh release create "v$V" ControlRioArga.apk --title "Versión $V" --notes "APK de Pedrito Control Río Arga" --latest
+            gh release create "v$V" PedritoControlRioArga.apk --title "Versión $V" --notes "APK de Pedrito Control Río Arga" --latest
           fi
