@@ -62,6 +62,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <header>
   <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.jpg" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>Pedrito Control Río Arga</h1><div id="secTitle" class="note">🗺️ Mapa del río</div></div><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
 </header>
+<div id="updBar" style="display:none;position:sticky;top:0;z-index:40;background:#14508f;color:#fff;padding:10px 14px;font-size:14px;display:none;gap:8px;align-items:center;justify-content:space-between"><span id="updTxt"></span><button class="btn pri" id="updBtn"></button></div>
 <div id="drawerBg"></div>
 <aside id="drawer" aria-label="Menú">
   <div class="dhead"><img src="logo.jpg" alt="" onerror="this.style.display='none'"><b>Pedrito Control Río Arga</b></div>
@@ -73,6 +74,9 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button data-t="hist">📜 Datos históricos</button>
   <button data-t="prev">🔮 Previsiones</button>
   <button data-t="sim">▶️ Simulador de los próximos días</button>
+  <div class="dgroup">Actualizar</div>
+  <button id="dRefresh">🔄 Actualizar datos ahora</button>
+  <button id="dUpdate" style="display:none">⬆️ Buscar nueva versión de la app</button>
   <div class="dgroup" id="dgApp" style="display:none">Herramientas</div>
   <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
   <div class="note" style="padding:14px">Para jugar y aprender. Ante riesgo real, haz caso siempre a los avisos oficiales.</div>
@@ -637,6 +641,20 @@ function wxRender(){const d=new Date();document.getElementById('wxClock').textCo
 async function wxFetch(){if(!APP)return;const r=await netGet('https://api.open-meteo.com/v1/forecast?latitude=42.82&longitude=-1.64&current=temperature_2m,weather_code&timezone=Europe%2FMadrid');
   try{const j=JSON.parse(r.body);WX={t:j.current.temperature_2m,c:j.current.weather_code};}catch(e){}wxRender();}
 setInterval(wxRender,15000);setTimeout(wxRender,50);if(APP){setTimeout(wxFetch,800);setInterval(wxFetch,15*60e3);}
+
+/* ---------- actualizar datos y app ---------- */
+function toast(t,btn,fn){const b=document.getElementById('updBar');document.getElementById('updTxt').textContent=t;const k=document.getElementById('updBtn');
+  if(btn){k.style.display='';k.textContent=btn;k.onclick=fn;}else k.style.display='none';b.style.display='flex';if(!btn)setTimeout(()=>{b.style.display='none';},4000);}
+document.getElementById('dRefresh').onclick=async()=>{menu(false);toast('Actualizando datos…');
+  if(APP){await Promise.all([appForecast(),wxFetch()]);toast('✅ Previsión y tiempo actualizados');}
+  else{fcRender();wxRender();toast('✅ Datos al día (la previsión se renueva sola cada 3 horas)');}};
+function updWeb(){return new Promise(res=>{const id='u'+Date.now();window.__netCbs[id]=r=>{try{res(JSON.parse(r.body));}catch(e){res({ok:false});}};window.AndroidNet.updateWeb(id);});}
+async function checkUpdate(manual){if(!APP||!window.AndroidNet.updateWeb)return;if(manual){menu(false);toast('Buscando actualizaciones…');}
+  const r=await updWeb();if(!r.ok){if(manual)toast('No se pudo comprobar ahora (¿sin internet?)');return;}
+  if(r.apk>r.myApk&&r.apkUrl){toast('📲 Hay una versión nueva de la app ('+r.apk+')','Descargar',()=>window.AndroidNet.openUrl(r.apkUrl));return;}
+  if(r.changed>0){toast('✨ Pantalla actualizada ('+r.changed+' archivo'+(r.changed>1?'s':'')+')','Recargar',()=>window.AndroidNet.reload());return;}
+  if(manual)toast('✅ Ya tienes la última versión');}
+if(APP){document.getElementById('dUpdate').style.display='';document.getElementById('dUpdate').onclick=()=>checkUpdate(true);setTimeout(()=>checkUpdate(false),4000);}
 /* ---------- arranque ---------- */
 function resizeAll(){try{fx=fitCanvas(fcc);fcRender();if(D)dc.dataset.h=demH(D);mx=fitCanvas(mc);xx=fitCanvas(xc);hx=fitCanvas(hc);dx_=fitCanvas(dc);if(mc.clientWidth>10&&(!view.init||view.s<=0)){fitView();view.init=1}drawXS(G.series&&G.series.length?G.series[G.series.length-1][1]:30,[]);drawHydro();drawDEM();}catch(e){console.warn(e)}}
 window.addEventListener('resize',resizeAll);
