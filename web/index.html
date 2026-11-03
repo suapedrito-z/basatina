@@ -194,7 +194,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
   <input id="saihUrl" value="https://www.saihebro.com/" style="width:100%;margin:8px 0;padding:8px;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt);font-size:13px">
-  <div class="row"><button class="btn pri" id="saihExp3">🔎 Explorar SAIH 3.0</button><button class="btn" id="saihExp2">Explorador 2</button><button class="btn" id="saihExp">Explorador 1</button><button class="btn" id="saihGo">Probar esta dirección</button><button class="btn" id="saihShare" disabled>Compartir resultado</button></div>
+  <div class="row"><button class="btn pri" id="saihExp4">🔎 Explorar SAIH 4.0</button><button class="btn" id="saihExp3">Explorador 3</button><button class="btn" id="saihExp2">Explorador 2</button><button class="btn" id="saihExp">Explorador 1</button><button class="btn" id="saihGo">Probar esta dirección</button><button class="btn" id="saihShare" disabled>Compartir resultado</button></div>
   <pre id="saihOut" style="white-space:pre-wrap;word-break:break-all;font-size:11px;max-height:260px;overflow:auto;background:#0b1118;padding:8px;border-radius:8px;margin:0"></pre>
 </div>
 </section>
@@ -666,10 +666,44 @@ async function saihExplore3(){const out=document.getElementById('saihOut'),log=[
     rep.push('##### '+c+' → código '+r.code+', '+b.length+' car.'+(isHtml?' (HTML)':''),isHtml?strip(b).slice(0,300):b.slice(0,1500),'');}
   saihLast='INFORME 3 EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
   out.textContent=saihLast.slice(0,3500);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
+
+// Explorador 4: estaciones del Arga, Eugui y cómo se piden sus datos
+async function saihExplore4(){const out=document.getElementById('saihOut'),log=[];const say=t=>{log.push(t);out.textContent=log.join('\n').slice(-3000);};
+  document.getElementById('saihShare').disabled=true;const rep=[];const cut=(b,n)=>(b||'').slice(0,n);
+  const KEY=/arga|eugu|ulzama|ultzama|arakil|araquil|elorz|sadar|larraun|basaburua|mediano|pamplona|huarte|etxauri|echauri|funes|puente la reina|gares/i;
+  // 1) cómo construyen las llamadas
+  for(const f of ['/js/app.mapa.js','/js/app.ficha.js','/js/app.info.js']){say('→ '+f);const r=await netGet(SAIH+f);const b=r.body||'';
+    rep.push('##### '+f);for(const k of ['getDatosMapa?slug=','getTablaCajetinesOrdenada?slug=','getTemplateData?slug=','procesarTablaValoresActuales?estacion=','getVolumenesEmbalsados']){const i=b.indexOf(k);if(i>=0)rep.push('-- '+k,b.slice(Math.max(0,i-500),i+300));}
+    const sl=[...new Set([...b.matchAll(/slug[^;\n]{0,120}/g)].map(m=>m[0]))].slice(0,15);if(sl.length)rep.push('-- slug:',...sl);rep.push('');}
+  // 2) estaciones del Arga en el buscador
+  say('→ buscador de estaciones');const bq=await netGet(SAIH+'/api/common/getBusquedas');const codes=[];
+  try{const j=JSON.parse(bq.body);const L=(j.BUSQUEDA||[]).filter(e=>KEY.test(e.NOMBRE_ESTACION+' '+e.DESCRIPCION));
+    rep.push('== Estaciones encontradas ('+L.length+') ==');L.slice(0,80).forEach(e=>{rep.push(e.CODIGO_ESTACION+' | '+e.NOMBRE_ESTACION+' | '+e.TIPO_REMOTA+' | '+e.TIPO+' | '+e.URL);if(!codes.includes(e.CODIGO_ESTACION))codes.push(e.CODIGO_ESTACION);});
+    const tipos={};(j.BUSQUEDA||[]).forEach(e=>{tipos[e.TIPO_REMOTA+e.TIPO]=(tipos[e.TIPO_REMOTA+e.TIPO]||0)+1;});rep.push('-- tipos: '+JSON.stringify(tipos),'');
+    const ks=Object.keys(j);rep.push('-- otras claves: '+ks.join(','),'');}catch(e){rep.push('buscador: error '+bq.code+' '+cut(bq.body,300));}
+  // 3) volumen embalsado de Eugui
+  say('→ embalses');const ve=await netGet(SAIH+'/api/principal/getVolumenesEmbalsados');
+  try{const j=JSON.parse(ve.body);const v=j.volumenes||{};rep.push('== Embalses: claves ==',Object.keys(v).map(k=>k+':'+(v[k].zona||'')).join(' · '));
+    Object.keys(v).filter(k=>KEY.test(v[k].zona||'')).forEach(k=>rep.push('-- '+k+': '+JSON.stringify(v[k]).slice(0,1200)));
+    rep.push('-- otras claves raíz: '+Object.keys(j).join(','));Object.keys(j).filter(k=>k!=='volumenes').forEach(k=>rep.push(k+': '+JSON.stringify(j[k]).slice(0,1500)));rep.push('');}catch(e){rep.push('embalses: error '+ve.code);}
+  // 4) ficha de una estación (cómo pasa el código)
+  say('→ ficha Arga-Funes');const fu=await netGet(SAIH+'/tiempo-real/estacion-aforos-A004-arga-funes');const fb=fu.body||'';
+  rep.push('== Ficha A004 (código '+fu.code+', '+fb.length+' car.) ==');
+  around(fb,/url-ajax|estacion=|data-estacion|codigo|senal/,200,12).forEach(x=>rep.push('… '+x.replace(/\s+/g,' ')+' …'));
+  rep.push('-- texto: '+strip(fb).replace(/.*?(ARGA)/i,'$1').slice(0,1500),'');
+  // 5) probar valores actuales y mapas
+  const tries=[];codes.slice(0,14).forEach(c=>tries.push('/api/ficha/procesarTablaValoresActuales?estacion='+c));
+  ['A004','a004','A004-arga-funes','estacion-aforos-A004-arga-funes'].forEach(c=>tries.push('/api/ficha/procesarTablaInfoGeneral?estacion='+c));
+  ['mapa-aforos-H12-arga','aforos-H12-arga','H12-arga','H12','mapa-embalses-H12-arga','embalses-H12-arga'].forEach(s=>{tries.push('/api/mapa/getDatosMapa?slug='+s);tries.push('/api/mapa/getTablaCajetinesOrdenada?slug='+s);});
+  rep.push('== Pruebas ('+tries.length+') ==');
+  for(const t of tries){say('? '+t);const r=await netGet(SAIH+t);const b=r.body||'';const isH=/^\s*<!DOCTYPE|<html/i.test(b);
+    rep.push('##### '+t+' → '+r.code+', '+b.length+' car.',isH?strip(b).slice(0,200):cut(b,1200),'');}
+  saihLast='INFORME 4 EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
+  out.textContent=saihLast.slice(0,3500);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
 if(APP){document.getElementById('dgApp').style.display='';document.getElementById('dSaih').style.display='';
-  document.getElementById('saihExp').onclick=saihExplore;document.getElementById('saihExp2').onclick=saihExplore2;document.getElementById('saihExp3').onclick=saihExplore3;
+  document.getElementById('saihExp').onclick=saihExplore;document.getElementById('saihExp2').onclick=saihExplore2;document.getElementById('saihExp3').onclick=saihExplore3;document.getElementById('saihExp4').onclick=saihExplore4;
   document.getElementById('saihGo').onclick=saihTest;
-  document.getElementById('saihShare').onclick=()=>window.AndroidNet.share(saihLast.slice(0,60000));
+  document.getElementById('saihShare').onclick=()=>window.AndroidNet.share(saihLast.slice(0,45000));
   setTimeout(appForecast,500);}
 
 /* ---------- reloj, fecha y tiempo actual en Pamplona ---------- */
