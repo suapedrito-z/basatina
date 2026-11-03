@@ -194,7 +194,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
   <input id="saihUrl" value="https://www.saihebro.com/" style="width:100%;margin:8px 0;padding:8px;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt);font-size:13px">
-  <div class="row"><button class="btn pri" id="saihExp2">🔎 Explorar SAIH 2.0 (de dónde vienen los datos)</button><button class="btn" id="saihExp">Explorador 1</button><button class="btn" id="saihGo">Probar esta dirección</button><button class="btn" id="saihShare" disabled>Compartir resultado</button></div>
+  <div class="row"><button class="btn pri" id="saihExp3">🔎 Explorar SAIH 3.0</button><button class="btn" id="saihExp2">Explorador 2</button><button class="btn" id="saihExp">Explorador 1</button><button class="btn" id="saihGo">Probar esta dirección</button><button class="btn" id="saihShare" disabled>Compartir resultado</button></div>
   <pre id="saihOut" style="white-space:pre-wrap;word-break:break-all;font-size:11px;max-height:260px;overflow:auto;background:#0b1118;padding:8px;border-radius:8px;margin:0"></pre>
 </div>
 </section>
@@ -645,8 +645,29 @@ async function saihExplore2(){const out=document.getElementById('saihOut'),log=[
     rep.push('##### JS '+u+' ('+b.length+' car.)','-- Direcciones:',...urls,'-- Llamadas:',...hits,'');}
   saihLast='INFORME 2 EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
   out.textContent=saihLast.slice(0,3500);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
+
+// Explorador 3: abre los archivos /js/... que cargan las páginas y prueba las direcciones de datos que encuentre
+async function saihExplore3(){const out=document.getElementById('saihOut'),log=[];const say=t=>{log.push(t);out.textContent=log.join('\n').slice(-3000);};
+  document.getElementById('saihShare').disabled=true;const rep=[];
+  const r0=await netGet(SAIH+'/tiempo-real/mapa-aforos-H12-arga');const b0=r0.body||'';
+  const k=b0.indexOf('app.datos.opendata.js');rep.push('== Alrededor de la lista de scripts ==',b0.slice(Math.max(0,k-1500),k+1500),'');
+  let jsl=[...new Set([...b0.matchAll(/["'](\/(?:js|vendor)\/[^"']+\.js)["']/g)].map(m=>m[1]))].filter(u=>!/jquery|vconsole|cookieconsent|bootstrap/i.test(u));
+  rep.push('== Archivos JS ('+jsl.length+') ==',...jsl,'');
+  const cands=new Set();
+  for(const u of jsl.slice(0,40)){say('→ '+u);const r=await netGet(SAIH+u);const b=r.body||'';
+    const urls=[...new Set([...b.matchAll(/["'`]((?:https?:\/\/[^"'`\s]+)|(?:\/[a-zA-Z0-9_\-]+\/[^"'`\s]{2,150}))["'`]/g)].map(m=>m[1]).filter(x=>!/\.(css|png|svg|jpg|gif|woff2?|js)(\?|$)/i.test(x)))];
+    const calls=[];b.split(/[;\n]/).forEach(l=>{if(/(ajax|fetch\(|getJSON|url\s*:|\$\.get|\$\.post|axios|\.open\(|websocket)/i.test(l)&&calls.length<40)calls.push(l.trim().slice(0,300));});
+    if(urls.length||calls.length)rep.push('##### '+u+' ('+r.code+', '+b.length+' car.)','-- Direcciones:',...urls.slice(0,120),'-- Llamadas:',...calls,'');
+    urls.filter(x=>/api|json|datos|tiempo|senal|señal|estacion|ultim|real|mapa|ws/i.test(x)&&!/\{|\}|\$|\+/.test(x)).forEach(x=>cands.add(x.startsWith('/')?SAIH+x:x));}
+  // probar las direcciones candidatas (también con la zona del Arga)
+  const extra=[];[...cands].forEach(c=>{if(/HG|toda-la-cuenca/i.test(c))extra.push(c.replace(/HG/g,'H12').replace(/toda-la-cuenca/g,'arga'));});
+  const tryList=[...new Set([...cands,...extra])].slice(0,30);rep.push('== Pruebas de direcciones ('+tryList.length+') ==');
+  for(const c of tryList){say('? '+c);const r=await netGet(c);const b=(r.body||'');const isHtml=/^\s*<!DOCTYPE|<html/i.test(b);
+    rep.push('##### '+c+' → código '+r.code+', '+b.length+' car.'+(isHtml?' (HTML)':''),isHtml?strip(b).slice(0,300):b.slice(0,1500),'');}
+  saihLast='INFORME 3 EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
+  out.textContent=saihLast.slice(0,3500);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
 if(APP){document.getElementById('dgApp').style.display='';document.getElementById('dSaih').style.display='';
-  document.getElementById('saihExp').onclick=saihExplore;document.getElementById('saihExp2').onclick=saihExplore2;
+  document.getElementById('saihExp').onclick=saihExplore;document.getElementById('saihExp2').onclick=saihExplore2;document.getElementById('saihExp3').onclick=saihExplore3;
   document.getElementById('saihGo').onclick=saihTest;
   document.getElementById('saihShare').onclick=()=>window.AndroidNet.share(saihLast.slice(0,60000));
   setTimeout(appForecast,500);}
