@@ -26,6 +26,7 @@ label{font-size:13.5px;color:var(--mut)}
 input[type=range]{width:100%}
 .big{font-size:26px;font-weight:700}
 .pill{display:inline-block;padding:4px 10px;border-radius:99px;font-weight:600;font-size:13px}
+.st{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.st:last-child{border-bottom:0}.st .v{font-size:20px;font-weight:700;white-space:nowrap}.st .s{font-size:12px;color:#93a4b5}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0}
 .note{font-size:12.5px;color:var(--mut);line-height:1.45}
 ul.hs{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px}
@@ -71,6 +72,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button data-t="juego">🎮 Esquema (juego)</button>
   <button data-t="ciencia">🔬 Modo científico</button>
   <div class="dgroup">Datos</div>
+  <button data-t="caudal">📊 Caudal ahora</button>
   <button data-t="hist">📜 Datos históricos</button>
   <button data-t="prev">🔮 Previsiones</button>
   <button data-t="sim">▶️ Simulador de los próximos días</button>
@@ -189,6 +191,15 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="note">Lluvia prevista: Open‑Meteo, media de 6 puntos de la cuenca (Quinto Real, Eugui, Zubiri, Ultzama, Juslapeña y Pamplona), actualizada cada 3 horas (en la app, la descarga el propio móvil). El caudal de ahora lo pones tú (míralo en la web del SAIH Ebro o en <i>El agua en Navarra</i>), porque esas webs no dejan leerlo automáticamente desde aquí. El modelo es muy simple y solo sirve para jugar y aprender: <b>haz caso siempre a los avisos oficiales</b> (CHE, SOS Navarra 112, Ayuntamiento).</div>
 </div>
 </section>
+<!-- ============ CAUDAL AHORA ============ -->
+<section id="t-caudal">
+<div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
+<div id="cauEugui"></div>
+<div class="card"><b>🌊 Río Arga (de arriba abajo)</b><div id="cauArga"></div></div>
+<div class="card"><b>🏞️ Afluentes</b><div id="cauAfl"></div></div>
+<div class="row"><button class="btn pri" id="cauMap">🗺️ Ver en el mapa con el caudal real</button><button class="btn" id="cauPrev">🔮 Previsión desde el caudal real</button><button class="btn" id="cauShare">Compartir datos</button></div>
+<div class="note">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos cada 15 minutos y provisionales. En Puente la Reina no hay estación del SAIH: las más cercanas son Etxauri (aguas arriba) y Funes (al final). Los avisos amarillo/naranja/rojo son los umbrales oficiales del SAIH cuando existen. Ante riesgo real, haz caso siempre a los avisos oficiales (CHE, SOS Navarra 112).</div>
+</section>
 <!-- ============ SAIH ============ -->
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
@@ -202,7 +213,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={mapa:'🗺️ Mapa del río',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro'};
+const TITLES={mapa:'🗺️ Mapa del río',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal ahora'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=t==='sim'?'mapa':t;document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -720,11 +731,68 @@ async function wxFetch(){if(!APP)return;const r=await netGet('https://api.open-m
   try{const j=JSON.parse(r.body);WX={t:j.current.temperature_2m,c:j.current.weather_code};}catch(e){}wxRender();}
 setInterval(wxRender,15000);setTimeout(wxRender,50);if(APP){setTimeout(wxFetch,800);setInterval(wxFetch,15*60e3);}
 
+
+/* ---------- CAUDAL AHORA (SAIH Ebro) ---------- */
+const CAU_ARGA=[['A152','Eugui (bajo la presa)'],['A159','Huarte'],['A313','Burlada'],['A323','Pamplona'],['A324','Arazuri'],['A069','Etxauri'],['A004','Funes']];
+const CAU_AFL=[['A067','Ultzama en Olave'],['A355','Basaburua en Udabe'],['A356','Larraun en Iribas'],['A322','Larraun en Irurtzun'],['A321','Arakil en Etxarren'],['A068','Arakil en Asiain'],['A358','Elorz en Monreal'],['A270','Elorz en Pamplona']];
+let CAU=null,UMB=null,cauT=0;
+const TREND={arriba:'↑ subiendo',abajo:'↓ bajando',derecha:'→ estable'};
+const fmtN=(v,d)=>(v==null||isNaN(v))?'—':Number(v).toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
+function kindOf(t){const d=(t.LS_DESCRIPCION||'').toUpperCase(),u=(t.LS_UNID_ING||'').toLowerCase(),y=(t.LS_TIPO_SENAL||'').toUpperCase();
+  if(/PORCENT|%/.test(d)||u==='%')return 'pct';if(/VOLUMEN/.test(d)||/hm/.test(u))return 'vol';
+  if(/ENTRADA|APORTA/.test(d))return 'qin';if(/SALIDA|DESAG|DESEMB|TURBIN|ALIVI/.test(d)&&/m3|m³/.test(u))return 'qout';
+  if(/CAUDAL/.test(d)||/^Q/.test(y)||/m3\/s|m³\/s/.test(u))return 'q';if(/NIVEL/.test(d)||/^N/.test(y))return 'n';return 'x';}
+function cauAdd(map,data){(data.DATOS||[]).forEach(t=>{const c=t.CW_REMOTA_TXT;if(!c)return;const st=map[c]||(map[c]={code:c,name:t.LR_NOMBRE_CORTO,tags:{}});st.tags[t.LS_TAG_TXT||t.CWT_TAG]=t;});}
+function umbralOf(tag){if(!UMB||!tag)return null;let u=UMB.find(x=>x.codigo===tag.LS_TAG_TXT);
+  if(!u)u=UMB.find(x=>x.codigo&&x.codigo.slice(0,4)===tag.CW_REMOTA_TXT&&/NRIO/.test(x.codigo));return u;}
+function alertOf(tag){const u=umbralOf(tag),v=Number(tag&&tag.VALOR_QM);if(!u||isNaN(v))return null;
+  if(u.col3!=null&&v>=u.col3)return ['🔴 Aviso rojo','#c62828'];if(u.col2!=null&&v>=u.col2)return ['🟠 Aviso naranja','#ef6c00'];
+  if(u.col1!=null&&v>=u.col1)return ['🟡 Aviso amarillo','#f9a825'];return ['🟢 Normal (aviso amarillo a '+fmtN(u.col1,2)+' m)','#2e7d32'];}
+function hhmm(f){const m=(f||'').match(/(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d)/);if(!m)return f||'';const today=new Date().toISOString().slice(0,10)===`${m[1]}-${m[2]}-${m[3]}`;return (today?'':m[3]+'/'+m[2]+' ')+m[4]+':'+m[5];}
+function pick(st,k){return st?Object.values(st.tags).find(t=>kindOf(t)===k):null;}
+function stRow(code,label){const st=CAU&&CAU[code];if(!st)return `<div class="st"><div><b>${label}</b><div class="s">sin datos ahora</div></div></div>`;
+  const q=pick(st,'q'),n=pick(st,'n'),main=q||n,al=alertOf(n);
+  const v=main?`${fmtN(main.VALOR_QM,main.DECIMALES_VALOR??2)} <span style="font-size:13px">${main.LS_UNID_ING||''}</span>`:'—';
+  const sub=[q&&n?'nivel '+fmtN(n.VALOR_QM,2)+' m':'',main?TREND[main.LS_TENDENCIA]||'':'',main?hhmm(main.ULTIMA_FECHA):''].filter(Boolean).join(' · ');
+  return `<div class="st"><div><b>${label}</b><div class="s">${sub}</div>${al?`<div class="s" style="color:${al[1]};font-weight:600">${al[0]}</div>`:''}</div><div class="v">${v}</div></div>`;}
+function cauRender(){const A=document.getElementById('cauArga'),F=document.getElementById('cauAfl'),E=document.getElementById('cauEugui');
+  if(!APP){A.innerHTML=F.innerHTML='';E.innerHTML='<div class="card">📱 Esta sección funciona en la app <b>Pedrito Control Río Arga</b>: el móvil lee los datos del SAIH Ebro desde tu conexión.</div>';return;}
+  if(!CAU){A.innerHTML='<div class="note">Cargando…</div>';return;}
+  A.innerHTML=CAU_ARGA.map(x=>stRow(...x)).join('');F.innerHTML=CAU_AFL.map(x=>stRow(...x)).join('');
+  const e=CAU.E025;let h='<div class="card"><b>🏔️ Embalse de Eugui</b>';
+  if(!e)h+='<div class="note">Sin datos del embalse ahora.</div>';
+  else{const g=k=>pick(e,k),pct=g('pct'),vol=g('vol'),qin=g('qin'),qout=g('qout');
+    if(pct){const p=Math.max(0,Math.min(100,Number(pct.VALOR_QM)));h+=`<div class="row" style="align-items:center"><div class="big">${fmtN(pct.VALOR_QM,1)} %</div><div style="flex:1;height:14px;background:#0b1118;border-radius:7px;overflow:hidden;border:1px solid var(--line)"><div style="width:${p}%;height:100%;background:#2f8fd8"></div></div></div>`;}
+    const rows=[[qin,'⬇️ Entra al embalse'],[qout,'⬆️ Sale de la presa'],[vol,'💧 Agua embalsada']].filter(r=>r[0]);
+    rows.forEach(([t,l])=>{h+=`<div class="st"><div><b>${l}</b><div class="s">${TREND[t.LS_TENDENCIA]||''} · ${hhmm(t.ULTIMA_FECHA)}</div></div><div class="v">${fmtN(t.VALOR_QM,t.DECIMALES_VALOR??2)} <span style="font-size:13px">${t.LS_UNID_ING||''}</span></div></div>`;});
+    const used=new Set([pct,vol,qin,qout].filter(Boolean));
+    Object.values(e.tags).filter(t=>!used.has(t)).forEach(t=>{const d=(t.LS_DESCRIPCION||'').toLowerCase().replace(/^\w/,c=>c.toUpperCase());h+=`<div class="st"><div><b>${d}</b><div class="s">${hhmm(t.ULTIMA_FECHA)}</div></div><div class="v">${fmtN(t.VALOR_QM,t.DECIMALES_VALOR??2)} <span style="font-size:13px">${t.LS_UNID_ING||''}</span></div></div>`;});}
+  E.innerHTML=h+'</div>';
+  const ref=cauRefQ();document.getElementById('cauMap').disabled=document.getElementById('cauPrev').disabled=!ref;
+  if(ref){document.getElementById('cauMap').textContent='🗺️ Ver en el mapa con '+Math.round(ref.v)+' m³/s ('+ref.where+')';}}
+// caudal de referencia del simulador: Burlada, si no Pamplona
+function cauRefQ(){for(const [c,w] of [['A313','Burlada'],['A323','Pamplona']]){const q=pick(CAU&&CAU[c],'q');if(q&&!isNaN(+q.VALOR_QM))return {v:+q.VALOR_QM,where:w};}return null;}
+async function cauFetch(){if(!APP)return cauRender();const info=document.getElementById('cauInfo');info.textContent='Conectando con el SAIH Ebro…';cauRender();
+  const [a,b,u]=await Promise.all([netGet(SAIH+'/api/mapa/getDatosMapa?slug=mapa-aforos-H12-arga'),netGet(SAIH+'/api/mapa/getDatosMapa?slug=mapa-embalses-H12-arga'),UMB?Promise.resolve(null):netGet(SAIH+'/api/info/getTablaUmbrales')]);
+  const m={};let ok=0;for(const r of [a,b]){try{cauAdd(m,JSON.parse(r.body));ok++;}catch(e){}}
+  if(u){try{UMB=JSON.parse(u.body);}catch(e){}}
+  if(!ok){info.textContent='❌ No se pudo leer el SAIH ahora (código '+a.code+'). Prueba en un rato.';return;}
+  CAU=m;cauT=Date.now();info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · SAIH Ebro';
+  cauRender();const ref=cauRefQ();
+  if(ref){const fb=document.getElementById('fb');fb.value=Math.round(Math.max(5,Math.min(500,ref.v)));document.getElementById('fbv').textContent=fb.value;if(typeof fcRender==='function')fcRender();}}
+document.getElementById('cauRef').onclick=cauFetch;
+document.getElementById('cauMap').onclick=()=>{const r=cauRefQ();if(!r)return;showTab('mapa');setTimeout(()=>{fitView();animateQ(Math.max(5,Math.round(r.v)));},150);};
+document.getElementById('cauPrev').onclick=()=>{showTab('prev');};
+document.getElementById('cauShare').onclick=()=>{if(!CAU||!APP)return;const L=['CAUDAL AHORA '+new Date().toLocaleString('es-ES')];
+  Object.values(CAU).forEach(st=>{L.push('# '+st.code+' '+st.name);Object.values(st.tags).forEach(t=>L.push('  '+t.LS_TAG_TXT+' | '+t.LS_DESCRIPCION+' | '+t.VALOR_QM+' '+(t.LS_UNID_ING||'')+' | '+t.LS_TIPO_SENAL+' | '+kindOf(t)+' | '+t.ULTIMA_FECHA));});
+  window.AndroidNet.share(L.join('\n').slice(0,40000));};
+if(APP){setTimeout(cauFetch,1500);setInterval(cauFetch,15*60e3);}else cauRender();
+
 /* ---------- actualizar datos y app ---------- */
 function toast(t,btn,fn){const b=document.getElementById('updBar');document.getElementById('updTxt').textContent=t;const k=document.getElementById('updBtn');
   if(btn){k.style.display='';k.textContent=btn;k.onclick=fn;}else k.style.display='none';b.style.display='flex';if(!btn)setTimeout(()=>{b.style.display='none';},4000);}
 document.getElementById('dRefresh').onclick=async()=>{menu(false);toast('Actualizando datos…');
-  if(APP){await Promise.all([appForecast(),wxFetch()]);toast('✅ Previsión y tiempo actualizados');}
+  if(APP){await Promise.all([appForecast(),wxFetch(),cauFetch()]);toast('✅ Caudales, previsión y tiempo actualizados');}
   else{fcRender();wxRender();toast('✅ Datos al día (la previsión se renueva sola cada 3 horas)');}};
 function updWeb(){return new Promise(res=>{const id='u'+Date.now();window.__netCbs[id]=r=>{try{res(JSON.parse(r.body));}catch(e){res({ok:false});}};window.AndroidNet.updateWeb(id);});}
 async function checkUpdate(manual){if(!APP||!window.AndroidNet.updateWeb)return;if(manual){menu(false);toast('Buscando actualizaciones…');}
