@@ -825,7 +825,9 @@ function liveMap(){const box=document.getElementById('liveBox');const r=(typeof 
   if(!APP){box.innerHTML='Los datos en directo solo están en la app. Aquí puedes mover el caudal.';return;}
   if(!r){box.innerHTML='⏳ Esperando datos del SAIH Ebro…';return;}
   const q=pick(CAU[r.where==='Burlada'?'A313':'A323'],'q'),eu=CAU.E025&&pick(CAU.E025,'pct');
-  box.innerHTML=`🔴 <b>En directo</b> · ${r.where} ${fmtN(r.v,2)} m³/s a las ${hhmm(q&&q.ULTIMA_FECHA)}${eu?' · Eugui al '+fmtN(eu.VALOR_QM,0)+' %':''} · se actualiza cada 15 min`;
+  // punto: verde normal (<150 m³/s), amarillo en alerta (150–300), rojo en emergencia (≥300), igual que las fases del mapa
+  const col=r.v>=300?'#ff3b30':r.v>=150?'#ffd84d':'#3ccf7a';
+  box.innerHTML=`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${col};box-shadow:0 0 6px ${col};vertical-align:-1px"></span> <b>En directo</b> · ${r.where} ${fmtN(r.v,2)} m³/s a las ${hhmm(q&&q.ULTIMA_FECHA)}${eu?' · Eugui al '+fmtN(eu.VALOR_QM,0)+' %':''} · se actualiza cada 15 min`;
   stopPlay();animateQ(Math.max(1,r.v));}
 function setMapMode(t){const m=t==='libre'?'free':t==='sim'?'sim':t==='mapa'?(APP?'live':'free'):MAPM;if(t!=='mapa'&&t!=='libre'&&t!=='sim')return;
   if(m!=='sim'&&typeof fplayT!=='undefined'&&fplayT){clearInterval(fplayT);fplayT=null;simLabel('');}
