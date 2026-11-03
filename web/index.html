@@ -772,7 +772,13 @@ function cauRender(){const A=document.getElementById('cauArga'),F=document.getEl
   const e=CAU.E025;let h='<div class="card"><b>🏔️ Embalse de Eugui</b>';
   if(!e)h+='<div class="note">Sin datos del embalse ahora.</div>';
   else{const g=k=>pick(e,k),pct=g('pct'),vol=g('vol'),qin=g('qin'),qout=g('qout');
-    let pv=pct?Number(pct.VALOR_QM):null,aprox='';if(pv==null&&vol&&/hm/i.test(vol.LS_UNID_ING)){pv=vol.VALOR_QM/21*100;aprox='<div style="font-size:12px;font-weight:400;color:#93a4b5">aprox., con 21 hm³ de capacidad</div>';}
+    // % de llenado: 1) el que da el SAIH; 2) volumen / 21,39 hm³; 3) estimado por la cota (curva aproximada)
+    const niv=Object.values(e.tags).find(t=>/NIVEL EMBALSE/.test(t.LS_DESCRIPCION)&&/msnm|m/.test(t.LS_UNID_ING||''));
+    let pv=pct?Number(pct.VALOR_QM):null,aprox='';
+    if(pv==null&&vol&&/hm/i.test(vol.LS_UNID_ING)){pv=vol.VALOR_QM/21.39*100;aprox='calculado: volumen / 21,39 hm³ de capacidad';}
+    if(pv==null&&niv){const z=+niv.VALOR_QM,h=Math.max(0,Math.min(1,(z-585)/43)),v=21.39*Math.pow(h,2.47);pv=v/21.39*100;
+      aprox=`estimado por la cota: ${fmtN(z,2)} m, a ${fmtN(628-z,1)} m del máximo (628 m) · ≈ ${fmtN(v,1)} hm³ de 21,39`;}
+    if(aprox)aprox='<div style="font-size:12px;font-weight:400;color:#93a4b5">'+aprox+'</div>';
     if(pv!=null){const p=Math.max(0,Math.min(100,pv));h+=`<div class="row" style="align-items:center"><div class="big">${fmtN(pv,1)} %${aprox}</div><div style="flex:1;height:14px;background:#0b1118;border-radius:7px;overflow:hidden;border:1px solid var(--line)"><div style="width:${p}%;height:100%;background:#2f8fd8"></div></div></div>`;}
     const rows=[[qin,'⬇️ Entra al embalse'],[qout,'⬆️ Sale de la presa'],[vol,'💧 Agua embalsada']].filter(r=>r[0]);
     rows.forEach(([t,l])=>{h+=`<div class="st"><div><b>${l}</b><div class="s">${TREND[t.LS_TENDENCIA]||''} · ${hhmm(t.ULTIMA_FECHA)}</div></div><div class="v">${fmtN(t.VALOR_QM,t.DECIMALES_VALOR??2)} <span style="font-size:13px">${t.LS_UNID_ING||''}</span></div></div>`;});
