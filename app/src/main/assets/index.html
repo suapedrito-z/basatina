@@ -79,9 +79,9 @@ a{color:var(--acc)}
   <div class="note">Lluvia prevista: Open‑Meteo, media de 6 puntos de la cuenca (Quinto Real, Eugui, Zubiri, Ultzama, Juslapeña y Pamplona), actualizada cada 3 horas (en la app, la descarga el propio móvil). El caudal de ahora lo pones tú (míralo en la web del SAIH Ebro o en <i>El agua en Navarra</i>), porque esas webs no dejan leerlo automáticamente desde aquí. El modelo es muy simple y solo sirve para jugar y aprender: <b>haz caso siempre a los avisos oficiales</b> (CHE, SOS Navarra 112, Ayuntamiento).</div>
 </div>
 <div class="card" id="saihCard" style="display:none"><b>📡 Prueba de conexión con el SAIH Ebro</b>
-  <div class="note">Solo en la app: el móvil pide la página desde tu conexión. Pulsa «Probar» y luego «Compartir resultado» para pasárselo a Claude, que así verá cómo da los datos el SAIH.</div>
+  <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
   <input id="saihUrl" value="https://www.saihebro.com/" style="width:100%;margin:8px 0;padding:8px;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt);font-size:13px">
-  <div class="row"><button class="btn pri" id="saihGo">Probar</button><button class="btn" id="saihShare" disabled>Compartir resultado</button></div>
+  <div class="row"><button class="btn pri" id="saihExp">🔎 Explorar SAIH (Arga y Eugui)</button><button class="btn" id="saihGo">Probar esta dirección</button><button class="btn" id="saihShare" disabled>Compartir resultado</button></div>
   <pre id="saihOut" style="white-space:pre-wrap;word-break:break-all;font-size:11px;max-height:260px;overflow:auto;background:#0b1118;padding:8px;border-radius:8px;margin:0"></pre>
 </div>
 <div class="card"><b>Zonas afectadas</b> <span class="note" id="hcount"></span><ul class="hs" id="hlist"></ul><div class="note" style="margin-top:6px">* Estimado solo con el modelo (no hay datos de riadas reales). Los caudales son siempre los de Pamplona; en el valle el río lleva menos.</div></div>
@@ -538,7 +538,31 @@ async function saihTest(){const u=document.getElementById('saihUrl').value.trim(
   const apis=[...new Set([...b.matchAll(/["'`]([^"'`\s]*(?:api|json|datos|tiempo|senal|señal|estacion|embalse|aforo|caudal)[^"'`\s]*)["'`]/gi)].map(m=>m[1]))].slice(0,80);
   saihLast=`URL: ${u}\nCódigo: ${r.code}\nTamaño: ${b.length} caracteres\nTítulo: ${title}\n\n== Enlaces y scripts ==\n${links.join('\n')}\n\n== Posibles datos/API ==\n${apis.join('\n')}\n\n== Inicio de la respuesta ==\n${b.slice(0,6000)}`;
   out.textContent=saihLast.slice(0,4000);document.getElementById('saihShare').disabled=false;}
+
+// Explorador: recorre páginas del SAIH buscando el Arga y Eugui
+const SAIH='https://www.saihebro.com';
+const strip=h=>h.replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&[a-z]+;/g,' ').replace(/\s+/g,' ');
+const linksOf=h=>[...new Set([...h.matchAll(/(?:href|src|data-url|url)\s*[=:]\s*["']([^"'#\s]+)["']/gi)].map(m=>m[1]))];
+function around(txt,re,w,max){const out=[];let m;const r=new RegExp(re.source,'gi');while((m=r.exec(txt))&&out.length<max){out.push(txt.slice(Math.max(0,m.index-w),m.index+w));}return out;}
+async function saihExplore(){const out=document.getElementById('saihOut'),log=[];const say=t=>{log.push(t);out.textContent=log.join('\n').slice(-4000);};
+  document.getElementById('saihShare').disabled=true;say('Descargando portada…');
+  const home=await netGet(SAIH+'/');if(home.code!==200){say('Portada: código '+home.code);return;}
+  const L=linksOf(home.body).filter(u=>u.startsWith('/')||u.startsWith(SAIH)).map(u=>u.startsWith('/')?SAIH+u:u);
+  const zonas=L.filter(u=>/\/tiempo-real\/mapa-aforos?-H/i.test(u));
+  const embal=L.filter(u=>/volumenes-embalsados-(zona|embalse)/i.test(u)&&/eugu|arga|pamplona|navarr|C26|cuenca/i.test(u));
+  const clave=L.filter(u=>/arga|eugu|pamplona|huarte|burlada|funes|echauri|etxauri/i.test(u));
+  say('Enlaces: '+L.length+' · zonas de aforos: '+zonas.length+' · embalses candidatos: '+embal.length);
+  const rep=['== Zonas de aforos (H) ==',...zonas,'','== Enlaces con nombres clave ==',...clave,''];
+  const cand=[...new Set([...clave,...embal,...zonas])].slice(0,25);
+  for(const u of cand){say('→ '+u);const r=await netGet(u);const b=r.body||'',t=strip(b);
+    const sa=around(t,/arga/,220,6),se=around(t,/eug[uü]?i/,220,4);const ln=linksOf(b).filter(x=>/arga|eugu|estacion|A0\d\d|E0\d\d|json|api|datos/i.test(x)).slice(0,40);
+    if(sa.length||se.length||ln.length){rep.push('##### '+u+' (código '+r.code+', '+b.length+' car.)');
+      if(sa.length)rep.push('-- Arga:',...sa.map(x=>'… '+x+' …'));if(se.length)rep.push('-- Eugui:',...se.map(x=>'… '+x+' …'));
+      if(ln.length)rep.push('-- Enlaces de interés:',...ln);rep.push('');}}
+  saihLast='INFORME EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
+  out.textContent=saihLast.slice(0,4000);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
 if(APP){document.getElementById('saihCard').style.display='';
+  document.getElementById('saihExp').onclick=saihExplore;
   document.getElementById('saihGo').onclick=saihTest;
   document.getElementById('saihShare').onclick=()=>window.AndroidNet.share(saihLast.slice(0,60000));
   setTimeout(appForecast,500);}
