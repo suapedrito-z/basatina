@@ -7,6 +7,7 @@
 <style>
 :root{--bg:#0f1720;--panel:#17222e;--line:#2a3a4a;--txt:#e6edf3;--mut:#93a4b5;--acc:#3ba7ff;--warn:#ffb020;--bad:#ff4d4d;--ok:#3ccf7a}
 *{box-sizing:border-box}
+html[lang=eu] .es{display:none}html:not([lang=eu]) .eu{display:none}
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);font-size:15px}
 header{padding:12px 14px 0}
 h1{font-size:19px;margin:0 0 8px}
@@ -99,6 +100,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="dgroup">App</div>
   <button data-t="ajustes">⚙️ Ajustes y avisos</button>
   <button data-t="about">ℹ️ Acerca de</button>
+  <button id="dLang">🌐 Euskaraz</button>
   <div class="dgroup">Actualizar</div>
   <button id="dRefresh">🔄 Actualizar datos ahora</button>
   <button id="dUpdate" style="display:none">⬆️ Buscar nueva versión de la app</button>
@@ -336,9 +338,12 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div id="siRes"></div>
 <div class="card"><b>🧭 ¿Dónde están las placas?</b>
  <canvas id="sipc" height="300" style="margin-top:8px"></canvas>
- <div class="note" style="margin-top:6px">• Navarra está en la <b>placa Euroasiática</b>. El límite con la <b>placa Africana</b> pasa lejos, al sur: de las Azores al estrecho de Gibraltar, el mar de Alborán y el norte de Argelia (línea roja). África empuja hacia Europa unos 4‑5 mm al año.<br>
+ <div class="note es" style="margin-top:6px">• Navarra está en la <b>placa Euroasiática</b>. El límite con la <b>placa Africana</b> pasa lejos, al sur: de las Azores al estrecho de Gibraltar, el mar de Alborán y el norte de Argelia (línea roja). África empuja hacia Europa unos 4‑5 mm al año.<br>
  • Ese empuje se reparte por toda la península y se libera poco a poco en <b>fallas</b> como las del Pirineo. Los Pirineos nacieron precisamente del choque de la península Ibérica con Europa hace decenas de millones de años.<br>
- • Por eso en Navarra hay terremotos frecuentes pero casi siempre pequeños: la mayoría ni se notan, y de vez en cuando alguno de magnitud 4 o algo más se siente en buena parte de la comunidad.</div></div>
+ • Por eso en Navarra hay terremotos frecuentes pero casi siempre pequeños: la mayoría ni se notan, y de vez en cuando alguno de magnitud 4 o algo más se siente en buena parte de la comunidad.</div>
+ <div class="note eu" style="margin-top:6px">• Nafarroa <b>Eurasiar plakan</b> dago. <b>Afrikar plakarekiko</b> muga urrun dago, hegoaldean: Azoreetatik Gibraltarko itsasarterantz, Alboran itsasoan barrena eta Aljeriako iparraldera (lerro gorria). Afrikak Europaranzko bultzada egiten du, urtean 4‑5 mm inguru.<br>
+ • Bultzada hori penintsula osoan banatzen da eta pixkanaka askatzen da <b>failetan</b>, Pirinioetakoetan bezala. Pirinioak, hain zuzen, Iberiar penintsulak Europarekin talka egitean sortu ziren, duela hamarnaka milioi urte.<br>
+ • Horregatik, Nafarroan lurrikarak maiz izaten dira, baina ia beti txikiak: gehienak ez dira nabaritzen, eta noizean behin 4 magnitudekoren bat edo zertxobait handiagoa komunitatearen zati handi batean sentitzen da.</div></div>
 <div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Los terremotos no se pueden predecir. Los datos son provisionales y se revisan después. Si notas uno fuerte: protégete bajo una mesa o junto a un muro de carga, lejos de ventanas, y al salir no uses el ascensor. Emergencias: 112.<br>Datos: EMSC (Centro Sismológico Euromediterráneo), que reúne los de la Red Sísmica Nacional del IGN y redes vecinas · Fallas: base de datos QAFI del IGME‑CSIC.</div></div>
 </section>
 <!-- ============ CAUDAL AHORA ============ -->
@@ -369,6 +374,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 
 <script src="rios.js"></script>
 <script src="pesca.js"></script>
+<script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
 const TITLES={sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
@@ -717,25 +723,25 @@ function fcRender(){const res=document.getElementById('fres');FQ=fcModel();if(!f
   rain.forEach((v,t)=>{const h=v/rmax*40;fx.fillStyle='rgba(120,180,255,.55)';fx.fillRect(X(t)-1.5,4,3,h);});
   [[150,'#ffd84d'],[250,'#ffb020'],[350,'#ff4d4d'],[608,'#c58bff']].forEach(([q,c])=>{if(q>qmax)return;fx.strokeStyle=c;fx.globalAlpha=.5;fx.setLineDash([4,4]);fx.beginPath();fx.moveTo(32,Yq(q));fx.lineTo(W-8,Yq(q));fx.stroke();fx.setLineDash([]);fx.globalAlpha=1;fx.fillStyle=c;fx.font='10px system-ui';fx.textAlign='right';fx.fillText(q===608?'2021':q,W-10,Yq(q)-2);});
   fx.strokeStyle='#3ba7ff';fx.lineWidth=2;fx.beginPath();FQ.forEach((q,t)=>fx[t?'lineTo':'moveTo'](X(t),Yq(q)));fx.stroke();
-  const t0=new Date(FC.t0);for(let t=0;t<N;t+=24){const d=new Date(t0.getTime()+t*3600e3);fx.fillStyle='#93a4b5';fx.font='10px system-ui';fx.textAlign='left';fx.fillText(d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric'})+' '+d.getHours()+'h',X(t)+2,H-3);}
+  const t0=new Date(FC.t0);for(let t=0;t<N;t+=24){const d=new Date(t0.getTime()+t*3600e3);fx.fillStyle='#93a4b5';fx.font='10px system-ui';fx.textAlign='left';fx.fillText(d.toLocaleDateString(LOC,{weekday:'short',day:'numeric'})+' '+d.getHours()+'h',X(t)+2,H-3);}
   fx.textAlign='left';fx.fillText('m³/s',2,H-20);fx.fillText('lluvia',2,14);
   let ip=0;FQ.forEach((q,i)=>{if(q>FQ[ip])ip=i;});const pk=Math.round(FQ[ip]),dp=new Date(t0.getTime()+ip*3600e3),ph=phaseOf(pk)[0];
   const tot=Math.round(rain.reduce((a,b)=>a+b,0));
-  res.innerHTML=`Lluvia prevista: ${tot} mm en 72 h · Pico: <span style="color:${phaseOf(pk)[1]}">${pk} m³/s</span> ${ip===0?'(ahora: el río tiende a bajar)':'el '+dp.toLocaleDateString('es-ES',{weekday:'long'})+' a las '+dp.getHours()+' h'} → ${ph}`;}
+  res.innerHTML=`Lluvia prevista: ${tot} mm en 72 h · Pico: <span style="color:${phaseOf(pk)[1]}">${pk} m³/s</span> ${ip===0?'(ahora: el río tiende a bajar)':'el '+dp.toLocaleDateString(LOC,{weekday:'long'})+' a las '+dp.getHours()+' h'} → ${ph}`;}
 document.getElementById('fb').oninput=e=>{document.getElementById('fbv').textContent=e.target.value;fcRender();};
 document.getElementById('fm').oninput=e=>{document.getElementById('fmv').textContent='×'+e.target.value;fcRender();};
 let fplayT=null;
 function simLabel(t){const el=document.getElementById('simLbl');if(el)el.textContent=t;}
 function startForecastPlay(){if(fplayT){clearInterval(fplayT);fplayT=null;}if(!FQ){simLabel('Todavía no hay previsión cargada.');return;}stopPlay();let t=0;const t0=new Date(FC.t0);fitView();
-  fplayT=setInterval(()=>{if(t>=FQ.length){clearInterval(fplayT);fplayT=null;simLabel('Fin de la previsión · pulsa «Simulador» en el menú para repetir');return;}setQ(FQ[t]);const d=new Date(t0.getTime()+t*3600e3);simLabel('🔮 Previsión: '+d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric'})+' '+d.getHours()+':00 h · '+Math.round(FQ[t])+' m³/s');t++;},150);}
+  fplayT=setInterval(()=>{if(t>=FQ.length){clearInterval(fplayT);fplayT=null;simLabel('Fin de la previsión · pulsa «Simulador» en el menú para repetir');return;}setQ(FQ[t]);const d=new Date(t0.getTime()+t*3600e3);simLabel('🔮 Previsión: '+d.toLocaleDateString(LOC,{weekday:'long',day:'numeric'})+' '+d.getHours()+':00 h · '+Math.round(FQ[t])+' m³/s');t++;},150);}
 document.getElementById('fplay').onclick=()=>{showTab('sim');};
 const _unused=()=>{const b=document.getElementById('fplay');if(fplayT){clearInterval(fplayT);fplayT=null;b.textContent='▶ Ver la previsión en el mapa';return;}
   if(!FQ)return;stopPlay();let t=0;const t0=new Date(FC.t0);fplayT=setInterval(()=>{if(t>=FQ.length){clearInterval(fplayT);fplayT=null;b.textContent='▶ Ver la previsión en el mapa';return;}
-    setQ(FQ[t]);const d=new Date(t0.getTime()+t*3600e3);b.textContent='⏸ '+d.toLocaleDateString('es-ES',{weekday:'short'})+' '+d.getHours()+' h';t++;},120);};
+    setQ(FQ[t]);const d=new Date(t0.getTime()+t*3600e3);b.textContent='⏸ '+d.toLocaleDateString(LOC,{weekday:'short'})+' '+d.getHours()+' h';t++;},120);};
 if(!window.AndroidNet)(async()=>{const info=document.getElementById('fcInfo');let tm=setTimeout(()=>{info.textContent='No se puede leer la previsión ahora mismo (prueba más tarde).';},10000);
   try{const db=await claude.use('db');if(!db){clearTimeout(tm);info.textContent='La previsión no está disponible en esta vista (hace falta haber iniciado sesión).';return;}
     db.doc('live/forecast').onSnapshot(s=>{if(!s.metadata.fromCache)clearTimeout(tm);if(!s.exists){info.textContent='Todavía no hay datos de previsión.';return;}
-      FC=s.data();const up=new Date(FC.updated);info.textContent=`Actualizada: ${up.toLocaleString('es-ES',{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} · llovió ${FC.past72} mm en las últimas 72 h`;fcRender();wxRender();},
+      FC=s.data();const up=new Date(FC.updated);info.textContent=`Actualizada: ${up.toLocaleString(LOC,{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} · llovió ${FC.past72} mm en las últimas 72 h`;fcRender();wxRender();},
       e=>{clearTimeout(tm);info.textContent='No se puede leer la previsión ('+e.code+').';});}
   catch(e){clearTimeout(tm);info.textContent='La previsión no está disponible en esta vista.';}})();
 
@@ -757,7 +763,7 @@ async function appForecast(){const info=document.getElementById('fcInfo');info.t
   let i0=t.findIndex(x=>x>=key);if(i0<0)i0=Math.max(0,n-72);
   const past=rain.slice(Math.max(0,i0-72),i0);
   FC={updated:new Date().toISOString(),t0:t[i0],past,rain:rain.slice(i0,i0+72),temp:temp.slice(i0,i0+72),past72:Math.round(past.reduce((a,b)=>a+b,0)*10)/10,src:'Open-Meteo (desde el móvil)'};
-  info.textContent=`Actualizada: ${now.toLocaleString('es-ES',{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} · llovió ${FC.past72} mm en las últimas 72 h`;fcRender();
+  info.textContent=`Actualizada: ${now.toLocaleString(LOC,{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} · llovió ${FC.past72} mm en las últimas 72 h`;fcRender();
   setTimeout(appForecast,3*3600e3);}
 // Prueba del SAIH: descarga una página y resume lo que tiene (enlaces, scripts, posibles datos)
 let saihLast='';
@@ -789,7 +795,7 @@ async function saihExplore(){const out=document.getElementById('saihOut'),log=[]
     if(sa.length||se.length||ln.length){rep.push('##### '+u+' (código '+r.code+', '+b.length+' car.)');
       if(sa.length)rep.push('-- Arga:',...sa.map(x=>'… '+x+' …'));if(se.length)rep.push('-- Eugui:',...se.map(x=>'… '+x+' …'));
       if(ln.length)rep.push('-- Enlaces de interés:',...ln);rep.push('');}}
-  saihLast='INFORME EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
+  saihLast='INFORME EXPLORACIÓN SAIH '+new Date().toLocaleString(LOC)+'\n\n'+rep.join('\n');
   out.textContent=saihLast.slice(0,4000);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
 
 // Explorador 2: busca de dónde cargan los datos las páginas del Arga (scripts y direcciones internas)
@@ -812,7 +818,7 @@ async function saihExplore2(){const out=document.getElementById('saihOut'),log=[
     const urls=[...new Set([...b.matchAll(/["'`]((?:https?:)?\/[^"'`\s]{3,160})["'`]/g)].map(m=>m[1]).filter(x=>!/\.(css|png|svg|jpg|gif|woff2?)$/i.test(x)))].slice(0,120);
     const hits=[];b.split(/[;\n]/).forEach(l=>{if(/(ajax|fetch\(|getJSON|url\s*:|\.get\(|\.post\()/i.test(l)&&hits.length<50)hits.push(l.trim().slice(0,260));});
     rep.push('##### JS '+u+' ('+b.length+' car.)','-- Direcciones:',...urls,'-- Llamadas:',...hits,'');}
-  saihLast='INFORME 2 EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
+  saihLast='INFORME 2 EXPLORACIÓN SAIH '+new Date().toLocaleString(LOC)+'\n\n'+rep.join('\n');
   out.textContent=saihLast.slice(0,3500);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
 
 // Explorador 3: abre los archivos /js/... que cargan las páginas y prueba las direcciones de datos que encuentre
@@ -833,7 +839,7 @@ async function saihExplore3(){const out=document.getElementById('saihOut'),log=[
   const tryList=[...new Set([...cands,...extra])].slice(0,30);rep.push('== Pruebas de direcciones ('+tryList.length+') ==');
   for(const c of tryList){say('? '+c);const r=await netGet(c);const b=(r.body||'');const isHtml=/^\s*<!DOCTYPE|<html/i.test(b);
     rep.push('##### '+c+' → código '+r.code+', '+b.length+' car.'+(isHtml?' (HTML)':''),isHtml?strip(b).slice(0,300):b.slice(0,1500),'');}
-  saihLast='INFORME 3 EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
+  saihLast='INFORME 3 EXPLORACIÓN SAIH '+new Date().toLocaleString(LOC)+'\n\n'+rep.join('\n');
   out.textContent=saihLast.slice(0,3500);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
 
 // Explorador 4: estaciones del Arga, Eugui y cómo se piden sus datos
@@ -867,7 +873,7 @@ async function saihExplore4(){const out=document.getElementById('saihOut'),log=[
   rep.push('== Pruebas ('+tries.length+') ==');
   for(const t of tries){say('? '+t);const r=await netGet(SAIH+t);const b=r.body||'';const isH=/^\s*<!DOCTYPE|<html/i.test(b);
     rep.push('##### '+t+' → '+r.code+', '+b.length+' car.',isH?strip(b).slice(0,200):cut(b,1200),'');}
-  saihLast='INFORME 4 EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
+  saihLast='INFORME 4 EXPLORACIÓN SAIH '+new Date().toLocaleString(LOC)+'\n\n'+rep.join('\n');
   out.textContent=saihLast.slice(0,3500);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
 if(APP){
   document.getElementById('saihExp').onclick=saihExplore;document.getElementById('saihExp2').onclick=saihExplore2;document.getElementById('saihExp3').onclick=saihExplore3;document.getElementById('saihExp4').onclick=saihExplore4;
@@ -880,8 +886,8 @@ function wxIcon(code,hour){const night=hour<8||hour>=19;if(code==null)return'';
   if(code===0)return night?'🌙':'☀️';if(code<=2)return night?'☁️':'🌤️';if(code===3)return'☁️';if(code===45||code===48)return'🌫️';
   if(code>=95)return'⛈️';if(code>=85)return'🌨️';if(code>=80)return'🌦️';if(code>=71)return'❄️';if(code>=61)return'🌧️';if(code>=51)return'🌦️';return'🌡️';}
 let WX=null;
-function wxRender(){const d=new Date();document.getElementById('wxClock').textContent=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('wxDate').textContent=d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
+function wxRender(){const d=new Date();document.getElementById('wxClock').textContent=d.toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('wxDate').textContent=d.toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'short'});
   let t=null,c=null;if(WX){t=WX.t;c=WX.c;}else if(FC&&FC.temp&&FC.t0){const i=Math.max(0,Math.min(FC.temp.length-1,Math.floor((d-new Date(FC.t0))/3600e3)));t=FC.temp[i];
       c=(FC.code&&FC.code[i]!=null)?FC.code[i]:((FC.snow&&FC.snow[i]>0.05)?73:(FC.rain&&FC.rain[i]>0.1)?61:null);if(c==null&&FC.code==null)c=d.getHours()>=8&&d.getHours()<19?1:0;}
   document.getElementById('wxIco').textContent=wxIcon(c,d.getHours());document.getElementById('wxT').textContent=t!=null?Math.round(t)+'°':'';}
@@ -895,7 +901,7 @@ const CAU_ARGA=[['A152','Eugui (bajo la presa)'],['A159','Huarte'],['A313','Burl
 const CAU_AFL=[['A067','Ultzama en Olave'],['A355','Basaburua en Udabe'],['A356','Larraun en Iribas'],['A322','Larraun en Irurtzun'],['A321','Arakil en Etxarren'],['A068','Arakil en Asiain'],['A358','Elorz en Monreal'],['A270','Elorz en Pamplona']];
 let CAU=null,UMB=null,cauT=0;
 const TREND={arriba:'↑ subiendo',abajo:'↓ bajando',derecha:'→ estable'};
-const fmtN=(v,d)=>(v==null||isNaN(v))?'—':Number(v).toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtN=(v,d)=>(v==null||isNaN(v))?'—':Number(v).toLocaleString(LOC,{minimumFractionDigits:d,maximumFractionDigits:d});
 function kindOf(t){const d=(t.LS_DESCRIPCION||'').toUpperCase(),u=(t.LS_UNID_ING||'').toLowerCase(),y=(t.LS_TIPO_SENAL||'').toUpperCase();
   if(/PORCENT|%/.test(d)||u==='%')return 'pct';if(/VOLUMEN/.test(d)||/hm/.test(u))return 'vol';
   if(/ENTRADA|APORTA/.test(d))return 'qin';if(/SALIDA|DESAG|DESEMB|TURBIN|ALIVI/.test(d)&&/m3|m³/.test(u))return 'qout';
@@ -963,7 +969,7 @@ async function cauFetch(){if(!APP)return cauRender();const info=document.getElem
   for(let i=0;i<codes.length;i+=4){await Promise.all(codes.slice(i,i+4).map(async c=>{const r=await netGet(SAIH+'/api/ficha/procesarTablaValoresActuales?estacion='+c);
     try{fichaAdd(m,c,JSON.parse(r.body).VALORES_ACTUALES||'');}catch(e){}}));cauRender();}
   setTimeout(()=>{if(typeof rivRefreshAll==='function')rivRefreshAll();},50);
-  cauT=Date.now();info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · SAIH Ebro';
+  cauT=Date.now();info.textContent='Actualizado a las '+new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'})+' · SAIH Ebro';
   cauRender();const ref=cauRefQ();
   if(MAPM==='live')liveMap();
   if(MTL==='rios')mtDraw();
@@ -971,7 +977,7 @@ async function cauFetch(){if(!APP)return cauRender();const info=document.getElem
 document.getElementById('cauRef').onclick=cauFetch;
 document.getElementById('cauMap').onclick=()=>{showTab('mapa');setTimeout(fitView,150);};
 document.getElementById('cauPrev').onclick=()=>{showTab('prev');};
-document.getElementById('cauShare').onclick=()=>{if(!CAU||!APP)return;const L=['CAUDAL AHORA '+new Date().toLocaleString('es-ES')];
+document.getElementById('cauShare').onclick=()=>{if(!CAU||!APP)return;const L=['CAUDAL AHORA '+new Date().toLocaleString(LOC)];
   Object.values(CAU).forEach(st=>{L.push('# '+st.code+' '+st.name);Object.values(st.tags).forEach(t=>L.push('  '+t.LS_TAG_TXT+' | '+t.LS_DESCRIPCION+' | '+t.VALOR_QM+' '+(t.LS_UNID_ING||'')+' | '+t.LS_TIPO_SENAL+' | '+kindOf(t)+' | '+t.ULTIMA_FECHA));});
   if(GR)L.push('','GRAFICA '+GR.tag,GR.raw);window.AndroidNet.share(L.join('\n').slice(0,40000));};
 if(APP){setTimeout(cauFetch,1500);setInterval(cauFetch,15*60e3);}else cauRender();
@@ -1032,7 +1038,7 @@ const OM='https://api.open-meteo.com/v1/forecast',OMA='https://archive-api.open-
 async function getJSON(u,retry=1){const j=await getJSON1(u);if(j||!retry)return j;await new Promise(r=>setTimeout(r,1500));return getJSON1(u);}
 async function getJSON1(u){try{if(APP){const r=await netGet(u);return r.code===200?JSON.parse(r.body):null;}const r=await fetch(u);return r.ok?await r.json():null;}catch(e){return null;}}
 const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-const DOW=['dom','lun','mar','mié','jue','vie','sáb'],MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const DOW=LANG==='eu'?EU_DOW:['dom','lun','mar','mié','jue','vie','sáb'],MES=LANG==='eu'?EU_MES:['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 function wDesc(c){if(c==null)return'';if(c===0)return'Despejado';if(c<=2)return'Poco nuboso';if(c===3)return'Cubierto';if(c===45||c===48)return'Niebla';
   if(c>=95)return'Tormenta';if(c>=85)return'Chubascos de nieve';if(c>=80)return'Chubascos';if(c>=71)return'Nieve';if(c>=61)return'Lluvia';if(c>=51)return'Llovizna';return'';}
 let TOWN=0;try{TOWN=+(localStorage.getItem('town')||0)||0;}catch(e){}
@@ -1085,7 +1091,7 @@ async function avisosFetch(){if(Date.now()-AVT<15*60e3&&AVISOS)return AVISOS;let
     const sev=g(e,'severity'),exp=new Date(g(e,'expires')),on=new Date(g(e,'onset')||g(e,'effective'));if(!isNaN(exp)&&exp<now)continue;if(sev==='Minor')continue;
     L.push({area,ev:g(e,'event')||g(e,'title'),sev,on,exp});}
   L.sort((a,b)=>['Extreme','Severe','Moderate'].indexOf(a.sev)-['Extreme','Severe','Moderate'].indexOf(b.sev));AVISOS=L;AVT=Date.now();avisoBanner();return L;}
-function fmtDT(d){return isNaN(d)?'':d.toLocaleString('es-ES',{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function fmtDT(d){return isNaN(d)?'':d.toLocaleString(LOC,{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
 function avisosHTML(L){if(L==null)return '<div class="note">No se pudieron leer los avisos ahora. Consulta aemet.es → Avisos.</div>';
   if(!L.length)return '<div class="note">✅ Sin avisos meteorológicos activos en Navarra.</div>';
   return L.map(a=>{const s=SEVC[a.sev]||['⚠️',a.sev,'#ef6c00'];return `<div class="st" style="align-items:flex-start"><div><b style="color:${s[2]}">${s[0]} ${s[1]}</b> · ${a.area}<div class="s">${a.ev}</div><div class="s">${fmtDT(a.on)} → ${fmtDT(a.exp)}</div></div></div>`;}).join('');}
@@ -1123,7 +1129,7 @@ function mtBase(){if(mtImg)return;mtImg=new Image();mtImg.onload=()=>mtDraw();mt
 async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');info.textContent='Cargando el tiempo de '+TOWNS.length+' pueblos…';
   const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=5${TZ}`;
   const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
-function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'});
   el.textContent=MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': estaciones principales (caudal en m³/s) · toca una para ver todas las del río · toca fuera para volver':'Toca un río de color para ver sus estaciones (el Bidasoa, en gris, es de otra cuenca y aún no tiene datos)'):
     (MT?'Actualizado a las '+hm+' · toca un pueblo para ver su previsión':'Cargando…');}
 // UTM huso 30 (ETRS89) → latitud/longitud
@@ -1136,7 +1142,7 @@ function rainCol(r){return r>=15?'#7b2fbf':r>=5?'#1d4fa8':r>=1?'#2f8fd8':r>=0.1?
 function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)return;const W=cv.clientWidth,H=Math.round(W*(NB.n-NB.s)/((NB.e-NB.w)*Math.cos(42.6*Math.PI/180)));
   cv.dataset.h=H;const x=fitCanvas(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,H);
   if(mtImg&&mtImg.complete&&!mtImg.bad&&mtImg.naturalWidth){x.globalAlpha=.9;x.drawImage(mtImg,0,0,W,H);x.globalAlpha=1;}
-  else{x.fillStyle='#93a4b5';x.font='12px system-ui';x.fillText(mtImg&&mtImg.bad?'Mapa base no disponible ahora':'Cargando mapa base…',10,H-12);}
+  else{x.fillStyle='#93a4b5';x.font='12px system-ui';x.fillText(T(mtImg&&mtImg.bad?'Mapa base no disponible ahora':'Cargando mapa base…'),10,H-12);}
   const P=(la,lo)=>[W*(lo-NB.w)/(NB.e-NB.w),H*(NB.n-la)/(NB.n-NB.s)];mtHits=[];const hh=new Date().getHours();
   const box=(px,py,ico,txt,col,hit)=>{x.font='bold 12px system-ui';const tw=x.measureText(txt).width,bw=tw+(ico?22:8),bx=px-bw/2,by=py-11;
     x.fillStyle=col;x.globalAlpha=.9;x.beginPath();x.roundRect?x.roundRect(bx,by,bw,22,11):x.rect(bx,by,bw,22);x.fill();x.globalAlpha=1;
@@ -1251,7 +1257,7 @@ document.getElementById('dLock').onclick=()=>{TECH=false;try{sessionStorage.remo
 document.getElementById('dPin').onclick=()=>{menu(false);pinOpen('new');};
 document.getElementById('dTechInfo').onclick=async()=>{menu(false);let v='?';if(APP&&window.AndroidNet.webVersion)v=window.AndroidNet.webVersion();else try{const r=await fetch('version.json');v=(await r.json()).version;}catch(e){}
   const cr=APP&&window.AndroidNet.lastCrash?window.AndroidNet.lastCrash():'';if(cr){window.AndroidNet.share('FALLO APP\n'+cr.slice(0,6000));return;}
-  toast(`Pantalla v${v} · app ${APP&&window.AndroidNet.appVersion?window.AndroidNet.appVersion():'web'} · SAIH ${CAU?'OK '+new Date(cauT).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}):'sin datos'} · ${(navigator.userAgent.match(/Android [\d.]+/)||['web'])[0]}`);};
+  toast(`Pantalla v${v} · app ${APP&&window.AndroidNet.appVersion?window.AndroidNet.appVersion():'web'} · SAIH ${CAU?'OK '+new Date(cauT).toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'}):'sin datos'} · ${(navigator.userAgent.match(/Android [\d.]+/)||['web'])[0]}`);};
 techApply();
 setTimeout(()=>showTab('mtiempo'),30);
 
@@ -1292,7 +1298,7 @@ async function aboutRender(){let v='?';if(APP&&window.AndroidNet.webVersion)v=wi
 
 // ---------- sin conexión: guardar y recuperar los últimos datos ----------
 function offlineSave(){if(CAU)LS.set('off_cau',{t:cauT||Date.now(),d:CAU});if(MT)LS.set('off_mt',{t:MT.at||Date.now(),d:[...MT]});}
-function offlineLoad(){const c=LS.get('off_cau',null),m=LS.get('off_mt',null),hm=t=>new Date(t).toLocaleString('es-ES',{weekday:'short',hour:'2-digit',minute:'2-digit'});
+function offlineLoad(){const c=LS.get('off_cau',null),m=LS.get('off_mt',null),hm=t=>new Date(t).toLocaleString(LOC,{weekday:'short',hour:'2-digit',minute:'2-digit'});
   if(c&&!CAU){CAU=c.d;cauT=c.t;cauRender();document.getElementById('cauInfo').textContent='📴 Datos guardados del '+hm(c.t)+' · actualizando…';}
   if(m&&!MT){MT=m.d;MT.at=0;mtDraw();document.getElementById('mtInfo').textContent='📴 Datos guardados del '+hm(m.t)+' · actualizando…';}}
 setInterval(offlineSave,60e3);window.addEventListener('pagehide',offlineSave);document.addEventListener('visibilitychange',()=>{if(document.hidden)offlineSave();});
@@ -2072,7 +2078,7 @@ const siNota=m=>m<2?'Solo lo registran los sismógrafos.':m<3?'Casi nunca se not
 function siFicha(){const el=document.getElementById('siFicha');if(!SISEL){el.innerHTML='';return;}
   if(SISEL.q){const q=SISEL.q,d=new Date(q[0]+'Z'),km=moKm([q[1],q[2]],[42.8125,-1.6458]);
     el.innerHTML=`<div class="card" style="border-color:${siCol(siAge(q[0]))}"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:16px">Terremoto de magnitud ${fmtN(q[4],1)}</b><button class="btn" id="siX">✕</button></div>
-     <div class="st"><b>Fecha y hora</b><span>${d.toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}</span></div>
+     <div class="st"><b>Fecha y hora</b><span>${d.toLocaleString(LOC,{dateStyle:'medium',timeStyle:'short'})}</span></div>
      <div class="st"><b>Magnitud</b><span>${fmtN(q[4],1)} ${q[5]?'('+q[5]+')':''}</span></div><div class="st"><b>Profundidad</b><span>${fmtN(q[3],0)} km</span></div>
      <div class="st"><b>Zona</b><span>${SIZONA[q[7]]||q[7]||'—'}</span></div><div class="st"><b>Distancia a Pamplona</b><span>${fmtN(km,0)} km</span></div>
      <div class="note" style="margin-top:6px">🫨 ${siNota(q[4])}</div>${q[6]?`<div class="row"><button class="btn" data-url="https://www.seismicportal.eu/eventdetails.html?unid=${q[6]}">🔗 Ficha en el EMSC</button></div>`:''}</div>`;}
@@ -2085,12 +2091,12 @@ function siFicha(){const el=document.getElementById('siFicha');if(!SISEL){el.inn
   el.querySelectorAll('[data-url]').forEach(b=>b.onclick=()=>{if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(b.dataset.url);else window.open(b.dataset.url,'_blank');});
   el.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function siRender(){if(SIM)SIM.draw();const V=siVis(),per=SIPERS.find(p=>p[0]===SIPER)[1],H=window.SISMO_GEO;
-  document.getElementById('siLeg').innerHTML=`<b>${V.length.toLocaleString('es-ES')}</b> terremotos (${per}, magnitud ≥ ${SIMAG}). `+
+  document.getElementById('siLeg').innerHTML=`<b>${V.length.toLocaleString(LOC)}</b> terremotos (${per}, magnitud ≥ ${SIMAG}). `+
     [[1,'hoy'],[7,'semana'],[30,'mes'],[365,'año'],[9e9,'antes']].map(([d,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${siCol(d-.5)}"></span> ${l}`).join(' ')+
     ` · tamaño = magnitud<br>`+Object.values(SIFC).map(([c,n])=>`<span style="display:inline-block;width:14px;height:3px;background:${c};vertical-align:middle"></span> ${n}`).join(' · ')+
     `<br>${SILIVE>0?'🟢 Últimos 30 días en directo':SILIVE<0?'⚠️ No se pudieron cargar los últimos días; se muestra el histórico':'Cargando los últimos días…'}${H?' · histórico hasta '+H.t.split('-').reverse().join('/'):''}`;
   const last=V.slice(-12).reverse(),top=[...V].sort((a,b)=>b[4]-a[4]).slice(0,8);
-  const row=(q,i,k)=>`<div class="st" data-k="${k}" data-i="${i}" style="cursor:pointer"><span><b style="display:inline-block;min-width:40px;color:${siCol(siAge(q[0]))}">M${fmtN(q[4],1)}</b> ${new Date(q[0]+'Z').toLocaleString('es-ES',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</span><span class="note">${SIZONA[q[7]]||q[7]||''}</span></div>`;
+  const row=(q,i,k)=>`<div class="st" data-k="${k}" data-i="${i}" style="cursor:pointer"><span><b style="display:inline-block;min-width:40px;color:${siCol(siAge(q[0]))}">M${fmtN(q[4],1)}</b> ${new Date(q[0]+'Z').toLocaleString(LOC,{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</span><span class="note">${SIZONA[q[7]]||q[7]||''}</span></div>`;
   const R=document.getElementById('siRes');
   R.innerHTML=V.length?`<div class="card"><b>🕒 Los últimos</b>${last.map((q,i)=>row(q,i,'l')).join('')}</div><div class="card"><b>💪 Los más fuertes (${per})</b>${top.map((q,i)=>row(q,i,'t')).join('')}</div>`:'<div class="note">No hay terremotos con estos filtros.</div>';
   R.querySelectorAll('[data-k]').forEach(d=>d.onclick=()=>{const q=(d.dataset.k==='l'?last:top)[+d.dataset.i];SISEL={q};SIM.fit(q[1]-.15,q[1]+.15,q[2]-.2,q[2]+.2);siFicha();});}
@@ -2103,11 +2109,11 @@ function siPlates(){const cv=document.getElementById('sipc');if(cv.clientWidth<1
   const B=[[38.8,-30],[38.4,-27],[37.8,-24.5],[37.2,-20],[36.8,-15],[36.6,-11.5],[36.1,-8],[35.9,-6.2],[35.6,-4.8],[35.9,-3],[36.2,-1.3],[36.6,1],[36.9,4],[37.1,7],[37.3,10]];
   x.beginPath();B.forEach((q,i)=>{const [px,py]=P(...q);i?x.lineTo(px,py):x.moveTo(px,py);});x.strokeStyle='#000';x.lineWidth=6;x.stroke();x.strokeStyle='#ff1744';x.lineWidth=3.5;x.stroke();
   const lab=(la,lo,t,c,al='center')=>{const [px,py]=P(la,lo);x.font='bold 12px system-ui';x.textAlign=al;x.fillStyle='#000';x.fillText(t,px+1,py+1);x.fillStyle=c;x.fillText(t,px,py);};
-  lab(42.5,-22,'PLACA EUROASIÁTICA','#e3f2fd');lab(33,-21,'PLACA AFRICANA','#fff3e0');
+  lab(42.5,-22,LANG==='eu'?'EURASIAR PLAKA':'PLACA EUROASIÁTICA','#e3f2fd');lab(33,-21,LANG==='eu'?'AFRIKAR PLAKA':'PLACA AFRICANA','#fff3e0');
   // flecha del empuje de África
-  const [ax,ay]=P(32.4,-9),[bx,by]=P(35.2,-9.6);x.strokeStyle='#ffeb3b';x.lineWidth=3;x.beginPath();x.moveTo(ax,ay);x.lineTo(bx,by);x.stroke();x.beginPath();x.moveTo(bx,by);x.lineTo(bx-6,by+8);x.lineTo(bx+6,by+7);x.closePath();x.fillStyle='#ffeb3b';x.fill();lab(33.6,-8.2,'4‑5 mm/año','#ffeb3b','left');
+  const [ax,ay]=P(32.4,-9),[bx,by]=P(35.2,-9.6);x.strokeStyle='#ffeb3b';x.lineWidth=3;x.beginPath();x.moveTo(ax,ay);x.lineTo(bx,by);x.stroke();x.beginPath();x.moveTo(bx,by);x.lineTo(bx-6,by+8);x.lineTo(bx+6,by+7);x.closePath();x.fillStyle='#ffeb3b';x.fill();lab(33.6,-8.2,LANG==='eu'?'4‑5 mm/urte':'4‑5 mm/año','#ffeb3b','left');
   const [nx,ny]=P(42.7,-1.65);x.beginPath();x.arc(nx,ny,6,0,7);x.fillStyle='#00e676';x.fill();x.strokeStyle='#000';x.lineWidth=2;x.stroke();lab(43.6,-1.65,'Navarra','#b9f6ca');
-  x.font='10px system-ui';x.textAlign='left';x.fillStyle='#cfd8dc';x.fillText('Esquema simplificado del límite de placas',6,H-6);}
+  x.font='10px system-ui';x.textAlign='left';x.fillStyle='#cfd8dc';x.fillText(LANG==='eu'?'Plaken arteko mugaren eskema sinplifikatua':'Esquema simplificado del límite de placas',6,H-6);}
 function siInit(){if(!SIM){SIM=NavMap('sic',siDraw,siTap);
     document.getElementById('siIn').onclick=()=>SIM.zoom(1.6);document.getElementById('siOut').onclick=()=>SIM.zoom(1/1.6);document.getElementById('siAll').onclick=()=>{SIM.la=42.66;SIM.lo=-1.63;SIM.z=1;SIM.draw();SIM.base();};
     document.getElementById('siPer').innerHTML=SIPERS.map(([d,l])=>`<button class="btn${d===SIPER?' on':''}" data-d="${d}">${l}</button>`).join('');
@@ -2119,6 +2125,11 @@ function siInit(){if(!SIM){SIM=NavMap('sic',siDraw,siTap);
     if(SILIVE<=0||Date.now()-SILIVE>10*60e3)siLive().then(L=>{siMerge(L);siRender();});});}
 const _showTab7=showTab;showTab=function(t){_showTab7(t);if(t==='sismo')setTimeout(siInit,40);};
 document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+
+
+// 🌐 idioma: se guarda y se recarga la pantalla para aplicarlo en todas partes
+(()=>{const b=document.getElementById('dLang');if(!b)return;b.textContent=LANG==='eu'?'🌐 Gaztelaniaz':'🌐 Euskaraz';
+  b.onclick=()=>{try{localStorage.setItem('lang',LANG==='eu'?'es':'eu');}catch(e){}location.reload();};})();
 
 
 setTimeout(()=>avisosFetch(),2500);setInterval(()=>{AVT=0;avisosFetch();},30*60e3);
