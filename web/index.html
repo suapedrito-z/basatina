@@ -830,7 +830,7 @@ function fichaAdd(map,code,html){const st=map[code]||(map[code]={code,name:code,
     const fm=fec.match(/(\d\d)\/(\d\d)\/(\d{4}) (\d\d:\d\d)/);
     st.tags[tag]={CW_REMOTA_TXT:code,LS_TAG_TXT:tag,LS_DESCRIPCION:desc.toUpperCase(),VALOR_QM:v,LS_UNID_ING:vm[2],LS_TIPO_SENAL:tag.length>7?tag.slice(7).replace(/\d+$/,''):'',
       LS_TENDENCIA:tr,ULTIMA_FECHA:fm?`${fm[3]}-${fm[2]}-${fm[1]} ${fm[4]}:00`:fec,DECIMALES_VALOR:/%/.test(vm[2])?1:2};});}
-function cauAdd(map,data){(data.DATOS||[]).forEach(t=>{const c=t.CW_REMOTA_TXT;if(!c)return;const st=map[c]||(map[c]={code:c,name:t.LR_NOMBRE_CORTO,tags:{}});if(t.LR_UTM_X&&!st.x){st.x=t.LR_UTM_X;st.y=t.LR_UTM_Y;}st.tags[t.LS_TAG_TXT||t.CWT_TAG]=t;});}
+function cauAdd(map,data){(data.DATOS||[]).forEach(t=>{const c=t.CW_REMOTA_TXT;if(!c)return;const st=map[c]||(map[c]={code:c,name:t.LR_NOMBRE_CORTO,tags:{}});if(!st.riv)st.riv='arga';if(t.LR_UTM_X&&!st.x){st.x=t.LR_UTM_X;st.y=t.LR_UTM_Y;}st.tags[t.LS_TAG_TXT||t.CWT_TAG]=t;});}
 function umbralOf(tag){if(!UMB||!tag)return null;let u=UMB.find(x=>x.codigo===tag.LS_TAG_TXT);
   if(!u)u=UMB.find(x=>x.codigo&&x.codigo.slice(0,4)===tag.CW_REMOTA_TXT&&/NRIO/.test(x.codigo));return u;}
 function alertOf(tag){const u=umbralOf(tag),v=Number(tag&&tag.VALOR_QM);if(!u||isNaN(v))return null;
@@ -1003,7 +1003,7 @@ async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');i
   const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=5${TZ}`;
   const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
 function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  el.textContent=MTL==='rios'?(CAU?'Ríos: caudal en m³/s · toca una estación para ver el detalle · cuencas del Arga y del Irati':'Ríos: esperando datos del SAIH…'):
+  el.textContent=MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': caudal en m³/s · toca una estación para ver el detalle · toca fuera del río para volver':'Toca un río para ver sus estaciones (por ahora Arga e Irati)'):
     (MT?'Actualizado a las '+hm+' · toca un pueblo para ver su previsión':'Cargando…');}
 // UTM huso 30 (ETRS89) → latitud/longitud
 function utm2ll(E,N){const a=6378137,f=1/298.257222101,e2=f*(2-f),k0=.9996,x=E-500000,y=N,ep2=e2/(1-e2),M=y/k0,mu=M/(a*(1-e2/4-3*e2*e2/64-5*e2**3/256)),e1=(1-Math.sqrt(1-e2))/(1+Math.sqrt(1-e2));
@@ -1022,11 +1022,7 @@ function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)r
     x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';if(ico){x.font='13px system-ui';x.fillText(ico,bx+3,py+1);x.font='bold 12px system-ui';x.fillText(txt,bx+19,py+1);}else x.fillText(txt,bx+4,py+1);
     x.textBaseline='alphabetic';mtHits.push([bx,by,bw,22,hit]);return by;};
   const leg=document.getElementById('mtLeg');
-  if(MTL==='rios'){leg.style.display='';leg.innerHTML='<span style="color:#3ccf7a">●</span> normal · <span style="color:#ffd84d">●</span> aviso amarillo · <span style="color:#ff9f1a">●</span> naranja · <span style="color:#ff3b30">●</span> rojo';
-    if(CAU)Object.values(CAU).forEach(st=>{if(!/^A/.test(st.code))return;let la,lo;if(st.lat!=null){la=st.lat;lo=st.lon;}else if(st.x){[la,lo]=utm2ll(st.x,st.y);}else return;const [px,py]=P(la,lo);const q=pick(st,'q'),n=pick(st,'n'),al=alertOf(n);
-      const col=!al?'#2e7d32':/rojo/.test(al[0])?'#c62828':/naranja/.test(al[0])?'#ef6c00':/amarillo/.test(al[0])?'#f9a825':'#2e7d32';
-      const t=q?fmtN(q.VALOR_QM,q.VALOR_QM<10?1:0):n?fmtN(n.VALOR_QM,2)+' m':'—';box(px,py,'',t,col,['st',st.code]);});
-    return;}
+  if(MTL==='rios'){mtRivers(x,W,H,P,box,leg);return;}
   if(MTL==='lluvia'){leg.style.display='';leg.innerHTML=[[0.1,'0,1'],[1,'1'],[5,'5'],[15,'15+']].map(([v,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${rainCol(v)}"></span> ${l}`).join(' ')+' mm · '+dayName(MTD);}
   else leg.style.display='none';
   TOWNS.forEach((t,i)=>{const [px,py]=P(t[1],t[2]);const m=MT&&MT[i];let ico='',txt='…',col='rgba(11,17,24,.9)';
@@ -1046,8 +1042,9 @@ document.querySelector('.mtb[data-l="lluvia"]').onclick=e=>{e.stopPropagation();
 document.querySelector('.mtb[data-l="rios"]').onclick=e=>{e.stopPropagation();mtDayMenu(false);mtSetLayer('rios');};
 document.addEventListener('click',()=>mtDayMenu(false));
 document.getElementById('mtc').addEventListener('click',e=>{const r=e.target.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
-  const h=mtHits.slice().reverse().find(([bx,by,bw,bh])=>px>=bx-4&&px<=bx+bw+4&&py>=by-4&&py<=by+bh+4);if(!h)return;
-  if(h[4][0]==='town'){setTown(h[4][1]);showTab('tiempo');}else showTab('caudal');});
+  const h=mtHits.slice().reverse().find(([bx,by,bw,bh])=>px>=bx-4&&px<=bx+bw+4&&py>=by-4&&py<=by+bh+4);
+  if(!h){if(MTL==='rios')rivTap(px,py);return;}
+  if(h[4][0]==='town'){setTown(h[4][1]);showTab('tiempo');}else{const st=CAU&&CAU[h[4][1]];showTab('caudal');setTimeout(()=>rivShow(st&&st.riv&&RIVDEF[st.riv]?st.riv:'arga'),80);}});
 /* ---------- 📈 Histórico del clima ---------- */
 let CP='7',CL=null;
 async function climaFetch(){const t=TOWNS[TOWN],K=document.getElementById('cKpi');K.innerHTML='<div class="note">Cargando el histórico de '+t[0]+'…</div>';
@@ -1253,6 +1250,53 @@ document.querySelectorAll('#rivSeg button').forEach(b=>b.onclick=()=>rivShow(b.d
 document.getElementById('rivList').addEventListener('click',e=>{const x=e.target.closest('.st');if(x&&x.dataset.code)stGraph(x.dataset.code,x.dataset.lab);});
 // cada vez que se actualiza el Arga, también los demás ríos ya conocidos
 async function rivRefreshAll(){for(const r of Object.keys(RIVDEF))await rivFetch(r);}
+
+
+/* ---------- capa «Ríos» del inicio: dibujo de los ríos (OpenStreetMap) y, al tocar uno, sus estaciones ---------- */
+// grupos de ríos: el principal y sus afluentes. Los que tienen datos se pueden tocar.
+const RGRP={
+  arga:{name:'Arga',col:'#3ba7ff',main:/^(r[ií]o\s+)?arga(\s+ibaia)?$/i,trib:/ultzama|ulzama|arakil|araquil|elortz|elorz|larraun|basaburua|juslape|sadar/i,data:true},
+  irati:{name:'Irati',col:'#3ccf7a',main:/^(r[ií]o\s+)?irati(\s+ibaia)?$/i,trib:/urrobi|\berro\b|areta|salazar|zaraitzu|anduña/i,data:true},
+  ega:{name:'Ega',col:'#93a4b5',main:/^(r[ií]o\s+)?ega(\s+ibaia)?$/i,trib:/urederra|uyarra/i},
+  aragon:{name:'Aragón',col:'#93a4b5',main:/^(r[ií]o\s+)?arag[oó]n$/i,trib:/\besca\b|zidacos|cidacos/i},
+  ebro:{name:'Ebro',col:'#93a4b5',main:/^(r[ií]o\s+)?ebro$/i,trib:/^$/},
+  bidasoa:{name:'Bidasoa',col:'#93a4b5',main:/bidasoa|baztan/i,trib:/^$/}
+};
+let RGEO=null,RSEL=null,rgeoLoading=false;
+async function rivGeoLoad(){if(RGEO||rgeoLoading)return;const c=LS.get('rgeo',null);if(c&&c.v===1&&Date.now()-c.t<60*864e5){RGEO=c.g;return;}
+  if(!APP)return;rgeoLoading=true;document.getElementById('mtInfo').textContent='Descargando el dibujo de los ríos (solo la primera vez)…';
+  const names='Arga|Ultzama|Ulzama|Arakil|Araquil|Elortz|Elorz|Larraun|Basaburua|Irati|Urrobi|Erro|Areta|Salazar|Zaraitzu|Ega|Urederra|Aragón|Esca|Zidacos|Cidacos|Ebro|Bidasoa|Baztan';
+  const q=`[out:json][timeout:90];way["waterway"="river"]["name"~"(${names})",i](${NB.s},${NB.w},${NB.n},${NB.e});out geom;`;
+  let j=null;for(const host of ['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter']){const r=await netGet(host+'?data='+encodeURIComponent(q));try{j=JSON.parse(r.body);break;}catch(e){}}
+  rgeoLoading=false;if(!j||!j.elements){document.getElementById('mtInfo').textContent='No se pudo descargar el dibujo de los ríos ahora.';return;}
+  const g={};for(const w of j.elements){const nm=(w.tags&&(w.tags['name:es']||w.tags.name))||'';let key=null,main=false;
+    for(const k in RGRP){if(RGRP[k].main.test(nm)||RGRP[k].main.test(w.tags.name||'')){key=k;main=true;break;}}
+    if(!key)for(const k in RGRP){if(RGRP[k].trib.test(nm)){key=k;break;}}
+    if(!key||!w.geometry)continue;
+    // simplificar: un punto cada ~250 m es suficiente para el mapa de Navarra
+    const pts=[];let last=null;for(const p of w.geometry){if(!last||Math.abs(p.lat-last[0])+Math.abs(p.lon-last[1])>0.0025||p===w.geometry[w.geometry.length-1]){last=[+p.lat.toFixed(4),+p.lon.toFixed(4)];pts.push(last);}}
+    (g[key]=g[key]||[]).push({m:main?1:0,p:pts});}
+  RGEO=g;LS.set('rgeo',{v:1,t:Date.now(),g});mtDraw();}
+function mtRivers(x,W,H,P,box,leg){rivGeoLoad();RLINES=[];
+  leg.style.display='';leg.innerHTML=RSEL?'<span style="color:#3ccf7a">●</span> normal · <span style="color:#ffd84d">●</span> amarillo · <span style="color:#ff9f1a">●</span> naranja · <span style="color:#ff3b30">●</span> rojo':'Toca un río';
+  if(RGEO)for(const k in RGEO){const G=RGRP[k],sel=RSEL===k,dim=RSEL&&!sel;
+    for(const w of RGEO[k]){x.beginPath();w.p.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});
+      x.strokeStyle=G.data?G.col:'#6b7d8f';x.globalAlpha=dim?.25:G.data?1:.6;x.lineWidth=(w.m?3.2:1.6)*(sel?1.5:1);x.lineCap='round';x.lineJoin='round';x.stroke();x.globalAlpha=1;
+      if(G.data)RLINES.push([k,w.p.map(q=>P(q[0],q[1]))]);}
+    // nombre del río en el punto medio de su tramo principal más largo
+    const mw=RGEO[k].filter(w=>w.m).sort((a,b)=>b.p.length-a.p.length)[0];if(mw&&!dim){const q=mw.p[Math.floor(mw.p.length/2)],[px,py]=P(q[0],q[1]);
+      x.font='bold 12px system-ui';x.textAlign='center';x.fillStyle='#000';x.fillText(G.name,px+1,py-7);x.fillStyle=G.data?'#fff':'#c9d4de';x.fillText(G.name,px,py-8);x.textAlign='left';}}
+  else{x.fillStyle='#93a4b5';x.font='12px system-ui';x.fillText(rgeoLoading?'Descargando el dibujo de los ríos…':'',10,70);}
+  if(!RSEL||!CAU)return;
+  Object.values(CAU).forEach(st=>{if(st.riv!==RSEL||!/^A/.test(st.code))return;let la,lo;if(st.lat!=null){la=st.lat;lo=st.lon;}else if(st.x){[la,lo]=utm2ll(st.x,st.y);}else return;
+    const [px,py]=P(la,lo),q=pick(st,'q'),n=pick(st,'n'),al=alertOf(n);
+    const col=!al?'#2e7d32':/rojo/.test(al[0])?'#c62828':/naranja/.test(al[0])?'#ef6c00':/amarillo/.test(al[0])?'#f9a825':'#2e7d32';
+    box(px,py,'',q?fmtN(q.VALOR_QM,q.VALOR_QM<10?1:0):n?fmtN(n.VALOR_QM,2)+' m':'—',col,['st',st.code]);});}
+let RLINES=[];
+function rivTap(px,py){let best=null,bd=18;
+  for(const [k,pts] of RLINES)for(let i=1;i<pts.length;i++){const [ax,ay]=pts[i-1],[bx,by]=pts[i],dx=bx-ax,dy=by-ay,L=dx*dx+dy*dy||1;
+    const t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/L)),d=Math.hypot(px-ax-t*dx,py-ay-t*dy);if(d<bd){bd=d;best=k;}}
+  RSEL=best;if(best&&RGRP[best].data&&best!=='arga'&&RIVDEF[best]&&!(RIVST[best]&&RIVST[best].length))rivFetch(best);mtInfo();mtDraw();}
 
 </script>
 </body>
