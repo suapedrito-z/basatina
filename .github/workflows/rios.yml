@@ -1,0 +1,24 @@
+# Descarga el dibujo de los ríos de OpenStreetMap y lo guarda en la app (web/rios.js).
+# Se ejecuta cuando cambia tools/rios.py (o a mano desde la pestaña Actions).
+name: Dibujo de los ríos
+on:
+  push:
+    paths: ['tools/rios.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar de OpenStreetMap
+        run: python3 tools/rios.py
+      - name: Guardar en el repositorio
+        run: |
+          python3 tools/make_version.py
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/rios.js web/version.json
+          git commit -m "Dibujo de los ríos actualizado (OpenStreetMap)" || exit 0
+          git push
