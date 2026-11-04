@@ -1,0 +1,31 @@
+# Descarga terremotos (EMSC) y fallas activas (IGME) y los guarda en la app (web/sismo.js). Cada lunes y al cambiar tools/sismo.py.
+# Se ejecuta cuando cambia tools/monte.py (o a mano desde la pestaña Actions).
+name: Terremotos y fallas
+on:
+  push:
+    paths: ['tools/sismo.py']
+  schedule:
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sismo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: echo listo
+      - name: Descargar terremotos y fallas
+        run: python3 tools/sismo.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/sismo.js tools/sismo_info.txt
+          git commit -m "Terremotos y fallas actualizados" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          git push
