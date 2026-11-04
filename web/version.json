@@ -1,5 +1,5 @@
 {
- "version": 47,
+ "version": 48,
  "apk": 7,
  "files": {
   "c12.jpg": "ac3fa4c4bc823c0b64c7c69990cf891eb00e6319",
@@ -13,7 +13,8 @@
   "pesca.js": "fba5172885d790d2fc7caf52e3d2fa08f745b612",
   "pnoa.jpg": "2ace269ed17d224cdca74f3033d27f5306e56dee",
   "pnoa14.jpg": "f0f3b88c53d5b4d1b7c3c4c6a46279842323a159",
-  "rios.js": "c4e2c608075872f3055350d3e70d99b8307d8041"
+  "rios.js": "c4e2c608075872f3055350d3e70d99b8307d8041",
+  "sismo.js": "e6cb8057c239784184df0b4e73e1453574d65e78"
  },
  "apkUrl": "https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/PedritoControlRioArga.apk"
 }
