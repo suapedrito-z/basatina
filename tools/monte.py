@@ -12,7 +12,11 @@ CAPAS = ["GEOLOG_Sym_Cuevas", "DOTACI_Sym_Miradores", "FOREST_Sym_AreasRecForest
          "GEOLOG_Sym_Manantiales", "IDEMUN_Sym_Fuentes", "PATRIM_Sym_Senderismo",
          "DOTACI_Lin_VVBidasoa", "DOTACI_Lin_VVVascoNav", "DOTACI_Lin_VVIrati", "DOTACI_Lin_VVPlazaola", "DOTACI_Lin_VVTarazoni",
          "DOTACI_Lin_GR1", "DOTACI_Lin_GR12", "DOTACI_Lin_GR321", "PATRIM_Lin_CaminoSant"]
-DROP = {"FEATURE", "BEGINLIFE", "GEOM_LONG", "GEOM_AREA", "GEOM_PERI", "X25830", "Y25830", "OBJECTID", "FID", "ID"}
+KEEP = {"GEOLOG_Sym_Cuevas": ["CODIGO", "CUEVA", "TIPO", "COTA", "MUNICIPIO", "TOPONIMIA", "LONGITUD", "PROFUNDIDA", "DESCRIPCIO"],
+        "GEOLOG_Sym_Manantiales": ["MANANTIAL", "MUNICIPIO", "RIO"], "FOREST_Sym_AreasRecForest": ["NOMBRE", "DEMARCACIO", "BARBACOA", "EQUIPAMIEN", "PARKING", "VEGETACION", "ELEPAISAJE"],
+        "PATRIM_Sym_BICarquite": ["BIC", "TIPO", "POBLACION"], "DOTACI_Sym_Miradores": ["RECTUR", "ZONATUR", "POBLACION", "URL"], "IDEMUN_Sym_Fuentes": ["FUENTE", "MUNICIPIO", "POTABLE"],
+        "PATRIM_Sym_Senderismo": ["NOMBRE", "DESCRIPCIO", "URL", "DESCARGA"]}
+DROP = {"URLPDF", "SITUACION", "FEATURE", "BEGINLIFE", "GEOM_LONG", "GEOM_AREA", "GEOM_PERI", "X25830", "Y25830", "OBJECTID", "FID", "ID"}
 tr = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
 def simplify(pts, tol):
     if len(pts) < 3: return pts
@@ -33,11 +37,12 @@ for key in CAPAS:
         for sr in sf.iterShapeRecords():
             at = {k: (v.strip() if isinstance(v, str) else v) for k, v in zip(fields, sr.record)}
             for k, v in at.items(): vals[k][str(v)[:60]] += 1
-            a = {k: (str(v)[:220] if isinstance(v, str) else v) for k, v in at.items() if v not in ("", None, "-") and k not in DROP}
+            a = {k: (str(v)[:160] if isinstance(v, str) else v) for k, v in at.items() if v not in ("", None, "-", 0, 0.0, "0", "0.0") and k not in DROP and (key not in KEEP or k in KEEP[key])}
+            if key == "GEOLOG_Sym_Cuevas" and "Fuera de Navarra" in str(at.get("OBSERVACIO", "")): continue
             s = sr.shape
             if not s.points: continue
             if s.shapeType in (1, 8, 11, 21) or not s.parts:
-                lo, la = tr.transform(*s.points[0][:2]); feats.append({"a": a, "pt": [round(la, 5), round(lo, 5)]}); continue
+                lo, la = tr.transform(*s.points[0][:2]); feats.append({"a": a, "pt": [round(la, 4), round(lo, 4)]}); continue
             parts = list(s.parts) + [len(s.points)]; rings = []
             for i in range(len(parts)-1):
                 pts = [[round(la, 5), round(lo, 5)] for lo, la in (tr.transform(x, y) for x, y in s.points[parts[i]:parts[i+1]])]
