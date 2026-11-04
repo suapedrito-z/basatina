@@ -154,29 +154,118 @@ no https://idena.navarra.es/descargas/CAZAPE_Pol_CotoCaza.zip: HTTP Error 404: N
 no https://idena.navarra.es/descargas/CAZAPE_Pol_Coto.zip: HTTP Error 404: Not Found
 no https://idena.navarra.es/descargas/CAZAPE_Pol_CotosCaza.zip: HTTP Error 404: Not Found
 no https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCaza.zip: HTTP Error 404: Not Found
-fallo https://idena.navarra.es/descargas/CAZAPE_Lin_BatPerdiz.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Lin_Cangrejos.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Lin_FrenMalviz.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Lin_FrenPaloma.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Lin_IKAperdiz.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Lin_RecCazaEst.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Lin_RecNocturnos.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_Monterias.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_PotenPerdiz.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_Refugios.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ResaqueCazaM.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_Reservas.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaEst.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaSem.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCodor.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaFaisan.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaPerros.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Sym_Aparcamien.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Sym_ChozaPaloma.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Sym_EsperaNoct.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Sym_PuesAnade.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Sym_PuesMalviz.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/CAZAPE_Sym_PuesPaloma.zip: HTTP Error 406: Not Acceptable
-fallo https://idena.navarra.es/descargas/DOTACI_Sym_GCivil.zip: HTTP Error 406: Not Acceptable
 
-caza.js: 0 KB
+## CAZAPE_Lin_FrenPaloma: 849 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDFRENTE', 'TOPONIMO', 'COMPARTIDO', 'GEOM_LONG', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300009', 849)]
+- MATRICULA: 194 distintos · [('10061', 46), ('10434', 22), ('10347', 20), ('10547', 16), ('10277', 15), ('10230', 14), ('10206', 13), ('10531', 13)]
+- COTO: 194 distintos · [('BAZTAN', 46), ('DONAMARIA-URROZ-OIZ', 22), ('ANUE Y OTROS', 20), ('ETXAURI', 16), ('IZA-JUSLAPEÑA-OLLO', 15), ('BASABURUA', 14), ('VALLE DE ULTZAMA', 13), ('LEITZA', 13)]
+- IDFRENTE: 48 distintos · [('FP01', 188), ('FP02', 150), ('FP03', 110), ('FP04', 81), ('FP05', 61), ('FP06', 48), ('FP07', 37), ('FP08', 29)]
+- TOPONIMO: 819 distintos · [('Usategieta', 4), ('LA SIERRA', 4), ('Las Bordas', 3), ('Santa Bárbara', 3), ('Santa Cruz', 3), ('GOGORRA', 2), ('MUSKILDA', 2), ('Ibañeta', 2)]
+- COMPARTIDO: 10 distintos · [('', 838), ('10346', 2), ('Larrau', 2), ('Guirguillano', 1), ('Garralda', 1), ('10017', 1), ('10198', 1), ('10122', 1)]
+- GEOM_LONG: 841 distintos · [('60.0', 3), ('45.01', 3), ('86.16', 2), ('938.7', 2), ('491.42', 2), ('63.03', 2), ('159.83', 1), ('321.37', 1)]
+- BEGINLIFE: 1 distintos · [('23/09/2026', 849)]
+
+## CAZAPE_Pol_Monterias: 80 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDMONTERIA', 'TOPONIMO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300078', 80)]
+- MATRICULA: 23 distintos · [('10484', 10), ('10507', 8), ('10210', 7), ('10417', 5), ('10495', 5), ('10277', 5), ('10535', 5), ('10544', 5)]
+- COTO: 23 distintos · [('IBILCIETA-ESPARZA DE SALAZAR-SARRIÉS', 10), ('USTÉS-USCARRÉS/USKARTZE-RACAS ALTO', 8), ('FITERO', 7), ('IZAL/ITZALLE', 5), ('ROMANZADO/ERROMANTZATUA', 5), ('IZA-JUSLAPEÑA-OLLO', 5), ('IBARGOITI', 5), ('ZÚÑIGA', 5)]
+- IDMONTERIA: 13 distintos · [('MT01', 22), ('MT02', 14), ('MT03', 13), ('MT04', 10), ('MT05', 8), ('MT06', 3), ('MT07', 3), ('MT08', 2)]
+- TOPONIMO: 80 distintos · [('Artasoeta-Arburua-Ekia', 1), ('Txaparral-Arrigorrieta-Tejería', 1), ('Aldu-Osate', 1), ('Ripalda', 1), ('Bezea', 1), ('Calveira', 1), ('Burkulla', 1), ('Dozola', 1)]
+- GEOM_AREA: 80 distintos · [('1811126.8', 1), ('3716206.59', 1), ('3735140.14', 1), ('2397270.36', 1), ('2533979.06', 1), ('3666996.43', 1), ('1493423.88', 1), ('3927734.57', 1)]
+- GEOM_PERI: 80 distintos · [('9238.74', 1), ('10658.52', 1), ('10052.02', 1), ('7691.08', 1), ('7205.51', 1), ('8491.99', 1), ('5297.56', 1), ('13141.93', 1)]
+- BEGINLIFE: 1 distintos · [('26/12/2025', 80)]
+
+## CAZAPE_Pol_Refugios: 497 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDREFUGIO', 'TOPONIMO', 'VIGENCIA', 'EXCLUIDA', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300014', 497)]
+- MATRICULA: 205 distintos · [('10013', 11), ('10042', 10), ('10347', 9), ('10048', 9), ('10402', 7), ('10095', 7), ('10061', 6), ('10440', 6)]
+- COTO: 205 distintos · [('TUDELA', 11), ('BARDENAS REALES/ERREGE BARDEA', 10), ('ANUE Y OTROS', 9), ('YESA-LIÉDENA-ROCAFORTE', 9), ('LARRAGA', 7), ('PERALTA', 7), ('BAZTAN', 6), ('FALCES', 6)]
+- IDREFUGIO: 11 distintos · [('RF01', 203), ('RF02', 137), ('RF03', 72), ('RF04', 40), ('RF05', 19), ('RF06', 9), ('RF07', 6), ('RF08', 4)]
+- TOPONIMO: 491 distintos · [('Embalses Leurza', 2), ('SAN DONATO', 2), ('EL RAMILLO', 2), ('AGUILAR', 2), ('SASO', 2), ('VARIANTE', 2), ('TTUTTURRE', 1), ('Muga de Izu', 1)]
+- VIGENCIA: 33 distintos · [('Todo el año', 198), ('Toda la temporada', 109), ('OFV', 76), ('Según OFV', 45), ('Días de perdiz', 12), ('Temporada completa', 8), ('2 batidas por temporada', 8), ('Según O.F.V.', 5)]
+- EXCLUIDA: 194 distintos · [('Todas excepto jabalí, corzo y zorro en batida', 58), ('Caza menor', 31), ('Todas salvo jabalí, corzo y zorro en batida', 19), ('Todas excepto caza mayor y zorro en batida', 17), ('Todas excepto jabalí, corzo, ciervo y zorro en batida', 16), ('Todas', 13), ('Caza menor excepto zorro en batida de caza mayor', 13), ('todas caza menor excepto zorro en batida de caza mayor', 8)]
+- GEOM_AREA: 497 distintos · [('4476799.75', 1), ('52791.24', 1), ('1121767.36', 1), ('616050.87', 1), ('2325774.4', 1), ('3961781.65', 1), ('4783844.29', 1), ('1637730.44', 1)]
+- GEOM_PERI: 496 distintos · [('7178.45', 2), ('14899.75', 1), ('1409.62', 1), ('4441.54', 1), ('4564.88', 1), ('8029.29', 1), ('9485.27', 1), ('8856.83', 1)]
+- BEGINLIFE: 1 distintos · [('26/12/2025', 497)]
+
+## CAZAPE_Pol_ResaqueCazaM: 4997 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDRESAQUE', 'TOPONIMO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300048', 4997)]
+- MATRICULA: 237 distintos · [('10061', 144), ('10493', 127), ('10347', 126), ('10230', 78), ('10346', 75), ('10486', 68), ('10423', 67), ('10431', 66)]
+- COTO: 237 distintos · [('BAZTAN', 144), ('ISABA/IZABA', 127), ('ANUE Y OTROS', 126), ('BASABURUA', 78), ('BURGUI/BURGI', 75), ('UHARTE ARAKIL', 68), ('RONCAL/ERRONKARI', 67), ('GARDE', 66)]
+- IDRESAQUE: 449 distintos · [('RQ01', 235), ('RQ02', 232), ('RQ03', 223), ('RQ04', 218), ('RQ05', 208), ('RQ06', 202), ('RQ07', 197), ('RQ08', 188)]
+- TOPONIMO: 4662 distintos · [('La Sierra', 7), ('San Miguel', 6), ('EL MONTE', 5), ('LA SIERRA', 5), ('Santa Cruz', 4), ('El Chaparral', 4), ('Santa Bárbara', 4), ('El Boyeral', 4)]
+- GEOM_AREA: 4916 distintos · [('918377.79', 3), ('331997.79', 3), ('1163828.9', 3), ('695195.09', 3), ('66395.96', 3), ('304714.99', 3), ('268418.58', 3), ('386438.06', 3)]
+- GEOM_PERI: 4901 distintos · [('7827.82', 3), ('5399.7', 3), ('3306.28', 3), ('4618.75', 3), ('4875.68', 3), ('3849.23', 3), ('1254.54', 3), ('3003.72', 3)]
+- BEGINLIFE: 1 distintos · [('26/12/2025', 4997)]
+
+## CAZAPE_Pol_Reservas: 447 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDRESERVA', 'TOPONIMO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300015', 447)]
+- MATRICULA: 195 distintos · [('10552', 10), ('10169', 9), ('10175', 8), ('10263', 7), ('10547', 7), ('10501', 6), ('10176', 6), ('10256', 6)]
+- COTO: 195 distintos · [('MURUZÁBAL-UTERGA-ENÉRIZ/ENERITZ', 10), ('CARCASTILLO-FIGAROL-LA QUEMADA', 9), ('ARLEGUI, BIURRUN, ESPARZA DE GALAR, GALAR, OLAZ SUBIZA, SALI', 8), ('RIBAFORADA', 7), ('ETXAURI', 7), ('OLÓRIZ/OLORITZ Y UNZUÉ/UNTZUE', 6), ('URRAÚL ALTO: IRUROZQUI', 6), ('ZUFÍA', 6)]
+- IDRESERVA: 9 distintos · [('RS01', 196), ('RS02', 112), ('RS03', 58), ('RS04', 38), ('RS05', 23), ('RS06', 13), ('RS07', 4), ('RS08', 2)]
+- TOPONIMO: 429 distintos · [('REGADÍO', 3), ('Gorriztaran-Baztarla-Txara', 2), ('CENTRAL', 2), ('La Dehesa', 2), ('LAS SUERTES', 2), ('Iriberri', 2), ('VALNARASÍN', 2), ('ROMPESACOS', 2)]
+- GEOM_AREA: 439 distintos · [('1734691.18', 2), ('1655685.47', 2), ('509434.29', 2), ('366332.89', 2), ('277095.92', 2), ('480925.22', 2), ('500667.38', 2), ('774464.46', 2)]
+- GEOM_PERI: 439 distintos · [('8455.87', 2), ('7741.07', 2), ('3755.82', 2), ('3003.68', 2), ('3296.61', 2), ('3943.98', 2), ('3751.75', 2), ('5095.2', 2)]
+- BEGINLIFE: 1 distintos · [('26/12/2025', 447)]
+
+## CAZAPE_Pol_ZonaCodor: 150 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDZCODORNI', 'TOPONIMO', 'TIPO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300017', 150)]
+- MATRICULA: 101 distintos · [('10013', 6), ('10526', 4), ('10548', 4), ('10048', 4), ('10501', 3), ('10552', 3), ('10215', 3), ('10395', 3)]
+- COTO: 101 distintos · [('TUDELA', 6), ('ADIÓS Y OTROS', 4), ('MAÑERU', 4), ('YESA-LIÉDENA-ROCAFORTE', 4), ('OLÓRIZ/OLORITZ Y UNZUÉ/UNTZUE', 3), ('MURUZÁBAL-UTERGA-ENÉRIZ/ENERITZ', 3), ('BERBINZANA', 3), ('BARÁSOAIN-GARÍNOAIN-ORÍSOAIN', 3)]
+- IDZCODORNI: 5 distintos · [('ZC01', 107), ('ZC02', 31), ('ZC03', 8), ('ZC04', 3), ('ZC00', 1)]
+- TOPONIMO: 79 distintos · [('', 63), ('Regadio tradicional', 6), ('ZONA CODORNIZ', 2), ('REGADÍO TRADICIONAL', 2), ('Zona de Codorniz', 2), ('El Prado', 2), ('Dolomondos', 1), ('Artatxu', 1)]
+- TIPO: 2 distintos · [('Otras zonas', 82), ('Regadío tradicional', 68)]
+- GEOM_AREA: 150 distintos · [('16567110.16', 1), ('10866166.09', 1), ('476706.76', 1), ('2913820.35', 1), ('484134.47', 1), ('1093851.14', 1), ('1424311.24', 1), ('8377688.47', 1)]
+- GEOM_PERI: 150 distintos · [('30209.04', 1), ('46244.77', 1), ('3256.29', 1), ('8584.07', 1), ('3599.02', 1), ('7932.07', 1), ('7395.25', 1), ('19662.73', 1)]
+- BEGINLIFE: 1 distintos · [('26/12/2025', 150)]
+
+## CAZAPE_Sym_ChozaPaloma: 305 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDCHOZAPAL', 'TOPONIMO', 'X25830', 'Y25830', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300007', 305)]
+- MATRICULA: 46 distintos · [('10496', 32), ('10523', 26), ('10287', 24), ('10277', 23), ('10408', 20), ('10498', 19), ('10290', 13), ('10256', 12)]
+- COTO: 46 distintos · [('AMESCOAS', 32), ('LUZAIDE/VALCARLOS', 26), ('CABREDO-GENEVILLA', 24), ('IZA-JUSLAPEÑA-OLLO', 23), ('ACEDO', 20), ('SIERRA DE LÓQUIZ', 19), ('HIRIBERRI ARAKIL Y OTROS', 13), ('ZUFÍA', 12)]
+- IDCHOZAPAL: 32 distintos · [('CHP01', 56), ('CHP02', 40), ('CHP03', 29), ('CHP04', 22), ('CHP05', 18), ('CHP06', 17), ('CHP07', 13), ('CHP08', 13)]
+- TOPONIMO: 277 distintos · [('ASUNDEGI', 22), ('OLATRANE', 4), ('ARAMBELTZA', 3), ('SAN BARTOLOME', 2), ('Los Robles', 2), ('ANSORENA', 1), ('PEZARREN', 1), ('EL CURA', 1)]
+- X25830: 305 distintos · [('595314', 1), ('588792', 1), ('586106', 1), ('587949', 1), ('596495', 1), ('597848', 1), ('598179', 1), ('598123', 1)]
+- Y25830: 303 distintos · [('4731948', 2), ('4725849', 2), ('4742021', 1), ('4739865', 1), ('4742285', 1), ('4738835', 1), ('4742188', 1), ('4741704', 1)]
+- BEGINLIFE: 1 distintos · [('23/09/2026', 305)]
+
+## CAZAPE_Sym_EsperaNoct: 2102 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDPUESTO', 'TOPONIMO', 'X25830', 'Y25830', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300073', 2102)]
+- MATRICULA: 130 distintos · [('10496', 110), ('10493', 102), ('10559', 90), ('10501', 84), ('10013', 60), ('10294', 56), ('10236', 52), ('10330', 50)]
+- COTO: 130 distintos · [('AMESCOAS', 110), ('ISABA/IZABA', 102), ('LEOZ: VALDORBA NATURAL', 90), ('OLÓRIZ/OLORITZ Y UNZUÉ/UNTZUE', 84), ('TUDELA', 60), ('LUQUIN', 56), ('EZCABARTE', 52), ('BUÑUEL', 50)]
+- IDPUESTO: 240 distintos · [('EN001', 114), ('EN002', 112), ('EN003', 107), ('EN004', 105), ('EN005', 98), ('EN006', 83), ('EN007', 68), ('EN008', 59)]
+- TOPONIMO: 1484 distintos · [('', 382), ('Belabarce', 30), ('Belagua', 26), ('Borda Intxa', 15), ('Mosquera', 11), ('LA VEGA DE ABAJO', 10), ('Lasola', 10), ('La Tejería', 8)]
+- X25830: 2058 distintos · [('606579', 2), ('575384', 2), ('597396', 2), ('599032', 2), ('615317', 2), ('615116', 2), ('614892', 2), ('613137', 2)]
+- Y25830: 2060 distintos · [('4736718', 3), ('4748472', 3), ('4726395', 2), ('4693510', 2), ('4700175', 2), ('4739466', 2), ('4651651', 2), ('4758401', 2)]
+- BEGINLIFE: 1 distintos · [('26/12/2025', 2102)]
+
+## CAZAPE_Sym_PuesAnade: 78 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDPUESTO', 'X25830', 'Y25830', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300063', 78)]
+- MATRICULA: 4 distintos · [('10159', 54), ('10013', 12), ('10512', 8), ('10084', 4)]
+- COTO: 4 distintos · [('RADA', 54), ('TUDELA', 12), ('AIZOÁIN', 8), ('AÑORBE', 4)]
+- IDPUESTO: 54 distintos · [('PA04', 4), ('PA03', 4), ('PA02', 4), ('PA01', 4), ('PA08', 3), ('PA07', 3), ('PA06', 3), ('PA05', 3)]
+- X25830: 77 distintos · [('616844', 2), ('604910', 1), ('604807', 1), ('604881', 1), ('604831', 1), ('604758', 1), ('604666', 1), ('604708', 1)]
+- Y25830: 77 distintos · [('4686567', 2), ('4743422', 1), ('4743405', 1), ('4743533', 1), ('4743542', 1), ('4743660', 1), ('4743656', 1), ('4743792', 1)]
+- BEGINLIFE: 1 distintos · [('21/10/2025', 78)]
+
+## CAZAPE_Sym_PuesMalviz: 1785 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDPUESTO', 'TOPONIMO', 'X25830', 'Y25830', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300011', 1785)]
+- MATRICULA: 65 distintos · [('10538', 154), ('10210', 150), ('10231', 93), ('10071', 91), ('10183', 91), ('10396', 83), ('10407', 73), ('10013', 54)]
+- COTO: 65 distintos · [('CORELLA', 154), ('FITERO', 150), ('CINTRUÉNIGO', 93), ('CASCANTE', 91), ('ABLITAS', 91), ('ANDOSILLA', 83), ('CÁRCAR', 73), ('TUDELA', 54)]
+- IDPUESTO: 98 distintos · [('PM01', 185), ('PM02', 183), ('PM03', 156), ('PM04', 135), ('PM05', 109), ('PM06', 98), ('PM07', 77), ('PM08', 68)]
+- TOPONIMO: 253 distintos · [('RÍO ALHAMA', 73), ('FM11 ALHAMA', 66), ('PULGUER', 45), ('FM03 RIO EGA', 43), ('FM01 ABATORES', 30), ('Las Coronas', 26), ('FM03 ALHAMA OESTE', 25), ('LA BARCA', 24)]
+- X25830: 1729 distintos · [('603296', 3), ('626428', 2), ('627001', 2), ('627219', 2), ('627705', 2), ('628039', 2), ('628278', 2), ('624897', 2)]
+- Y25830: 1737 distintos · [('4651755', 3), ('4657646', 3), ('4651242', 2), ('4650790', 2), ('4650545', 2), ('4650090', 2), ('4649992', 2), ('4649999', 2)]
+- BEGINLIFE: 1 distintos · [('26/12/2025', 1785)]
+
+## CAZAPE_Sym_PuesPaloma: 5553 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDPUESTO', 'TOPONIMO', 'COMPARTIDO', 'X25830', 'Y25830', 'BEGINLIFE']
+- FEATURE: 1 distintos · [('30300012', 5553)]
+- MATRICULA: 197 distintos · [('10061', 416), ('10434', 182), ('10384', 124), ('10523', 123), ('10531', 114), ('10072', 113), ('10120', 102), ('10519', 93)]
+- COTO: 197 distintos · [('BAZTAN', 416), ('DONAMARIA-URROZ-OIZ', 182), ('ETXALAR', 124), ('LUZAIDE/VALCARLOS', 123), ('LEITZA', 114), ('LESAKA', 113), ('ARANTZA', 102), ('KINTOA/QUINTO REAL', 93)]
+- IDPUESTO: 208 distintos · [('PP01', 695), ('PP02', 658), ('PP03', 552), ('PP04', 472), ('PP05', 400), ('PP06', 328), ('PP07', 279), ('PP08', 237)]
+- TOPONIMO: 896 distintos · [('GOROSPIL', 51), ('Lizuniaga', 49), ('Olabe - Postaan - Belute', 43), ('PAGOIETA', 43), ('GABARBIDE', 37), ('Bagatzar', 36), ('URSUA', 36), ('FP03 ARRIXURITA', 36)]
+- COMPARTIDO: 11 distintos · [('', 5407), ('LARRAU', 36), ('Garralda', 18), ('10346', 18), ('Oroz-Betelu (NA-10.198)', 18), ('10244', 16), ('Oiartzun (Guipuzcoa)', 14), ('Guirguillano', 8)]
+- X25830: 5345 distintos · [('603924', 3), ('600950', 3), ('611040', 3), ('590968', 3), ('600984', 2), ('594629', 2), ('592119', 2), ('590920', 2)]
+- Y25830: 5337 distintos · [('4770101', 3), ('4769885', 3), ('4767470', 3), ('4769737', 3), ('4748702', 3), ('4759798', 3), ('4717723', 3), ('4773743', 2)]
+- BEGINLIFE: 1 distintos · [('23/09/2026', 5553)]
+
+caza.js: 5963 KB
