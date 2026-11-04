@@ -106,7 +106,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
   <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
   <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
-  <div class="note" style="padding:14px">Para jugar y aprender. Ante riesgo real, haz caso siempre a los avisos oficiales.</div>
+  <div class="note" style="margin:14px;padding:10px;border:1px solid #ffb020;border-radius:10px;color:var(--txt)"><b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original.</div>
 </aside>
 
 <!-- ============ MODO 1: MAPA ============ -->
@@ -217,7 +217,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <div><label>¿Y si lloviera más? <b id="fmv">×1</b></label><input type="range" id="fm" min="1" max="6" step="0.5" value="1"></div>
   </div>
   <div class="row"><button class="btn pri" id="fplay">▶ Ver la previsión en el mapa</button></div>
-  <div class="note">Lluvia prevista: Open‑Meteo, media de 6 puntos de la cuenca (Quinto Real, Eugui, Zubiri, Ultzama, Juslapeña y Pamplona), actualizada cada 3 horas (en la app, la descarga el propio móvil). En la app, el caudal de ahora se toma solo del SAIH Ebro (Burlada); en la web lo pones tú. El modelo es muy simple y solo sirve para jugar y aprender: <b>haz caso siempre a los avisos oficiales</b> (CHE, SOS Navarra 112, Ayuntamiento).</div>
+  <div class="note">Lluvia prevista: Open‑Meteo, media de 6 puntos de la cuenca (Quinto Real, Eugui, Zubiri, Ultzama, Juslapeña y Pamplona), actualizada cada 3 horas (en la app, la descarga el propio móvil). En la app, el caudal de ahora se toma solo del SAIH Ebro (Burlada); en la web lo pones tú. El modelo es sencillo. <b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original. (CHE, SOS Navarra 112, Ayuntamiento).</div>
 </div>
 </section>
 <!-- ============ EL TIEMPO ============ -->
@@ -260,7 +260,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <h2 style="margin:10px 0 2px">Pedrito Control Río Arga</h2><div class="note" id="abVer"></div><div class="note">Foto: Puente de la Rabia, Zubiri</div></div>
 <div class="card"><b>¿Qué es?</b><div class="note">Una app para seguir el río Arga y el tiempo en Navarra: caudales en directo, el embalse de Eugui, previsión de lluvia y un simulador de riadas para aprender cómo se comporta el río.</div></div>
 <div class="card"><b>Fuentes de datos</b><div class="note">• Caudales, niveles y embalses: SAIH Ebro (Confederación Hidrográfica del Ebro).<br>• Tiempo, previsión e histórico: Open‑Meteo (AEMET, ECMWF, ERA5).<br>• Ortofotos, mapas y modelo del terreno: Instituto Geográfico Nacional (PNOA, MDT25), CNIG.<br>• Riadas históricas: CHE, Ayuntamiento de Pamplona y prensa local.</div></div>
-<div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Es una app para jugar y aprender. Los datos son provisionales y el simulador es un modelo sencillo. Ante cualquier riesgo real, haz caso siempre a los avisos oficiales: CHE, SOS Navarra 112, AEMET y tu Ayuntamiento.</div></div>
+<div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note"><b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original. El simulador es un modelo sencillo. Avisos oficiales: CHE, SOS Navarra 112, AEMET y tu Ayuntamiento.</div></div>
 <div class="note" style="text-align:center">Creado por <b>La Z Sortzailea</b> · 2026</div>
 </section>
 <div id="grBox" style="position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:60;display:none;align-items:flex-end;justify-content:center">
@@ -320,7 +320,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="row"><button class="btn pri" id="cauMap">🗺️ Ver en el mapa con el caudal real</button><button class="btn" id="cauPrev">🔮 Previsión desde el caudal real</button><button class="btn tech" id="cauShare" style="display:none">Compartir datos</button></div>
 </div>
 <div id="cauRivView" style="display:none"><div id="rivIO"></div><div id="rivEmb"></div><div class="note">Toca una estación para ver su gráfica de las últimas horas.</div><div class="card"><b id="rivTit"></b><div id="rivList"></div></div><div class="note" id="rivNote"></div></div>
-<div class="note">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos cada 15 minutos y provisionales. Los avisos amarillo/naranja/rojo son los umbrales oficiales del SAIH cuando existen. Ante riesgo real, haz caso siempre a los avisos oficiales (CHE, SOS Navarra 112).</div>
+<div class="note">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos cada 15 minutos y provisionales. Los avisos amarillo/naranja/rojo son los umbrales oficiales del SAIH cuando existen. <b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original. (CHE, SOS Navarra 112)</div>
 </section>
 <!-- ============ SAIH ============ -->
 <section id="t-saih">
