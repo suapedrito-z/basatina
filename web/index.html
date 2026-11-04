@@ -266,7 +266,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
-<div class="seg" id="rivSeg"><button class="btn on" data-r="arga">🌊 Arga</button><button class="btn" data-r="irati">🌲 Irati</button></div>
+<div class="seg" id="rivSeg"><button class="btn on" data-r="arga">🌊 Arga</button><button class="btn" data-r="irati">🌲 Irati</button><button class="btn" data-r="ega">🍇 Ega</button><button class="btn" data-r="aragon">⛰️ Aragón</button><button class="btn" data-r="ebro">🏞️ Ebro</button></div>
 <div id="cauArgaView">
 <div id="cauEugui"></div>
 <div class="note">Toca una estación para ver su gráfica de las últimas horas.</div>
@@ -1004,7 +1004,7 @@ async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');i
   const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=5${TZ}`;
   const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
 function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  el.textContent=MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': caudal en m³/s · toca una estación para ver el detalle · toca fuera del río para volver':'Toca un río para ver sus estaciones (por ahora Arga e Irati)'):
+  el.textContent=MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': caudal en m³/s · toca una estación para ver el detalle · toca fuera del río para volver':'Toca un río de color para ver sus estaciones (el Bidasoa, en gris, es de otra cuenca y aún no tiene datos)'):
     (MT?'Actualizado a las '+hm+' · toca un pueblo para ver su previsión':'Cargando…');}
 // UTM huso 30 (ETRS89) → latitud/longitud
 function utm2ll(E,N){const a=6378137,f=1/298.257222101,e2=f*(2-f),k0=.9996,x=E-500000,y=N,ep2=e2/(1-e2),M=y/k0,mu=M/(a*(1-e2/4-3*e2*e2/64-5*e2**3/256)),e1=(1-Math.sqrt(1-e2))/(1+Math.sqrt(1-e2));
@@ -1216,8 +1216,16 @@ cfgApply();
    ===================================================================== */
 const RIVDEF={
   irati:{name:'Irati',ico:'🌲',re:/IRATI|URROBI|\bERRO\b|ARETA|SALAZAR|ITOIZ|IRABIA|ZATOYA|ANDU[ÑN]A|EZKA|ESCA\b/i,
-    nota:'Cuenca del Irati: el Irati con sus afluentes Urrobi, Erro, Areta y Salazar, y los embalses de Irabia e Itoiz. El Irati desemboca en el Aragón cerca de Sangüesa.'}
+    nota:'Cuenca del Irati: el Irati con sus afluentes Urrobi, Erro, Areta y Salazar, y los embalses de Irabia e Itoiz. El Irati desemboca en el Aragón cerca de Sangüesa.'},
+  ega:{name:'Ega',ico:'🍇',re:/\bEGA\b|UREDERRA|IRANZU/i,
+    nota:'Cuenca del Ega: nace en Álava, pasa por Estella y Lerín y desemboca en el Ebro en San Adrián.'},
+  aragon:{name:'Aragón',ico:'⛰️',re:/ARAG[OÓ]N|\bESCA\b|ZIDACOS|CIDACOS|ONSELLA|\bYESA\b/i,
+    nota:'Cuenca del Aragón en Navarra: el embalse de Yesa, el Esca, Sangüesa, Caparroso y el Cidacos. Recoge el Irati y el Arga antes de llegar al Ebro en Milagro.'},
+  ebro:{name:'Ebro',ico:'🏞️',re:/^EBRO\b|QUEILES|ALHAMA|ODR[OÓ]N|LINARES/i,
+    nota:'El Ebro a su paso por Navarra (de Viana a Cortes) y sus afluentes del sur: Odrón, Linares, Alhama y Queiles.'}
 };
+// solo estaciones dentro de Navarra y alrededores
+const RIVBOX={s:41.85,n:43.35,w:-2.6,e:-0.7};
 let RIV='arga';const RIVST={};   // RIVST[río] = [{code,name,tipo,lat,lon}]
 function prettyName(n){return (n||'').toLowerCase().replace(/\(gn\)|\(r\)/g,'').replace(/\s*-\s*/g,' en ').replace(/\s+/g,' ').trim()
   .replace(/(^|\s|\.)(\p{L})/gu,(m,a,b)=>a+b.toUpperCase()).replace(/\bEn\b/g,'en').replace(/\bDe\b/g,'de').replace(/\bA\.abajo\b/gi,'aguas abajo').replace(/\bE\./g,'emb. ');}
@@ -1231,6 +1239,7 @@ async function rivStations(r){if(RIVST[r])return RIVST[r];const c=LS.get('riv_'+
     const g=await netGet(SAIH+'/api/ficha/procesarTablaInfoGeneral?estacion='+e.CODIGO_ESTACION);let lat=null,lon=null;
     try{const h=JSON.parse(g.body).INFO_GENERAL||'';lat=+(h.match(/data-lat='([-\d.]+)'/)||[])[1];lon=+(h.match(/data-lng='([-\d.]+)'/)||[])[1];}catch(x){}
     st.push({code:e.CODIGO_ESTACION,name:e.NOMBRE_ESTACION,tipo:e.TIPO_REMOTA,lat:isNaN(lat)?null:lat,lon:isNaN(lon)?null:lon});}
+  for(let i=st.length-1;i>=0;i--){const x=st[i];if(x.lat==null||x.lat<RIVBOX.s||x.lat>RIVBOX.n||x.lon<RIVBOX.w||x.lon>RIVBOX.e)st.splice(i,1);}
   // de arriba abajo: el Irati y sus afluentes bajan de norte a sur
   st.sort((a,b)=>(b.lat||0)-(a.lat||0));
   if(st.length){RIVST[r]=st;LS.set('riv_'+r,{t:Date.now(),st});}return st;}
@@ -1250,7 +1259,7 @@ function rivShow(r){RIV=r;document.querySelectorAll('#rivSeg button').forEach(b=
 document.querySelectorAll('#rivSeg button').forEach(b=>b.onclick=()=>rivShow(b.dataset.r));
 document.getElementById('rivList').addEventListener('click',e=>{const x=e.target.closest('.st');if(x&&x.dataset.code)stGraph(x.dataset.code,x.dataset.lab);});
 // cada vez que se actualiza el Arga, también los demás ríos ya conocidos
-async function rivRefreshAll(){for(const r of Object.keys(RIVDEF))await rivFetch(r);}
+async function rivRefreshAll(){for(const r of Object.keys(RIVDEF))if(RIVST[r]||LS.get('riv_'+r,null))await rivFetch(r);}
 
 
 /* ---------- capa «Ríos» del inicio: dibujo de los ríos (OpenStreetMap) y, al tocar uno, sus estaciones ---------- */
@@ -1258,9 +1267,9 @@ async function rivRefreshAll(){for(const r of Object.keys(RIVDEF))await rivFetch
 const RGRP={
   arga:{name:'Arga',col:'#3ba7ff',main:/^(r[ií]o\s+)?arga(\s+ibaia)?$/i,trib:/ultzama|ulzama|arakil|araquil|elortz|elorz|larraun|basaburua|juslape|sadar/i,data:true},
   irati:{name:'Irati',col:'#3ccf7a',main:/^(r[ií]o\s+)?irati(\s+ibaia)?$/i,trib:/urrobi|\berro\b|areta|salazar|zaraitzu|anduña/i,data:true},
-  ega:{name:'Ega',col:'#93a4b5',main:/^(r[ií]o\s+)?ega(\s+ibaia)?$/i,trib:/urederra|uyarra/i},
-  aragon:{name:'Aragón',col:'#93a4b5',main:/^(r[ií]o\s+)?arag[oó]n$/i,trib:/\besca\b|zidacos|cidacos/i},
-  ebro:{name:'Ebro',col:'#93a4b5',main:/^(r[ií]o\s+)?ebro$/i,trib:/^$/},
+  ega:{name:'Ega',col:'#ffb020',data:true,main:/^(r[ií]o\s+)?ega(\s+ibaia)?$/i,trib:/urederra|uyarra/i},
+  aragon:{name:'Aragón',col:'#c084fc',data:true,main:/^(r[ií]o\s+)?arag[oó]n$/i,trib:/\besca\b|zidacos|cidacos/i},
+  ebro:{name:'Ebro',col:'#ff7a7a',data:true,main:/^(r[ií]o\s+)?ebro$/i,trib:/queiles|alhama|odr[oó]n|linares/i},
   bidasoa:{name:'Bidasoa',col:'#93a4b5',main:/bidasoa|baztan/i,trib:/^$/}
 };
 let RGEO=null,RSEL=null,rgeoLoading=false;
