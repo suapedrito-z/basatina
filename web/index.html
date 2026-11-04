@@ -224,12 +224,15 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <!-- ============ EL TIEMPO ============ -->
 <section id="t-tiempo">
 <div class="card"><select class="town" id="tTown"></select><div id="tNow" style="margin-top:8px"><div class="note">Cargando…</div></div></div>
+<div class="card" id="tAv"><b>⚠️ Avisos de AEMET en Navarra</b><div class="note">Cargando…</div></div>
 <div class="card"><b>Próximas 24 horas</b><div class="note">Línea: temperatura · barras: lluvia (mm por hora)</div><canvas id="tH" height="180"></canvas></div>
 <div class="card"><b>Próximos 7 días</b><div id="tDays"></div></div>
+<div class="card" id="tExtra"></div>
 <div class="note">Fuente: Open‑Meteo (modelos de AEMET, ECMWF y otros), se actualiza al abrir esta pantalla.</div>
 </section>
 <!-- ============ MAPA DEL TIEMPO ============ -->
 <section id="t-mtiempo">
+<div id="avBanner" style="display:none;color:#fff;padding:8px 10px;border-radius:10px;margin-bottom:8px;font-size:13.5px;cursor:pointer" onclick="showTab('tiempo')"></div>
 <div id="mtWrap" style="position:relative">
   <canvas id="mtc" height="400"></canvas>
   <div id="mtBar" style="position:absolute;left:8px;top:8px;right:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
@@ -1020,9 +1023,9 @@ function setTown(i){TOWN=+i;try{localStorage.setItem('town',TOWN);}catch(e){}doc
 let TW=null;
 async function tiempoFetch(){const t=TOWNS[TOWN],now=document.getElementById('tNow');now.innerHTML='<div class="note">Cargando el tiempo de '+t[0]+'…</div>';
   const u=`${OM}?latitude=${t[1]}&longitude=${t[2]}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,weather_code,precipitation`+
-    `&hourly=temperature_2m,precipitation,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,sunrise,sunset&past_days=1&forecast_days=7${TZ}`;
+    `&hourly=temperature_2m,precipitation,precipitation_probability,weather_code,freezing_level_height&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,sunrise,sunset,snowfall_sum&past_days=1&forecast_days=7${TZ}`;
   const j=await getJSON(u);if(!j||!j.current){now.innerHTML='<div class="note">❌ No se pudo cargar el tiempo ahora. Prueba en un rato.</div>';return;}
-  TW={j,town:t[0]};tiempoRender();}
+  TW={j,town:t[0]};tiempoRender();extraRender();}
 function tiempoRender(){if(!TW)return;const {j,town}=TW,c=j.current,h=j.hourly,d=j.daily,nowD=new Date(),today=ymd(nowD),hh=nowD.getHours();
   // lluvia de hoy: caída hasta ahora y prevista para el resto del día
   let fell=0,rest=0;h.time.forEach((x,i)=>{if(x.slice(0,10)!==today)return;const H=+x.slice(11,13);if(H<=hh)fell+=h.precipitation[i]||0;else rest+=h.precipitation[i]||0;});
@@ -1035,7 +1038,8 @@ function tiempoRender(){if(!TW)return;const {j,town}=TW,c=j.current,h=j.hourly,d
     <div><span class="note">Humedad</span><b>${c.relative_humidity_2m} %</b></div><div><span class="note">Viento (rachas)</span><b>${Math.round(c.wind_speed_10m)} (${Math.round(c.wind_gusts_10m)}) km/h</b></div></div>`;
   // 7 días
   let rows='';d.time.forEach((x,i)=>{if(x<today)return;const dt=new Date(x+'T12:00');const name=x===today?'Hoy':DOW[dt.getDay()]+' '+dt.getDate();
-    rows+=`<div class="dayr"><b>${name}</b><span style="font-size:24px">${wxIcon(d.weather_code[i],12)}</span><span class="s note">${wDesc(d.weather_code[i])}${d.precipitation_sum[i]>0.1?` · 💧 ${fmtN(d.precipitation_sum[i],1)} mm (${d.precipitation_probability_max[i]??'?'} %)`:''}</span><b>${Math.round(d.temperature_2m_max[i])}° <span class="note">${Math.round(d.temperature_2m_min[i])}°</span></b></div>`;});
+    const sn=(d.snowfall_sum&&d.snowfall_sum[i])||0;let cota='';if(d.precipitation_sum[i]>0.5&&h.freezing_level_height){const fl=h.time.map((tt,k)=>tt.slice(0,10)===x&&(h.precipitation[k]||0)>0.1?h.freezing_level_height[k]:null).filter(v=>v!=null);if(fl.length){const c=Math.max(0,Math.round((Math.min(...fl)-300)/100)*100);if(c<1800)cota=` · ❄️ cota de nieve ≈ ${c} m`;}}
+    rows+=`<div class="dayr"><b>${name}</b><span style="font-size:24px">${wxIcon(d.weather_code[i],12)}</span><span class="s note">${wDesc(d.weather_code[i])}${d.precipitation_sum[i]>0.1?` · 💧 ${fmtN(d.precipitation_sum[i],1)} mm (${d.precipitation_probability_max[i]??'?'} %)`:''}${sn>0?` · ❄️ ${fmtN(sn,1)} cm`:''}${cota}</span><b>${Math.round(d.temperature_2m_max[i])}° <span class="note">${Math.round(d.temperature_2m_min[i])}°</span></b></div>`;});
   document.getElementById('tDays').innerHTML=rows;
   // gráfica 24 h
   const cv=document.getElementById('tH');if(cv.clientWidth<10)return;const x=fitCanvas(cv),W=cv.clientWidth,Hh=LH(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,Hh);
@@ -1048,6 +1052,45 @@ function tiempoRender(){if(!TW)return;const {j,town}=TW,c=j.current,h=j.hourly,d
   I.forEach((k,n)=>{if(n%3)return;x.fillText(h.time[k].slice(11,13)+'h',X(n),Hh-8);const y=bot-(bot-top)*(T[n]-tmin)/(tmax-tmin);x.fillStyle='#ffd08a';x.fillText(Math.round(T[n])+'°',X(n),y-6);x.fillStyle='#93a4b5';});
   x.textAlign='left';x.fillText(fmtN(pmax,1)+' mm',2,top+4);}
 document.getElementById('tTown').onchange=e=>{setTown(e.target.value);tiempoFetch();};
+
+
+/* ---------- ⚠️ Avisos AEMET (Meteoalarm), aire/polen/UV, sol y luna, nieve ---------- */
+let AVISOS=null,AVT=0;
+const SEVC={Minor:['🟢','Sin riesgo','#2e7d32'],Moderate:['🟡','Aviso amarillo','#f9a825'],Severe:['🟠','Aviso naranja','#ef6c00'],Extreme:['🔴','Aviso rojo','#c62828']};
+async function avisosFetch(){if(Date.now()-AVT<15*60e3&&AVISOS)return AVISOS;let t='';
+  try{if(APP){const r=await netGet('https://feeds.meteoalarm.org/feeds/meteoalarm-legacy-atom-spain');t=r.body||'';}else t=await (await fetch('https://feeds.meteoalarm.org/feeds/meteoalarm-legacy-atom-spain')).text();}catch(e){}
+  if(!t||!/<entry/i.test(t)){AVISOS=null;return null;}
+  const g=(e,tag)=>{const m=e.match(new RegExp('<(?:cap:)?'+tag+'[^>]*>([\\s\\S]*?)</(?:cap:)?'+tag+'>','i'));return m?m[1].replace(/<!\[CDATA\[|\]\]>/g,'').trim():'';};
+  const now=new Date(),L=[];for(const m of t.matchAll(/<entry[\s\S]*?<\/entry>/gi)){const e=m[0],area=g(e,'areaDesc');if(!/navarr/i.test(area))continue;
+    const sev=g(e,'severity'),exp=new Date(g(e,'expires')),on=new Date(g(e,'onset')||g(e,'effective'));if(!isNaN(exp)&&exp<now)continue;if(sev==='Minor')continue;
+    L.push({area,ev:g(e,'event')||g(e,'title'),sev,on,exp});}
+  L.sort((a,b)=>['Extreme','Severe','Moderate'].indexOf(a.sev)-['Extreme','Severe','Moderate'].indexOf(b.sev));AVISOS=L;AVT=Date.now();avisoBanner();return L;}
+function fmtDT(d){return isNaN(d)?'':d.toLocaleString('es-ES',{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function avisosHTML(L){if(L==null)return '<div class="note">No se pudieron leer los avisos ahora. Consulta aemet.es → Avisos.</div>';
+  if(!L.length)return '<div class="note">✅ Sin avisos meteorológicos activos en Navarra.</div>';
+  return L.map(a=>{const s=SEVC[a.sev]||['⚠️',a.sev,'#ef6c00'];return `<div class="st" style="align-items:flex-start"><div><b style="color:${s[2]}">${s[0]} ${s[1]}</b> · ${a.area}<div class="s">${a.ev}</div><div class="s">${fmtDT(a.on)} → ${fmtDT(a.exp)}</div></div></div>`;}).join('');}
+// aviso visible en el inicio si hay alguno
+function avisoBanner(){const el=document.getElementById('avBanner');if(!el)return;const L=AVISOS||[];if(!L.length){el.style.display='none';return;}
+  const s=SEVC[L[0].sev]||SEVC.Moderate;el.style.display='';el.style.background=s[2];el.innerHTML=`${s[0]} <b>${L.length} aviso${L.length>1?'s':''} de AEMET en Navarra</b> · ${L[0].ev} (${L[0].area}) · toca para ver`;}
+// fase de la luna (cálculo astronómico sencillo)
+function moon(d){const syn=29.530588853,k=((d.getTime()/864e5-10962.7569)%syn+syn)%syn,f=k/syn;
+  const names=[['🌑','Luna nueva'],['🌒','Creciente'],['🌓','Cuarto creciente'],['🌔','Creciente gibosa'],['🌕','Luna llena'],['🌖','Menguante gibosa'],['🌗','Cuarto menguante'],['🌘','Menguante']];
+  const i=Math.floor(f*8+.5)%8,ill=Math.round((1-Math.cos(2*Math.PI*f))/2*100);const nextFull=((0.5-f+1)%1)*syn,nextNew=((1-f)%1)*syn;return {ico:names[i][0],n:names[i][1],ill,full:nextFull,nw:nextNew};}
+async function extraRender(){const t=TOWNS[TOWN],el=document.getElementById('tExtra'),av=document.getElementById('tAv');if(!el)return;
+  av.innerHTML='<b>⚠️ Avisos de AEMET en Navarra</b>'+avisosHTML(await avisosFetch());
+  const q=await getJSON(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${t[1]}&longitude=${t[2]}&current=european_aqi,uv_index,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,olive_pollen,ragweed_pollen&daily=uv_index_max&forecast_days=1${TZ}`);
+  const m=moon(new Date()),d=TW&&TW.j.daily,today=ymd(new Date()),di=d?d.time.indexOf(today):-1,hm=s=>s?s.slice(11,16):'—';let h='';
+  if(q&&q.current){const c=q.current,aqi=c.european_aqi,aq=aqi==null?['—','']:aqi<=20?['Muy buena','#2e7d32']:aqi<=40?['Buena','#7cb342']:aqi<=60?['Moderada','#f9a825']:aqi<=80?['Mala','#ef6c00']:['Muy mala','#c62828'];
+    const uv=Math.round((q.daily&&q.daily.uv_index_max&&q.daily.uv_index_max[0])??c.uv_index??0),uvt=uv<=2?'bajo':uv<=5?'moderado':uv<=7?'alto':uv<=10?'muy alto':'extremo';
+    const P=[['Gramíneas',c.grass_pollen],['Olivo',c.olive_pollen],['Abedul',c.birch_pollen],['Aliso',c.alder_pollen],['Artemisa',c.mugwort_pollen],['Ambrosía',c.ragweed_pollen]].filter(x=>x[1]!=null);
+    const lv=v=>v<1?'nulo':v<10?'bajo':v<50?'moderado':v<200?'alto':'muy alto',pol=P.filter(x=>x[1]>=1);
+    h+=`<div class="kpi"><div><span class="note">🌬️ Calidad del aire</span><b style="color:${aq[1]}">${aq[0]}</b><span class="note">índice europeo ${aqi??'—'}</span></div>
+      <div><span class="note">☀️ Índice UV máx. hoy</span><b>${uv}</b><span class="note">${uvt}${uv>=6?' · usa protección':''}</span></div></div>
+      <div class="note" style="margin-top:6px">🌼 Polen: ${pol.length?pol.map(x=>`${x[0]} <b>${lv(x[1])}</b>`).join(' · '):'niveles muy bajos o fuera de temporada'}</div>`;}
+  else h+='<div class="note">No se pudo leer la calidad del aire ahora.</div>';
+  h+=`<div class="kpi" style="margin-top:8px"><div><span class="note">🌅 Sol</span><b>${di>=0?hm(d.sunrise[di])+' – '+hm(d.sunset[di]):'—'}</b><span class="note">salida – puesta</span></div>
+    <div><span class="note">${m.ico} Luna</span><b>${m.n}</b><span class="note">${m.ill} % iluminada · llena en ${Math.round(m.full)} d · nueva en ${Math.round(m.nw)} d</span></div></div>`;
+  el.innerHTML='<b>🌿 Aire, polen, UV, sol y luna</b>'+h+'<div class="note" style="margin-top:4px">Fuentes: Meteoalarm/AEMET (avisos) y Open‑Meteo / Copernicus CAMS (aire y polen).</div>';}
 
 /* ---------- 🗺️ Mapa del tiempo de Navarra ---------- */
 const NB={w:-2.55,e:-0.70,s:41.88,n:43.47};let MT=null,MTL='tiempo',MTD=0,mtImg=null,mtHits=[];
@@ -1895,6 +1938,8 @@ function moInit(){if(!MOM){MOM=NavMap('moc',moDraw,moTap);
 const _showTab6=showTab;showTab=function(t){_showTab6(t);if(t==='monte')setTimeout(moInit,40);};
 document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 
+
+setTimeout(()=>avisosFetch(),2500);setInterval(()=>{AVT=0;avisosFetch();},30*60e3);
 </script>
 </body>
 </html>
