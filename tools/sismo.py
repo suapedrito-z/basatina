@@ -44,21 +44,24 @@ try:
     B = "https://mapas.igme.es/gis/rest/services/BasesDatos/IGME_QAFI/MapServer"
     capas = json.loads(get(B + "?f=json")).get("layers", [])
     info.append("capas QAFI: " + "; ".join(f"{c['id']}={c['name']}" for c in capas))
-    lid = next(c["id"] for c in capas if "fault" in c["name"].lower() and not any(w in c["name"].lower() for w in ("discard", "debat", "neotect")))
-    info.append(f"capa usada: {lid}")
-    u = f"{B}/{lid}/query?" + urllib.parse.urlencode({
-        "where": "1=1", "geometry": f"{W},{S},{E},{N}", "geometryType": "esriGeometryEnvelope", "inSR": 4326,
-        "spatialRel": "esriSpatialRelIntersects", "outFields": "*", "outSR": 4326, "f": "geojson"})
-    j = json.loads(get(u))
-    campos = {}
-    for f in j.get("features", []):
-        a = {k: v for k, v in (f.get("properties") or {}).items() if v not in (None, "", " ")}
-        for k, v in a.items(): campos.setdefault(k, str(v)[:50])
-        g = f.get("geometry") or {}
-        lines = g["coordinates"] if g.get("type") == "MultiLineString" else [g.get("coordinates") or []]
-        r = [[[round(c[1], 4), round(c[0], 4)] for c in ln] for ln in lines if len(ln) >= 2]
-        if r: out["f"].append({"a": {k: (str(v)[:300] if isinstance(v, str) else v) for k, v in a.items()}, "r": r})
-    info.append(f"\nfallas: {len(out['f'])}\ncampos (ejemplo): " + json.dumps(campos, ensure_ascii=False))
+    # 0 = fallas activas comprobadas, 1 = dudosas (en debate), 3 = mapa neotectónico antiguo (QAFI v3)
+    TIPO = {0: "activa", 1: "debatida", 3: "neotectonica"}
+    for lid, k in TIPO.items():
+        u = f"{B}/{lid}/query?" + urllib.parse.urlencode({
+            "where": "1=1", "geometry": f"{W},{S},{E},{N}", "geometryType": "esriGeometryEnvelope", "inSR": 4326,
+            "spatialRel": "esriSpatialRelIntersects", "outFields": "*", "outSR": 4326, "f": "geojson"})
+        j = json.loads(get(u)); campos = {}; n = 0
+        for f in j.get("features", []):
+            a = {kk: v for kk, v in (f.get("properties") or {}).items() if v not in (None, "", " ")}
+            for kk, v in a.items(): campos.setdefault(kk, str(v)[:60])
+            g = f.get("geometry") or {}
+            lines = g["coordinates"] if g.get("type") == "MultiLineString" else [g.get("coordinates") or []]
+            r = [[[round(c[1], 4), round(c[0], 4)] for c in ln] for ln in lines if len(ln) >= 2]
+            if r:
+                a = {kk: (str(v)[:400] if isinstance(v, str) else v) for kk, v in a.items()}; a["k"] = k
+                out["f"].append({"a": a, "r": r}); n += 1
+        info.append(f"\nfallas {k} (capa {lid}): {n}\ncampos: " + json.dumps(campos, ensure_ascii=False))
+        info += ["  - " + str(f["a"].get("FaultName") or f["a"].get("Informacio") or "")[:80] for f in out["f"] if f["a"]["k"] == k]
 except Exception as e:
     info.append(f"fallo fallas: {e}")
 
