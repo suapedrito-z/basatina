@@ -6,7 +6,9 @@ Escribe tools/caza_info.txt con lo encontrado. Lo ejecuta GitHub Actions.
 import io, json, time, urllib.request, urllib.parse, zipfile, collections
 UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "application/json"}
 def get(url, binary=False):
-    r = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120).read()
+    h = dict(UA)
+    if binary: h["Accept"] = "*/*"      # los .zip de IDENA dan error 406 si se pide JSON
+    r = urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=120).read()
     return r if binary else r.decode("utf-8", "replace")
 info, urls = [], []
 for q in ["cotos de caza", "caza", "cinegetic", "CAZAPE", "Planes de Ordenación Cinegética", "palomer", "puestos", "coto"]:
@@ -47,8 +49,10 @@ def simplify(pts, tol):
     if best <= tol: return [a, b]
     return simplify(pts[:idx+1], tol)[:-1] + simplify(pts[idx:], tol)
 out = {"t": time.strftime("%Y-%m-%d")}
+UTILES = ["CAZAPE_Pol_Monterias", "CAZAPE_Pol_ResaqueCazaM", "CAZAPE_Sym_PuesPaloma", "CAZAPE_Sym_ChozaPaloma", "CAZAPE_Lin_FrenPaloma",
+           "CAZAPE_Sym_EsperaNoct", "CAZAPE_Pol_Reservas", "CAZAPE_Pol_Refugios", "CAZAPE_Pol_ZonaCodor", "CAZAPE_Sym_PuesMalviz", "CAZAPE_Sym_PuesAnade"]
 for u in urls:
-    if not u.lower().endswith(".zip"): continue
+    if not u.lower().endswith(".zip") or u.rsplit("/", 1)[1][:-4] not in UTILES: continue
     key = u.rsplit("/", 1)[1][:-4]
     try:
         z = zipfile.ZipFile(io.BytesIO(get(u, True))); names = z.namelist()
@@ -59,6 +63,10 @@ for u in urls:
         for sr in sf.iterShapeRecords():
             at = {k: (v.strip() if isinstance(v, str) else v) for k, v in zip(fields, sr.record)}
             for k, v in at.items(): vals[k][str(v)[:60]] += 1
+            if sr.shape.shapeType in (1, 8, 11, 21) or not sr.shape.parts:      # puntos (puestos, chozas, esperas)
+                lo, la = tr.transform(*sr.shape.points[0][:2])
+                feats.append({"a": {k: v for k, v in at.items() if v not in ("", None, "-") and k not in ("FEATURE",)}, "pt": [round(la, 5), round(lo, 5)]})
+                continue
             parts = list(sr.shape.parts) + [len(sr.shape.points)]
             rings = []
             for i in range(len(parts)-1):
