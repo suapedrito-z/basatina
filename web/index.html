@@ -275,7 +275,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="note">En Puente la Reina no hay estación del SAIH: las más cercanas son Etxauri (aguas arriba) y Funes (al final).</div>
 <div class="row"><button class="btn pri" id="cauMap">🗺️ Ver en el mapa con el caudal real</button><button class="btn" id="cauPrev">🔮 Previsión desde el caudal real</button><button class="btn tech" id="cauShare" style="display:none">Compartir datos</button></div>
 </div>
-<div id="cauRivView" style="display:none"><div id="rivEmb"></div><div class="note">Toca una estación para ver su gráfica de las últimas horas.</div><div class="card"><b id="rivTit"></b><div id="rivList"></div></div><div class="note" id="rivNote"></div></div>
+<div id="cauRivView" style="display:none"><div id="rivIO"></div><div id="rivEmb"></div><div class="note">Toca una estación para ver su gráfica de las últimas horas.</div><div class="card"><b id="rivTit"></b><div id="rivList"></div></div><div class="note" id="rivNote"></div></div>
 <div class="note">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos cada 15 minutos y provisionales. Los avisos amarillo/naranja/rojo son los umbrales oficiales del SAIH cuando existen. Ante riesgo real, haz caso siempre a los avisos oficiales (CHE, SOS Navarra 112).</div>
 </section>
 <!-- ============ SAIH ============ -->
@@ -1222,13 +1222,14 @@ const RIVDEF={
   aragon:{name:'Aragón',ico:'⛰️',re:/ARAG[OÓ]N|\bESCA\b|ZIDACOS|CIDACOS|ONSELLA|\bYESA\b/i,
     nota:'Cuenca del Aragón en Navarra: el embalse de Yesa, el Esca, Sangüesa, Caparroso y el Cidacos. Recoge el Irati y el Arga antes de llegar al Ebro en Milagro.'},
   ebro:{name:'Ebro',ico:'🏞️',re:/^EBRO\b|QUEILES|ALHAMA|ODR[OÓ]N|LINARES/i,
-    nota:'El Ebro y sus afluentes del sur (Odrón, Linares, Alhama, Queiles): solo las estaciones dentro de la Comunidad Foral de Navarra.'}
+    nota:'El Ebro y sus afluentes del sur (Odrón, Linares, Alhama, Queiles): las estaciones dentro de la Comunidad Foral de Navarra, más una antes de entrar (Logroño) y otra después de salir, para ver el agua que entra y la que sale.'}
 };
 // solo estaciones dentro de Navarra y alrededores
 const RIVBOX={s:41.85,n:43.35,w:-2.6,e:-0.7};
 let RIV='arga';const RIVST={};   // RIVST[río] = [{code,name,tipo,lat,lon}]
 function prettyName(n){return (n||'').toLowerCase().replace(/\(gn\)|\(r\)/g,'').replace(/\s*-\s*/g,' en ').replace(/\s+/g,' ').trim()
   .replace(/(^|\s|\.)(\p{L})/gu,(m,a,b)=>a+b.toUpperCase()).replace(/\bEn\b/g,'en').replace(/\bDe\b/g,'de').replace(/\bA\.abajo\b/gi,'aguas abajo').replace(/\bE\./g,'emb. ');}
+const rk=r=>r==='ebro'?'riv_ebro3':'riv_'+r;   // el Ebro tiene su propia versión de la lista
 let BUSQ=null;
 // lista de estaciones del SAIH (se descarga una vez y se guarda solo lo que nos interesa)
 async function busqLoad(){if(BUSQ)return BUSQ;const c=LS.get('busq',null);if(c&&Date.now()-c.t<7*864e5&&c.v===2){BUSQ=c.L;return BUSQ;}
@@ -1238,7 +1239,7 @@ async function busqLoad(){if(BUSQ)return BUSQ;const c=LS.get('busq',null);if(c&&
       LS.set('busq',{v:2,t:Date.now(),L:BUSQ});}catch(e){rivMsg('No se pudo leer el buscador del SAIH (intento '+(k+1)+' de 3, código '+b.code+')…');}}
   return BUSQ;}
 function rivMsg(t){const el=document.getElementById('rivNote');if(el)el.textContent=t;}
-async function rivStations(r){if(RIVST[r])return RIVST[r];const c=LS.get('riv_'+r,null);if(c&&r==='ebro'&&!c.st.some(x=>'ca' in x))c.t=0;
+async function rivStations(r){if(RIVST[r])return RIVST[r];const c=LS.get(rk(r),null);
   if(c&&Date.now()-c.t<7*864e5&&c.st&&c.st.length){RIVST[r]=c.st;return c.st;}
   rivMsg('Buscando las estaciones del '+RIVDEF[r].name+' en el SAIH (solo la primera vez, puede tardar un poco)…');
   const B=await busqLoad();if(!B){rivMsg('❌ El SAIH no responde ahora. Vuelve a tocar la pestaña en un rato.');return [];}
@@ -1251,12 +1252,15 @@ async function rivStations(r){if(RIVST[r])return RIVST[r];const c=LS.get('riv_'+
       ca=((h.match(/Comunidad Aut[oó]noma<\/td>\s*<td>([^<]*)/)||[])[1]||'').trim();}catch(x){}
     st.push({code:e.c,name:e.n,tipo:e.t,ca,lat:isNaN(lat)?null:lat,lon:isNaN(lon)?null:lon});done++;}));
     rivMsg('Buscando las estaciones del '+RIVDEF[r].name+'… '+done+' de '+L.length);}
-  for(let i=st.length-1;i>=0;i--){const x=st[i];if(x.lat==null||x.lat<RIVBOX.s||x.lat>RIVBOX.n||x.lon<RIVBOX.w||x.lon>RIVBOX.e)st.splice(i,1);}
+  if(r!=='ebro')for(let i=st.length-1;i>=0;i--){const x=st[i];if(x.lat==null||x.lat<RIVBOX.s||x.lat>RIVBOX.n||x.lon<RIVBOX.w||x.lon>RIVBOX.e)st.splice(i,1);}
   // el Ebro: solo las estaciones que están en la Comunidad Foral de Navarra
-  if(r==='ebro'){const nav=st.filter(x=>/navarra/i.test(x.ca||''));if(nav.length)st.splice(0,st.length,...nav);}
+  if(r==='ebro'){const all=st.slice(),nav=st.filter(x=>/navarra/i.test(x.ca||''));if(nav.length)st.splice(0,st.length,...nav);else{const bx=all.filter(x=>x.lat!=null&&x.lat>=RIVBOX.s&&x.lat<=RIVBOX.n&&x.lon>=RIVBOX.w&&x.lon<=RIVBOX.e);st.splice(0,st.length,...bx);}
+    // y una estación antes de entrar en Navarra (Logroño) y otra después de salir (Novillas o, si no, Zaragoza)
+    const pickIo=(res,io)=>{for(const re of res){const x=all.find(y=>y.tipo==='A'&&re.test(y.name)&&!st.includes(y));if(x){x.io=io;st.push(x);return;}}};
+    pickIo([/LOGRO[ÑN]O/i,/MENDAVIA/i],'in');pickIo([/NOVILLAS/i,/GALLUR/i,/ZARAGOZA/i],'out');}
   // de arriba abajo (de norte a sur; el Ebro de oeste a este)
   st.sort(r==='ebro'?(a,b)=>a.lon-b.lon:(a,b)=>(b.lat||0)-(a.lat||0));
-  if(st.length){RIVST[r]=st;LS.set('riv_'+r,{t:Date.now(),st});}
+  if(st.length){RIVST[r]=st;LS.set(rk(r),{t:Date.now(),st});}
   else rivMsg('❌ No he encontrado estaciones del '+RIVDEF[r].name+' en Navarra ('+L.length+' con ese nombre en todo el SAIH). Vuelve a tocar la pestaña para reintentar.');
   return st;}
 async function rivFetch(r){if(!APP)return;const st=await rivStations(r);if(!CAU)CAU={};
@@ -1268,14 +1272,20 @@ function rivRender(){const r=RIV,d=RIVDEF[r];if(!d)return;const st=RIVST[r]||[];
   document.getElementById('rivTit').textContent=d.ico+' Río '+d.name+' y afluentes (de arriba abajo)';
   if(st.length)document.getElementById('rivNote').textContent=d.nota+' · '+st.length+' estaciones del SAIH Ebro.';
   document.getElementById('rivEmb').innerHTML=st.filter(s=>s.tipo==='E').map(s=>embCard(s.code,'Embalse de '+prettyName(s.name),null,null)).join('');
-  document.getElementById('rivList').innerHTML=st.filter(s=>s.tipo==='A').map(s=>stRow(s.code,prettyName(s.name))).join('')||'<div class="note">Cargando…</div>';}
+  document.getElementById('rivList').innerHTML=st.filter(s=>s.tipo==='A').map(s=>stRow(s.code,(s.io==='in'?'⬅️ Entra · ':s.io==='out'?'➡️ Sale · ':'')+prettyName(s.name))).join('')||'<div class="note">Cargando…</div>';
+  // Ebro: cuánta agua entra en Navarra y cuánta sale
+  const io=document.getElementById('rivIO');const qi=st.find(s=>s.io==='in'),qo=st.find(s=>s.io==='out');let h='';
+  if(r==='ebro'&&qi&&qo){const a=pick(CAU&&CAU[qi.code],'q'),b=pick(CAU&&CAU[qo.code],'q');
+    if(a&&b){const d=b.VALOR_QM-a.VALOR_QM;h=`<div class="card"><b>⚖️ El Ebro en Navarra</b><div class="kpi" style="margin-top:6px"><div><span class="note">⬅️ Entra (${prettyName(qi.name)})</span><b>${fmtN(a.VALOR_QM,0)} m³/s</b></div><div><span class="note">➡️ Sale (${prettyName(qo.name)})</span><b>${fmtN(b.VALOR_QM,0)} m³/s</b></div></div>
+      <div class="note" style="margin-top:6px">${d>=0?'Al cruzar Navarra gana unos '+fmtN(d,0)+' m³/s (sobre todo del Ega, el Aragón con el Arga y el Irati, y el Queiles)':'Sale con unos '+fmtN(-d,0)+' m³/s menos de los que entran (riegos, canales y el tiempo que tarda el agua en llegar)'}.</div></div>`;}}
+  io.innerHTML=h;}
 function rivShow(r){RIV=r;document.querySelectorAll('#rivSeg button').forEach(b=>b.classList.toggle('on',b.dataset.r===r));
   document.getElementById('cauArgaView').style.display=r==='arga'?'':'none';document.getElementById('cauRivView').style.display=r==='arga'?'none':'';
   if(r!=='arga'){rivRender();if(!RIVST[r]||!RIVST[r].some(s=>CAU&&CAU[s.code]&&Object.keys(CAU[s.code].tags).length))rivFetch(r);}}
 document.querySelectorAll('#rivSeg button').forEach(b=>b.onclick=()=>rivShow(b.dataset.r));
 document.getElementById('rivList').addEventListener('click',e=>{const x=e.target.closest('.st');if(x&&x.dataset.code)stGraph(x.dataset.code,x.dataset.lab);});
 // cada vez que se actualiza el Arga, también los demás ríos ya conocidos
-async function rivRefreshAll(){for(const r of Object.keys(RIVDEF))if(RIVST[r]||LS.get('riv_'+r,null))await rivFetch(r);}
+async function rivRefreshAll(){for(const r of Object.keys(RIVDEF))if(RIVST[r]||LS.get(rk(r),null))await rivFetch(r);}
 
 
 /* ---------- capa «Ríos» del inicio: dibujo de los ríos (OpenStreetMap) y, al tocar uno, sus estaciones ---------- */
