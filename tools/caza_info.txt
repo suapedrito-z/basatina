@@ -187,16 +187,6 @@ no https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCaza.zip: HTTP Error 404: N
 - GEOM_PERI: 496 distintos · [('7178.45', 2), ('14899.75', 1), ('1409.62', 1), ('4441.54', 1), ('4564.88', 1), ('8029.29', 1), ('9485.27', 1), ('8856.83', 1)]
 - BEGINLIFE: 1 distintos · [('26/12/2025', 497)]
 
-## CAZAPE_Pol_ResaqueCazaM: 4997 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDRESAQUE', 'TOPONIMO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
-- FEATURE: 1 distintos · [('30300048', 4997)]
-- MATRICULA: 237 distintos · [('10061', 144), ('10493', 127), ('10347', 126), ('10230', 78), ('10346', 75), ('10486', 68), ('10423', 67), ('10431', 66)]
-- COTO: 237 distintos · [('BAZTAN', 144), ('ISABA/IZABA', 127), ('ANUE Y OTROS', 126), ('BASABURUA', 78), ('BURGUI/BURGI', 75), ('UHARTE ARAKIL', 68), ('RONCAL/ERRONKARI', 67), ('GARDE', 66)]
-- IDRESAQUE: 449 distintos · [('RQ01', 235), ('RQ02', 232), ('RQ03', 223), ('RQ04', 218), ('RQ05', 208), ('RQ06', 202), ('RQ07', 197), ('RQ08', 188)]
-- TOPONIMO: 4662 distintos · [('La Sierra', 7), ('San Miguel', 6), ('EL MONTE', 5), ('LA SIERRA', 5), ('Santa Cruz', 4), ('El Chaparral', 4), ('Santa Bárbara', 4), ('El Boyeral', 4)]
-- GEOM_AREA: 4916 distintos · [('918377.79', 3), ('331997.79', 3), ('1163828.9', 3), ('695195.09', 3), ('66395.96', 3), ('304714.99', 3), ('268418.58', 3), ('386438.06', 3)]
-- GEOM_PERI: 4901 distintos · [('7827.82', 3), ('5399.7', 3), ('3306.28', 3), ('4618.75', 3), ('4875.68', 3), ('3849.23', 3), ('1254.54', 3), ('3003.72', 3)]
-- BEGINLIFE: 1 distintos · [('26/12/2025', 4997)]
-
 ## CAZAPE_Pol_Reservas: 447 elementos · campos ['FEATURE', 'MATRICULA', 'COTO', 'IDRESERVA', 'TOPONIMO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
 - FEATURE: 1 distintos · [('30300015', 447)]
 - MATRICULA: 195 distintos · [('10552', 10), ('10169', 9), ('10175', 8), ('10263', 7), ('10547', 7), ('10501', 6), ('10176', 6), ('10256', 6)]
@@ -268,4 +258,4 @@ no https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCaza.zip: HTTP Error 404: N
 - Y25830: 5337 distintos · [('4770101', 3), ('4769885', 3), ('4767470', 3), ('4769737', 3), ('4748702', 3), ('4759798', 3), ('4717723', 3), ('4773743', 2)]
 - BEGINLIFE: 1 distintos · [('23/09/2026', 5553)]
 
-caza.js: 5963 KB
+caza.js: 1817 KB
