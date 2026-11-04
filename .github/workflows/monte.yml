@@ -1,0 +1,29 @@
+# Descarga de IDENA las capas de «Salir al monte» y las guarda en la app (web/monte.js).
+# Se ejecuta cuando cambia tools/monte.py (o a mano desde la pestaña Actions).
+name: Salir al monte
+on:
+  push:
+    paths: ['tools/monte.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  monte:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: pip install pyshp pyproj
+      - name: Descargar de IDENA
+        run: python3 tools/monte.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/monte.js tools/monte_info.txt
+          git commit -m "Salir al monte actualizados (IDENA)" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          git push
