@@ -7,16 +7,17 @@ android {
         applicationId "es.pedrito.controlarga"
         minSdk 24
         targetSdk 34
-        versionCode 7
-        versionName "2.0.1"
+        versionCode 8
+        versionName "2.1.0"
     }
-    // Firma fija: así cada versión nueva se instala encima de la anterior sin desinstalar
+    // Firma fija: así cada versión nueva se instala encima de la anterior sin desinstalar.
+    // La contraseña NO está aquí: GitHub la pasa desde el secreto KEYSTORE_PASS del repositorio.
     signingConfigs {
         arga {
-            storeFile file('../keystore/arga.jks')
-            storePassword 'rioarga2026'
+            storeFile file('../keystore/arga2.jks')
+            storePassword System.getenv('KEYSTORE_PASS') ?: ''
             keyAlias 'arga'
-            keyPassword 'rioarga2026'
+            keyPassword System.getenv('KEYSTORE_PASS') ?: ''
         }
     }
     buildTypes {
