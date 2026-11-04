@@ -1,0 +1,20 @@
+name: Capas WMS
+on:
+  push:
+    paths: ['tools/wms_info.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  wms:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/wms_info.py
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add tools/wms_info.txt
+          git commit -m "Lista de capas WMS" || exit 0
+          git pull --rebase
+          git push
