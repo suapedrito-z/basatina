@@ -1272,7 +1272,10 @@ async function rivGeoLoad(){if(RGEO||rgeoLoading)return;const c=LS.get('rgeo',nu
   // varios servidores de OpenStreetMap por si alguno está saturado
   for(const host of ['https://overpass-api.de/api/interpreter','https://overpass.private.coffee/api/interpreter','https://maps.mail.ru/osm/tools/overpass/api/interpreter','https://overpass.kumi.systems/api/interpreter']){
     document.getElementById('mtInfo').textContent='Descargando el dibujo de los ríos… ('+host.split('/')[2]+')';
-    const r=await netGet(host+'?data='+encodeURIComponent(q));try{j=JSON.parse(r.body);if(j&&j.elements&&j.elements.length)break;j=null;rgeoErr+=host.split('/')[2]+': vacío · ';}catch(e){j=null;rgeoErr+=host.split('/')[2]+': '+r.code+' '+(r.body||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').slice(0,60)+' · ';}}
+    // primero lo pide la propia pantalla (como un navegador normal); si no, la parte Android de la app
+    let r;try{const ac=new AbortController(),to=setTimeout(()=>ac.abort(),60000);const f=await fetch(host,{method:'POST',body:'data='+encodeURIComponent(q),headers:{'Content-Type':'application/x-www-form-urlencoded'},signal:ac.signal});clearTimeout(to);r={code:f.status,body:await f.text()};}
+    catch(e){r=await netGet(host+'?data='+encodeURIComponent(q));}
+    try{j=JSON.parse(r.body);if(j&&j.elements&&j.elements.length)break;j=null;rgeoErr+=host.split('/')[2]+': vacío · ';}catch(e){j=null;rgeoErr+=host.split('/')[2]+': '+r.code+' '+(r.body||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').slice(0,60)+' · ';}}
   rgeoLoading=false;if(!j){rgeoFail=Date.now();document.getElementById('mtInfo').textContent='❌ No se pudo descargar el dibujo de los ríos. Reintento en 2 min. '+rgeoErr;return;}
   const g={};for(const w of j.elements){const nm=(w.tags&&(w.tags['name:es']||w.tags.name))||'';let key=null,main=false;
     for(const k in RGRP){if(RGRP[k].main.test(nm)||RGRP[k].main.test(w.tags.name||'')){key=k;main=true;break;}}
