@@ -262,7 +262,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="card"><b>¿Qué es?</b><div class="note">Una app para seguir el río Arga y el tiempo en Navarra: caudales en directo, el embalse de Eugui, previsión de lluvia y un simulador de riadas para aprender cómo se comporta el río.</div></div>
 <div class="card"><b>Fuentes de datos</b><div class="note">• Caudales, niveles y embalses: SAIH Ebro (Confederación Hidrográfica del Ebro).<br>• Tiempo, previsión e histórico: Open‑Meteo (AEMET, ECMWF, ERA5).<br>• Ortofotos, mapas y modelo del terreno: Instituto Geográfico Nacional (PNOA, MDT25), CNIG.<br>• Riadas históricas: CHE, Ayuntamiento de Pamplona y prensa local.</div></div>
 <div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Es una app para jugar y aprender. Los datos son provisionales y el simulador es un modelo sencillo. Ante cualquier riesgo real, haz caso siempre a los avisos oficiales: CHE, SOS Navarra 112, AEMET y tu Ayuntamiento.</div></div>
-<div class="note" style="text-align:center">Hecha por Pedrito con la ayuda de Claude · 2026</div>
+<div class="note" style="text-align:center">Creado por <b>La Z Sortzailea</b> · 2026</div>
 </section>
 <div id="grBox" style="position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:60;display:none;align-items:flex-end;justify-content:center">
  <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px 14px 0 0;padding:14px;width:100%;max-width:700px">
@@ -1512,10 +1512,15 @@ document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>sho
 // mapa genérico de Navarra con zoom/arrastre sobre el mapa base del IGN
 function NavMap(id,draw,tap){const M={la:42.66,lo:-1.63,z:1,img:null,ib:null,t:0};const cv=document.getElementById(id);
   M.box=()=>{const W=cv.clientWidth,H=LH(cv),k=Math.cos(M.la*Math.PI/180),dLo=(NB.e-NB.w)/M.z,dLa=dLo*k*H/W;return {w:M.lo-dLo/2,e:M.lo+dLo/2,s:M.la-dLa/2,n:M.la+dLa/2,W,H};};
-  M.base=()=>{clearTimeout(M.t);M.t=setTimeout(()=>{const b=M.box(),im=new Image();im.onload=()=>{M.img=im;M.ib=b;M.draw();};
+  M.ov=null;M.ovImg=null;M.ovB=null;
+  // capa del Gobierno de Navarra (IDENA) encima del mapa base
+  M.ovLoad=()=>{if(!M.ov){M.ovImg=null;M.draw();return;}const b=M.box(),im=new Image(),lay=M.ov;im.onload=()=>{if(M.ov===lay){M.ovImg=im;M.ovB=b;M.draw();}};im.onerror=()=>{M.ovImg=null;M.draw();};
+    im.src=`https://idena.navarra.es/ogc/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=${lay}&STYLES=&CRS=EPSG:4258&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${Math.round(b.W*1.5)}&HEIGHT=${Math.round(b.H*1.5)}&FORMAT=image/png&TRANSPARENT=TRUE`;};
+  M.base=()=>{clearTimeout(M.t);M.t=setTimeout(()=>{M.ovLoad();const b=M.box(),im=new Image();im.onload=()=>{M.img=im;M.ib=b;M.draw();};
     im.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${Math.round(b.W*1.5)}&HEIGHT=${Math.round(b.H*1.5)}&FORMAT=image/jpeg`;},250);};
   M.draw=()=>{if(cv.clientWidth<10)return;const x=fitCanvas(cv),b=M.box(),P=(la,lo)=>[b.W*(lo-b.w)/(b.e-b.w),b.H*(b.n-la)/(b.n-b.s)];
     x.fillStyle='#dfe6ec';x.fillRect(0,0,b.W,b.H);if(M.img&&M.ib){const [x0,y0]=P(M.ib.n,M.ib.w),[x1,y1]=P(M.ib.s,M.ib.e);x.globalAlpha=.85;x.drawImage(M.img,x0,y0,x1-x0,y1-y0);x.globalAlpha=1;}
+    if(M.ov&&M.ovImg&&M.ovB){const [x0,y0]=P(M.ovB.n,M.ovB.w),[x1,y1]=P(M.ovB.s,M.ovB.e);x.globalAlpha=.8;x.drawImage(M.ovImg,x0,y0,x1-x0,y1-y0);x.globalAlpha=1;}
     M.P=P;draw(x,P,b,M);};
   M.zoom=(f,cx,cy)=>{const b=M.box();if(cx!=null){const lo=b.w+(b.e-b.w)*cx/b.W,la=b.n-(b.n-b.s)*cy/b.H;M.lo=lo+(M.lo-lo)/f;M.la=la+(M.la-la)/f;}M.z=Math.max(1,Math.min(200,M.z*f));M.draw();M.base();};
   M.fit=(s,n,w,e)=>{M.la=(s+n)/2;M.lo=(w+e)/2;const k=Math.cos(M.la*Math.PI/180),need=Math.max(.01,(e-w)*1.4,(n-s)*1.4*cv.clientWidth/(LH(cv)*k));M.z=Math.max(1,Math.min(200,(NB.e-NB.w)/need));M.draw();M.base();};
@@ -1639,18 +1644,33 @@ let ZSEL=null,ZM=null;
 function zDraw(x,P,b,M){for(const z of NZON){const [px,py]=P(z.c[0],z.c[1]),sel=ZSEL===z.id,r=sel?16:12;x.beginPath();x.arc(px,py,r,0,7);x.fillStyle=z.col;x.globalAlpha=.92;x.fill();x.globalAlpha=1;
   x.strokeStyle='#fff';x.lineWidth=sel?3:2;x.stroke();x.font='bold 12px system-ui';x.textAlign='center';const lab=z.s||z.n,tw=x.measureText(lab).width;
   x.fillStyle='rgba(11,17,24,.82)';x.fillRect(px-tw/2-5,py+r+3,tw+10,18);x.fillStyle='#fff';x.fillText(lab,px,py+r+16);x.textAlign='left';}}
-function zTap(px,py,M){let best=null,bd=40;for(const z of NZON){const [qx,qy]=M.P(z.c[0],z.c[1]),d=Math.hypot(qx-px,qy-py);if(d<bd){bd=d;best=z.id;}}ZSEL=best;M.draw();zRender();}
+const ZOV=[['','Solo las zonas'],['OCUPAC_Pol_MCA_VE2023','🌲 Mapa de cultivos y bosques 2023 (oficial)'],['FOREST_Pol_AMicologico','🍄 Acotados micológicos'],['IDEMUN_Sym_ArbolesRelevantes','🌳 Árboles singulares'],['BIODIV_Pol_Habitats','🌿 Hábitats de interés']];
+// al tocar con una capa oficial activa, se pregunta a IDENA qué hay en ese punto
+async function zInfo(px,py,M){const el=document.getElementById('arbZona'),b=M.box();el.innerHTML='<div class="note">Consultando el mapa oficial…</div>';
+  const W=Math.round(b.W),H=Math.round(b.H),u=`https://idena.navarra.es/ogc/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=${M.ov}&QUERY_LAYERS=${M.ov}&STYLES=&CRS=EPSG:4258&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${W}&HEIGHT=${H}&I=${Math.round(px)}&J=${Math.round(py)}&INFO_FORMAT=text/html&FEATURE_COUNT=3`;
+  let t='';try{if(APP){const r=await netGet(u);t=r.body||'';}else{const r=await fetch(u);t=await r.text();}}catch(e){}
+  const rows=[...t.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim());let html='';
+  if(rows.length){const half=[];const th=[...t.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim()),td=[...t.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim());
+    if(th.length&&td.length>=th.length)th.forEach((h,i)=>{if(td[i]&&!/^(FID|OBJECTID|GEOM|SHAPE|FEATURE|BEGINLIFE)/i.test(h))half.push(`<div class="st"><b>${h}</b><span style="text-align:right">${td[i]}</span></div>`);});
+    else td.forEach(v=>v&&half.push(`<div class="note">${v}</div>`));html=half.join('');}
+  else{const plain=t.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();html=plain?`<div class="note">${plain.slice(0,600)}</div>`:'';}
+  el.innerHTML=`<div class="card"><b>📍 ${ZOV.find(z=>z[0]===M.ov)[1]}</b>${html||'<div class="note">Aquí no hay nada en esta capa (o acércate más para consultar).</div>'}<div class="note" style="margin-top:4px">Fuente: Gobierno de Navarra · IDENA.</div></div>`;}
+function zTap(px,py,M){if(M.ov){zInfo(px,py,M);return;}let best=null,bd=40;for(const z of NZON){const [qx,qy]=M.P(z.c[0],z.c[1]),d=Math.hypot(qx-px,qy-py);if(d<bd){bd=d;best=z.id;}}ZSEL=best;M.draw();zRender();}
 function zRender(){const el=document.getElementById('arbZona');const z=NZON.find(q=>q.id===ZSEL);
   if(!z){el.innerHTML='<div class="note">Toca una zona del mapa para ver sus árboles, o mira la lista de especies más abajo.</div>';return;}
   el.innerHTML=`<div class="card" style="border-color:${z.col}"><b style="font-size:16px">🌲 ${z.n}</b><div class="note">📍 ${z.w}</div><div style="margin:6px 0;font-size:14px">${z.d}</div>
    <div>${z.t.map(t=>`<span class="pill" style="background:${z.col};color:#fff;margin:2px 4px 2px 0;font-size:12px">${t}</span>`).join('')}</div></div>`;
   el.scrollIntoView({behavior:'smooth',block:'nearest'});}
-function arbRender(el){el.innerHTML=`<div style="position:relative"><canvas id="arbc" height="440"></canvas></div><div id="arbZona"></div>
+function arbRender(el){el.innerHTML=`<select class="town" id="arbOv" style="margin-bottom:8px">${ZOV.map(([k,n])=>`<option value="${k}">${n}</option>`).join('')}</select><div style="position:relative"><canvas id="arbc" height="440"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="arbIn">＋</button><button class="btn mtb" id="arbOut">－</button></div></div><div class="note" id="arbOvNote"></div><div id="arbZona"></div>
   <div class="card"><b>🔎 Cómo reconocer los árboles</b><div class="note">Y en qué zonas de Navarra los encontrarás.</div>
   ${NARB.map(a=>`<div class="st" style="align-items:flex-start;flex-direction:column;gap:2px"><div><b>${a.n}</b> <i class="note">${a.l}</i></div><div class="note">${a.h}</div>
    <div>${a.z.map(id=>{const z=NZON.find(q=>q.id===id);return `<span data-z="${id}" class="pill" style="background:${z.col};color:#fff;margin:2px 4px 2px 0;font-size:11px;cursor:pointer">${z.n}</span>`;}).join('')}</div></div>`).join('')}</div>
   <div class="note">Mapa orientativo por grandes zonas: dentro de cada una hay mucha variedad según la altitud, la orientación y el suelo.</div>`;
-  ZM=NavMap('arbc',zDraw,zTap);setTimeout(()=>{ZM.draw();ZM.base();zRender();},30);
+  ZM=NavMap('arbc',(x,P,b,M)=>{if(!M.ov)zDraw(x,P,b,M);},zTap);setTimeout(()=>{ZM.draw();ZM.base();zRender();},30);
+  document.getElementById('arbIn').onclick=()=>ZM.zoom(1.6);document.getElementById('arbOut').onclick=()=>ZM.zoom(1/1.6);
+  document.getElementById('arbOv').onchange=e=>{ZM.ov=e.target.value||null;ZM.ovImg=null;ZM.ovLoad();
+    document.getElementById('arbOvNote').textContent=ZM.ov?'Capa oficial del Gobierno de Navarra. Acércate (＋ o pellizcando) para ver el detalle y toca un punto para saber qué hay.':'';
+    if(ZM.ov==='OCUPAC_Pol_MCA_VE2023'&&ZM.z<3)ZM.zoom(3);else ZM.draw();};
   el.querySelectorAll('[data-z]').forEach(s=>s.onclick=()=>{ZSEL=s.dataset.z;ZM.draw();zRender();});}
 
 /* =====================================================================
