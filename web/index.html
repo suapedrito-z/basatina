@@ -27,6 +27,12 @@ input[type=range]{width:100%}
 .big{font-size:26px;font-weight:700}
 .pill{display:inline-block;padding:4px 10px;border-radius:99px;font-weight:600;font-size:13px}
 .st{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.st:last-child{border-bottom:0}.st .v{font-size:20px;font-weight:700;white-space:nowrap}.st .s{font-size:12px;color:#93a4b5}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.seg button{flex:1;min-width:70px}.seg button.on{background:#2f8fd8;color:#fff;border-color:#2f8fd8}
+select.town{width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt);font-size:15px}
+.dayr{display:grid;grid-template-columns:64px 34px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.dayr:last-child{border-bottom:0}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi>div{background:#0b1118;border:1px solid var(--line);border-radius:8px;padding:8px}.kpi b{font-size:18px;display:block}
+#pinBox{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99;display:none;align-items:center;justify-content:center}#pinBox>div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;width:280px}
+#pinBox input{width:100%;font-size:24px;letter-spacing:8px;text-align:center;padding:8px;margin:10px 0;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt)}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0}
 .note{font-size:12.5px;color:var(--mut);line-height:1.45}
 ul.hs{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px}
@@ -77,11 +83,18 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button data-t="libre">🎚️ Mapa de riadas (elige caudal)</button>
   <button data-t="prev">🔮 Previsiones</button>
   <button data-t="sim">▶️ Simulador de los próximos días</button>
+  <div class="dgroup">Tiempo</div>
+  <button data-t="tiempo">🌦️ El tiempo</button>
+  <button data-t="mtiempo">🗺️ Mapa del tiempo de Navarra</button>
+  <button data-t="clima">📈 Histórico del clima</button>
   <div class="dgroup">Actualizar</div>
   <button id="dRefresh">🔄 Actualizar datos ahora</button>
   <button id="dUpdate" style="display:none">⬆️ Buscar nueva versión de la app</button>
-  <div class="dgroup" id="dgApp" style="display:none">Herramientas</div>
+  <div class="dgroup" id="dgApp" style="display:none">🔧 Zona técnica</div>
   <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
+  <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
+  <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
+  <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
   <div class="note" style="padding:14px">Para jugar y aprender. Ante riesgo real, haz caso siempre a los avisos oficiales.</div>
 </aside>
 
@@ -196,13 +209,37 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="note">Lluvia prevista: Open‑Meteo, media de 6 puntos de la cuenca (Quinto Real, Eugui, Zubiri, Ultzama, Juslapeña y Pamplona), actualizada cada 3 horas (en la app, la descarga el propio móvil). En la app, el caudal de ahora se toma solo del SAIH Ebro (Burlada); en la web lo pones tú. El modelo es muy simple y solo sirve para jugar y aprender: <b>haz caso siempre a los avisos oficiales</b> (CHE, SOS Navarra 112, Ayuntamiento).</div>
 </div>
 </section>
+<!-- ============ EL TIEMPO ============ -->
+<section id="t-tiempo">
+<div class="card"><select class="town" id="tTown"></select><div id="tNow" style="margin-top:8px"><div class="note">Cargando…</div></div></div>
+<div class="card"><b>Próximas 24 horas</b><div class="note">Línea: temperatura · barras: lluvia (mm por hora)</div><canvas id="tH" height="180"></canvas></div>
+<div class="card"><b>Próximos 7 días</b><div id="tDays"></div></div>
+<div class="note">Fuente: Open‑Meteo (modelos de AEMET, ECMWF y otros), se actualiza al abrir esta pantalla.</div>
+</section>
+<!-- ============ MAPA DEL TIEMPO ============ -->
+<section id="t-mtiempo">
+<div class="seg" id="mtSeg"><button data-m="now" class="btn on">Ahora</button><button data-m="rain" class="btn">Lluvia hoy</button><button data-m="tom" class="btn">Mañana</button></div>
+<canvas id="mtc" height="400"></canvas>
+<div class="note" id="mtInfo">Toca un pueblo para ver su previsión.</div>
+<div class="note">Mapa base: © Instituto Geográfico Nacional · Datos: Open‑Meteo.</div>
+</section>
+<!-- ============ HISTÓRICO DEL CLIMA ============ -->
+<section id="t-clima">
+<div class="card"><select class="town" id="cTown"></select>
+<div class="seg" id="cSeg"><button data-p="7" class="btn on">Semana</button><button data-p="30" class="btn">Mes</button><button data-p="ytd" class="btn">Este año</button><button data-p="365" class="btn">12 meses</button></div></div>
+<div id="cKpi" class="kpi"></div>
+<div class="card"><b id="cChTit">Día a día</b><div class="note">Barras: lluvia · líneas: máxima y mínima</div><canvas id="cCh" height="200"></canvas></div>
+<div class="card" id="cMonCard" style="display:none"><b>Mes a mes</b><div id="cMon"></div></div>
+<div class="note">Datos de Open‑Meteo (reanálisis ERA5 y modelos), no de una estación concreta: sirven para comparar, pero pueden diferir unos grados o milímetros de lo medido en el pueblo.</div>
+</section>
+<div id="pinBox"><div><b id="pinTit">Zona técnica</b><div class="note" id="pinMsg"></div><input id="pinIn" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><div class="row"><button class="btn pri" id="pinOk">Entrar</button><button class="btn" id="pinNo">Cancelar</button></div></div></div>
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
 <div id="cauEugui"></div>
 <div class="card"><b>🌊 Río Arga (de arriba abajo)</b><div id="cauArga"></div></div>
 <div class="card"><b>🏞️ Afluentes</b><div id="cauAfl"></div></div>
-<div class="row"><button class="btn pri" id="cauMap">🗺️ Ver en el mapa con el caudal real</button><button class="btn" id="cauPrev">🔮 Previsión desde el caudal real</button><button class="btn" id="cauShare">Compartir datos</button></div>
+<div class="row"><button class="btn pri" id="cauMap">🗺️ Ver en el mapa con el caudal real</button><button class="btn" id="cauPrev">🔮 Previsión desde el caudal real</button><button class="btn tech" id="cauShare" style="display:none">Compartir datos</button></div>
 <div class="note">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos cada 15 minutos y provisionales. En Puente la Reina no hay estación del SAIH: las más cercanas son Etxauri (aguas arriba) y Funes (al final). Los avisos amarillo/naranja/rojo son los umbrales oficiales del SAIH cuando existen. Ante riesgo real, haz caso siempre a los avisos oficiales (CHE, SOS Navarra 112).</div>
 </section>
 <!-- ============ SAIH ============ -->
@@ -218,7 +255,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del río (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal ahora'};
+const TITLES={tiempo:'🌦️ El tiempo',mtiempo:'🗺️ Mapa del tiempo de Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del río (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal ahora'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -716,7 +753,7 @@ async function saihExplore4(){const out=document.getElementById('saihOut'),log=[
     rep.push('##### '+t+' → '+r.code+', '+b.length+' car.',isH?strip(b).slice(0,200):cut(b,1200),'');}
   saihLast='INFORME 4 EXPLORACIÓN SAIH '+new Date().toLocaleString('es-ES')+'\n\n'+rep.join('\n');
   out.textContent=saihLast.slice(0,3500);say('\nListo: pulsa «Compartir resultado».');document.getElementById('saihShare').disabled=false;}
-if(APP){document.getElementById('dgApp').style.display='';document.getElementById('dSaih').style.display='';
+if(APP){
   document.getElementById('saihExp').onclick=saihExplore;document.getElementById('saihExp2').onclick=saihExplore2;document.getElementById('saihExp3').onclick=saihExplore3;document.getElementById('saihExp4').onclick=saihExplore4;
   document.getElementById('saihGo').onclick=saihTest;
   document.getElementById('saihShare').onclick=()=>window.AndroidNet.share(saihLast.slice(0,45000));
@@ -858,6 +895,173 @@ window.addEventListener('resize',resizeAll);
 let lastW=0;try{new ResizeObserver(()=>{const w=document.body.clientWidth;if(w!==lastW){lastW=w;resizeAll();}}).observe(document.body);}catch(e){}
 setTimeout(resizeAll,300);setTimeout(resizeAll,1200);
 G={t:0,series:[],warnT:null};resizeAll();setQ(20);gReset();loopMap();loadDEM(makeDemo());
+
+/* =====================================================================
+   EL TIEMPO · MAPA DEL TIEMPO · HISTÓRICO DEL CLIMA · ZONA TÉCNICA
+   ===================================================================== */
+// principales municipios de Navarra [nombre, latitud, longitud]
+const TOWNS=[['Pamplona',42.8125,-1.6458],['Tudela',42.0617,-1.6045],['Estella',42.6713,-2.0322],['Tafalla',42.5281,-1.6745],
+ ['Sangüesa',42.5750,-1.2830],['Elizondo',43.1440,-1.5160],['Altsasu/Alsasua',42.8960,-2.1690],['Lekunberri',43.0050,-1.8920],
+ ['Viana',42.5160,-2.3710],['Olite',42.4820,-1.6510],['Peralta',42.3360,-1.8000],['Lodosa',42.4270,-2.0770],['Corella',42.1150,-1.7860],
+ ['Bera',43.2810,-1.6860],['Leitza',43.0790,-1.9160],['Aoiz',42.7860,-1.3720],['Ochagavía',42.9090,-1.0880],['Isaba',42.8620,-0.9220],
+ ['Orreaga/Roncesvalles',43.0090,-1.3190],['Puente la Reina',42.6720,-1.8150],['Caparroso',42.3420,-1.6500],['Lumbier',42.6530,-1.3070],
+ ['Irurtzun',42.9190,-1.8270],['Zubiri',42.9300,-1.5030],['Eugi',42.9770,-1.5150],['Funes',42.3150,-1.8010],['Arguedas',42.1770,-1.5980]];
+const OM='https://api.open-meteo.com/v1/forecast',OMA='https://archive-api.open-meteo.com/v1/archive',TZ='&timezone=Europe%2FMadrid';
+async function getJSON(u,retry=1){const j=await getJSON1(u);if(j||!retry)return j;await new Promise(r=>setTimeout(r,1500));return getJSON1(u);}
+async function getJSON1(u){try{if(APP){const r=await netGet(u);return r.code===200?JSON.parse(r.body):null;}const r=await fetch(u);return r.ok?await r.json():null;}catch(e){return null;}}
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const DOW=['dom','lun','mar','mié','jue','vie','sáb'],MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function wDesc(c){if(c==null)return'';if(c===0)return'Despejado';if(c<=2)return'Poco nuboso';if(c===3)return'Cubierto';if(c===45||c===48)return'Niebla';
+  if(c>=95)return'Tormenta';if(c>=85)return'Chubascos de nieve';if(c>=80)return'Chubascos';if(c>=71)return'Nieve';if(c>=61)return'Lluvia';if(c>=51)return'Llovizna';return'';}
+let TOWN=0;try{TOWN=+(localStorage.getItem('town')||0)||0;}catch(e){}
+function fillTowns(sel){sel.innerHTML=TOWNS.map((t,i)=>`<option value="${i}">${t[0]}</option>`).join('');sel.value=TOWN;}
+function setTown(i){TOWN=+i;try{localStorage.setItem('town',TOWN);}catch(e){}document.getElementById('tTown').value=TOWN;document.getElementById('cTown').value=TOWN;}
+
+/* ---------- 🌦️ El tiempo ---------- */
+let TW=null;
+async function tiempoFetch(){const t=TOWNS[TOWN],now=document.getElementById('tNow');now.innerHTML='<div class="note">Cargando el tiempo de '+t[0]+'…</div>';
+  const u=`${OM}?latitude=${t[1]}&longitude=${t[2]}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,weather_code,precipitation`+
+    `&hourly=temperature_2m,precipitation,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,sunrise,sunset&past_days=1&forecast_days=7${TZ}`;
+  const j=await getJSON(u);if(!j||!j.current){now.innerHTML='<div class="note">❌ No se pudo cargar el tiempo ahora. Prueba en un rato.</div>';return;}
+  TW={j,town:t[0]};tiempoRender();}
+function tiempoRender(){if(!TW)return;const {j,town}=TW,c=j.current,h=j.hourly,d=j.daily,nowD=new Date(),today=ymd(nowD),hh=nowD.getHours();
+  // lluvia de hoy: caída hasta ahora y prevista para el resto del día
+  let fell=0,rest=0;h.time.forEach((x,i)=>{if(x.slice(0,10)!==today)return;const H=+x.slice(11,13);if(H<=hh)fell+=h.precipitation[i]||0;else rest+=h.precipitation[i]||0;});
+  const di=d.time.indexOf(today);
+  document.getElementById('tNow').innerHTML=`<div style="display:flex;align-items:center;gap:14px"><div style="font-size:54px;line-height:1">${wxIcon(c.weather_code,hh)}</div>
+    <div><div class="big" style="font-size:40px">${Math.round(c.temperature_2m)}°</div><div>${wDesc(c.weather_code)} · ${town}</div></div></div>
+    <div class="kpi" style="margin-top:10px"><div><span class="note">Sensación</span><b>${Math.round(c.apparent_temperature)}°</b></div>
+    <div><span class="note">Máx / mín hoy</span><b>${di>=0?Math.round(d.temperature_2m_max[di])+'° / '+Math.round(d.temperature_2m_min[di])+'°':'—'}</b></div>
+    <div><span class="note">💧 Lluvia hoy (caída)</span><b>${fmtN(fell,1)} mm</b></div><div><span class="note">🌧️ Prevista resto del día</span><b>${fmtN(rest,1)} mm</b></div>
+    <div><span class="note">Humedad</span><b>${c.relative_humidity_2m} %</b></div><div><span class="note">Viento (rachas)</span><b>${Math.round(c.wind_speed_10m)} (${Math.round(c.wind_gusts_10m)}) km/h</b></div></div>`;
+  // 7 días
+  let rows='';d.time.forEach((x,i)=>{if(x<today)return;const dt=new Date(x+'T12:00');const name=x===today?'Hoy':DOW[dt.getDay()]+' '+dt.getDate();
+    rows+=`<div class="dayr"><b>${name}</b><span style="font-size:24px">${wxIcon(d.weather_code[i],12)}</span><span class="s note">${wDesc(d.weather_code[i])}${d.precipitation_sum[i]>0.1?` · 💧 ${fmtN(d.precipitation_sum[i],1)} mm (${d.precipitation_probability_max[i]??'?'} %)`:''}</span><b>${Math.round(d.temperature_2m_max[i])}° <span class="note">${Math.round(d.temperature_2m_min[i])}°</span></b></div>`;});
+  document.getElementById('tDays').innerHTML=rows;
+  // gráfica 24 h
+  const cv=document.getElementById('tH');if(cv.clientWidth<10)return;const x=fitCanvas(cv),W=cv.clientWidth,Hh=LH(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,Hh);
+  const key=today+'T'+String(hh).padStart(2,'0')+':00';let i0=h.time.indexOf(key);if(i0<0)i0=0;const I=[...Array(25).keys()].map(k=>i0+k).filter(k=>k<h.time.length);
+  const T=I.map(k=>h.temperature_2m[k]),P=I.map(k=>h.precipitation[k]||0),tmin=Math.floor(Math.min(...T))-1,tmax=Math.ceil(Math.max(...T))+1,pmax=Math.max(2,...P);
+  const L=28,R=W-28,top=14,bot=Hh-24,X=k=>L+(R-L)*k/(I.length-1);
+  x.fillStyle='rgba(47,143,216,.75)';P.forEach((v,k)=>{const bh=(bot-top)*v/pmax;x.fillRect(X(k)-4,bot-bh,8,bh);});
+  x.strokeStyle='#ffb020';x.lineWidth=2;x.beginPath();T.forEach((v,k)=>{const y=bot-(bot-top)*(v-tmin)/(tmax-tmin);k?x.lineTo(X(k),y):x.moveTo(X(k),y);});x.stroke();
+  x.fillStyle='#93a4b5';x.font='11px system-ui';x.textAlign='center';
+  I.forEach((k,n)=>{if(n%3)return;x.fillText(h.time[k].slice(11,13)+'h',X(n),Hh-8);const y=bot-(bot-top)*(T[n]-tmin)/(tmax-tmin);x.fillStyle='#ffd08a';x.fillText(Math.round(T[n])+'°',X(n),y-6);x.fillStyle='#93a4b5';});
+  x.textAlign='left';x.fillText(fmtN(pmax,1)+' mm',2,top+4);}
+document.getElementById('tTown').onchange=e=>{setTown(e.target.value);tiempoFetch();};
+
+/* ---------- 🗺️ Mapa del tiempo de Navarra ---------- */
+const NB={w:-2.55,e:-0.70,s:41.88,n:43.33};let MT=null,MTM='now',mtImg=null,mtHits=[];
+function mtBase(){if(mtImg)return;mtImg=new Image();mtImg.onload=()=>mtDraw();mtImg.onerror=()=>{mtImg.bad=1;mtDraw();};
+  mtImg.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${NB.s},${NB.w},${NB.n},${NB.e}&WIDTH=900&HEIGHT=960&FORMAT=image/jpeg`;}
+async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');info.textContent='Cargando el tiempo de '+TOWNS.length+' pueblos…';
+  const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=2${TZ}`;
+  const j=await getJSON(u);if(!j){info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];
+  info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · toca un pueblo para ver su previsión';mtDraw();}
+function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)return;const W=cv.clientWidth,H=Math.round(W*(NB.n-NB.s)/((NB.e-NB.w)*Math.cos(42.6*Math.PI/180)));
+  cv.dataset.h=H;const x=fitCanvas(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,H);
+  if(mtImg&&mtImg.complete&&!mtImg.bad&&mtImg.naturalWidth){x.globalAlpha=.85;x.drawImage(mtImg,0,0,W,H);x.globalAlpha=1;}
+  else{x.fillStyle='#93a4b5';x.font='12px system-ui';x.fillText(mtImg&&mtImg.bad?'Mapa base no disponible ahora':'Cargando mapa base…',10,18);}
+  const P=t=>[W*(t[2]-NB.w)/(NB.e-NB.w),H*(NB.n-t[1])/(NB.n-NB.s)];mtHits=[];const hh=new Date().getHours();
+  TOWNS.forEach((t,i)=>{const [px,py]=P(t);const m=MT&&MT[i];let ico='',txt='',col='#0b1118';
+    if(m){if(MTM==='now'){ico=wxIcon(m.current.weather_code,hh);txt=Math.round(m.current.temperature_2m)+'°';}
+      else if(MTM==='rain'){const r=m.daily.precipitation_sum[0]||0;ico=r>=0.1?'💧':'';txt=fmtN(r,1)+' mm';col=r>=10?'#14508f':r>=1?'#1f6fb0':'#0b1118';}
+      else{ico=wxIcon(m.daily.weather_code[1],12);txt=Math.round(m.daily.temperature_2m_max[1])+'°/'+Math.round(m.daily.temperature_2m_min[1])+'°';}}
+    x.font='bold 12px system-ui';const tw=x.measureText(txt).width,bw=tw+(ico?22:8),bx=px-bw/2,by=py-11;
+    x.fillStyle=col;x.globalAlpha=.88;x.beginPath();x.roundRect?x.roundRect(bx,by,bw,22,11):x.rect(bx,by,bw,22);x.fill();x.globalAlpha=1;
+    x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';if(ico){x.font='13px system-ui';x.fillText(ico,bx+3,py+1);x.font='bold 12px system-ui';x.fillText(txt,bx+19,py+1);}else x.fillText(txt,bx+4,py+1);
+    if(W>340&&['Pamplona','Tudela','Estella','Sangüesa','Elizondo','Tafalla'].includes(t[0])){x.font='10px system-ui';x.textAlign='center';x.fillStyle='#000';x.fillText(t[0],px+1,by+34);x.fillStyle='#fff';x.fillText(t[0],px,by+33);}
+    x.textBaseline='alphabetic';mtHits.push([bx,by,bw,22,i]);});}
+document.querySelectorAll('#mtSeg button').forEach(b=>b.onclick=()=>{MTM=b.dataset.m;document.querySelectorAll('#mtSeg button').forEach(x=>x.classList.toggle('on',x===b));mtDraw();});
+document.getElementById('mtc').addEventListener('click',e=>{const r=e.target.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
+  const h=mtHits.find(([bx,by,bw,bh])=>px>=bx-4&&px<=bx+bw+4&&py>=by-4&&py<=by+bh+4);if(h){setTown(h[4]);showTab('tiempo');}});
+
+/* ---------- 📈 Histórico del clima ---------- */
+let CP='7',CL=null;
+async function climaFetch(){const t=TOWNS[TOWN],K=document.getElementById('cKpi');K.innerHTML='<div class="note">Cargando el histórico de '+t[0]+'…</div>';
+  const today=new Date();let start;if(CP==='ytd')start=new Date(today.getFullYear(),0,1);else{start=new Date(today);start.setDate(start.getDate()-(+CP-1));}
+  const daily='daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum';
+  const days=Math.round((today-start)/864e5)+1;const D={};
+  // los últimos días (hasta 92) los da la API de previsión; lo anterior, el archivo histórico
+  const recent=await getJSON(`${OM}?latitude=${t[1]}&longitude=${t[2]}&${daily}&past_days=${Math.min(92,days)}&forecast_days=1${TZ}`);
+  if(days>92){const end=new Date(today);end.setDate(end.getDate()-days+92-1);const a=await getJSON(`${OMA}?latitude=${t[1]}&longitude=${t[2]}&start_date=${ymd(start)}&end_date=${ymd(end)}&${daily}${TZ}`);if(a&&a.daily)addD(D,a.daily);}
+  if(recent&&recent.daily)addD(D,recent.daily);
+  // mismo periodo del año pasado, para comparar
+  const s1=new Date(start);s1.setFullYear(s1.getFullYear()-1);const e1=new Date(today);e1.setFullYear(e1.getFullYear()-1);
+  const prev=await getJSON(`${OMA}?latitude=${t[1]}&longitude=${t[2]}&start_date=${ymd(s1)}&end_date=${ymd(e1)}&daily=precipitation_sum,temperature_2m_mean${TZ}`);
+  const dates=Object.keys(D).filter(x=>x>=ymd(start)&&x<=ymd(today)).sort();if(!dates.length){K.innerHTML='<div class="note">❌ No se pudo cargar el histórico ahora.</div>';return;}
+  CL={town:t[0],dates,D,prev:prev&&prev.daily};climaRender();}
+function addD(D,d){d.time.forEach((x,i)=>{D[x]={mx:d.temperature_2m_max[i],mn:d.temperature_2m_min[i],me:d.temperature_2m_mean[i],p:d.precipitation_sum[i]};});}
+function climaRender(){if(!CL)return;const {dates,D,prev}=CL,V=dates.map(x=>D[x]);const ok=a=>a.filter(v=>v!=null&&!isNaN(v));
+  const P=ok(V.map(v=>v.p)),rain=P.reduce((a,b)=>a+b,0),wet=P.filter(v=>v>=1).length,me=ok(V.map(v=>v.me));
+  let imx=-1,imn=-1;V.forEach((v,i)=>{if(v.mx!=null&&(imx<0||v.mx>V[imx].mx))imx=i;if(v.mn!=null&&(imn<0||v.mn<V[imn].mn))imn=i;});
+  const fd=x=>{const d=new Date(x+'T12:00');return d.getDate()+' '+MES[d.getMonth()];};
+  let cmp='';if(prev){const pr=ok(prev.precipitation_sum).reduce((a,b)=>a+b,0),pm=ok(prev.temperature_2m_mean);
+    cmp=`<div><span class="note">Lluvia, mismo periodo del año pasado</span><b>${fmtN(pr,0)} mm</b><span class="note">${rain>=pr?'▲ '+fmtN(rain-pr,0)+' mm más':'▼ '+fmtN(pr-rain,0)+' mm menos'}</span></div>
+      <div><span class="note">Temp. media del año pasado</span><b>${pm.length?fmtN(pm.reduce((a,b)=>a+b,0)/pm.length,1)+'°':'—'}</b></div>`;}
+  document.getElementById('cKpi').innerHTML=`<div><span class="note">💧 Lluvia total</span><b>${fmtN(rain,1)} mm</b><span class="note">${wet} días de lluvia</span></div>
+    <div><span class="note">🌡️ Temperatura media</span><b>${me.length?fmtN(me.reduce((a,b)=>a+b,0)/me.length,1)+'°':'—'}</b><span class="note">${fd(dates[0])} – ${fd(dates[dates.length-1])}</span></div>
+    <div><span class="note">🔥 Máxima</span><b>${imx>=0?fmtN(V[imx].mx,1)+'°':'—'}</b><span class="note">${imx>=0?fd(dates[imx]):''}</span></div>
+    <div><span class="note">❄️ Mínima</span><b>${imn>=0?fmtN(V[imn].mn,1)+'°':'—'}</b><span class="note">${imn>=0?fd(dates[imn]):''}</span></div>${cmp}`;
+  // agrupar por semanas si el periodo es largo
+  let G=dates.map((x,i)=>({lab:fd(x),p:V[i].p||0,mx:V[i].mx,mn:V[i].mn}));const wk=dates.length>62;
+  if(wk){const g=[];for(let i=0;i<dates.length;i+=7){const s=V.slice(i,i+7);g.push({lab:fd(dates[i]),p:ok(s.map(v=>v.p)).reduce((a,b)=>a+b,0),mx:Math.max(...ok(s.map(v=>v.mx))),mn:Math.min(...ok(s.map(v=>v.mn)))});}G=g;}
+  document.getElementById('cChTit').textContent=wk?'Semana a semana':'Día a día';
+  const cv=document.getElementById('cCh');if(cv.clientWidth>10){const x=fitCanvas(cv),W=cv.clientWidth,H=LH(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,H);
+    const L=30,R=W-8,top=12,bot=H-22,n=G.length,bw=Math.max(2,(R-L)/n*.7),X=i=>L+(R-L)*(i+.5)/n;
+    const pmax=Math.max(5,...G.map(g=>g.p)),tl=ok(G.flatMap(g=>[g.mx,g.mn])),tmin=Math.floor(Math.min(...tl))-1,tmax=Math.ceil(Math.max(...tl))+1,Y=v=>bot-(bot-top)*(v-tmin)/(tmax-tmin);
+    x.fillStyle='rgba(47,143,216,.8)';G.forEach((g,i)=>{const h=(bot-top)*g.p/pmax;x.fillRect(X(i)-bw/2,bot-h,bw,h);});
+    [['mx','#ff7a1a'],['mn','#7cc4ff']].forEach(([k,c])=>{x.strokeStyle=c;x.lineWidth=2;x.beginPath();let f=0;G.forEach((g,i)=>{if(g[k]==null||!isFinite(g[k]))return;f?x.lineTo(X(i),Y(g[k])):x.moveTo(X(i),Y(g[k]));f=1;});x.stroke();});
+    x.fillStyle='#93a4b5';x.font='10px system-ui';x.textAlign='center';const step=Math.ceil(n/7);G.forEach((g,i)=>{if(i%step===0)x.fillText(g.lab,X(i),H-6);});
+    x.textAlign='left';x.fillText(fmtN(pmax,0)+' mm',2,top+2);x.fillText(tmax+'°',2,top+14);x.fillText(tmin+'°',2,bot);}
+  // tabla mes a mes (este año / 12 meses)
+  const mc=document.getElementById('cMonCard');if(dates.length>62){const M={};dates.forEach((x,i)=>{const k=x.slice(0,7);(M[k]=M[k]||[]).push(V[i]);});
+    document.getElementById('cMon').innerHTML=Object.keys(M).map(k=>{const s=M[k],pp=ok(s.map(v=>v.p)).reduce((a,b)=>a+b,0),mm=ok(s.map(v=>v.me));
+      return `<div class="st"><div><b>${MES[+k.slice(5)-1]} ${k.slice(0,4)}</b><div class="s">${s.length} días · media ${mm.length?fmtN(mm.reduce((a,b)=>a+b,0)/mm.length,1)+'°':'—'}</div></div><div class="v">${fmtN(pp,0)} <span style="font-size:13px">mm</span></div></div>`;}).join('');mc.style.display='';}
+  else mc.style.display='none';}
+document.getElementById('cTown').onchange=e=>{setTown(e.target.value);climaFetch();};
+document.querySelectorAll('#cSeg button').forEach(b=>b.onclick=()=>{CP=b.dataset.p;document.querySelectorAll('#cSeg button').forEach(x=>x.classList.toggle('on',x===b));climaFetch();});
+
+fillTowns(document.getElementById('tTown'));fillTowns(document.getElementById('cTown'));
+// cargar cada pantalla al abrirla (y redibujar al girar el móvil)
+const _showTab=showTab;showTab=function(t){_showTab(t);setTimeout(()=>{if(t==='tiempo'){if(!TW||TW.town!==TOWNS[TOWN][0]||Date.now()-(TW.at||0)>15*60e3)tiempoFetch().then(()=>{if(TW)TW.at=Date.now();});else tiempoRender();}
+  if(t==='mtiempo'){if(!MT||Date.now()-(MT.at||0)>15*60e3)mtFetch().then(()=>{if(MT)MT.at=Date.now();});else mtDraw();}
+  if(t==='clima'){if(!CL||CL.town!==TOWNS[TOWN][0])climaFetch();else climaRender();}},60);};
+document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+document.querySelectorAll('[data-t2]').forEach(b=>b.onclick=()=>showTab(b.dataset.t2));
+window.addEventListener('resize',()=>{const on=document.querySelector('section.on');if(!on)return;if(on.id==='t-tiempo')tiempoRender();if(on.id==='t-mtiempo')mtDraw();if(on.id==='t-clima')climaRender();});
+
+/* ---------- 🔧 Zona técnica (tocar 5 veces el logo + PIN) ---------- */
+// Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
+const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
+let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
+function techApply(){['dgApp','dSaih','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+  document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
+let pinMode='enter',pinFirst='';
+function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
+  if(mode==='enter'&&!has)pinMode='new';
+  document.getElementById('pinTit').textContent=pinMode==='enter'?'🔧 Zona técnica':'🔑 Nuevo PIN';
+  document.getElementById('pinMsg').textContent=pinMode==='enter'?'Escribe el PIN':'Elige un PIN de 4 a 8 cifras';
+  document.getElementById('pinIn').value='';document.getElementById('pinBox').style.display='flex';setTimeout(()=>document.getElementById('pinIn').focus(),50);}
+function pinClose(){document.getElementById('pinBox').style.display='none';}
+document.getElementById('pinNo').onclick=pinClose;
+document.getElementById('pinIn').onkeydown=e=>{if(e.key==='Enter')document.getElementById('pinOk').click();};
+document.getElementById('pinOk').onclick=()=>{const v=document.getElementById('pinIn').value.trim(),msg=document.getElementById('pinMsg');
+  if(pinMode==='enter'){let ok=false;try{ok=localStorage.getItem('pinH')===pinHash(v);}catch(e){}
+    if(ok){TECH=true;try{sessionStorage.setItem('tech','1');}catch(e){}techApply();pinClose();toast('🔧 Zona técnica abierta (en el menú)');}
+    else{msg.textContent='❌ PIN incorrecto';document.getElementById('pinIn').value='';}return;}
+  if(!/^\d{4,8}$/.test(v)){msg.textContent='Tienen que ser de 4 a 8 cifras';return;}
+  if(!pinFirst){pinFirst=v;msg.textContent='Repítelo para confirmar';document.getElementById('pinIn').value='';return;}
+  if(v!==pinFirst){pinFirst='';msg.textContent='No coinciden. Empieza otra vez';document.getElementById('pinIn').value='';return;}
+  try{localStorage.setItem('pinH',pinHash(v));}catch(e){}TECH=true;try{sessionStorage.setItem('tech','1');}catch(e){}techApply();pinClose();toast('✅ PIN guardado · zona técnica abierta');};
+let logoTaps=[];document.getElementById('logo').addEventListener('click',()=>{const n=Date.now();logoTaps=logoTaps.filter(t=>n-t<2500);logoTaps.push(n);
+  if(logoTaps.length>=5){logoTaps=[];if(TECH){menu(true);}else pinOpen('enter');}});
+document.getElementById('dLock').onclick=()=>{TECH=false;try{sessionStorage.removeItem('tech');}catch(e){}techApply();menu(false);showTab('mapa');toast('🔒 Zona técnica cerrada');};
+document.getElementById('dPin').onclick=()=>{menu(false);pinOpen('new');};
+document.getElementById('dTechInfo').onclick=async()=>{menu(false);let v='?';try{const r=await fetch('version.json');v=(await r.json()).version;}catch(e){}
+  toast(`Pantalla v${v} · app ${APP&&window.AndroidNet.appVersion?window.AndroidNet.appVersion():'web'} · SAIH ${CAU?'OK '+new Date(cauT).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}):'sin datos'} · ${(navigator.userAgent.match(/Android [\d.]+/)||['web'])[0]}`);};
+techApply();
+
 </script>
 </body>
 </html>
