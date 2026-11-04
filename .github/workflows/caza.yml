@@ -1,0 +1,27 @@
+# Busca las capas de caza del Gobierno de Navarra (cotos) y las guarda para la app.
+name: Datos de caza
+on:
+  push:
+    paths: ['tools/caza.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  caza:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pyshp pyproj
+      - name: Buscar y descargar
+        run: python3 tools/caza.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add tools/caza_info.txt web/caza.js 2>/dev/null || git add tools/caza_info.txt
+          git commit -m "Datos de caza (IDENA)" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          git push
