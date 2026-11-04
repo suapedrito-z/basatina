@@ -9,7 +9,7 @@ def get(url, binary=False):
     r = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120).read()
     return r if binary else r.decode("utf-8", "replace")
 info, urls = [], []
-for q in ["cotos de caza", "caza", "cinegetic", "CAZAPE"]:
+for q in ["cotos de caza", "caza", "cinegetic", "CAZAPE", "Planes de Ordenación Cinegética", "palomer", "puestos", "coto"]:
     try:
         j = json.loads(get("https://datos.gob.es/apidata/catalog/dataset/title/" + urllib.parse.quote(q) + "?_pageSize=50"))
         for it in j.get("result", {}).get("items", []):
@@ -33,5 +33,46 @@ for name in ["CAZAPE_Pol_Cotos", "CAZAPE_Pol_CotoCaza", "CAZAPE_Pol_Coto", "CAZA
         b = get(u, True); info.append(f"OK {u} {len(b)} bytes"); urls.append(u)
     except Exception as e:
         info.append(f"no {u}: {e}")
+
+# ---- descargar las capas útiles y guardarlas en web/caza.js ----
+import shapefile
+from pyproj import Transformer
+tr = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
+def simplify(pts, tol):
+    if len(pts) < 3: return pts
+    a, b = pts[0], pts[-1]; dx, dy = b[0]-a[0], b[1]-a[1]; L = (dx*dx+dy*dy) or 1e-12; best, idx = -1, 0
+    for i in range(1, len(pts)-1):
+        p = pts[i]; t = max(0, min(1, ((p[0]-a[0])*dx+(p[1]-a[1])*dy)/L)); d = ((p[0]-a[0]-t*dx)**2+(p[1]-a[1]-t*dy)**2)**.5
+        if d > best: best, idx = d, i
+    if best <= tol: return [a, b]
+    return simplify(pts[:idx+1], tol)[:-1] + simplify(pts[idx:], tol)
+out = {"t": time.strftime("%Y-%m-%d")}
+for u in urls:
+    if not u.lower().endswith(".zip"): continue
+    key = u.rsplit("/", 1)[1][:-4]
+    try:
+        z = zipfile.ZipFile(io.BytesIO(get(u, True))); names = z.namelist()
+        base = [n[:-4] for n in names if n.lower().endswith(".shp")][0]
+        g = lambda ext: io.BytesIO(z.read([n for n in names if n.lower() == (base+ext).lower()][0]))
+        sf = shapefile.Reader(shp=g(".shp"), dbf=g(".dbf"), encoding="cp1252"); fields = [f[0] for f in sf.fields[1:]]
+        feats, vals = [], collections.defaultdict(collections.Counter)
+        for sr in sf.iterShapeRecords():
+            at = {k: (v.strip() if isinstance(v, str) else v) for k, v in zip(fields, sr.record)}
+            for k, v in at.items(): vals[k][str(v)[:60]] += 1
+            parts = list(sr.shape.parts) + [len(sr.shape.points)]
+            rings = []
+            for i in range(len(parts)-1):
+                pts = [[round(la, 5), round(lo, 5)] for lo, la in (tr.transform(x, y) for x, y in sr.shape.points[parts[i]:parts[i+1]])]
+                pts = simplify(pts, 0.0003)
+                if len(pts) >= 2: rings.append(pts)
+            if rings: feats.append({"a": {k: v for k, v in at.items() if v not in ("", None, "-") and k not in ("FEATURE",)}, "r": rings})
+        out[key] = feats
+        info.append(f"\n## {key}: {len(feats)} elementos · campos {fields}")
+        for k in fields: info.append(f"- {k}: {len(vals[k])} distintos · {list(vals[k].most_common(8))}")
+    except Exception as e:
+        info.append(f"fallo {u}: {e}")
+txt = "// Caza en Navarra: Planes de Ordenación Cinegética (© Gobierno de Navarra · IDENA, CC BY 4.0). Generado por tools/caza.py\nwindow.CAZA_GEO=" + json.dumps(out, ensure_ascii=False, separators=(",", ":"), default=str) + ";\n"
+open("web/caza.js", "w", encoding="utf-8").write(txt)
+info.append(f"\ncaza.js: {len(txt)//1024} KB")
 open("tools/caza_info.txt", "w", encoding="utf-8").write("\n".join(map(str, info)))
 print("\n".join(map(str, info)))

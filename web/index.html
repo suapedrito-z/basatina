@@ -93,6 +93,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button data-t="clima">📈 Histórico del clima</button>
   <div class="dgroup">Naturaleza</div>
   <button data-t="pesca">🎣 Pesca: tramos y normas</button>
+  <button data-t="caza">🦌 Caza: calendario de la temporada</button>
   <div class="dgroup">App</div>
   <button data-t="ajustes">⚙️ Ajustes y avisos</button>
   <button data-t="about">ℹ️ Acerca de</button>
@@ -276,6 +277,15 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div id="pFicha"></div>
 <div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Información orientativa a partir de los datos oficiales del Gobierno de Navarra (IDENA, licencia CC BY 4.0) para la temporada actual. La normativa puede cambiar: antes de pescar consulta la orden foral de vedas vigente y los avisos en pesca.navarra.es. Necesitas licencia de pesca de Navarra y, donde se indica, permiso diario.</div></div>
 </section>
+<!-- ============ CAZA ============ -->
+<section id="t-caza">
+<div class="card"><b>🦌 Temporada de caza 2026-2027</b><div class="note">Orden Foral 195E/2026 (BON nº 134, 10/07/2026)</div>
+<div class="row" style="margin:8px 0 0"><label style="flex:1">¿Qué se puede cazar el día…</label><input type="date" id="cazaDia" class="town" style="width:auto"></div></div>
+<div class="seg" id="cazaSeg"><button class="btn on" data-f="hoy">Abiertas ese día</button><button class="btn" data-f="mayor">🐗 Caza mayor</button><button class="btn" data-f="menor">🕊️ Caza menor</button><button class="btn" data-f="todo">Todo</button></div>
+<div class="note" id="cazaRes" style="font-weight:600;margin:4px 0"></div>
+<div id="cazaList"></div>
+<div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Resumen orientativo de la orden de vedas. Para cazar hace falta licencia de Navarra, seguro, permiso del coto y respetar su Plan de Ordenación Cinegética (cupos, días asignados y zonas), que puede ser más restrictivo. Los festivos locales y los «días de fortuna» por frío cambian el calendario. Consulta siempre el texto oficial en el BON y a tu coto. Teléfono de caza del Gobierno de Navarra: 848 426 259.</div></div>
+</section>
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
@@ -306,7 +316,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="pesca.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1418,6 +1428,61 @@ function pescaInit(){const G=window.PESCA_GEO,sel=document.getElementById('pRio'
     .map(([,l,c])=>`<span style="white-space:nowrap"><span style="display:inline-block;width:14px;height:4px;background:${c};vertical-align:middle;border-radius:2px"></span> ${l}</span>`).join(' · ');
   pDraw();if(!PIMG)pBase();}
 const _showTab3=showTab;showTab=function(t){_showTab3(t);if(t==='pesca')setTimeout(pescaInit,60);};
+document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+
+
+/* =====================================================================
+   🦌 CAZA: calendario de la temporada 2026-2027 en Navarra
+   (Orden Foral 195E/2026, BON nº 134 de 10/07/2026). Resumen orientativo.
+   d: días hábiles → 'todos' o lista de días de la semana (0 domingo … 6 sábado); f: también festivos
+   ===================================================================== */
+const CAZA_TEMP='2026-2027',CAZA_ORDEN='Orden Foral 195E/2026 (BON nº 134, 10 de julio de 2026)';
+const JSD=[4,6,0];   // jueves, sábados y domingos
+const CAZA_CAL=[
+ {g:'mayor',ico:'🐗',sp:'Jabalí',mod:'Batidas y monterías (arma de fuego); con arco también rececho',a:'2026-08-15',b:'2027-02-28',d:JSD,f:1,lim:'Según el plan de ordenación del coto.',art:'6.1'},
+ {g:'mayor',ico:'🐗',sp:'Jabalí',mod:'Aguardos y esperas nocturnas (arma de fuego o arco)',a:'2026-08-01',b:'2027-07-31',d:'todos',lim:'Solo en los puestos del plan del coto; avisar al guarderío con 48 h; la linterna solo justo antes del disparo.',art:'6.2'},
+ {g:'mayor',ico:'🦌',sp:'Corzo',mod:'Batidas y monterías',a:'2026-08-15',b:'2027-02-28',d:JSD,f:1,lim:'Cupos y precintos del plan del coto.',art:'7.1'},
+ {g:'mayor',ico:'🦌',sp:'Corzo',mod:'Aguardo y rececho',a:'2026-08-15',b:'2027-02-28',d:'todos',lim:'Avisar con 24 h indicando precinto y zona; cupos del plan.',art:'7.1'},
+ {g:'mayor',ico:'🦌',sp:'Corzo (machos)',mod:'Rececho, periodo complementario',a:'2027-04-01',b:'2027-07-31',d:'todos',lim:'Machos asignados o no abatidos; resto solo con precintos neutros por daños.',art:'7.2'},
+ {g:'mayor',ico:'🫎',sp:'Ciervo (machos)',mod:'Rececho',a:'2026-09-13',b:'2026-10-04',d:'todos',lim:'Plan, precinto y aviso con 24 h.',art:'8.1'},
+ {g:'mayor',ico:'🫎',sp:'Ciervo',mod:'Batidas y monterías',a:'2026-10-12',b:'2027-02-28',d:JSD,f:1,lim:'Cupos y precintos del plan.',art:'8.2'},
+ {g:'mayor',ico:'🦌',sp:'Gamo',mod:'Batidas y monterías',a:'2026-10-12',b:'2027-02-28',d:JSD,f:1,lim:'',art:'9'},
+ {g:'menor',ico:'🦊',sp:'Zorro',mod:'En batida (con el jabalí)',a:'2026-08-15',b:'2027-02-28',d:JSD,f:1,lim:'',art:'10'},
+ {g:'menor',ico:'🦊',sp:'Zorro',mod:'Al salto',a:'2026-11-01',b:'2027-01-31',d:JSD,f:1,lim:'También junto a la codorniz en la media veda.',art:'10'},
+ {g:'menor',ico:'🕊️',sp:'Paloma torcaz y zurita',mod:'Pasa: puestos y chozas palomeras autorizados',a:'2026-10-01',b:'2026-12-31',d:'todos',lim:'Solo en puestos o chozas autorizados.',art:'21'},
+ {g:'menor',ico:'🕊️',sp:'Paloma torcaz',mod:'Al salto',a:'2026-11-01',b:'2027-01-31',d:JSD,f:1,lim:'',art:'21'},
+ {g:'menor',ico:'🕊️',sp:'Paloma torcaz',mod:'Media veda',a:'2026-08-23',b:'2026-09-13',d:JSD,f:1,lim:'Zona Sur: al salto en zonas de codorniz o en puesto de vuelo; Zona Norte: al salto fuera de zonas arboladas.',art:'21.2'},
+ {g:'menor',ico:'🐦',sp:'Zorzales (común, charlo, real, alirrojo)',mod:'Desde puestos palomeros autorizados',a:'2026-10-01',b:'2026-12-31',d:'todos',lim:'',art:'17'},
+ {g:'menor',ico:'🐦',sp:'Zorzales',mod:'Al salto y desde puestos',a:'2026-11-01',b:'2027-01-31',d:JSD,f:1,lim:'Desde puestos autorizados, todos los días.',art:'17'},
+ {g:'menor',ico:'🐦',sp:'Codorniz',mod:'Media veda',a:'2026-08-15',b:'2026-09-13',d:JSD,f:1,lim:'Máx. 10 por cazador y día. Zona Norte: fuera de zonas arboladas.',art:'18'},
+ {g:'menor',ico:'🕊️',sp:'Tórtola común',mod:'Solo cotos autorizados (anexo II)',a:'2026-08-23',b:'2026-09-13',d:[0],lim:'Precinto electrónico; máx. 2 por cazador y día y cupo por coto.',art:'19'},
+ {g:'menor',ico:'🐦',sp:'Perdiz roja',mod:'Al salto',a:'2026-11-01',b:'2027-01-31',d:[0],f:1,lim:'Solo los días asignados a cada coto (pueden ser cero); hasta las 14:00; máx. 2 por cazador y día.',art:'11'},
+ {g:'menor',ico:'🐇',sp:'Liebre ibérica',mod:'Con escopeta',a:'2026-11-01',b:'2026-12-27',d:[0],f:1,lim:'Máx. 2 días por coto; hasta las 14:00; al salto 1 por cazador y día; en batida 1 por cuadrilla.',art:'12'},
+ {g:'menor',ico:'🐇',sp:'Liebre ibérica',mod:'Con galgos',a:'2026-11-01',b:'2026-12-27',d:[6,0],f:1,lim:'Sin escopeta ni palo; 1 por persona o cuadrilla.',art:'12'},
+ {g:'menor',ico:'🐇',sp:'Liebre europea',mod:'Solo con perros de rastro',a:'2026-11-01',b:'2026-12-27',d:[0],f:1,lim:'Según plan y muestreos.',art:'13'},
+ {g:'menor',ico:'🐇',sp:'Conejo',mod:'Temporada general',a:'2026-11-01',b:'2027-01-31',d:[4,0],f:1,lim:'Hay además un periodo de verano (15 ago–30 sep) solo en zonas que cumplen el art. 14.',art:'14'},
+ {g:'menor',ico:'🐦',sp:'Becada (sorda)',mod:'En zonas arboladas',a:'2026-10-12',b:'2027-01-31',d:'todos',lim:'Hasta 1 h antes de anochecer; perros con cascabel; máx. 3 al día; no en puestos ni balsas; prohibida su venta; se suspende si se declaran días de fortuna por frío.',art:'16'},
+ {g:'menor',ico:'🦆',sp:'Acuáticas (ánade real, cerceta, ánsar, focha, avefría, agachadiza)',mod:'Temporada general',a:'2026-11-01',b:'2027-01-31',d:JSD,f:1,lim:'El ánade real tiene además media veda (15 ago–13 sep).',art:'15'},
+ {g:'menor',ico:'🐓',sp:'Faisán',mod:'Solo en las zonas designadas',a:'2026-10-01',b:'2027-01-31',d:JSD,f:1,lim:'Condiciones de suelta.',art:'22'}
+];
+const DSEMC=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+function cazaDias(c){return c.d==='todos'?'Todos los días':c.d.map(x=>DSEMC[x]).join(', ').replace(/, ([^,]*)$/,' y $1')+(c.f?' y festivos':'');}
+function cazaEstado(c,day){const t=ymd(day);if(t<c.a)return['pronto','⏳ Aún no ha empezado','#546e7a'];if(t>c.b)return['fin','Temporada terminada','#455a64'];
+  if(c.d==='todos'||c.d.includes(day.getDay()))return['si','✅ Se puede cazar','#2e7d32'];return['dia',(c.f?'📅 Hoy no es día hábil (salvo festivo)':'📅 Hoy no es día hábil'),'#ef6c00'];}
+let CFIL='hoy';
+function cazaRender(){const inp=document.getElementById('cazaDia');const day=inp.value?new Date(inp.value+'T12:00'):new Date();const hoy=ymd(day)===ymd(new Date());
+  const fd=s=>{const d=new Date(s+'T12:00');return d.getDate()+' '+MES[d.getMonth()]+' '+d.getFullYear();};
+  let L=CAZA_CAL.map(c=>({c,e:cazaEstado(c,day)}));
+  if(CFIL==='hoy')L=L.filter(x=>x.e[0]==='si'||x.e[0]==='dia');else if(CFIL!=='todo')L=L.filter(x=>x.c.g===CFIL);
+  const ord={si:0,dia:1,pronto:2,fin:3};L.sort((a,b)=>ord[a.e[0]]-ord[b.e[0]]);
+  document.getElementById('cazaRes').textContent=(hoy?'Hoy, ':'El ')+DSEMC[day.getDay()]+' '+day.getDate()+' '+MES[day.getMonth()]+': '+L.filter(x=>x.e[0]==='si').length+' modalidades abiertas';
+  document.getElementById('cazaList').innerHTML=L.map(({c,e})=>`<div class="card" style="border-left:4px solid ${e[2]}">
+    <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div><b style="font-size:16px">${c.ico} ${c.sp}</b><div class="note">${c.mod}</div></div><span class="pill" style="background:${e[2]};color:#fff;white-space:nowrap;font-size:12px">${e[1].replace(/^Hoy/,hoy?'Hoy':'Ese día')}</span></div>
+    <div class="st"><b>📅 Temporada</b><span>${fd(c.a)} – ${fd(c.b)}</span></div><div class="st"><b>🗓️ Días</b><span style="text-align:right">${cazaDias(c)}</span></div>
+    ${c.lim?`<div class="note" style="margin-top:4px">⚠️ ${c.lim}</div>`:''}<div class="note" style="margin-top:2px">Artículo ${c.art} de la orden de vedas</div></div>`).join('')||'<div class="note">Nada que mostrar con este filtro.</div>';}
+document.querySelectorAll('#cazaSeg button').forEach(b=>b.onclick=()=>{CFIL=b.dataset.f;document.querySelectorAll('#cazaSeg button').forEach(x=>x.classList.toggle('on',x===b));cazaRender();});
+document.getElementById('cazaDia').onchange=cazaRender;
+const _showTab4=showTab;showTab=function(t){_showTab4(t);if(t==='caza'){const i=document.getElementById('cazaDia');if(!i.value)i.value=ymd(new Date());cazaRender();}};
 document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 
 </script>
