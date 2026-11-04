@@ -37,6 +37,7 @@ select.town{width:100%;padding:10px;border-radius:8px;border:1px solid var(--lin
 .kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi>div{background:#0b1118;border:1px solid var(--line);border-radius:8px;padding:8px}.kpi b{font-size:18px;display:block}
 #pinBox{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99;display:none;align-items:center;justify-content:center}#pinBox>div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;width:280px}
 #pinBox input{width:100%;font-size:24px;letter-spacing:8px;text-align:center;padding:8px;margin:10px 0;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt)}
+#t-natura .card .pill,#t-caza .card .pill{align-self:flex-start;flex:none;max-width:48%;text-align:center;line-height:1.25}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0}
 .note{font-size:12.5px;color:var(--mut);line-height:1.45}
 ul.hs{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px}
@@ -94,6 +95,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="dgroup">Naturaleza</div>
   <button data-t="pesca">🎣 Pesca: tramos y normas</button>
   <button data-t="caza">🦌 Caza: calendario de la temporada</button>
+  <button data-t="natura">🌿 Setas, frutos, fauna y vegetación</button>
   <div class="dgroup">App</div>
   <button data-t="ajustes">⚙️ Ajustes y avisos</button>
   <button data-t="about">ℹ️ Acerca de</button>
@@ -298,6 +300,14 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </div>
 <div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Resumen orientativo de la orden de vedas. Para cazar hace falta licencia de Navarra, seguro, permiso del coto y respetar su Plan de Ordenación Cinegética (cupos, días asignados y zonas), que puede ser más restrictivo. Los festivos locales y los «días de fortuna» por frío cambian el calendario. Consulta siempre el texto oficial en el BON y a tu coto. Teléfono de caza del Gobierno de Navarra: 848 426 259.</div></div>
 </section>
+<!-- ============ NATURALEZA ============ -->
+<section id="t-natura">
+<div class="seg" id="natTabs"><button class="btn on" data-t="rec">🍄 Recolección</button><button class="btn" data-t="fau">🦌 Fauna</button><button class="btn" data-t="veg">🌳 Vegetación</button></div>
+<div class="row" id="natMesRow" style="margin:4px 0"><label style="flex:1">Mes</label><select id="natMes" class="town" style="width:auto">
+<option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select></div>
+<div class="seg" id="natCats"></div>
+<div id="natBody"></div>
+</section>
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
@@ -328,7 +338,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="pesca.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1561,6 +1571,128 @@ function czInit(){document.getElementById('czLay').innerHTML=CZL.map(([k,n,c])=>
 document.getElementById('czIn').onclick=()=>CZM&&CZM.zoom(1.6);document.getElementById('czOut').onclick=()=>CZM&&CZM.zoom(1/1.6);document.getElementById('czAll').onclick=()=>{if(!CZM)return;CZM.la=42.66;CZM.lo=-1.63;CZM.z=1;CZM.draw();CZM.base();};
 document.querySelectorAll('#cazaTabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#cazaTabs button').forEach(x=>x.classList.toggle('on',x===b));
   const m=b.dataset.v==='mapa';document.getElementById('cazaCalV').style.display=m?'none':'';document.getElementById('cazaMapV').style.display=m?'':'none';if(m)setTimeout(czInit,30);});
+
+
+/* =====================================================================
+   🌿 NATURALEZA: calendario de recolección, fauna y vegetación de Navarra
+   m: meses de temporada (1-12); p: meses de mejor momento
+   ===================================================================== */
+const NREC=[
+ // ---- setas ----
+ {c:'seta',i:'🍄',n:'Perretxiko (seta de San Jorge)',l:'Calocybe gambosa',m:[3,4,5,6],p:[4,5],d:'Prados y bordes de bosque, en corros. La seta de primavera por excelencia en Navarra.'},
+ {c:'seta',i:'🍄',n:'Colmenilla (karraspina)',l:'Morchella spp.',m:[3,4,5],p:[4],d:'Choperas, sotos de ribera y zonas quemadas. Nunca cruda: siempre bien cocinada.'},
+ {c:'seta',i:'🍄',n:'Hongo (boletus)',l:'Boletus edulis',m:[6,7,9,10,11],p:[9,10],d:'Hayedos, robledales y pinares del norte (Ultzama, Erro, Irati, Quinto Real). Sale tras lluvias con calor.'},
+ {c:'seta',i:'🍄',n:'Hongo beltza',l:'Boletus aereus',m:[7,8,9,10],p:[9],d:'Robledales y castañares más soleados. Sombrero oscuro, muy apreciado.'},
+ {c:'seta',i:'🍄',n:'Kuleto (oronja, amanita de los césares)',l:'Amanita caesarea',m:[7,8,9,10],p:[9],d:'Robledales y carrascales con calor. ⚠️ Se confunde de joven con la Amanita muscaria y la phalloides (mortal).'},
+ {c:'seta',i:'🍄',n:'Zizahori (rebozuelo)',l:'Cantharellus cibarius',m:[6,7,8,9,10,11],p:[9,10],d:'Hayedos y robledales con musgo. Huele a albaricoque.'},
+ {c:'seta',i:'🍄',n:'Gibelurdin',l:'Russula virescens / cyanoxantha',m:[6,7,8,9,10],p:[9],d:'Hayedos y robledales. Láminas que no se rompen al tocarlas (cyanoxantha).'},
+ {c:'seta',i:'🍄',n:'Senderuela (marzuelo)',l:'Marasmius oreades',m:[4,5,6,9,10,11],p:[5,10],d:'En corros en prados y campas.'},
+ {c:'seta',i:'🍄',n:'Champiñón silvestre',l:'Agaricus campestris',m:[5,6,9,10,11],p:[10],d:'Prados con ganado. ⚠️ Cuidado con las amanitas blancas (láminas siempre blancas = peligro).'},
+ {c:'seta',i:'🍄',n:'Níscalo (robellón)',l:'Lactarius deliciosus',m:[10,11,12],p:[11],d:'Pinares, sobre todo de la zona media y sur. Suelta un látex naranja.'},
+ {c:'seta',i:'🍄',n:'Lengua de vaca',l:'Hydnum repandum',m:[9,10,11,12],p:[10,11],d:'Hayedos y pinares. Pinchitos debajo del sombrero en vez de láminas.'},
+ {c:'seta',i:'🍄',n:'Trompeta de los muertos',l:'Craterellus cornucopioides',m:[9,10,11,12],p:[10,11],d:'Hayedos húmedos, en grupos.'},
+ {c:'seta',i:'🍄',n:'Angula de monte',l:'Craterellus lutescens',m:[10,11,12,1],p:[11,12],d:'Musgo y suelos húmedos de pinar y hayedo.'},
+ {c:'seta',i:'🍄',n:'Pie azul (urdina)',l:'Lepista nuda',m:[10,11,12,1],p:[11],d:'Hojarasca de bosques y setos, ya con frío.'},
+ {c:'seta',i:'🍄',n:'Seta de cardo',l:'Pleurotus eryngii',m:[3,4,10,11,12],p:[11],d:'Ribera y zona media, junto al cardo corredor en terrenos de pasto.'},
+ // ---- frutos silvestres ----
+ {c:'silv',i:'🌰',n:'Castaña',l:'Castanea sativa',m:[10,11],p:[10],d:'Castañares del norte: Baztan, Bortziriak (Cinco Villas), Malerreka, Leitzaldea.'},
+ {c:'silv',i:'🌰',n:'Avellana',l:'Corylus avellana',m:[8,9,10],p:[9],d:'Bordes de bosque y setos del norte y la montaña.'},
+ {c:'silv',i:'🌰',n:'Nuez',l:'Juglans regia',m:[9,10],p:[9,10],d:'Nogales aislados en huertas y caminos de toda Navarra.'},
+ {c:'silv',i:'🫐',n:'Endrina (pacharán)',l:'Prunus spinosa',m:[8,9,10],p:[9],d:'Endrinos en setos y bordes de campo. La base del pacharán navarro (Indicación Geográfica).'},
+ {c:'silv',i:'🫐',n:'Mora (zarzamora)',l:'Rubus ulmifolius',m:[7,8,9],p:[8],d:'Zarzas de caminos y riberas. Mejor lejos de carreteras.'},
+ {c:'silv',i:'🫐',n:'Arándano',l:'Vaccinium myrtillus',m:[7,8],p:[7,8],d:'Brezales de montaña: Pirineo, Quinto Real, Aralar.'},
+ {c:'silv',i:'🍓',n:'Fresa silvestre',l:'Fragaria vesca',m:[5,6,7],p:[6],d:'Claros y bordes de bosque.'},
+ {c:'silv',i:'🌸',n:'Saúco (flor y bayas)',l:'Sambucus nigra',m:[5,6,8,9],p:[6,9],d:'Flor en primavera (refrescos, buñuelos); bayas maduras al final del verano, siempre cocinadas.'},
+ {c:'silv',i:'🔴',n:'Escaramujo (tapaculos)',l:'Rosa canina',m:[10,11,12],p:[11],d:'Rosales silvestres de setos. Mermeladas e infusiones (sin las semillas).'},
+ {c:'silv',i:'🔴',n:'Madroño',l:'Arbutus unedo',m:[10,11,12],p:[11],d:'Zonas templadas y encinares del oeste y norte.'},
+ {c:'silv',i:'🌿',n:'Espárrago triguero',l:'Asparagus acutifolius',m:[3,4,5],p:[4],d:'Ribazos y matorrales de la zona media y sur.'},
+ {c:'silv',i:'🍎',n:'Manzana silvestre',l:'Malus sylvestris',m:[9,10],p:[10],d:'Bordes de bosque del norte; ácida, para compotas y sidra.'},
+ // ---- frutales y cultivos ----
+ {c:'frut',i:'🍒',n:'Cereza',l:'',m:[5,6,7],p:[6],d:'Huertas y fincas de la zona media y la Ribera.'},
+ {c:'frut',i:'🍑',n:'Albaricoque',l:'',m:[6,7],p:[6,7],d:'Ribera.'},
+ {c:'frut',i:'🍑',n:'Melocotón y nectarina',l:'',m:[7,8,9],p:[8],d:'Ribera del Ebro y del Aragón.'},
+ {c:'frut',i:'🟣',n:'Ciruela',l:'',m:[7,8,9],p:[8],d:'Toda Navarra; la claudia, a finales de verano.'},
+ {c:'frut',i:'🍐',n:'Pera',l:'',m:[8,9,10],p:[9],d:'Ribera (conferencia, blanquilla).'},
+ {c:'frut',i:'🍎',n:'Manzana',l:'',m:[8,9,10,11],p:[10],d:'Norte (manzana de sidra, reineta) y Ribera.'},
+ {c:'frut',i:'🟢',n:'Higo',l:'',m:[8,9],p:[9],d:'Higueras de huertas y casas, zona media y sur.'},
+ {c:'frut',i:'🌰',n:'Almendra',l:'',m:[8,9],p:[9],d:'Almendros de secano de la zona media y la Ribera.'},
+ {c:'frut',i:'🍇',n:'Uva (vendimia)',l:'',m:[9,10],p:[9,10],d:'DO Navarra y Rioja: Ribera, Tierra Estella, Valdizarbe, Baja Montaña.'},
+ {c:'frut',i:'🟡',n:'Membrillo',l:'',m:[9,10,11],p:[10],d:'Huertas de toda Navarra; para el dulce de membrillo.'},
+ {c:'frut',i:'🔴',n:'Granada',l:'',m:[10,11],p:[10],d:'Ribera.'},
+ {c:'frut',i:'🟠',n:'Caqui',l:'',m:[10,11,12],p:[11],d:'Huertas de la Ribera y la zona media.'},
+ {c:'frut',i:'🫒',n:'Aceituna',l:'',m:[11,12,1],p:[11,12],d:'Olivares de la Ribera y Tierra Estella (aceite de Arróniz).'},
+ {c:'frut',i:'🥝',n:'Kiwi',l:'',m:[11,12],p:[11],d:'Plantaciones del norte húmedo.'}
+];
+const NFAU=[
+ // m: meses en que mejor se ve
+ {c:'mam',i:'🐗',n:'Jabalí',l:'Sus scrofa',w:'Toda Navarra, sobre todo bosques y maizales.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Común'},
+ {c:'mam',i:'🦌',n:'Corzo',l:'Capreolus capreolus',w:'Bosques y campos de toda Navarra; al amanecer y al atardecer.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Común'},
+ {c:'mam',i:'🫎',n:'Ciervo (la berrea)',l:'Cervus elaphus',w:'Quinto Real, Irati, Aezkoa, Bigüézal. La berrea, de mediados de septiembre a mediados de octubre.',m:[9,10],e:'Común'},
+ {c:'mam',i:'🦦',n:'Nutria',l:'Lutra lutra',w:'Arga, Irati, Bidasoa, Ega, Aragón… Se ve su rastro (excrementos en piedras).',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Protegida'},
+ {c:'mam',i:'🦡',n:'Visón europeo',l:'Mustela lutreola',w:'Sotos de los ríos de la zona media y sur. Una de las últimas poblaciones de Europa.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'En peligro crítico'},
+ {c:'mam',i:'🐭',n:'Desmán ibérico',l:'Galemys pyrenaicus',w:'Arroyos limpios de montaña del norte.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'En peligro'},
+ {c:'mam',i:'🦊',n:'Zorro',l:'Vulpes vulpes',w:'Toda Navarra.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Común'},
+ {c:'mam',i:'🦡',n:'Tejón',l:'Meles meles',w:'Bosques del norte y zona media; nocturno.',m:[3,4,5,6,7,8,9,10],e:'Común'},
+ {c:'mam',i:'🐿️',n:'Ardilla roja',l:'Sciurus vulgaris',w:'Pinares y hayedos del Pirineo y la montaña.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Común'},
+ {c:'mam',i:'🐻',n:'Oso pardo',l:'Ursus arctos',w:'Muy ocasional en el Pirineo (Roncal, Belagua).',m:[4,5,6,7,8,9,10],e:'En peligro'},
+ {c:'ave',i:'🦅',n:'Buitre leonado',l:'Gyps fulvus',w:'Foces de Lumbier y Arbayún, Bardenas, sierras de Leyre y Urbasa.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Protegida'},
+ {c:'ave',i:'🦅',n:'Quebrantahuesos',l:'Gypaetus barbatus',w:'Pirineo (Roncal, Belagua, Larra).',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'En peligro'},
+ {c:'ave',i:'🦅',n:'Alimoche',l:'Neophron percnopterus',w:'Foces y cortados; llega en primavera y se va en septiembre.',m:[3,4,5,6,7,8,9],e:'Vulnerable'},
+ {c:'ave',i:'🦅',n:'Milano real',l:'Milvus milvus',w:'Toda Navarra; en invierno muchos más (dormideros).',m:[1,2,3,10,11,12],e:'En peligro'},
+ {c:'ave',i:'🦢',n:'Grulla común (el paso)',l:'Grus grus',w:'Sobrevuela Navarra en grandes bandos; para en Pitillas y las balsas de la Ribera.',m:[2,3,10,11],e:'Protegida'},
+ {c:'ave',i:'🐦',n:'Cigüeña blanca',l:'Ciconia ciconia',w:'Torres y campanarios de la Ribera y zona media.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Protegida'},
+ {c:'ave',i:'🐦',n:'Martín pescador',l:'Alcedo atthis',w:'Ríos y balsas de toda Navarra (en Pamplona, en el Arga).',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Protegida'},
+ {c:'ave',i:'🐦',n:'Mirlo acuático',l:'Cinclus cinclus',w:'Ríos de montaña limpios: Arga alto, Urrobi, Irati, Bidasoa.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Protegida'},
+ {c:'ave',i:'🐦',n:'Pito negro',l:'Dryocopus martius',w:'Hayedos maduros: Irati, Quinto Real, Aralar.',m:[1,2,3,4,5,6,7,8,9,10,11,12],e:'Protegida'},
+ {c:'ave',i:'🐦',n:'Ganga y ortega',l:'Pterocles alchata / orientalis',w:'Estepas de las Bardenas Reales.',m:[3,4,5,6,7,8,9],e:'Vulnerable'},
+ {c:'ave',i:'🦆',n:'Aves acuáticas de invierno',l:'',w:'Laguna de Pitillas, embalse de Las Cañas (Viana), balsas de la Ribera.',m:[11,12,1,2],e:'Varias'},
+ {c:'rio',i:'🐟',n:'Trucha común',l:'Salmo trutta',w:'Ríos de la región salmonícola (norte y montaña).',m:[3,4,5,6,7,8,9,10],e:'Pesca regulada'},
+ {c:'rio',i:'🐟',n:'Salmón atlántico',l:'Salmo salar',w:'Bidasoa: sube del mar a frezar.',m:[5,6,7,8,9,10,11],e:'Pesca prohibida'},
+ {c:'rio',i:'🐟',n:'Barbo y madrilla',l:'Luciobarbus graellsii / Parachondrostoma miegii',w:'Ríos de la zona media y la Ribera.',m:[4,5,6,7,8,9],e:'Autóctonos'},
+ {c:'rio',i:'🐍',n:'Anguila',l:'Anguilla anguilla',w:'Bidasoa y ríos cantábricos.',m:[4,5,6,7,8,9,10],e:'En peligro crítico'},
+ {c:'otro',i:'🦎',n:'Tritón pirenaico',l:'Calotriton asper',w:'Arroyos frescos del Pirineo.',m:[5,6,7,8,9],e:'Protegida'},
+ {c:'otro',i:'🦎',n:'Salamandra',l:'Salamandra salamandra',w:'Bosques húmedos del norte; sale en noches de lluvia.',m:[2,3,4,5,9,10,11],e:'Protegida'},
+ {c:'otro',i:'🪲',n:'Rosalia alpina',l:'Rosalia alpina',w:'Hayedos con árboles viejos y madera muerta.',m:[6,7,8],e:'Protegida'},
+ {c:'otro',i:'🪲',n:'Ciervo volante',l:'Lucanus cervus',w:'Robledales; vuela al atardecer.',m:[6,7],e:'Protegida'}
+];
+const NVEG=[
+ {i:'🍂',n:'Hayedos',w:'Selva de Irati (uno de los mayores de Europa), Urbasa, Aralar, Quinto Real, Belate.',t:'Otoño (mediados de octubre a mediados de noviembre): el colorido es espectacular.',d:'El haya da sombra muy densa: debajo casi no crece nada salvo setas y musgos.'},
+ {i:'🌳',n:'Robledales',w:'Robledal de Orgi (Ultzama), valles de la montaña y la zona media (roble pubescente, quejigo y marojo).',t:'Primavera y otoño.',d:'Los bosques de roble eran los dominantes en la Navarra media; hoy quedan restos muy valiosos.'},
+ {i:'🌲',n:'Abetales y pinares de montaña',w:'Irati, Roncal y Larra-Belagua (abeto, pino silvestre y pino negro).',t:'Todo el año; en invierno con nieve.',d:'El pino negro sube hasta el límite del bosque en Larra.'},
+ {i:'🌳',n:'Encinares y carrascales',w:'Tierra Estella, zona media y sierras del sur.',t:'Todo el año (hoja perenne).',d:'La encina aguanta el calor y la sequía; refugio de muchas especies.'},
+ {i:'🌲',n:'Pinares de pino carrasco',w:'Bardenas Reales, Ribera y sierras del sur.',t:'Todo el año.',d:'Pinos adaptados a la sequía.'},
+ {i:'🌿',n:'Sotos y bosques de ribera',w:'Orillas del Ebro, Aragón, Arga y Ega: Soto de la Remonta, Sotos de Caparroso, Soto del Ramalete…',t:'Primavera y otoño.',d:'Chopos, sauces, alisos y fresnos. Frenan las riadas y dan refugio al visón europeo y la nutria.'},
+ {i:'🏜️',n:'Estepa y matorral de las Bardenas',w:'Bardenas Reales: Parque Natural y Reserva de la Biosfera.',t:'Primavera (floración) y otoño; en verano, mucho calor.',d:'Romero, tomillo, sisallo y ontina; aves esteparias como la ganga y la ortega.'},
+ {i:'⛰️',n:'Pastos y prados de montaña',w:'Urbasa, Andía, Aralar, Belagua, Abodi.',t:'De mayo a octubre.',d:'Pastos de altura con ganado y flores de montaña.'},
+ {i:'🌺',n:'Flora destacada',w:'Toda Navarra.',t:'Primavera para las flores.',d:'Acebo y tejo (protegidos: no se cortan), orquídeas silvestres, boj, brezos. En espacios protegidos no se arranca nada.'}
+];
+const NMES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+let NTAB='rec',NCAT='todo',NMONTH=new Date().getMonth()+1;
+function nBar(m,p){return '<div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:6px">'+NMES.map((x,i)=>{const k=i+1,on=m.includes(k),best=p&&p.includes(k);
+  return `<div style="text-align:center;font-size:9.5px;color:${k===NMONTH?'var(--txt)':'#93a4b5'};font-weight:${k===NMONTH?700:400}"><div style="height:8px;border-radius:3px;margin-bottom:2px;background:${best?'#43a047':on?'#a5d6a7':'rgba(147,164,181,.18)'};${k===NMONTH?'outline:2px solid #ffb020':''}"></div>${x}</div>`;}).join('')+'</div>';}
+function natRender(){const el=document.getElementById('natBody'),ms=document.getElementById('natMes');ms.value=NMONTH;
+  document.getElementById('natCats').innerHTML=(NTAB==='rec'?[['todo','Todo'],['seta','🍄 Setas'],['silv','🌰 Frutos del monte'],['frut','🍑 Frutales']]:NTAB==='fau'?[['todo','Todo'],['mam','🦌 Mamíferos'],['ave','🦅 Aves'],['rio','🐟 Ríos'],['otro','🦎 Otros']]:[])
+    .map(([k,l])=>`<button class="btn${NCAT===k?' on':''}" data-c="${k}">${l}</button>`).join('');
+  document.querySelectorAll('#natCats button').forEach(b=>b.onclick=()=>{NCAT=b.dataset.c;natRender();});
+  document.getElementById('natMesRow').style.display=NTAB==='veg'?'none':'';
+  if(NTAB==='rec'){let L=NREC.filter(x=>NCAT==='todo'||x.c===NCAT);const now=L.filter(x=>x.m.includes(NMONTH)).sort((a,b)=>(b.p.includes(NMONTH)?1:0)-(a.p.includes(NMONTH)?1:0)),rest=L.filter(x=>!x.m.includes(NMONTH));
+    const card=x=>`<div class="card"><div style="display:flex;justify-content:space-between;gap:8px"><div><b style="font-size:15.5px">${x.i} ${x.n}</b>${x.l?` <i class="note">${x.l}</i>`:''}</div>${x.p.includes(NMONTH)?'<span class="pill" style="background:#43a047;color:#fff;font-size:11.5px;white-space:nowrap">⭐ Mejor momento</span>':x.m.includes(NMONTH)?'<span class="pill" style="background:#a5d6a7;color:#103;font-size:11.5px">En temporada</span>':''}</div><div class="note">${x.d}</div>${nBar(x.m,x.p)}</div>`;
+    el.innerHTML=`<div class="note" style="font-weight:600;margin:6px 0">En temporada en ${NMES[NMONTH-1]}: ${now.length}</div>${now.map(card).join('')||'<div class="note">Nada en temporada este mes con este filtro.</div>'}
+      ${rest.length?`<details style="margin-top:8px"><summary class="note" style="font-weight:600">Fuera de temporada (${rest.length})</summary>${rest.map(card).join('')}</details>`:''}
+      <div class="card" style="border-color:#ffb020"><b>⚠️ Setas: seguridad y normas</b><div class="note">• <b>Nunca comas una seta que no conozcas al 100 %.</b> Varias amanitas son mortales y se confunden con especies comestibles. Ante la duda, consulta a una asociación micológica o a tu farmacéutico.<br>
+      • Fuera de zonas reguladas, el límite general en Navarra es de <b>unos 3 kg por persona y día</b>.<br>• En los <b>parques micológicos</b> (Ultzama, Erro-Burguete-Roncesvalles…) hace falta permiso diario o anual; el límite es de 8 kg por persona y día y no se cogen setas con sombrero de menos de 4 cm.<br>
+      • Usa cesta (las esporas caen y la seta vuelve a salir), corta o gira sin arrancar y nunca uses rastrillos. Respeta las fincas privadas y los frutales: la fruta de las huertas tiene dueño.<br>• Las fechas son orientativas: dependen de la lluvia, la temperatura y la altitud de cada año.</div></div>`;}
+  else if(NTAB==='fau'){const L=NFAU.filter(x=>NCAT==='todo'||x.c===NCAT).sort((a,b)=>(b.m.includes(NMONTH)&&b.m.length<12?1:0)-(a.m.includes(NMONTH)&&a.m.length<12?1:0));
+    el.innerHTML=L.map(x=>{const col=/peligro/i.test(x.e)?'#e53935':/Vulnerable/.test(x.e)?'#fb8c00':/Protegida/.test(x.e)?'#1e88e5':'#546e7a',now=x.m.includes(NMONTH);
+      return `<div class="card"${now&&x.m.length<12?' style="border-color:#43a047"':''}><div style="display:flex;justify-content:space-between;gap:8px"><div><b style="font-size:15.5px">${x.i} ${x.n}</b>${x.l?` <i class="note">${x.l}</i>`:''}</div><span class="pill" style="background:${col};color:#fff;font-size:11px;white-space:nowrap">${x.e}</span></div>
+      <div class="note">📍 ${x.w}</div>${x.m.length<12?`<div class="note">${now?'👀 <b>Buena época para verlo ahora</b>':'Mejor época:'}</div>${nBar(x.m,null)}`:'<div class="note">👀 Se puede ver todo el año.</div>'}</div>`;}).join('')+
+      '<div class="note">Observa sin molestar: mantén la distancia, no te acerques a nidos ni madrigueras y lleva el perro atado en época de cría. Si encuentras un animal herido, llama al 112.</div>';}
+  else el.innerHTML=NVEG.map(x=>`<div class="card"><b style="font-size:15.5px">${x.i} ${x.n}</b><div class="note">📍 ${x.w}</div><div class="note">📅 ${x.t}</div><div style="margin-top:4px;font-size:14px">${x.d}</div></div>`).join('')+
+      '<div class="note">En los espacios naturales protegidos (Bardenas, Irati, Urbasa-Andía, Señorío de Bertiz, foces…) sigue los caminos señalizados y no arranques plantas.</div>';}
+document.querySelectorAll('#natTabs button').forEach(b=>b.onclick=()=>{NTAB=b.dataset.t;NCAT='todo';document.querySelectorAll('#natTabs button').forEach(x=>x.classList.toggle('on',x===b));natRender();});
+document.getElementById('natMes').onchange=e=>{NMONTH=+e.target.value;natRender();};
+const _showTab5=showTab;showTab=function(t){_showTab5(t);if(t==='natura')natRender();};
+document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 
 </script>
 </body>
