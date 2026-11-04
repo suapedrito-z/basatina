@@ -1,6 +1,13 @@
-fallo terremotos: Expecting value: line 1 column 1 (char 0)
+terremotos 1980: respuesta vacía
+terremotos 1990-1999: 201 acumulados
+terremotos 2000-2009: 6284 acumulados
+terremotos 2010-2019: 8661 acumulados
+terremotos 2020-2029: 10146 acumulados
+Mayores: 2004-09-18 M5.2 Pyrenees; 1998-10-27 M4.6 Spain; 2017-03-10 M4.5 Pyrenees; 2020-09-30 M4.5 Pyrenees; 2004-09-30 M4.4 Pyrenees; 2020-10-01 M4.4 Pyrenees; 2002-02-21 M4.3 Pyrenees; 2013-03-23 M4.2 Pyrenees; 2013-04-20 M4.2 Pyrenees; 2016-05-11 M4.2 Pyrenees; 2023-09-26 M4.1 Spain; 1998-09-20 M4 Spain; 2007-11-23 M4 Spain; 2013-09-02 M4.0 Pyrenees; 1999-02-16 M3.9 Pyrenees
+capas QAFI: 0=QAFI v4 faults; 1=QAFI v4 debated faults; 2=QAFI v4 discarded faults; 3=QAFIv3_NeotectonicMap
+capa usada: 0
 
-fallas: 14
-campos (ejemplo): {"FID": "0", "ELECD": "120", "EDAD": "5", "ELECEDAD": "12005", "DESCRIPCIO": "Falla", "SIMBOLO_C": "502", "represent": "0", "Informacio": "prolongacion f.hasta moncayo, N, plioc sup antiguo", "References": "Neotec"}
+fallas: 1
+campos (ejemplo): {"FID": "100", "ID": "FR005", "FaultName": "Herrére", "Geological": "North Western Pyrenees", "NameOfComp": "Lacan, P., García-Mayordomo, J. and Martín-Banda, ", "Fault_Trac": "1", "Slip_Rate_": "0", "Activity_D": "2"}
 
-sismo.js: 4 KB · 0 terremotos · 14 fallas
+sismo.js: 784 KB · 10146 terremotos · 1 fallas
