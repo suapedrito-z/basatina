@@ -302,7 +302,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </section>
 <!-- ============ NATURALEZA ============ -->
 <section id="t-natura">
-<div class="seg" id="natTabs"><button class="btn on" data-t="rec">🍄 Recolección</button><button class="btn" data-t="fau">🦌 Fauna</button><button class="btn" data-t="veg">🌳 Vegetación</button></div>
+<div class="seg" id="natTabs"><button class="btn on" data-t="rec">🍄 Recolección</button><button class="btn" data-t="fau">🦌 Fauna</button><button class="btn" data-t="veg">🌳 Vegetación</button><button class="btn" data-t="arb">🌲 Árboles por zonas</button></div>
 <div class="row" id="natMesRow" style="margin:4px 0"><label style="flex:1">Mes</label><select id="natMes" class="town" style="width:auto">
 <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select></div>
 <div class="seg" id="natCats"></div>
@@ -1573,6 +1573,86 @@ document.querySelectorAll('#cazaTabs button').forEach(b=>b.onclick=()=>{document
   const m=b.dataset.v==='mapa';document.getElementById('cazaCalV').style.display=m?'none':'';document.getElementById('cazaMapV').style.display=m?'':'none';if(m)setTimeout(czInit,30);});
 
 
+
+/* ---------- 🌲 Arbolado de Navarra por zonas ---------- */
+// z: zonas de norte a sur · c: [lat, lon] para situarla en el mapa · col: color
+const NZON=[
+ {id:'atl',s:'Atlántico',n:'Valles atlánticos',w:'Baztan, Bortziriak (Cinco Villas), Malerreka, Leitzaldea, Bidasoa, Ultzama',c:[43.13,-1.68],col:'#2e7d32',
+  t:['Roble pedunculado','Castaño','Haya (en las laderas altas)','Aliso (orillas)','Fresno','Avellano','Abedul','Acebo','Pino insigne y alerce (plantados)'],
+  d:'Clima húmedo y suave, influido por el Cantábrico. Robledales y castañares en el fondo de los valles y hayedos en las laderas. Muchas plantaciones de coníferas para madera.'},
+ {id:'pio',s:'Pirineo occ.',n:'Pirineo occidental',w:'Quinto Real, Esteribar, Erro, Arce, Aezkoa, Irati, Salazar',c:[42.96,-1.30],col:'#1b5e20',
+  t:['Haya','Abeto (Irati)','Pino silvestre','Roble albar y pubescente (solanas)','Acebo','Tejo','Serbal'],
+  d:'El reino del hayedo. La Selva de Irati es uno de los mayores hayedo‑abetales de Europa. En las solanas aparecen robles y pino silvestre.'},
+ {id:'pir',s:'Pirineo or.',n:'Pirineo oriental',w:'Roncal, Belagua, Larra, Uztárroz, Isaba',c:[42.88,-0.93],col:'#004d40',
+  t:['Pino negro (zonas altas)','Abeto','Haya','Pino silvestre','Tejo','Abedul'],
+  d:'Alta montaña: el pino negro sube hasta el límite del bosque en el karst de Larra. Abetales y hayedos en las umbrías.'},
+ {id:'sie',s:'Sierras NO',n:'Sierras del noroeste',w:'Urbasa, Andía, Aralar, Lokiz, Sakana',c:[42.86,-2.03],col:'#558b2f',
+  t:['Haya','Marojo (roble tozo)','Roble pubescente','Tejo','Acebo','Mostajo','Arce'],
+  d:'Hayedos sobre roca caliza con grandes pastos en lo alto. En la Sakana y Burunda, robledales de marojo.'},
+ {id:'cue',s:'Cuenca Pamplona',n:'Cuenca de Pamplona y valles centrales',w:'Pamplona, Ezcabarte, Olaibar, Juslapeña, Echauri, Valdizarbe',c:[42.78,-1.70],col:'#7cb342',
+  t:['Roble pubescente','Quejigo','Encina (solanas)','Pino laricio (repoblado)','Chopo y olmo (ríos)','Fresno'],
+  d:'Zona de transición: robledales de roble pubescente en las umbrías y encinas en las laderas secas. Mucho campo de cereal.'},
+ {id:'pre',s:'Prepirineo',n:'Prepirineo y foces',w:'Sierra de Leyre, Izco, Lumbier, Arbayún, Urraúl, Navascués',c:[42.67,-1.20],col:'#9e9d24',
+  t:['Pino silvestre','Quejigo','Carrasca','Haya (umbrías de Leyre)','Boj','Enebro'],
+  d:'Sierras calizas cortadas por foces con colonias de buitres. Pinares, quejigares y carrascales; boj en el sotobosque.'},
+ {id:'est',s:'T. Estella',n:'Tierra Estella',w:'Estella, Montejurra, Améscoas bajas, Valdega, Los Arcos',c:[42.60,-2.08],col:'#afb42b',
+  t:['Encina / carrasca','Quejigo','Roble pubescente','Pino laricio y carrasco (repoblados)','Olivo y viña (cultivo)'],
+  d:'Carrascales y quejigares en las sierras; olivares de Arróniz y viñedos en las zonas bajas.'},
+ {id:'med',s:'Zona media',n:'Zona media oriental',w:'Tafalla, Olite, Valdorba, Artajona, Sangüesa',c:[42.53,-1.55],col:'#c0ca33',
+  t:['Carrasca','Quejigo (Valdorba)','Coscoja','Pino carrasco','Almendro y olivo (cultivo)'],
+  d:'Bosques mediterráneos de carrasca y quejigo (el bosque de la Valdorba). Viñedo, cereal, almendros y olivos.'},
+ {id:'rib',s:'Ribera',n:'La Ribera',w:'Tudela, Corella, Cascante, Peralta, Marcilla, Caparroso, sotos del Ebro y del Aragón',c:[42.08,-1.78],col:'#fbc02d',
+  t:['Chopo negro','Álamo blanco','Sauce','Tamariz (taray)','Fresno','Olmo','Pino carrasco (sierras)','Frutales y olivos'],
+  d:'Los sotos de ribera son los bosques más importantes: chopos, álamos y sauces junto a los ríos. Fuera de ellos, cultivos y frutales.'},
+ {id:'bar',s:'Bardenas',n:'Bardenas Reales',w:'Bardenas Blanca y Negra, Plana de la Negra',c:[42.27,-1.38],col:'#ffa000',
+  t:['Pino carrasco (Plana de la Negra)','Coscoja','Sabina','Tamariz (barrancos)','Romero y tomillo (matorral)'],
+  d:'Semidesierto: casi sin árboles salvo el pinar de la Plana de la Negra y algunos tamarices en los barrancos.'}
+];
+const NARB=[
+ {n:'Haya',l:'Fagus sylvatica',h:'Hoja ovalada de borde ondulado con pelillos; corteza gris y lisa. Fruto: hayuco.',z:['atl','pio','pir','sie','pre']},
+ {n:'Roble pedunculado',l:'Quercus robur',h:'Hoja con lóbulos redondeados y «orejitas» en la base; bellota con un rabito largo.',z:['atl']},
+ {n:'Roble pubescente',l:'Quercus pubescens',h:'Hoja lobulada con pelusa por debajo; aguanta la sequía.',z:['pio','sie','cue','est']},
+ {n:'Marojo (roble tozo)',l:'Quercus pyrenaica',h:'Hoja muy recortada y peluda; suelos ácidos.',z:['sie']},
+ {n:'Quejigo',l:'Quercus faginea',h:'Hoja dentada, verde por arriba y grisácea por debajo; marcescente (seca en el árbol en invierno).',z:['cue','pre','est','med']},
+ {n:'Encina / carrasca',l:'Quercus ilex',h:'Hoja perenne, dura, verde oscuro por arriba y blanquecina por abajo.',z:['cue','pre','est','med']},
+ {n:'Coscoja',l:'Quercus coccifera',h:'Arbusto de hoja pequeña y pinchosa.',z:['med','bar']},
+ {n:'Castaño',l:'Castanea sativa',h:'Hoja larga con dientes en sierra; erizos con castañas.',z:['atl']},
+ {n:'Abeto',l:'Abies alba',h:'Acículas planas con dos rayas blancas por debajo; piñas de pie.',z:['pio','pir']},
+ {n:'Pino silvestre',l:'Pinus sylvestris',h:'Corteza anaranjada en la parte alta del tronco; acículas cortas por parejas.',z:['pio','pir','pre']},
+ {n:'Pino negro',l:'Pinus uncinata',h:'Pino de alta montaña, corteza oscura; piñas con escamas en gancho.',z:['pir']},
+ {n:'Pino laricio',l:'Pinus nigra',h:'Acículas largas y rígidas, verde oscuro; muy usado en repoblaciones.',z:['cue','est']},
+ {n:'Pino carrasco',l:'Pinus halepensis',h:'Pino claro de corteza gris; acículas finas; aguanta mucha sequía.',z:['est','med','rib','bar']},
+ {n:'Pino insigne',l:'Pinus radiata',h:'Pino de crecimiento rápido plantado para madera en el norte húmedo.',z:['atl']},
+ {n:'Aliso',l:'Alnus glutinosa',h:'Hoja redondeada con la punta cortada; siempre junto al agua; pequeñas «piñitas».',z:['atl','pio']},
+ {n:'Chopo negro',l:'Populus nigra',h:'Hoja triangular que tiembla con el viento; sotos de ribera.',z:['cue','rib']},
+ {n:'Álamo blanco',l:'Populus alba',h:'Hoja blanca y algodonosa por debajo.',z:['rib']},
+ {n:'Fresno',l:'Fraxinus excelsior / angustifolia',h:'Hoja compuesta de varios folíolos; yemas negras (excelsior).',z:['atl','cue','rib']},
+ {n:'Sauce',l:'Salix spp.',h:'Hojas alargadas; orillas de ríos.',z:['rib','cue']},
+ {n:'Tamariz (taray)',l:'Tamarix spp.',h:'Ramitas finas con hojas como escamas; flores rosas; aguanta la sal.',z:['rib','bar']},
+ {n:'Avellano',l:'Corylus avellana',h:'Hoja redonda y áspera con punta; avellanas a final de verano.',z:['atl','pio']},
+ {n:'Tejo',l:'Taxus baccata',h:'Acículas planas verde oscuro; «baya» roja. ⚠️ Todo el árbol es venenoso salvo la pulpa roja. Protegido.',z:['pio','pir','sie']},
+ {n:'Acebo',l:'Ilex aquifolium',h:'Hoja brillante con pinchos; bolas rojas en invierno. Protegido: no se corta.',z:['atl','pio','sie']},
+ {n:'Boj',l:'Buxus sempervirens',h:'Arbusto de hojas pequeñas, redondas y brillantes.',z:['pre','sie']},
+ {n:'Sabina',l:'Juniperus phoenicea / thurifera',h:'Hojas como escamas; gálbulos (frutos) rojizos.',z:['bar']}
+];
+let ZSEL=null,ZM=null;
+function zDraw(x,P,b,M){for(const z of NZON){const [px,py]=P(z.c[0],z.c[1]),sel=ZSEL===z.id,r=sel?16:12;x.beginPath();x.arc(px,py,r,0,7);x.fillStyle=z.col;x.globalAlpha=.92;x.fill();x.globalAlpha=1;
+  x.strokeStyle='#fff';x.lineWidth=sel?3:2;x.stroke();x.font='bold 12px system-ui';x.textAlign='center';const lab=z.s||z.n,tw=x.measureText(lab).width;
+  x.fillStyle='rgba(11,17,24,.82)';x.fillRect(px-tw/2-5,py+r+3,tw+10,18);x.fillStyle='#fff';x.fillText(lab,px,py+r+16);x.textAlign='left';}}
+function zTap(px,py,M){let best=null,bd=40;for(const z of NZON){const [qx,qy]=M.P(z.c[0],z.c[1]),d=Math.hypot(qx-px,qy-py);if(d<bd){bd=d;best=z.id;}}ZSEL=best;M.draw();zRender();}
+function zRender(){const el=document.getElementById('arbZona');const z=NZON.find(q=>q.id===ZSEL);
+  if(!z){el.innerHTML='<div class="note">Toca una zona del mapa para ver sus árboles, o mira la lista de especies más abajo.</div>';return;}
+  el.innerHTML=`<div class="card" style="border-color:${z.col}"><b style="font-size:16px">🌲 ${z.n}</b><div class="note">📍 ${z.w}</div><div style="margin:6px 0;font-size:14px">${z.d}</div>
+   <div>${z.t.map(t=>`<span class="pill" style="background:${z.col};color:#fff;margin:2px 4px 2px 0;font-size:12px">${t}</span>`).join('')}</div></div>`;
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function arbRender(el){el.innerHTML=`<div style="position:relative"><canvas id="arbc" height="440"></canvas></div><div id="arbZona"></div>
+  <div class="card"><b>🔎 Cómo reconocer los árboles</b><div class="note">Y en qué zonas de Navarra los encontrarás.</div>
+  ${NARB.map(a=>`<div class="st" style="align-items:flex-start;flex-direction:column;gap:2px"><div><b>${a.n}</b> <i class="note">${a.l}</i></div><div class="note">${a.h}</div>
+   <div>${a.z.map(id=>{const z=NZON.find(q=>q.id===id);return `<span data-z="${id}" class="pill" style="background:${z.col};color:#fff;margin:2px 4px 2px 0;font-size:11px;cursor:pointer">${z.n}</span>`;}).join('')}</div></div>`).join('')}</div>
+  <div class="note">Mapa orientativo por grandes zonas: dentro de cada una hay mucha variedad según la altitud, la orientación y el suelo.</div>`;
+  ZM=NavMap('arbc',zDraw,zTap);setTimeout(()=>{ZM.draw();ZM.base();zRender();},30);
+  el.querySelectorAll('[data-z]').forEach(s=>s.onclick=()=>{ZSEL=s.dataset.z;ZM.draw();zRender();});}
+
 /* =====================================================================
    🌿 NATURALEZA: calendario de recolección, fauna y vegetación de Navarra
    m: meses de temporada (1-12); p: meses de mejor momento
@@ -1674,7 +1754,8 @@ function natRender(){const el=document.getElementById('natBody'),ms=document.get
   document.getElementById('natCats').innerHTML=(NTAB==='rec'?[['todo','Todo'],['seta','🍄 Setas'],['silv','🌰 Frutos del monte'],['frut','🍑 Frutales']]:NTAB==='fau'?[['todo','Todo'],['mam','🦌 Mamíferos'],['ave','🦅 Aves'],['rio','🐟 Ríos'],['otro','🦎 Otros']]:[])
     .map(([k,l])=>`<button class="btn${NCAT===k?' on':''}" data-c="${k}">${l}</button>`).join('');
   document.querySelectorAll('#natCats button').forEach(b=>b.onclick=()=>{NCAT=b.dataset.c;natRender();});
-  document.getElementById('natMesRow').style.display=NTAB==='veg'?'none':'';
+  document.getElementById('natMesRow').style.display=(NTAB==='veg'||NTAB==='arb')?'none':'';
+  if(NTAB==='arb'){arbRender(el);return;}
   if(NTAB==='rec'){let L=NREC.filter(x=>NCAT==='todo'||x.c===NCAT);const now=L.filter(x=>x.m.includes(NMONTH)).sort((a,b)=>(b.p.includes(NMONTH)?1:0)-(a.p.includes(NMONTH)?1:0)),rest=L.filter(x=>!x.m.includes(NMONTH));
     const card=x=>`<div class="card"><div style="display:flex;justify-content:space-between;gap:8px"><div><b style="font-size:15.5px">${x.i} ${x.n}</b>${x.l?` <i class="note">${x.l}</i>`:''}</div>${x.p.includes(NMONTH)?'<span class="pill" style="background:#43a047;color:#fff;font-size:11.5px;white-space:nowrap">⭐ Mejor momento</span>':x.m.includes(NMONTH)?'<span class="pill" style="background:#a5d6a7;color:#103;font-size:11.5px">En temporada</span>':''}</div><div class="note">${x.d}</div>${nBar(x.m,x.p)}</div>`;
     el.innerHTML=`<div class="note" style="font-weight:600;margin:6px 0">En temporada en ${NMES[NMONTH-1]}: ${now.length}</div>${now.map(card).join('')||'<div class="note">Nada en temporada este mes con este filtro.</div>'}
