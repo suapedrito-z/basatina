@@ -9,7 +9,6 @@ import shapefile                     # pip install pyshp
 from pyproj import Transformer       # pip install pyproj
 
 CAPAS = {
-    "tramos": "https://idena.navarra.es/descargas/CAZAPE_Lin_Tramifica.zip",
     "especial": "https://idena.navarra.es/descargas/CAZAPE_Lin_AgRegEsp.zip",
 }
 UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)"}
@@ -39,7 +38,8 @@ for capa, url in CAPAS.items():
     base = [n[:-4] for n in names if n.lower().endswith(".shp")][0]
     get = lambda ext: io.BytesIO(z.read([n for n in names if n.lower() == (base + ext).lower()][0]))
     prj = z.read([n for n in names if n.lower() == (base + ".prj").lower()][0]).decode("latin-1") if any(n.lower().endswith(".prj") for n in names) else ""
-    sf = shapefile.Reader(shp=get(".shp"), dbf=get(".dbf"), encoding="latin-1")
+    # el texto viene en Windows-1252 (así salen bien los guiones largos «–»)
+    sf = shapefile.Reader(shp=get(".shp"), dbf=get(".dbf"), encoding="cp1252")
     fields = [f[0] for f in sf.fields[1:]]
     # IDENA usa ETRS89 UTM 30 (EPSG:25830)
     tr = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
@@ -54,7 +54,7 @@ for capa, url in CAPAS.items():
             pts = [[round(la, 5), round(lo, 5)] for lo, la in (tr.transform(x, y) for x, y in seg)]
             pts = simplify(pts, 0.0002)
             if len(pts) >= 2:
-                feats.append({"a": {k: v for k, v in attrs.items() if v not in ("", None)}, "p": pts})
+                feats.append({"a": {k: v for k, v in attrs.items() if v not in ("", None, "-") and k not in ("FEATURE", "GEOM_LONG", "CUENCAPERM")}, "p": pts})
     out[capa] = feats
     info.append(f"## {capa}: {url}\narchivos: {names}\nprj: {prj[:200]}\nelementos: {len(feats)}\ncampos: {fields}\n")
     for k in fields:
