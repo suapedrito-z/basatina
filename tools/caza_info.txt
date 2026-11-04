@@ -1,0 +1,16 @@
+- [{'_value': 'Planes de Ordenación Cinegética. Monterías de caza mayor', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Monterías de caza mayor', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_Monterias.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Recorridos de caza estival', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Recorridos de caza estival', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Lin_RecCazaEst.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Resaques de caza mayor', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Resaques de caza mayor', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ResaqueCazaM.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Zonas de caza estival', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de caza estival', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaEst.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Zonas de caza sembrada', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de caza sembrada', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaSem.zip']
+
+URLs: https://idena.navarra.es/descargas/CAZAPE_Lin_RecCazaEst.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_Monterias.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_ResaqueCazaM.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaEst.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaSem.zip
+no https://idena.navarra.es/descargas/CAZAPE_Pol_Cotos.zip: HTTP Error 404: Not Found
+no https://idena.navarra.es/descargas/CAZAPE_Pol_CotoCaza.zip: HTTP Error 404: Not Found
+no https://idena.navarra.es/descargas/CAZAPE_Pol_Coto.zip: HTTP Error 404: Not Found
+no https://idena.navarra.es/descargas/CAZAPE_Pol_CotosCaza.zip: HTTP Error 404: Not Found
+no https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCaza.zip: HTTP Error 404: Not Found
