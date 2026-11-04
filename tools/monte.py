@@ -152,6 +152,22 @@ try:
         nuevo = list(w)
         for g in hit: nuevo += g; grupos.remove(g)
         grupos.append(nuevo)
+    # une los trozos de borde por sus extremos para formar el contorno cerrado de cada enclave
+    resto = [list(w) for w in ways]; anillos = []
+    while resto:
+        r = resto.pop(0)
+        while True:
+            for i, w in enumerate(resto):
+                if km(r[-1], w[0]) < 0.01: r += w[1:]
+                elif km(r[-1], w[-1]) < 0.01: r += w[::-1][1:]
+                elif km(r[0], w[-1]) < 0.01: r = w[:-1] + r
+                elif km(r[0], w[0]) < 0.01: r = w[::-1][:-1] + r
+                else: continue
+                resto.pop(i); break
+            else: break
+        anillos.append(simplify([[round(p[0], 5), round(p[1], 5)] for p in r], 0.0002))
+    anillos.sort(key=lambda g: -max(p[0] for p in g))
+    info.append("PETILLA_ANILLOS=" + json.dumps(anillos, separators=(",", ":")))
     for g in sorted(grupos, key=lambda g: -max(p[0] for p in g)):
         la = [p[0] for p in g]; lo = [p[1] for p in g]
         info.append(f"PETILLA enclave: centro {(min(la)+max(la))/2:.4f},{(min(lo)+max(lo))/2:.4f} · caja {min(la):.4f}-{max(la):.4f} / {min(lo):.4f}-{max(lo):.4f} · {len(g)} puntos")
