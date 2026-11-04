@@ -39,6 +39,7 @@ for name in ["CAZAPE_Pol_Cotos", "CAZAPE_Pol_CotoCaza", "CAZAPE_Pol_Coto", "CAZA
 # ---- descargar las capas útiles y guardarlas en web/caza.js ----
 import shapefile
 from pyproj import Transformer
+KEEP = {'MATRICULA', 'COTO', 'TOPONIMO', 'VIGENCIA', 'EXCLUIDA', 'TIPO', 'COMPARTIDO', 'IDPUESTO', 'IDCHOZAPAL', 'IDFRENTE', 'IDMONTERIA', 'IDRESERVA', 'IDREFUGIO', 'IDZCODORNI'}
 tr = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
 def simplify(pts, tol):
     if len(pts) < 3: return pts
@@ -49,7 +50,7 @@ def simplify(pts, tol):
     if best <= tol: return [a, b]
     return simplify(pts[:idx+1], tol)[:-1] + simplify(pts[idx:], tol)
 out = {"t": time.strftime("%Y-%m-%d")}
-UTILES = ["CAZAPE_Pol_Monterias", "CAZAPE_Pol_ResaqueCazaM", "CAZAPE_Sym_PuesPaloma", "CAZAPE_Sym_ChozaPaloma", "CAZAPE_Lin_FrenPaloma",
+UTILES = ["CAZAPE_Pol_Monterias", "CAZAPE_Sym_PuesPaloma", "CAZAPE_Sym_ChozaPaloma", "CAZAPE_Lin_FrenPaloma",
            "CAZAPE_Sym_EsperaNoct", "CAZAPE_Pol_Reservas", "CAZAPE_Pol_Refugios", "CAZAPE_Pol_ZonaCodor", "CAZAPE_Sym_PuesMalviz", "CAZAPE_Sym_PuesAnade"]
 for u in urls:
     if not u.lower().endswith(".zip") or u.rsplit("/", 1)[1][:-4] not in UTILES: continue
@@ -65,16 +66,16 @@ for u in urls:
             for k, v in at.items(): vals[k][str(v)[:60]] += 1
             if sr.shape.shapeType in (1, 8, 11, 21) or not sr.shape.parts:      # puntos (puestos, chozas, esperas)
                 lo, la = tr.transform(*sr.shape.points[0][:2])
-                feats.append({"a": {k: v for k, v in at.items() if v not in ("", None, "-") and k not in ("FEATURE",)}, "pt": [round(la, 5), round(lo, 5)]})
+                feats.append({"a": {k: v for k, v in at.items() if v not in ("", None, "-") and k in KEEP}, "pt": [round(la, 4), round(lo, 4)]})
                 continue
             parts = list(sr.shape.parts) + [len(sr.shape.points)]
             rings = []
             for i in range(len(parts)-1):
-                pts = [[round(la, 5), round(lo, 5)] for lo, la in (tr.transform(x, y) for x, y in sr.shape.points[parts[i]:parts[i+1]])]
-                pts = simplify(pts, 0.0003)
+                pts = [[round(la, 4), round(lo, 4)] for lo, la in (tr.transform(x, y) for x, y in sr.shape.points[parts[i]:parts[i+1]])]
+                pts = simplify(pts, 0.0006)
                 if len(pts) >= 2: rings.append(pts)
-            if rings: feats.append({"a": {k: v for k, v in at.items() if v not in ("", None, "-") and k not in ("FEATURE",)}, "r": rings})
-        out[key] = feats
+            if rings: feats.append({"a": {k: v for k, v in at.items() if v not in ("", None, "-") and k in KEEP}, "r": rings})
+        out[key] = {"d": str(vals["BEGINLIFE"].most_common(1)[0][0]) if vals.get("BEGINLIFE") else "", "f": feats}
         info.append(f"\n## {key}: {len(feats)} elementos · campos {fields}")
         for k in fields: info.append(f"- {k}: {len(vals[k])} distintos · {list(vals[k].most_common(8))}")
     except Exception as e:
