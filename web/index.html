@@ -94,6 +94,8 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button data-t="pesca">🎣 Pesca: tramos y normas</button>
   <button data-t="caza">🦌 Caza: calendario de la temporada</button>
   <button data-t="natura">🌿 Setas, frutos, fauna y vegetación</button>
+  <div class="dgroup">Tierra</div>
+  <button data-t="sismo">🌍 Terremotos, fallas y placas</button>
   <div class="dgroup">App</div>
   <button data-t="ajustes">⚙️ Ajustes y avisos</button>
   <button data-t="about">ℹ️ Acerca de</button>
@@ -322,6 +324,23 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div id="moFicha"></div>
 <div class="card" style="border-color:#ffb020"><b>⚠️ Antes de salir</b><div class="note">Mira el tiempo y los avisos, lleva agua y ropa de abrigo, avisa de tu ruta y no salgas de los caminos señalizados. Respeta las propiedades, el ganado y las normas de los espacios protegidos. En caso de emergencia, llama al 112. Datos: Gobierno de Navarra · IDENA (CC BY 4.0).</div></div>
 </section>
+<!-- ============ TERREMOTOS Y FALLAS ============ -->
+<section id="t-sismo">
+<div class="seg" id="siPer"></div>
+<div class="row" style="gap:6px;align-items:center;margin:4px 0 8px"><span class="note">Magnitud mínima</span><select class="town" id="siMag" style="width:auto;flex:1"></select>
+ <label class="note" style="display:inline-flex;gap:5px;align-items:center"><input type="checkbox" id="siFal" checked> Fallas</label></div>
+<div style="position:relative"><canvas id="sic" height="460"></canvas>
+ <div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="siIn">＋</button><button class="btn mtb" id="siOut">－</button><button class="btn mtb" id="siAll">⤢</button></div></div>
+<div class="note" id="siLeg" style="margin:6px 0;line-height:1.7"></div>
+<div id="siFicha"></div>
+<div id="siRes"></div>
+<div class="card"><b>🧭 ¿Dónde están las placas?</b>
+ <canvas id="sipc" height="300" style="margin-top:8px"></canvas>
+ <div class="note" style="margin-top:6px">• Navarra está en la <b>placa Euroasiática</b>. El límite con la <b>placa Africana</b> pasa lejos, al sur: de las Azores al estrecho de Gibraltar, el mar de Alborán y el norte de Argelia (línea roja). África empuja hacia Europa unos 4‑5 mm al año.<br>
+ • Ese empuje se reparte por toda la península y se libera poco a poco en <b>fallas</b> como las del Pirineo. Los Pirineos nacieron precisamente del choque de la península Ibérica con Europa hace decenas de millones de años.<br>
+ • Por eso en Navarra hay terremotos frecuentes pero casi siempre pequeños: la mayoría ni se notan, y de vez en cuando alguno de magnitud 4 o algo más se siente en buena parte de la comunidad.</div></div>
+<div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Los terremotos no se pueden predecir. Los datos son provisionales y se revisan después. Si notas uno fuerte: protégete bajo una mesa o junto a un muro de carga, lejos de ventanas, y al salir no uses el ascensor. Emergencias: 112.<br>Datos: EMSC (Centro Sismológico Euromediterráneo), que reúne los de la Red Sísmica Nacional del IGN y redes vecinas · Fallas: base de datos QAFI del IGME‑CSIC.</div></div>
+</section>
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
@@ -352,7 +371,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="pesca.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -2014,6 +2033,91 @@ function moInit(){if(!MOM){MOM=NavMap('moc',moDraw,moTap);
   moLayers();document.getElementById('moInfo').textContent='Cargando…';
   moLoad(()=>{document.getElementById('moInfo').textContent=window.MONTE_GEO?'Toca un punto o una ruta para ver su ficha y el tiempo previsto allí.':'Las capas llegarán con la próxima actualización.';MOM.draw();if(!MOM.img)MOM.base();});}
 const _showTab6=showTab;showTab=function(t){_showTab6(t);if(t==='monte')setTimeout(moInit,40);};
+document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+
+
+/* =====================================================================
+   🌍 TERREMOTOS, FALLAS Y PLACAS
+   - Histórico desde 1990 (web/sismo.js, lo genera tools/sismo.py cada lunes).
+   - Últimos 30 días: el móvil los pide al EMSC al abrir la pantalla.
+   ===================================================================== */
+let SIQ=[],SIM=null,SISEL=null,SIPER=30,SIMAG=1,SILIVE=0,SILOAD=false;
+const SIPERS=[[1,'24 h'],[7,'7 días'],[30,'30 días'],[365,'1 año'],[3650,'10 años'],[1e5,'Todo']];
+const SIFC={activa:['#e53935','Falla activa'],debatida:['#ff9800','Falla posiblemente activa (en estudio)'],neotectonica:['#ab47bc','Falla reciente (mapa neotectónico)']};
+const siAge=t=>(Date.now()-Date.parse(t+'Z'))/864e5;
+const siCol=d=>d<1?'#ff1744':d<7?'#ff9100':d<30?'#ffd600':d<365?'#00e676':'#90a4ae';
+const siR=m=>Math.max(2.5,2+m*m*.9);
+function siLoad(cb){if(window.SISMO_GEO)return cb();if(SILOAD)return;SILOAD=true;const s=document.createElement('script');s.src='sismo.js';s.onload=()=>{SILOAD=false;cb();};s.onerror=()=>{SILOAD=false;cb();};document.body.appendChild(s);}
+// une el histórico con lo recibido en directo (sin repetir el mismo terremoto)
+function siMerge(live){const H=(window.SISMO_GEO||{}).q||[],seen=new Set(H.map(q=>q[6]));SIQ=H.concat(live.filter(q=>!q[6]||!seen.has(q[6]))).sort((a,b)=>a[0]<b[0]?-1:1);}
+async function siLive(){const t0=new Date(Date.now()-31*864e5).toISOString().slice(0,10);
+  const u=`https://www.seismicportal.eu/fdsnws/event/1/query?format=json&starttime=${t0}&minlat=41.7&maxlat=43.6&minlon=-2.9&maxlon=-0.4&minmag=0.5&limit=2000`;
+  const j=await getJSON(u);if(!j||!j.features){SILIVE=-1;return [];}SILIVE=Date.now();
+  return j.features.filter(f=>f.properties.mag!=null).map(f=>{const p=f.properties,[lo,la]=f.geometry.coordinates;return [p.time.slice(0,19),+la.toFixed(3),+lo.toFixed(3),Math.abs(+(p.depth||0)).toFixed(1)*1,+(+p.mag).toFixed(1),p.magtype||'',p.unid||'',(p.flynn_region||'').toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())];});}
+const SIZONA={'Pyrenees':'Pirineos','Spain':'España','Northern Spain':'Norte de España','France':'Francia','Southern France':'Sur de Francia','Bay Of Biscay':'Golfo de Bizkaia'};
+function siVis(){return SIQ.filter(q=>q[4]>=SIMAG&&siAge(q[0])<=SIPER);}
+function siDraw(x,P,b,M){
+  if(document.getElementById('siFal').checked)for(const f of ((window.SISMO_GEO||{}).f||[])){const c=SIFC[f.a.k][0],sel=SISEL&&SISEL.f===f;
+    for(const r of f.r){x.beginPath();r.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.lineCap='round';x.lineWidth=sel?6:3.5;x.strokeStyle='#000a';x.stroke();x.lineWidth=sel?4:2.2;x.strokeStyle=c;if(f.a.k==='neotectonica')x.setLineDash([6,4]);x.stroke();x.setLineDash([]);}}
+  const V=siVis();x.lineWidth=1;
+  for(const q of V){const [px,py]=P(q[1],q[2]);if(px<-20||py<-20||px>b.W+20||py>b.H+20)continue;const r=siR(q[4])*Math.min(2,Math.max(1,M.z/3));
+    x.beginPath();x.arc(px,py,r,0,7);x.fillStyle=siCol(siAge(q[0]));x.globalAlpha=V.length>800?.55:.8;x.fill();x.globalAlpha=1;x.strokeStyle=SISEL&&SISEL.q===q?'#fff':'#0008';x.lineWidth=SISEL&&SISEL.q===q?3:1;x.stroke();}
+  const [px,py]=P(42.8125,-1.6458);x.fillStyle='#fff';x.font='bold 11px system-ui';x.textAlign='center';x.fillText('★ Pamplona',px,py-6);}
+function siTap(px,py,M){const P=M.P;let best=null,bd=18;
+  for(const q of siVis()){const [qx,qy]=P(q[1],q[2]),d=Math.hypot(qx-px,qy-py)-siR(q[4])*.5;if(d<bd){bd=d;best={q};}}
+  if(!best&&document.getElementById('siFal').checked)for(const f of ((window.SISMO_GEO||{}).f||[]))for(const r of f.r){const Q=r.map(q=>P(q[0],q[1]));for(let i=1;i<Q.length;i++){const [ax,ay]=Q[i-1],[bx,by]=Q[i],dx=bx-ax,dy=by-ay,l2=dx*dx+dy*dy||1,t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/l2)),d=Math.hypot(px-ax-t*dx,py-ay-t*dy);if(d<12&&d<bd){bd=d;best={f};}}}
+  SISEL=best;M.draw();siFicha();}
+// qué se suele notar según la magnitud (orientativo: depende de la profundidad y la distancia)
+const siNota=m=>m<2?'Solo lo registran los sismógrafos.':m<3?'Casi nunca se nota; quizá alguien muy cerca y en reposo.':m<4?'Se puede notar cerca del epicentro, como el paso de un camión.':m<5?'Se nota en una zona amplia; puede mover objetos y asustar, daños raros.':'Se nota con fuerza; puede causar daños leves cerca del epicentro.';
+function siFicha(){const el=document.getElementById('siFicha');if(!SISEL){el.innerHTML='';return;}
+  if(SISEL.q){const q=SISEL.q,d=new Date(q[0]+'Z'),km=moKm([q[1],q[2]],[42.8125,-1.6458]);
+    el.innerHTML=`<div class="card" style="border-color:${siCol(siAge(q[0]))}"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:16px">Terremoto de magnitud ${fmtN(q[4],1)}</b><button class="btn" id="siX">✕</button></div>
+     <div class="st"><b>Fecha y hora</b><span>${d.toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}</span></div>
+     <div class="st"><b>Magnitud</b><span>${fmtN(q[4],1)} ${q[5]?'('+q[5]+')':''}</span></div><div class="st"><b>Profundidad</b><span>${fmtN(q[3],0)} km</span></div>
+     <div class="st"><b>Zona</b><span>${SIZONA[q[7]]||q[7]||'—'}</span></div><div class="st"><b>Distancia a Pamplona</b><span>${fmtN(km,0)} km</span></div>
+     <div class="note" style="margin-top:6px">🫨 ${siNota(q[4])}</div>${q[6]?`<div class="row"><button class="btn" data-url="https://www.seismicportal.eu/eventdetails.html?unid=${q[6]}">🔗 Ficha en el EMSC</button></div>`:''}</div>`;}
+  else{const a=SISEL.f.a,[c,n]=SIFC[a.k];
+    el.innerHTML=`<div class="card" style="border-color:${c}"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:16px">${a.FaultName?'Falla de '+a.FaultName:'Falla'}</b><button class="btn" id="siX">✕</button></div>
+     <div class="note">${n}</div>${a.Geological?`<div class="st"><b>Zona geológica</b><span>${a.Geological}</span></div>`:''}${a.ID?`<div class="st"><b>Código QAFI</b><span>${a.ID}</span></div>`:''}
+     ${a.Informacio?`<div class="st"><b>Notas</b><span style="text-align:right">${a.Informacio}</span></div>`:''}${a.NameOfComp?`<div class="st"><b>Estudiada por</b><span style="text-align:right">${a.NameOfComp}</span></div>`:''}
+     <div class="note" style="margin-top:6px">${a.k==='activa'?'Falla con pruebas de movimiento en el Cuaternario (los últimos 2,6 millones de años).':a.k==='debatida'?'Los geólogos aún discuten si se ha movido en el Cuaternario. Muchos de los terremotos de Navarra se agrupan cerca de este tipo de fallas.':'Falla del antiguo Mapa Neotectónico de España: se movió en tiempos geológicos recientes (Plioceno‑Cuaternario).'}</div></div>`;}
+  document.getElementById('siX').onclick=()=>{SISEL=null;SIM.draw();siFicha();};
+  el.querySelectorAll('[data-url]').forEach(b=>b.onclick=()=>{if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(b.dataset.url);else window.open(b.dataset.url,'_blank');});
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function siRender(){if(SIM)SIM.draw();const V=siVis(),per=SIPERS.find(p=>p[0]===SIPER)[1],H=window.SISMO_GEO;
+  document.getElementById('siLeg').innerHTML=`<b>${V.length.toLocaleString('es-ES')}</b> terremotos (${per}, magnitud ≥ ${SIMAG}). `+
+    [[1,'hoy'],[7,'semana'],[30,'mes'],[365,'año'],[9e9,'antes']].map(([d,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${siCol(d-.5)}"></span> ${l}`).join(' ')+
+    ` · tamaño = magnitud<br>`+Object.values(SIFC).map(([c,n])=>`<span style="display:inline-block;width:14px;height:3px;background:${c};vertical-align:middle"></span> ${n}`).join(' · ')+
+    `<br>${SILIVE>0?'🟢 Últimos 30 días en directo':SILIVE<0?'⚠️ No se pudieron cargar los últimos días; se muestra el histórico':'Cargando los últimos días…'}${H?' · histórico hasta '+H.t.split('-').reverse().join('/'):''}`;
+  const last=V.slice(-12).reverse(),top=[...V].sort((a,b)=>b[4]-a[4]).slice(0,8);
+  const row=(q,i,k)=>`<div class="st" data-k="${k}" data-i="${i}" style="cursor:pointer"><span><b style="display:inline-block;min-width:40px;color:${siCol(siAge(q[0]))}">M${fmtN(q[4],1)}</b> ${new Date(q[0]+'Z').toLocaleString('es-ES',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</span><span class="note">${SIZONA[q[7]]||q[7]||''}</span></div>`;
+  const R=document.getElementById('siRes');
+  R.innerHTML=V.length?`<div class="card"><b>🕒 Los últimos</b>${last.map((q,i)=>row(q,i,'l')).join('')}</div><div class="card"><b>💪 Los más fuertes (${per})</b>${top.map((q,i)=>row(q,i,'t')).join('')}</div>`:'<div class="note">No hay terremotos con estos filtros.</div>';
+  R.querySelectorAll('[data-k]').forEach(d=>d.onclick=()=>{const q=(d.dataset.k==='l'?last:top)[+d.dataset.i];SISEL={q};SIM.fit(q[1]-.15,q[1]+.15,q[2]-.2,q[2]+.2);siFicha();});}
+// esquema de las placas: mapa base del IGN de la península y el límite Eurasia‑África (trazado simplificado)
+let SIPIMG=null;const SIPB={s:30.5,n:45,w:-30,e:10};
+function siPlates(){const cv=document.getElementById('sipc');if(cv.clientWidth<10)return;const W=cv.clientWidth,H=Math.round(W*(SIPB.n-SIPB.s)/((SIPB.e-SIPB.w)*Math.cos(39.5*Math.PI/180)));cv.dataset.h=H;const x=fitCanvas(cv);
+  const P=(la,lo)=>[W*(lo-SIPB.w)/(SIPB.e-SIPB.w),H*(SIPB.n-la)/(SIPB.n-SIPB.s)];x.fillStyle='#0b1118';x.fillRect(0,0,W,H);
+  if(!SIPIMG){SIPIMG=new Image();SIPIMG.onload=siPlates;SIPIMG.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${SIPB.s},${SIPB.w},${SIPB.n},${SIPB.e}&WIDTH=1000&HEIGHT=${Math.round(1000*H/W)}&FORMAT=image/jpeg`;}
+  else if(SIPIMG.complete&&SIPIMG.naturalWidth){x.globalAlpha=.85;x.drawImage(SIPIMG,0,0,W,H);x.globalAlpha=1;}
+  const B=[[38.8,-30],[38.4,-27],[37.8,-24.5],[37.2,-20],[36.8,-15],[36.6,-11.5],[36.1,-8],[35.9,-6.2],[35.6,-4.8],[35.9,-3],[36.2,-1.3],[36.6,1],[36.9,4],[37.1,7],[37.3,10]];
+  x.beginPath();B.forEach((q,i)=>{const [px,py]=P(...q);i?x.lineTo(px,py):x.moveTo(px,py);});x.strokeStyle='#000';x.lineWidth=6;x.stroke();x.strokeStyle='#ff1744';x.lineWidth=3.5;x.stroke();
+  const lab=(la,lo,t,c,al='center')=>{const [px,py]=P(la,lo);x.font='bold 12px system-ui';x.textAlign=al;x.fillStyle='#000';x.fillText(t,px+1,py+1);x.fillStyle=c;x.fillText(t,px,py);};
+  lab(42.5,-22,'PLACA EUROASIÁTICA','#e3f2fd');lab(33,-21,'PLACA AFRICANA','#fff3e0');
+  // flecha del empuje de África
+  const [ax,ay]=P(32.4,-9),[bx,by]=P(35.2,-9.6);x.strokeStyle='#ffeb3b';x.lineWidth=3;x.beginPath();x.moveTo(ax,ay);x.lineTo(bx,by);x.stroke();x.beginPath();x.moveTo(bx,by);x.lineTo(bx-6,by+8);x.lineTo(bx+6,by+7);x.closePath();x.fillStyle='#ffeb3b';x.fill();lab(33.6,-8.2,'4‑5 mm/año','#ffeb3b','left');
+  const [nx,ny]=P(42.7,-1.65);x.beginPath();x.arc(nx,ny,6,0,7);x.fillStyle='#00e676';x.fill();x.strokeStyle='#000';x.lineWidth=2;x.stroke();lab(43.6,-1.65,'Navarra','#b9f6ca');
+  x.font='10px system-ui';x.textAlign='left';x.fillStyle='#cfd8dc';x.fillText('Esquema simplificado del límite de placas',6,H-6);}
+function siInit(){if(!SIM){SIM=NavMap('sic',siDraw,siTap);
+    document.getElementById('siIn').onclick=()=>SIM.zoom(1.6);document.getElementById('siOut').onclick=()=>SIM.zoom(1/1.6);document.getElementById('siAll').onclick=()=>{SIM.la=42.66;SIM.lo=-1.63;SIM.z=1;SIM.draw();SIM.base();};
+    document.getElementById('siPer').innerHTML=SIPERS.map(([d,l])=>`<button class="btn${d===SIPER?' on':''}" data-d="${d}">${l}</button>`).join('');
+    document.querySelectorAll('#siPer button').forEach(b=>b.onclick=()=>{SIPER=+b.dataset.d;document.querySelectorAll('#siPer button').forEach(z=>z.classList.toggle('on',z===b));if(SIPER>=3650&&SIMAG<2){SIMAG=2;document.getElementById('siMag').value=2;}siRender();});
+    document.getElementById('siMag').innerHTML=[[0,'Todas'],[1,'≥ 1'],[2,'≥ 2'],[2.5,'≥ 2,5'],[3,'≥ 3 (se puede notar)'],[4,'≥ 4']].map(([v,l])=>`<option value="${v}">${l}</option>`).join('');
+    document.getElementById('siMag').value=SIMAG;document.getElementById('siMag').onchange=e=>{SIMAG=+e.target.value;siRender();};
+    document.getElementById('siFal').onchange=()=>{SISEL=null;siFicha();SIM.draw();};}
+  siLoad(()=>{siMerge([]);siRender();SIM.draw();if(!SIM.img)SIM.base();siPlates();
+    if(SILIVE<=0||Date.now()-SILIVE>10*60e3)siLive().then(L=>{siMerge(L);siRender();});});}
+const _showTab7=showTab;showTab=function(t){_showTab7(t);if(t==='sismo')setTimeout(siInit,40);};
 document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 
 
