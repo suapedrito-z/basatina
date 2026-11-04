@@ -186,5 +186,13 @@
 
 ## PATRIM_Lin_CaminoSant: 2 · campos ['FEATURE', 'TRAMO', 'GEOM_LONG', 'BEGINLIFE']
 - TRAMO: 2 · [('Camino de Santiago aragonés', 1), ('Camino de Santiago francés', 1)]
+perfil fallo PATRIM_Sym_Senderismo https://pcsitna.navarra.es/documents/35464643/38491466/measkoitz-otamendi-desde-errea-visitando-dos-castros.gpx: <urlopen error timed out>
+perfil fallo PATRIM_Sym_Senderismo https://pcsitna.navarra.es/documents/35464643/38491466/mergelu-atume-dolmen-goldaburu-desde-uitzi.gpx: <urlopen error timed out>
+perfil fallo PATRIM_Sym_Senderismo https://pcsitna.navarra.es/documents/35464643/38491466/arrarats-begana-basaburua.gpx: <urlopen error timed out>
+perfil fallo PATRIM_Sym_Senderismo https://pcsitna.navarra.es/documents/35464643/38491466/moncayuelo.gpx: <urlopen error timed out>
 
-monte.js: 1936 KB  ·  GEOLOG_Sym_Cuevas:2475, DOTACI_Sym_Miradores:16, FOREST_Sym_AreasRecForest:306, HIDROG_Sym_ZonaBano:16, PATRIM_Sym_BICarquite:239, GEOLOG_Sym_Manantiales:9323, IDEMUN_Sym_Fuentes:169, PATRIM_Sym_Senderismo:76, DOTACI_Lin_VVBidasoa:2, DOTACI_Lin_VVVascoNav:2, DOTACI_Lin_VVIrati:2, DOTACI_Lin_VVPlazaola:2, DOTACI_Lin_VVTarazoni:2, DOTACI_Lin_GR1:8, DOTACI_Lin_GR12:13, DOTACI_Lin_GR321:11, PATRIM_Lin_CaminoSant:2
+Perfiles de ruta: 32 bien, 76 fallos
+PETILLA enclave: centro 42.4599,-1.0906 · caja 42.4334-42.4863 / -1.1294--1.0517 · 490 puntos
+PETILLA enclave: centro 42.4215,-1.1669 · caja 42.4009-42.4422 / -1.1890--1.1448 · 268 puntos
+
+monte.js: 1959 KB  ·  GEOLOG_Sym_Cuevas:2475, DOTACI_Sym_Miradores:16, FOREST_Sym_AreasRecForest:306, HIDROG_Sym_ZonaBano:16, PATRIM_Sym_BICarquite:239, GEOLOG_Sym_Manantiales:9323, IDEMUN_Sym_Fuentes:169, PATRIM_Sym_Senderismo:76, DOTACI_Lin_VVBidasoa:2, DOTACI_Lin_VVVascoNav:2, DOTACI_Lin_VVIrati:2, DOTACI_Lin_VVPlazaola:2, DOTACI_Lin_VVTarazoni:2, DOTACI_Lin_GR1:8, DOTACI_Lin_GR12:13, DOTACI_Lin_GR321:11, PATRIM_Lin_CaminoSant:2
