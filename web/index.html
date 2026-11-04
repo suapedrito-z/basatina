@@ -1007,7 +1007,8 @@ const TOWNS=[['Pamplona',42.8125,-1.6458],['Tudela',42.0617,-1.6045],['Estella',
  ['Viana',42.5160,-2.3710],['Olite',42.4820,-1.6510],['Peralta',42.3360,-1.8000],['Lodosa',42.4270,-2.0770],['Corella',42.1150,-1.7860],
  ['Bera',43.2810,-1.6860],['Leitza',43.0790,-1.9160],['Aoiz',42.7860,-1.3720],['Ochagavía',42.9090,-1.0880],['Isaba',42.8620,-0.9220],
  ['Orreaga/Roncesvalles',43.0090,-1.3190],['Puente la Reina',42.6720,-1.8150],['Caparroso',42.3420,-1.6500],['Lumbier',42.6530,-1.3070],
- ['Irurtzun',42.9190,-1.8270],['Zubiri',42.9300,-1.5030],['Eugi',42.9770,-1.5150],['Funes',42.3150,-1.8010],['Arguedas',42.1770,-1.5980]];
+ ['Irurtzun',42.9190,-1.8270],['Zubiri',42.9300,-1.5030],['Eugi',42.9770,-1.5150],['Funes',42.3150,-1.8010],['Arguedas',42.1770,-1.5980],
+ ['Petilla de Aragón',42.4614,-1.0928]];  // enclave navarro en Zaragoza
 const OM='https://api.open-meteo.com/v1/forecast',OMA='https://archive-api.open-meteo.com/v1/archive',TZ='&timezone=Europe%2FMadrid';
 async function getJSON(u,retry=1){const j=await getJSON1(u);if(j||!retry)return j;await new Promise(r=>setTimeout(r,1500));return getJSON1(u);}
 async function getJSON1(u){try{if(APP){const r=await netGet(u);return r.code===200?JSON.parse(r.body):null;}const r=await fetch(u);return r.ok?await r.json():null;}catch(e){return null;}}
@@ -1879,7 +1880,7 @@ const MOL=[['PATRIM_Sym_Senderismo','🥾 Rutas recomendadas','#e65100','pt',1,[
  ['PATRIM_Sym_BICarquite','🏰 Patrimonio (BIC)','#6d4c41','pt',0,['BIC']],['GEOLOG_Sym_Cuevas','🕳️ Todas las cuevas y simas','#8d6e63','pt',0,['CUEVA']],
  ['IDEMUN_Sym_Fuentes','🚰 Fuentes públicas','#4fc3f7','pt',0,['FUENTE']],['GEOLOG_Sym_Manantiales','💧 Manantiales','#90caf9','pt',0,['MANANTIAL']]];
 const MOOV=[['','Sin capa oficial'],['senderos','🥾 Todos los senderos señalizados (PR, SL)'],['FOREST_Ras_ProbQuemaAnual','🔥 Probabilidad de incendio'],['FOREST_Pol_HcoIncendioA','🔥 Incendios 2019‑2023'],['FOREST_Pol_ZonUsoFuego','🔥 Zonas de uso del fuego'],['DOTACI_Sym_PtosAgua','🚒 Puntos de agua contra incendios']];
-let MON={},MOM=null,MOSEL=null,MOLOAD=false;MOL.forEach(l=>MON[l[0]]=!!l[4]);
+let MON={},MOM=null,MOSEL=null,MOLOAD=false,MOPF=null;MOL.forEach(l=>MON[l[0]]=!!l[4]);
 function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[k];
   if(k==='GR')return ['DOTACI_Lin_GR1','DOTACI_Lin_GR12','DOTACI_Lin_GR321'].flatMap(x=>(G[x]||{f:[]}).f);
   if(k==='VV')return ['DOTACI_Lin_VVBidasoa','DOTACI_Lin_VVVascoNav','DOTACI_Lin_VVIrati','DOTACI_Lin_VVPlazaola','DOTACI_Lin_VVTarazoni'].flatMap(x=>(G[x]||{f:[]}).f);
@@ -1887,8 +1888,10 @@ function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[
 function moLoad(cb){if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}
 function moDraw(x,P,b,M){const r=Math.max(2.5,Math.min(7,2+M.z*.3));
   for(const [k,,c,t] of MOL){if(!MON[k])continue;const big=k==='VIS'||k==='CASC';for(const f of moFeats(k)){const sel=MOSEL&&MOSEL.f===f;
+    if(t==='pt'&&sel&&f.r)for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.lineCap='round';x.lineJoin='round';x.strokeStyle='#fff';x.lineWidth=7;x.stroke();x.strokeStyle=c;x.lineWidth=4;x.stroke();}
     if(t==='pt'){const [px,py]=P(f.pt[0],f.pt[1]);if(px<-9||py<-9||px>b.W+9||py>b.H+9)continue;x.beginPath();x.arc(px,py,(sel?r+4:r)+(big?2:0),0,7);x.fillStyle=c;x.fill();if(M.z>6||sel||big){x.strokeStyle='#fff';x.lineWidth=1.5;x.stroke();}}
-    else for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.strokeStyle=c;x.lineWidth=sel?5:3;x.lineCap='round';x.lineJoin='round';x.stroke();}}}}
+    else for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.strokeStyle=c;x.lineWidth=sel?5:3;x.lineCap='round';x.lineJoin='round';x.stroke();}}}
+  if(MOPF){const [px,py]=P(MOPF[0],MOPF[1]);x.beginPath();x.arc(px,py,8,0,7);x.fillStyle='#ffeb3b';x.fill();x.strokeStyle='#000';x.lineWidth=2;x.stroke();}}
 function moTap(px,py,M){const P=M.P,b=M.box();let best=null,bd=16;
   for(const L of MOL){const [k,,,t]=L;if(!MON[k])continue;for(const f of moFeats(k)){
     if(t==='pt'){const [qx,qy]=P(f.pt[0],f.pt[1]),d=Math.hypot(qx-px,qy-py);if(d<bd){bd=d;best={L,f,ll:f.pt};}}
@@ -1905,27 +1908,68 @@ async function zInfoMo(px,py,M){const el=document.getElementById('moFicha');el.i
 const LAB={TRAMO:'Tramo',NOMBRE:'Nombre',DESCRIPCIO:'Descripción',TIPO:'Tipo',COTA:'Altitud (m)',MUNICIPIO:'Municipio',TOPONIMIA:'Paraje',LONGITUD:'Longitud (m)',PROFUNDIDA:'Profundidad (m)',
   LUGARINI:'Salida',LUGARFIN:'Llegada',ALTITUDMAX:'Altitud máx. (m)',ALTITUDMIN:'Altitud mín. (m)',DESNIPOSI:'Desnivel + (m)',DESNINEGA:'Desnivel − (m)',BARBACOA:'Barbacoa',EQUIPAMIEN:'Equipamiento',
   PARKING:'Aparcamiento',VEGETACION:'Vegetación',ELEPAISAJE:'Paisaje',DEMARCACIO:'Zona',PTOAGUA:'Punto',POBLACION:'Localidad',ZONATUR:'Zona',POTABLE:'Agua potable',RIO:'Cuenca',CODIGO:'Código',D:'',N:''};
-async function moFicha(){const el=document.getElementById('moFicha');if(!MOSEL){el.innerHTML='';return;}const {L,f,ll}=MOSEL,a=f.a,[k,name,col,,,nf]=L;
+async function moFicha(){const el=document.getElementById('moFicha');MOPF=null;if(!MOSEL){el.innerHTML='';return;}const {L,f,ll}=MOSEL,a=f.a,[k,name,col,,,nf]=L;
   const title=nf.map(x=>a[x]).find(Boolean)||name;
   const links=['URL','DESCARGA','URLFICHA','URL1'].map(x=>a[x]).filter(v=>v&&/^https?:/.test(v)).map(v=>`<button class="btn" data-url="${v}">${/gpx/i.test(v)?'⬇️ Ruta GPX':/pdf/i.test(v)?'📄 Ficha PDF':'🔗 Más información'}</button>`).join('');
-  const rows=Object.entries(a).filter(([x,v])=>!['URL','DESCARGA','URLFICHA','URL1',...nf].includes(x)&&LAB[x]!==undefined&&v!=null&&String(v).trim()).map(([x,v])=>LAB[x]?`<div class="st" style="align-items:flex-start"><b style="min-width:110px">${LAB[x]}</b><span style="text-align:right">${v}</span></div>`:`<div style="margin:4px 0;font-size:14px">${v}</div>`).join('');
+  const rows=Object.entries(a).filter(([x,v])=>!['URL','DESCARGA','URLFICHA','URL1',...nf,...(f.s?['ALTITUDMAX','ALTITUDMIN','DESNIPOSI','DESNINEGA']:[])].includes(x)&&LAB[x]!==undefined&&v!=null&&String(v).trim()).map(([x,v])=>LAB[x]?`<div class="st" style="align-items:flex-start"><b style="min-width:110px">${LAB[x]}</b><span style="text-align:right">${v}</span></div>`:`<div style="margin:4px 0;font-size:14px">${v}</div>`).join('');
   el.innerHTML=`<div class="card" style="border-color:${col}"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:16px">${title}</b><button class="btn" id="moX">✕</button></div>
-   <div class="note">${name}${k==='CASC'||k==='VIS'?' · situación aproximada':''}</div>${rows}${links?`<div class="row">${links}</div>`:''}
+   <div class="note">${name}${k==='CASC'||k==='VIS'?' · situación aproximada':''}</div>${rows}${moPerfil(f,col)}${links?`<div class="row">${links}</div>`:''}
    <div id="moWx" class="note" style="margin-top:6px">Cargando el tiempo previsto aquí…</div>
    ${k==='HIDROG_Sym_ZonaBano'?'<div class="note">🏊 Zona de baño con control sanitario del Gobierno de Navarra durante la temporada de baño (verano). Mira la ficha para la calidad del agua.</div>':''}
    ${k==='GEOLOG_Sym_Cuevas'?'<div class="note">⚠️ La mayoría de simas y cuevas no son visitables: entrar sin equipo ni experiencia es muy peligroso.</div>':''}</div>`;
   document.getElementById('moX').onclick=()=>{MOSEL=null;MOM.draw();moFicha();};el.querySelectorAll('[data-url]').forEach(b2=>b2.onclick=()=>{if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(b2.dataset.url);else window.open(b2.dataset.url,'_blank');});
-  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  moPerfilTouch(f);el.scrollIntoView({behavior:'smooth',block:'nearest'});
   // tiempo previsto en ese punto
   const j=await getJSON(`${OM}?latitude=${ll[0]}&longitude=${ll[1]}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max&forecast_days=4${TZ}`);
   const w=document.getElementById('moWx');if(!w)return;if(!j||!j.daily){w.textContent='No se pudo cargar el tiempo ahora.';return;}const d=j.daily;
   w.innerHTML=`<b>🌦️ Tiempo aquí</b> · ahora ${wxIcon(j.current.weather_code,new Date().getHours())} ${Math.round(j.current.temperature_2m)}°`+d.time.map((x,i)=>{const dt=new Date(x+'T12:00');return `<div class="dayr"><b>${i?DOW[dt.getDay()]+' '+dt.getDate():'Hoy'}</b><span style="font-size:22px">${wxIcon(d.weather_code[i],12)}</span><span class="note">${d.precipitation_sum[i]>0.1?'💧 '+fmtN(d.precipitation_sum[i],1)+' mm ('+(d.precipitation_probability_max[i]??'?')+' %) · ':''}💨 ${Math.round(d.wind_speed_10m_max[i])} km/h</span><b>${Math.round(d.temperature_2m_max[i])}° <span class="note">${Math.round(d.temperature_2m_min[i])}°</span></b></div>`;}).join('');}
+/* ---------- PERFIL DE LA RUTA ----------
+   Los datos vienen de tools/monte.py: f.s = resumen (km, desnivel + y −, altitud máx/mín/salida, circular),
+   f.pf = 150 alturas tomadas a la misma distancia entre sí a lo largo de la ruta. */
+// Tiempo estimado con el método MIDE: andando 4 km/h en llano, 400 m/h subiendo y 600 m/h bajando;
+// se suma el mayor de los dos tiempos (distancia o desnivel) más la mitad del menor. Sin paradas.
+function moTiempo(s){const th=s.km/4,tv=s.up/400+s.dn/600,t=Math.max(th,tv)+Math.min(th,tv)/2,h=Math.floor(t),m=Math.round((t-h)*60/5)*5;return m===60?`${h+1} h`:`${h} h ${String(m).padStart(2,'0')} min`;}
+// Dificultad física orientativa según distancia y desnivel (no tiene en cuenta el terreno)
+function moDif(s){const e=s.km+s.up/100;return e<10?['🟢 Fácil','#43a047']:e<18?['🟡 Moderada','#fbc02d']:e<28?['🟠 Exigente','#fb8c00']:['🔴 Muy exigente','#e53935'];}
+function moPerfil(f,col){const s=f.s,p=f.pf;if(!s||!p||p.length<2)return '';
+  const W=340,H=130,L=34,mn=Math.min(...p),mx=Math.max(...p),rg=Math.max(40,mx-mn),y0=mn-rg*.1,y1=mx+rg*.1;
+  const X=i=>L+i/(p.length-1)*(W-L),Y=e=>H-(e-y0)/(y1-y0)*H,pl=p.map((e,i)=>X(i).toFixed(1)+','+Y(e).toFixed(1)).join(' ');
+  // tramos coloreados por pendiente: verde suave, amarillo, naranja, rojo muy empinado
+  const dkm=s.km/(p.length-1)*1000;let seg='';for(let i=1;i<p.length;i++){const g=Math.abs(p[i]-p[i-1])/dkm*100,c=g<8?'#43a047':g<15?'#fbc02d':g<25?'#fb8c00':'#e53935';seg+=`<line x1="${X(i-1).toFixed(1)}" y1="${Y(p[i-1]).toFixed(1)}" x2="${X(i).toFixed(1)}" y2="${Y(p[i]).toFixed(1)}" stroke="${c}" stroke-width="3" stroke-linecap="round"/>`;}
+  // rejilla: alturas a la izquierda y kilómetros abajo
+  const st=[50,100,200,250,500][[50,100,200,250,500].findIndex(v=>rg/v<=4)]||1000;let gr='';
+  for(let e=Math.ceil(y0/st)*st;e<=y1;e+=st)gr+=`<line x1="${L}" x2="${W}" y1="${Y(e).toFixed(1)}" y2="${Y(e).toFixed(1)}" stroke="#ffffff22"/><text x="${L-3}" y="${(Y(e)+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#93a4b5">${e}</text>`;
+  const ks=s.km<=4?1:s.km<=10?2:s.km<=25?5:s.km<=60?10:20;for(let k=0;k<=s.km+1e-9;k+=ks)gr+=`<text x="${(L+k/s.km*(W-L)).toFixed(1)}" y="${H+12}" text-anchor="middle" font-size="9" fill="#93a4b5">${k}</text>`;
+  const [dif,dc]=moDif(s);
+  return `<div class="card" style="margin:8px 0;padding:8px">
+   <b>⛰️ Perfil de la ruta</b> <span class="pill" style="background:${dc};color:#000;margin-left:4px">${dif}</span>
+   <div class="kpi" style="grid-template-columns:1fr 1fr 1fr;margin:8px 0">
+    <div><span class="note">Distancia</span><b>${fmtN(s.km,1)} km</b></div><div><span class="note">Tiempo (MIDE)</span><b>${moTiempo(s)}</b></div><div><span class="note">Tipo</span><b>${s.c?'🔁 Circular':'➡️ Lineal'}</b></div>
+    <div><span class="note">Subida</span><b>↗ ${s.up} m</b></div><div><span class="note">Bajada</span><b>↘ ${s.dn} m</b></div><div><span class="note">Salida</span><b>${s.a0} m</b></div>
+    <div><span class="note">Altitud máx.</span><b>${s.mx} m</b></div><div><span class="note">Altitud mín.</span><b>${s.mn} m</b></div><div><span class="note">Pendiente máx.</span><b id="moPmax"></b></div></div>
+   <svg id="moPf" viewBox="0 0 ${W} ${H+16}" style="width:100%;touch-action:none;background:#0b1118;border-radius:8px">${gr}
+    <polygon points="${L},${H} ${pl} ${W},${H}" fill="${col}2e"/>${seg}
+    <line id="moPfC" x1="0" x2="0" y1="0" y2="${H}" stroke="#ffeb3b" stroke-width="1.5" visibility="hidden"/><circle id="moPfD" r="4" fill="#ffeb3b" visibility="hidden"/></svg>
+   <div id="moPfT" class="note">Desliza el dedo por la gráfica para ver cada punto en el mapa. Colores: 🟢 &lt;8 % · 🟡 8‑15 % · 🟠 15‑25 % · 🔴 &gt;25 %</div>
+   <div class="note">Tiempo orientativo sin paradas para una persona en forma. Alturas: ${s.src==='gpx'?'del GPX de la ruta':'modelo del terreno'}. La dificultad solo mira distancia y desnivel, no el terreno.</div></div>`;}
+function moPerfilTouch(f){const sv=document.getElementById('moPf');if(!sv||!f.pf)return;const p=f.pf,s=f.s,n=p.length,W=340,L=34,dkm=s.km/(n-1)*1000;
+  // pendiente máxima en tramos de ~4 muestras (unos cientos de metros) para no exagerar
+  let gm=0;for(let i=4;i<n;i++)gm=Math.max(gm,Math.abs(p[i]-p[i-4])/(4*dkm)*100);document.getElementById('moPmax').textContent=Math.round(gm)+' %';
+  // puntos del trazado con su distancia acumulada, para situar en el mapa el punto tocado
+  const tr=f.r?f.r[0]:null,cum=[0];if(tr)for(let i=1;i<tr.length;i++){const a=tr[i-1],b=tr[i],k=Math.cos(a[0]*Math.PI/180);cum.push(cum[i-1]+Math.hypot(b[0]-a[0],(b[1]-a[1])*k));}
+  const mv=e=>{const r=sv.getBoundingClientRect(),xv=(e.clientX-r.left)/r.width*W,fr=Math.max(0,Math.min(1,(xv-L)/(W-L))),i=Math.round(fr*(n-1));
+    const cx=L+i/(n-1)*(W-L),H=130,y=p=>{const mn=Math.min(...f.pf),mx=Math.max(...f.pf),rg=Math.max(40,mx-mn),y0=mn-rg*.1,y1=mx+rg*.1;return H-(p-y0)/(y1-y0)*H;};
+    const C=document.getElementById('moPfC'),D=document.getElementById('moPfD');C.setAttribute('x1',cx);C.setAttribute('x2',cx);C.setAttribute('visibility','visible');D.setAttribute('cx',cx);D.setAttribute('cy',y(p[i]));D.setAttribute('visibility','visible');
+    const j=Math.min(n-1,i+1),g=i<n-1?(p[j]-p[i])/dkm*100:(p[i]-p[i-1])/dkm*100;
+    document.getElementById('moPfT').innerHTML=`📍 Km <b>${fmtN(fr*s.km,1)}</b> · altitud <b>${p[i]} m</b> · pendiente <b>${g>0?'+':''}${Math.round(g)} %</b>`;
+    if(tr&&cum[cum.length-1]>0){const t=fr*cum[cum.length-1];let k=1;while(k<cum.length-1&&cum[k]<t)k++;const a=tr[k-1],b=tr[k],q=cum[k]>cum[k-1]?(t-cum[k-1])/(cum[k]-cum[k-1]):0;MOPF=[a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q];MOM.draw();}};
+  sv.addEventListener('pointerdown',e=>{sv.setPointerCapture(e.pointerId);mv(e);});sv.addEventListener('pointermove',e=>{if(e.buttons||e.pointerType==='touch')mv(e);});}
 function moSearch(q){const res=document.getElementById('moRes');q=(q||'').trim().toLowerCase();if(q.length<3){res.innerHTML='';return;}const L=[];
   for(const Lr of MOL){for(const f of moFeats(Lr[0])){const n=Lr[5].map(x=>f.a[x]).find(Boolean);if(n&&String(n).toLowerCase().includes(q))L.push({L:Lr,f,n});if(L.length>30)break;}}
   res.innerHTML=L.map((r,i)=>`<div class="st" data-i="${i}" style="cursor:pointer"><span>${r.L[1].split(' ')[0]} ${r.n}</span><span class="note">${r.L[1].replace(/^\S+\s/,'')}</span></div>`).join('')||'<div class="note">Sin resultados.</div>';
   res.querySelectorAll('[data-i]').forEach(d=>d.onclick=()=>{const r=L[+d.dataset.i];MON[r.L[0]]=true;moLayers();const ll=r.f.pt||r.f.r[0][Math.floor(r.f.r[0].length/2)];
-    let s=90,n=-90,w=180,e=-180;(r.f.pt?[r.f.pt]:r.f.r.flat()).forEach(([la,lo])=>{s=Math.min(s,la);n=Math.max(n,la);w=Math.min(w,lo);e=Math.max(e,lo);});
-    if(r.f.pt){s-=.02;n+=.02;w-=.03;e+=.03;}MOM.fit(s,n,w,e);MOSEL={L:r.L,f:r.f,ll};MOM.draw();moFicha();res.innerHTML='';document.getElementById('moQ').value='';});}
+    let s=90,n=-90,w=180,e=-180;(r.f.r?r.f.r.flat():[r.f.pt]).forEach(([la,lo])=>{s=Math.min(s,la);n=Math.max(n,la);w=Math.min(w,lo);e=Math.max(e,lo);});
+    if(!r.f.r){s-=.02;n+=.02;w-=.03;e+=.03;}MOM.fit(s,n,w,e);MOSEL={L:r.L,f:r.f,ll};MOM.draw();moFicha();res.innerHTML='';document.getElementById('moQ').value='';});}
 function moLayers(){document.getElementById('moLay').innerHTML=MOL.map(([k,n,c])=>`<label style="display:inline-flex;align-items:center;gap:5px;margin:3px 10px 3px 0;color:var(--txt)"><input type="checkbox" data-k="${k}" ${MON[k]?'checked':''}><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${c}"></span>${n}</label>`).join('');
   document.querySelectorAll('#moLay input').forEach(i=>i.onchange=()=>{MON[i.dataset.k]=i.checked;MOM.draw();});}
 function moInit(){if(!MOM){MOM=NavMap('moc',moDraw,moTap);

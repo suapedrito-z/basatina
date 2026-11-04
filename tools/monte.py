@@ -3,8 +3,9 @@ Descarga de IDENA (Gobierno de Navarra, CC BY 4.0) las capas para «Salir al mon
 cuevas y simas, miradores, áreas recreativas, zonas de baño, bienes de interés cultural, manantiales, fuentes,
 vías verdes, GR, Camino de Santiago. Escribe tools/monte_info.txt con los campos.
 """
-import io, json, time, urllib.request, zipfile, collections
-import shapefile
+import io, json, time, urllib.request, urllib.parse, zipfile, collections
+import shapefile, sys
+sys.setrecursionlimit(20000)
 from pyproj import Transformer
 UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "*/*"}
 B = "https://idena.navarra.es/descargas/"
@@ -55,6 +56,104 @@ for key in CAPAS:
             if k not in DROP: info.append(f"- {k}: {len(vals[k])} · {list(vals[k].most_common(6))}")
     except Exception as e:
         info.append(f"fallo {key}: {e}")
+# ---------------------------------------------------------------------------------------------
+# PERFIL DE LAS RUTAS: se baja el GPX de cada ruta recomendada y de cada etapa de GR y se calcula
+# distancia, desnivel subido y bajado, altitudes, si es circular, el perfil (150 alturas a la misma
+# distancia entre sí) y el trazado para dibujarlo. Si el GPX no trae alturas, se piden a Open-Meteo.
+# ---------------------------------------------------------------------------------------------
+import math, re
+def km(a, b):  # distancia en km entre dos puntos [lat, lon] (fórmula del haversine)
+    p1, p2 = math.radians(a[0]), math.radians(b[0]); dl = math.radians(b[1]-a[1]); dp = p2-p1
+    return 12742 * math.asin(min(1, math.sqrt(math.sin(dp/2)**2 + math.cos(p1)*math.cos(p2)*math.sin(dl/2)**2)))
+def gpx_pts(txt):  # puntos [lat, lon, altura|None] del track (o de la ruta si no hay track)
+    for tag in ("trkpt", "rtept"):
+        pts = []
+        for m in re.finditer(r"<(?:\w+:)?%s\b([^>]*?)(?:/>|>(.*?)</(?:\w+:)?%s>)" % (tag, tag), txt, re.S):
+            la = re.search(r"lat\s*=\s*[\"']([-\d.]+)", m.group(1)); lo = re.search(r"lon\s*=\s*[\"']([-\d.]+)", m.group(1))
+            if not la or not lo: continue
+            e = re.search(r"<(?:\w+:)?ele>\s*([-\d.]+)", m.group(2) or "")
+            pts.append([float(la.group(1)), float(lo.group(1)), float(e.group(1)) if e else None])
+        if len(pts) >= 2: return pts
+    return []
+def om_elev(pts):  # alturas del modelo del terreno de Open-Meteo, de 100 en 100 puntos
+    out = []
+    for i in range(0, len(pts), 100):
+        ch = pts[i:i+100]
+        u = "https://api.open-meteo.com/v1/elevation?latitude=" + ",".join(f"{p[0]:.5f}" for p in ch) + "&longitude=" + ",".join(f"{p[1]:.5f}" for p in ch)
+        out += json.loads(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read())["elevation"]; time.sleep(1)
+    return out
+def perfil(pts, N=150):
+    d = [0.0]
+    for i in range(1, len(pts)): d.append(d[-1] + km(pts[i-1], pts[i]))
+    tot = d[-1]
+    if tot < 0.2: return None
+    # muestreo a la misma distancia (N puntos) interpolando lat, lon y altura
+    smp, j = [], 0
+    for k in range(N):
+        t = tot * k / (N-1)
+        while j < len(d)-2 and d[j+1] < t: j += 1
+        f = 0 if d[j+1] == d[j] else (t-d[j]) / (d[j+1]-d[j]); a, b = pts[j], pts[j+1]
+        ea = a[2] if a[2] is not None else b[2]; eb = b[2] if b[2] is not None else a[2]
+        smp.append([a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f, None if ea is None else ea+(eb-ea)*f])
+    src = "gpx"
+    if sum(p[2] is None for p in smp) > N * .2:
+        el = om_elev(smp); src = "mdt"
+        for p, e in zip(smp, el): p[2] = e
+    last = 0
+    for p in smp:  # rellena huecos sueltos
+        if p[2] is None: p[2] = last
+        last = p[2]
+    # desnivel con «histéresis» de 5 m para que el ruido del GPS no lo infle
+    up = dn = 0.0; ref = smp[0][2]
+    for p in smp[1:]:
+        if p[2] - ref >= 5: up += p[2]-ref; ref = p[2]
+        elif ref - p[2] >= 5: dn += ref-p[2]; ref = p[2]
+    el = [p[2] for p in smp]
+    return {"km": round(tot, 2), "up": round(up), "dn": round(dn), "mx": round(max(el)), "mn": round(min(el)), "a0": round(el[0]),
+            "c": 1 if km(pts[0], pts[-1]) < 0.3 else 0, "src": src}, [round(e) for e in el]
+RUTAS = ["PATRIM_Sym_Senderismo", "DOTACI_Lin_GR1", "DOTACI_Lin_GR12", "DOTACI_Lin_GR321"]
+ok = bad = 0
+for key in RUTAS:
+    for f in (out.get(key) or {}).get("f", []):
+        u = f["a"].get("DESCARGA", "")
+        if not re.search(r"\.gpx$", u, re.I): continue
+        try:
+            raw = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read().decode("utf-8", "replace")
+            pts = gpx_pts(raw); r = perfil(pts) if pts else None
+            if not r: raise ValueError("GPX sin puntos")
+            f["s"], f["pf"] = r
+            if key == "PATRIM_Sym_Senderismo":  # trazado para dibujarlo en el mapa
+                f["r"] = [simplify([[round(p[0], 5), round(p[1], 5)] for p in pts], 0.00015)]
+            ok += 1
+        except Exception as e:
+            bad += 1; info.append(f"perfil fallo {key} {u}: {e}")
+        time.sleep(0.3)
+info.append(f"\nPerfiles de ruta: {ok} bien, {bad} fallos")
+# ---------------------------------------------------------------------------------------------
+# PETILLA DE ARAGÓN: municipio navarro dentro de Zaragoza, en dos enclaves (Petilla y Los Bastanes).
+# Se saca su término de OpenStreetMap y se apunta el centro de cada trozo en monte_info.txt.
+# ---------------------------------------------------------------------------------------------
+try:
+    q = '[out:json][timeout:60];rel["boundary"="administrative"]["admin_level"="8"]["name"="Petilla de Aragón"];out geom;'
+    j = None
+    for s in ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://overpass.private.coffee/api/interpreter"]:
+        try:
+            j = json.loads(urllib.request.urlopen(urllib.request.Request(s, data=("data=" + urllib.parse.quote(q)).encode(), headers=UA), timeout=90).read()); break
+        except Exception as e:
+            info.append(f"overpass {s}: {e}")
+    ways = [[(g["lat"], g["lon"]) for g in m["geometry"]] for el in j["elements"] for m in el.get("members", []) if m.get("role") == "outer" and m.get("geometry")]
+    # junta los trozos de borde que se tocan: cada grupo es un enclave
+    grupos = []
+    for w in ways:
+        hit = [g for g in grupos if any(min(km(p, q2) for q2 in g[::5] + [g[-1]]) < 0.05 for p in (w[0], w[-1]))]
+        nuevo = list(w)
+        for g in hit: nuevo += g; grupos.remove(g)
+        grupos.append(nuevo)
+    for g in sorted(grupos, key=lambda g: -max(p[0] for p in g)):
+        la = [p[0] for p in g]; lo = [p[1] for p in g]
+        info.append(f"PETILLA enclave: centro {(min(la)+max(la))/2:.4f},{(min(lo)+max(lo))/2:.4f} · caja {min(la):.4f}-{max(la):.4f} / {min(lo):.4f}-{max(lo):.4f} · {len(g)} puntos")
+except Exception as e:
+    info.append(f"PETILLA fallo: {e}")
 txt = "// Salir al monte (© Gobierno de Navarra · IDENA, CC BY 4.0). Generado por tools/monte.py\nwindow.MONTE_GEO=" + json.dumps(out, ensure_ascii=False, separators=(",", ":"), default=str) + ";\n"
 open("web/monte.js", "w", encoding="utf-8").write(txt)
 info.append(f"\nmonte.js: {len(txt)//1024} KB  ·  " + ", ".join(f"{k}:{len(v['f'])}" for k, v in out.items() if isinstance(v, dict)))
