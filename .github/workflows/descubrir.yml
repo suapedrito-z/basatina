@@ -1,0 +1,20 @@
+name: Descubrir capas
+on:
+  push:
+    paths: ['tools/descubrir.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  d:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/descubrir.py
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add tools/descubrir.txt
+          git commit -m "Lista de capas" || exit 0
+          git pull --rebase
+          git push
