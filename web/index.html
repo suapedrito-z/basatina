@@ -1008,7 +1008,7 @@ const TOWNS=[['Pamplona',42.8125,-1.6458],['Tudela',42.0617,-1.6045],['Estella',
  ['Bera',43.2810,-1.6860],['Leitza',43.0790,-1.9160],['Aoiz',42.7860,-1.3720],['Ochagavía',42.9090,-1.0880],['Isaba',42.8620,-0.9220],
  ['Orreaga/Roncesvalles',43.0090,-1.3190],['Puente la Reina',42.6720,-1.8150],['Caparroso',42.3420,-1.6500],['Lumbier',42.6530,-1.3070],
  ['Irurtzun',42.9190,-1.8270],['Zubiri',42.9300,-1.5030],['Eugi',42.9770,-1.5150],['Funes',42.3150,-1.8010],['Arguedas',42.1770,-1.5980],
- ['Petilla de Aragón',42.4614,-1.0928]];  // enclave navarro en Zaragoza
+ ['Petilla de Aragón',42.4614,-1.0928],['Los Bastanes (Petilla)',42.4215,-1.1669]];  // los dos enclaves navarros en Zaragoza
 const OM='https://api.open-meteo.com/v1/forecast',OMA='https://archive-api.open-meteo.com/v1/archive',TZ='&timezone=Europe%2FMadrid';
 async function getJSON(u,retry=1){const j=await getJSON1(u);if(j||!retry)return j;await new Promise(r=>setTimeout(r,1500));return getJSON1(u);}
 async function getJSON1(u){try{if(APP){const r=await netGet(u);return r.code===200?JSON.parse(r.body):null;}const r=await fetch(u);return r.ok?await r.json():null;}catch(e){return null;}}
@@ -1913,12 +1913,12 @@ async function moFicha(){const el=document.getElementById('moFicha');MOPF=null;i
   const links=['URL','DESCARGA','URLFICHA','URL1'].map(x=>a[x]).filter(v=>v&&/^https?:/.test(v)).map(v=>`<button class="btn" data-url="${v}">${/gpx/i.test(v)?'⬇️ Ruta GPX':/pdf/i.test(v)?'📄 Ficha PDF':'🔗 Más información'}</button>`).join('');
   const rows=Object.entries(a).filter(([x,v])=>!['URL','DESCARGA','URLFICHA','URL1',...nf,...(f.s?['ALTITUDMAX','ALTITUDMIN','DESNIPOSI','DESNINEGA']:[])].includes(x)&&LAB[x]!==undefined&&v!=null&&String(v).trim()).map(([x,v])=>LAB[x]?`<div class="st" style="align-items:flex-start"><b style="min-width:110px">${LAB[x]}</b><span style="text-align:right">${v}</span></div>`:`<div style="margin:4px 0;font-size:14px">${v}</div>`).join('');
   el.innerHTML=`<div class="card" style="border-color:${col}"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:16px">${title}</b><button class="btn" id="moX">✕</button></div>
-   <div class="note">${name}${k==='CASC'||k==='VIS'?' · situación aproximada':''}</div>${rows}${moPerfil(f,col)}${links?`<div class="row">${links}</div>`:''}
+   <div class="note">${name}${k==='CASC'||k==='VIS'?' · situación aproximada':''}</div>${rows}<div id="moPfBox">${f.s?moPerfil(f,col):/\.gpx$/i.test(a.DESCARGA||'')?'<div class="note" style="margin:6px 0">⛰️ Calculando el perfil de la ruta…</div>':''}</div>${links?`<div class="row">${links}</div>`:''}
    <div id="moWx" class="note" style="margin-top:6px">Cargando el tiempo previsto aquí…</div>
    ${k==='HIDROG_Sym_ZonaBano'?'<div class="note">🏊 Zona de baño con control sanitario del Gobierno de Navarra durante la temporada de baño (verano). Mira la ficha para la calidad del agua.</div>':''}
    ${k==='GEOLOG_Sym_Cuevas'?'<div class="note">⚠️ La mayoría de simas y cuevas no son visitables: entrar sin equipo ni experiencia es muy peligroso.</div>':''}</div>`;
   document.getElementById('moX').onclick=()=>{MOSEL=null;MOM.draw();moFicha();};el.querySelectorAll('[data-url]').forEach(b2=>b2.onclick=()=>{if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(b2.dataset.url);else window.open(b2.dataset.url,'_blank');});
-  moPerfilTouch(f);el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(f.s)moPerfilTouch(f);else if(/\.gpx$/i.test(a.DESCARGA||''))moGpx(f,col);el.scrollIntoView({behavior:'smooth',block:'nearest'});
   // tiempo previsto en ese punto
   const j=await getJSON(`${OM}?latitude=${ll[0]}&longitude=${ll[1]}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max&forecast_days=4${TZ}`);
   const w=document.getElementById('moWx');if(!w)return;if(!j||!j.daily){w.textContent='No se pudo cargar el tiempo ahora.';return;}const d=j.daily;
@@ -1935,7 +1935,7 @@ function moPerfil(f,col){const s=f.s,p=f.pf;if(!s||!p||p.length<2)return '';
   const W=340,H=130,L=34,mn=Math.min(...p),mx=Math.max(...p),rg=Math.max(40,mx-mn),y0=mn-rg*.1,y1=mx+rg*.1;
   const X=i=>L+i/(p.length-1)*(W-L),Y=e=>H-(e-y0)/(y1-y0)*H,pl=p.map((e,i)=>X(i).toFixed(1)+','+Y(e).toFixed(1)).join(' ');
   // tramos coloreados por pendiente: verde suave, amarillo, naranja, rojo muy empinado
-  const dkm=s.km/(p.length-1)*1000;let seg='';for(let i=1;i<p.length;i++){const g=Math.abs(p[i]-p[i-1])/dkm*100,c=g<8?'#43a047':g<15?'#fbc02d':g<25?'#fb8c00':'#e53935';seg+=`<line x1="${X(i-1).toFixed(1)}" y1="${Y(p[i-1]).toFixed(1)}" x2="${X(i).toFixed(1)}" y2="${Y(p[i]).toFixed(1)}" stroke="${c}" stroke-width="3" stroke-linecap="round"/>`;}
+  const dkm=s.km/(p.length-1)*1000;let seg='';for(let i=1;i<p.length;i++){const i0=Math.max(0,i-2),i1=Math.min(p.length-1,i+1),g=Math.abs(p[i1]-p[i0])/((i1-i0)*dkm)*100,c=g<8?'#43a047':g<15?'#fbc02d':g<25?'#fb8c00':'#e53935';seg+=`<line x1="${X(i-1).toFixed(1)}" y1="${Y(p[i-1]).toFixed(1)}" x2="${X(i).toFixed(1)}" y2="${Y(p[i]).toFixed(1)}" stroke="${c}" stroke-width="3" stroke-linecap="round"/>`;}
   // rejilla: alturas a la izquierda y kilómetros abajo
   const st=[50,100,200,250,500][[50,100,200,250,500].findIndex(v=>rg/v<=4)]||1000;let gr='';
   for(let e=Math.ceil(y0/st)*st;e<=y1;e+=st)gr+=`<line x1="${L}" x2="${W}" y1="${Y(e).toFixed(1)}" y2="${Y(e).toFixed(1)}" stroke="#ffffff22"/><text x="${L-3}" y="${(Y(e)+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#93a4b5">${e}</text>`;
@@ -1964,6 +1964,31 @@ function moPerfilTouch(f){const sv=document.getElementById('moPf');if(!sv||!f.pf
     document.getElementById('moPfT').innerHTML=`📍 Km <b>${fmtN(fr*s.km,1)}</b> · altitud <b>${p[i]} m</b> · pendiente <b>${g>0?'+':''}${Math.round(g)} %</b>`;
     if(tr&&cum[cum.length-1]>0){const t=fr*cum[cum.length-1];let k=1;while(k<cum.length-1&&cum[k]<t)k++;const a=tr[k-1],b=tr[k],q=cum[k]>cum[k-1]?(t-cum[k-1])/(cum[k]-cum[k-1]):0;MOPF=[a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q];MOM.draw();}};
   sv.addEventListener('pointerdown',e=>{sv.setPointerCapture(e.pointerId);mv(e);});sv.addEventListener('pointermove',e=>{if(e.buttons||e.pointerType==='touch')mv(e);});}
+// Rutas sin perfil precalculado: el móvil baja el GPX al abrir la ruta y calcula el perfil aquí
+// (es lo mismo que hace tools/monte.py, pero el servidor de estas rutas solo contesta desde España).
+const moKm=(a,b)=>{const r=Math.PI/180,p1=a[0]*r,p2=b[0]*r,dp=p2-p1,dl=(b[1]-a[1])*r;return 12742*Math.asin(Math.min(1,Math.sqrt(Math.sin(dp/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2)));};
+async function moGpx(f,col){const box=()=>document.getElementById('moPfBox'),sel=MOSEL;
+  let t='';try{if(APP)t=(await netGet(f.a.DESCARGA)).body||'';else t=await (await fetch(f.a.DESCARGA)).text();}catch(e){}
+  let pts=[];for(const tag of ['trkpt','rtept']){const re=new RegExp('<(?:\\w+:)?'+tag+'\\b([^>]*?)(?:/>|>([\\s\\S]*?)</(?:\\w+:)?'+tag+'>)','g');let m;pts=[];
+    while((m=re.exec(t))){const la=/lat\s*=\s*["']([-\d.]+)/.exec(m[1]),lo=/lon\s*=\s*["']([-\d.]+)/.exec(m[1]);if(!la||!lo)continue;const e=/<(?:\w+:)?ele>\s*([-\d.]+)/.exec(m[2]||'');pts.push([+la[1],+lo[1],e?+e[1]:null]);}
+    if(pts.length>=2)break;}
+  if(MOSEL!==sel||!box())return;
+  if(pts.length<2){box().innerHTML='<div class="note" style="margin:6px 0">No se pudo bajar el GPX para el perfil ahora. Prueba más tarde o ábrelo con el botón «Ruta GPX».</div>';return;}
+  // distancia acumulada y 150 muestras a la misma distancia
+  const d=[0];for(let i=1;i<pts.length;i++)d.push(d[i-1]+moKm(pts[i-1],pts[i]));const tot=d[d.length-1],N=150,smp=[];let j=0;
+  for(let k=0;k<N;k++){const x=tot*k/(N-1);while(j<d.length-2&&d[j+1]<x)j++;const a=pts[j],b=pts[j+1],q=d[j+1]>d[j]?(x-d[j])/(d[j+1]-d[j]):0,ea=a[2]??b[2],eb=b[2]??a[2];
+    smp.push([a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q,ea==null?null:ea+(eb-ea)*q]);}
+  let src='gpx';if(smp.filter(p=>p[2]==null).length>N*.2){src='mdt';const el=[];
+    for(let i=0;i<N;i+=100){const ch=smp.slice(i,i+100),jj=await getJSON(`https://api.open-meteo.com/v1/elevation?latitude=${ch.map(p=>p[0].toFixed(5)).join(',')}&longitude=${ch.map(p=>p[1].toFixed(5)).join(',')}`);if(!jj||!jj.elevation){if(box())box().innerHTML='<div class="note">Este GPX no trae alturas y no se pudieron consultar ahora.</div>';return;}el.push(...jj.elevation);}
+    smp.forEach((p,i)=>p[2]=el[i]);}
+  let last=0;smp.forEach(p=>{if(p[2]==null)p[2]=last;last=p[2];});
+  let up=0,dn=0,ref=smp[0][2];for(const p of smp.slice(1)){if(p[2]-ref>=5){up+=p[2]-ref;ref=p[2];}else if(ref-p[2]>=5){dn+=ref-p[2];ref=p[2];}}
+  const el=smp.map(p=>p[2]);f.pf=el.map(Math.round);
+  f.s={km:Math.round(tot*100)/100,up:Math.round(up),dn:Math.round(dn),mx:Math.round(Math.max(...el)),mn:Math.round(Math.min(...el)),a0:Math.round(el[0]),c:moKm(pts[0],pts[pts.length-1])<.3?1:0,src};
+  // trazado para el mapa (uno de cada pocos puntos basta para dibujarlo)
+  const st=Math.max(1,Math.floor(pts.length/400));f.r=[pts.filter((p,i)=>i%st===0||i===pts.length-1).map(p=>[p[0],p[1]])];
+  if(MOSEL!==sel||!box())return;box().innerHTML=moPerfil(f,col);moPerfilTouch(f);
+  let s=90,n=-90,w=180,e=-180;f.r[0].forEach(([la,lo])=>{s=Math.min(s,la);n=Math.max(n,la);w=Math.min(w,lo);e=Math.max(e,lo);});MOM.fit(s,n,w,e);}
 function moSearch(q){const res=document.getElementById('moRes');q=(q||'').trim().toLowerCase();if(q.length<3){res.innerHTML='';return;}const L=[];
   for(const Lr of MOL){for(const f of moFeats(Lr[0])){const n=Lr[5].map(x=>f.a[x]).find(Boolean);if(n&&String(n).toLowerCase().includes(q))L.push({L:Lr,f,n});if(L.length>30)break;}}
   res.innerHTML=L.map((r,i)=>`<div class="st" data-i="${i}" style="cursor:pointer"><span>${r.L[1].split(' ')[0]} ${r.n}</span><span class="note">${r.L[1].replace(/^\S+\s/,'')}</span></div>`).join('')||'<div class="note">Sin resultados.</div>';
