@@ -18,10 +18,12 @@ jobs:
         run: python3 tools/pesca.py
       - name: Guardar en el repositorio
         run: |
-          git pull --rebase
-          python3 tools/make_version.py
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add web/pesca.js web/version.json tools/pesca_info.txt
+          git add web/pesca.js tools/pesca_info.txt
           git commit -m "Tramos de pesca actualizados (IDENA)" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
           git push

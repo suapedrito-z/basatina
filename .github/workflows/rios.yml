@@ -16,9 +16,12 @@ jobs:
         run: python3 tools/rios.py
       - name: Guardar en el repositorio
         run: |
-          python3 tools/make_version.py
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add web/rios.js web/version.json
+          git add web/rios.js
           git commit -m "Dibujo de los ríos actualizado (OpenStreetMap)" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
           git push

@@ -91,6 +91,8 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="dgroup">Tiempo</div>
   <button data-t="tiempo">🌦️ El tiempo</button>
   <button data-t="clima">📈 Histórico del clima</button>
+  <div class="dgroup">Naturaleza</div>
+  <button data-t="pesca">🎣 Pesca: tramos y normas</button>
   <div class="dgroup">App</div>
   <button data-t="ajustes">⚙️ Ajustes y avisos</button>
   <button data-t="about">ℹ️ Acerca de</button>
@@ -263,6 +265,17 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
  <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px 14px 0 0;padding:14px;width:100%;max-width:700px">
   <div style="display:flex;justify-content:space-between;align-items:center"><b id="grTit"></b><button class="btn" id="grClose">✕</button></div>
   <canvas id="grC" height="200" style="margin-top:8px"></canvas><div class="note" id="grMsg"></div></div></div>
+<!-- ============ PESCA ============ -->
+<section id="t-pesca">
+<div class="seg" id="pSeg"><button class="btn on" data-f="todo">Todos los tramos</button><button class="btn" data-f="hoy">✅ Abiertos hoy</button><button class="btn" data-f="vedado">⛔ Cerrados / vedados</button></div>
+<select class="town" id="pRio" style="margin-bottom:8px"><option value="">🔎 Ir a un río…</option></select>
+<div style="position:relative"><canvas id="pc" height="460"></canvas>
+ <div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="pzIn">＋</button><button class="btn mtb" id="pzOut">－</button><button class="btn mtb" id="pzAll">⤢</button></div></div>
+<div class="note" id="pLeg" style="margin:6px 0;line-height:1.7"></div>
+<div class="note">Arrastra para moverte, pellizca para acercar y toca un tramo para ver sus normas.</div>
+<div id="pFicha"></div>
+<div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Información orientativa a partir de los datos oficiales del Gobierno de Navarra (IDENA, licencia CC BY 4.0) para la temporada actual. La normativa puede cambiar: antes de pescar consulta la orden foral de vedas vigente y los avisos en pesca.navarra.es. Necesitas licencia de pesca de Navarra y, donde se indica, permiso diario.</div></div>
+</section>
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
@@ -290,9 +303,10 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </div>
 
 <script src="rios.js"></script>
+<script src="pesca.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1328,6 +1342,83 @@ function rivTap(px,py){let best=null,bd=18;
   for(const [k,pts] of RLINES)for(let i=1;i<pts.length;i++){const [ax,ay]=pts[i-1],[bx,by]=pts[i],dx=bx-ax,dy=by-ay,L=dx*dx+dy*dy||1;
     const t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/L)),d=Math.hypot(px-ax-t*dx,py-ay-t*dy);if(d<bd){bd=d;best=k;}}
   RSEL=best;if(best&&RGRP[best].data&&best!=='arga'&&RIVDEF[best]&&!(RIVST[best]&&RIVST[best].length))rivFetch(best);mtInfo();mtDraw();}
+
+
+/* =====================================================================
+   🎣 PESCA: tramos de pesca de Navarra (IDENA, Gobierno de Navarra)
+   Mapa con zoom y arrastre; cada tramo coloreado por su régimen;
+   al tocar uno, su ficha con todas las normas y si hoy se puede pescar.
+   ===================================================================== */
+const PZ={la:42.66,lo:-1.63,z:1};     // centro y zoom del mapa de pesca (z=1: toda Navarra)
+let PIMG=null,PIMGB=null,pzTimer=null,PSEL=null,PFIL='todo',PLINES=[];
+const MESES={enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,setiembre:8,octubre:9,noviembre:10,diciembre:11};
+const ptxt=t=>(t||'').replace(/\s?\?\s/g,' – ').replace(/\s+/g,' ').trim();
+// ¿está abierta hoy según su periodo hábil? (null si no se puede saber)
+function pOpenToday(a){const per=ptxt(a.PERIODOHAB||'').toLowerCase();if(/no permitida/i.test(a.OTRASLIMIT||'')||/^Vedado Permanente/i.test(a.TRAMO||''))return false;
+  if(!per)return null;if(/todo el año/.test(per))return true;
+  const m=per.match(/(\d{1,2})\s*(?:de\s+)?([a-zé]+)\s*[-–]\s*(\d{1,2})\s*(?:de\s+)?([a-zé]+)/);if(!m||MESES[m[2]]==null||MESES[m[4]]==null)return null;
+  const d=new Date(),y=d.getFullYear(),a1=new Date(y,MESES[m[2]],+m[1]),b1=new Date(y,MESES[m[4]],+m[3],23,59);return d>=a1&&d<=b1;}
+function pType(a){const t=(a.TRAMO||'')+' '+(a.USO||'');
+  if(/Vedado Permanente/i.test(t))return['vp','Vedado permanente','#e53935'];if(/Vedado Temporal/i.test(t))return['vt','Vedado temporal','#fb8c00'];
+  if(/extractiva|intensivo/i.test(t))return['ex','Pesca extractiva / coto','#1e88e5'];if(/Escenario/i.test(t))return['ed','Escenario deportivo','#8e24aa'];
+  if(/privada/i.test(t))return['pr','Pesca privada','#757575'];if(/Pesca Libre/i.test(t))return['li','Pesca libre (captura y suelta)','#43a047'];return['ot','Otros','#9e9e9e'];}
+function pBox(){const cv=document.getElementById('pc'),W=cv.clientWidth,H=LH(cv),k=Math.cos(PZ.la*Math.PI/180);
+  const dLo=(NB.e-NB.w)/PZ.z,dLa=dLo*k*H/W;return {w:PZ.lo-dLo/2,e:PZ.lo+dLo/2,s:PZ.la-dLa/2,n:PZ.la+dLa/2,W,H};}
+function pBase(){clearTimeout(pzTimer);pzTimer=setTimeout(()=>{const b=pBox(),im=new Image();
+  im.onload=()=>{PIMG=im;PIMGB=b;pDraw();};
+  im.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${Math.round(b.W*1.5)}&HEIGHT=${Math.round(b.H*1.5)}&FORMAT=image/jpeg`;},250);}
+function pDraw(){const cv=document.getElementById('pc');if(cv.clientWidth<10)return;const x=fitCanvas(cv),b=pBox(),{W,H}=b;
+  const P=(la,lo)=>[W*(lo-b.w)/(b.e-b.w),H*(b.n-la)/(b.n-b.s)];x.fillStyle='#dfe6ec';x.fillRect(0,0,W,H);
+  if(PIMG&&PIMGB){const [x0,y0]=P(PIMGB.n,PIMGB.w),[x1,y1]=P(PIMGB.s,PIMGB.e);x.globalAlpha=.85;x.drawImage(PIMG,x0,y0,x1-x0,y1-y0);x.globalAlpha=1;}
+  const G=window.PESCA_GEO;PLINES=[];if(!G||!G.especial){x.fillStyle='#333';x.font='13px system-ui';x.fillText('Los tramos de pesca llegarán con la próxima actualización.',10,24);return;}
+  const lw=Math.max(2,Math.min(6,1.5+PZ.z*.5));
+  for(const f of G.especial){const t=pType(f.a),op=pOpenToday(f.a);
+    const show=PFIL==='todo'||(PFIL==='hoy'&&op===true)||(PFIL==='vedado'&&(t[0]==='vp'||t[0]==='vt'||op===false));
+    const pts=f.p.map(q=>P(q[0],q[1]));PLINES.push([f,pts]);
+    if(!pts.some(([px,py])=>px>-20&&px<W+20&&py>-20&&py<H+20))continue;
+    x.beginPath();pts.forEach(([px,py],i)=>i?x.lineTo(px,py):x.moveTo(px,py));
+    x.strokeStyle=t[2];x.globalAlpha=show?(PSEL&&PSEL!==f?.45:1):.12;x.lineWidth=PSEL===f?lw+4:lw;x.lineCap='round';x.lineJoin='round';x.stroke();x.globalAlpha=1;}
+  if(PSEL){const pts=PSEL.p.map(q=>P(q[0],q[1]));x.beginPath();pts.forEach(([px,py],i)=>i?x.lineTo(px,py):x.moveTo(px,py));x.strokeStyle='#fff';x.lineWidth=2;x.setLineDash([5,4]);x.stroke();x.setLineDash([]);}}
+function pFicha(f){const a=f.a,t=pType(a),op=pOpenToday(a),el=document.getElementById('pFicha');PSEL=f;pDraw();
+  const row=(i,l,v)=>v?`<div class="st" style="align-items:flex-start"><div style="min-width:118px"><b>${i} ${l}</b></div><div style="text-align:right;font-size:13.5px">${ptxt(v)}</div></div>`:'';
+  el.innerHTML=`<div class="card" style="border-color:${t[2]}"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b style="font-size:17px">${ptxt(a.RIO)||'Tramo sin nombre'}</b><button class="btn" id="pfX">✕</button></div>
+    <div style="margin:6px 0"><span class="pill" style="background:${t[2]};color:#fff">${t[1]}</span> ${op===true?'<span class="pill" style="background:#2e7d32;color:#fff">✅ Hoy se puede pescar</span>':op===false?'<span class="pill" style="background:#c62828;color:#fff">⛔ Hoy no se puede pescar</span>':''}</div>
+    <div class="note">${ptxt(a.TRAMO)}${a.REGION?' · '+ptxt(a.REGION):''}</div>
+    ${row('📅','Temporada',a.PERIODOHAB)}${row('🗓️','Días',a.DIASHABIL)}${row('🐟','Especies autóctonas',a.AUTOCTONO)}${row('🚫','Exóticas invasoras',a.EXOTIINVAS)}
+    ${row('🎫','Permiso',a.PERMISPASE)}${row('📏','Talla',a.TALLA)}${row('🧺','Cupo por día',a.CUPODIA)}${row('🪝','Cebos y anzuelos',a.ANZUYCEBO)}${row('🎣','Cañas',a.ARTESPESCA)}
+    ${row('⚠️','Otras normas',a.OTRASLIMIT)}${row('ℹ️','Información',a.INFORMACIO)}
+    <div class="note" style="margin-top:6px">Datos oficiales del Gobierno de Navarra (IDENA) del ${a.BEGINLIFE||'año en curso'}. Antes de pescar, comprueba la orden foral de vedas en pesca.navarra.es.</div></div>`;
+  document.getElementById('pfX').onclick=()=>{PSEL=null;el.innerHTML='';pDraw();};
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function pTap(px,py){let best=null,bd=16;for(const [f,pts] of PLINES)for(let i=1;i<pts.length;i++){const [ax,ay]=pts[i-1],[bx,by]=pts[i],dx=bx-ax,dy=by-ay,L=dx*dx+dy*dy||1;
+    const t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/L)),d=Math.hypot(px-ax-t*dx,py-ay-t*dy);if(d<bd){bd=d;best=f;}}
+  if(best)pFicha(best);else{PSEL=null;document.getElementById('pFicha').innerHTML='';pDraw();}}
+function pZoom(f,cx,cy){const b=pBox();if(cx!=null){const lo=b.w+(b.e-b.w)*cx/b.W,la=b.n-(b.n-b.s)*cy/b.H;PZ.lo=lo+(PZ.lo-lo)/f;PZ.la=la+(PZ.la-la)/f;}
+  PZ.z=Math.max(1,Math.min(60,PZ.z*f));pDraw();pBase();}
+(function(){const cv=document.getElementById('pc');let pts=new Map(),moved=0,d0=0,last=null;
+  cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.offsetX,e.offsetY]);moved=0;last=[e.offsetX,e.offsetY];if(pts.size===2){const [a,b]=[...pts.values()];d0=Math.hypot(a[0]-b[0],a[1]-b[1]);}});
+  cv.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;const prev=pts.get(e.pointerId);pts.set(e.pointerId,[e.offsetX,e.offsetY]);
+    if(pts.size===2){const [a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(d0>0&&Math.abs(d/d0-1)>.02){pZoom(d/d0,(a[0]+b[0])/2,(a[1]+b[1])/2);d0=d;moved=9;}return;}
+    const dx=e.offsetX-prev[0],dy=e.offsetY-prev[1];if(Math.abs(e.offsetX-last[0])+Math.abs(e.offsetY-last[1])>6)moved=9;
+    const b=pBox();PZ.lo-=dx*(b.e-b.w)/b.W;PZ.la+=dy*(b.n-b.s)/b.H;pDraw();});
+  const up=e=>{if(pts.size===1&&moved<6)pTap(e.offsetX,e.offsetY);pts.delete(e.pointerId);if(!pts.size&&moved)pBase();};
+  cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',e=>pts.delete(e.pointerId));
+  cv.addEventListener('wheel',e=>{e.preventDefault();pZoom(e.deltaY<0?1.25:.8,e.offsetX,e.offsetY);},{passive:false});})();
+document.getElementById('pzIn').onclick=()=>pZoom(1.6);document.getElementById('pzOut').onclick=()=>pZoom(1/1.6);
+document.getElementById('pzAll').onclick=()=>{PZ.la=42.66;PZ.lo=-1.63;PZ.z=1;pDraw();pBase();};
+document.querySelectorAll('#pSeg button').forEach(b=>b.onclick=()=>{PFIL=b.dataset.f;document.querySelectorAll('#pSeg button').forEach(x=>x.classList.toggle('on',x===b));pDraw();});
+// ir a un río concreto
+document.getElementById('pRio').onchange=e=>{const v=e.target.value;if(!v)return;const G=window.PESCA_GEO;if(!G)return;
+  const F=G.especial.filter(f=>(f.a.RIO||'')===v);if(!F.length)return;let s=90,n=-90,w=180,ea=-180;F.forEach(f=>f.p.forEach(([la,lo])=>{s=Math.min(s,la);n=Math.max(n,la);w=Math.min(w,lo);ea=Math.max(ea,lo);}));
+  PZ.la=(s+n)/2;PZ.lo=(w+ea)/2;const cv=document.getElementById('pc'),k=Math.cos(PZ.la*Math.PI/180),need=Math.max(.03,(ea-w)*1.3,(n-s)*1.3*cv.clientWidth/(LH(cv)*k));PZ.z=Math.max(1,Math.min(60,(NB.e-NB.w)/need));pDraw();pBase();};
+function pescaInit(){const G=window.PESCA_GEO,sel=document.getElementById('pRio');
+  if(G&&G.especial&&sel.options.length<2){const rios=[...new Set(G.especial.map(f=>f.a.RIO).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+    sel.innerHTML='<option value="">🔎 Ir a un río…</option>'+rios.map(r=>`<option>${r}</option>`).join('');}
+  document.getElementById('pLeg').innerHTML=[['li','Pesca libre (captura y suelta)','#43a047'],['ex','Extractiva / coto','#1e88e5'],['ed','Escenario deportivo','#8e24aa'],['vt','Vedado temporal','#fb8c00'],['vp','Vedado permanente','#e53935'],['pr','Privada','#757575']]
+    .map(([,l,c])=>`<span style="white-space:nowrap"><span style="display:inline-block;width:14px;height:4px;background:${c};vertical-align:middle;border-radius:2px"></span> ${l}</span>`).join(' · ');
+  pDraw();if(!PIMG)pBase();}
+const _showTab3=showTab;showTab=function(t){_showTab3(t);if(t==='pesca')setTimeout(pescaInit,60);};
+document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 
 </script>
 </body>

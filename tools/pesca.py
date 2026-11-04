@@ -2,7 +2,7 @@
 Descarga de IDENA (Gobierno de Navarra, datos abiertos CC BY 4.0) los tramos de pesca del año
 y las aguas de régimen especial, y los guarda en web/pesca.js para que la app los tenga dentro.
 También escribe tools/pesca_info.txt con los campos que trae cada capa (para revisarlos).
-Lo ejecuta GitHub Actions.
+Lo ejecuta GitHub Actions (se repite cada vez que cambia este archivo).
 """
 import io, json, time, urllib.request, zipfile, collections
 import shapefile                     # pip install pyshp
