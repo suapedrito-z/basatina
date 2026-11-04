@@ -1,0 +1,27 @@
+# Descarga de IDENA los tramos de pesca del año y los guarda en la app (web/pesca.js).
+# Se ejecuta cuando cambia tools/pesca.py (o a mano desde la pestaña Actions).
+name: Tramos de pesca
+on:
+  push:
+    paths: ['tools/pesca.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  pesca:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: pip install pyshp pyproj
+      - name: Descargar de IDENA
+        run: python3 tools/pesca.py
+      - name: Guardar en el repositorio
+        run: |
+          git pull --rebase
+          python3 tools/make_version.py
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/pesca.js web/version.json tools/pesca_info.txt
+          git commit -m "Tramos de pesca actualizados (IDENA)" || exit 0
+          git push
