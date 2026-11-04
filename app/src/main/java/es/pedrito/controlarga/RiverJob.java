@@ -33,6 +33,9 @@ public class RiverJob extends JobService {
 
     /** Programa la comprobación periódica (Android no deja menos de 15 minutos) */
     static void schedule(Context c) {
+        try { schedule0(c); } catch (Exception ignored) {}   // si falla, la app sigue funcionando
+    }
+    static void schedule0(Context c) {
         JobScheduler js = (JobScheduler) c.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         if (js.getPendingJob(JOB_ID) != null) return;
         js.schedule(new JobInfo.Builder(JOB_ID, new ComponentName(c, RiverJob.class))
@@ -44,6 +47,9 @@ public class RiverJob extends JobService {
 
     /** Una comprobación ahora mismo (al poner el widget o abrir la app) */
     static void runNow(Context c) {
+        try { runNow0(c); } catch (Exception ignored) {}
+    }
+    static void runNow0(Context c) {
         JobScheduler js = (JobScheduler) c.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         js.schedule(new JobInfo.Builder(JOB_NOW, new ComponentName(c, RiverJob.class))
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)

@@ -1120,6 +1120,7 @@ let logoTaps=[];document.getElementById('logo').addEventListener('click',()=>{co
 document.getElementById('dLock').onclick=()=>{TECH=false;try{sessionStorage.removeItem('tech');}catch(e){}techApply();menu(false);showTab('mapa');toast('🔒 Zona técnica cerrada');};
 document.getElementById('dPin').onclick=()=>{menu(false);pinOpen('new');};
 document.getElementById('dTechInfo').onclick=async()=>{menu(false);let v='?';if(APP&&window.AndroidNet.webVersion)v=window.AndroidNet.webVersion();else try{const r=await fetch('version.json');v=(await r.json()).version;}catch(e){}
+  const cr=APP&&window.AndroidNet.lastCrash?window.AndroidNet.lastCrash():'';if(cr){window.AndroidNet.share('FALLO APP\n'+cr.slice(0,6000));return;}
   toast(`Pantalla v${v} · app ${APP&&window.AndroidNet.appVersion?window.AndroidNet.appVersion():'web'} · SAIH ${CAU?'OK '+new Date(cauT).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}):'sin datos'} · ${(navigator.userAgent.match(/Android [\d.]+/)||['web'])[0]}`);};
 techApply();
 setTimeout(()=>showTab('mtiempo'),30);

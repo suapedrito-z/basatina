@@ -31,6 +31,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Thread.UncaughtExceptionHandler prev = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler((t, ex) -> {
+            java.io.StringWriter sw = new java.io.StringWriter(); ex.printStackTrace(new java.io.PrintWriter(sw));
+            getSharedPreferences("rio", MODE_PRIVATE).edit().putString("crash", sw.toString()).commit();
+            if (prev != null) prev.uncaughtException(t, ex);
+        });
         web = new WebView(this);
         setContentView(web);
 
@@ -210,6 +216,10 @@ public class MainActivity extends Activity {
             if (m.exists()) try { downloaded = versionOf(new FileInputStream(m)); } catch (Exception ignored) {}
             return Math.max(bundled, downloaded);
         }
+
+        /** Último fallo de la app (para la zona técnica) */
+        @JavascriptInterface
+        public String lastCrash() { return getSharedPreferences("rio", MODE_PRIVATE).getString("crash", ""); }
 
         @JavascriptInterface
         public void reload() { runOnUiThread(() -> web.loadUrl(startUrl())); }

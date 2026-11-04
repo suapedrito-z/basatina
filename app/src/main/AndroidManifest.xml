@@ -5,6 +5,8 @@
     <!-- Avisos en el móvil y comprobación en segundo plano también después de reiniciar -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Android 14 lo exige para tareas en segundo plano que necesitan internet -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:label="Control Río Arga"
         android:icon="@mipmap/ic_launcher"
