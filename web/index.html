@@ -83,7 +83,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button data-t="mapa">🗺️ Mapa del Arga (ahora)</button>
   <button data-t="ciencia">🔬 Modo científico</button>
   <div class="dgroup">Datos</div>
-  <button data-t="caudal">📊 Caudal ahora</button>
+  <button data-t="caudal">📊 Caudal de los ríos</button>
   <button data-t="hist">📜 Datos históricos</button>
   <button data-t="libre">🎚️ Mapa de riadas (elige caudal)</button>
   <button data-t="prev">🔮 Previsiones</button>
@@ -266,12 +266,17 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
+<div class="seg" id="rivSeg"><button class="btn on" data-r="arga">🌊 Arga</button><button class="btn" data-r="irati">🌲 Irati</button></div>
+<div id="cauArgaView">
 <div id="cauEugui"></div>
 <div class="note">Toca una estación para ver su gráfica de las últimas horas.</div>
 <div class="card"><b>🌊 Río Arga (de arriba abajo)</b><div id="cauArga"></div></div>
 <div class="card"><b>🏞️ Afluentes</b><div id="cauAfl"></div></div>
+<div class="note">En Puente la Reina no hay estación del SAIH: las más cercanas son Etxauri (aguas arriba) y Funes (al final).</div>
 <div class="row"><button class="btn pri" id="cauMap">🗺️ Ver en el mapa con el caudal real</button><button class="btn" id="cauPrev">🔮 Previsión desde el caudal real</button><button class="btn tech" id="cauShare" style="display:none">Compartir datos</button></div>
-<div class="note">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos cada 15 minutos y provisionales. En Puente la Reina no hay estación del SAIH: las más cercanas son Etxauri (aguas arriba) y Funes (al final). Los avisos amarillo/naranja/rojo son los umbrales oficiales del SAIH cuando existen. Ante riesgo real, haz caso siempre a los avisos oficiales (CHE, SOS Navarra 112).</div>
+</div>
+<div id="cauRivView" style="display:none"><div id="rivEmb"></div><div class="note">Toca una estación para ver su gráfica de las últimas horas.</div><div class="card"><b id="rivTit"></b><div id="rivList"></div></div><div class="note" id="rivNote"></div></div>
+<div class="note">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos cada 15 minutos y provisionales. Los avisos amarillo/naranja/rojo son los umbrales oficiales del SAIH cuando existen. Ante riesgo real, haz caso siempre a los avisos oficiales (CHE, SOS Navarra 112).</div>
 </section>
 <!-- ============ SAIH ============ -->
 <section id="t-saih">
@@ -286,7 +291,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal ahora'};
+const TITLES={ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -842,26 +847,28 @@ function cauRender(){const A=document.getElementById('cauArga'),F=document.getEl
   if(!APP){A.innerHTML=F.innerHTML='';E.innerHTML='<div class="card">📱 Esta sección funciona en la app <b>Pedrito Control Río Arga</b>: el móvil lee los datos del SAIH Ebro desde tu conexión.</div>';return;}
   if(!CAU){A.innerHTML='<div class="note">Cargando…</div>';return;}
   A.innerHTML=CAU_ARGA.map(x=>stRow(...x)).join('');F.innerHTML=CAU_AFL.map(x=>stRow(...x)).join('');
-  const e=CAU.E025;let h='<div class="card"><b>🏔️ Embalse de Eugui</b>';
+  E.innerHTML=embCard('E025','Embalse de Eugui','A152',{cap:21.39,zmax:628,zmin:585});
+  const ref=cauRefQ();document.getElementById('cauMap').disabled=document.getElementById('cauPrev').disabled=!ref;
+  if(ref){document.getElementById('cauMap').textContent='🗺️ Ver en el mapa ('+fmtN(ref.v,1)+' m³/s en '+ref.where+')';}}
+// tarjeta de un embalse: % de llenado, entrada, salida, volumen y el resto de señales
+function embCard(code,title,downCode,geo){const e=CAU&&CAU[code];let h='<div class="card"><b>🏔️ '+title+'</b>';
   if(!e)h+='<div class="note">Sin datos del embalse ahora.</div>';
   else{const g=k=>pick(e,k),pct=g('pct'),vol=g('vol'),qin=g('qin'),qout=g('qout');
     // % de llenado: 1) el que da el SAIH; 2) volumen / 21,39 hm³; 3) estimado por la cota (curva aproximada)
     const niv=Object.values(e.tags).find(t=>/NIVEL EMBALSE/.test(t.LS_DESCRIPCION)&&/msnm|m/.test(t.LS_UNID_ING||''));
     let pv=pct?Number(pct.VALOR_QM):null,aprox='';
-    if(pv==null&&vol&&/hm/i.test(vol.LS_UNID_ING)){pv=vol.VALOR_QM/21.39*100;aprox='calculado: volumen / 21,39 hm³ de capacidad';}
-    if(pv==null&&niv){const z=+niv.VALOR_QM,h=Math.max(0,Math.min(1,(z-585)/43)),v=21.39*Math.pow(h,2.47);pv=v/21.39*100;
+    if(pv==null&&geo&&vol&&/hm/i.test(vol.LS_UNID_ING)){pv=vol.VALOR_QM/geo.cap*100;aprox='calculado: volumen / '+fmtN(geo.cap,2)+' hm³ de capacidad';}
+    if(pv==null&&geo&&niv){const z=+niv.VALOR_QM,h=Math.max(0,Math.min(1,(z-585)/43)),v=21.39*Math.pow(h,2.47);pv=v/21.39*100;
       aprox=`estimado por la cota: ${fmtN(z,2)} m, a ${fmtN(628-z,1)} m del máximo (628 m) · ≈ ${fmtN(v,1)} hm³ de 21,39`;}
     if(aprox)aprox='<div style="font-size:12px;font-weight:400;color:#93a4b5">'+aprox+'</div>';
     if(pv!=null){const p=Math.max(0,Math.min(100,pv));h+=`<div class="row" style="align-items:center"><div class="big">${fmtN(pv,1)} %${aprox}</div><div style="flex:1;height:14px;background:#0b1118;border-radius:7px;overflow:hidden;border:1px solid var(--line)"><div style="width:${p}%;height:100%;background:#2f8fd8"></div></div></div>`;}
     // la salida de la presa la mide la estación A152, justo aguas abajo
-    const qo=qout||pick(CAU.A152,'q');
+    const qo=qout||(downCode?pick(CAU[downCode],'q'):null);
     const rows=[[qin,'⬇️ Entra al embalse'],[qo,qout?'⬆️ Sale de la presa':'⬆️ Sale de la presa (medido justo aguas abajo)'],[vol,'💧 Agua embalsada']].filter(r=>r[0]);
     rows.forEach(([t,l])=>{h+=`<div class="st"><div><b>${l}</b><div class="s">${TREND[t.LS_TENDENCIA]||''} · ${hhmm(t.ULTIMA_FECHA)}</div></div><div class="v">${fmtN(t.VALOR_QM,t.DECIMALES_VALOR??2)} <span style="font-size:13px">${t.LS_UNID_ING||''}</span></div></div>`;});
     const used=new Set([pct,vol,qin,qout].filter(Boolean));
     Object.values(e.tags).filter(t=>!used.has(t)).forEach(t=>{const d=(t.LS_DESCRIPCION||'').toLowerCase().replace(/^\w/,c=>c.toUpperCase());h+=`<div class="st"><div><b>${d}</b><div class="s">${hhmm(t.ULTIMA_FECHA)}</div></div><div class="v">${fmtN(t.VALOR_QM,t.DECIMALES_VALOR??2)} <span style="font-size:13px">${t.LS_UNID_ING||''}</span></div></div>`;});}
-  E.innerHTML=h+'</div>';
-  const ref=cauRefQ();document.getElementById('cauMap').disabled=document.getElementById('cauPrev').disabled=!ref;
-  if(ref){document.getElementById('cauMap').textContent='🗺️ Ver en el mapa ('+fmtN(ref.v,1)+' m³/s en '+ref.where+')';}}
+  return h+'</div>';}
 // caudal de referencia del simulador: Burlada, si no Pamplona
 function cauRefQ(){for(const [c,w] of [['A313','Burlada'],['A323','Pamplona']]){const q=pick(CAU&&CAU[c],'q');if(q&&!isNaN(+q.VALOR_QM))return {v:+q.VALOR_QM,where:w};}return null;}
 async function cauFetch(){if(!APP)return cauRender();const info=document.getElementById('cauInfo');info.textContent='Conectando con el SAIH Ebro…';cauRender();
@@ -869,11 +876,13 @@ async function cauFetch(){if(!APP)return cauRender();const info=document.getElem
   const m={};let ok=0;for(const r of [a,b]){try{cauAdd(m,JSON.parse(r.body));ok++;}catch(e){}}
   if(u){try{UMB=JSON.parse(u.body);}catch(e){}}
   if(!ok){info.textContent='❌ No se pudo leer el SAIH ahora (código '+a.code+'). Prueba en un rato.';return;}
+  if(CAU)Object.values(CAU).forEach(o=>{if(o.riv&&!m[o.code])m[o.code]=o;});   // conservar los otros ríos
   CAU=m;cauRender();info.textContent='Leyendo las fichas de cada estación…';
   // el mapa solo trae una señal por estación (el nivel): la ficha de cada estación trae todas (caudal, volumen, %…)
   const codes=[...CAU_ARGA,...CAU_AFL].map(x=>x[0]).concat(['E025']);
   for(let i=0;i<codes.length;i+=4){await Promise.all(codes.slice(i,i+4).map(async c=>{const r=await netGet(SAIH+'/api/ficha/procesarTablaValoresActuales?estacion='+c);
     try{fichaAdd(m,c,JSON.parse(r.body).VALORES_ACTUALES||'');}catch(e){}}));cauRender();}
+  setTimeout(()=>{if(typeof rivRefreshAll==='function')rivRefreshAll();},50);
   cauT=Date.now();info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · SAIH Ebro';
   cauRender();const ref=cauRefQ();
   if(MAPM==='live')liveMap();
@@ -994,7 +1003,7 @@ async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');i
   const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=5${TZ}`;
   const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
 function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  el.textContent=MTL==='rios'?(CAU?'Ríos: caudal en m³/s · toca una estación para ver el detalle · por ahora cuenca del Arga':'Ríos: esperando datos del SAIH…'):
+  el.textContent=MTL==='rios'?(CAU?'Ríos: caudal en m³/s · toca una estación para ver el detalle · cuencas del Arga y del Irati':'Ríos: esperando datos del SAIH…'):
     (MT?'Actualizado a las '+hm+' · toca un pueblo para ver su previsión':'Cargando…');}
 // UTM huso 30 (ETRS89) → latitud/longitud
 function utm2ll(E,N){const a=6378137,f=1/298.257222101,e2=f*(2-f),k0=.9996,x=E-500000,y=N,ep2=e2/(1-e2),M=y/k0,mu=M/(a*(1-e2/4-3*e2*e2/64-5*e2**3/256)),e1=(1-Math.sqrt(1-e2))/(1+Math.sqrt(1-e2));
@@ -1014,7 +1023,7 @@ function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)r
     x.textBaseline='alphabetic';mtHits.push([bx,by,bw,22,hit]);return by;};
   const leg=document.getElementById('mtLeg');
   if(MTL==='rios'){leg.style.display='';leg.innerHTML='<span style="color:#3ccf7a">●</span> normal · <span style="color:#ffd84d">●</span> aviso amarillo · <span style="color:#ff9f1a">●</span> naranja · <span style="color:#ff3b30">●</span> rojo';
-    if(CAU)Object.values(CAU).forEach(st=>{if(!st.x||!/^A/.test(st.code))return;const [la,lo]=utm2ll(st.x,st.y);const [px,py]=P(la,lo);const q=pick(st,'q'),n=pick(st,'n'),al=alertOf(n);
+    if(CAU)Object.values(CAU).forEach(st=>{if(!/^A/.test(st.code))return;let la,lo;if(st.lat!=null){la=st.lat;lo=st.lon;}else if(st.x){[la,lo]=utm2ll(st.x,st.y);}else return;const [px,py]=P(la,lo);const q=pick(st,'q'),n=pick(st,'n'),al=alertOf(n);
       const col=!al?'#2e7d32':/rojo/.test(al[0])?'#c62828':/naranja/.test(al[0])?'#ef6c00':/amarillo/.test(al[0])?'#f9a825':'#2e7d32';
       const t=q?fmtN(q.VALOR_QM,q.VALOR_QM<10?1:0):n?fmtN(n.VALOR_QM,2)+' m':'—';box(px,py,'',t,col,['st',st.code]);});
     return;}
@@ -1200,6 +1209,50 @@ const _showTab2=showTab;showTab=function(t){_showTab2(t);if(t==='ajustes')ajuste
 document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 if(window.matchMedia)matchMedia('(prefers-color-scheme: light)').addEventListener?.('change',cfgApply);
 cfgApply();
+
+
+/* =====================================================================
+   OTROS RÍOS DE NAVARRA (datos en directo del SAIH Ebro)
+   La app descubre sola las estaciones de cada río en el buscador del SAIH
+   (por su nombre), guarda su lista y su posición, y lee la ficha de cada una.
+   ===================================================================== */
+const RIVDEF={
+  irati:{name:'Irati',ico:'🌲',re:/IRATI|URROBI|\bERRO\b|ARETA|SALAZAR|ITOIZ|IRABIA|ZATOYA|ANDU[ÑN]A|EZKA|ESCA\b/i,
+    nota:'Cuenca del Irati: el Irati con sus afluentes Urrobi, Erro, Areta y Salazar, y los embalses de Irabia e Itoiz. El Irati desemboca en el Aragón cerca de Sangüesa.'}
+};
+let RIV='arga';const RIVST={};   // RIVST[río] = [{code,name,tipo,lat,lon}]
+function prettyName(n){return (n||'').toLowerCase().replace(/\(gn\)|\(r\)/g,'').replace(/\s*-\s*/g,' en ').replace(/\s+/g,' ').trim()
+  .replace(/(^|\s|\.)(\p{L})/gu,(m,a,b)=>a+b.toUpperCase()).replace(/\bEn\b/g,'en').replace(/\bDe\b/g,'de').replace(/\bA\.abajo\b/gi,'aguas abajo').replace(/\bE\./g,'emb. ');}
+async function rivStations(r){if(RIVST[r])return RIVST[r];const c=LS.get('riv_'+r,null);
+  if(c&&Date.now()-c.t<7*864e5&&c.st&&c.st.length){RIVST[r]=c.st;return c.st;}
+  const info=document.getElementById('rivNote');info.textContent='Buscando las estaciones del '+RIVDEF[r].name+' en el SAIH (solo la primera vez)…';
+  const b=await netGet(SAIH+'/api/common/getBusquedas');let L=[];
+  try{L=(JSON.parse(b.body).BUSQUEDA||[]).filter(e=>e.TIPO==='_ficha'&&/^(A|E)$/.test(e.TIPO_REMOTA)&&RIVDEF[r].re.test(e.NOMBRE_ESTACION));}catch(e){}
+  const st=[];for(const e of L){if(st.find(x=>x.code===e.CODIGO_ESTACION))continue;
+    // posición de la estación: la ficha trae su latitud y longitud
+    const g=await netGet(SAIH+'/api/ficha/procesarTablaInfoGeneral?estacion='+e.CODIGO_ESTACION);let lat=null,lon=null;
+    try{const h=JSON.parse(g.body).INFO_GENERAL||'';lat=+(h.match(/data-lat='([-\d.]+)'/)||[])[1];lon=+(h.match(/data-lng='([-\d.]+)'/)||[])[1];}catch(x){}
+    st.push({code:e.CODIGO_ESTACION,name:e.NOMBRE_ESTACION,tipo:e.TIPO_REMOTA,lat:isNaN(lat)?null:lat,lon:isNaN(lon)?null:lon});}
+  // de arriba abajo: el Irati y sus afluentes bajan de norte a sur
+  st.sort((a,b)=>(b.lat||0)-(a.lat||0));
+  if(st.length){RIVST[r]=st;LS.set('riv_'+r,{t:Date.now(),st});}return st;}
+async function rivFetch(r){if(!APP)return;const st=await rivStations(r);if(!CAU)CAU={};
+  for(let i=0;i<st.length;i+=4){await Promise.all(st.slice(i,i+4).map(async s=>{const x=await netGet(SAIH+'/api/ficha/procesarTablaValoresActuales?estacion='+s.code);
+    try{fichaAdd(CAU,s.code,JSON.parse(x.body).VALORES_ACTUALES||'');const o=CAU[s.code];o.name=s.name;o.lat=s.lat;o.lon=s.lon;o.riv=r;}catch(e){}}));
+    if(RIV===r)rivRender();}
+  if(typeof MTL!=='undefined'&&MTL==='rios')mtDraw();}
+function rivRender(){const r=RIV,d=RIVDEF[r];if(!d)return;const st=RIVST[r]||[];
+  document.getElementById('rivTit').textContent=d.ico+' Río '+d.name+' y afluentes (de arriba abajo)';
+  document.getElementById('rivNote').textContent=d.nota+(st.length?' · '+st.length+' estaciones del SAIH Ebro.':'');
+  document.getElementById('rivEmb').innerHTML=st.filter(s=>s.tipo==='E').map(s=>embCard(s.code,'Embalse de '+prettyName(s.name),null,null)).join('');
+  document.getElementById('rivList').innerHTML=st.filter(s=>s.tipo==='A').map(s=>stRow(s.code,prettyName(s.name))).join('')||'<div class="note">Cargando…</div>';}
+function rivShow(r){RIV=r;document.querySelectorAll('#rivSeg button').forEach(b=>b.classList.toggle('on',b.dataset.r===r));
+  document.getElementById('cauArgaView').style.display=r==='arga'?'':'none';document.getElementById('cauRivView').style.display=r==='arga'?'none':'';
+  if(r!=='arga'){rivRender();if(!RIVST[r]||!RIVST[r].some(s=>CAU&&CAU[s.code]&&Object.keys(CAU[s.code].tags).length))rivFetch(r);}}
+document.querySelectorAll('#rivSeg button').forEach(b=>b.onclick=()=>rivShow(b.dataset.r));
+document.getElementById('rivList').addEventListener('click',e=>{const x=e.target.closest('.st');if(x&&x.dataset.code)stGraph(x.dataset.code,x.dataset.lab);});
+// cada vez que se actualiza el Arga, también los demás ríos ya conocidos
+async function rivRefreshAll(){for(const r of Object.keys(RIVDEF))await rivFetch(r);}
 
 </script>
 </body>
