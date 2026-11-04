@@ -90,6 +90,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button data-t="tiempo">🌦️ El tiempo</button>
   <button data-t="clima">📈 Histórico del clima</button>
   <div class="dgroup">Naturaleza</div>
+  <button data-t="monte">🥾 Salir al monte: rutas, cuevas, baño…</button>
   <button data-t="pesca">🎣 Pesca: tramos y normas</button>
   <button data-t="caza">🦌 Caza: calendario de la temporada</button>
   <button data-t="natura">🌿 Setas, frutos, fauna y vegetación</button>
@@ -307,6 +308,17 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="seg" id="natCats"></div>
 <div id="natBody"></div>
 </section>
+<!-- ============ SALIR AL MONTE ============ -->
+<section id="t-monte">
+<input id="moQ" class="town" placeholder="🔎 Buscar ruta, cueva, mirador, pueblo…" style="margin-bottom:6px;width:100%;box-sizing:border-box"><div id="moRes"></div>
+<select class="town" id="moOv" style="margin-bottom:8px"></select>
+<div style="position:relative"><canvas id="moc" height="460"></canvas>
+ <div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="moIn">＋</button><button class="btn mtb" id="moOut">－</button><button class="btn mtb" id="moAll">⤢</button></div></div>
+<div class="note" id="moInfo" style="margin:6px 0"></div>
+<div id="moLay" class="note" style="line-height:1.6"></div>
+<div id="moFicha"></div>
+<div class="card" style="border-color:#ffb020"><b>⚠️ Antes de salir</b><div class="note">Mira el tiempo y los avisos, lleva agua y ropa de abrigo, avisa de tu ruta y no salgas de los caminos señalizados. Respeta las propiedades, el ganado y las normas de los espacios protegidos. En caso de emergencia, llama al 112. Datos: Gobierno de Navarra · IDENA (CC BY 4.0).</div></div>
+</section>
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
@@ -337,7 +349,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="pesca.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1804,6 +1816,83 @@ function natRender(){const el=document.getElementById('natBody'),ms=document.get
 document.querySelectorAll('#natTabs button').forEach(b=>b.onclick=()=>{NTAB=b.dataset.t;NCAT='todo';document.querySelectorAll('#natTabs button').forEach(x=>x.classList.toggle('on',x===b));natRender();});
 document.getElementById('natMes').onchange=e=>{NMONTH=+e.target.value;natRender();};
 const _showTab5=showTab;showTab=function(t){_showTab5(t);if(t==='natura')natRender();};
+document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+
+
+/* =====================================================================
+   🥾 SALIR AL MONTE: rutas, vías verdes, Camino, cuevas, cascadas, miradores,
+   áreas recreativas, zonas de baño, patrimonio y fuentes (IDENA) + tiempo previsto
+   ===================================================================== */
+const MO_EXTRA={CASC:[{a:{N:'Cascada de Xorroxin',D:'Cascada y poza en un hayedo, junto a Erratzu (Baztan). Sendero SL-NA 12.'},pt:[43.1828,-1.4192]},
+   {a:{N:'Nacedero del Urederra',D:'Pozas de agua turquesa en Baquedano (Améscoas), Reserva Natural. Acceso con cupo y reserva en temporada.'},pt:[42.7826,-2.1384]}],
+ VIS:[{a:{N:'Cuevas de Urdazubi / Urdax (Ikaburu)',D:'Cueva visitable con guía, junto al pueblo de Urdazubi/Urdax.'},pt:[43.264,-1.501]},
+   {a:{N:'Cuevas de Zugarramurdi',D:'La «cueva de las brujas»: gran túnel kárstico visitable, junto al Museo de las Brujas.'},pt:[43.270,-1.546]},
+   {a:{N:'Cueva de Mendukilo (Astitz)',D:'Cueva turística visitable con guía en la sierra de Aralar (Larraun).'},pt:[42.951,-1.946]}]};
+// capas: [clave, nombre, color, tipo (pt/ln), encendida, campos de nombre]
+const MOL=[['PATRIM_Sym_Senderismo','🥾 Rutas recomendadas','#e65100','pt',1,['NOMBRE']],['GR','🥾 GR (grandes recorridos)','#d32f2f','ln',1,['TRAMO','NOMBRE']],
+ ['VV','🚲 Vías verdes','#2e7d32','ln',1,['NOMBRE']],['PATRIM_Lin_CaminoSant','🐚 Camino de Santiago','#f9a825','ln',1,['TRAMO']],
+ ['VIS','🕳️ Cuevas visitables','#3e2723','pt',1,['N']],['CASC','💦 Cascadas y nacederos','#0288d1','pt',1,['N']],['DOTACI_Sym_Miradores','👀 Miradores','#7b1fa2','pt',1,['RECTUR']],
+ ['HIDROG_Sym_ZonaBano','🏊 Zonas de baño','#00acc1','pt',1,['NOMBRE','PTOAGUA']],['FOREST_Sym_AreasRecForest','🧺 Áreas recreativas','#558b2f','pt',0,['NOMBRE']],
+ ['PATRIM_Sym_BICarquite','🏰 Patrimonio (BIC)','#6d4c41','pt',0,['BIC']],['GEOLOG_Sym_Cuevas','🕳️ Todas las cuevas y simas','#8d6e63','pt',0,['CUEVA']],
+ ['IDEMUN_Sym_Fuentes','🚰 Fuentes públicas','#4fc3f7','pt',0,['FUENTE']],['GEOLOG_Sym_Manantiales','💧 Manantiales','#90caf9','pt',0,['MANANTIAL']]];
+const MOOV=[['','Sin capa oficial'],['senderos','🥾 Todos los senderos señalizados (PR, SL)'],['FOREST_Ras_ProbQuemaAnual','🔥 Probabilidad de incendio'],['FOREST_Pol_HcoIncendioA','🔥 Incendios 2019‑2023'],['FOREST_Pol_ZonUsoFuego','🔥 Zonas de uso del fuego'],['DOTACI_Sym_PtosAgua','🚒 Puntos de agua contra incendios']];
+let MON={},MOM=null,MOSEL=null,MOLOAD=false;MOL.forEach(l=>MON[l[0]]=!!l[4]);
+function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[k];
+  if(k==='GR')return ['DOTACI_Lin_GR1','DOTACI_Lin_GR12','DOTACI_Lin_GR321'].flatMap(x=>(G[x]||{f:[]}).f);
+  if(k==='VV')return ['DOTACI_Lin_VVBidasoa','DOTACI_Lin_VVVascoNav','DOTACI_Lin_VVIrati','DOTACI_Lin_VVPlazaola','DOTACI_Lin_VVTarazoni'].flatMap(x=>(G[x]||{f:[]}).f);
+  return (G[k]||{f:[]}).f;}
+function moLoad(cb){if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}
+function moDraw(x,P,b,M){const r=Math.max(2.5,Math.min(7,2+M.z*.3));
+  for(const [k,,c,t] of MOL){if(!MON[k])continue;const big=k==='VIS'||k==='CASC';for(const f of moFeats(k)){const sel=MOSEL&&MOSEL.f===f;
+    if(t==='pt'){const [px,py]=P(f.pt[0],f.pt[1]);if(px<-9||py<-9||px>b.W+9||py>b.H+9)continue;x.beginPath();x.arc(px,py,(sel?r+4:r)+(big?2:0),0,7);x.fillStyle=c;x.fill();if(M.z>6||sel||big){x.strokeStyle='#fff';x.lineWidth=1.5;x.stroke();}}
+    else for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.strokeStyle=c;x.lineWidth=sel?5:3;x.lineCap='round';x.lineJoin='round';x.stroke();}}}}
+function moTap(px,py,M){const P=M.P,b=M.box();let best=null,bd=16;
+  for(const L of MOL){const [k,,,t]=L;if(!MON[k])continue;for(const f of moFeats(k)){
+    if(t==='pt'){const [qx,qy]=P(f.pt[0],f.pt[1]),d=Math.hypot(qx-px,qy-py);if(d<bd){bd=d;best={L,f,ll:f.pt};}}
+    else for(const ring of f.r){const Q=ring.map(q=>P(q[0],q[1]));for(let i=1;i<Q.length;i++){const [ax,ay]=Q[i-1],[bx2,by2]=Q[i],dx=bx2-ax,dy=by2-ay,l2=dx*dx+dy*dy||1,tt=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/l2)),d=Math.hypot(px-ax-tt*dx,py-ay-tt*dy);
+      if(d<bd){bd=d;best={L,f,ll:[b.n-(b.n-b.s)*py/b.H,b.w+(b.e-b.w)*px/b.W]};}}}}}
+  if(!best&&M.ov){zInfoMo(px,py,M);return;}MOSEL=best;M.draw();moFicha();}
+async function zInfoMo(px,py,M){const el=document.getElementById('moFicha');el.innerHTML='<div class="note">Consultando el mapa oficial…</div>';
+  const b=M.box(),u=`https://idena.navarra.es/ogc/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=${M.ov}&QUERY_LAYERS=${M.ov}&STYLES=&CRS=EPSG:4258&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${Math.round(b.W)}&HEIGHT=${Math.round(b.H)}&I=${Math.round(px)}&J=${Math.round(py)}&INFO_FORMAT=text/html&FEATURE_COUNT=3`;
+  let t='';try{if(APP){t=(await netGet(u)).body||'';}else t=await (await fetch(u)).text();}catch(e){}
+  const th=[...t.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim()),td=[...t.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim());
+  let h='';if(th.length&&td.length>=th.length)th.forEach((k,i)=>{if(td[i]&&!/^(FID|OBJECTID|GEOM|SHAPE|FEATURE|BEGINLIFE|X25830|Y25830)/i.test(k))h+=`<div class="st"><b>${k}</b><span style="text-align:right">${td[i]}</span></div>`;});
+  else{const p=t.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();if(p)h=`<div class="note">${p.slice(0,600)}</div>`;}
+  el.innerHTML=`<div class="card"><b>📍 ${MOOV.find(z=>z[0]===M.ov)[1]}</b>${h||'<div class="note">Aquí no hay nada en esta capa (acércate más para consultar).</div>'}<div class="note">Fuente: Gobierno de Navarra · IDENA.</div></div>`;}
+const LAB={TRAMO:'Tramo',NOMBRE:'Nombre',DESCRIPCIO:'Descripción',TIPO:'Tipo',COTA:'Altitud (m)',MUNICIPIO:'Municipio',TOPONIMIA:'Paraje',LONGITUD:'Longitud (m)',PROFUNDIDA:'Profundidad (m)',
+  LUGARINI:'Salida',LUGARFIN:'Llegada',ALTITUDMAX:'Altitud máx. (m)',ALTITUDMIN:'Altitud mín. (m)',DESNIPOSI:'Desnivel + (m)',DESNINEGA:'Desnivel − (m)',BARBACOA:'Barbacoa',EQUIPAMIEN:'Equipamiento',
+  PARKING:'Aparcamiento',VEGETACION:'Vegetación',ELEPAISAJE:'Paisaje',DEMARCACIO:'Zona',PTOAGUA:'Punto',POBLACION:'Localidad',ZONATUR:'Zona',POTABLE:'Agua potable',RIO:'Cuenca',CODIGO:'Código',D:'',N:''};
+async function moFicha(){const el=document.getElementById('moFicha');if(!MOSEL){el.innerHTML='';return;}const {L,f,ll}=MOSEL,a=f.a,[k,name,col,,,nf]=L;
+  const title=nf.map(x=>a[x]).find(Boolean)||name;
+  const links=['URL','DESCARGA','URLFICHA','URL1'].map(x=>a[x]).filter(v=>v&&/^https?:/.test(v)).map(v=>`<button class="btn" data-url="${v}">${/gpx/i.test(v)?'⬇️ Ruta GPX':/pdf/i.test(v)?'📄 Ficha PDF':'🔗 Más información'}</button>`).join('');
+  const rows=Object.entries(a).filter(([x,v])=>!['URL','DESCARGA','URLFICHA','URL1',...nf].includes(x)&&LAB[x]!==undefined&&v!=null&&String(v).trim()).map(([x,v])=>LAB[x]?`<div class="st" style="align-items:flex-start"><b style="min-width:110px">${LAB[x]}</b><span style="text-align:right">${v}</span></div>`:`<div style="margin:4px 0;font-size:14px">${v}</div>`).join('');
+  el.innerHTML=`<div class="card" style="border-color:${col}"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:16px">${title}</b><button class="btn" id="moX">✕</button></div>
+   <div class="note">${name}${k==='CASC'||k==='VIS'?' · situación aproximada':''}</div>${rows}${links?`<div class="row">${links}</div>`:''}
+   <div id="moWx" class="note" style="margin-top:6px">Cargando el tiempo previsto aquí…</div>
+   ${k==='HIDROG_Sym_ZonaBano'?'<div class="note">🏊 Zona de baño con control sanitario del Gobierno de Navarra durante la temporada de baño (verano). Mira la ficha para la calidad del agua.</div>':''}
+   ${k==='GEOLOG_Sym_Cuevas'?'<div class="note">⚠️ La mayoría de simas y cuevas no son visitables: entrar sin equipo ni experiencia es muy peligroso.</div>':''}</div>`;
+  document.getElementById('moX').onclick=()=>{MOSEL=null;MOM.draw();moFicha();};el.querySelectorAll('[data-url]').forEach(b2=>b2.onclick=()=>{if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(b2.dataset.url);else window.open(b2.dataset.url,'_blank');});
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  // tiempo previsto en ese punto
+  const j=await getJSON(`${OM}?latitude=${ll[0]}&longitude=${ll[1]}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max&forecast_days=4${TZ}`);
+  const w=document.getElementById('moWx');if(!w)return;if(!j||!j.daily){w.textContent='No se pudo cargar el tiempo ahora.';return;}const d=j.daily;
+  w.innerHTML=`<b>🌦️ Tiempo aquí</b> · ahora ${wxIcon(j.current.weather_code,new Date().getHours())} ${Math.round(j.current.temperature_2m)}°`+d.time.map((x,i)=>{const dt=new Date(x+'T12:00');return `<div class="dayr"><b>${i?DOW[dt.getDay()]+' '+dt.getDate():'Hoy'}</b><span style="font-size:22px">${wxIcon(d.weather_code[i],12)}</span><span class="note">${d.precipitation_sum[i]>0.1?'💧 '+fmtN(d.precipitation_sum[i],1)+' mm ('+(d.precipitation_probability_max[i]??'?')+' %) · ':''}💨 ${Math.round(d.wind_speed_10m_max[i])} km/h</span><b>${Math.round(d.temperature_2m_max[i])}° <span class="note">${Math.round(d.temperature_2m_min[i])}°</span></b></div>`;}).join('');}
+function moSearch(q){const res=document.getElementById('moRes');q=(q||'').trim().toLowerCase();if(q.length<3){res.innerHTML='';return;}const L=[];
+  for(const Lr of MOL){for(const f of moFeats(Lr[0])){const n=Lr[5].map(x=>f.a[x]).find(Boolean);if(n&&String(n).toLowerCase().includes(q))L.push({L:Lr,f,n});if(L.length>30)break;}}
+  res.innerHTML=L.map((r,i)=>`<div class="st" data-i="${i}" style="cursor:pointer"><span>${r.L[1].split(' ')[0]} ${r.n}</span><span class="note">${r.L[1].replace(/^\S+\s/,'')}</span></div>`).join('')||'<div class="note">Sin resultados.</div>';
+  res.querySelectorAll('[data-i]').forEach(d=>d.onclick=()=>{const r=L[+d.dataset.i];MON[r.L[0]]=true;moLayers();const ll=r.f.pt||r.f.r[0][Math.floor(r.f.r[0].length/2)];
+    let s=90,n=-90,w=180,e=-180;(r.f.pt?[r.f.pt]:r.f.r.flat()).forEach(([la,lo])=>{s=Math.min(s,la);n=Math.max(n,la);w=Math.min(w,lo);e=Math.max(e,lo);});
+    if(r.f.pt){s-=.02;n+=.02;w-=.03;e+=.03;}MOM.fit(s,n,w,e);MOSEL={L:r.L,f:r.f,ll};MOM.draw();moFicha();res.innerHTML='';document.getElementById('moQ').value='';});}
+function moLayers(){document.getElementById('moLay').innerHTML=MOL.map(([k,n,c])=>`<label style="display:inline-flex;align-items:center;gap:5px;margin:3px 10px 3px 0;color:var(--txt)"><input type="checkbox" data-k="${k}" ${MON[k]?'checked':''}><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${c}"></span>${n}</label>`).join('');
+  document.querySelectorAll('#moLay input').forEach(i=>i.onchange=()=>{MON[i.dataset.k]=i.checked;MOM.draw();});}
+function moInit(){if(!MOM){MOM=NavMap('moc',moDraw,moTap);
+    document.getElementById('moIn').onclick=()=>MOM.zoom(1.6);document.getElementById('moOut').onclick=()=>MOM.zoom(1/1.6);document.getElementById('moAll').onclick=()=>{MOM.la=42.66;MOM.lo=-1.63;MOM.z=1;MOM.draw();MOM.base();};
+    document.getElementById('moOv').innerHTML=MOOV.map(([k,n])=>`<option value="${k}">${n}</option>`).join('');
+    document.getElementById('moOv').onchange=e=>{MOM.ov=e.target.value||null;MOM.ovImg=null;MOM.ovLoad();if(MOM.ov==='senderos'&&MOM.z<3)MOM.zoom(3);};
+    document.getElementById('moQ').oninput=e=>moSearch(e.target.value);}
+  moLayers();document.getElementById('moInfo').textContent='Cargando…';
+  moLoad(()=>{document.getElementById('moInfo').textContent=window.MONTE_GEO?'Toca un punto o una ruta para ver su ficha y el tiempo previsto allí.':'Las capas llegarán con la próxima actualización.';MOM.draw();if(!MOM.img)MOM.base();});}
+const _showTab6=showTab;showTab=function(t){_showTab6(t);if(t==='monte')setTimeout(moInit,40);};
 document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 
 </script>
