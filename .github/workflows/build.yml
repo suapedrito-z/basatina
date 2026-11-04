@@ -29,6 +29,7 @@ jobs:
         run: |
           if [ -z "$KEYSTORE_PASS" ]; then echo "::error::Falta el secreto KEYSTORE_PASS (Settings → Secrets and variables → Actions)"; exit 1; fi
           git fetch -q origin main && git checkout origin/main -- keystore/ 2>/dev/null || true
+          mkdir -p keystore
           if [ ! -f keystore/arga2.jks ]; then
             keytool -genkeypair -keystore keystore/arga2.jks -storetype PKCS12 -alias arga -keyalg RSA -keysize 2048 -validity 10000 \
               -storepass "$KEYSTORE_PASS" -keypass "$KEYSTORE_PASS" -dname "CN=La Z Sortzailea, O=Pedrito Control Rio Arga, C=ES"
