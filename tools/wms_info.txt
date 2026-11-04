@@ -1,0 +1,55 @@
+## https://idena.navarra.es/ogc/wms?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0 (3300615 car.)
+- IDEMUN_Sym_ArbolesRelevantes :: Árboles Relevantes (foro EELL-SITNA) queryable
+- CARBTA_Pol_CubiertaTer :: MTNa5 BTA. Recinto de Cubierta terrestre queryable
+- CARBTA_Lin_CubiertaTer :: MTNa5 BTA. Línea de Cubierta terrestre queryable
+- CARBTU_Pol_CubiertaTer_201 :: MTNa05 BTU. Recinto de cubierta terrestre queryable
+- CARBTU_Sym_CubiertaTer_201 :: MTNa05 BTU. Símbolo de la cubierta terrestre queryable
+- CARTO1_Txt_26UsoDes :: Cartografía 1:1.000. Etiqueta de uso/destino queryable
+- CARTO1_Sym_26UsoDes :: Cartografía 1:1.000. Símbolo de uso/destino queryable
+- carto1000zonaArbolada :: Cartografía 1:1.000. Zona arbolada queryable
+- CARTO1_Txt_55ZonaArbol :: Cartografía 1:1.000. Etiqueta de zona arbolada queryable
+- OCUPAC_Pol_REDRapti :: Aptitud de usos generales en Urbasa, Andía y Limitaciones de Améscoas (Proyecto REDR) queryable
+- PARFLU_Sym_ArbolSing :: Árboles singulares del Parque Fluvial queryable
+- BIODIV_Pol_Habitats :: Hábitats naturales de interés comunitario. 1:50.000. Año 1997 queryable
+- BIODIV_Pol_HabitatSal :: Hábitats barrancos salinos. 1:5.000. Año 2012 queryable
+- BIODIV_Pol_HabitatHum :: Hábitats humedales mediterráneos. 1:5.000. Año 2007 queryable
+- BIODIV_Pol_HabitatZFlu :: Hábitats ZEC fluviales. 1:10.000. Año 2004 queryable
+- BIODIV_Pol_HabitatZTer :: Hábitats ZEC terrestres. 1:25.000. Año 2007 queryable
+- seriesVegetacion :: Series de vegetación queryable
+- vegetacionPotencial :: Vegetación potencial queryable
+- FOREST_Pol_DemarGuarde :: Demarcaciones del Basozainak/Guarderío de Medio Ambiente queryable
+- FOREST_Pol_CortasPub :: Cortas en montes de titularidad pública queryable
+- FOREST_Pol_ATFc_SERIE :: Ayudas a Trabajos Forestales. Comunales. (ATFc). Serie  2015 - 2024 queryable
+- FOREST_Pol_ATFp_SERIE :: Ayudas a Trabajos Forestales. Particulares. (ATFp). Serie 2015 - 2024 queryable
+- FOREST_Pol_InversPropias :: Inversiones Propias Forestales (2018-2024) queryable
+- FOREST_Pol_Forestacion :: Forestaciones en Terrenos Agrarios queryable
+- FOREST_Sym_AreasRecForest :: Áreas recreativas forestales queryable
+- FOREST_Pol_HcoIncendioA :: Histórico de incendios forestales (2019-2023) queryable
+- FOREST_Pol_HcoIncendio :: Histórico de incendios forestales (1985-2018) queryable
+- FOREST_Pol_ModeCombus :: Mapa de modelos de combustible queryable
+- FOREST_Ras_Ignicion_probabilidad :: Probabilidad ignición 2023 queryable
+- FOREST_Ras_ProbQuemaAnual :: Probabilidad anual de quema (aBP) queryable
+- FOREST_Ras_ProbQuemaAnual_IntA :: Probabilidad anual de quema a intensidades altas (aHIBP), longitud de llama mayor 2.5 m queryable
+- FOREST_Ras_ProbQuemaAnual_IntMA :: Probabilidad anual de quema a intensidades medias o altas (aMIBP), longitud de llama mayor de 1.5 m queryable
+- FOREST_Pol_Pyromas :: Zonas homogéneas de incendios (pyromas) queryable
+- FOREST_Pol_ZonUsoFuego :: Zonificación de uso de fuego queryable
+- FOREST_Pol_MontesPEFC :: Montes certificados. PEFC queryable
+- FOREST_Pol_MontesFSC :: Montes certificados. FSC queryable
+- FOREST_Pol_Ordenaciones :: Ordenaciones forestales. Montes ordenados queryable
+- FOREST_Pol_OrdenaPastos :: Ordenaciones forestales. Pastos ordenados queryable
+- FOREST_Lin_PistasForP :: Pistas forestales principales (ejes) queryable
+- FOREST_Pol_CalEstPnigra :: Calidad de estación para pino laricio de Austria (Pinus nigra ssp. nigra) queryable
+- FOREST_Pol_ComForestales :: Comarcas forestales queryable
+- FOREST_Pol_PotenTrufera :: Potencialidad trufera queryable
+- FOREST_Pol_PotenPopulus :: Principales zonas con potencial para populicultura queryable
+- FOREST_Sym_REFINA :: Red de Evaluación Fitosanitaria (REFINA) queryable
+- FOREST_Pol_Vendaval :: Riesgo de vendavales queryable
+- FOREST_Pol_VulneFores :: Vulnerabilidad potencial de las masas forestales frente al cambio climático queryable
+- FOREST_Pol_Fusarium :: Zona Demarcada Fusarium circinatum queryable
+- FOREST_Pol_AMicologico :: Acotados micológicos queryable
+- FOREST_Pol_EvoNatural :: Áreas sometidas a evolución natural queryable
+- FOREST_Pol_Fsemilleras :: Fuentes semilleras y rodales selectos queryable
+- FOREST_Pol_MUP1912mod :: Propuesta de modificación del catálogo de Montes de Utilidad Pública 1912 tras información pública queryable
+- FOREST_Pol_ExperiForestal :: Parcelas de experimentación forestal queryable
+- FOREST_Pol_HcoExperiForestal :: Histórico de parcelas de experimentación forestal queryable
+fallo https://wms.mapama.gob.es/sig/Biodiversidad/MFE/wms.aspx?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)>
