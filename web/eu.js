@@ -122,6 +122,13 @@
     '• Tiempo, previsión e histórico: Open‑Meteo (AEMET, ECMWF, ERA5).': '• Eguraldia, iragarpena eta historikoa: Open‑Meteo (AEMET, ECMWF, ERA5).',
     '• Ortofotos, mapas y modelo del terreno: Instituto Geográfico Nacional (PNOA, MDT25), CNIG.': '• Ortoargazkiak, mapak eta lurraren eredua: Instituto Geográfico Nacional (PNOA, MDT25), CNIG.',
     '• Riadas históricas: CHE, Ayuntamiento de Pamplona y prensa local.': '• Uholde historikoak: CHE, Iruñeko Udala eta tokiko prentsa.',
+    '• Avisos meteorológicos: AEMET a través de Meteoalarm (EUMETNET).': '• Eguraldi-abisuak: AEMET, Meteoalarm bidez (EUMETNET).',
+    '• Calidad del aire y polen: Copernicus CAMS, vía Open‑Meteo.': '• Airearen kalitatea eta polena: Copernicus CAMS, Open‑Meteo bidez.',
+    '• Rutas, pesca, caza, cuevas, fuentes, miradores y patrimonio: Gobierno de Navarra · IDENA (CC BY 4.0).': '• Ibilbideak, arrantza, ehiza, kobazuloak, iturriak, begiratokiak eta ondarea: Nafarroako Gobernua · IDENA (CC BY 4.0).',
+    '• Terremotos: EMSC (Centro Sismológico Euromediterráneo), con datos de la Red Sísmica Nacional del IGN.': '• Lurrikarak: EMSC (Euromediterraneoko Zentro Sismologikoa), IGNren Sare Sismiko Nazionalaren datuekin.',
+    '• Fallas activas: base de datos QAFI del IGME‑CSIC.': '• Faila aktiboak: IGME‑CSICen QAFI datu-basea.',
+    '• Dibujo de los ríos y término de Petilla de Aragón: © colaboradores de OpenStreetMap (ODbL).': '• Ibaien marrazkia eta Petilla de Aragongo udal-mugarteak: © OpenStreetMap-en laguntzaileak (ODbL).',
+    '• Licencias: los datos del IGN, IDENA y Open‑Meteo se usan bajo CC BY 4.0; los mapas y capas se muestran sin modificar salvo el cálculo de zonas inundables, que es obra derivada del MDT del IGN. App sin ánimo de lucro.': '• Lizentziak: IGN, IDENA eta Open‑Meteoren datuak CC BY 4.0 lizentziarekin erabiltzen dira; mapak eta geruzak aldatu gabe erakusten dira, uholde-guneen kalkulua izan ezik, IGNren MDTtik eratorritako lana baita. Irabazi-asmorik gabeko aplikazioa.',
     'Prueba de conexión con el SAIH Ebro': 'SAIH Ebrorekiko konexio-proba', 'Explorar SAIH 4.0': 'Arakatu SAIH 4.0',
     // monte
     'Buscar ruta, cueva, mirador, pueblo…': 'Bilatu ibilbidea, kobazuloa, begiratokia, herria…', 'Sin capa oficial': 'Geruza ofizialik gabe',
