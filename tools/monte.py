@@ -29,6 +29,7 @@ def simplify(pts, tol):
     return simplify(pts[:idx+1], tol)[:-1] + simplify(pts[idx:], tol)
 out, info = {"t": time.strftime("%Y-%m-%d")}, []
 for key in CAPAS:
+    print("capa", key, flush=True)
     try:
         z = zipfile.ZipFile(io.BytesIO(urllib.request.urlopen(urllib.request.Request(B + key + ".zip", headers=UA), timeout=180).read()))
         names = z.namelist(); base = [n[:-4] for n in names if n.lower().endswith(".shp")][0]
@@ -112,21 +113,23 @@ def perfil(pts, N=150):
     return {"km": round(tot, 2), "up": round(up), "dn": round(dn), "mx": round(max(el)), "mn": round(min(el)), "a0": round(el[0]),
             "c": 1 if km(pts[0], pts[-1]) < 0.3 else 0, "src": src}, [round(e) for e in el]
 RUTAS = ["PATRIM_Sym_Senderismo", "DOTACI_Lin_GR1", "DOTACI_Lin_GR12", "DOTACI_Lin_GR321"]
-ok = bad = 0
+ok = bad = 0; fallos = collections.Counter()  # fallos seguidos por servidor: a los 4 se deja de intentar
 for key in RUTAS:
     for f in (out.get(key) or {}).get("f", []):
         u = f["a"].get("DESCARGA", "")
         if not re.search(r"\.gpx$", u, re.I): continue
+        host = urllib.parse.urlparse(u).netloc
+        if fallos[host] >= 4: bad += 1; continue
         try:
-            raw = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read().decode("utf-8", "replace")
+            raw = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=20).read().decode("utf-8", "replace")
             pts = gpx_pts(raw); r = perfil(pts) if pts else None
             if not r: raise ValueError("GPX sin puntos")
             f["s"], f["pf"] = r
             if key == "PATRIM_Sym_Senderismo":  # trazado para dibujarlo en el mapa
                 f["r"] = [simplify([[round(p[0], 5), round(p[1], 5)] for p in pts], 0.00015)]
-            ok += 1
+            ok += 1; fallos[host] = 0; print("perfil", ok, f["s"]["km"], "km", u, flush=True)
         except Exception as e:
-            bad += 1; info.append(f"perfil fallo {key} {u}: {e}")
+            bad += 1; fallos[host] += 1; info.append(f"perfil fallo {key} {u}: {e}"); print("perfil fallo", u, e, flush=True)
         time.sleep(0.3)
 info.append(f"\nPerfiles de ruta: {ok} bien, {bad} fallos")
 # ---------------------------------------------------------------------------------------------
@@ -138,7 +141,7 @@ try:
     j = None
     for s in ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://overpass.private.coffee/api/interpreter"]:
         try:
-            j = json.loads(urllib.request.urlopen(urllib.request.Request(s, data=("data=" + urllib.parse.quote(q)).encode(), headers=UA), timeout=90).read()); break
+            j = json.loads(urllib.request.urlopen(urllib.request.Request(s, data=("data=" + urllib.parse.quote(q)).encode(), headers=UA), timeout=60).read()); break
         except Exception as e:
             info.append(f"overpass {s}: {e}")
     ways = [[(g["lat"], g["lon"]) for g in m["geometry"]] for el in j["elements"] for m in el.get("members", []) if m.get("role") == "outer" and m.get("geometry")]
