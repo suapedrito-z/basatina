@@ -1,5 +1,5 @@
 # Descarga terremotos (EMSC) y fallas activas (IGME) y los guarda en la app (web/sismo.js). Cada lunes y al cambiar tools/sismo.py.
-# Se ejecuta cuando cambia tools/monte.py (o a mano desde la pestaña Actions).
+# Se ejecuta cuando cambia tools/sismo.py, cada lunes, o a mano desde la pestaña Actions.
 name: Terremotos y fallas
 on:
   push:

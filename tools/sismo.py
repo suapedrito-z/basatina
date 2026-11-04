@@ -21,10 +21,12 @@ try:
             "format": "json", "starttime": f"{y0}-01-01", "endtime": f"{y0+10}-01-01", "minlat": S, "maxlat": N,
             "minlon": W, "maxlon": E, "minmag": 1.0, "limit": 20000, "orderby": "time-asc"})
         try:
-            j = json.loads(get(u))
+            raw = get(u)
         except urllib.error.HTTPError as e:
             if e.code == 204: continue  # sin terremotos en esa década
             raise
+        if not raw.strip(): info.append(f"terremotos {y0}: respuesta vacía"); continue
+        j = json.loads(raw)
         for f in j.get("features", []):
             p = f["properties"]; lo, la = f["geometry"]["coordinates"][:2]
             if p.get("mag") is None: continue
@@ -39,7 +41,12 @@ except Exception as e:
 
 # ---------- FALLAS ACTIVAS (IGME · QAFI v4) ----------
 try:
-    u = "https://mapas.igme.es/gis/rest/services/BasesDatos/IGME_QAFI/MapServer/3/query?" + urllib.parse.urlencode({
+    B = "https://mapas.igme.es/gis/rest/services/BasesDatos/IGME_QAFI/MapServer"
+    capas = json.loads(get(B + "?f=json")).get("layers", [])
+    info.append("capas QAFI: " + "; ".join(f"{c['id']}={c['name']}" for c in capas))
+    lid = next(c["id"] for c in capas if "fault" in c["name"].lower() and not any(w in c["name"].lower() for w in ("discard", "debat", "neotect")))
+    info.append(f"capa usada: {lid}")
+    u = f"{B}/{lid}/query?" + urllib.parse.urlencode({
         "where": "1=1", "geometry": f"{W},{S},{E},{N}", "geometryType": "esriGeometryEnvelope", "inSR": 4326,
         "spatialRel": "esriSpatialRelIntersects", "outFields": "*", "outSR": 4326, "f": "geojson"})
     j = json.loads(get(u))
