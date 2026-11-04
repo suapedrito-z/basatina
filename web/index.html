@@ -984,12 +984,14 @@ document.getElementById('tTown').onchange=e=>{setTown(e.target.value);tiempoFetc
 
 /* ---------- 🗺️ Mapa del tiempo de Navarra ---------- */
 const NB={w:-2.55,e:-0.70,s:41.88,n:43.47};let MT=null,MTL='tiempo',MTD=0,mtImg=null,mtHits=[];
-const DAYN=['Hoy','Mañana','Pasado'];
-function dayLabel(k){const d=new Date();d.setDate(d.getDate()+k);return DAYN[k]+' · '+DOW[d.getDay()]+' '+d.getDate();}
+// días del mapa: Hoy y luego el nombre del día de la semana (Jueves, Viernes…)
+const NDAYS=5,DSEM=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+function dayName(k){if(!k)return'Hoy';const d=new Date();d.setDate(d.getDate()+k);return DSEM[d.getDay()];}
+function dayLabel(k){const d=new Date();d.setDate(d.getDate()+k);return dayName(k)+' '+d.getDate()+' '+MES[d.getMonth()];}
 function mtBase(){if(mtImg)return;mtImg=new Image();mtImg.onload=()=>mtDraw();mtImg.onerror=()=>{mtImg.bad=1;mtDraw();};
   mtImg.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${NB.s},${NB.w},${NB.n},${NB.e}&WIDTH=900&HEIGHT=960&FORMAT=image/jpeg`;}
 async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');info.textContent='Cargando el tiempo de '+TOWNS.length+' pueblos…';
-  const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=3${TZ}`;
+  const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=5${TZ}`;
   const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
 function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   el.textContent=MTL==='rios'?(CAU?'Ríos: caudal en m³/s · toca una estación para ver el detalle · por ahora cuenca del Arga':'Ríos: esperando datos del SAIH…'):
@@ -1016,7 +1018,7 @@ function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)r
       const col=!al?'#2e7d32':/rojo/.test(al[0])?'#c62828':/naranja/.test(al[0])?'#ef6c00':/amarillo/.test(al[0])?'#f9a825':'#2e7d32';
       const t=q?fmtN(q.VALOR_QM,q.VALOR_QM<10?1:0):n?fmtN(n.VALOR_QM,2)+' m':'—';box(px,py,'',t,col,['st',st.code]);});
     return;}
-  if(MTL==='lluvia'){leg.style.display='';leg.innerHTML=[[0.1,'0,1'],[1,'1'],[5,'5'],[15,'15+']].map(([v,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${rainCol(v)}"></span> ${l}`).join(' ')+' mm · '+DAYN[MTD];}
+  if(MTL==='lluvia'){leg.style.display='';leg.innerHTML=[[0.1,'0,1'],[1,'1'],[5,'5'],[15,'15+']].map(([v,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${rainCol(v)}"></span> ${l}`).join(' ')+' mm · '+dayName(MTD);}
   else leg.style.display='none';
   TOWNS.forEach((t,i)=>{const [px,py]=P(t[1],t[2]);const m=MT&&MT[i];let ico='',txt='…',col='rgba(11,17,24,.9)';
     if(m){if(MTL==='tiempo'){if(MTD===0){ico=wxIcon(m.current.weather_code,hh);txt=Math.round(m.current.temperature_2m)+'°';}
@@ -1026,12 +1028,12 @@ function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)r
     if(W>340&&['Pamplona','Tudela','Estella','Sangüesa','Elizondo','Tafalla'].includes(t[0])){x.font='10px system-ui';x.textAlign='center';x.fillStyle='#000';x.fillText(t[0],px+1,by+34);x.fillStyle='#fff';x.fillText(t[0],px,by+33);}});}
 function mtSetLayer(l){MTL=l;document.querySelectorAll('.mtb').forEach(b=>b.classList.toggle('on',b.dataset.l===l));mtInfo();mtDraw();}
 function mtDayMenu(open){const m=document.getElementById('mtDayM');m.style.display=open?'':'none';
-  if(open)m.innerHTML=DAYN.map((_,k)=>`<button class="btn" data-k="${k}" style="display:block;width:100%;border:0;border-radius:0;text-align:left;${k===MTD?'background:#2f8fd8;color:#fff':''}">${dayLabel(k)}</button>`).join('');
-  m.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();MTD=+b.dataset.k;document.getElementById('mtDayB').textContent='☀️ '+DAYN[MTD]+' ▾';document.querySelector('.mtb[data-l="lluvia"]').textContent='🌧️ Lluvia · '+DAYN[MTD];mtDayMenu(false);if(MTL==='rios')mtSetLayer('tiempo');else mtDraw();});}
+  if(open)m.innerHTML=[...Array(NDAYS).keys()].map(k=>`<button class="btn" data-k="${k}" style="display:block;width:100%;border:0;border-radius:0;text-align:left;${k===MTD?'background:#2f8fd8;color:#fff':''}">${dayLabel(k)}</button>`).join('');
+  m.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();MTD=+b.dataset.k;document.getElementById('mtDayB').textContent='☀️ '+dayName(MTD)+' ▾';document.querySelector('.mtb[data-l="lluvia"]').textContent='🌧️ Lluvia · '+dayName(MTD);mtDayMenu(false);if(MTL==='rios')mtSetLayer('tiempo');else mtDraw();});}
 document.getElementById('mtDayB').onclick=e=>{e.stopPropagation();const open=document.getElementById('mtDayM').style.display!=='none';if(MTL!=='tiempo')mtSetLayer('tiempo');mtDayMenu(!open);};
-document.querySelector('.mtb[data-l="lluvia"]').onclick=e=>{e.stopPropagation();mtSetLayer('lluvia');document.getElementById('mtDayB').textContent='☀️ '+DAYN[MTD]+' ▾';
+document.querySelector('.mtb[data-l="lluvia"]').onclick=e=>{e.stopPropagation();mtSetLayer('lluvia');document.getElementById('mtDayB').textContent='☀️ '+dayName(MTD)+' ▾';
   // el día elegido también vale para la lluvia: lo mostramos en el propio botón
-  e.target.textContent='🌧️ Lluvia · '+DAYN[MTD];mtDayMenu(false);};
+  e.target.textContent='🌧️ Lluvia · '+dayName(MTD);mtDayMenu(false);};
 document.querySelector('.mtb[data-l="rios"]').onclick=e=>{e.stopPropagation();mtDayMenu(false);mtSetLayer('rios');};
 document.addEventListener('click',()=>mtDayMenu(false));
 document.getElementById('mtc').addEventListener('click',e=>{const r=e.target.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
