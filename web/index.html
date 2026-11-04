@@ -1049,7 +1049,7 @@ async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');i
   const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=5${TZ}`;
   const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
 function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  el.textContent=MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': caudal en m³/s · toca una estación para ver el detalle · toca fuera del río para volver':'Toca un río de color para ver sus estaciones (el Bidasoa, en gris, es de otra cuenca y aún no tiene datos)'):
+  el.textContent=MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': estaciones principales (caudal en m³/s) · toca una para ver todas las del río · toca fuera para volver':'Toca un río de color para ver sus estaciones (el Bidasoa, en gris, es de otra cuenca y aún no tiene datos)'):
     (MT?'Actualizado a las '+hm+' · toca un pueblo para ver su previsión':'Cargando…');}
 // UTM huso 30 (ETRS89) → latitud/longitud
 function utm2ll(E,N){const a=6378137,f=1/298.257222101,e2=f*(2-f),k0=.9996,x=E-500000,y=N,ep2=e2/(1-e2),M=y/k0,mu=M/(a*(1-e2/4-3*e2*e2/64-5*e2**3/256)),e1=(1-Math.sqrt(1-e2))/(1+Math.sqrt(1-e2));
@@ -1353,6 +1353,16 @@ async function rivGeoLoad(){if(RGEO)return;
     if(!key)for(const k in RGRP){if(names.some(n=>RGRP[k].trib.test(n))){key=k;break;}}
     if(!key)continue;(g[key]=g[key]||[]).push({m:main?1:0,p:w.p});}
   RGEO=g;}
+
+// estaciones que se pintan en el mapa de inicio para cada río
+const MAPKEY={arga:['A152','A313','A069','A004','A067','A068']};
+function mapKeyStations(r){if(MAPKEY[r])return new Set(MAPKEY[r]);
+  // otros ríos: solo las del cauce principal (nombre que empieza por el del río), como mucho 5 repartidas
+  const d=RIVDEF[r],st=(RIVST[r]||[]).filter(x=>x.tipo==='A');if(!d)return new Set(st.map(x=>x.code));
+  const main=st.filter(x=>new RegExp('^'+d.name.normalize('NFD').replace(/[̀-ͯ]/g,''),'i').test((x.name||'').normalize('NFD').replace(/[̀-ͯ]/g,'')));
+  let L=main.length?main:st;if(L.length>5){const k=[];for(let i=0;i<5;i++)k.push(L[Math.round(i*(L.length-1)/4)]);L=k;}
+  if(r==='ebro')st.filter(x=>x.io).forEach(x=>L.includes(x)||L.push(x));
+  return new Set(L.map(x=>x.code));}
 function mtRivers(x,W,H,P,box,leg){rivGeoLoad();RLINES=[];
   leg.style.display='';leg.innerHTML=RSEL?'<span style="color:#3ccf7a">●</span> normal · <span style="color:#ffd84d">●</span> amarillo · <span style="color:#ff9f1a">●</span> naranja · <span style="color:#ff3b30">●</span> rojo':'Toca un río';
   if(RGEO)for(const k in RGEO){const G=RGRP[k],sel=RSEL===k,dim=RSEL&&!sel;
@@ -1364,7 +1374,9 @@ function mtRivers(x,W,H,P,box,leg){rivGeoLoad();RLINES=[];
       x.font='bold 12px system-ui';x.textAlign='center';x.fillStyle='#000';x.fillText(G.name,px+1,py-7);x.fillStyle=G.data?'#fff':'#c9d4de';x.fillText(G.name,px,py-8);x.textAlign='left';}}
   else{x.fillStyle='#93a4b5';x.font='12px system-ui';x.fillText(rgeoLoading?'Descargando el dibujo de los ríos…':'',10,70);}
   if(!RSEL||!CAU)return;
-  Object.values(CAU).forEach(st=>{if(st.riv!==RSEL||!/^A/.test(st.code))return;let la,lo;if(st.lat!=null){la=st.lat;lo=st.lon;}else if(st.x){[la,lo]=utm2ll(st.x,st.y);}else return;
+  // en el mapa solo las estaciones principales del río (el resto sigue en «Caudal de los ríos»)
+  const keep=mapKeyStations(RSEL);
+  Object.values(CAU).forEach(st=>{if(st.riv!==RSEL||!/^A/.test(st.code)||!keep.has(st.code))return;let la,lo;if(st.lat!=null){la=st.lat;lo=st.lon;}else if(st.x){[la,lo]=utm2ll(st.x,st.y);}else return;
     const [px,py]=P(la,lo),q=pick(st,'q'),n=pick(st,'n'),al=alertOf(n);
     const col=!al?'#2e7d32':/rojo/.test(al[0])?'#c62828':/naranja/.test(al[0])?'#ef6c00':/amarillo/.test(al[0])?'#f9a825':'#2e7d32';
     box(px,py,'',q?fmtN(q.VALOR_QM,q.VALOR_QM<10?1:0):n?fmtN(n.VALOR_QM,2)+' m':'—',col,['st',st.code]);});}
