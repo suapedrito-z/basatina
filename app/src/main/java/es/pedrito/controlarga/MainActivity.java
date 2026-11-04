@@ -41,7 +41,11 @@ public class MainActivity extends Activity {
         s.setAllowFileAccessFromFileURLs(true);// necesario para leer los mapas de inundación
         web.setWebViewClient(new WebViewClient());
         web.addJavascriptInterface(new Net(), "AndroidNet");
+        // tamaño de letra elegido en Ajustes
+        s.setTextZoom(getSharedPreferences("rio", MODE_PRIVATE).getInt("zoom", 100));
         web.loadUrl(startUrl());
+        // comprobación del río en segundo plano (widget y avisos)
+        RiverJob.schedule(this);
     }
 
     /** Dirección desde la que se descargan las actualizaciones de la pantalla (repositorio público) */
@@ -171,6 +175,40 @@ public class MainActivity extends Activity {
                     callback(id, 0, "{\"ok\":false,\"error\":" + JSONObject.quote(e.toString()) + "}");
                 }
             }).start();
+        }
+
+        /** Tamaño de letra: 100 normal, 115 grande, 130 muy grande */
+        @JavascriptInterface
+        public void setTextZoom(final int z) {
+            getSharedPreferences("rio", MODE_PRIVATE).edit().putInt("zoom", z).apply();
+            runOnUiThread(() -> web.getSettings().setTextZoom(z));
+        }
+
+        /** Guarda la configuración de avisos y, si se activan, pide permiso para notificar */
+        @JavascriptInterface
+        public void setAlerts(final String json) {
+            getSharedPreferences("rio", MODE_PRIVATE).edit().putString("alerts", json).apply();
+            try {
+                if (new JSONObject(json).optBoolean("on") && android.os.Build.VERSION.SDK_INT >= 33
+                        && checkSelfPermission("android.permission.POST_NOTIFICATIONS") != android.content.pm.PackageManager.PERMISSION_GRANTED)
+                    runOnUiThread(() -> requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 7));
+            } catch (Exception ignored) {}
+            RiverWidget.updateAll(MainActivity.this);
+        }
+
+        @JavascriptInterface
+        public void testAlert() {
+            RiverJob.notify(MainActivity.this, "🔔 Prueba de aviso", "Así te llegarán los avisos del río Arga.", 9);
+        }
+
+        /** Versión de la pantalla que se está usando */
+        @JavascriptInterface
+        public int webVersion() {
+            int bundled = 0, downloaded = 0;
+            try { bundled = versionOf(getAssets().open("version.json")); } catch (Exception ignored) {}
+            File m = new File(getFilesDir(), "web/version.json");
+            if (m.exists()) try { downloaded = versionOf(new FileInputStream(m)); } catch (Exception ignored) {}
+            return Math.max(bundled, downloaded);
         }
 
         @JavascriptInterface

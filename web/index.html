@@ -27,6 +27,9 @@ input[type=range]{width:100%}
 .big{font-size:26px;font-weight:700}
 .pill{display:inline-block;padding:4px 10px;border-radius:99px;font-weight:600;font-size:13px}
 .st{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.st:last-child{border-bottom:0}.st .v{font-size:20px;font-weight:700;white-space:nowrap}.st .s{font-size:12px;color:#93a4b5}
+body.light{--bg:#eef3f7;--panel:#ffffff;--line:#cfd9e2;--txt:#13202c;--mut:#5a6b7b}
+body.light section{background:#e4ecf2}body.light .topbar,body.light header{background:#ffffff}body.light select.town,body.light .kpi>div,body.light #saihOut{background:#f3f7fa;color:#13202c}
+body.light .note{color:#5a6b7b}body.light #drawer{background:#fff}body.light .btn.on,body.light .seg button.on{color:#fff}
 .mtb{background:rgba(11,17,24,.88)!important;backdrop-filter:blur(3px)}.mtb.on{background:#2f8fd8!important;color:#fff;border-color:#2f8fd8}
 .seg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.seg button{flex:1;min-width:70px}.seg button.on{background:#2f8fd8;color:#fff;border-color:#2f8fd8}
 select.town{width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt);font-size:15px}
@@ -66,6 +69,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </style>
 </head>
 <body>
+<div id="splash" style="position:fixed;inset:0;z-index:100;background:#0f1720;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s"><img src="logo.jpg" alt="" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid #3ba7ff" onerror="this.style.display='none'"><div style="font-size:22px;font-weight:700;margin-top:14px;color:#e6edf3">Pedrito Control Río Arga</div><div style="color:#93a4b5;margin-top:4px">El río y el tiempo en Navarra</div></div>
 <div class="wrap">
 <header>
   <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.jpg" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>Pedrito Control Río Arga</h1><div id="secTitle" class="note">🏠 Inicio · Navarra</div></div><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
@@ -87,6 +91,9 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="dgroup">Tiempo</div>
   <button data-t="tiempo">🌦️ El tiempo</button>
   <button data-t="clima">📈 Histórico del clima</button>
+  <div class="dgroup">App</div>
+  <button data-t="ajustes">⚙️ Ajustes y avisos</button>
+  <button data-t="about">ℹ️ Acerca de</button>
   <div class="dgroup">Actualizar</div>
   <button id="dRefresh">🔄 Actualizar datos ahora</button>
   <button id="dUpdate" style="display:none">⬆️ Buscar nueva versión de la app</button>
@@ -241,10 +248,26 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="note">Datos de Open‑Meteo (reanálisis ERA5 y modelos), no de una estación concreta: sirven para comparar, pero pueden diferir unos grados o milímetros de lo medido en el pueblo.</div>
 </section>
 <div id="pinBox"><div><b id="pinTit">Zona técnica</b><div class="note" id="pinMsg"></div><input id="pinIn" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><div class="row"><button class="btn pri" id="pinOk">Entrar</button><button class="btn" id="pinNo">Cancelar</button></div></div></div>
+<!-- ============ AJUSTES ============ -->
+<section id="t-ajustes"><div id="ajBody"></div></section>
+<!-- ============ ACERCA DE ============ -->
+<section id="t-about">
+<div class="card" style="text-align:center"><img src="logo.jpg" alt="" style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid var(--acc)" onerror="this.style.display='none'">
+<h2 style="margin:10px 0 2px">Pedrito Control Río Arga</h2><div class="note" id="abVer"></div><div class="note">Foto: Puente de la Rabia, Zubiri</div></div>
+<div class="card"><b>¿Qué es?</b><div class="note">Una app para seguir el río Arga y el tiempo en Navarra: caudales en directo, el embalse de Eugui, previsión de lluvia y un simulador de riadas para aprender cómo se comporta el río.</div></div>
+<div class="card"><b>Fuentes de datos</b><div class="note">• Caudales, niveles y embalses: SAIH Ebro (Confederación Hidrográfica del Ebro).<br>• Tiempo, previsión e histórico: Open‑Meteo (AEMET, ECMWF, ERA5).<br>• Ortofotos, mapas y modelo del terreno: Instituto Geográfico Nacional (PNOA, MDT25), CNIG.<br>• Riadas históricas: CHE, Ayuntamiento de Pamplona y prensa local.</div></div>
+<div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note">Es una app para jugar y aprender. Los datos son provisionales y el simulador es un modelo sencillo. Ante cualquier riesgo real, haz caso siempre a los avisos oficiales: CHE, SOS Navarra 112, AEMET y tu Ayuntamiento.</div></div>
+<div class="note" style="text-align:center">Hecha por Pedrito con la ayuda de Claude · 2026</div>
+</section>
+<div id="grBox" style="position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:60;display:none;align-items:flex-end;justify-content:center">
+ <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px 14px 0 0;padding:14px;width:100%;max-width:700px">
+  <div style="display:flex;justify-content:space-between;align-items:center"><b id="grTit"></b><button class="btn" id="grClose">✕</button></div>
+  <canvas id="grC" height="200" style="margin-top:8px"></canvas><div class="note" id="grMsg"></div></div></div>
 <!-- ============ CAUDAL AHORA ============ -->
 <section id="t-caudal">
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
 <div id="cauEugui"></div>
+<div class="note">Toca una estación para ver su gráfica de las últimas horas.</div>
 <div class="card"><b>🌊 Río Arga (de arriba abajo)</b><div id="cauArga"></div></div>
 <div class="card"><b>🏞️ Afluentes</b><div id="cauAfl"></div></div>
 <div class="row"><button class="btn pri" id="cauMap">🗺️ Ver en el mapa con el caudal real</button><button class="btn" id="cauPrev">🔮 Previsión desde el caudal real</button><button class="btn tech" id="cauShare" style="display:none">Compartir datos</button></div>
@@ -263,7 +286,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal ahora'};
+const TITLES={ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal ahora'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -814,7 +837,7 @@ function stRow(code,label){const st=CAU&&CAU[code];if(!st)return `<div class="st
   const q=pick(st,'q'),n=pick(st,'n'),main=q||n,al=alertOf(n);
   const v=main?`${fmtN(main.VALOR_QM,main.DECIMALES_VALOR??2)} <span style="font-size:13px">${main.LS_UNID_ING||''}</span>`:'—';
   const sub=[q&&n?'nivel '+fmtN(n.VALOR_QM,2)+' m':'',main?TREND[main.LS_TENDENCIA]||'':'',main?hhmm(main.ULTIMA_FECHA):''].filter(Boolean).join(' · ');
-  return `<div class="st"><div><b>${label}</b><div class="s">${sub}</div>${al?`<div class="s" style="color:${al[1]};font-weight:600">${al[0]}</div>`:''}</div><div class="v">${v}</div></div>`;}
+  return `<div class="st" data-code="${code}" data-lab="${label}" style="cursor:pointer"><div><b>${label} <span class="note">📈</span></b><div class="s">${sub}</div>${al?`<div class="s" style="color:${al[1]};font-weight:600">${al[0]}</div>`:''}</div><div class="v">${v}</div></div>`;}
 function cauRender(){const A=document.getElementById('cauArga'),F=document.getElementById('cauAfl'),E=document.getElementById('cauEugui');
   if(!APP){A.innerHTML=F.innerHTML='';E.innerHTML='<div class="card">📱 Esta sección funciona en la app <b>Pedrito Control Río Arga</b>: el móvil lee los datos del SAIH Ebro desde tu conexión.</div>';return;}
   if(!CAU){A.innerHTML='<div class="note">Cargando…</div>';return;}
@@ -861,7 +884,7 @@ document.getElementById('cauMap').onclick=()=>{showTab('mapa');setTimeout(fitVie
 document.getElementById('cauPrev').onclick=()=>{showTab('prev');};
 document.getElementById('cauShare').onclick=()=>{if(!CAU||!APP)return;const L=['CAUDAL AHORA '+new Date().toLocaleString('es-ES')];
   Object.values(CAU).forEach(st=>{L.push('# '+st.code+' '+st.name);Object.values(st.tags).forEach(t=>L.push('  '+t.LS_TAG_TXT+' | '+t.LS_DESCRIPCION+' | '+t.VALOR_QM+' '+(t.LS_UNID_ING||'')+' | '+t.LS_TIPO_SENAL+' | '+kindOf(t)+' | '+t.ULTIMA_FECHA));});
-  window.AndroidNet.share(L.join('\n').slice(0,40000));};
+  if(GR)L.push('','GRAFICA '+GR.tag,GR.raw);window.AndroidNet.share(L.join('\n').slice(0,40000));};
 if(APP){setTimeout(cauFetch,1500);setInterval(cauFetch,15*60e3);}else cauRender();
 
 
@@ -967,7 +990,7 @@ function mtBase(){if(mtImg)return;mtImg=new Image();mtImg.onload=()=>mtDraw();mt
   mtImg.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${NB.s},${NB.w},${NB.n},${NB.e}&WIDTH=900&HEIGHT=960&FORMAT=image/jpeg`;}
 async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');info.textContent='Cargando el tiempo de '+TOWNS.length+' pueblos…';
   const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=3${TZ}`;
-  const j=await getJSON(u);if(!j){info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
+  const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
 function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   el.textContent=MTL==='rios'?(CAU?'Ríos: caudal en m³/s · toca una estación para ver el detalle · por ahora cuenca del Arga':'Ríos: esperando datos del SAIH…'):
     (MT?'Actualizado a las '+hm+' · toca un pueblo para ver su previsión':'Cargando…');}
@@ -1096,10 +1119,84 @@ let logoTaps=[];document.getElementById('logo').addEventListener('click',()=>{co
   if(logoTaps.length>=5){logoTaps=[];if(TECH){menu(true);}else pinOpen('enter');}});
 document.getElementById('dLock').onclick=()=>{TECH=false;try{sessionStorage.removeItem('tech');}catch(e){}techApply();menu(false);showTab('mapa');toast('🔒 Zona técnica cerrada');};
 document.getElementById('dPin').onclick=()=>{menu(false);pinOpen('new');};
-document.getElementById('dTechInfo').onclick=async()=>{menu(false);let v='?';try{const r=await fetch('version.json');v=(await r.json()).version;}catch(e){}
+document.getElementById('dTechInfo').onclick=async()=>{menu(false);let v='?';if(APP&&window.AndroidNet.webVersion)v=window.AndroidNet.webVersion();else try{const r=await fetch('version.json');v=(await r.json()).version;}catch(e){}
   toast(`Pantalla v${v} · app ${APP&&window.AndroidNet.appVersion?window.AndroidNet.appVersion():'web'} · SAIH ${CAU?'OK '+new Date(cauT).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}):'sin datos'} · ${(navigator.userAgent.match(/Android [\d.]+/)||['web'])[0]}`);};
 techApply();
 setTimeout(()=>showTab('mtiempo'),30);
+
+
+/* =====================================================================
+   TOQUE PROFESIONAL: ajustes, acerca de, portada, sin conexión, gráficas
+   ===================================================================== */
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+// ---------- ajustes ----------
+let CFG=Object.assign({tema:'oscuro',letra:100,avisos:false,qAma:150,qRoj:300,subida:30},LS.get('cfg',{}));
+function cfgApply(){const dark=CFG.tema==='oscuro'||(CFG.tema==='auto'&&!(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches));
+  document.body.classList.toggle('light',!dark);
+  if(APP&&window.AndroidNet.setTextZoom)window.AndroidNet.setTextZoom(CFG.letra);
+  if(APP&&window.AndroidNet.setAlerts)window.AndroidNet.setAlerts(JSON.stringify({on:CFG.avisos,qAma:CFG.qAma,qRoj:CFG.qRoj,subida:CFG.subida}));}
+function cfgSave(){LS.set('cfg',CFG);cfgApply();}
+function ajustesRender(){const el=document.getElementById('ajBody'),nat=APP&&window.AndroidNet.setAlerts;
+  const seg=(k,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button class="btn${CFG[k]==v?' on':''}" data-k="${k}" data-v="${v}">${l}</button>`).join('')}</div>`;
+  el.innerHTML=`<div class="card"><b>🎨 Aspecto</b>${seg('tema',[['oscuro','🌙 Oscuro'],['claro','☀️ Claro'],['auto','📱 Como el móvil']])}</div>
+  <div class="card"><b>🔠 Tamaño de letra</b>${nat?seg('letra',[[100,'Normal'],[115,'Grande'],[130,'Muy grande']]):'<div class="note">Disponible con la app actualizada (versión 6 o más).</div>'}</div>
+  <div class="card"><b>🔔 Avisos en el móvil</b>
+   ${nat?`<div class="note">La app mira el SAIH cada 15 minutos, aunque esté cerrada, y te avisa si el Arga en Burlada:</div>
+   ${seg('avisos',[[true,'Activados'],[false,'Desactivados']])}
+   <div class="st"><div><b>🟡 Pasa de</b><div class="s">aviso de alerta</div></div><div><input type="number" id="ajAma" value="${CFG.qAma}" style="width:80px" class="town"> m³/s</div></div>
+   <div class="st"><div><b>🔴 Pasa de</b><div class="s">aviso de peligro</div></div><div><input type="number" id="ajRoj" value="${CFG.qRoj}" style="width:80px" class="town"> m³/s</div></div>
+   <div class="st"><div><b>📈 Sube más de</b><div class="s">en la última hora</div></div><div><input type="number" id="ajSub" value="${CFG.subida}" style="width:80px" class="town"> m³/s</div></div>
+   <div class="row"><button class="btn" id="ajTest">Probar un aviso</button></div>`:'<div class="note">Llegan con la app actualizada (versión 6 o más): pulsa «⬆️ Buscar nueva versión de la app» en el menú.</div>'}</div>`;
+  el.querySelectorAll('button[data-k]').forEach(b=>b.onclick=()=>{const k=b.dataset.k;let v=b.dataset.v;if(k==='letra')v=+v;if(k==='avisos')v=v==='true';CFG[k]=v;cfgSave();ajustesRender();});
+  [['ajAma','qAma'],['ajRoj','qRoj'],['ajSub','subida']].forEach(([id,k])=>{const i=document.getElementById(id);if(i)i.onchange=()=>{CFG[k]=Math.max(1,+i.value||CFG[k]);cfgSave();};});
+  const t=document.getElementById('ajTest');if(t)t.onclick=()=>window.AndroidNet.testAlert&&window.AndroidNet.testAlert();}
+
+// ---------- acerca de ----------
+async function aboutRender(){let v='?';if(APP&&window.AndroidNet.webVersion)v=window.AndroidNet.webVersion();else try{v=(await (await fetch('version.json')).json()).version;}catch(e){}
+  const apk=APP&&window.AndroidNet.appVersion?window.AndroidNet.appVersion():null;
+  document.getElementById('abVer').textContent=(apk?'App versión '+apk+' · ':'')+'pantalla '+v;}
+
+// ---------- portada al abrir ----------
+(function(){const sp=document.getElementById('splash');if(!sp)return;setTimeout(()=>{sp.style.opacity='0';setTimeout(()=>sp.remove(),500);},1300);})();
+
+// ---------- sin conexión: guardar y recuperar los últimos datos ----------
+function offlineSave(){if(CAU)LS.set('off_cau',{t:cauT||Date.now(),d:CAU});if(MT)LS.set('off_mt',{t:MT.at||Date.now(),d:[...MT]});}
+function offlineLoad(){const c=LS.get('off_cau',null),m=LS.get('off_mt',null),hm=t=>new Date(t).toLocaleString('es-ES',{weekday:'short',hour:'2-digit',minute:'2-digit'});
+  if(c&&!CAU){CAU=c.d;cauT=c.t;cauRender();document.getElementById('cauInfo').textContent='📴 Datos guardados del '+hm(c.t)+' · actualizando…';}
+  if(m&&!MT){MT=m.d;MT.at=0;mtDraw();document.getElementById('mtInfo').textContent='📴 Datos guardados del '+hm(m.t)+' · actualizando…';}}
+setInterval(offlineSave,60e3);window.addEventListener('pagehide',offlineSave);document.addEventListener('visibilitychange',()=>{if(document.hidden)offlineSave();});
+setTimeout(offlineLoad,100);
+
+// ---------- gráfica de las últimas horas de una estación ----------
+// el SAIH da los datos de la minigráfica de cada señal; el formato se interpreta de forma flexible
+function seriesOf(j){let best=null;const walk=o=>{if(best)return;if(Array.isArray(o)){if(o.length>3){const a=o.map(e=>Array.isArray(e)&&e.length>=2?[e[0],+e[1]]:(e&&typeof e==='object')?[e.x??e.fecha??e.FECHA??e.t??e.time??null,+(e.y??e.valor??e.VALOR??e.value??e.v)]:typeof e==='number'||(typeof e==='string'&&!isNaN(+e))?[null,+e]:null);
+      if(a.filter(p=>p&&!isNaN(p[1])).length>3){best=a.filter(p=>p&&!isNaN(p[1]));return;}}o.forEach(walk);}else if(o&&typeof o==='object')Object.values(o).forEach(walk);};
+  walk(j);if(best)return best;if(typeof j==='string'){const n=j.split(/[,;\s]+/).map(Number).filter(v=>!isNaN(v));if(n.length>3)return n.map(v=>[null,v]);}return null;}
+let GR=null;
+async function stGraph(code,label){const st=CAU&&CAU[code];if(!st)return;const q=pick(st,'q'),n=pick(st,'n'),tag=(q||n);if(!tag)return;
+  const box=document.getElementById('grBox');box.style.display='flex';document.getElementById('grTit').textContent=label+' · '+(q?'caudal':'nivel');
+  document.getElementById('grMsg').textContent='Cargando…';const cv=document.getElementById('grC');
+  const r=APP?await netGet(SAIH+'/api/ficha/getDatosMinigraficaSenal?tag='+tag.LS_TAG_TXT):{code:0,body:''};let j=null;try{j=JSON.parse(r.body);}catch(e){j=r.body;}
+  const S=seriesOf(j);GR={raw:(r.body||'').slice(0,3000),tag:tag.LS_TAG_TXT};
+  if(!S){document.getElementById('grMsg').textContent='No se pudo leer la gráfica de esta estación.'+(TECH?' (zona técnica: «Compartir datos» incluye la respuesta)':'');const x=fitCanvas(cv);x.clearRect(0,0,cv.clientWidth,LH(cv));return;}
+  const x=fitCanvas(cv),W=cv.clientWidth,H=LH(cv),V=S.map(p=>p[1]),mn=Math.min(...V),mx=Math.max(...V),pad=(mx-mn)*.15||Math.max(.05,mx*.1),lo=Math.max(0,mn-pad),hi=mx+pad;
+  x.fillStyle='#0b1118';x.fillRect(0,0,W,H);const L=40,R=W-10,T=12,B=H-22,X=i=>L+(R-L)*i/(S.length-1),Y=v=>B-(B-T)*(v-lo)/(hi-lo);
+  x.strokeStyle='#2a3a4a';x.fillStyle='#93a4b5';x.font='10px system-ui';for(let k=0;k<=3;k++){const v=lo+(hi-lo)*k/3,y=Y(v);x.beginPath();x.moveTo(L,y);x.lineTo(R,y);x.stroke();x.fillText(fmtN(v,v<10?2:0),2,y+3);}
+  const g=x.createLinearGradient(0,T,0,B);g.addColorStop(0,'rgba(59,167,255,.45)');g.addColorStop(1,'rgba(59,167,255,0)');
+  x.beginPath();S.forEach((p,i)=>i?x.lineTo(X(i),Y(p[1])):x.moveTo(X(i),Y(p[1])));x.lineTo(R,B);x.lineTo(L,B);x.closePath();x.fillStyle=g;x.fill();
+  x.beginPath();S.forEach((p,i)=>i?x.lineTo(X(i),Y(p[1])):x.moveTo(X(i),Y(p[1])));x.strokeStyle='#3ba7ff';x.lineWidth=2;x.stroke();
+  const lab=p=>{if(p[0]==null)return'';const s=String(p[0]);if(/^\d{12,13}$/.test(s)){const d=new Date(+s);return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');}const m=s.match(/(\d\d):(\d\d)/);return m?m[1]+':'+m[2]:'';};
+  x.textAlign='center';x.fillStyle='#93a4b5';[0,Math.floor(S.length/2),S.length-1].forEach(i=>x.fillText(lab(S[i]),X(i),H-6));x.textAlign='left';
+  document.getElementById('grMsg').textContent=`Ahora ${fmtN(V[V.length-1],2)} ${tag.LS_UNID_ING||''} · mín ${fmtN(mn,2)} · máx ${fmtN(mx,2)} · últimas horas (SAIH Ebro)`;}
+document.getElementById('grClose').onclick=()=>{document.getElementById('grBox').style.display='none';};
+document.getElementById('cauArga').addEventListener('click',e=>{const r=e.target.closest('.st');if(r&&r.dataset.code)stGraph(r.dataset.code,r.dataset.lab);});
+document.getElementById('cauAfl').addEventListener('click',e=>{const r=e.target.closest('.st');if(r&&r.dataset.code)stGraph(r.dataset.code,r.dataset.lab);});
+
+// pantallas nuevas
+const _showTab2=showTab;showTab=function(t){_showTab2(t);if(t==='ajustes')ajustesRender();if(t==='about')aboutRender();};
+document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+if(window.matchMedia)matchMedia('(prefers-color-scheme: light)').addEventListener?.('change',cfgApply);
+cfgApply();
 
 </script>
 </body>

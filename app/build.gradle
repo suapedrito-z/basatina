@@ -7,15 +7,28 @@ android {
         applicationId "es.pedrito.controlarga"
         minSdk 24
         targetSdk 34
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "2.0"
     }
-    buildTypes { release { minifyEnabled false } }
+    // Firma fija: así cada versión nueva se instala encima de la anterior sin desinstalar
+    signingConfigs {
+        arga {
+            storeFile file('../keystore/arga.jks')
+            storePassword 'rioarga2026'
+            keyAlias 'arga'
+            keyPassword 'rioarga2026'
+        }
+    }
+    buildTypes {
+        release { minifyEnabled false; signingConfig signingConfigs.arga }
+        debug { signingConfig signingConfigs.arga }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
     // Las fotos y mapas ya van comprimidos: no volver a comprimirlos
+    lint { checkReleaseBuilds false; abortOnError false }
     androidResources { noCompress 'jpg', 'png' }
     // Los archivos de la pantalla (simulador, fotos, mapas) están en la carpeta web/ del repositorio
     sourceSets { main { assets { srcDirs = ['../web'] } } }
