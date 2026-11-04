@@ -1229,20 +1229,33 @@ const RIVBOX={s:41.85,n:43.35,w:-2.6,e:-0.7};
 let RIV='arga';const RIVST={};   // RIVST[río] = [{code,name,tipo,lat,lon}]
 function prettyName(n){return (n||'').toLowerCase().replace(/\(gn\)|\(r\)/g,'').replace(/\s*-\s*/g,' en ').replace(/\s+/g,' ').trim()
   .replace(/(^|\s|\.)(\p{L})/gu,(m,a,b)=>a+b.toUpperCase()).replace(/\bEn\b/g,'en').replace(/\bDe\b/g,'de').replace(/\bA\.abajo\b/gi,'aguas abajo').replace(/\bE\./g,'emb. ');}
+let BUSQ=null;
+// lista de estaciones del SAIH (se descarga una vez y se guarda solo lo que nos interesa)
+async function busqLoad(){if(BUSQ)return BUSQ;const c=LS.get('busq',null);if(c&&Date.now()-c.t<7*864e5&&c.v===2){BUSQ=c.L;return BUSQ;}
+  for(let k=0;k<3&&!BUSQ;k++){const b=await netGet(SAIH+'/api/common/getBusquedas');
+    try{const all=JSON.parse(b.body).BUSQUEDA||[];const re=new RegExp(Object.values(RIVDEF).map(d=>d.re.source).join('|'),'i');
+      BUSQ=all.filter(e=>e.TIPO==='_ficha'&&/^(A|E)$/.test(e.TIPO_REMOTA)&&re.test(e.NOMBRE_ESTACION)).map(e=>({c:e.CODIGO_ESTACION,n:e.NOMBRE_ESTACION,t:e.TIPO_REMOTA}));
+      LS.set('busq',{v:2,t:Date.now(),L:BUSQ});}catch(e){rivMsg('No se pudo leer el buscador del SAIH (intento '+(k+1)+' de 3, código '+b.code+')…');}}
+  return BUSQ;}
+function rivMsg(t){const el=document.getElementById('rivNote');if(el)el.textContent=t;}
 async function rivStations(r){if(RIVST[r])return RIVST[r];const c=LS.get('riv_'+r,null);
   if(c&&Date.now()-c.t<7*864e5&&c.st&&c.st.length){RIVST[r]=c.st;return c.st;}
-  const info=document.getElementById('rivNote');info.textContent='Buscando las estaciones del '+RIVDEF[r].name+' en el SAIH (solo la primera vez)…';
-  const b=await netGet(SAIH+'/api/common/getBusquedas');let L=[];
-  try{L=(JSON.parse(b.body).BUSQUEDA||[]).filter(e=>e.TIPO==='_ficha'&&/^(A|E)$/.test(e.TIPO_REMOTA)&&RIVDEF[r].re.test(e.NOMBRE_ESTACION));}catch(e){}
-  const st=[];for(const e of L){if(st.find(x=>x.code===e.CODIGO_ESTACION))continue;
+  rivMsg('Buscando las estaciones del '+RIVDEF[r].name+' en el SAIH (solo la primera vez, puede tardar un poco)…');
+  const B=await busqLoad();if(!B){rivMsg('❌ El SAIH no responde ahora. Vuelve a tocar la pestaña en un rato.');return [];}
+  const L=[];B.forEach(e=>{if(RIVDEF[r].re.test(e.n)&&!L.find(x=>x.c===e.c))L.push(e);});
+  const st=[];let done=0;
+  for(let i=0;i<L.length;i+=6){await Promise.all(L.slice(i,i+6).map(async e=>{
     // posición de la estación: la ficha trae su latitud y longitud
-    const g=await netGet(SAIH+'/api/ficha/procesarTablaInfoGeneral?estacion='+e.CODIGO_ESTACION);let lat=null,lon=null;
+    const g=await netGet(SAIH+'/api/ficha/procesarTablaInfoGeneral?estacion='+e.c);let lat=null,lon=null;
     try{const h=JSON.parse(g.body).INFO_GENERAL||'';lat=+(h.match(/data-lat='([-\d.]+)'/)||[])[1];lon=+(h.match(/data-lng='([-\d.]+)'/)||[])[1];}catch(x){}
-    st.push({code:e.CODIGO_ESTACION,name:e.NOMBRE_ESTACION,tipo:e.TIPO_REMOTA,lat:isNaN(lat)?null:lat,lon:isNaN(lon)?null:lon});}
+    st.push({code:e.c,name:e.n,tipo:e.t,lat:isNaN(lat)?null:lat,lon:isNaN(lon)?null:lon});done++;}));
+    rivMsg('Buscando las estaciones del '+RIVDEF[r].name+'… '+done+' de '+L.length);}
   for(let i=st.length-1;i>=0;i--){const x=st[i];if(x.lat==null||x.lat<RIVBOX.s||x.lat>RIVBOX.n||x.lon<RIVBOX.w||x.lon>RIVBOX.e)st.splice(i,1);}
-  // de arriba abajo: el Irati y sus afluentes bajan de norte a sur
-  st.sort((a,b)=>(b.lat||0)-(a.lat||0));
-  if(st.length){RIVST[r]=st;LS.set('riv_'+r,{t:Date.now(),st});}return st;}
+  // de arriba abajo (de norte a sur; el Ebro de oeste a este)
+  st.sort(r==='ebro'?(a,b)=>a.lon-b.lon:(a,b)=>(b.lat||0)-(a.lat||0));
+  if(st.length){RIVST[r]=st;LS.set('riv_'+r,{t:Date.now(),st});}
+  else rivMsg('❌ No he encontrado estaciones del '+RIVDEF[r].name+' en Navarra ('+L.length+' con ese nombre en todo el SAIH). Vuelve a tocar la pestaña para reintentar.');
+  return st;}
 async function rivFetch(r){if(!APP)return;const st=await rivStations(r);if(!CAU)CAU={};
   for(let i=0;i<st.length;i+=4){await Promise.all(st.slice(i,i+4).map(async s=>{const x=await netGet(SAIH+'/api/ficha/procesarTablaValoresActuales?estacion='+s.code);
     try{fichaAdd(CAU,s.code,JSON.parse(x.body).VALORES_ACTUALES||'');const o=CAU[s.code];o.name=s.name;o.lat=s.lat;o.lon=s.lon;o.riv=r;}catch(e){}}));
@@ -1250,7 +1263,7 @@ async function rivFetch(r){if(!APP)return;const st=await rivStations(r);if(!CAU)
   if(typeof MTL!=='undefined'&&MTL==='rios')mtDraw();}
 function rivRender(){const r=RIV,d=RIVDEF[r];if(!d)return;const st=RIVST[r]||[];
   document.getElementById('rivTit').textContent=d.ico+' Río '+d.name+' y afluentes (de arriba abajo)';
-  document.getElementById('rivNote').textContent=d.nota+(st.length?' · '+st.length+' estaciones del SAIH Ebro.':'');
+  if(st.length)document.getElementById('rivNote').textContent=d.nota+' · '+st.length+' estaciones del SAIH Ebro.';
   document.getElementById('rivEmb').innerHTML=st.filter(s=>s.tipo==='E').map(s=>embCard(s.code,'Embalse de '+prettyName(s.name),null,null)).join('');
   document.getElementById('rivList').innerHTML=st.filter(s=>s.tipo==='A').map(s=>stRow(s.code,prettyName(s.name))).join('')||'<div class="note">Cargando…</div>';}
 function rivShow(r){RIV=r;document.querySelectorAll('#rivSeg button').forEach(b=>b.classList.toggle('on',b.dataset.r===r));
@@ -1266,10 +1279,10 @@ async function rivRefreshAll(){for(const r of Object.keys(RIVDEF))if(RIVST[r]||L
 // grupos de ríos: el principal y sus afluentes. Los que tienen datos se pueden tocar.
 const RGRP={
   arga:{name:'Arga',col:'#3ba7ff',main:/^(r[ií]o\s+)?arga(\s+ibaia)?$/i,trib:/ultzama|ulzama|arakil|araquil|elortz|elorz|larraun|basaburua|juslape|sadar/i,data:true},
-  irati:{name:'Irati',col:'#3ccf7a',main:/^(r[ií]o\s+)?irati(\s+ibaia)?$/i,trib:/urrobi|\berro\b|areta|salazar|zaraitzu|anduña/i,data:true},
-  ega:{name:'Ega',col:'#ffb020',data:true,main:/^(r[ií]o\s+)?ega(\s+ibaia)?$/i,trib:/urederra|uyarra/i},
-  aragon:{name:'Aragón',col:'#c084fc',data:true,main:/^(r[ií]o\s+)?arag[oó]n$/i,trib:/\besca\b|zidacos|cidacos/i},
-  ebro:{name:'Ebro',col:'#ff7a7a',data:true,main:/^(r[ií]o\s+)?ebro$/i,trib:/queiles|alhama|odr[oó]n|linares/i},
+  irati:{name:'Irati',col:'#3ba7ff',main:/^(r[ií]o\s+)?irati(\s+ibaia)?$/i,trib:/urrobi|\berro\b|areta|salazar|zaraitzu|anduña/i,data:true},
+  ega:{name:'Ega',col:'#3ba7ff',data:true,main:/^(r[ií]o\s+)?ega(\s+ibaia)?$/i,trib:/urederra|uyarra/i},
+  aragon:{name:'Aragón',col:'#3ba7ff',data:true,main:/^(r[ií]o\s+)?arag[oó]n$/i,trib:/\besca\b|zidacos|cidacos/i},
+  ebro:{name:'Ebro',col:'#3ba7ff',data:true,main:/^(r[ií]o\s+)?ebro$/i,trib:/queiles|alhama|odr[oó]n|linares/i},
   bidasoa:{name:'Bidasoa',col:'#93a4b5',main:/bidasoa|baztan/i,trib:/^$/}
 };
 let RGEO=null,RSEL=null,rgeoLoading=false;
