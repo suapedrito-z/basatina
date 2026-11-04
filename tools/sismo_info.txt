@@ -1,0 +1,6 @@
+fallo terremotos: Expecting value: line 1 column 1 (char 0)
+
+fallas: 14
+campos (ejemplo): {"FID": "0", "ELECD": "120", "EDAD": "5", "ELECEDAD": "12005", "DESCRIPCIO": "Falla", "SIMBOLO_C": "502", "represent": "0", "Informacio": "prolongacion f.hasta moncayo, N, plioc sup antiguo", "References": "Neotec"}
+
+sismo.js: 4 KB · 0 terremotos · 14 fallas
