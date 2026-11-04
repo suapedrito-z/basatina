@@ -1,0 +1,154 @@
+[sender] Colección de recorridos senderistas :: ['https://idena.navarra.es/descargas/PATRIM_Sym_Senderismo.zip']
+[sender] Grandes Recorridos Homologados. GR 12. Sendero de Euskal Herria :: ['https://idena.navarra.es/descargas/DOTACI_Lin_GR12.zip']
+[sender] Senderos Locales Homologados. SL-NA 131. Aixita :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA131.zip']
+[sender] Senderos Locales Homologados. SL-NA 138. Balcón de los Buitres / Saien Balkoia :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA138.zip']
+[sender] Senderos Locales Homologados. SL-NA 140. Senda de los pescadores :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA140.zip']
+[sender] Senderos Locales Homologados. SL-NA 172. Circular Ezkaba :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA172.zip']
+[sender] Senderos Locales Homologados. SL-NA 228. Tierra roya :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA228.zip']
+[sender] Senderos Locales Homologados. SL-NA 229. Atarrabiako Bide Botanikoa / Senda Botánica de Villava :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA229.zip']
+[sender] Senderos Locales Homologados. SL-NA 316. Los Fuertes - Gotorlekua :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA316.zip']
+[sender] Senderos Locales Homologados. SL-NA 320. Camino Etxebakar :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA320.zip']
+[sender] Senderos Locales Homologados. SL-NA 54. Erlan - Irabia :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA54.zip']
+[sender] Senderos Locales Homologados. SL-NA 70. Ermita De Idoia / Idoiako Baseliza :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA70.zip']
+[sender] Senderos Locales Homologados. SL-NA 71. Rincones de Uztarroz / Uztarrozeko Txokoak :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA71.zip']
+[sender] Senderos Locales Homologados. SL-NA 72. Cueva de Azanzorea :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA72.zip']
+[sender] Senderos Locales Homologados. SL-NA 73. Murmullos del Eska / Ezkaren Xuxurlak :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA73.zip']
+[sender] Senderos Locales Homologados. SL-NA 74. Ermita de Zuberoa / Zuberoako Baseliza :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA74.zip']
+[sender] Senderos Locales Homologados. SL-NA 76. Camino de La Boca / La Boca Bidea :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA76.zip']
+[sender] Senderos Locales Homologados. SL-NA 78. Foz de Burgui / Burgi :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA78.zip']
+[sender] Senderos Locales Homologados. SL-NA 79. Artikomendia :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA79.zip']
+[sender] Senderos Locales Homologados. SL-NA 80. Arrako :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA80.zip']
+[sender] Senderos Locales Homologados. SL-NA 81. Mata de Haya - Dronda :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA81.zip']
+[sender] Senderos Locales Homologados. SL-NA 82. Zemeto :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA82.zip']
+[sender] Senderos Locales Homologados. SL-NA 12. Xorroxin :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA12.zip']
+[sender] Senderos Locales Homologados. SL-NA 290. Sendero accesible de Morterutxo / Morterutxo Bidexka Irisgarria :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA290.zip']
+[sender] Senderos Locales Homologados. SL-NA 291. Sendero de Zelaiaundi - 'Hayedo Encantado' :: ['https://idena.navarra.es/descargas/DOTACI_Lin_SLNA291.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 121. Kornieta :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA121.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 194. Iturrixikin - Monte de Arriba :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA194.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 201. Subida a San Donato Igoera :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA201.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 202. Ruta del Zumaque :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA202.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 203. Mata de Haya - Larreria - Zemeto :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA203.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 205. Arga - Nekeas - Cañada Real :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA205.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 206. Uñesa :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA206.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 208. Fitero - Atalaya Olmiguete - Fitero :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA208.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 209. Azagra - Desembocadura del Ega :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA209.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 210. Ergaren bira :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA210.zip']
+[PR-NA] Pequeños Recorridos Homologados. PR-NA 211. Ruta del Agua :: ['https://idena.navarra.es/descargas/DOTACI_Lin_PRNA211.zip']
+[camino de santiago] Camino de Santiago. Trazado oficial :: ['https://idena.navarra.es/descargas/PATRIM_Lin_CaminoSant.zip']
+[camino de santiago] Camino de Santiago. Trazado real :: ['https://idena.navarra.es/descargas/PATRIM_Lin_CaminoSantR.zip']
+[camino de santiago] Ruta turística Camino de Santiago, Puntos de interés. Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/TURI_Pto_RutaCamSant.zip']
+[camino de santiago] Ruta turística Camino de Santiago, Recorrido. Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/TURI_Lin_RutaCamSant.zip']
+[cueva] Geología. Simas y Cuevas :: ['https://idena.navarra.es/descargas/GEOLOG_Sym_Cuevas.zip']
+[fuente] Fuentes de agua públicas. Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/MOBI_Pto_FuentePub.zip']
+[fuente] Fuentes ornamentales. Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/LIMP_Pto_Fuentes.zip']
+[fuente] Fuentes públicas (foro EELL-SITNA) :: ['https://idena.navarra.es/descargas/IDEMUN_Sym_Fuentes.zip']
+[fuente] Fuentes semilleras y rodales selectos :: ['https://idena.navarra.es/descargas/FOREST_Pol_Fsemilleras.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Ferrocarril. Lden. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_FerLdenF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Ferrocarril. Ldia. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_FerLdiaF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Ferrocarril. Lnoche. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_FerLnocheF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Ferrocarril. Ltarde. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_FerLtardeF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Industria. Lden. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_IndLdenF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Industria. Ldia. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_IndLdiaF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Industria. Lnoche. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_IndLnocheF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Industria. Ltarde. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_IndLtardeF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Tráfico. Lden. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_TraLdenF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Tráfico. Ldia. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_TraLdiaF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Tráfico. Lnoche. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_TraLnocheF4.zip']
+[fuente] Mapa Estratégico de Ruido de la Aglomeración de la Comarca de Pamplona. Fuente: Tráfico. Ltarde. Fase 4 :: ['https://idena.navarra.es/descargas/RUIDOS_Pol_TraLtardeF4.zip']
+[fuente] Puntos especiales de la Mancomunidad de Valdizarbe. Fuente de suministro :: ['https://idena.navarra.es/descargas/REDABA_Sym_FuenteSum_Valdi.zip']
+[fuente] Puntos especiales. Fuente de suministro :: ['https://idena.navarra.es/descargas/REDABA_Sym_FuenteSum.zip']
+[manantial] Geología. Manantiales :: ['https://idena.navarra.es/descargas/GEOLOG_Sym_Manantiales.zip']
+[refugio] Planes de Ordenación Cinegética. Refugios :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_Refugios.zip']
+[refugio] Refugios climáticos :: ['https://idena.navarra.es/descargas/DOTACI_Sym_RefugiosClimaticos.zip']
+[mirador] Información turística. Miradores :: ['https://idena.navarra.es/descargas/DOTACI_Sym_Miradores.zip']
+[paisaje] Espacios Naturales Protegidos. Paisajes Protegidos :: ['https://idena.navarra.es/descargas/BIODIV_Pol_PaisajesPro.zip']
+[paisaje] Paisajes de atención especial :: ['https://idena.navarra.es/descargas/INFOTU_Pol_PaisajeAEspecial.zip']
+[paisaje] Paisajes singulares :: ['https://idena.navarra.es/descargas/BIODIV_Pol_PaisajesSing.zip']
+[paisaje] Tipos de paisaje :: ['https://idena.navarra.es/descargas/INFOTU_Pol_TipoPaisaje.zip']
+[paisaje] Unidades de paisaje :: ['https://idena.navarra.es/descargas/INFOTU_Pol_UniPaisaje.zip']
+[patrimonio] Ruta turística Patrimonio, Puntos de interés. Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/TURI_Pto_RutaPatrim.zip']
+[puente] Parque Fluvial de la Comarca de Pamplona. Puentes y pasarelas :: ['https://idena.navarra.es/descargas/PARFLU_Lin_Puentes.zip']
+[baño] Red de control del Gobierno de Navarra. Zonas de baño naturales de Navarra :: ['https://idena.navarra.es/descargas/HIDROG_Sym_ZonaBano.zip']
+[incendio] Incendios Forestales. Histórico de incendios forestales (1985-2018) :: ['https://idena.navarra.es/descargas/FOREST_Pol_HcoIncendio.zip']
+[incendio] Incendios Forestales. Histórico de incendios forestales (2019-2023) :: ['https://idena.navarra.es/descargas/FOREST_Pol_HcoIncendioA.zip']
+[incendio] Incendios Forestales. Mapa de modelos de combustible :: ['https://idena.navarra.es/descargas/FOREST_Pol_ModeCombus.zip']
+[incendio] Incendios Forestales. Zonificación de uso de fuego :: ['https://idena.navarra.es/descargas/FOREST_Pol_ZonUsoFuego.zip']
+[incendio] Puntos de agua contra incendios. :: ['https://idena.navarra.es/descargas/DOTACI_Sym_PtosAgua.zip']
+[incendio] Zonas homogéneas de incendios (pyromas) :: ['https://idena.navarra.es/descargas/FOREST_Pol_Pyromas.zip']
+[vía verde] Vía Verde del Bidasoa :: ['https://idena.navarra.es/descargas/DOTACI_Lin_VVBidasoa.zip']
+[vía verde] Vía Verde del Ferrocarril Vasco - Navarro :: ['https://idena.navarra.es/descargas/DOTACI_Lin_VVVascoNav.zip']
+[vía verde] Vía Verde del Irati :: ['https://idena.navarra.es/descargas/DOTACI_Lin_VVIrati.zip']
+[vía verde] Vía Verde del Plazaola :: ['https://idena.navarra.es/descargas/DOTACI_Lin_VVPlazaola.zip']
+[vía verde] Vía Verde del Tarazonica :: ['https://idena.navarra.es/descargas/DOTACI_Lin_VVTarazoni.zip']
+[itinerario] Itinerarios culturales, deportivos y gastronómicos (foro EELL-SITNA) :: ['https://idena.navarra.es/descargas/IDEMUN_Lin_Rutas.zip']
+[itinerario] Parque Fluvial de la Comarca de Pamplona. Paseos e itinerarios fluviales :: ['https://idena.navarra.es/descargas/PARFLU_Lin_Itinerarios.zip']
+[itinerario] PM. Itinerarios ciclistas (Líneas). Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/URBA_Lin_RedCiclista.zip']
+[itinerario] PM. Itinerarios ciclistas (Recintos). Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/URBA_Pol_RedCiclista.zip']
+[itinerario] PM. Itinerarios peatonales (Líneas). Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/URBA_Lin_RedPeatonal.zip']
+[itinerario] PM. Itinerarios peatonales (Recintos). Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/URBA_Pol_RedPeatonal.zip']
+[itinerario] Itinerarios Verdes. Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/AMBI_Pol_ItinerarioVerde.zip']
+[itinerario] Paseos e itinerarios Parque Fluvial. Ayuntamiento de Pamplona / Iruñeko Udala. :: ['https://sig.pamplona.es/descargas/AMBI_Lin_ParqueFluvialPaseo.zip']
+
+## WMS
+- IDEMUN_Sym_Fuentes :: Fuentes públicas (foro EELL-SITNA)
+- itiTuristicos :: Itinerarios y lugares turísticos promocionados (foro SITNA - EELL)
+- IDEMUN_Lin_Rutas :: Itinerarios culturales, deportivos y gastronómicos (foro EELL-SITNA)
+- PATRIM_Pol_Zonifling :: Delimitación de la Zonificación Lingüística
+- PATRIM_Pol_Merindades :: Merindades
+- CARTO1_Lin_33Camino :: Cartografía 1:1.000. Línea de camino/senda
+- GEOLOG_Sym_Geotecnia :: Inventario de geotecnia
+- GEOLOG_Sym_Manantiales :: Inventario de manantiales
+- GEOLOG_Sym_Cuevas :: Inventario de simas y cuevas
+- geologia :: Mapa geológico 1:25.000
+- GEOLOG_Pol_Litologia :: Unidades litológicas
+- GEOLOG_Pol_Coluviones :: Dirección de los coluviones
+- GEOLOG_Lin_Lineas :: Líneas de geología
+- GEOLOG_Txt_Buzamiento :: Etiqueta de buzamiento
+- PATRIM_Sym_Montes :: Catálogo de montes
+- PATRIM_Sym_Senderismo :: Colección de recorridos senderistas
+- PARFLU_Pol_AreaRecre :: Áreas recreativas del Parque Fluvial
+- PARFLU_Lin_Itinerarios :: Paseos e itinerarios del Parque Fluvial
+- PARFLU_Lin_Puentes :: Puentes y pasarelas del Parque Fluvial
+- senderos :: Senderos señalizados
+- DOTACI_Lin_GR1 :: GR 1. Sendero histórico / Ibilbide historikoa
+- DOTACI_Lin_GR12 :: GR 12. Sendero de Euskal Herria
+- DOTACI_Lin_GR321 :: GR 321. Camino Real
+- DOTACI_Lin_SLNA12 :: Senderos Locales Homologados. SL-NA 12. Xorroxin
+- DOTACI_Lin_SLNA70 :: SL-NA 70. Ermita De Idoia / Idoiako Baseliza
+- DOTACI_Lin_SLNA72 :: SL-NA 72. Cueva de Azanzorea
+- DOTACI_Lin_SLNA74 :: SL-NA 74. Ermita de Zuberoa / Zuberoako Baseliza
+- DOTACI_Lin_SLNA76 :: SL-NA 76. Camino de La Boca / La Boca Bidea
+- DOTACI_Lin_SLNA290 :: Senderos Locales Homologados. SL-NA 290. Morterutxo
+- DOTACI_Lin_SLNA291 :: Senderos Locales Homologados. SL-NA 291. Sendero de Zelaiaundi - 'Hayedo Encantado'
+- DOTACI_Lin_SLNA320 :: SL-NA 320. Camino Etxebakar
+- DOTACI_Lin_VVBidasoa :: Vía Verde del Bidasoa
+- DOTACI_Lin_VVPlazaola :: Vía Verde del Plazaola
+- DOTACI_Lin_VVVascoNav :: Vía Verde del Ferrocarril Vasco - Navarro
+- DOTACI_Lin_VVTarazoni :: Vía Verde del Tarazonica
+- DOTACI_Lin_VVIrati :: Vía Verde del Irati
+- HIDROG_Sym_ZonaBano :: Zonas de baño
+- PATRIM_Sym_Danzas :: Atlas de danzas
+- PATRIM_Sym_Fiestas :: Fiestas y tradiciones
+- PATRIM_Sym_CasasLeitza :: Fotografías históricas. Caseríos de Leitza
+- PATRIM_Sym_Fototeca :: Fototeca. Fotografías aéreas y panorámicas
+- PATRIM_Sym_VideosPob :: Videos cortos de poblaciones
+- PATRIM_Pol_BIC :: Entornos de protección de los Bienes de Interés Cultural
+- PATRIM_Sym_BICarqueo :: Bienes de Interés Cultural arqueológicos
+- PATRIM_Sym_BICarquite :: Bienes de Interés Cultural arquitectónicos
+- PATRIM_Pol_YaciArqueo :: Yacimientos arqueológicos
+- caminoSantiago :: Camino de Santiago
+- PATRIM_Lin_CaminoSantR :: Camino de Santiago. Trazado real
+- PATRIM_Lin_CaminoSant :: Camino de Santiago. Trazado oficial
+- DOTACI_Sym_Miradores :: Miradores
+- CAZAPE_Pol_Refugios :: Refugios
+- FOREST_Sym_AreasRecForest :: Áreas recreativas forestales
+- FOREST_Pol_HcoIncendioA :: Histórico de incendios forestales (2019-2023)
+- FOREST_Pol_HcoIncendio :: Histórico de incendios forestales (1985-2018)
+- DOTACI_Sym_PtosAgua :: Puntos de agua contra incendios
+- FOREST_Pol_Pyromas :: Zonas homogéneas de incendios (pyromas)
+- FOREST_Pol_Fsemilleras :: Fuentes semilleras y rodales selectos
+- BIODIV_Pol_AreasNatRec :: Espacios Naturales Protegidos. Áreas Naturales Recreativas
+- GANADE_Lin_ViasPecua :: Itinerarios orientativos de vías pecuarias 2003
+- REDABA_Sym_FuenteSum :: Puntos especiales. Fuente de suministro (MCP)
+- REDABA_Sym_FuenteSum_Valdi :: Puntos especiales. Fuente de suministro (Valdizarbe)
+- DOTACI_Sym_RefugiosClimaticos :: Refugios climaticos
