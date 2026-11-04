@@ -1,5 +1,5 @@
 
-## GEOLOG_Sym_Cuevas: 2505 · campos ['FEATURE', 'CODIGO', 'CUEVA', 'TIPO', 'X25830', 'Y25830', 'COTA', 'CMUNICIPIO', 'MUNICIPIO', 'LUGAR', 'TOPONIMIA', 'LONGITUD', 'PROFUNDIDA', 'ULTIMAGEOR', 'EDAD', 'LITOLOGIA', 'UNIHIDRO', 'SUBUNIHIDR', 'ACUIFERO', 'DESCRIPCIO', 'DISCIPLINA', 'IMAGEN', 'FICHA', 'OBSERVACIO', 'BEGINLIFE']
+## GEOLOG_Sym_Cuevas: 2475 · campos ['FEATURE', 'CODIGO', 'CUEVA', 'TIPO', 'X25830', 'Y25830', 'COTA', 'CMUNICIPIO', 'MUNICIPIO', 'LUGAR', 'TOPONIMIA', 'LONGITUD', 'PROFUNDIDA', 'ULTIMAGEOR', 'EDAD', 'LITOLOGIA', 'UNIHIDRO', 'SUBUNIHIDR', 'ACUIFERO', 'DESCRIPCIO', 'DISCIPLINA', 'IMAGEN', 'FICHA', 'OBSERVACIO', 'BEGINLIFE']
 - CODIGO: 2505 · [('NA-2461', 1), ('NA-2487', 1), ('NA-0121', 1), ('NA-0529', 1), ('NA-0258', 1), ('NA-0357', 1)]
 - CUEVA: 2434 · [('MORO, DEL', 5), ('CANTERA, DE LA', 4), ('AR-1', 4), ('AR-12', 4), ('AR-2', 4), ('AR-5', 3)]
 - TIPO: 9 · [('SIMA', 1809), ('CUEVA', 624), ('SUMIDERO', 27), ('DOLINA', 15), ('MANANTIAL', 14), ('ABRIGO', 9)]
@@ -114,35 +114,30 @@
 - URL: 1 · [('https://viasverdes.com/itinerarios/bidasoa/', 2)]
 - URL1: 1 · [('https://www.visitnavarra.es/es/vias-verdes-de-navarra', 2)]
 - DESCARGA: 1 · [('https://viasverdes.com/itinerarios/bidasoa/mapa.asp', 2)]
-- SITUACION: 2 · [('SUP', 1), ('SUB', 1)]
 
 ## DOTACI_Lin_VVVascoNav: 2 · campos ['FEATURE', 'NOMBRE', 'URL', 'URL1', 'DESCARGA', 'SITUACION', 'GEOM_LONG', 'BEGINLIFE']
 - NOMBRE: 1 · [('Vía Verde FC Vasco-Navarro', 2)]
 - URL: 1 · [('https://viasverdes.com/itinerarios/fc-vasco-navarro/', 2)]
 - URL1: 1 · [('https://www.visitnavarra.es/es/vias-verdes-de-navarra', 2)]
 - DESCARGA: 1 · [('https://viasverdes.com/itinerarios/fc-vasco-navarro/mapa.asp', 2)]
-- SITUACION: 2 · [('SUB', 1), ('SUP', 1)]
 
 ## DOTACI_Lin_VVIrati: 2 · campos ['FEATURE', 'NOMBRE', 'URL', 'URL1', 'DESCARGA', 'SITUACION', 'GEOM_LONG', 'BEGINLIFE']
 - NOMBRE: 1 · [('Vía Verde del Irati', 2)]
 - URL: 1 · [('https://viasverdes.com/itinerarios/fc-del-irati/', 2)]
 - URL1: 1 · [('https://www.visitnavarra.es/es/vias-verdes-de-navarra', 2)]
 - DESCARGA: 1 · [('https://viasverdes.com/itinerarios/fc-del-irati/', 2)]
-- SITUACION: 2 · [('SUB', 1), ('SUP', 1)]
 
 ## DOTACI_Lin_VVPlazaola: 2 · campos ['FEATURE', 'NOMBRE', 'URL', 'URL1', 'DESCARGA', 'SITUACION', 'GEOM_LONG', 'BEGINLIFE']
 - NOMBRE: 1 · [('Vía Verde del Plazaola', 2)]
 - URL: 1 · [('https://viasverdes.com/itinerarios/plazaola-leitzaran/', 2)]
 - URL1: 1 · [('https://www.visitnavarra.es/es/vias-verdes-de-navarra', 2)]
 - DESCARGA: 1 · [('https://viasverdes.com/itinerarios/plazaola-leitzaran/mapa.a', 2)]
-- SITUACION: 2 · [('SUP', 1), ('SUB', 1)]
 
 ## DOTACI_Lin_VVTarazoni: 2 · campos ['FEATURE', 'NOMBRE', 'URL', 'URL1', 'DESCARGA', 'SITUACION', 'GEOM_LONG', 'BEGINLIFE']
 - NOMBRE: 1 · [('Vía Verde del Tarazonica', 2)]
 - URL: 1 · [('https://viasverdes.com/itinerarios/tarazonica/', 2)]
 - URL1: 1 · [('https://www.visitnavarra.es/es/vias-verdes-de-navarra', 2)]
 - DESCARGA: 1 · [('https://viasverdes.com/itinerarios/tarazonica/mapa.asp', 2)]
-- SITUACION: 2 · [('SUB', 1), ('SUP', 1)]
 
 ## DOTACI_Lin_GR1: 8 · campos ['FEATURE', 'IDRUTA', 'NOMBRE', 'TRAMO', 'LUGARINI', 'LUGARFIN', 'ALTITUDINI', 'ALTITUDFIN', 'ALTITUDMAX', 'ALTITUDMIN', 'DESNIPOSI', 'DESNINEGA', 'URL', 'URLPDF', 'DESCARGA', 'GEOM_LONG', 'BEGINLIFE']
 - IDRUTA: 1 · [('GR 1', 8)]
@@ -157,7 +152,6 @@
 - DESNIPOSI: 8 · [('359', 1), ('316', 1), ('450', 1), ('361', 1), ('183', 1), ('320', 1)]
 - DESNINEGA: 8 · [('150', 1), ('721', 1), ('50', 1), ('340', 1), ('238', 1), ('341', 1)]
 - URL: 8 · [('https://senderos.nafarmendi.org/ruta/ver/10624', 1), ('https://senderos.nafarmendi.org/ruta/ver/10627', 1), ('https://senderos.nafarmendi.org/ruta/ver/10628', 1), ('https://senderos.nafarmendi.org/ruta/ver/10631', 1), ('https://senderos.nafarmendi.org/ruta/ver/10630', 1), ('https://senderos.nafarmendi.org/ruta/ver/10629', 1)]
-- URLPDF: 1 · [('', 8)]
 - DESCARGA: 8 · [('https://senderos.nafarmendi.org/docs/gpx/10624.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10627.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10628.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10631.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10630.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10629.gpx', 1)]
 
 ## DOTACI_Lin_GR12: 13 · campos ['FEATURE', 'IDRUTA', 'NOMBRE', 'TRAMO', 'LUGARINI', 'LUGARFIN', 'ALTITUDINI', 'ALTITUDFIN', 'ALTITUDMAX', 'ALTITUDMIN', 'DESNIPOSI', 'DESNINEGA', 'URL', 'URLPDF', 'DESCARGA', 'GEOM_LONG', 'BEGINLIFE']
@@ -173,7 +167,6 @@
 - DESNIPOSI: 13 · [('762', 1), ('884', 1), ('1012', 1), ('595', 1), ('1312', 1), ('845', 1)]
 - DESNINEGA: 13 · [('789', 1), ('880', 1), ('750', 1), ('577', 1), ('1175', 1), ('751', 1)]
 - URL: 13 · [('http://senderos.nafarmendi.org/detalle.aspx?i=108', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=109', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=110', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=112', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=113', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=114', 1)]
-- URLPDF: 9 · [('http://senderos.nafarmendi.org/docs/otros/doc_206.pdf', 5), ('http://senderos.nafarmendi.org/docs/otros/doc_199.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_200.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_201.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_202.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_203.pdf', 1)]
 - DESCARGA: 13 · [('https://senderos.nafarmendi.org/docs/gpx/108.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/109.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/110.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/112.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/113.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/114.gpx', 1)]
 
 ## DOTACI_Lin_GR321: 11 · campos ['FEATURE', 'IDRUTA', 'NOMBRE', 'TRAMO', 'LUGARINI', 'LUGARFIN', 'ALTITUDINI', 'ALTITUDFIN', 'ALTITUDMAX', 'ALTITUDMIN', 'DESNIPOSI', 'DESNINEGA', 'URL', 'URLPDF', 'DESCARGA', 'GEOM_LONG', 'BEGINLIFE']
@@ -189,10 +182,9 @@
 - DESNIPOSI: 11 · [('672', 1), ('880', 1), ('678', 1), ('225', 1), ('590', 1), ('1097', 1)]
 - DESNINEGA: 9 · [('0', 3), ('480', 1), ('299', 1), ('535', 1), ('197', 1), ('534', 1)]
 - URL: 11 · [('http://senderos.nafarmendi.org/detalle.aspx?i=10503', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=10504', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=10505', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=10506', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=10507', 1), ('http://senderos.nafarmendi.org/detalle.aspx?i=10524', 1)]
-- URLPDF: 11 · [('http://senderos.nafarmendi.org/docs/otros/doc_132.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_171.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_134.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_136.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_137.pdf', 1), ('http://senderos.nafarmendi.org/docs/otros/doc_156.pdf', 1)]
 - DESCARGA: 11 · [('https://senderos.nafarmendi.org/docs/gpx/10503.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10504.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10505.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10506.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10507.gpx', 1), ('https://senderos.nafarmendi.org/docs/gpx/10524.gpx', 1)]
 
 ## PATRIM_Lin_CaminoSant: 2 · campos ['FEATURE', 'TRAMO', 'GEOM_LONG', 'BEGINLIFE']
 - TRAMO: 2 · [('Camino de Santiago aragonés', 1), ('Camino de Santiago francés', 1)]
 
-monte.js: 5096 KB  ·  GEOLOG_Sym_Cuevas:2505, DOTACI_Sym_Miradores:16, FOREST_Sym_AreasRecForest:306, HIDROG_Sym_ZonaBano:16, PATRIM_Sym_BICarquite:239, GEOLOG_Sym_Manantiales:9323, IDEMUN_Sym_Fuentes:169, PATRIM_Sym_Senderismo:76, DOTACI_Lin_VVBidasoa:2, DOTACI_Lin_VVVascoNav:2, DOTACI_Lin_VVIrati:2, DOTACI_Lin_VVPlazaola:2, DOTACI_Lin_VVTarazoni:2, DOTACI_Lin_GR1:8, DOTACI_Lin_GR12:13, DOTACI_Lin_GR321:11, PATRIM_Lin_CaminoSant:2
+monte.js: 1936 KB  ·  GEOLOG_Sym_Cuevas:2475, DOTACI_Sym_Miradores:16, FOREST_Sym_AreasRecForest:306, HIDROG_Sym_ZonaBano:16, PATRIM_Sym_BICarquite:239, GEOLOG_Sym_Manantiales:9323, IDEMUN_Sym_Fuentes:169, PATRIM_Sym_Senderismo:76, DOTACI_Lin_VVBidasoa:2, DOTACI_Lin_VVVascoNav:2, DOTACI_Lin_VVIrati:2, DOTACI_Lin_VVPlazaola:2, DOTACI_Lin_VVTarazoni:2, DOTACI_Lin_GR1:8, DOTACI_Lin_GR12:13, DOTACI_Lin_GR321:11, PATRIM_Lin_CaminoSant:2
