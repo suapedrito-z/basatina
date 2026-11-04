@@ -3,14 +3,180 @@
 - [{'_value': 'Planes de Ordenación Cinegética. Resaques de caza mayor', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Resaques de caza mayor', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ResaqueCazaM.zip']
 - [{'_value': 'Planes de Ordenación Cinegética. Zonas de caza estival', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de caza estival', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaEst.zip']
 - [{'_value': 'Planes de Ordenación Cinegética. Zonas de caza sembrada', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de caza sembrada', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaSem.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Aparcamientos', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Aparcamientos', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_Aparcamien.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Batidas de perdiz', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Batidas de perdiz', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Lin_BatPerdiz.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Chozas de paloma', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Chozas de paloma', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_ChozaPaloma.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Esperas nocturnas', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Esperas nocturnas', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_EsperaNoct.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Frentes de malviz', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Frentes de malviz', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Lin_FrenMalviz.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Frentes de paloma', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Frentes de paloma', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Lin_FrenPaloma.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Índices Kilométricos de abundancia de perdiz', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Índices Kilométricos de abundancia de perdiz', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Lin_IKAperdiz.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Monterías de caza mayor', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Monterías de caza mayor', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_Monterias.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Potencialidad para la perdiz', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Potencialidad para la perdiz', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_PotenPerdiz.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Puestos de ánade', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Puestos de ánade', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_PuesAnade.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Puestos de malviz', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Puestos de malviz', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_PuesMalviz.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Puestos de paloma', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Puestos de paloma', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_PuesPaloma.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Recorridos de caza estival', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Recorridos de caza estival', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Lin_RecCazaEst.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Recorridos nocturnos', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Recorridos nocturnos', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Lin_RecNocturnos.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Refugios', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Refugios', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_Refugios.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Resaques de caza mayor', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Resaques de caza mayor', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ResaqueCazaM.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Reservas', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Reservas', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_Reservas.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Zonas de caza estival', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de caza estival', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaEst.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Zonas de caza sembrada', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de caza sembrada', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaSem.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Zonas de codorniz', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de codorniz', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCodor.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Zonas de faisán', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de faisán', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaFaisan.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Zonas de perros', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Zonas de perros', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaPerros.zip']
+- [{'_value': 'Aurrekontu orokorretako inbertsio-programa', '_lang': 'eu'}, {'_value': 'Programa de inversiones de los presupuestos generales', '_lang': 'es'}] :: ['https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=json&bom=True', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/2a72cf9b-1840-413c-a6ca-17e415fbd70c/download/total-inversiones-2023.csv', 'https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=ods&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=json&bom=True', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/7992701c-8449-4536-b1a2-ed541a9d2411?view_id=7e863447-22db-476b-b18d-884c00eb2b86', 'https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=ods&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=ods&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/97856c00-cb9d-43fc-8d4d-4749b601c1d3/download/total-inversiones-2021.csv', 'https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=ods&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=csv&bom=True', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/453c84b9-0a93-4127-a308-61b6b424bf72/download/total-inversiones-2017.csv', 'https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=csv&bom=True', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/c6a04a75-97e4-49d3-a9de-8af189e9b976?view_id=715c8aae-84b3-4c35-8410-cb53fb7690b8', 'https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=ods&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=ods&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=xml&bom=True', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/b0829aec-7abb-4607-ae67-b6323006381d?view_id=e78d75c0-8fe7-4a39-aec0-941c49fd7970', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/453c84b9-0a93-4127-a308-61b6b424bf72?view_id=183042cc-db81-404e-89e4-3b1b694eef06', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/c6a04a75-97e4-49d3-a9de-8af189e9b976/download/total-inversiones-2018.csv', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87/download/total-inversiones-2022.csv', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/b0829aec-7abb-4607-ae67-b6323006381d/download/total-inversiones-2019.csv', 'https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=ods&bom=True', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?view_id=ab295f97-2bae-4345-8b2e-afd61f30e976', 'https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=json&bom=True', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/7992701c-8449-4536-b1a2-ed541a9d2411/download/total-inversiones-2016.csv', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/9a1b8f0e-d838-4ada-a817-ab343d9cb126?view_id=7e8e78a4-6c14-4da0-a60e-8a43377f0acb', 'https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=ods&bom=True', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/2a72cf9b-1840-413c-a6ca-17e415fbd70c?view_id=c0b23c71-be11-4baa-86b6-d81f22a22333', 'https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=json&bom=True', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/9a1b8f0e-d838-4ada-a817-ab343d9cb126/download/total-inversiones-2020.csv', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/97856c00-cb9d-43fc-8d4d-4749b601c1d3?view_id=6d865d4d-b73d-498e-a7e5-eaf6e57215ce', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed/download/total-inversiones-2024.csv', 'https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=tsv&bom=True', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/2791a6d4-2d16-44e4-b298-ab5298cc2966?view_id=c9cf48e7-60fd-4d4d-912a-c954b465e813', 'https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=ods&bom=True', 'https://datosabiertos.navarra.es/dataset/inversiones/resource/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?view_id=f59c6dd2-a716-497a-91dd-f83bc32e75e1', 'https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=ods&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=tsv&bom=True', 'https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/2791a6d4-2d16-44e4-b298-ab5298cc2966/download/total-inversiones-2025.csv', 'https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=json&bom=True']
+- [{'_value': 'Dotaciones de seguridad. Comandancias y Puestos de la Guardia Civil', '_lang': 'eu'}, {'_value': 'Dotaciones de seguridad. Comandancias y Puestos de la Guardia Civil', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/DOTACI_Sym_GCivil.zip']
+- [{'_value': 'Encuesta de presupuestos familiares', '_lang': 'es'}, {'_value': 'Familia Aurrekontuei buruzko Inkesta', '_lang': 'eu'}] :: ['https://nastat.navarra.es/es/tablas_powerbi/-/tag/encuesta-presupuestos-familiares']
+- [{'_value': 'Estadística de la oferta y demanda de puestos de trabajo', '_lang': 'es'}, {'_value': 'Lanpostuen eskaintza eta eskaria', '_lang': 'eu'}] :: ['https://nastat.navarra.es/es/tablas_ficheros/-/tag/oferta-demanda-puestos-trabajo']
+- [{'_value': 'Planes de Ordenación Cinegética. Puestos de ánade', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Puestos de ánade', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_PuesAnade.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Puestos de malviz', '_lang': 'eu'}, {'_value': 'Planes de Ordenación Cinegética. Puestos de malviz', '_lang': 'es'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_PuesMalviz.zip']
+- [{'_value': 'Planes de Ordenación Cinegética. Puestos de paloma', '_lang': 'es'}, {'_value': 'Planes de Ordenación Cinegética. Puestos de paloma', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Sym_PuesPaloma.zip']
+- [{'_value': 'Lanpostuengatiko batez besteko ordainsariak', '_lang': 'eu'}, {'_value': 'Retribuciones medias por puestos de trabajo', '_lang': 'es'}] :: ['https://datosabiertos.navarra.es/dataset/retribuciones-medias-por-puestos-de-trabajo/resource/8c9d7336-9acf-46b1-9ba1-d846add19a99?view_id=d253edaa-9a63-44a4-9e8c-1275df0998ef', 'https://datosabiertos.navarra.es/dataset/b42c0371-b4bd-4175-a39a-36be184a7e84/resource/8c9d7336-9acf-46b1-9ba1-d846add19a99/download/lt_retribuciones_medias_puestos_2023_2013.csv', 'https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=csv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=json&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=ods&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=tsv&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=xlsx&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=xml&bom=True', 'https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=json&bom=True']
+- [{'_value': 'Pesca. Cangrejos Cotos 2026', '_lang': 'es'}, {'_value': 'Pesca. Cangrejos Cotos 2026', '_lang': 'eu'}] :: ['https://idena.navarra.es/descargas/CAZAPE_Lin_Cangrejos.zip']
 
-URLs: https://idena.navarra.es/descargas/CAZAPE_Lin_RecCazaEst.zip
+URLs: https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/2791a6d4-2d16-44e4-b298-ab5298cc2966/download/total-inversiones-2025.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/2a72cf9b-1840-413c-a6ca-17e415fbd70c/download/total-inversiones-2023.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87/download/total-inversiones-2022.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/453c84b9-0a93-4127-a308-61b6b424bf72/download/total-inversiones-2017.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/7992701c-8449-4536-b1a2-ed541a9d2411/download/total-inversiones-2016.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/97856c00-cb9d-43fc-8d4d-4749b601c1d3/download/total-inversiones-2021.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/9a1b8f0e-d838-4ada-a817-ab343d9cb126/download/total-inversiones-2020.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/b0829aec-7abb-4607-ae67-b6323006381d/download/total-inversiones-2019.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed/download/total-inversiones-2024.csv
+https://datosabiertos.navarra.es/dataset/a4177562-0f9b-45f3-92f9-980bb9bf3f8b/resource/c6a04a75-97e4-49d3-a9de-8af189e9b976/download/total-inversiones-2018.csv
+https://datosabiertos.navarra.es/dataset/b42c0371-b4bd-4175-a39a-36be184a7e84/resource/8c9d7336-9acf-46b1-9ba1-d846add19a99/download/lt_retribuciones_medias_puestos_2023_2013.csv
+https://datosabiertos.navarra.es/dataset/inversiones/resource/2791a6d4-2d16-44e4-b298-ab5298cc2966?view_id=c9cf48e7-60fd-4d4d-912a-c954b465e813
+https://datosabiertos.navarra.es/dataset/inversiones/resource/2a72cf9b-1840-413c-a6ca-17e415fbd70c?view_id=c0b23c71-be11-4baa-86b6-d81f22a22333
+https://datosabiertos.navarra.es/dataset/inversiones/resource/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?view_id=ab295f97-2bae-4345-8b2e-afd61f30e976
+https://datosabiertos.navarra.es/dataset/inversiones/resource/453c84b9-0a93-4127-a308-61b6b424bf72?view_id=183042cc-db81-404e-89e4-3b1b694eef06
+https://datosabiertos.navarra.es/dataset/inversiones/resource/7992701c-8449-4536-b1a2-ed541a9d2411?view_id=7e863447-22db-476b-b18d-884c00eb2b86
+https://datosabiertos.navarra.es/dataset/inversiones/resource/97856c00-cb9d-43fc-8d4d-4749b601c1d3?view_id=6d865d4d-b73d-498e-a7e5-eaf6e57215ce
+https://datosabiertos.navarra.es/dataset/inversiones/resource/9a1b8f0e-d838-4ada-a817-ab343d9cb126?view_id=7e8e78a4-6c14-4da0-a60e-8a43377f0acb
+https://datosabiertos.navarra.es/dataset/inversiones/resource/b0829aec-7abb-4607-ae67-b6323006381d?view_id=e78d75c0-8fe7-4a39-aec0-941c49fd7970
+https://datosabiertos.navarra.es/dataset/inversiones/resource/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?view_id=f59c6dd2-a716-497a-91dd-f83bc32e75e1
+https://datosabiertos.navarra.es/dataset/inversiones/resource/c6a04a75-97e4-49d3-a9de-8af189e9b976?view_id=715c8aae-84b3-4c35-8410-cb53fb7690b8
+https://datosabiertos.navarra.es/dataset/retribuciones-medias-por-puestos-de-trabajo/resource/8c9d7336-9acf-46b1-9ba1-d846add19a99?view_id=d253edaa-9a63-44a4-9e8c-1275df0998ef
+https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2791a6d4-2d16-44e4-b298-ab5298cc2966?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/2a72cf9b-1840-413c-a6ca-17e415fbd70c?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/3e9bc586-5e4f-4eab-9f08-cb9d70b17c87?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/453c84b9-0a93-4127-a308-61b6b424bf72?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/7992701c-8449-4536-b1a2-ed541a9d2411?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/8c9d7336-9acf-46b1-9ba1-d846add19a99?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/97856c00-cb9d-43fc-8d4d-4749b601c1d3?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/9a1b8f0e-d838-4ada-a817-ab343d9cb126?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/b0829aec-7abb-4607-ae67-b6323006381d?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c3d3b448-08a8-4dbf-b8ff-1eca0d4869ed?format=xml&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=csv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=json&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=ods&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=tsv&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=xlsx&bom=True
+https://datosabiertos.navarra.es/datastore/dump/c6a04a75-97e4-49d3-a9de-8af189e9b976?format=xml&bom=True
+https://idena.navarra.es/descargas/CAZAPE_Lin_BatPerdiz.zip
+https://idena.navarra.es/descargas/CAZAPE_Lin_Cangrejos.zip
+https://idena.navarra.es/descargas/CAZAPE_Lin_FrenMalviz.zip
+https://idena.navarra.es/descargas/CAZAPE_Lin_FrenPaloma.zip
+https://idena.navarra.es/descargas/CAZAPE_Lin_IKAperdiz.zip
+https://idena.navarra.es/descargas/CAZAPE_Lin_RecCazaEst.zip
+https://idena.navarra.es/descargas/CAZAPE_Lin_RecNocturnos.zip
 https://idena.navarra.es/descargas/CAZAPE_Pol_Monterias.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_PotenPerdiz.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_Refugios.zip
 https://idena.navarra.es/descargas/CAZAPE_Pol_ResaqueCazaM.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_Reservas.zip
 https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaEst.zip
 https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaSem.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCodor.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaFaisan.zip
+https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaPerros.zip
+https://idena.navarra.es/descargas/CAZAPE_Sym_Aparcamien.zip
+https://idena.navarra.es/descargas/CAZAPE_Sym_ChozaPaloma.zip
+https://idena.navarra.es/descargas/CAZAPE_Sym_EsperaNoct.zip
+https://idena.navarra.es/descargas/CAZAPE_Sym_PuesAnade.zip
+https://idena.navarra.es/descargas/CAZAPE_Sym_PuesMalviz.zip
+https://idena.navarra.es/descargas/CAZAPE_Sym_PuesPaloma.zip
+https://idena.navarra.es/descargas/DOTACI_Sym_GCivil.zip
+https://nastat.navarra.es/es/tablas_ficheros/-/tag/oferta-demanda-puestos-trabajo
+https://nastat.navarra.es/es/tablas_powerbi/-/tag/encuesta-presupuestos-familiares
 no https://idena.navarra.es/descargas/CAZAPE_Pol_Cotos.zip: HTTP Error 404: Not Found
 no https://idena.navarra.es/descargas/CAZAPE_Pol_CotoCaza.zip: HTTP Error 404: Not Found
 no https://idena.navarra.es/descargas/CAZAPE_Pol_Coto.zip: HTTP Error 404: Not Found
 no https://idena.navarra.es/descargas/CAZAPE_Pol_CotosCaza.zip: HTTP Error 404: Not Found
 no https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCaza.zip: HTTP Error 404: Not Found
+fallo https://idena.navarra.es/descargas/CAZAPE_Lin_BatPerdiz.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Lin_Cangrejos.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Lin_FrenMalviz.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Lin_FrenPaloma.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Lin_IKAperdiz.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Lin_RecCazaEst.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Lin_RecNocturnos.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_Monterias.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_PotenPerdiz.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_Refugios.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ResaqueCazaM.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_Reservas.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaEst.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCazaSem.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaCodor.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaFaisan.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Pol_ZonaPerros.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Sym_Aparcamien.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Sym_ChozaPaloma.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Sym_EsperaNoct.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Sym_PuesAnade.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Sym_PuesMalviz.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/CAZAPE_Sym_PuesPaloma.zip: HTTP Error 406: Not Acceptable
+fallo https://idena.navarra.es/descargas/DOTACI_Sym_GCivil.zip: HTTP Error 406: Not Acceptable
+
+caza.js: 0 KB
