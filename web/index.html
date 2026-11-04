@@ -27,6 +27,7 @@ input[type=range]{width:100%}
 .big{font-size:26px;font-weight:700}
 .pill{display:inline-block;padding:4px 10px;border-radius:99px;font-weight:600;font-size:13px}
 .st{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.st:last-child{border-bottom:0}.st .v{font-size:20px;font-weight:700;white-space:nowrap}.st .s{font-size:12px;color:#93a4b5}
+.mtb{background:rgba(11,17,24,.88)!important;backdrop-filter:blur(3px)}.mtb.on{background:#2f8fd8!important;color:#fff;border-color:#2f8fd8}
 .seg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.seg button{flex:1;min-width:70px}.seg button.on{background:#2f8fd8;color:#fff;border-color:#2f8fd8}
 select.town{width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt);font-size:15px}
 .dayr{display:grid;grid-template-columns:64px 34px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.dayr:last-child{border-bottom:0}
@@ -67,14 +68,15 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <body>
 <div class="wrap">
 <header>
-  <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.jpg" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>Pedrito Control Río Arga</h1><div id="secTitle" class="note">🗺️ Mapa del río (ahora)</div></div><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
+  <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.jpg" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>Pedrito Control Río Arga</h1><div id="secTitle" class="note">🏠 Inicio · Navarra</div></div><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
 </header>
 <div id="updBar" style="display:none;position:sticky;top:0;z-index:40;background:#14508f;color:#fff;padding:10px 14px;font-size:14px;display:none;gap:8px;align-items:center;justify-content:space-between"><span id="updTxt"></span><button class="btn pri" id="updBtn"></button></div>
 <div id="drawerBg"></div>
 <aside id="drawer" aria-label="Menú">
   <div class="dhead"><img src="logo.jpg" alt="" onerror="this.style.display='none'"><b>Pedrito Control Río Arga</b></div>
+  <button data-t="mtiempo">🏠 Inicio · Navarra</button>
   <div class="dgroup">Planos</div>
-  <button data-t="mapa">🗺️ Mapa del río (ahora)</button>
+  <button data-t="mapa">🗺️ Mapa del Arga (ahora)</button>
   <button data-t="ciencia">🔬 Modo científico</button>
   <div class="dgroup">Datos</div>
   <button data-t="caudal">📊 Caudal ahora</button>
@@ -84,7 +86,6 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button data-t="sim">▶️ Simulador de los próximos días</button>
   <div class="dgroup">Tiempo</div>
   <button data-t="tiempo">🌦️ El tiempo</button>
-  <button data-t="mtiempo">🗺️ Mapa del tiempo de Navarra</button>
   <button data-t="clima">📈 Histórico del clima</button>
   <div class="dgroup">Actualizar</div>
   <button id="dRefresh">🔄 Actualizar datos ahora</button>
@@ -217,10 +218,18 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </section>
 <!-- ============ MAPA DEL TIEMPO ============ -->
 <section id="t-mtiempo">
-<div class="seg" id="mtSeg"><button data-m="now" class="btn on">Ahora</button><button data-m="rain" class="btn">Lluvia hoy</button><button data-m="tom" class="btn">Mañana</button></div>
-<canvas id="mtc" height="400"></canvas>
+<div id="mtWrap" style="position:relative">
+  <canvas id="mtc" height="400"></canvas>
+  <div id="mtBar" style="position:absolute;left:8px;top:8px;right:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
+    <div style="position:relative"><button class="btn mtb on" id="mtDayB" data-l="tiempo">☀️ Hoy ▾</button>
+      <div id="mtDayM" style="display:none;position:absolute;top:44px;left:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;z-index:5;min-width:150px"></div></div>
+    <button class="btn mtb" data-l="lluvia">🌧️ Lluvia</button>
+    <button class="btn mtb" data-l="rios">🌊 Ríos</button>
+  </div>
+  <div id="mtLeg" style="position:absolute;left:8px;bottom:8px;font-size:11px;background:rgba(11,17,24,.85);border-radius:8px;padding:4px 8px;display:none"></div>
+</div>
 <div class="note" id="mtInfo">Toca un pueblo para ver su previsión.</div>
-<div class="note">Mapa base: © Instituto Geográfico Nacional · Datos: Open‑Meteo.</div>
+<div class="note">Mapa base: © Instituto Geográfico Nacional · Tiempo: Open‑Meteo · Ríos: SAIH Ebro.</div>
 </section>
 <!-- ============ HISTÓRICO DEL CLIMA ============ -->
 <section id="t-clima">
@@ -254,7 +263,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={tiempo:'🌦️ El tiempo',mtiempo:'🗺️ Mapa del tiempo de Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del río (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal ahora'};
+const TITLES={tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal ahora'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -793,7 +802,7 @@ function fichaAdd(map,code,html){const st=map[code]||(map[code]={code,name:code,
     const fm=fec.match(/(\d\d)\/(\d\d)\/(\d{4}) (\d\d:\d\d)/);
     st.tags[tag]={CW_REMOTA_TXT:code,LS_TAG_TXT:tag,LS_DESCRIPCION:desc.toUpperCase(),VALOR_QM:v,LS_UNID_ING:vm[2],LS_TIPO_SENAL:tag.length>7?tag.slice(7).replace(/\d+$/,''):'',
       LS_TENDENCIA:tr,ULTIMA_FECHA:fm?`${fm[3]}-${fm[2]}-${fm[1]} ${fm[4]}:00`:fec,DECIMALES_VALOR:/%/.test(vm[2])?1:2};});}
-function cauAdd(map,data){(data.DATOS||[]).forEach(t=>{const c=t.CW_REMOTA_TXT;if(!c)return;const st=map[c]||(map[c]={code:c,name:t.LR_NOMBRE_CORTO,tags:{}});st.tags[t.LS_TAG_TXT||t.CWT_TAG]=t;});}
+function cauAdd(map,data){(data.DATOS||[]).forEach(t=>{const c=t.CW_REMOTA_TXT;if(!c)return;const st=map[c]||(map[c]={code:c,name:t.LR_NOMBRE_CORTO,tags:{}});if(t.LR_UTM_X&&!st.x){st.x=t.LR_UTM_X;st.y=t.LR_UTM_Y;}st.tags[t.LS_TAG_TXT||t.CWT_TAG]=t;});}
 function umbralOf(tag){if(!UMB||!tag)return null;let u=UMB.find(x=>x.codigo===tag.LS_TAG_TXT);
   if(!u)u=UMB.find(x=>x.codigo&&x.codigo.slice(0,4)===tag.CW_REMOTA_TXT&&/NRIO/.test(x.codigo));return u;}
 function alertOf(tag){const u=umbralOf(tag),v=Number(tag&&tag.VALOR_QM);if(!u||isNaN(v))return null;
@@ -845,6 +854,7 @@ async function cauFetch(){if(!APP)return cauRender();const info=document.getElem
   cauT=Date.now();info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · SAIH Ebro';
   cauRender();const ref=cauRefQ();
   if(MAPM==='live')liveMap();
+  if(MTL==='rios')mtDraw();
   if(ref){const fb=document.getElementById('fb');fb.value=(Math.round(Math.max(0.5,Math.min(500,ref.v))*10)/10);document.getElementById('fbv').textContent=fb.value;if(typeof fcRender==='function')fcRender();}}
 document.getElementById('cauRef').onclick=cauFetch;
 document.getElementById('cauMap').onclick=()=>{showTab('mapa');setTimeout(fitView,150);};
@@ -950,31 +960,60 @@ function tiempoRender(){if(!TW)return;const {j,town}=TW,c=j.current,h=j.hourly,d
 document.getElementById('tTown').onchange=e=>{setTown(e.target.value);tiempoFetch();};
 
 /* ---------- 🗺️ Mapa del tiempo de Navarra ---------- */
-const NB={w:-2.55,e:-0.70,s:41.88,n:43.33};let MT=null,MTM='now',mtImg=null,mtHits=[];
+const NB={w:-2.55,e:-0.70,s:41.88,n:43.47};let MT=null,MTL='tiempo',MTD=0,mtImg=null,mtHits=[];
+const DAYN=['Hoy','Mañana','Pasado'];
+function dayLabel(k){const d=new Date();d.setDate(d.getDate()+k);return DAYN[k]+' · '+DOW[d.getDay()]+' '+d.getDate();}
 function mtBase(){if(mtImg)return;mtImg=new Image();mtImg.onload=()=>mtDraw();mtImg.onerror=()=>{mtImg.bad=1;mtDraw();};
   mtImg.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${NB.s},${NB.w},${NB.n},${NB.e}&WIDTH=900&HEIGHT=960&FORMAT=image/jpeg`;}
 async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');info.textContent='Cargando el tiempo de '+TOWNS.length+' pueblos…';
-  const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=2${TZ}`;
-  const j=await getJSON(u);if(!j){info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];
-  info.textContent='Actualizado a las '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+' · toca un pueblo para ver su previsión';mtDraw();}
+  const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=3${TZ}`;
+  const j=await getJSON(u);if(!j){info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
+function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  el.textContent=MTL==='rios'?(CAU?'Ríos: caudal en m³/s · toca una estación para ver el detalle · por ahora cuenca del Arga':'Ríos: esperando datos del SAIH…'):
+    (MT?'Actualizado a las '+hm+' · toca un pueblo para ver su previsión':'Cargando…');}
+// UTM huso 30 (ETRS89) → latitud/longitud
+function utm2ll(E,N){const a=6378137,f=1/298.257222101,e2=f*(2-f),k0=.9996,x=E-500000,y=N,ep2=e2/(1-e2),M=y/k0,mu=M/(a*(1-e2/4-3*e2*e2/64-5*e2**3/256)),e1=(1-Math.sqrt(1-e2))/(1+Math.sqrt(1-e2));
+  const p1=mu+(3*e1/2-27*e1**3/32)*Math.sin(2*mu)+(21*e1*e1/16-55*e1**4/32)*Math.sin(4*mu)+(151*e1**3/96)*Math.sin(6*mu);
+  const C1=ep2*Math.cos(p1)**2,T1=Math.tan(p1)**2,N1=a/Math.sqrt(1-e2*Math.sin(p1)**2),R1=a*(1-e2)/(1-e2*Math.sin(p1)**2)**1.5,D=x/(N1*k0);
+  const lat=p1-(N1*Math.tan(p1)/R1)*(D*D/2-(5+3*T1+10*C1-4*C1*C1-9*ep2)*D**4/24+(61+90*T1+298*C1+45*T1*T1-252*ep2-3*C1*C1)*D**6/720);
+  const lon=(D-(1+2*T1+C1)*D**3/6+(5-2*C1+28*T1-3*C1*C1+8*ep2+24*T1*T1)*D**5/120)/Math.cos(p1);return [lat*180/Math.PI,-3+lon*180/Math.PI];}
+function rainCol(r){return r>=15?'#7b2fbf':r>=5?'#1d4fa8':r>=1?'#2f8fd8':r>=0.1?'#6fb9e8':'#0b1118';}
 function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)return;const W=cv.clientWidth,H=Math.round(W*(NB.n-NB.s)/((NB.e-NB.w)*Math.cos(42.6*Math.PI/180)));
   cv.dataset.h=H;const x=fitCanvas(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,H);
-  if(mtImg&&mtImg.complete&&!mtImg.bad&&mtImg.naturalWidth){x.globalAlpha=.85;x.drawImage(mtImg,0,0,W,H);x.globalAlpha=1;}
-  else{x.fillStyle='#93a4b5';x.font='12px system-ui';x.fillText(mtImg&&mtImg.bad?'Mapa base no disponible ahora':'Cargando mapa base…',10,18);}
-  const P=t=>[W*(t[2]-NB.w)/(NB.e-NB.w),H*(NB.n-t[1])/(NB.n-NB.s)];mtHits=[];const hh=new Date().getHours();
-  TOWNS.forEach((t,i)=>{const [px,py]=P(t);const m=MT&&MT[i];let ico='',txt='',col='#0b1118';
-    if(m){if(MTM==='now'){ico=wxIcon(m.current.weather_code,hh);txt=Math.round(m.current.temperature_2m)+'°';}
-      else if(MTM==='rain'){const r=m.daily.precipitation_sum[0]||0;ico=r>=0.1?'💧':'';txt=fmtN(r,1)+' mm';col=r>=10?'#14508f':r>=1?'#1f6fb0':'#0b1118';}
-      else{ico=wxIcon(m.daily.weather_code[1],12);txt=Math.round(m.daily.temperature_2m_max[1])+'°/'+Math.round(m.daily.temperature_2m_min[1])+'°';}}
-    x.font='bold 12px system-ui';const tw=x.measureText(txt).width,bw=tw+(ico?22:8),bx=px-bw/2,by=py-11;
-    x.fillStyle=col;x.globalAlpha=.88;x.beginPath();x.roundRect?x.roundRect(bx,by,bw,22,11):x.rect(bx,by,bw,22);x.fill();x.globalAlpha=1;
+  if(mtImg&&mtImg.complete&&!mtImg.bad&&mtImg.naturalWidth){x.globalAlpha=.9;x.drawImage(mtImg,0,0,W,H);x.globalAlpha=1;}
+  else{x.fillStyle='#93a4b5';x.font='12px system-ui';x.fillText(mtImg&&mtImg.bad?'Mapa base no disponible ahora':'Cargando mapa base…',10,H-12);}
+  const P=(la,lo)=>[W*(lo-NB.w)/(NB.e-NB.w),H*(NB.n-la)/(NB.n-NB.s)];mtHits=[];const hh=new Date().getHours();
+  const box=(px,py,ico,txt,col,hit)=>{x.font='bold 12px system-ui';const tw=x.measureText(txt).width,bw=tw+(ico?22:8),bx=px-bw/2,by=py-11;
+    x.fillStyle=col;x.globalAlpha=.9;x.beginPath();x.roundRect?x.roundRect(bx,by,bw,22,11):x.rect(bx,by,bw,22);x.fill();x.globalAlpha=1;
     x.fillStyle='#fff';x.textBaseline='middle';x.textAlign='left';if(ico){x.font='13px system-ui';x.fillText(ico,bx+3,py+1);x.font='bold 12px system-ui';x.fillText(txt,bx+19,py+1);}else x.fillText(txt,bx+4,py+1);
-    if(W>340&&['Pamplona','Tudela','Estella','Sangüesa','Elizondo','Tafalla'].includes(t[0])){x.font='10px system-ui';x.textAlign='center';x.fillStyle='#000';x.fillText(t[0],px+1,by+34);x.fillStyle='#fff';x.fillText(t[0],px,by+33);}
-    x.textBaseline='alphabetic';mtHits.push([bx,by,bw,22,i]);});}
-document.querySelectorAll('#mtSeg button').forEach(b=>b.onclick=()=>{MTM=b.dataset.m;document.querySelectorAll('#mtSeg button').forEach(x=>x.classList.toggle('on',x===b));mtDraw();});
+    x.textBaseline='alphabetic';mtHits.push([bx,by,bw,22,hit]);return by;};
+  const leg=document.getElementById('mtLeg');
+  if(MTL==='rios'){leg.style.display='';leg.innerHTML='<span style="color:#3ccf7a">●</span> normal · <span style="color:#ffd84d">●</span> aviso amarillo · <span style="color:#ff9f1a">●</span> naranja · <span style="color:#ff3b30">●</span> rojo';
+    if(CAU)Object.values(CAU).forEach(st=>{if(!st.x||!/^A/.test(st.code))return;const [la,lo]=utm2ll(st.x,st.y);const [px,py]=P(la,lo);const q=pick(st,'q'),n=pick(st,'n'),al=alertOf(n);
+      const col=!al?'#2e7d32':/rojo/.test(al[0])?'#c62828':/naranja/.test(al[0])?'#ef6c00':/amarillo/.test(al[0])?'#f9a825':'#2e7d32';
+      const t=q?fmtN(q.VALOR_QM,q.VALOR_QM<10?1:0):n?fmtN(n.VALOR_QM,2)+' m':'—';box(px,py,'',t,col,['st',st.code]);});
+    return;}
+  if(MTL==='lluvia'){leg.style.display='';leg.innerHTML=[[0.1,'0,1'],[1,'1'],[5,'5'],[15,'15+']].map(([v,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${rainCol(v)}"></span> ${l}`).join(' ')+' mm · '+DAYN[MTD];}
+  else leg.style.display='none';
+  TOWNS.forEach((t,i)=>{const [px,py]=P(t[1],t[2]);const m=MT&&MT[i];let ico='',txt='…',col='rgba(11,17,24,.9)';
+    if(m){if(MTL==='tiempo'){if(MTD===0){ico=wxIcon(m.current.weather_code,hh);txt=Math.round(m.current.temperature_2m)+'°';}
+        else{ico=wxIcon(m.daily.weather_code[MTD],12);txt=Math.round(m.daily.temperature_2m_max[MTD])+'°/'+Math.round(m.daily.temperature_2m_min[MTD])+'°';}}
+      else{const r=m.daily.precipitation_sum[MTD]||0;ico=r>=0.1?'💧':'';txt=fmtN(r,r>=10?0:1);col=rainCol(r);}}
+    const by=box(px,py,ico,txt,col,['town',i]);
+    if(W>340&&['Pamplona','Tudela','Estella','Sangüesa','Elizondo','Tafalla'].includes(t[0])){x.font='10px system-ui';x.textAlign='center';x.fillStyle='#000';x.fillText(t[0],px+1,by+34);x.fillStyle='#fff';x.fillText(t[0],px,by+33);}});}
+function mtSetLayer(l){MTL=l;document.querySelectorAll('.mtb').forEach(b=>b.classList.toggle('on',b.dataset.l===l));mtInfo();mtDraw();}
+function mtDayMenu(open){const m=document.getElementById('mtDayM');m.style.display=open?'':'none';
+  if(open)m.innerHTML=DAYN.map((_,k)=>`<button class="btn" data-k="${k}" style="display:block;width:100%;border:0;border-radius:0;text-align:left;${k===MTD?'background:#2f8fd8;color:#fff':''}">${dayLabel(k)}</button>`).join('');
+  m.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();MTD=+b.dataset.k;document.getElementById('mtDayB').textContent='☀️ '+DAYN[MTD]+' ▾';document.querySelector('.mtb[data-l="lluvia"]').textContent='🌧️ Lluvia · '+DAYN[MTD];mtDayMenu(false);if(MTL==='rios')mtSetLayer('tiempo');else mtDraw();});}
+document.getElementById('mtDayB').onclick=e=>{e.stopPropagation();const open=document.getElementById('mtDayM').style.display!=='none';if(MTL!=='tiempo')mtSetLayer('tiempo');mtDayMenu(!open);};
+document.querySelector('.mtb[data-l="lluvia"]').onclick=e=>{e.stopPropagation();mtSetLayer('lluvia');document.getElementById('mtDayB').textContent='☀️ '+DAYN[MTD]+' ▾';
+  // el día elegido también vale para la lluvia: lo mostramos en el propio botón
+  e.target.textContent='🌧️ Lluvia · '+DAYN[MTD];mtDayMenu(false);};
+document.querySelector('.mtb[data-l="rios"]').onclick=e=>{e.stopPropagation();mtDayMenu(false);mtSetLayer('rios');};
+document.addEventListener('click',()=>mtDayMenu(false));
 document.getElementById('mtc').addEventListener('click',e=>{const r=e.target.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
-  const h=mtHits.find(([bx,by,bw,bh])=>px>=bx-4&&px<=bx+bw+4&&py>=by-4&&py<=by+bh+4);if(h){setTown(h[4]);showTab('tiempo');}});
-
+  const h=mtHits.slice().reverse().find(([bx,by,bw,bh])=>px>=bx-4&&px<=bx+bw+4&&py>=by-4&&py<=by+bh+4);if(!h)return;
+  if(h[4][0]==='town'){setTown(h[4][1]);showTab('tiempo');}else showTab('caudal');});
 /* ---------- 📈 Histórico del clima ---------- */
 let CP='7',CL=null;
 async function climaFetch(){const t=TOWNS[TOWN],K=document.getElementById('cKpi');K.innerHTML='<div class="note">Cargando el histórico de '+t[0]+'…</div>';
@@ -1024,7 +1063,7 @@ document.querySelectorAll('#cSeg button').forEach(b=>b.onclick=()=>{CP=b.dataset
 fillTowns(document.getElementById('tTown'));fillTowns(document.getElementById('cTown'));
 // cargar cada pantalla al abrirla (y redibujar al girar el móvil)
 const _showTab=showTab;showTab=function(t){_showTab(t);setTimeout(()=>{if(t==='tiempo'){if(!TW||TW.town!==TOWNS[TOWN][0]||Date.now()-(TW.at||0)>15*60e3)tiempoFetch().then(()=>{if(TW)TW.at=Date.now();});else tiempoRender();}
-  if(t==='mtiempo'){if(!MT||Date.now()-(MT.at||0)>15*60e3)mtFetch().then(()=>{if(MT)MT.at=Date.now();});else mtDraw();}
+  if(t==='mtiempo'){mtInfo();if(!MT||Date.now()-(MT.at||0)>15*60e3)mtFetch();else mtDraw();}
   if(t==='clima'){if(!CL||CL.town!==TOWNS[TOWN][0])climaFetch();else climaRender();}},60);};
 document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 document.querySelectorAll('[data-t2]').forEach(b=>b.onclick=()=>showTab(b.dataset.t2));
@@ -1060,6 +1099,7 @@ document.getElementById('dPin').onclick=()=>{menu(false);pinOpen('new');};
 document.getElementById('dTechInfo').onclick=async()=>{menu(false);let v='?';try{const r=await fetch('version.json');v=(await r.json()).version;}catch(e){}
   toast(`Pantalla v${v} · app ${APP&&window.AndroidNet.appVersion?window.AndroidNet.appVersion():'web'} · SAIH ${CAU?'OK '+new Date(cauT).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}):'sin datos'} · ${(navigator.userAgent.match(/Android [\d.]+/)||['web'])[0]}`);};
 techApply();
+setTimeout(()=>showTab('mtiempo'),30);
 
 </script>
 </body>
