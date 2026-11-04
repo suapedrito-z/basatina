@@ -80,9 +80,6 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <aside id="drawer" aria-label="Menú">
   <div class="dhead"><img src="logo.jpg" alt="" onerror="this.style.display='none'"><b>Pedrito Control Río Arga</b></div>
   <button data-t="mtiempo">🏠 Inicio · Navarra</button>
-  <div class="dgroup">Planos</div>
-  <button data-t="mapa">🗺️ Mapa del Arga (ahora)</button>
-  <button data-t="ciencia">🔬 Modo científico</button>
   <div class="dgroup">Datos</div>
   <button data-t="caudal">📊 Caudal de los ríos</button>
   <button data-t="hist">📜 Datos históricos</button>
@@ -103,6 +100,8 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <button id="dRefresh">🔄 Actualizar datos ahora</button>
   <button id="dUpdate" style="display:none">⬆️ Buscar nueva versión de la app</button>
   <div class="dgroup" id="dgApp" style="display:none">🔧 Zona técnica</div>
+  <button data-t="mapa" id="dMapa" style="display:none">🗺️ Mapa del Arga (ahora)</button>
+  <button data-t="ciencia" id="dCiencia" style="display:none">🔬 Modo científico</button>
   <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
   <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
   <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
@@ -1151,7 +1150,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dSaih','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
