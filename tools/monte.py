@@ -139,7 +139,9 @@ info.append(f"\nPerfiles de ruta: {ok} bien, {bad} fallos")
 try:
     q = '[out:json][timeout:60];rel["boundary"="administrative"]["admin_level"="8"]["name"="Petilla de Aragón"];out geom;'
     j = None
-    for s in ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://overpass.private.coffee/api/interpreter"]:
+    for s in ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter"] * 3:
+        if j: break
+        time.sleep(5)
         try:
             j = json.loads(urllib.request.urlopen(urllib.request.Request(s, data=("data=" + urllib.parse.quote(q)).encode(), headers=UA), timeout=60).read()); break
         except Exception as e:
