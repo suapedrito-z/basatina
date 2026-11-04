@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Hongo (Boletus edulis): sombrero marrón y pie grueso y claro. Dibujo propio de la app. -->
+  <ellipse cx="32" cy="58" rx="17" ry="3.5" fill="#000" opacity=".18"/>
+  <path d="M22 34 C20 44 19 52 23 56 C27 59.5 37 59.5 41 56 C45 52 44 44 42 34 Z" fill="#efe3c6" stroke="#b9a57c" stroke-width="1.5"/>
+  <path d="M27 40 C27 46 27.5 51 29 54" stroke="#d8c8a2" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M5 33 C5 17 17 7 32 7 C47 7 59 17 59 33 C59 36 56 37.5 52 37.5 L12 37.5 C8 37.5 5 36 5 33 Z" fill="#8a4b22" stroke="#5c2f14" stroke-width="1.6"/>
+  <path d="M11 37.5 L53 37.5 C51 40 47 41 43 41 L21 41 C17 41 13 40 11 37.5 Z" fill="#e3cf8e" stroke="#b49a55" stroke-width="1.2"/>
+  <path d="M15 22 C18 15 25 11 31 11" stroke="#b9774a" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".7"/>
+</svg>
