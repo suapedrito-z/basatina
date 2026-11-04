@@ -10,6 +10,6 @@ files = {f: hashlib.sha1(open(os.path.join(web, f), "rb").read()).hexdigest()
 apk = int(re.search(r"versionCode (\d+)", open(os.path.join(root, "app", "build.gradle")).read()).group(1))
 version = old["version"] + (1 if files != old.get("files") else 0)
 out = {"version": version, "apk": apk, "files": files,
-       "apkUrl": "https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/PedritoControlRioArga.apk"}
+       "apkUrl": "https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/BasatiNA.apk"}
 json.dump(out, open(vf, "w"), indent=1)
 print("pantalla v%d · app v%d · %d archivos" % (version, apk, len(files)))

@@ -1,4 +1,6 @@
-# Pedrito Control Río Arga 🌊
+# BasatiNA 🌊
+
+(antes «Pedrito Control Río Arga»)
 
 App de Android con el simulador de riadas del río Arga (del nacimiento a Funes).
 

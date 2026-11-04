@@ -1,6 +1,6 @@
 {
- "version": 53,
- "apk": 8,
+ "version": 54,
+ "apk": 9,
  "files": {
   "c12.jpg": "ac3fa4c4bc823c0b64c7c69990cf891eb00e6319",
   "c14.jpg": "00f5a26af1b6c701d5ffd8b64b9832f8c3b3fe03",
@@ -8,7 +8,7 @@
   "eu.js": "f3b81c08ff7146164fd9c881f7525928fd1d63d2",
   "flood.png": "6d4fa0d5fbc339db9a3c4ffe14e433dc989066fc",
   "flood2.png": "712a7b22803bcae9b052cece1bdbe3c4ccae177e",
-  "index.html": "6b1b68faa3f7bbe21a0afda8d4904c2d185be130",
+  "index.html": "42dbb415bd97c1a88691f61e70c8ab83dcb1e8b6",
   "logo.jpg": "442927f2c4c5495089c0bd56e454ddc6a4223411",
   "monte.js": "e24c4d2136869dc1ba08b373f8f1e06ccab570ab",
   "pesca.js": "fba5172885d790d2fc7caf52e3d2fa08f745b612",
@@ -17,5 +17,5 @@
   "rios.js": "c4e2c608075872f3055350d3e70d99b8307d8041",
   "sismo.js": "979985207b63fdd571d81a1eea6a44081cded5e1"
  },
- "apkUrl": "https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/PedritoControlRioArga.apk"
+ "apkUrl": "https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/BasatiNA.apk"
 }

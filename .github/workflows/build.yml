@@ -42,7 +42,7 @@ jobs:
         run: gradle assembleRelease --no-daemon
       - uses: actions/upload-artifact@v4
         with:
-          name: ControlRioArga-APK
+          name: BasatiNA-APK
           path: app/build/outputs/apk/release/*.apk
       - name: Publicar versión nueva
         if: github.ref == 'refs/heads/main'
@@ -50,10 +50,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           V=$(grep -oP 'versionCode \K\d+' app/build.gradle)
-          cp app/build/outputs/apk/release/app-release.apk PedritoControlRioArga.apk
+          cp app/build/outputs/apk/release/app-release.apk BasatiNA.apk
+          cp BasatiNA.apk PedritoControlRioArga.apk   # el nombre antiguo, para los enlaces que ya se pasaron
           if gh release view "v$V" >/dev/null 2>&1; then
             # la versión ya existe: solo añade (o reemplaza) el APK con el nombre bonito
-            gh release upload "v$V" PedritoControlRioArga.apk --clobber
+            gh release upload "v$V" BasatiNA.apk PedritoControlRioArga.apk --clobber
           else
-            gh release create "v$V" PedritoControlRioArga.apk --title "Versión $V" --notes "APK de Pedrito Control Río Arga" --latest
+            gh release create "v$V" BasatiNA.apk PedritoControlRioArga.apk --title "BasatiNA · versión $V" --notes "APK de BasatiNA" --latest
           fi
