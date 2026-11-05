@@ -2609,7 +2609,8 @@ const _showTabIn=showTab;showTab=function(t){_showTabIn(t);if(t==='incid')setTim
 
 /* ---------- 🚗 tráfico: botón a Google Maps y capa de TomTom encima del mapa de incidencias ---------- */
 document.getElementById('inGMaps').onclick=()=>{const u='https://www.google.com/maps/@42.70,-1.65,9z/data=!5m1!1e1';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');};
-let TTKEY=null,TTT={};
+let TTKEY=null,TTT={},TTORB=false;
+const ttUrl=(k,key,orb)=>orb?`https://api.tomtom.com/maps/orbis/traffic/tile/flow/${k}.png?apiVersion=1&key=${encodeURIComponent(key)}`:`https://api.tomtom.com/traffic/map/4/tile/flow/relative0/${k}.png?key=${encodeURIComponent(key)}&tileSize=256`;
 async function ttLoadKey(){if(TTKEY!==null)return TTKEY;TTKEY='';try{const r=await fetch(GH_RAW+'config/tomtom.json?t='+Math.floor(Date.now()/600000));if(r.ok)TTKEY=((await r.json()).key||'').trim();}catch(e){}
   document.getElementById('inTrafBar').style.display=TTKEY?'':'none';return TTKEY;}
 function ttDraw(x,P,b){if(!TTKEY||!document.getElementById('inTraf').checked)return;
@@ -2618,7 +2619,7 @@ function ttDraw(x,P,b){if(!TTKEY||!document.getElementById('inTraf').checked)ret
   const x0=tx(b.w),x1=tx(b.e),y0=ty(b.n),y1=ty(b.s);if((x1-x0+1)*(y1-y0+1)>60)return;
   x.globalAlpha=.95;
   for(let X=x0;X<=x1;X++)for(let Y=y0;Y<=y1;Y++){const k=z+'/'+X+'/'+Y;let im=TTT[k];
-    if(!im){im=TTT[k]=new Image();im.onload=()=>{if(INM)INM.draw();};im.src=`https://api.tomtom.com/traffic/map/4/tile/flow/relative0/${k}.png?key=${encodeURIComponent(TTKEY)}&tileSize=256&t=${Math.floor(Date.now()/300000)}`;}
+    if(!im){im=TTT[k]=new Image();im.onload=()=>{if(INM)INM.draw();};im.onerror=()=>{if(!TTORB&&!im.retried){TTORB=true;TTT={};if(INM)INM.draw();}};im.src=ttUrl(k,TTKEY,TTORB)+'&t='+Math.floor(Date.now()/300000);}
     if(im.complete&&im.naturalWidth){const [ax,ay]=P(lat(Y),lon(X)),[bx,by]=P(lat(Y+1),lon(X+1));x.drawImage(im,ax,ay,bx-ax,by-ay);}}
   x.globalAlpha=1;}
 const _inDraw0=inDraw;inDraw=function(x,P,b,M){ttDraw(x,P,b);_inDraw0(x,P,b,M);};
@@ -2627,7 +2628,8 @@ setInterval(()=>{if(document.getElementById('t-incid').classList.contains('on')&
 document.getElementById('ttSave').onclick=async()=>{const v=document.getElementById('ttKey').value.trim(),m=document.getElementById('ttMsg');if(!v){m.textContent='Pega la clave primero';return;}
   if(!ghTok()){m.textContent='❌ Falta la llave de edición de GitHub en este móvil';return;}
   m.textContent='Comprobando la clave con TomTom…';
-  const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=`https://api.tomtom.com/traffic/map/4/tile/flow/relative0/9/253/189.png?key=${encodeURIComponent(v)}`;});
+  const test=orb=>new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=ttUrl('9/253/189',v,orb);});
+  const ok=(await test(false))||(await test(true));
   if(!ok){m.textContent='❌ TomTom no acepta esa clave';return;}
   try{let sha=null;try{const r=await fetch(GH_API+'config/tomtom.json?ref=main',{headers:{Authorization:'Bearer '+ghTok()}});if(r.ok)sha=(await r.json()).sha;}catch(e){}
     await ghPut('config/tomtom.json',b64u(JSON.stringify({key:v})),'Clave de TomTom para el tráfico',sha);TTKEY=v;TTT={};document.getElementById('inTrafBar').style.display='';if(INM)INM.draw();m.textContent='✅ Guardada. El tráfico ya sale en el mapa.';}
