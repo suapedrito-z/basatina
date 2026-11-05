@@ -1337,7 +1337,7 @@ async function aboutRender(){let v='?';if(APP&&window.AndroidNet.webVersion)v=wi
   document.getElementById('abVer').textContent=(apk?'App versión '+apk+' · ':'')+'pantalla '+v;}
 
 // ---------- portada al abrir ----------
-(function(){const sp=document.getElementById('splash');if(!sp)return;setTimeout(()=>{sp.style.opacity='0';setTimeout(()=>sp.remove(),600);},3000);})();
+(function(){const sp=document.getElementById('splash');if(!sp)return;setTimeout(()=>{sp.style.opacity='0';setTimeout(()=>sp.remove(),500);},1500);})();
 
 // ---------- sin conexión: guardar y recuperar los últimos datos ----------
 function offlineSave(){if(CAU)LS.set('off_cau',{t:cauT||Date.now(),d:CAU});if(MT)LS.set('off_mt',{t:MT.at||Date.now(),d:[...MT]});}
