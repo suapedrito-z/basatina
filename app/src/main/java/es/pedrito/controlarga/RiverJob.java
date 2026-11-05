@@ -61,6 +61,8 @@ public class RiverJob extends JobService {
     public boolean onStartJob(final JobParameters p) {
         new Thread(() -> {
             try { check(this); } catch (Exception ignored) {}
+            try { checkRoads(this); } catch (Exception ignored) {}
+            try { checkSnow(this); } catch (Exception ignored) {}
             jobFinished(p, false);
         }).start();
         return true;   // el trabajo sigue en otro hilo
@@ -128,6 +130,61 @@ public class RiverJob extends JobService {
             notify(c, "📈 El Arga sube rápido en Burlada", String.format(java.util.Locale.forLanguageTag("es-ES"), "+%.0f m³/s en la última hora (ahora %s m³/s).", subida, fq), 2);
             sp.edit().putLong("lastRise", now).apply();
         }
+    }
+
+    static JSONObject cfg(Context c) {
+        try { return new JSONObject(c.getSharedPreferences("rio", MODE_PRIVATE).getString("alerts", "{}")); } catch (Exception ex) { return new JSONObject(); }
+    }
+
+    /** Avisa de las incidencias nuevas (cortes, obras, accidentes…) en las carreteras que ha elegido el usuario */
+    static void checkRoads(Context c) throws Exception {
+        JSONObject cfg = cfg(c);
+        org.json.JSONArray roads = cfg.optJSONArray("roads");
+        if (!cfg.optBoolean("on", false) || roads == null || roads.length() == 0) return;
+        java.util.Set<String> mine = new java.util.HashSet<>();
+        for (int i = 0; i < roads.length(); i++) mine.add(roads.optString(i).toUpperCase().replace(" ", ""));
+        SharedPreferences sp = c.getSharedPreferences("rio", MODE_PRIVATE);
+        boolean first = !sp.contains("incSeen");
+        String seen = sp.getString("incSeen", ",");
+        org.json.JSONArray L = new JSONObject(get("https://administracionelectronica.navarra.es/IncCarreteras/api/incidents")).getJSONArray("incidencia");
+        StringBuilder now = new StringBuilder(",");
+        int n = 0;
+        for (int i = 0; i < L.length(); i++) {
+            JSONObject x = L.getJSONObject(i);
+            if (!x.optBoolean("publicable", true)) continue;
+            String road = x.optString("cod_carretera_actual").toUpperCase().replace(" ", "");
+            if (!mine.contains(road)) continue;
+            String id = x.optString("id_incidencia");
+            now.append(id).append(",");
+            if (first || seen.contains("," + id + ",")) continue;
+            String tit = x.optString("titulo").trim(), des = x.optString("descripcion").trim();
+            if (tit.isEmpty()) tit = x.optString("tipo");
+            notify(c, "🚧 " + road + ": " + tit, des.isEmpty() ? x.optString("afeccion") : des, 300 + (n++ % 20));
+        }
+        sp.edit().putString("incSeen", now.toString()).apply();
+    }
+
+    /** La víspera (desde las 17:00) avisa si mañana se espera nieve en los puertos elegidos */
+    static void checkSnow(Context c) throws Exception {
+        JSONObject cfg = cfg(c);
+        org.json.JSONArray P = cfg.optJSONArray("snow");
+        if (!cfg.optBoolean("on", false) || P == null || P.length() == 0) return;
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        if (cal.get(java.util.Calendar.HOUR_OF_DAY) < 17) return;
+        String today = String.format(java.util.Locale.US, "%tF", cal);
+        SharedPreferences sp = c.getSharedPreferences("rio", MODE_PRIVATE);
+        if (today.equals(sp.getString("snowDay", ""))) return;
+        StringBuilder la = new StringBuilder(), lo = new StringBuilder();
+        for (int i = 0; i < P.length(); i++) { org.json.JSONArray q = P.getJSONArray(i); if (i > 0) { la.append(','); lo.append(','); } la.append(q.optDouble(1)); lo.append(q.optDouble(2)); }
+        String body = get("https://api.open-meteo.com/v1/forecast?latitude=" + la + "&longitude=" + lo + "&daily=snowfall_sum&forecast_days=2&timezone=Europe%2FMadrid");
+        org.json.JSONArray arr = body.trim().startsWith("[") ? new org.json.JSONArray(body) : new org.json.JSONArray().put(new JSONObject(body));
+        StringBuilder txt = new StringBuilder();
+        for (int i = 0; i < arr.length() && i < P.length(); i++) {
+            double cm = arr.getJSONObject(i).getJSONObject("daily").getJSONArray("snowfall_sum").optDouble(1, 0);
+            if (cm >= 1) txt.append(txt.length() > 0 ? " · " : "").append(P.getJSONArray(i).optString(0)).append(String.format(java.util.Locale.forLanguageTag("es-ES"), " %.0f cm", cm));
+        }
+        sp.edit().putString("snowDay", today).apply();
+        if (txt.length() > 0) notify(c, "❄️ Mañana se espera nieve en los puertos", txt + ". Antes de salir, mira el estado de las carreteras (848 423 500).", 400);
     }
 
     static void notify(Context c, String title, String text, int id) {

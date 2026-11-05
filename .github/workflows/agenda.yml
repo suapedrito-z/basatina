@@ -1,0 +1,24 @@
+name: Agenda de fiestas
+on:
+  push:
+    paths: ['pueblos/*.json', 'tools/agenda.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: agenda
+jobs:
+  agenda:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/agenda.py
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/agenda.js
+          git commit -m "Agenda de fiestas" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          git push

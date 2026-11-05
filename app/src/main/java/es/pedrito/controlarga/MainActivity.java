@@ -31,6 +31,9 @@ public class MainActivity extends Activity {
     private WebView web;
     private ValueCallback<Uri[]> fileCb;   // para elegir fotos desde la página (editor de pueblos)
     private static final int PICK = 41;
+    private static final int GEO = 42;
+    private android.webkit.GeolocationPermissions.Callback geoCb;   // «Qué hay cerca de mí»
+    private String geoOrigin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class MainActivity extends Activity {
         s.setDomStorageEnabled(true);
         s.setAllowFileAccess(true);            // leer los archivos guardados en la app
         s.setAllowFileAccessFromFileURLs(true);// necesario para leer los mapas de inundación
+        s.setGeolocationEnabled(true);         // «Qué hay cerca de mí»
         web.setWebViewClient(new WebViewClient());
         // Permite que la página abra la galería o la cámara para elegir fotos (<input type="file">)
         web.setWebChromeClient(new WebChromeClient() {
@@ -63,6 +67,16 @@ public class MainActivity extends Activity {
                 Intent chooser = Intent.createChooser(pick, "Elegir foto");
                 try { startActivityForResult(chooser, PICK); } catch (Exception e) { fileCb = null; return false; }
                 return true;
+            }
+            // la página pide la ubicación: si Android ya dio permiso, se contesta que sí; si no, se pregunta al usuario
+            @Override
+            public void onGeolocationPermissionsShowPrompt(String origin, android.webkit.GeolocationPermissions.Callback cb) {
+                if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == android.content.pm.PackageManager.PERMISSION_GRANTED
+                        || checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    cb.invoke(origin, true, false); return;
+                }
+                geoOrigin = origin; geoCb = cb;
+                requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, GEO);
             }
         });
         web.addJavascriptInterface(new Net(), "AndroidNet");
@@ -106,6 +120,16 @@ public class MainActivity extends Activity {
     private void callback(String id, int code, String body) {
         final String js = "window.__netCb(" + JSONObject.quote(id) + "," + code + "," + JSONObject.quote(body) + ")";
         runOnUiThread(() -> web.evaluateJavascript(js, null));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int req, String[] perms, int[] res) {
+        super.onRequestPermissionsResult(req, perms, res);
+        if (req == GEO && geoCb != null) {
+            boolean ok = false;
+            for (int r : res) ok |= r == android.content.pm.PackageManager.PERMISSION_GRANTED;
+            geoCb.invoke(geoOrigin, ok, false); geoCb = null;
+        }
     }
 
     @Override

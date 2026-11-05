@@ -85,9 +85,11 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <aside id="drawer" aria-label="Menú">
   <div class="dhead"><img src="logo.jpg" alt="" onerror="this.style.display='none'"><b>BasatiNA</b></div>
   <button data-t="mtiempo">🏠 Inicio · Navarra</button>
+  <button data-t="cerca">📍 Qué hay cerca de mí</button>
   <div class="dgroup"><span>Ríos</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="caudal">📊 Caudal de los ríos</button>
+    <button data-t="emb">💧 Embalses de Navarra</button>
     <button data-t="hist">📜 Datos históricos</button>
     <button data-t="libre">🎚️ Mapa de riadas (elige caudal)</button>
     <button data-t="prev">🔮 Previsiones</button>
@@ -97,11 +99,14 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="dsub">
     <button data-t="tiempo">🌦️ El tiempo</button>
     <button data-t="clima">📈 Histórico del clima</button>
+    <button data-t="radar">🌧️ Radar de lluvia</button>
   </div>
   <div class="dgroup"><span>Carreteras</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="incid">🚧 Incidencias: obras, cortes, accidentes…</button>
     <button data-t="camaras">📷 Cámaras en directo</button>
+    <button data-t="puertos">🏔️ Puertos de montaña</button>
+    <button data-t="gas">⛽ Gasolineras y recarga eléctrica</button>
   </div>
   <div class="dgroup"><span>Qué hacer</span><i>▸</i></div>
   <div class="dsub">
@@ -138,6 +143,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button data-t="ciencia" id="dCiencia" style="display:none">🔬 Modo científico</button>
     <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
     <button data-t="pueblos" id="dPueblos" style="display:none">🏘️ Pueblos de Navarra (en pruebas)</button>
+    <button data-t="agenda" id="dAgenda" style="display:none">🎉 Agenda de fiestas (en pruebas)</button>
     <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
     <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
@@ -441,6 +447,39 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
  <input id="ttKey" class="town" placeholder="Clave de TomTom" autocomplete="off" style="width:100%;box-sizing:border-box;margin-top:6px"><div class="row"><button class="btn pri" id="ttSave">💾 Guardar clave</button></div><div class="note" id="ttMsg"></div></div>
 <div class="note" style="margin:0 6px 10px">Fuente: Gobierno de Navarra, Centro de Control de Conservación de Carreteras (información 848 423 500). Para carreteras del Estado, consulta también la DGT.</div>
 </section>
+<section id="t-gas">
+<div class="card" id="gsSum"><b>⛽ Gasolineras de Navarra</b><div class="note">Cargando precios…</div></div>
+<div class="row" style="margin:0 0 6px;gap:6px"><select class="town" id="gsFuel" style="flex:1"><option value="g95">Gasolina 95</option><option value="dA">Diésel (gasóleo A)</option><option value="g98">Gasolina 98</option><option value="dP">Diésel premium</option><option value="glp">Autogás (GLP)</option><option value="rec">⚡ Recarga eléctrica</option></select>
+ <button class="btn" id="gsNear">📍 Cerca de mí</button></div>
+<div class="card"><div style="position:relative"><canvas id="gsc" height="380"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="gscIn">＋</button><button class="btn mtb" id="gscOut">－</button></div></div><div class="note" id="gsLeg" style="margin-top:4px"></div><div id="gsFicha" style="margin-top:8px"></div></div>
+<div class="card"><b id="gsListT">📋 Las más baratas</b><div id="gsList"></div></div>
+<div class="note" style="margin:0 6px 10px">Precios: Ministerio para la Transición Ecológica (geoportal de gasolineras), se actualizan varias veces al día. Recarga eléctrica: OpenStreetMap (puede faltar alguna).</div>
+</section>
+<section id="t-puertos">
+<div class="card"><b>🏔️ Puertos de montaña</b><div class="note">Estado de cada puerto: cortes e incidencias oficiales, nieve y temperatura previstas y la cámara más cercana. Antes de subir en invierno, mira siempre la información oficial (848 423 500).</div></div>
+<div id="puList"><div class="card"><div class="note">Cargando…</div></div></div>
+</section>
+<section id="t-radar">
+<div class="card"><b>🌧️ Radar de lluvia</b><div class="note">Dónde está lloviendo (o nevando) ahora y en las últimas 2 horas. Dale a ▶️ para ver hacia dónde se mueve.</div>
+<div class="row" style="align-items:center;margin-top:6px"><button class="btn pri" id="rdPlay">▶️</button><input type="range" id="rdT" min="0" max="0" value="0" style="flex:1"><b id="rdLbl" style="min-width:64px;text-align:right"></b></div></div>
+<div class="card"><div style="position:relative"><canvas id="rdc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="rdcIn">＋</button><button class="btn mtb" id="rdcOut">－</button></div></div><div class="note" style="margin-top:4px">Cuanto más intenso el color, más fuerte llueve; los tonos claros y blancos son nieve.</div></div>
+<div class="card"><b>⚡ Rayos</b><div class="note">No hay un servicio abierto y gratuito de rayos en directo que se pueda meter en la app. AEMET tiene su mapa oficial de rayos:</div><div class="row"><button class="btn" id="rdRayos">⚡ Ver los rayos en AEMET</button></div></div>
+<div class="note" style="margin:0 6px 10px">Radar: RainViewer (uso personal y no comercial), con datos de los radares meteorológicos europeos.</div>
+</section>
+<section id="t-emb">
+<div class="card" id="emSum"><b>💧 Embalses de Navarra</b><div class="note">Cargando…</div></div>
+<div id="emList"></div>
+<div class="note" style="margin:0 6px 10px">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos provisionales cada 15 minutos.</div>
+</section>
+<section id="t-cerca">
+<div class="card"><b>📍 Qué hay cerca de mí</b><div class="note">Con tu ubicación, lo más cercano de todo lo que tiene la app. Tu ubicación no se guarda ni se envía a nadie: solo la usa el móvil.</div>
+<div class="row"><button class="btn pri" id="ceGo">📍 Buscar cerca de mí</button></div><div class="note" id="ceMsg"></div></div>
+<div id="ceList"></div>
+</section>
+<section id="t-agenda">
+<div class="card"><b>🎉 Agenda de fiestas</b><div class="note">Las fiestas que vais apuntando en cada pueblo (Pueblos → Editar → fechas de fiestas). Se repiten cada año en las mismas fechas.</div></div>
+<div id="agList"><div class="card"><div class="note">Cargando…</div></div></div>
+</section>
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
@@ -457,7 +496,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={gas:'⛽ Gasolineras y recarga',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1320,7 +1359,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dAgenda','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
@@ -1365,7 +1404,7 @@ let CFG=Object.assign({tema:'oscuro',letra:100,avisos:false,qAma:150,qRoj:300,su
 function cfgApply(){const dark=CFG.tema==='oscuro'||(CFG.tema==='auto'&&!(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches));
   document.body.classList.toggle('light',!dark);
   if(APP&&window.AndroidNet.setTextZoom)window.AndroidNet.setTextZoom(CFG.letra);
-  if(APP&&window.AndroidNet.setAlerts)window.AndroidNet.setAlerts(JSON.stringify({on:CFG.avisos,qAma:CFG.qAma,qRoj:CFG.qRoj,subida:CFG.subida}));}
+  if(APP&&window.AndroidNet.setAlerts)window.AndroidNet.setAlerts(JSON.stringify({on:CFG.avisos,qAma:CFG.qAma,qRoj:CFG.qRoj,subida:CFG.subida,roads:CFG.roads||[],snow:CFG.snow||[]}));}
 function cfgSave(){LS.set('cfg',CFG);cfgApply();}
 function ajustesRender(){const el=document.getElementById('ajBody'),nat=APP&&window.AndroidNet.setAlerts;
   const seg=(k,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button class="btn${CFG[k]==v?' on':''}" data-k="${k}" data-v="${v}">${l}</button>`).join('')}</div>`;
@@ -1377,10 +1416,17 @@ function ajustesRender(){const el=document.getElementById('ajBody'),nat=APP&&win
    <div class="st"><div><b>🟡 Pasa de</b><div class="s">aviso de alerta</div></div><div><input type="number" id="ajAma" value="${CFG.qAma}" style="width:80px" class="town"> m³/s</div></div>
    <div class="st"><div><b>🔴 Pasa de</b><div class="s">aviso de peligro</div></div><div><input type="number" id="ajRoj" value="${CFG.qRoj}" style="width:80px" class="town"> m³/s</div></div>
    <div class="st"><div><b>📈 Sube más de</b><div class="s">en la última hora</div></div><div><input type="number" id="ajSub" value="${CFG.subida}" style="width:80px" class="town"> m³/s</div></div>
-   <div class="row"><button class="btn" id="ajTest">Probar un aviso</button></div>`:'<div class="note">Llegan con la app actualizada (versión 6 o más): pulsa «⬆️ Buscar nueva versión de la app» en el menú.</div>'}</div>`;
+   <div class="row"><button class="btn" id="ajTest">Probar un aviso</button></div>
+   <div style="margin-top:10px;border-top:1px solid var(--line);padding-top:8px"><b>🚧 Carreteras que usas</b><div class="note">Te avisa cuando aparece una incidencia nueva (corte, obra, accidente…) en estas carreteras. Escríbelas separadas por comas.</div>
+    <input id="ajRoads" class="town" placeholder="Ej.: A-15, NA-137, N-135" value="${(CFG.roads||[]).join(', ')}" style="width:100%;box-sizing:border-box;margin-top:4px"></div>
+   <div style="margin-top:10px;border-top:1px solid var(--line);padding-top:8px"><b>❄️ Nieve en puertos</b><div class="note">Te avisa la víspera si se espera nieve en los puertos que marques.</div><div id="ajSnow"><div class="note">Cargando puertos…</div></div></div>`:'<div class="note">Llegan con la app actualizada (versión 6 o más): pulsa «⬆️ Buscar nueva versión de la app» en el menú.</div>'}</div>`;
   el.querySelectorAll('button[data-k]').forEach(b=>b.onclick=()=>{const k=b.dataset.k;let v=b.dataset.v;if(k==='letra')v=+v;if(k==='avisos')v=v==='true';CFG[k]=v;cfgSave();ajustesRender();});
   [['ajAma','qAma'],['ajRoj','qRoj'],['ajSub','subida']].forEach(([id,k])=>{const i=document.getElementById(id);if(i)i.onchange=()=>{CFG[k]=Math.max(1,+i.value||CFG[k]);cfgSave();};});
-  const t=document.getElementById('ajTest');if(t)t.onclick=()=>window.AndroidNet.testAlert&&window.AndroidNet.testAlert();}
+  const t=document.getElementById('ajTest');if(t)t.onclick=()=>window.AndroidNet.testAlert&&window.AndroidNet.testAlert();
+  const rd=document.getElementById('ajRoads');if(rd)rd.onchange=()=>{CFG.roads=rd.value.toUpperCase().split(/[,;\s]+/).map(s=>s.trim()).filter(s=>/^[A-Z]+-?\d/.test(s));rd.value=CFG.roads.join(', ');cfgSave();};
+  const sn=document.getElementById('ajSnow');if(sn)vjLoad(()=>{const P=puList();const on=new Set((CFG.snow||[]).map(x=>x[0]));
+    sn.innerHTML=P.length?P.map((x,i)=>`<label style="display:flex;gap:8px;align-items:center;margin:4px 0"><input type="checkbox" data-i="${i}" ${on.has(x.n)?'checked':''}> ${x.n}${x.ele?' <span class="note">'+Math.round(x.ele)+' m</span>':''}</label>`).join(''):'<div class="note">Sin datos de puertos ahora.</div>';
+    sn.querySelectorAll('input').forEach(c=>c.onchange=()=>{CFG.snow=[...sn.querySelectorAll('input:checked')].map(i=>{const x=P[+i.dataset.i];return [x.n,x.pt[0],x.pt[1]];});cfgSave();});});}
 
 // ---------- acerca de ----------
 async function aboutRender(){let v='?';if(APP&&window.AndroidNet.webVersion)v=window.AndroidNet.webVersion();else try{v=(await (await fetch('version.json')).json()).version;}catch(e){}
@@ -2364,6 +2410,9 @@ function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById(
   box.innerHTML=`<div class="card" style="border-color:var(--acc)"><b>✏️ Editar ${p.n}</b>
    ${ta('historia','📜 Historia','Origen del pueblo, hechos importantes, edificios…')}${ta('curiosidades','💡 Curiosidades','Leyendas, anécdotas, personajes…')}
    ${ta('fiestas','🎉 Fiestas y tradiciones','Fechas de fiestas, romerías, costumbres…')}${ta('gastronomia','🍽️ Gastronomía','Platos típicos, productos…')}
+   <div style="margin-top:10px;padding:8px;border:1px dashed var(--line);border-radius:8px"><b>📅 Fechas de fiestas (para la agenda)</b><div class="note">Se repiten cada año en las mismas fechas. Deja vacías las que no uses.</div>
+    ${[0,1,2].map(k=>{const f=(d.fiestasF||[])[k]||{};return `<div style="margin-top:6px"><input id="pbF_n${k}" class="town" placeholder="Nombre (p. ej. Fiestas patronales, San Juan…)" value="${(f.n||'').replace(/"/g,'&quot;')}" style="width:100%;box-sizing:border-box">
+     <div class="row" style="gap:6px;margin-top:4px"><label style="flex:1">Empiezan<input id="pbF_i${k}" type="date" class="town" style="width:100%;box-sizing:border-box" value="${f.ini||''}"></label><label style="flex:1">Acaban<input id="pbF_f${k}" type="date" class="town" style="width:100%;box-sizing:border-box" value="${f.fin||''}"></label></div></div>`;}).join('')}</div>
    <div style="margin-top:10px;padding:8px;border:1px dashed var(--line);border-radius:8px"><b>📊 Corregir datos</b><div class="note">Si un dato automático está mal (por ejemplo, salen los habitantes de todo el valle), pon aquí el bueno. Déjalo vacío para usar el automático.</div>
     <div class="row" style="gap:6px;margin-top:6px"><label style="flex:2">👥 Habitantes del pueblo<input id="pbE_hab" type="number" min="0" class="town" style="width:100%;box-sizing:border-box" value="${d.hab??''}" placeholder="${p.m.hab??''}"></label>
      <label style="flex:1">Año<input id="pbE_habAno" type="number" min="1900" max="2100" class="town" style="width:100%;box-sizing:border-box" value="${d.habAno??''}" placeholder="${new Date().getFullYear()}"></label></div>
@@ -2376,6 +2425,7 @@ function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById(
   document.getElementById('pbCancel').onclick=()=>pbMine(p);
   document.getElementById('pbSave').onclick=async()=>{const msg=document.getElementById('pbMsg'),btn=document.getElementById('pbSave');btn.disabled=true;
     try{const nd=Object.assign({},d,{n:p.n});['historia','curiosidades','fiestas','gastronomia'].forEach(k=>{nd[k]=document.getElementById('pbE_'+k).value.trim();});
+      nd.fiestasF=[0,1,2].map(k=>({n:document.getElementById('pbF_n'+k).value.trim(),ini:document.getElementById('pbF_i'+k).value,fin:document.getElementById('pbF_f'+k).value})).filter(f=>f.ini);if(!nd.fiestasF.length)delete nd.fiestasF;
       ['hab','habAno','alt'].forEach(k=>{const v=document.getElementById('pbE_'+k).value.trim();if(v==='')delete nd[k];else nd[k]=Math.round(+v);});if(nd.hab!=null||nd.alt!=null)nd.datBy=edName()||'';else delete nd.datBy;
       const del=new Set([...document.querySelectorAll('[data-del]:checked')].map(x=>+x.dataset.del));nd.fotos=(d.fotos||[]).filter((_,k)=>!del.has(k));
       const files=[...(document.getElementById('pbE_f').files||[])],cap=document.getElementById('pbE_ft').value.trim();
@@ -2635,6 +2685,167 @@ document.getElementById('ttSave').onclick=async()=>{const v=document.getElementB
     await ghPut('config/tomtom.json',b64u(JSON.stringify({key:v})),'Clave de TomTom para el tráfico',sha);TTKEY=v;TTT={};document.getElementById('inTrafBar').style.display='';if(INM)INM.draw();m.textContent='✅ Guardada. El tráfico ya sale en el mapa.';}
   catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}};
 const _inInit0=inInit;inInit=function(){_inInit0();ttLoadKey().then(()=>{if(INM)INM.draw();});};
+
+
+/* =====================================================================
+   ⛽🏔️🌧️💧📍🎉  Gasolineras, puertos, radar, embalses, cerca de mí y agenda
+   ===================================================================== */
+let VJL=false;
+function vjLoad(cb){if(window.VIAJE)return cb();if(VJL){setTimeout(()=>vjLoad(cb),300);return;}VJL=true;const s=document.createElement('script');s.src='viaje.js?t='+Math.floor(Date.now()/36e5);s.onload=()=>{VJL=false;cb();};s.onerror=()=>{VJL=false;window.VIAJE={gas:[],rec:[],pue:[]};cb();};document.body.appendChild(s);}
+const openNav=(la,lo)=>{const u=`https://www.google.com/maps/dir/?api=1&destination=${la},${lo}`;if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');};
+const rumbo=(a,b,c,d)=>{const y=Math.sin((d-b)*Math.PI/180)*Math.cos(c*Math.PI/180),x=Math.cos(a*Math.PI/180)*Math.sin(c*Math.PI/180)-Math.sin(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.cos((d-b)*Math.PI/180);
+  return ['N','NE','E','SE','S','SO','O','NO'][Math.round(((Math.atan2(y,x)*180/Math.PI)+360)%360/45)%8];};
+// teselas (XYZ, como Google/OSM) dibujadas encima de nuestro mapa
+function drawTiles(x,P,b,url,cache,zmin,zmax,alpha,redraw){const z=Math.max(zmin,Math.min(zmax,Math.round(Math.log2(360*b.W/(256*(b.e-b.w)))))),n=2**z,
+  tx=lo=>Math.floor((lo+180)/360*n),ty=la=>{const r=la*Math.PI/180;return Math.floor((1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n);},
+  lon=X=>X/n*360-180,lat=Y=>{const k=Math.PI-2*Math.PI*Y/n;return 180/Math.PI*Math.atan(.5*(Math.exp(k)-Math.exp(-k)));};
+  const x0=tx(b.w),x1=tx(b.e),y0=ty(b.n),y1=ty(b.s);if((x1-x0+1)*(y1-y0+1)>80)return;x.globalAlpha=alpha;
+  for(let X=x0;X<=x1;X++)for(let Y=y0;Y<=y1;Y++){const u=url(z,X,Y);let im=cache[u];if(!im){im=cache[u]=new Image();im.onload=redraw;im.src=u;}
+    if(im.complete&&im.naturalWidth){const [ax,ay]=P(lat(Y),lon(X)),[bx,by]=P(lat(Y+1),lon(X+1));x.drawImage(im,ax,ay,bx-ax,by-ay);}}x.globalAlpha=1;}
+function mapBtns(id,M){document.getElementById(id+'In').onclick=()=>M.zoom(1.6);document.getElementById(id+'Out').onclick=()=>M.zoom(1/1.6);}
+// mi posición (se pide una vez y se recuerda un rato)
+let MYPOS=null;
+function myPos(){return new Promise((res,rej)=>{if(MYPOS&&Date.now()-MYPOS.t<5*60e3)return res(MYPOS);if(!navigator.geolocation)return rej(new Error('Este móvil no deja usar la ubicación'));
+  navigator.geolocation.getCurrentPosition(p=>{MYPOS={la:p.coords.latitude,lo:p.coords.longitude,t:Date.now()};res(MYPOS);},e=>rej(new Error(e.code===1?'No has dado permiso de ubicación a la app':'No se pudo saber dónde estás ('+e.message+')')),{enableHighAccuracy:false,timeout:15000,maximumAge:300000});});}
+
+/* ---------- ⛽ gasolineras y recarga ---------- */
+let GSM=null,GSSEL=null,GSLIVE=null,GSPOS=null;
+const GSF={g95:'Gasolina 95',dA:'Diésel',g98:'Gasolina 98',dP:'Diésel premium',glp:'Autogás'};
+const gsNum=s=>{const v=parseFloat(String(s||'').replace(',','.'));return isNaN(v)?null:Math.round(v*1000)/1000;};
+async function gsLive(){if(!APP||GSLIVE)return;try{const r=await netGet('https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/FiltroProvincia/31');if(r.code!==200)return;
+  const j=JSON.parse(r.body),L=(j.ListaEESSPrecio||[]).map(e=>({id:e.IDEESS,n:(e['Rótulo']||'').trim(),dir:(e['Dirección']||'').toLowerCase().replace(/(^|\s)\S/g,m=>m.toUpperCase()),mun:(e.Localidad||e.Municipio||'').toLowerCase().replace(/(^|\s)\S/g,m=>m.toUpperCase()),h:e.Horario||'',
+    pt:[gsNum(e.Latitud),gsNum(e['Longitud (WGS84)'])],g95:gsNum(e['Precio Gasolina 95 E5']),g98:gsNum(e['Precio Gasolina 98 E5']),dA:gsNum(e['Precio Gasoleo A']),dP:gsNum(e['Precio Gasoleo Premium']),glp:gsNum(e['Precio Gases licuados del petróleo'])})).filter(x=>x.pt[0]);
+  if(L.length){window.VIAJE.gas=L;window.VIAJE.gasT=j.Fecha||'';GSLIVE=Date.now();}}catch(e){}}
+function gsRender(){const V=window.VIAJE,f=document.getElementById('gsFuel').value,isR=f==='rec';
+  if(isR){const L=(V.rec||[]).map(x=>({...x,d:GSPOS?km(GSPOS.la,GSPOS.lo,x.pt[0],x.pt[1]):null})).sort((a,b)=>GSPOS?a.d-b.d:(a.n||'').localeCompare(b.n||''));
+    document.getElementById('gsSum').innerHTML=`<b>⚡ Puntos de recarga eléctrica</b><div class="note">${L.length} puntos en Navarra según OpenStreetMap.</div>`;
+    document.getElementById('gsLeg').innerHTML='<b style="color:#8e24aa">●</b> Punto de recarga';document.getElementById('gsListT').textContent=GSPOS?'📋 Los más cercanos':'📋 Todos';
+    document.getElementById('gsList').innerHTML=L.slice(0,40).map((x,i)=>`<div class="st" data-i="${V.rec.indexOf(x)}" style="cursor:pointer"><div><b>⚡ ${x.n||'Punto de recarga'}</b><div class="s">${[x.kw,x.cap?x.cap+' plazas':'',x.tip.join(', ')].filter(Boolean).join(' · ')}</div></div><span class="note">${x.d!=null?fmtN(x.d,1)+' km':'›'}</span></div>`).join('')||'<div class="note">Sin datos.</div>';
+    document.querySelectorAll('#gsList [data-i]').forEach(d=>d.onclick=()=>{GSSEL={r:V.rec[+d.dataset.i]};gsFicha();GSM.fit(GSSEL.r.pt[0]-.03,GSSEL.r.pt[0]+.03,GSSEL.r.pt[1]-.04,GSSEL.r.pt[1]+.04);});
+    if(GSM)GSM.draw();return;}
+  const L=V.gas.filter(x=>x[f]).map(x=>({...x,d:GSPOS?km(GSPOS.la,GSPOS.lo,x.pt[0],x.pt[1]):null})),pr=L.map(x=>x[f]).sort((a,b)=>a-b),avg=pr.reduce((s,v)=>s+v,0)/(pr.length||1),min=pr[0],max=pr[pr.length-1];
+  const S=GSPOS?L.filter(x=>x.d<=15).sort((a,b)=>a[f]-b[f]||a.d-b.d):L.slice().sort((a,b)=>a[f]-b[f]);
+  document.getElementById('gsSum').innerHTML=`<b>⛽ ${GSF[f]} en Navarra</b><div class="kpi" style="margin-top:8px"><div><span class="note">Más barata</span><b style="color:#43a047">${fmtN(min,3)} €</b></div><div><span class="note">Media</span><b>${fmtN(avg,3)} €</b></div></div>
+   <div class="note" style="margin-top:4px">${L.length} gasolineras · la más cara a ${fmtN(max,3)} € · precios ${GSLIVE?'en directo':'de '+(V.gasT||V.t||'')}.</div>`;
+  document.getElementById('gsLeg').innerHTML='<b style="color:#43a047">●</b> barata <b style="color:#fdd835">●</b> media <b style="color:#e53935">●</b> cara · toca una para ver sus precios';
+  document.getElementById('gsListT').textContent=GSPOS?'📋 Las más baratas a menos de 15 km':'📋 Las más baratas de Navarra';
+  document.getElementById('gsList').innerHTML=S.slice(0,30).map(x=>`<div class="st" data-i="${V.gas.indexOf(V.gas.find(g=>g.id===x.id))}" style="cursor:pointer"><div><b>${x.n}</b><div class="s">${x.mun} · ${x.dir}</div></div><div style="text-align:right"><b>${fmtN(x[f],3)} €</b>${x.d!=null?`<div class="note">${fmtN(x.d,1)} km</div>`:''}</div></div>`).join('')||'<div class="note">No hay gasolineras con este combustible cerca.</div>';
+  document.querySelectorAll('#gsList [data-i]').forEach(d=>d.onclick=()=>{GSSEL={g:V.gas[+d.dataset.i]};gsFicha();GSM.fit(GSSEL.g.pt[0]-.03,GSSEL.g.pt[0]+.03,GSSEL.g.pt[1]-.04,GSSEL.g.pt[1]+.04);document.getElementById('gsc').scrollIntoView({behavior:'smooth'});});
+  GSM&&GSM.draw();}
+function gsCol(v,min,max){const t=max>min?(v-min)/(max-min):.5;return t<.33?'#43a047':t<.66?'#fdd835':'#e53935';}
+function gsDraw(x,P,b,M){const V=window.VIAJE;if(!V)return;const f=document.getElementById('gsFuel').value;
+  if(f==='rec'){for(const r of V.rec||[]){const [px,py]=P(r.pt[0],r.pt[1]);if(px<-9||py<-9||px>b.W+9||py>b.H+9)continue;x.beginPath();x.arc(px,py,GSSEL&&GSSEL.r===r?9:6,0,7);x.fillStyle='#8e24aa';x.fill();x.strokeStyle='#fff';x.lineWidth=1.5;x.stroke();}}
+  else{const L=V.gas.filter(g=>g[f]),pr=L.map(g=>g[f]).sort((a,b)=>a-b),lo=pr[Math.floor(pr.length*.1)]||0,hi=pr[Math.floor(pr.length*.9)]||1;
+    for(const g of L){const [px,py]=P(g.pt[0],g.pt[1]);if(px<-9||py<-9||px>b.W+9||py>b.H+9)continue;const sel=GSSEL&&GSSEL.g===g;x.beginPath();x.arc(px,py,sel?9:6,0,7);x.fillStyle=gsCol(g[f],lo,hi);x.fill();x.strokeStyle=sel?'#000':'#fff';x.lineWidth=sel?2.5:1.5;x.stroke();
+      if(M.z>=8){x.font='bold 11px sans-serif';x.fillStyle='#13202c';x.strokeStyle='rgba(255,255,255,.9)';x.lineWidth=3;const t=fmtN(g[f],3);x.strokeText(t,px+8,py+4);x.fillText(t,px+8,py+4);}}}
+  if(GSPOS){const [px,py]=P(GSPOS.la,GSPOS.lo);x.beginPath();x.arc(px,py,7,0,7);x.fillStyle='#1e88e5';x.fill();x.strokeStyle='#fff';x.lineWidth=3;x.stroke();}}
+function gsTap(px,py,M){const V=window.VIAJE,f=document.getElementById('gsFuel').value;let best=null,bd=22;
+  const L=f==='rec'?(V.rec||[]).map(r=>({r,pt:r.pt})):V.gas.filter(g=>g[f]).map(g=>({g,pt:g.pt}));
+  for(const o of L){const [a,c]=M.P(o.pt[0],o.pt[1]),d=Math.hypot(a-px,c-py);if(d<bd){bd=d;best=o;}}GSSEL=best;M.draw();gsFicha();}
+function gsFicha(){const el=document.getElementById('gsFicha');if(!GSSEL){el.innerHTML='';return;}
+  if(GSSEL.r){const r=GSSEL.r;el.innerHTML=`<b>⚡ ${r.n||'Punto de recarga'}</b>${r.op&&r.op!==r.n?`<div class="note">${r.op}</div>`:''}
+    ${r.kw?`<div class="st"><span>Potencia máxima</span><b>${r.kw}</b></div>`:''}${r.cap?`<div class="st"><span>Plazas</span><b>${r.cap}</b></div>`:''}${r.tip.length?`<div class="st"><span>Conectores</span><b style="text-align:right">${r.tip.join(', ')}</b></div>`:''}
+    ${r.fee?`<div class="st"><span>De pago</span><b>${r.fee==='yes'?'Sí':r.fee==='no'?'Gratis':r.fee}</b></div>`:''}${r.h?`<div class="st"><span>Horario</span><b>${r.h}</b></div>`:''}
+    <div class="row"><button class="btn pri" id="gsGo">🧭 Cómo llegar</button></div>`;document.getElementById('gsGo').onclick=()=>openNav(r.pt[0],r.pt[1]);return;}
+  const g=GSSEL.g;el.innerHTML=`<b>⛽ ${g.n}</b><div class="note">${g.dir} · ${g.mun}</div>
+   ${Object.entries(GSF).filter(([k])=>g[k]).map(([k,n])=>`<div class="st"><span>${n}</span><b>${fmtN(g[k],3)} €/l</b></div>`).join('')}
+   ${g.h?`<div class="st"><span>Horario</span><b style="text-align:right;font-size:13px">${g.h}</b></div>`:''}
+   <div class="row"><button class="btn pri" id="gsGo">🧭 Cómo llegar</button></div>`;document.getElementById('gsGo').onclick=()=>openNav(g.pt[0],g.pt[1]);}
+function gsInit(){vjLoad(async()=>{if(!GSM){GSM=NavMap('gsc',gsDraw,gsTap);mapBtns('gsc',GSM);document.getElementById('gsFuel').onchange=()=>{GSSEL=null;gsFicha();gsRender();};
+    document.getElementById('gsNear').onclick=async()=>{try{GSPOS=await myPos();gsRender();GSM.fit(GSPOS.la-.12,GSPOS.la+.12,GSPOS.lo-.16,GSPOS.lo+.16);}catch(e){toast('📍 '+e.message);}};}
+  setTimeout(()=>{GSM.draw();GSM.base();},40);gsRender();await gsLive();gsRender();});}
+
+/* ---------- 🏔️ puertos de montaña ---------- */
+function puList(){return ((window.VIAJE&&window.VIAJE.pue)||[]).filter(x=>(x.ele||0)>=550);}
+let PUW=null;
+async function puInit(){const el=document.getElementById('puList');vjLoad(async()=>{const P=puList();if(!P.length){el.innerHTML='<div class="card"><div class="note">No se pudieron cargar los puertos ahora.</div></div>';return;}
+  if(APP&&!INC)try{await inFetch();}catch(e){}
+  if(!PUW||Date.now()-PUW.at>30*60e3){const j=await getJSON(`${OM}?latitude=${P.map(x=>x.pt[0]).join(',')}&longitude=${P.map(x=>x.pt[1]).join(',')}&current=temperature_2m,snowfall,snow_depth,weather_code,wind_gusts_10m&daily=snowfall_sum,temperature_2m_min,temperature_2m_max&forecast_days=3${TZ}`);
+    if(j){PUW={at:Date.now(),d:Array.isArray(j)?j:[j]};}}
+  el.innerHTML=P.map((x,i)=>{const w=PUW&&PUW.d[i],c=w&&w.current,d=w&&w.daily,ns=d?[0,1,2].map(k=>d.snowfall_sum[k]||0):[0,0,0],tmin=d?Math.min(d.temperature_2m_min[0],d.temperature_2m_min[1]):null;
+    const inc=(INC||[]).filter(n=>km(x.pt[0],x.pt[1],n.pt[0],n.pt[1])<4),cort=inc.find(n=>n.cerr||/cortad|cerrad/i.test(n.af+' '+n.tit));
+    const cam=CAMS.map(k=>({k,d:km(x.pt[0],x.pt[1],k.pt[0],k.pt[1])})).sort((a,b)=>a.d-b.d)[0];
+    let est,col;if(cort){est='⛔ Cortado o con cortes';col='#e53935';}else if(ns[0]+ns[1]>=.5||(c&&c.snow_depth>.02)){est='❄️ Nieve';col='#29c6f2';}else if(inc.length){est='⚠️ Con incidencias';col='#ffb300';}else if(tmin!=null&&tmin<=0){est='🧊 Posible hielo';col='#90caf9';}else{est='✅ Sin incidencias';col='#43a047';}
+    return `<div class="card" style="border-left:5px solid ${col}"><div style="display:flex;justify-content:space-between;gap:6px;align-items:baseline"><b style="font-size:16px">🏔️ ${x.n}</b><span class="note">${x.ele?Math.round(x.ele)+' m':''}</span></div>
+     <div style="font-weight:700;color:${col};margin:4px 0">${est}</div>
+     ${c?`<div class="kpi"><div><span class="note">Ahora</span><b>${Math.round(c.temperature_2m)}° ${wxIcon(c.weather_code,new Date().getHours())}</b><span class="note">rachas ${Math.round(c.wind_gusts_10m)} km/h${c.snow_depth>.005?' · '+Math.round(c.snow_depth*100)+' cm de nieve':''}</span></div>
+      <div><span class="note">Nieve prevista</span><b>${ns[0]+ns[1]+ns[2]>=.1?ns.map(v=>fmtN(v,0)).join(' / ')+' cm':'No'}</b><span class="note">hoy / mañana / pasado · mín. ${Math.round(tmin)}°</span></div></div>`:''}
+     ${inc.map(n=>`<div class="note" style="margin-top:6px">${inIco(n.cat)} <b>${n.car}: ${n.tit||n.tipo}</b> — ${(n.des||n.af).replace(/</g,'&lt;')}</div>`).join('')}
+     ${cam&&cam.d<12?`<img src="${caSrc(cam.k)}" data-c="${CAMS.indexOf(cam.k)}" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;margin-top:8px;cursor:zoom-in" onerror="this.remove()"><div class="note">📷 Cámara de ${cam.k.n} (a ${fmtN(cam.d,1)} km)</div>`:''}</div>`;}).join('')+
+   `<div class="note" style="margin:0 6px 10px">Puertos: OpenStreetMap · incidencias: Gobierno de Navarra${APP?'':' (solo en la app)'} · tiempo: Open‑Meteo · cámaras: Gobierno de Navarra y refugios.</div>`;
+  el.querySelectorAll('img[data-c]').forEach(im=>im.onclick=()=>caBig(CAMS[+im.dataset.c]));});}
+
+/* ---------- 🌧️ radar de lluvia (RainViewer) ---------- */
+let RDM=null,RDF=[],RDI=0,RDH='',RDT={},RDP=null;
+async function rdLoad(){try{const j=await getJSON('https://api.rainviewer.com/public/weather-maps.json');if(!j||!j.radar)return;RDH=j.host;RDF=[...(j.radar.past||[]),...(j.radar.nowcast||[]).map(f=>({...f,nc:1}))];
+  const s=document.getElementById('rdT');s.max=RDF.length-1;RDI=(j.radar.past||[]).length-1;s.value=RDI;rdShow();}catch(e){}}
+function rdShow(){const f=RDF[RDI];if(!f)return;document.getElementById('rdLbl').textContent=(f.nc?'🔮 ':'')+new Date(f.time*1000).toTimeString().slice(0,5);RDM&&RDM.draw();
+}
+function rdDraw(x,P,b){const f=RDF[RDI];if(f)drawTiles(x,P,b,(z,X,Y)=>`${RDH}${f.path}/256/${z}/${X}/${Y}/2/1_1.png`,RDT,5,7,.8,()=>RDM&&RDM.draw());}
+function rdInit(){if(!RDM){RDM=NavMap('rdc',rdDraw,()=>{});mapBtns('rdc',RDM);RDM.zoom(.7);
+    document.getElementById('rdT').oninput=e=>{RDI=+e.target.value;rdShow();};
+    document.getElementById('rdPlay').onclick=()=>{const b=document.getElementById('rdPlay');if(RDP){clearInterval(RDP);RDP=null;b.textContent='▶️';return;}b.textContent='⏸️';
+      RDP=setInterval(()=>{if(!document.getElementById('t-radar').classList.contains('on')){clearInterval(RDP);RDP=null;b.textContent='▶️';return;}RDI=(RDI+1)%RDF.length;document.getElementById('rdT').value=RDI;rdShow();},700);};
+    document.getElementById('rdRayos').onclick=()=>{const u='https://www.aemet.es/es/eltiempo/observacion/rayos';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');};}
+  setTimeout(()=>{RDM.draw();RDM.base();},40);rdLoad();}
+
+/* ---------- 💧 embalses de Navarra (SAIH Ebro) ---------- */
+async function emStations(){const c=LS.get('embNav',null);if(c&&Date.now()-c.t<30*864e5&&c.st.length)return c.st;
+  const msg=t=>{document.getElementById('emSum').innerHTML='<b>💧 Embalses de Navarra</b><div class="note">'+t+'</div>';};
+  msg('Buscando los embalses en el SAIH (solo la primera vez)…');let all=null;
+  for(let k=0;k<3&&!all;k++){const b=await netGet(SAIH+'/api/common/getBusquedas');try{all=(JSON.parse(b.body).BUSQUEDA||[]).filter(e=>e.TIPO==='_ficha'&&e.TIPO_REMOTA==='E');}catch(e){}}
+  if(!all)return [];const st=[];let n=0;
+  for(let i=0;i<all.length;i+=6){await Promise.all(all.slice(i,i+6).map(async e=>{const g=await netGet(SAIH+'/api/ficha/procesarTablaInfoGeneral?estacion='+e.CODIGO_ESTACION);n++;
+    try{const h=JSON.parse(g.body).INFO_GENERAL||'',lat=+(h.match(/data-lat='([-\d.]+)'/)||[])[1],lon=+(h.match(/data-lng='([-\d.]+)'/)||[])[1],ca=((h.match(/Comunidad Aut[oó]noma<\/td>\s*<td>([^<]*)/)||[])[1]||'').trim();
+      if(/navarra/i.test(ca)||/YESA/i.test(e.NOMBRE_ESTACION))st.push({code:e.CODIGO_ESTACION,name:e.NOMBRE_ESTACION,lat,lon});}catch(x){}}));msg(`Buscando los embalses en el SAIH… ${n} de ${all.length}`);}
+  if(st.length)LS.set('embNav',{t:Date.now(),st});return st;}
+async function emInit(){if(!APP){document.getElementById('emSum').innerHTML='<b>💧 Embalses de Navarra</b><div class="note">📱 Esta sección funciona en la app: el móvil lee los datos del SAIH Ebro.</div>';return;}
+  const st=await emStations();if(!st.length){document.getElementById('emSum').innerHTML='<b>💧 Embalses de Navarra</b><div class="note">❌ El SAIH no responde ahora. Prueba en un rato.</div>';return;}
+  if(!CAU)CAU={};document.getElementById('emSum').innerHTML=`<b>💧 Embalses de Navarra</b><div class="note">Leyendo ${st.length} embalses…</div>`;
+  for(let i=0;i<st.length;i+=4){await Promise.all(st.slice(i,i+4).map(async s=>{const x=await netGet(SAIH+'/api/ficha/procesarTablaValoresActuales?estacion='+s.code);try{fichaAdd(CAU,s.code,JSON.parse(x.body).VALORES_ACTUALES||'');CAU[s.code].name=s.name;}catch(e){}}));}
+  const pc=s=>{const e=CAU[s.code],p=e&&pick(e,'pct');return p?Number(p.VALOR_QM):null;},vo=s=>{const e=CAU[s.code],v=e&&pick(e,'vol');return v&&/hm/i.test(v.LS_UNID_ING||'')?Number(v.VALOR_QM):null;};
+  const S=st.slice().sort((a,b)=>(vo(b)||0)-(vo(a)||0)),tv=S.reduce((s,x)=>s+(vo(x)||0),0);
+  document.getElementById('emSum').innerHTML=`<b>💧 Embalses de Navarra</b><div class="kpi" style="margin-top:8px"><div><span class="note">Embalses</span><b>${st.length}</b></div><div><span class="note">Agua embalsada</span><b>${fmtN(tv,1)} hm³</b></div></div>
+   ${S.map(s=>{const p=pc(s);return p==null?'':`<div class="st"><span>${prettyName(s.name).replace(/^Embalse (de )?/i,'')}</span><span style="display:flex;align-items:center;gap:6px;min-width:150px"><span style="flex:1;height:10px;background:#0b1118;border-radius:5px;overflow:hidden;border:1px solid var(--line)"><span style="display:block;width:${Math.max(0,Math.min(100,p))}%;height:100%;background:#2f8fd8"></span></span><b>${fmtN(p,0)} %</b></span></div>`;}).join('')}`;
+  document.getElementById('emList').innerHTML=S.map(s=>embCard(s.code,prettyName(s.name),null,s.code==='E025'?{cap:21.39,zmax:628,zmin:585}:null)).join('');}
+
+/* ---------- 📍 qué hay cerca de mí ---------- */
+async function ceGo(){const msg=document.getElementById('ceMsg'),el=document.getElementById('ceList');msg.textContent='Buscando dónde estás…';let P;
+  try{P=await myPos();}catch(e){msg.textContent='❌ '+e.message+(APP?'. Si es la primera vez, puede que necesites actualizar la app a la versión 11.':'');return;}
+  msg.textContent=`Estás en ${fmtN(P.la,4)}, ${fmtN(P.lo,4)}. Buscando…`;
+  await new Promise(r=>vjLoad(r));await new Promise(r=>pbLoad(r));await new Promise(r=>moLoad(r));if(APP&&!INC)try{await inFetch();}catch(e){}
+  const near=(L,pt,n,max)=>L.map(o=>({o,d:km(P.la,P.lo,...pt(o))})).filter(x=>x.d<=max).sort((a,b)=>a.d-b.d).slice(0,n);
+  const row=(ico,t,s,x,act)=>`<div class="st" ${act?`data-a="${act}" style="cursor:pointer"`:''}><div><b>${ico} ${t}</b>${s?`<div class="s">${s}</div>`:''}</div><span class="note" style="white-space:nowrap">${fmtN(x.d,1)} km ${rumbo(P.la,P.lo,...x.pt)}</span></div>`;
+  const blk=(t,rows)=>rows.length?`<div class="card"><b>${t}</b>${rows.join('')}</div>`:'';
+  const V=window.VIAJE,pue=pbList();
+  const pb=near(pue,o=>[o.lat,o.lon],3,30),gs=near(V.gas,o=>o.pt,4,25),rc=near(V.rec||[],o=>o.pt,3,25),cm=near(CAMS,o=>o.pt,3,40),pt=near(puList(),o=>o.pt,3,40),ic=near(INC||[],o=>o.pt,4,30);
+  const mo=[];for(const L of MOL){for(const f of moFeats(L[0])){const q=f.pt||(f.r&&f.r[0]&&f.r[0][0]);if(q)mo.push({L,f,q});}}const mn=near(mo,o=>o.q,8,15);
+  const ACT={};let k=0;const act=fn=>{ACT[++k]=fn;return k;};
+  const wx=await getJSON(`${OM}?latitude=${P.la}&longitude=${P.lo}&current=temperature_2m,weather_code,wind_speed_10m${TZ}`);
+  el.innerHTML=(wx&&wx.current?`<div class="card"><b>🌦️ El tiempo aquí</b><div style="display:flex;gap:10px;align-items:center;margin-top:4px"><span style="font-size:32px">${wxIcon(wx.current.weather_code,new Date().getHours())}</span><b style="font-size:24px">${Math.round(wx.current.temperature_2m)}°</b><span class="note">${wDesc(wx.current.weather_code)} · viento ${Math.round(wx.current.wind_speed_10m)} km/h</span></div></div>`:'')+
+   blk('🏘️ Pueblos',pb.map(x=>({...x,pt:[x.o.lat,x.o.lon]})).map(x=>row('🏘️',x.o.n,x.o.m.n&&x.o.m.n!==x.o.n?x.o.m.n:'',x,TECH?act(()=>{showTab('pueblos');pbLoad(()=>{pbRenderList();pbOpen(x.o.i);});}):0)))+
+   blk('🚧 Incidencias en carretera',ic.map(x=>({...x,pt:x.o.pt})).map(x=>row(inIco(x.o.cat),x.o.car+' · '+(x.o.tit||x.o.tipo),x.o.af,x,act(()=>{showTab('incid');setTimeout(()=>{INSEL=x.o;inFicha();INM&&INM.fit(x.o.pt[0]-.05,x.o.pt[0]+.05,x.o.pt[1]-.07,x.o.pt[1]+.07);},400);}))))+
+   blk('⛽ Gasolineras',gs.map(x=>({...x,pt:x.o.pt})).map(x=>row('⛽',x.o.n,[x.o.g95?'95: '+fmtN(x.o.g95,3)+' €':'',x.o.dA?'diésel: '+fmtN(x.o.dA,3)+' €':''].filter(Boolean).join(' · '),x,act(()=>openNav(x.o.pt[0],x.o.pt[1])))))+
+   blk('⚡ Recarga eléctrica',rc.map(x=>({...x,pt:x.o.pt})).map(x=>row('⚡',x.o.n||'Punto de recarga',x.o.kw,x,act(()=>openNav(x.o.pt[0],x.o.pt[1])))))+
+   blk('🥾 Para salir al monte',mn.map(x=>({...x,pt:x.o.q})).map(x=>row(x.o.L[1].split(' ')[0],x.o.L[5].map(a=>x.o.f.a[a]).find(Boolean)||x.o.L[1],x.o.L[1].replace(/^\S+\s/,''),x,act(()=>showTab('monte')))))+
+   blk('📷 Cámaras',cm.map(x=>({...x,pt:x.o.pt})).map(x=>row('📷',x.o.n,x.o.c,x,act(()=>caBig(x.o)))))+
+   blk('🏔️ Puertos de montaña',pt.map(x=>({...x,pt:x.o.pt})).map(x=>row('🏔️',x.o.n,x.o.ele?Math.round(x.o.ele)+' m':'',x,act(()=>showTab('puertos')))))||'<div class="card"><div class="note">No he encontrado nada cerca. ¿Estás fuera de Navarra?</div></div>';
+  el.querySelectorAll('[data-a]').forEach(d=>d.onclick=()=>ACT[d.dataset.a]());msg.textContent='Toca cualquier cosa de la lista para verla o ir.';}
+document.getElementById('ceGo').onclick=ceGo;
+
+/* ---------- 🎉 agenda de fiestas ---------- */
+let AGL=false;
+function agLoad(cb){if(window.AGENDA)return cb();if(AGL)return;AGL=true;const s=document.createElement('script');s.src='agenda.js?t='+Math.floor(Date.now()/6e5);s.onload=()=>{AGL=false;cb();};s.onerror=()=>{AGL=false;window.AGENDA={fiestas:[]};cb();};document.body.appendChild(s);}
+function agInit(){agLoad(()=>{const el=document.getElementById('agList'),hoy=new Date();hoy.setHours(0,0,0,0);
+  const L=(window.AGENDA.fiestas||[]).map(f=>{const [,mi,di]=f.ini.split('-').map(Number),[,mf,df]=(f.fin||f.ini).split('-').map(Number);let y=hoy.getFullYear(),a=new Date(y,mi-1,di),b=new Date(y,mf-1,df);if(b<a)b.setFullYear(y+1);
+    if(b<hoy){a.setFullYear(y+1);b=new Date(y+1,mf-1,df);if(b<a)b.setFullYear(y+2);}return {...f,a,b,now:a<=hoy&&hoy<=b};}).sort((x,y)=>x.a-y.a);
+  if(!L.length){el.innerHTML='<div class="card"><div class="note">Todavía no hay fiestas apuntadas. Entra en un pueblo → ✏️ Editar → «📅 Fechas de fiestas».</div></div>';return;}
+  const fd=d=>d.getDate()+' '+MES[d.getMonth()];let mes='';
+  el.innerHTML=L.map(f=>{const m=f.now?'🎉 Ahora mismo':MES[f.a.getMonth()].toUpperCase()+' '+f.a.getFullYear(),hd=m!==mes?`<div style="font-weight:700;color:var(--acc);margin:10px 4px 4px">${m}</div>`:'';mes=m;
+    return hd+`<div class="card" data-s="${f.s}" style="cursor:pointer;padding:10px"><b>${f.p}</b>${f.n?' · '+f.n.replace(/</g,'&lt;'):''}<div class="note">${fd(f.a)}${+f.b!==+f.a?' – '+fd(f.b):''}</div></div>`;}).join('');
+  el.querySelectorAll('[data-s]').forEach(d=>d.onclick=()=>{showTab('pueblos');pbLoad(()=>{pbRenderList();const p=pbList().find(x=>x.slug===d.dataset.s);if(p)pbOpen(p.i);});});});}
+
+const _showTabMas=showTab;showTab=function(t){_showTabMas(t);if(t==='gas')setTimeout(gsInit,40);if(t==='puertos')setTimeout(puInit,40);if(t==='radar')setTimeout(rdInit,40);if(t==='emb')setTimeout(emInit,40);if(t==='agenda')setTimeout(agInit,40);};
 
 </script>
 </body>
