@@ -1,200 +1,551 @@
 
-== Mapa.aspx 200 858
+===== js/script.js 200
+﻿var Carreteras = Carreteras || {};
 
+(function () {
 
-<!DOCTYPE html>
+    Carreteras.map = new TC.Map('map', {
+        crs: "EPSG:3857",
+        baseLayers: [
+            "osm",
+            {
+                id: "ign-base",
+                title: "Mapa base (IGN)",
+                type: "WMTS",
+                url: "//www.ign.es/wmts/ign-base",
+                encoding: "KVP",
+                layerNames: "IGNBaseTodo",
+                matrixSet: "GoogleMapsCompatible",
+                format: "image/jpeg",
+                thumbnail: TC.apiLocation + 'TC/css/img/thumb-basemap_ign.png'
+            },
+            {
+                id: "ign-pnoa",
+                title: "Ortofoto PNOA",
+                type: "WMTS",
+                url: "//www.ign.es/wmts/pnoa-ma",
+                encoding: "KVP",
+                layerNames: "OI.OrthoimageCoverage",
+                matrixSet: "GoogleMapsCompatible",
+                format: "image/jpeg",
+                thumbnail: TC.apiLocation + "TC/css/img/thumb-orthophoto_pnoa.jpg"
+            },
+            {
+                id: "ign-raster",
+                type: "WMTS",
+                title: "Cartografía raster (IGN)",
+                url: "//www.ign.es/wmts/mapa-raster",
+                encoding: "KVP",
+                layerNames: "MTN",
+                matrixSet: "GoogleMapsCompatible",
+                format: "image/jpeg",
+                thumbnail: TC.apiLocation + 'TC/css/img/thumb-carto_ign.png'
+            },
+        ],
+        defaultBaseLayer: "osm",
+        initialExtent: [-278805, 5148700, -79274, 5357673],
+        baselayerExtent: [-360109, 5093682, 20800, 5445384],
+        layout: {
+            script: TC.apiLocation + '/tc/layout/responsive/script.js',
+            style: TC.apiLocation + '/tc/layout/responsive/style.css',
+            markup: 'layout/carreteras/markup.html',
+            config: 'layout/carreteras/config.json',
+            i18n: 'layout/carreteras/resources',
+            accordion: true
+        },
+    });
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>
-	Visor de incidencias
-</title><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><link href="css/main.css" rel="stylesheet" /></head>
-<body>
-    <div id="map" tabindex="0"></div>
-    <div id="sv"></div> 
-    <script type="text/javascript" src="//sitna.tracasa.es/api/" crossorigin="anonymous"></script>
-    <script src="/IncCarreteras/bundles/js?v=tMLrKv2WBNMT5rXQvCbt7g1lUqoRQitIdaOzvrLARRQ1"></script>
+    TC.Cfg.notifyApplicationErrors = true;
+    
+    Carreteras.map.ready(function () {
+        var hideIncidentsPanelInNarrowScreens = function () {
+            var _widthChange = function (mq) {
+                if (!mq.matches) {
+                    document.querySelector('.right-panel').classList.add('right-collapsed');
+                }
+            };
 
-    <script type="text/javascript">
-        TC.loadJS(TC.version.split(' ')[0] === "1.3.0", "js/temporal.js", function () { });
-    </script>    
-    <script type="text/javascript" src="js/script.js"></script>    
-</body>
-</html>
+            if (matchMedia) {
+                var mq = window.matchMedia("(min-width: 42em)");
+                mq.addListener(_widthChange);
+                _widthChange(mq);
+            }
+        }();
+        readyPromResolve();
+    });
 
+    Carreteras.map.loaded(function () {
 
--- JS https://administracionelectronica.navarra.es/IncCarreteras/js/script.js 5599
-   layout/carreteras/config.json
+        if (Carreteras.Utils.isCamerasModeActive()) {
+            document.querySelector('#camera-panel').classList.remove(TC.Consts.classes.COLLAPSED);
+            document.querySelector('#incident-panel').classList.add(TC.Consts.classes.COLLAPSED);
 
-== Mapa.aspx?mode=incidences 200 858
-
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>
-	Visor de incidencias
-</title><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><link href="css/main.css" rel="stylesheet" /></head>
-<body>
-    <div id="map" tabindex="0"></div>
-    <div id="sv"></div> 
-    <script type="text/javascript" src="//sitna.tracasa.es/api/" crossorigin="anonymous"></script>
-    <script src="/IncCarreteras/bundles/js?v=tMLrKv2WBNMT5rXQvCbt7g1lUqoRQitIdaOzvrLARRQ1"></script>
-
-    <script type="text/javascript">
-        TC.loadJS(TC.version.split(' ')[0] === "1.3.0", "js/temporal.js", function () { });
-    </script>    
-    <script type="text/javascript" src="js/script.js"></script>    
-</body>
-</html>
-
-
--- JS https://administracionelectronica.navarra.es/IncCarreteras/js/script.js 5599
-   layout/carreteras/config.json
-
-== Default.aspx 200 9886
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
-<head>
-    <title>Incidencias en carretera - navarra.es </title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="robots" content="index,follow" />
-    <meta name="Owner" content="Gobierno de Navarra" />
-    <link rel="help" title="Accesibilidad de estas páginas" href="//www.navarra.es/home_es/Aviso/accesibilidad.htm" />
-    <link rel="contents" href="//www.navarra.es/home_es/Indices/Mapa+web/" title="Mapa web. Índice de contenidos" />
-    <link rel="search" href="//www.navarra.es/home_es/Indices/Buscador/" title="Buscador" />
-    <link rel="up" href="#contenido" title="Saltar navegación e ir al contenido" />
-
-    <link rel="alternate stylesheet" type="text/css" href="css/print.css" title="print" id="print" />
-    <link rel="stylesheet" type="text/css" href="css/general.css" />
-    <link rel="stylesheet" type="text/css" href="css/idioma.css" />
-    <link rel="stylesheet" type="text/css" media="print" href="css/print.css" />
-    <link rel="stylesheet" type="text/css" href="css/portada.css" />
-
-    <script type="text/JavaScript" src="js/funcionalidades.js"></script>
-    <script type="text/JavaScript" src="js/herramientas.js"></script>
-
-    <style>
-        #introCategorias .extra {
-            padding: 13px 0px 0px 33px;
+        } else {
+            document.querySelector('#camera-panel').classList.add(TC.Consts.classes.COLLAPSED);
+            document.querySelector('#incident-panel').classList.remove(TC.Consts.classes.COLLAPSED);
         }
-    </style>
-</head>
-<body>
-    <div id="estructura">
-        <a href="#contenido" class="navegacion" accesskey="1">(ir al contenido)</a>
-        <div id="cabecera">
-            <h1 class="logo">
-                <a href="//www.navarra.es" accesskey="0">
-                    <img alt="Logotipo navarra.es" src="./img/logo.navarra.es.gif" />
-                </a>
-            </h1>
-            <p class="idiomas"><strong>Castellano</strong> <span>|</span> Euskara <span>|</span> Français <span>|</span> English</p>
-            <form class="buscador" id="frmSearch" action="//www.navarra.es/home_es/Indices/Buscador/default.htm" method="get" style="margin-bottom: 10px;">
-                <fieldset>
-                    <span class="nuevo">¡Utilice el buscador!</span>
-                    <label for="q">buscador</label>
-                    <input type="text" id="q" name="q" maxlength="50" value="introduzca palabra/s"
-                        onblur="if(this.value==''){this.value='introduzca palabra/s'}"
-                        onfocus="this.value=''" />
-                    <input name="filetype" value="htm" type="hidden" />
-                    <input class="boton" type="submit" value="buscar" />
-                </fieldset>
-            </form>
-            <map title="navegación primer nivel" id="primerNivel">
-                <ul>
-                    <li class="primero"><a href="//www.navarra.es/home_es/Navarra/" accesskey="n">Navarra</a></li>
-                    <li><a href="//www.nava
 
--- JS https://administracionelectronica.navarra.es/IncCarreteras/js/funcionalidades.js 782
+        var cameraObserver = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.target.attributes[mutation.attributeName].value.indexOf(TC.Consts.classes.COLLAPSED) > -1) {
+                    Carreteras.map.getControlsByClass(TC.control.CameraPanel)[0].hideFeatures();
+                } else {
+                    Carreteras.map.getControlsByClass(TC.control.CameraPanel)[0].showFeatures();
+                }
+            });
+        });
 
--- JS https://administracionelectronica.navarra.es/IncCarreteras/js/herramientas.js 4021
+        var incidentObserver = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.target.attributes[mutation.attributeName].value.indexOf(TC.Consts.classes.COLLAPSED) > -1) {
+                    Carreteras.map.getControlsByClass(TC.control.IncidentPanel)[0].hideFeatures();
+                } else {
+                    Carreteras.map.getControlsByClass(TC.control.IncidentPanel)[0].showFeatures();
+                }
+            });
+        });
 
--- JS https://administracionelectronica.navarra.es/IncCarreteras/js/lib/jquery.min.js 55272
-   Microsoft.XMLHTTP
-    > e(P,"tr")?(O.getElementsByTagName("tbody")[0]||O.appendChild(O.ownerDocument.createElement("tbody"))):O}}};o.fn.init.prototype=o.fn;function z(E,F){if(F.src){o.ajax({url:F.src,async:false,dataType:"script"})}else{o.globalEval(F.text||F.textContent||F.innerHTML||"")}if(F.parentNode){F.parentNode.removeChild(F)}}function e(){return +new Date}o.extend=o.fn.extend=function(){var J=
-    > =0){var E=G.slice(I,G.length);G=G.slice(0,I)}var H="GET";if(J){if(o.isFunction(J)){K=J;J=null}else{if(typeof J==="object"){J=o.param(J);H="POST"}}}var F=this;o.ajax({url:G,type:H,dataType:"html",data:J,complete:function(M,L){if(L=="success"||L=="notmodified"){F.html(E?o("<div/>").append(M.responseText.replace(/<script(.|\s)*?\/script>/g,"")).find(E):M.responseText)}if(K){F.each
-    > function(E,F){var G=o(this).val();return G==null?null:o.isArray(G)?o.map(G,function(I,H){return{name:F.name,value:I}}):{name:F.name,value:G}}).get()}});o.each("ajaxStart,ajaxStop,ajaxComplete,ajaxError,ajaxSuccess,ajaxSend".split(","),function(E,F){o.fn[F]=function(G){return this.bind(F,G)}});var r=e();o.extend({get:function(E,G,H,F){if(o.isFunction(G)){H=G;G=null}return o.ajax
-    > pe:"GET",url:E,data:G,success:H,dataType:F})},getScript:function(E,F){return o.get(E,null,F,"script")},getJSON:function(E,F,G){return o.get(E,F,G,"json")},post:function(E,G,H,F){if(o.isFunction(G)){H=G;G={}}return o.ajax({type:"POST",url:E,data:G,success:H,dataType:F})},ajaxSetup:function(E){o.extend(o.ajaxSettings,E)},ajaxSetti
-    > ",html:"text/html",script:"text/javascript, application/javascript",json:"application/json, text/javascript",text:"text/plain",_default:"*/*"}},lastModified:{},ajax:function(M){M=o.extend(true,M,o.extend(true,{},o.ajaxSettings,M));var W,F=/=\?(&|$)/g,R,V,G=M.type.toUpperCase();if(M.data&&M.processData&&typeof M.data!=="string"){M.data=o.param(M.data)}if(M.dataType=="jsonp"){if(
-    > l)?(M.url.match(/\?/)?"&":"?")+"_="+E:"")}if(M.data&&G=="GET"){M.url+=(M.url.match(/\?/)?"&":"?")+M.data;M.data=null}if(M.global&&!o.active++){o.event.trigger("ajaxStart")}var Q=/^(\w+:)?\/\/([^\/?#]+)/.exec(M.url);if(M.dataType=="script"&&G=="GET"&&Q&&(Q[1]&&Q[1]!=location.protocol||Q[2]!=location.host)){var H=document.getElementsByTagName("head")[0];var T=document.createEleme
-    > [M.dataType]?M.accepts[M.dataType]+", */*":M.accepts._default)}catch(S){}if(M.beforeSend&&M.beforeSend(J,M)===false){if(M.global&&!--o.active){o.event.trigger("ajaxStop")}J.abort();return false}if(M.global){o.event.trigger("ajaxSend",[J,M])}var N=function(X){if(J.readyState==0){if(P){clearInterval(P);P=null;if(M.global&&!--o.active){o.event.trigger("ajaxStop")}}}else{if(!K&&J&&
-    > ")}},M.timeout)}}try{J.send(M.data)}catch(S){o.handleError(M,J,null,S)}if(!M.async){N()}function I(){if(M.success){M.success(V,R)}if(M.global){o.event.trigger("ajaxSuccess",[J,M])}}function L(){if(M.complete){M.complete(J,R)}if(M.global){o.event.trigger("ajaxComplete",[J,M])}if(M.global&&!--o.active){o.event.trigger("ajaxStop")}}return J},handleError:function(F,H,E,G){if(F.erro
-    > .error(H,E,G)}if(F.global){o.event.trigger("ajaxError",[H,F,G])}},active:0,httpSuccess:function(F){try{return !F.status&&location.protocol=="file:"||(F.status>=200&&F.status<300)||F.status==304||F.status==1223}catch(E){}return false},httpNotModified:function(G,E){try{
+        cameraObserver.observe(document.querySelector('.tc-ctl-camera'), {
+            attributes: true,
+            attributeFilter: ["class"],
+            attributeOldValue: true
+        });
+        incidentObserver.observe(document.querySelector('.tc-ctl-incident'), {
+            attributes: true,
+            attributeFilter: ["class"],
+            attributeOldValue: true
+        });
 
-==  200 9886
+        TC.Cfg.applyChanges({
+            "map": Carreteras.map,
+            "screenCondition": "(max-width: 42em)",
+            "apply": {
+                "event": "click",
+                "elements": [".tc-ctl-bms-node > label", ".tc-ctl-camera-node",".tc-ctl-incident-list > li"],
+                "changes": [
+                    {
+                        "targets": "#tools-panel",
+                        "classes": "right-collapsed"
+                    }
+                ]
+            }
+        });
+        loadedPromResolve();
+    });
+    var readyPromResolve, loadedPromResolve = null;
+    Promise.all([new Promise((r) => { readyPromResolve = r; }), new Promise((r) => { loadedPromResolve = r })]).then(function () {
+        var _attrCtrl = Carreteras.map.getControlsByClass(TC.control.Attribution)[0];
+        _attrCtrl.dataAttributions.push(Carreteras.Utils.getMapIconsCredits());
+        _attrCtrl.render();
+    });
+})();
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
-<head>
-    <title>Incidencias en carretera - navarra.es </title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="robots" content="index,follow" />
-    <meta name="Owner" content="Gobierno de Navarra" />
-    <link rel="help" title="Accesibilidad de estas páginas" href="//www.navarra.es/home_es/Aviso/accesibilidad.htm" />
-    <link rel="contents" href="//www.navarra.es/home_es/Indices/Mapa+web/" title="Mapa web. Índice de contenidos" />
-    <link rel="search" href="//www.navarra.es/home_es/Indices/Buscador/" title="Buscador" />
-    <link rel="up" href="#contenido" title="Saltar navegación e ir al contenido" />
-
-    <link rel="alternate stylesheet" type="text/css" href="css/print.css" title="print" id="print" />
-    <link rel="stylesheet" type="text/css" href="css/general.css" />
-    <link rel="stylesheet" type="text/css" href="css/idioma.css" />
-    <link rel="stylesheet" type="text/css" media="print" href="css/print.css" />
-    <link rel="stylesheet" type="text/css" href="css/portada.css" />
-
-    <script type="text/JavaScript" src="js/funcionalidades.js"></script>
-    <script type="text/JavaScript" src="js/herramientas.js"></script>
-
-    <style>
-        #introCategorias .extra {
-            padding: 13px 0px 0px 33px;
+===== layout/carreteras/config.json 200
+﻿{
+  "i18n": true,
+  "maxExtent": false,
+  "workLayers": [
+    {
+      "id": "limite",
+      "title": "Navarra",
+      "url": "//idena.navarra.es/ogc/wms",
+      "type": "WMS",
+      "layerNames": [ "IDENA:REFERE_Lin_Navarra" ]
+    }
+  ],
+  "elevation": {
+    "services": [
+      "elevationServiceIDENA",
+      "elevationServiceIGNFr",
+      "elevationServiceIGNEs"
+    ]
+  },
+  "controls": {
+    "controlContainer": {
+      "div": "ccontainer",
+      "controls": {
+        "navBar": {
+          "side": "left",
+          "options": {
+            "home": false
+          }
+        },
+        "navBarHome": {
+          "side": "left",
+          "options": true
+        },
+        "streetView": {
+          "side": "left",
+          "options": {
+            "viewDiv": "sv",
+            "googleMapsKey": "AIzaSyBlzFnf9aP8oKl7r1bwit-Apu7Z9BUD0Lc"
+          }
+        },
+        "fullScreen": {
+          "side": "left",
+          "options": true
+        },
+        "scaleBar": {
+          "side": "right",
+          "options": true
+        },
+        "warning": {
+          "side": "left",
+          "options": true
         }
-    </style>
-</head>
-<body>
-    <div id="estructura">
-        <a href="#contenido" class="navegacion" accesskey="1">(ir al contenido)</a>
-        <div id="cabecera">
-            <h1 class="logo">
-                <a href="//www.navarra.es" accesskey="0">
-                    <img alt="Logotipo navarra.es" src="./img/logo.navarra.es.gif" />
-                </a>
-            </h1>
-            <p class="idiomas"><strong>Castellano</strong> <span>|</span> Euskara <span>|</span> Français <span>|</span> English</p>
-            <form class="buscador" id="frmSearch" action="//www.navarra.es/home_es/Indices/Buscador/default.htm" method="get" style="margin-bottom: 10px;">
-                <fieldset>
-                    <span class="nuevo">¡Utilice el buscador!</span>
-                    <label for="q">buscador</label>
-                    <input type="text" id="q" name="q" maxlength="50" value="introduzca palabra/s"
-                        onblur="if(this.value==''){this.value='introduzca palabra/s'}"
-                        onfocus="this.value=''" />
-                    <input name="filetype" value="htm" type="hidden" />
-                    <input class="boton" type="submit" value="buscar" />
-                </fieldset>
-            </form>
-            <map title="navegación primer nivel" id="primerNivel">
-                <ul>
-                    <li class="primero"><a href="//www.navarra.es/home_es/Navarra/" accesskey="n">Navarra</a></li>
-                    <li><a href="//www.nava
+      }
+    },
+    "basemapSelector": {
+      "div": "bms"
+    },
+    "legend": {
+      "div": "legend"
+    },
+    "coordinates": {
+      "div": "coordinates"
+    },
+    "search": {
+      "div": "search",
+      "allowedSearchTypes": {
+        "coordinates": {},
+        "municipality": {},
+        "urban": {},
+        "road": {},
+        "roadmilestone": {}
+      }
+    },
+    "overviewMap": {
+      "div": "ovmap",
+      "layer": "osm"
+    },
+    "attribution": true,
+    "popup": {
+      "closeButton": true
+    },
+    "incidentPanel": {
+      "div": "incident-panel"
+    },
+    "cameraPanel": {
+      "div": "camera-panel"
+    },
+    "featureTools": false,
+    "featureInfo": {
+      "active": true,
+      "displayElevation": true
+    }
+  }
+}
 
--- JS https://administracionelectronica.navarra.es/IncCarreteras/js/funcionalidades.js 782
+===== js/temporal.js 200
+﻿
+var getRGBA = function (color, opacity) {
+    var result;
+    if (color) {
+        result = ol.color.asArray(color);
+        result = result.slice();
+        if (opacity !== undefined) {
+            result[3] = opacity;
+        }
+    }
+    else {
+        result = [0, 0, 0, 1];
+    }
+    return result;
+};
 
--- JS https://administracionelectronica.navarra.es/IncCarreteras/js/herramientas.js 4021
+var getStyleValue = function (property, feature) {
+    var result = property;
+    var olFeat = feature && feature.wrap && feature.wrap.feature;
+    if (typeof property === 'string') {
+        var match = property.match(/^\$\{(.+)\}$/);
+        if (match && olFeat) {
+            // Permitimos el formato ${prop.subprop.subsubprop}
+            var m = match[1].split('.');
+            var r = olFeat.getProperties();
+            for (var i = 0; i < m.length && r !== undefined; i++) {
+                r = r[m[i]];
+            }
+            if (r === undefined) {
+                r = feature.data;
+                for (var i = 0; i < m.length && r !== undefined; i++) {
+                    r = r[m[i]];
+                }
+            }
+            result = r;
+        }
+    }
+    else if ($.isFunction(property)) {
+        result = property(feature);
+    }
+    return result;
+};
 
--- JS https://administracionelectronica.navarra.es/IncCarreteras/js/lib/jquery.min.js 55272
-   Microsoft.XMLHTTP
-    > e(P,"tr")?(O.getElementsByTagName("tbody")[0]||O.appendChild(O.ownerDocument.createElement("tbody"))):O}}};o.fn.init.prototype=o.fn;function z(E,F){if(F.src){o.ajax({url:F.src,async:false,dataType:"script"})}else{o.globalEval(F.text||F.textContent||F.innerHTML||"")}if(F.parentNode){F.parentNode.removeChild(F)}}function e(){return +new Date}o.extend=o.fn.extend=function(){var J=
-    > =0){var E=G.slice(I,G.length);G=G.slice(0,I)}var H="GET";if(J){if(o.isFunction(J)){K=J;J=null}else{if(typeof J==="object"){J=o.param(J);H="POST"}}}var F=this;o.ajax({url:G,type:H,dataType:"html",data:J,complete:function(M,L){if(L=="success"||L=="notmodified"){F.html(E?o("<div/>").append(M.responseText.replace(/<script(.|\s)*?\/script>/g,"")).find(E):M.responseText)}if(K){F.each
-    > function(E,F){var G=o(this).val();return G==null?null:o.isArray(G)?o.map(G,function(I,H){return{name:F.name,value:I}}):{name:F.name,value:G}}).get()}});o.each("ajaxStart,ajaxStop,ajaxComplete,ajaxError,ajaxSuccess,ajaxSend".split(","),function(E,F){o.fn[F]=function(G){return this.bind(F,G)}});var r=e();o.extend({get:function(E,G,H,F){if(o.isFunction(G)){H=G;G=null}return o.ajax
-    > pe:"GET",url:E,data:G,success:H,dataType:F})},getScript:function(E,F){return o.get(E,null,F,"script")},getJSON:function(E,F,G){return o.get(E,F,G,"json")},post:function(E,G,H,F){if(o.isFunction(G)){H=G;G={}}return o.ajax({type:"POST",url:E,data:G,success:H,dataType:F})},ajaxSetup:function(E){o.extend(o.ajaxSettings,E)},ajaxSetti
-    > ",html:"text/html",script:"text/javascript, application/javascript",json:"application/json, text/javascript",text:"text/plain",_default:"*/*"}},lastModified:{},ajax:function(M){M=o.extend(true,M,o.extend(true,{},o.ajaxSettings,M));var W,F=/=\?(&|$)/g,R,V,G=M.type.toUpperCase();if(M.data&&M.processData&&typeof M.data!=="string"){M.data=o.param(M.data)}if(M.dataType=="jsonp"){if(
-    > l)?(M.url.match(/\?/)?"&":"?")+"_="+E:"")}if(M.data&&G=="GET"){M.url+=(M.url.match(/\?/)?"&":"?")+M.data;M.data=null}if(M.global&&!o.active++){o.event.trigger("ajaxStart")}var Q=/^(\w+:)?\/\/([^\/?#]+)/.exec(M.url);if(M.dataType=="script"&&G=="GET"&&Q&&(Q[1]&&Q[1]!=location.protocol||Q[2]!=location.host)){var H=document.getElementsByTagName("head")[0];var T=document.createEleme
-    > [M.dataType]?M.accepts[M.dataType]+", */*":M.accepts._default)}catch(S){}if(M.beforeSend&&M.beforeSend(J,M)===false){if(M.global&&!--o.active){o.event.trigger("ajaxStop")}J.abort();return false}if(M.global){o.event.trigger("ajaxSend",[J,M])}var N=function(X){if(J.readyState==0){if(P){clearInterval(P);P=null;if(M.global&&!--o.active){o.event.trigger("ajaxStop")}}}else{if(!K&&J&&
-    > ")}},M.timeout)}}try{J.send(M.data)}catch(S){o.handleError(M,J,null,S)}if(!M.async){N()}function I(){if(M.success){M.success(V,R)}if(M.global){o.event.trigger("ajaxSuccess",[J,M])}}function L(){if(M.complete){M.complete(J,R)}if(M.global){o.event.trigger("ajaxComplete",[J,M])}if(M.global&&!--o.active){o.event.trigger("ajaxStop")}}return J},handleError:function(F,H,E,G){if(F.erro
-    > .error(H,E,G)}if(F.global){o.event.trigger("ajaxError",[H,F,G])}},active:0,httpSuccess:function(F){try{return !F.status&&location.protocol=="file:"||(F.status>=200&&F.status<300)||F.status==304||F.status==1223}catch(E){}return false},httpNotModified:function(G,E){try{
-fallo incidencias.kml HTTP Error 404: Not Found
-fallo Incidencias.kml HTTP Error 404: Not Found
-fallo incidencias.json HTTP Error 404: Not Found
-fallo obras.kml HTTP Error 404: Not Found
+var getNativeStyle = function (olFeat) {
+    var result = olFeat.getStyle();
+    if ($.isFunction(result)) {
+        result = result.call(olFeat);
+    }
+    if ($.isArray(result)) {
+        result = result[0];
+    }
+    return result;
+};
+
+// Transformación de opciones de estilo en un estilo nativo OL3.
+var createNativeStyle = function (options, olFeat) {
+    var nativeStyleOptions = {};
+
+    var feature;
+    if (olFeat) {
+        if (olFeat._wrap) {
+            feature = olFeat._wrap.parent;
+        }
+        else {
+            // Si la API SITNA no ha completado su feature, creamos un mock-up para que no fallen las funciones de estilo
+
+
+
+            feature = {
+                id: TC.wrap.Feature.prototype.getId.call({ feature: olFeat }), // GLS añado el id de la feature para poder filtrar por la capa a la cual pertenece                    
+                features: olFeat.get('features'),
+                getData: function () {
+                    return TC.wrap.Feature.prototype.getData.call({ feature: olFeat });
+                }
+            };
+
+
+        }
+    }
+    var isCluster = feature && $.isArray(feature.features) && feature.features.length > 1 && options.cluster;
+    var styles;
+    if (isCluster) {
+        styles = options.cluster.styles || TC.Cfg.styles.cluster;
+    }
+    else {
+        styles = options.styles || TC.Cfg.styles;
+    }
+
+    if (styles.line) {
+        nativeStyleOptions.stroke = new ol.style.Stroke({
+            color: getStyleValue(styles.line.strokeColor, feature),
+            width: getStyleValue(styles.line.strokeWidth, feature),
+            lineDash: styles.line.lineDash
+        });
+    }
+
+    if (styles.polygon) {
+        nativeStyleOptions.fill = new ol.style.Fill({
+            color: getRGBA(getStyleValue(styles.polygon.fillColor, feature), getStyleValue(styles.polygon.fillOpacity, feature))
+        });
+        nativeStyleOptions.stroke = new ol.style.Stroke({
+            color: getStyleValue(styles.polygon.strokeColor, feature),
+            width: getStyleValue(styles.polygon.strokeWidth, feature),
+            lineDash: styles.polygon.lineDash
+        });
+    }
+
+    var createNativeTextStyle = function (styleObj) {
+        var textOptions = {
+            text: '' + getStyleValue(styleObj.label, feature),
+        };
+        if (styleObj.fontSize) {
+            textOptions.font = getStyleValue(styleObj.fontSize, feature) + 'pt sans-serif';
+        }
+        if (styleObj.angle) {
+            textOptions.rotation = -Math.PI * getStyleValue(styleObj.angle, feature) / 180;
+        }
+        if (styleObj.fontColor) {
+            textOptions.fill = new ol.style.Fill({
+                color: getRGBA(getStyleValue(styleObj.fontColor, feature), 1)
+            });
+        }
+        if (styleObj.labelOutlineColor) {
+            textOptions.stroke = new ol.style.Stroke({
+                color: getRGBA(getStyleValue(styleObj.labelOutlineColor, feature), 1),
+                width: getStyleValue(styleObj.labelOutlineWidth, feature)
+            });
+        }
+        if (styleObj.labelOffset) {
+            textOptions.offsetX = styleObj.labelOffset[0];
+            textOptions.offsetY = styleObj.labelOffset[1];
+        }
+        return new ol.style.Text(textOptions);
+    };
+
+    if (styles.point) {
+        var pointOptions = styles.point;
+        var circleOptions = {
+            radius: getStyleValue(pointOptions.radius, feature) ||
+            (getStyleValue(pointOptions.height, feature) + getStyleValue(pointOptions.width, feature)) / 4
+        };
+        if (pointOptions.fillColor) {
+            circleOptions.fill = new ol.style.Fill({
+                color: getRGBA(getStyleValue(pointOptions.fillColor, feature), getStyleValue(pointOptions.fillOpacity, feature))
+            });
+        }
+        if (pointOptions.strokeColor) {
+            circleOptions.stroke = new ol.style.Stroke({
+                color: getStyleValue(pointOptions.strokeColor, feature),
+                width: getStyleValue(pointOptions.strokeWidth, feature),
+                lineDash: pointOptions.lineDash
+            });
+        }
+
+        if (!isNaN(circleOptions.radius))
+            nativeStyleOptions.image = new ol.style.Circle(circleOptions);
+
+        if (pointOptions.label) {
+            nativeStyleOptions.text = createNativeTextStyle(pointOptions);
+        }
+    }
+    if (styles.marker) {
+        var markerOptions = styles.marker;
+        if (markerOptions.url) {
+            nativeStyleOptions.image = new ol.style.Icon({
+                anchor: markerOptions.anchor,
+                src: markerOptions.url
+            });
+        }
+        if (markerOptions.label) {
+            nativeStyleOptions.text = createNativeTextStyle(markerOptions);
+        }
+    }
+    return [new ol.style.Style(nativeStyleOptions)];
+};
+
+var createNativeFeature = function (coords, geometryConstructor, geometryName) {
+    var result;
+    var featureOptions = {};
+    var gn = geometryName || 'geometry';
+    featureOptions[gn] = new geometryConstructor(coords);
+    result = new ol.Feature(featureOptions);
+    if (geometryName) {
+        result.setGeometryName(geometryName);
+    }
+    return result;
+};
+
+TC.wrap.Feature.prototype.createMarker = function (coords, options) {
+    var self = this;
+
+    var iconUrl = TC.Util.getPointIconUrl(options);
+    if (iconUrl) {
+        options.url = iconUrl;
+        if ($.isArray(coords)) {
+            self.feature = createNativeFeature(coords, ol.geom.Point, options.geometryName);
+        }
+        else if (self.isNative(coords)) {
+            self.feature = coords;
+            self.parent.geometry = coords.getGeometry().getCoordinates();
+        }
+        self.feature._wrap = self;
+        self.feature.setStyle(createNativeStyle({ styles: { marker: options } }, self.feature));
+    }
+    else {
+        self.createPoint(coords, options);
+    }
+};
+
+ol.format.KML.__createStyleDefaults_ = ol.format.KML.createStyleDefaults_;
+ol.format.KML.createStyleDefaults_ = function () {
+    ol.format.KML.__createStyleDefaults_();
+
+    ol.format.KML.DEFAULT_FILL_STYLE_.color_ = getRGBA(TC.Cfg.styles.polygon.fillColor, TC.Cfg.styles.polygon.fillOpacity);
+    ol.format.KML.DEFAULT_TEXT_STYLE_.fill_ = new ol.style.Fill({
+        color: ol.format.KML.DEFAULT_COLOR_
+    });
+    ol.format.KML.DEFAULT_STROKE_STYLE_.color_ = getRGBA(TC.Cfg.styles.line.strokeColor, 1);
+    ol.format.KML.DEFAULT_STROKE_STYLE_.width_ = TC.Cfg.styles.line.strokeWidth;
+
+    ol.format.KML.DEFAULT_IMAGE_STYLE_.crossOrigin_ = "";
+};
+
+ol.format.KML.IconStyleParser_ = function (e, t) {
+    var o = ol.xml.pushParseAndPop({}, ol.format.KML.ICON_STYLE_PARSERS_, e, t);
+    if (o) {
+        var r, i = t[t.length - 1], n = "Icon" in o ? o.Icon : {}, a = !("Icon" in o) || Object.keys(n).length > 0, l = n.href;
+        l ? r = l : a && (r = ol.format.KML.DEFAULT_IMAGE_STYLE_SRC_);
+        var s, p, c, u = o.hotSpot;
+        if (u) {
+            s = [u.x, u.y];
+            p = u.xunits;
+            c = u.yunits
+        } else if (r === ol.format.KML.DEFAULT_IMAGE_STYLE_SRC_) {
+            s = ol.format.KML.DEFAULT_IMAGE_STYLE_ANCHOR_;
+            p = ol.format.KML.DEFAULT_IMAGE_STYLE_ANCHOR_X_UNITS_;
+            c = ol.format.KML.DEFAULT_IMAGE_STYLE_ANCHOR_Y_UNITS_
+        } else if (/^http:\/\/maps\.(?:google|gstatic)\.com\//.test(r)) {
+            s = [.5, 0];
+            p = ol.style.IconAnchorUnits.FRACTION;
+            c = ol.style.IconAnchorUnits.FRACTION
+        }
+        var g, d = n.x, h = n.y;
+        void 0 !== d && void 0 !== h && (g = [d, h]);
+        var f, y = n.w, m = n.h;
+        void 0 !== y && void 0 !== m && (f = [y, m]);
+        var v, C = o.heading;
+        void 0 !== C && (v = ol.math.toRadians(C));
+        var T = o.scale;
+        if (a) {
+            if (r == ol.format.KML.DEFAULT_IMAGE_STYLE_SRC_) {
+                f = ol.format.KML.DEFAULT_IMAGE_STYLE_SIZE_;
+                void 0 === T && (T = ol.format.KML.DEFAULT_IMAGE_SCALE_MULTIPLIER_)
+            }
+            var _ = new ol.style.Icon({
+                anchor: s,
+                anchorOrigin: ol.style.IconOrigin.BOTTOM_LEFT,
+                anchorXUnits: p,
+                anchorYUnits: c,
+                offset: g,
+                offsetOrigin: ol.style.IconOrigin.BOTTOM_LEFT,
+                rotation: v,
+                scale: T,
+                size: f,
+                src: r
+            });
+            i.imageStyle = _
+        } else
+            i.imageStyle = ol.format.KML.DEFAULT_NO_IMAGE_STYLE_
+    }
+}
+
+ol.format.KML.STYLE_PARSERS_.null.IconStyle = ol.format.KML.IconStyleParser_;
+
+===== bundle urls
+  >                             url: "img/" + incident.categoria_icono + "/" + incident.color + ".png",
+  >                     url: 'api/incidents',
+  >                 url: "camaras.kml",
+
+===== Default.aspx enlaces
+#contenido
+//openstreetmap.org/
+//www.ign.es
+//www.navarra.es
+//www.navarra.es/es/gobierno-de-navarra/departamento-de-cohesion-territorial
+//www.navarra.es/home_es/Actualidad/
+//www.navarra.es/home_es/Aviso/accesibilidad.htm
+//www.navarra.es/home_es/Aviso/avisoLegal.htm
+//www.navarra.es/home_es/Catalogo+de+servicios/
+//www.navarra.es/home_es/Gobierno+de+Navarra/
+//www.navarra.es/home_es/Indices/Buscador/
+//www.navarra.es/home_es/Indices/Mapa+web/
+//www.navarra.es/home_es/Indices/Sugerencias/default.htm
+//www.navarra.es/home_es/Navarra/
+//www.navarra.es/home_es/Temas/
+//www.navarra.es/home_es/Temas/Seguridad/
+//www.navarra.es/home_es/Temas/Seguridad/Trafico+y+seguridad+vial/
+//www.trafikoa.eus
+Mapa.aspx
+Mapa.aspx?mode=cameras
+css/general.css
+css/idioma.css
+css/portada.css
+css/print.css
+http://meteo.navarra.es
+http://www.aemet.es/
+http://www.cfnavarra.es/webgn/sou/instituc/da/index.htm
+http://www.dgt.es
+
+===== Default.aspx texto
+ Incidencias en carretera - navarra.es (ir al contenido) Castellano | Euskara | Français | English ¡Utilice el buscador! buscador Navarra Servicios Temas Gobierno Actualidad Temas : Seguridad : Tráfico y seguridad vial : Incidencias en carretera Consulta de incidencias Visor de mapas Más información Teléfono de información: 848 423 500 Servicio ofrecido por Departamento de Cohesión Territorial Dirección General de Obras Públicas e Infraestructuras Enlaces relacionados Dirección General de Tráfico El tiempo en Navarra Agencia Estatal de Meteorología El tráfico en Euskadi Información sobre el estado de las carreteras de Navarra Desde la Dirección General de Obras Públicas e Infraestructuras, informamos del estado de la Red de Carreteras de la Comunidad Foral. La información se superpone a la cartografía de OpenStreetMap o del Instituto Geográfico Nacional , de cuya actualización no se hace responsable. La información incluye: Incidencias meteorológicas Incidencias en la Red Viaria Incidencias por obras Consulte en el mapa las incidencias previstas en su ruta Consulte las cámaras disponibles en la red de carreteras de Navarra Teléfono de información: 848 423 500 El Centro de Control de Conservación de Carreteras presta servicio las 24 horas del día durante los 365 días del año y mantiene actualizada la información sobre el estado de la Red de Carreteras de Navarra. Deseamos que tenga un buen viaje . Gobierno de Navarra Contacte con nosotros | Accesibilidad | Aviso legal | Mapa web 
