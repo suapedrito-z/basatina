@@ -2936,7 +2936,11 @@ async function eusLoad(){if(Date.now()-EUSAT<5*60e3&&EUSF.length)return EUSF;EUS
   try{const L=await eusList('radar_kapildui_detail/intensity/today/');const now=new Date(),nowHM=now.getUTCHours()*100+now.getUTCMinutes();
     const ok=L.filter(x=>x.kb<60&&+x.hm<=nowHM);EUSF=ok.slice(-13).map(x=>{const t=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate(),+x.hm.slice(0,2),+x.hm.slice(2)));return {time:t/1000,src:EUS+'radar_kapildui_detail/intensity/today/'+x.f+'?d='+t.toISOString().slice(0,10)};});}catch(e){EUSF=[];}
   return EUSF;}
-function eusDraw(x,P,f,redraw){if(!f)return;let im=EUSI[f.src];if(!im){im=EUSI[f.src]=new Image();im.onload=redraw;im.src=f.src;}
+function eusDraw(x,P,f,redraw){if(!f)return;
+  // zona que cubre el radar de Kapildui, con la hora de su imagen, para que se sepa que está puesto aunque no llueva
+  {const [ax,ay]=P(EUSB.n,EUSB.w),[bx,by]=P(EUSB.s,EUSB.e);x.save();x.setLineDash([6,4]);x.strokeStyle='rgba(41,198,242,.9)';x.lineWidth=1.5;x.strokeRect(ax,ay,bx-ax,by-ay);x.restore();
+   const t='Euskalmet '+new Date(f.time*1000).toTimeString().slice(0,5);x.font='bold 11px system-ui';const tw=x.measureText(t).width,lx=Math.min(bx,x.canvas.clientWidth||bx)-tw-10,ly=Math.max(ay,0)+40;
+   x.fillStyle='rgba(8,16,26,.85)';x.fillRect(lx-4,ly-12,tw+8,16);x.fillStyle='#29c6f2';x.fillText(t,lx,ly);}let im=EUSI[f.src];if(!im){im=EUSI[f.src]=new Image();im.onload=redraw;im.src=f.src;}
   if(im.complete&&im.naturalWidth){const [ax,ay]=P(EUSB.n,EUSB.w),[bx,by]=P(EUSB.s,EUSB.e);x.globalAlpha=.9;x.drawImage(im,ax,ay,bx-ax,by-ay);x.globalAlpha=1;}}
 // el fotograma de Euskalmet más cercano a la hora del radar general
 const eusAt=t=>{let b=null,d=1e9;for(const f of EUSF){const k=Math.abs(f.time-t);if(k<d){d=k;b=f;}}return d<=1800?b:null;};
