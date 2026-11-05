@@ -1923,14 +1923,14 @@ function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[
 function moLoad(cb){if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}
 function moDraw(x,P,b,M){const r=Math.max(2.5,Math.min(7,2+M.z*.3));
   for(const [k,,c,t] of MOL){if(!MON[k])continue;const big=k==='VIS'||k==='CASC';for(const f of moFeats(k)){const sel=MOSEL&&MOSEL.f===f;
-    if(t==='pt'&&sel&&f.r)for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.lineCap='round';x.lineJoin='round';x.strokeStyle='#fff';x.lineWidth=7;x.stroke();x.strokeStyle=c;x.lineWidth=4;x.stroke();}
+    if(t==='pt'&&f.r)for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.lineCap='round';x.lineJoin='round';x.strokeStyle='#fff';x.lineWidth=sel?7:4.5;x.stroke();x.strokeStyle=c;x.lineWidth=sel?4:2.5;x.stroke();}
     if(t==='pt'){const [px,py]=P(f.pt[0],f.pt[1]);if(px<-9||py<-9||px>b.W+9||py>b.H+9)continue;x.beginPath();x.arc(px,py,(sel?r+4:r)+(big?2:0),0,7);x.fillStyle=c;x.fill();if(M.z>6||sel||big){x.strokeStyle='#fff';x.lineWidth=1.5;x.stroke();}}
     else for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.strokeStyle=c;x.lineWidth=sel?5:3;x.lineCap='round';x.lineJoin='round';x.stroke();}}}
   if(MOPF){const [px,py]=P(MOPF[0],MOPF[1]);x.beginPath();x.arc(px,py,8,0,7);x.fillStyle='#ffeb3b';x.fill();x.strokeStyle='#000';x.lineWidth=2;x.stroke();}}
 function moTap(px,py,M){const P=M.P,b=M.box();let best=null,bd=16;
   for(const L of MOL){const [k,,,t]=L;if(!MON[k])continue;for(const f of moFeats(k)){
     if(t==='pt'){const [qx,qy]=P(f.pt[0],f.pt[1]),d=Math.hypot(qx-px,qy-py);if(d<bd){bd=d;best={L,f,ll:f.pt};}}
-    else for(const ring of f.r){const Q=ring.map(q=>P(q[0],q[1]));for(let i=1;i<Q.length;i++){const [ax,ay]=Q[i-1],[bx2,by2]=Q[i],dx=bx2-ax,dy=by2-ay,l2=dx*dx+dy*dy||1,tt=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/l2)),d=Math.hypot(px-ax-tt*dx,py-ay-tt*dy);
+    if(t==='ln'||(t==='pt'&&f.r))for(const ring of f.r){const Q=ring.map(q=>P(q[0],q[1]));for(let i=1;i<Q.length;i++){const [ax,ay]=Q[i-1],[bx2,by2]=Q[i],dx=bx2-ax,dy=by2-ay,l2=dx*dx+dy*dy||1,tt=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/l2)),d=Math.hypot(px-ax-tt*dx,py-ay-tt*dy);
       if(d<bd){bd=d;best={L,f,ll:[b.n-(b.n-b.s)*py/b.H,b.w+(b.e-b.w)*px/b.W]};}}}}}
   if(!best&&M.ov){zInfoMo(px,py,M);return;}MOSEL=best;M.draw();moFicha();}
 async function zInfoMo(px,py,M){const el=document.getElementById('moFicha');el.innerHTML='<div class="note">Consultando el mapa oficial…</div>';
@@ -2002,27 +2002,46 @@ function moPerfilTouch(f){const sv=document.getElementById('moPf');if(!sv||!f.pf
 // Rutas sin perfil precalculado: el móvil baja el GPX al abrir la ruta y calcula el perfil aquí
 // (es lo mismo que hace tools/monte.py, pero el servidor de estas rutas solo contesta desde España).
 const moKm=(a,b)=>{const r=Math.PI/180,p1=a[0]*r,p2=b[0]*r,dp=p2-p1,dl=(b[1]-a[1])*r;return 12742*Math.asin(Math.min(1,Math.sqrt(Math.sin(dp/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2)));};
-async function moGpx(f,col){const box=()=>document.getElementById('moPfBox'),sel=MOSEL;
+// Baja el GPX de una ruta y calcula su perfil y su trazado. Devuelve 'ok', 'nogpx' (no se pudo bajar) o 'noele' (sin alturas)
+async function moCalc(f){
   let t='';try{if(APP)t=(await netGet(f.a.DESCARGA)).body||'';else t=await (await fetch(f.a.DESCARGA)).text();}catch(e){}
   let pts=[];for(const tag of ['trkpt','rtept']){const re=new RegExp('<(?:\\w+:)?'+tag+'\\b([^>]*?)(?:/>|>([\\s\\S]*?)</(?:\\w+:)?'+tag+'>)','g');let m;pts=[];
     while((m=re.exec(t))){const la=/lat\s*=\s*["']([-\d.]+)/.exec(m[1]),lo=/lon\s*=\s*["']([-\d.]+)/.exec(m[1]);if(!la||!lo)continue;const e=/<(?:\w+:)?ele>\s*([-\d.]+)/.exec(m[2]||'');pts.push([+la[1],+lo[1],e?+e[1]:null]);}
     if(pts.length>=2)break;}
-  if(MOSEL!==sel||!box())return;
-  if(pts.length<2){box().innerHTML='<div class="note" style="margin:6px 0">No se pudo bajar el GPX para el perfil ahora. Prueba más tarde o ábrelo con el botón «Ruta GPX».</div>';return;}
+  if(pts.length<2)return 'nogpx';
   // distancia acumulada y 150 muestras a la misma distancia
   const d=[0];for(let i=1;i<pts.length;i++)d.push(d[i-1]+moKm(pts[i-1],pts[i]));const tot=d[d.length-1],N=150,smp=[];let j=0;
   for(let k=0;k<N;k++){const x=tot*k/(N-1);while(j<d.length-2&&d[j+1]<x)j++;const a=pts[j],b=pts[j+1],q=d[j+1]>d[j]?(x-d[j])/(d[j+1]-d[j]):0,ea=a[2]??b[2],eb=b[2]??a[2];
     smp.push([a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q,ea==null?null:ea+(eb-ea)*q]);}
   let src='gpx';if(smp.filter(p=>p[2]==null).length>N*.2){src='mdt';const el=[];
-    for(let i=0;i<N;i+=100){const ch=smp.slice(i,i+100),jj=await getJSON(`https://api.open-meteo.com/v1/elevation?latitude=${ch.map(p=>p[0].toFixed(5)).join(',')}&longitude=${ch.map(p=>p[1].toFixed(5)).join(',')}`);if(!jj||!jj.elevation){if(box())box().innerHTML='<div class="note">Este GPX no trae alturas y no se pudieron consultar ahora.</div>';return;}el.push(...jj.elevation);}
+    for(let i=0;i<N;i+=100){const ch=smp.slice(i,i+100),jj=await getJSON(`https://api.open-meteo.com/v1/elevation?latitude=${ch.map(p=>p[0].toFixed(5)).join(',')}&longitude=${ch.map(p=>p[1].toFixed(5)).join(',')}`);if(!jj||!jj.elevation)return 'noele';el.push(...jj.elevation);}
     smp.forEach((p,i)=>p[2]=el[i]);}
   let last=0;smp.forEach(p=>{if(p[2]==null)p[2]=last;last=p[2];});
   let up=0,dn=0,ref=smp[0][2];for(const p of smp.slice(1)){if(p[2]-ref>=5){up+=p[2]-ref;ref=p[2];}else if(ref-p[2]>=5){dn+=ref-p[2];ref=p[2];}}
   const el=smp.map(p=>p[2]);f.pf=el.map(Math.round);
   f.s={km:Math.round(tot*100)/100,up:Math.round(up),dn:Math.round(dn),mx:Math.round(Math.max(...el)),mn:Math.round(Math.min(...el)),a0:Math.round(el[0]),c:moKm(pts[0],pts[pts.length-1])<.3?1:0,src};
-  // trazado para el mapa (uno de cada pocos puntos basta para dibujarlo)
-  const st=Math.max(1,Math.floor(pts.length/400));f.r=[pts.filter((p,i)=>i%st===0||i===pts.length-1).map(p=>[p[0],p[1]])];
-  if(MOSEL!==sel||!box())return;box().innerHTML=moPerfil(f,col);moPerfilTouch(f);
+  // trazado para el mapa: como mucho unos 300 puntos, que bastan para dibujarlo
+  const st=Math.max(1,Math.ceil(pts.length/300));f.r=[pts.filter((p,i)=>i%st===0||i===pts.length-1).map(p=>[+p[0].toFixed(5),+p[1].toFixed(5)])];
+  moCacheSave(f);return 'ok';}
+// Memoria de los trazados ya calculados, para no volver a bajarlos cada vez (se guarda en el móvil)
+let MOTR=null;
+function moCacheGet(){if(MOTR)return MOTR;try{MOTR=JSON.parse(localStorage.getItem('moTr1')||'{}');}catch(e){MOTR={};}return MOTR;}
+function moCacheSave(f){const C=moCacheGet();C[f.a.DESCARGA]={s:f.s,pf:f.pf,r:f.r};try{localStorage.setItem('moTr1',JSON.stringify(C));}catch(e){}}
+function moCacheApply(){const C=moCacheGet();let n=0;for(const f of moFeats('PATRIM_Sym_Senderismo')){const c=C[f.a.DESCARGA];if(c&&!f.s){f.s=c.s;f.pf=c.pf;f.r=c.r;}if(f.r)n++;}return n;}
+// En segundo plano, el móvil baja una a una las rutas que faltan para dibujarlas todas como líneas
+let MOPRE=false;
+async function moPrefetch(){if(MOPRE||!APP)return;MOPRE=true;const F=moFeats('PATRIM_Sym_Senderismo').filter(f=>!f.r&&/\.gpx$/i.test(f.a.DESCARGA||''));let k=0,fail=0;
+  for(const f of F){if(f.r){k++;continue;}const r=await moCalc(f);if(r==='ok')k++;else fail++;
+    const inf=document.getElementById('moInfo');if(inf&&!MOSEL)inf.textContent=`Dibujando las rutas recomendadas: ${k} de ${F.length}…`;if(MOM)MOM.draw();
+    if(fail>=5&&k===0)break;   // si el servidor no contesta, no insiste
+    await new Promise(r=>setTimeout(r,250));}
+  const inf=document.getElementById('moInfo');if(inf)inf.textContent='Toca una ruta (línea) o un punto para ver su ficha, su perfil y el tiempo previsto allí.';MOPRE=false;}
+async function moGpx(f,col){const box=()=>document.getElementById('moPfBox'),sel=MOSEL;
+  const r=f.s?'ok':await moCalc(f);
+  if(MOSEL!==sel||!box())return;
+  if(r==='nogpx'){box().innerHTML='<div class="note" style="margin:6px 0">No se pudo bajar el GPX para el perfil ahora. Prueba más tarde o ábrelo con el botón «Ruta GPX».</div>';return;}
+  if(r==='noele'){box().innerHTML='<div class="note">Este GPX no trae alturas y no se pudieron consultar ahora.</div>';return;}
+  box().innerHTML=moPerfil(f,col);moPerfilTouch(f);
   let s=90,n=-90,w=180,e=-180;f.r[0].forEach(([la,lo])=>{s=Math.min(s,la);n=Math.max(n,la);w=Math.min(w,lo);e=Math.max(e,lo);});MOM.fit(s,n,w,e);}
 function moSearch(q){const res=document.getElementById('moRes');q=(q||'').trim().toLowerCase();if(q.length<3){res.innerHTML='';return;}const L=[];
   for(const Lr of MOL){for(const f of moFeats(Lr[0])){const n=Lr[5].map(x=>f.a[x]).find(Boolean);if(n&&String(n).toLowerCase().includes(q))L.push({L:Lr,f,n});if(L.length>30)break;}}
@@ -2038,7 +2057,7 @@ function moInit(){if(!MOM){MOM=NavMap('moc',moDraw,moTap);
     document.getElementById('moOv').onchange=e=>{MOM.ov=e.target.value||null;MOM.ovImg=null;MOM.ovLoad();if(MOM.ov==='senderos'&&MOM.z<3)MOM.zoom(3);};
     document.getElementById('moQ').oninput=e=>moSearch(e.target.value);}
   moLayers();document.getElementById('moInfo').textContent='Cargando…';
-  moLoad(()=>{document.getElementById('moInfo').textContent=window.MONTE_GEO?'Toca un punto o una ruta para ver su ficha y el tiempo previsto allí.':'Las capas llegarán con la próxima actualización.';MOM.draw();if(!MOM.img)MOM.base();});}
+  moLoad(()=>{document.getElementById('moInfo').textContent=window.MONTE_GEO?'Toca una ruta (línea) o un punto para ver su ficha, su perfil y el tiempo previsto allí.':'Las capas llegarán con la próxima actualización.';if(window.MONTE_GEO)moCacheApply();MOM.draw();if(!MOM.img)MOM.base();if(window.MONTE_GEO)setTimeout(moPrefetch,1500);});}
 const _showTab6=showTab;showTab=function(t){_showTab6(t);if(t==='monte')setTimeout(moInit,40);};
 document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 
@@ -2131,6 +2150,28 @@ document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>sho
 // 🌐 idioma: se guarda y se recarga la pantalla para aplicarlo en todas partes
 (()=>{const b=document.getElementById('dLang');if(!b)return;b.textContent=LANG==='eu'?'🌐 Gaztelaniaz':'🌐 Euskaraz';
   b.onclick=()=>{try{localStorage.setItem('lang',LANG==='eu'?'es':'eu');}catch(e){}location.reload();};})();
+
+
+/* ---------- ◀ VOLVER ATRÁS ----------
+   Cada pantalla que abres se apunta en el historial. Así, el botón o el gesto «atrás» del móvil
+   (y deslizar el dedo hacia la derecha en la página) te devuelven a la pantalla anterior en vez de cerrar la app.
+   Si el menú está abierto, «atrás» primero lo cierra. */
+let NAVCUR=null,NAVPOP=false;
+const _showTabNav=showTab;showTab=function(t){_showTabNav(t);if(!NAVPOP&&t!==NAVCUR){if(NAVCUR===null)history.replaceState({t},'');else history.pushState({t},'');}NAVCUR=t;};
+const _menuNav=menu;menu=function(open){const was=document.getElementById('drawer').classList.contains('on');_menuNav(open);if(open&&!was)history.pushState({t:NAVCUR,menu:1},'');};
+window.addEventListener('popstate',e=>{
+  if(document.getElementById('drawer').classList.contains('on')){_menuNav(false);return;}   // primero cierra el menú
+  const t=(e.state&&e.state.t)||'mtiempo';if(t===NAVCUR)return;NAVPOP=true;showTab(t);NAVPOP=false;});
+document.getElementById('menuBtn').onclick=()=>menu(true);
+document.getElementById('drawerBg').onclick=()=>{if(history.state&&history.state.menu)history.back();else _menuNav(false);};
+// al elegir en el menú, la pantalla nueva ocupa el sitio del «menú abierto» en el historial (así un «atrás» vuelve a la anterior)
+document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>{const t=b.dataset.t;
+  if(history.state&&history.state.menu){_menuNav(false);NAVPOP=true;showTab(t);NAVPOP=false;NAVCUR=t;history.replaceState({t},'');}else showTab(t);});
+// deslizar el dedo hacia la derecha (fuera de los mapas, gráficas y desplegables) = atrás
+(()=>{let x0=null,y0=0,t0=0;const skip=el=>el.closest('canvas,svg,input,select,textarea,.seg,nav,#drawer,[data-noswipe]');
+  document.addEventListener('touchstart',e=>{const t=e.touches[0];x0=(e.touches.length===1&&!skip(e.target))?t.clientX:null;y0=t.clientY;t0=Date.now();},{passive:true});
+  document.addEventListener('touchend',e=>{if(x0===null)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=Math.abs(t.clientY-y0);x0=null;
+    if(dx>90&&dy<45&&Date.now()-t0<700&&history.state&&NAVCUR!=='mtiempo')history.back();},{passive:true});})();
 
 
 setTimeout(()=>avisosFetch(),2500);setInterval(()=>{AVT=0;avisosFetch();},30*60e3);
