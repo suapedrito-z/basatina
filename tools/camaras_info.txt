@@ -1,7 +1,7 @@
-{"version": "2.0", "generated": 1793916620, "host": "https://tilecache.rainviewer.com", "radar": {"past": [{"time": 1793909400, "path": "/v2/radar/db776d56b49a"}, {"time": 1793910000, "path": "/v2/radar/6eaa55916ec0"}, {"time": 1793910600, "path": "/v2/radar/50a09f1fdc35"}, {"time": 1793911200, "path": "/v2/radar/4fc467a5a4a5"}, {"time": 1793911800, "path": "/v2/radar/d3c64a254856"}, {"time": 1793912400, "path": "/v2/radar/0049b9b68f6d"}, {"time": 1793913000, "path": "/v2/radar/5f1a3c8d04be"}, {"time": 1793913600, "path": "/v2/radar/342ecc7e2788"}, {"time": 1793914200, "path": "/v2/radar/c9e2ec1d31a2"}, {"time": 1793914800, "path": "/v2/radar/89f9f06c6aff"}, {"time": 1793915400, "path": "/v2/radar/faac559c1cba"}, {"time": 1793916000, "path": "/v2/radar/424b6835c86c"}, {"time": 1793916600, "path": "/v2/radar/e5be148ff690"}], "nowcast": []}, "satellite": {"infrared": []}}
-7/63/46 200 None 2278 bytes ACAO=None
-7/63/47 200 None 1879 bytes ACAO=None
-6/31/23 200 None 4290 bytes ACAO=None
-5/15/11 200 None 3926 bytes ACAO=None
-4/7/5 200 None 8632 bytes ACAO=None
-3/3/2 200 None 4564 bytes ACAO=None
+7/63/46 (256, 256) pixeles con lluvia: 2422 ejemplo [(102, 99, 90, 25), (108, 104, 93, 36), (111, 107, 95, 41)]
+7/62/46 (256, 256) pixeles con lluvia: 3734 ejemplo [(108, 104, 93, 36), (127, 120, 103, 68), (142, 133, 111, 94)]
+7/64/46 (256, 256) pixeles con lluvia: 0 ejemplo []
+7/63/47 (256, 256) pixeles con lluvia: 1236 ejemplo [(99, 97, 89, 20), (105, 102, 92, 30), (108, 104, 93, 36)]
+6/31/23 (256, 256) pixeles con lluvia: 3345 ejemplo [(105, 102, 92, 30), (222, 208, 151, 190), (54, 186, 229, 255)]
+4/7/5 (256, 256) pixeles con lluvia: 4586 ejemplo [(114, 110, 97, 46), (142, 133, 111, 94), (124, 117, 101, 62)]
+3/3/2 (256, 256) pixeles con lluvia: 1797 ejemplo [(105, 102, 92, 30), (158, 147, 117, 110), (218, 204, 147, 180)]
