@@ -2819,7 +2819,7 @@ async function ceGo(){const msg=document.getElementById('ceMsg'),el=document.get
   const blk=(t,rows)=>rows.length?`<div class="card"><b>${t}</b>${rows.join('')}</div>`:'';
   const V=window.VIAJE,pue=pbList();
   const pb=near(pue,o=>[o.lat,o.lon],3,30),gs=near(V.gas,o=>o.pt,4,25),rc=near(V.rec||[],o=>o.pt,3,25),cm=near(CAMS,o=>o.pt,3,40),pt=near(puList(),o=>o.pt,3,40),ic=near(INC||[],o=>o.pt,4,30);
-  const mo=[];for(const L of MOL){for(const f of moFeats(L[0])){const q=f.pt||(f.r&&f.r[0]&&f.r[0][0]);if(q)mo.push({L,f,q});}}const mn=near(mo,o=>o.q,8,15);
+  const mo=[];for(const L of MOL){for(const f of moFeats(L[0])){const q=f.pt||(f.r&&f.r[0]&&f.r[0][0]);if(q)mo.push({L,f,q});}}const mnc={},mn=near(mo,o=>o.q,200,15).filter(x=>(mnc[x.o.L[0]]=(mnc[x.o.L[0]]||0)+1)<=2).slice(0,8);
   const ACT={};let k=0;const act=fn=>{ACT[++k]=fn;return k;};
   const wx=await getJSON(`${OM}?latitude=${P.la}&longitude=${P.lo}&current=temperature_2m,weather_code,wind_speed_10m${TZ}`);
   el.innerHTML=(wx&&wx.current?`<div class="card"><b>🌦️ El tiempo aquí</b><div style="display:flex;gap:10px;align-items:center;margin-top:4px"><span style="font-size:32px">${wxIcon(wx.current.weather_code,new Date().getHours())}</span><b style="font-size:24px">${Math.round(wx.current.temperature_2m)}°</b><span class="note">${wDesc(wx.current.weather_code)} · viento ${Math.round(wx.current.wind_speed_10m)} km/h</span></div></div>`:'')+
