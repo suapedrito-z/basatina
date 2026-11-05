@@ -2781,7 +2781,10 @@ async function rdLoad(){try{const j=await getJSON('https://api.rainviewer.com/pu
   const s=document.getElementById('rdT');s.max=RDF.length-1;RDI=(j.radar.past||[]).length-1;s.value=RDI;rdShow();}catch(e){}}
 function rdShow(){const f=RDF[RDI];if(!f)return;document.getElementById('rdLbl').textContent=(f.nc?'🔮 ':'')+new Date(f.time*1000).toTimeString().slice(0,5);RDM&&RDM.draw();
 }
-function rdDraw(x,P,b){const f=RDF[RDI];if(f)drawTiles(x,P,b,(z,X,Y)=>`${RDH}${f.path}/256/${z}/${X}/${Y}/2/1_1.png`,RDT,5,7,.8,()=>RDM&&RDM.draw());}
+function rdDraw(x,P,b){const f=RDF[RDI];if(!f)return;
+  // el mapa base se oscurece un poco y la lluvia se pinta con más color y contraste, para que se vea bien hasta la más débil
+  x.fillStyle='rgba(8,16,26,.45)';x.fillRect(0,0,b.W,b.H);x.filter='saturate(3) contrast(1.6) brightness(1.15)';
+  drawTiles(x,P,b,(z,X,Y)=>`${RDH}${f.path}/256/${z}/${X}/${Y}/2/1_1.png`,RDT,5,7,1,()=>RDM&&RDM.draw());x.filter='none';}
 function rdInit(){if(!RDM){RDM=NavMap('rdc',rdDraw,()=>{});mapBtns('rdc',RDM);RDM.zoom(.7);
     document.getElementById('rdT').oninput=e=>{RDI=+e.target.value;rdShow();};
     document.getElementById('rdPlay').onclick=()=>{const b=document.getElementById('rdPlay');if(RDP){clearInterval(RDP);RDP=null;b.textContent='▶️';return;}b.textContent='⏸️';
