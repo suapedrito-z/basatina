@@ -2950,11 +2950,16 @@ const _mtRadar1=mtRadar;mtRadar=function(x,W,H,P,leg){_mtRadar1(x,W,H,P,leg);con
 const _rdLoad1=rdLoad;rdLoad=async function(){await Promise.all([_rdLoad1(),eusLoad()]);if(RDM)RDM.draw();
   const s=document.getElementById('rdSrc');if(s&&EUSF.length&&!/Euskalmet/.test(s.textContent))s.textContent+=' Sobre el oeste y centro de Navarra, con más detalle, el radar de Kapildui (Euskalmet).';};
 // rayos de Euskalmet (red LINET): imagen del último periodo
-async function eusRayos(){const n=document.getElementById('rdEusN');if(!n)return;
-  try{const L=await eusList('radar_ray/lightning/'),now=new Date(),nowHM=now.getUTCHours()*100+now.getUTCMinutes(),c=L.filter(x=>+x.hm<=nowHM).slice(-1)[0];
-    if(!c){n.textContent='Sin datos ahora.';return;}const u=EUS+'radar_ray/lightning/'+c.f+'?d='+now.toISOString().slice(0,13);
-    n.innerHTML=`Rayos de la última hora y media detectados por la red LINET (cubre Euskadi y casi toda Navarra). Toca para verla en grande.<img src="${u}" style="width:100%;border-radius:8px;margin-top:6px;background:#fff;cursor:zoom-in" onerror="this.remove()">`;
-    n.querySelector('img').onclick=e=>pbFoto(e.target.src,'⚡ Rayos · Euskalmet (red LINET)');}catch(e){n.textContent='Euskalmet no responde ahora.';}}
+async function eusRayos(){const n=document.getElementById('rdEusN');if(!n)return;n.textContent='Buscando la última imagen de rayos…';
+  // las imágenes se llaman por la hora (UTC) y se reutilizan cada día: se busca hacia atrás la primera que tenga mapa (no «Sin datos»)
+  const ok=src=>new Promise(res=>{const im=new Image();im.crossOrigin='anonymous';im.onload=()=>{try{const c=document.createElement('canvas');c.width=40;c.height=40;const x=c.getContext('2d');x.drawImage(im,0,0,40,40);
+      const [r,g,b]=x.getImageData(20,5,1,1).data;res(b>r+8?im:null);}catch(e){res(im);}};im.onerror=()=>res(null);im.src=src;});
+  const now=new Date();let found=null,t0=null;
+  for(let k=1;k<=12&&!found;k++){const t=new Date(Math.floor(now/6e5)*6e5-k*6e5),hm=String(t.getUTCHours()).padStart(2,'0')+String(t.getUTCMinutes()).padStart(2,'0');
+    found=await ok(EUS+'radar_ray/lightning/webmet00-'+hm+'.png?d='+t.toISOString().slice(0,16));if(found)t0=t;}
+  if(!found){n.textContent='Euskalmet no tiene la imagen de rayos ahora mismo. Prueba en un rato.';return;}
+  n.innerHTML=`Rayos de la hora y media hasta las ${t0.toTimeString().slice(0,5)}, de la red LINET (cubre Euskadi y casi toda Navarra). Toca para verla en grande.<img src="${found.src}" style="width:100%;border-radius:8px;margin-top:6px;background:#fff;cursor:zoom-in">`;
+  n.querySelector('img').onclick=ev=>pbFoto(ev.target.src,'⚡ Rayos · Euskalmet (red LINET)');}
 const _rdInit1=rdInit;rdInit=function(){_rdInit1();eusRayos();};
 
 </script>
