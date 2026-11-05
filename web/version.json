@@ -1,5 +1,5 @@
 {
- "version": 58,
+ "version": 59,
  "apk": 9,
  "files": {
   "c12.jpg": "ac3fa4c4bc823c0b64c7c69990cf891eb00e6319",
@@ -8,9 +8,9 @@
   "eu.js": "d573cf7e15fd6bdecbf61e640e8aa9c59b0180bb",
   "flood.png": "6d4fa0d5fbc339db9a3c4ffe14e433dc989066fc",
   "flood2.png": "712a7b22803bcae9b052cece1bdbe3c4ccae177e",
-  "index.html": "b973a7abe1dae4f54f9084de3f76969856840e26",
+  "index.html": "2c60a0a27d607f1b126f1326806471b3cc3e6bdb",
   "logo.jpg": "442927f2c4c5495089c0bd56e454ddc6a4223411",
-  "monte.js": "fc9f9070f9ef850b494a00f23664762128c0e6e6",
+  "monte.js": "ccaa5ad87b2bbf2c4d8e106bb40d3793efbe49a7",
   "pesca.js": "fba5172885d790d2fc7caf52e3d2fa08f745b612",
   "pnoa.jpg": "2ace269ed17d224cdca74f3033d27f5306e56dee",
   "pnoa14.jpg": "f0f3b88c53d5b4d1b7c3c4c6a46279842323a159",
