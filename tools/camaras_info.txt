@@ -1,13 +1,9 @@
-===== /scripts/webmet00-radarkapildui-script.js 0
-===== /scripts/custom/js/webmet00-kapilduiMini.js 3278
-  > var webdomain = 'https://www.euskalmet.euskadi.eus';
-  > var maxReflectImagesDirectory = webdomain + '/vamet/radar_reflectivity/max_reflect/';
-  > var rayEvolutionImagesDirectory = webdomain + '/vamet/radar_ray/lightning/';
-  > var precipAcumulatedImagesDirectory = webdomain +'/vamet/radar_kapildui_detail/acumulated/today/';
-  > var precipIntensityImagesDirectory = webdomain + '/vamet/radar_kapildui_detail/intensity/today/';
-  >             document.find('a[href$=".png"]').each(function () {
-  >                 if (orderedNames[i] > "webmet00-" + time + ".png") {
-  >             if (orderedNames[orderedNames.length] < "webmet00-" + time + ".png") {
-fallo /vamet/radar/ HTTP Error 404: Not Found
-fallo /vamet/radar_kapildui/ HTTP Error 404: Not Found
-fallo /vamet/ HTTP Error 403: Forbidden
+fallo  HTTP Error 403: Forbidden
+== intensity/today/ ACAO=*
+ Index of /vamet/radar_kapildui_detail/intensity/today Index of /vamet/radar_kapildui_detail/intensity/today Name Last modified Size Description Parent Directory - webmet00-0000.png 2026-11-05 23:42 4.6K webmet00-0010.png 2026-11-05 23:42 4.5K webmet00-0020.png 2026-11-05 23:42 4.8K webmet00-0030.png 2026-11-05 23:42 4.6K webmet00-0040.png 2026-11-05 23:42 4.7K webmet00-0050.png 2026-11-05 23:42 4.7K webmet00-0100.png 2026-11-05 23:42 4.6K webmet00-0110.png 2026-11-05 23:42 4.6K webmet00-0120.png 2026-11-05 23:42 4.6K webmet00-0130.png 2026-11-05 23:42 4.5K webmet00-0140.png 2026-11-05 23:42 4 ... 26-11-05 23:42 4.4K webmet00-2200.png 2026-11-05 23:42 4.5K webmet00-2210.png 2026-11-05 23:42 4.2K webmet00-2220.png 2026-11-05 23:42 4.2K webmet00-2230.png 2026-11-05 23:42 139K webmet00-2240.png 2026-11-05 23:42 139K webmet00-2250.png 2026-11-05 23:42 139K webmet00-2300.png 2026-11-05 23:42 139K webmet00-2310.png 2026-11-05 23:42 139K webmet00-2320.png 2026-11-05 23:42 139K webmet00-2330.png 2026-11-05 23:42 139K webmet00-2340.png 2026-11-05 23:42 139K webmet00-2350.png 2026-11-05 23:42 139K 
+fallo intensity/ HTTP Error 403: Forbidden
+== acumulated/today/ ACAO=*
+ Index of /vamet/radar_kapildui_detail/acumulated/today Index of /vamet/radar_kapildui_detail/acumulated/today Name Last modified Size Description Parent Directory - webmet00-0000.png 2026-11-05 23:42 4.7K webmet00-0010.png 2026-11-05 23:42 4.8K webmet00-0020.png 2026-11-05 23:42 4.8K webmet00-0030.png 2026-11-05 23:42 4.8K webmet00-0040.png 2026-11-05 23:42 4.7K webmet00-0050.png 2026-11-05 23:42 4.7K webmet00-0100.png 2026-11-05 23:42 4.7K webmet00-0110.png 2026-11-05 23:42 4.7K webmet00-0120.png 2026-11-05 23:42 4.8K webmet00-0130.png 2026-11-05 23:42 4.8K webmet00-0140.png 2026-11-05 23:42 ... 26-11-05 23:42 4.4K webmet00-2200.png 2026-11-05 23:42 4.4K webmet00-2210.png 2026-11-05 23:42 4.5K webmet00-2220.png 2026-11-05 23:42 4.4K webmet00-2230.png 2026-11-05 23:42 139K webmet00-2240.png 2026-11-05 23:42 139K webmet00-2250.png 2026-11-05 23:42 139K webmet00-2300.png 2026-11-05 23:42 139K webmet00-2310.png 2026-11-05 23:42 139K webmet00-2320.png 2026-11-05 23:42 139K webmet00-2330.png 2026-11-05 23:42 139K webmet00-2340.png 2026-11-05 23:42 139K webmet00-2350.png 2026-11-05 23:42 139K 
+fallo long_range/today/ HTTP Error 403: Forbidden
+fallo long_range/ HTTP Error 403: Forbidden
+fallo reflectivity/today/ HTTP Error 404: Not Found
