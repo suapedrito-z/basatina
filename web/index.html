@@ -105,6 +105,10 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button data-t="caza">🦌 Caza: calendario de la temporada</button>
     <button data-t="natura">🌿 Setas, frutos, fauna y vegetación</button>
   </div>
+  <div class="dgroup"><span>Energía</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="energia">⚡ Energía en Navarra: eólica, solar…</button>
+  </div>
   <div class="dgroup"><span>NA sísmica</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="sismo">🌍 Terremotos, fallas y placas</button>
@@ -126,7 +130,6 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button data-t="ciencia" id="dCiencia" style="display:none">🔬 Modo científico</button>
     <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
     <button data-t="pueblos" id="dPueblos" style="display:none">🏘️ Pueblos de Navarra (en pruebas)</button>
-    <button data-t="energia" id="dEnergia" style="display:none">⚡ Energía en Navarra (en pruebas)</button>
     <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
     <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
@@ -1289,7 +1292,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dEnergia','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
