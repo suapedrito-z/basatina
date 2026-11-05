@@ -1,8 +1,8 @@
-bi 404 Error al obtener los datos 
-ss 200 exito https://opendata.aemet.es/opendata/sh/e53215f7
-vi 404 Error al obtener los datos 
-sa 200 exito https://opendata.aemet.es/opendata/sh/fd086663
-za 200 exito https://opendata.aemet.es/opendata/sh/79280e4f
-vd 200 exito https://opendata.aemet.es/opendata/sh/dab20e27
-as 404 Error al obtener los datos 
-ba 200 exito https://opendata.aemet.es/opendata/sh/a4fe8089
+ss 9557
+sa 9127
+fallo https://www.euskalmet.euskadi.eus/radar/ HTTP Error 404: Not Found
+fallo https://www.euskalmet.euskadi.eus/observacion/radar/ HTTP Error 404: Not Found
+
+== https://www.euskalmet.euskadi.eus/inicio/ 64274
+  /observacion/radar-kapildui-precipitaciones/
+  without-radar
