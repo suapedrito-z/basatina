@@ -1,18 +1,14 @@
-import re, json, urllib.request
+# Comprueba el radar de RainViewer (GitHub Actions)
+import json, urllib.request, io, zlib, struct
 OUT = []
-def get(u, t=90, h=None):
-    hd = {"User-Agent": "Mozilla/5.0 (Linux; Android 14) Chrome/124 Mobile", "Accept": "application/json, */*"}; hd.update(h or {})
-    r = urllib.request.Request(u, headers=hd)
-    with urllib.request.urlopen(r, timeout=t) as f: return f.status, dict(f.headers), f.read()
-B = "https://administracionelectronica.navarra.es/IncCarreteras/"
-for c in ["api/incidents", "api/incidents?lang=es"]:
+def get(u):
+    with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0 BasatiNA"}), timeout=60) as f: return f.status, dict(f.headers), f.read()
+st, hd, b = get("https://api.rainviewer.com/public/weather-maps.json"); j = json.loads(b)
+OUT.append(json.dumps(j)[:1500])
+f = j["radar"]["past"][-1]
+for z, x, y in [(7, 63, 46), (7, 63, 47), (6, 31, 23), (5, 15, 11), (4, 7, 5), (3, 3, 2)]:
+    u = f'{j["host"]}{f["path"]}/256/{z}/{x}/{y}/2/1_1.png'
     try:
-        st, hd, b = get(B + c, h={"Origin": "https://localhost"}); t = b.decode("utf8", "ignore")
-        OUT.append(f"\n===== {c} {st} {hd.get('Content-Type')} ACAO={hd.get('Access-Control-Allow-Origin')} {len(t)}"); OUT.append(t[:15000])
-    except Exception as e: OUT.append(f"fallo {c} {e}")
-try:
-    st, hd, b = get(B + "bundles/js?v=tMLrKv2WBNMT5rXQvCbt7g1lUqoRQitIdaOzvrLARRQ1"); j = b.decode("utf8", "ignore")
-    i = j.find("api/incidents"); OUT.append("\n===== bundle alrededor de api/incidents"); OUT.append(j[max(0, i-3000):i+6000])
-    for m in sorted(set(re.findall(r"incident\.(\w+)", j))): OUT.append("campo " + m)
-except Exception as e: OUT.append(f"fallo bundle {e}")
+        st, hd, b = get(u); OUT.append(f"{z}/{x}/{y} {st} {hd.get('Content-Type')} {len(b)} bytes ACAO={hd.get('Access-Control-Allow-Origin')}")
+    except Exception as e: OUT.append(f"{z}/{x}/{y} FALLO {e}")
 open("tools/camaras_info.txt", "w").write("\n".join(OUT))
