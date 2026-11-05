@@ -36,7 +36,7 @@ for i in range(3):
 
 def overpass(q):
     for s in ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://overpass.kumi.systems/api/interpreter"] * 2:
-        try: return json.loads(get(s, data=urllib.parse.urlencode({"data": q}).encode(), timeout=240))
+        try: return json.loads(get(s, data=urllib.parse.urlencode({"data": q}).encode(), timeout=170))
         except Exception as e: log("overpass", s, e); time.sleep(8)
     return None
 
@@ -56,7 +56,8 @@ if not out["rec"] or time.strftime("%H") < "08":
 
 # 3) puertos de montaña en carreteras (Navarra y sus bordes)
 if not out["pue"] or time.strftime("%H") < "08":
-    q = """[out:json][timeout:180];(way["highway"~"^(motorway|trunk|primary|secondary|tertiary|unclassified)$"](41.9,-2.55,43.35,-0.70););node(w)["mountain_pass"="yes"];out body;"""
+    # primero los collados, luego solo los que están en una carretera (mucho más ligero para el servidor)
+    q = """[out:json][timeout:150];node["mountain_pass"="yes"](41.9,-2.55,43.35,-0.70)->.p;way(bn.p)["highway"~"^(motorway|trunk|primary|secondary|tertiary|unclassified)$"]->.w;node.p(w.w);out body;"""
     j = overpass(q)
     if j:
         L, seen = [], set()
