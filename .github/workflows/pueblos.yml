@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Preparar
-        run: pip install pyshp pyproj
+        run: pip install pyshp pyproj shapely
       - name: Descargar de IDENA
         run: python3 tools/pueblos.py
       - name: Guardar en el repositorio

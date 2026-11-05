@@ -34,9 +34,23 @@ for sr in sf.iterShapeRecords():
     pue.append({"a": {k: (v.strip() if isinstance(v, str) else v) for k, v in a.items() if k not in ("FEATURE", "BEGINLIFE")}, "pt": [round(la, 5), round(lo, 5)]})
 # municipios (para el nombre del municipio y la merindad si viene)
 sf2, F2 = shp("DIADMI_Pol_Municipio"); describe("DIADMI_Pol_Municipio", sf2, F2)
-mun = {}
-for r in sf2.iterRecords():
-    a = dict(zip(F2, r)); mun[str(a.get("CMUNICIPIO", a.get("CODIGO", ""))).strip()] = {k: (v.strip() if isinstance(v, str) else v) for k, v in a.items() if k not in ("FEATURE", "BEGINLIFE", "GEOM_AREA", "GEOM_PERI")}
+from shapely.geometry import shape as Shape, Point
+mun, polys = {}, []
+for sr in sf2.iterShapeRecords():
+    a = dict(zip(F2, sr.record)); c = str(a["CMUNICIPIO"]).strip()
+    mun[c] = {"n": a["MUNICIPIO"].strip(), "altc": a.get("ALTCAPITAL"), "altm": a.get("ALTMEDIA"), "hab": a.get("HABIT2025"), "hab03": a.get("HABIT2003"),
+              "km2": round(float(a.get("GEOM_AREA") or 0) / 1e6, 1)}
+    polys.append((c, Shape(sr.shape.__geo_interface__)))
+# a qué municipio pertenece cada pueblo (punto dentro del polígono, en UTM)
+sf.close() if hasattr(sf, "close") else None
+sf, F = shp("ESTADI_Txt_EntidadPob")
+for p, sr in zip(pue, sf.iterShapeRecords()):
+    x, y = sr.shape.points[0][:2]; pt = Point(x, y)
+    p["m"] = next((c for c, g in polys if g.contains(pt)), None)
+    if p["m"] is None:
+        p["m"] = min(polys, key=lambda cg: cg[1].distance(pt))[0]
+for p in pue:
+    p["n"] = p["a"].get("ENTIDAD"); del p["a"]
 # altitud: 100 puntos por petición
 alts = []
 for i in range(0, len(pue), 100):
