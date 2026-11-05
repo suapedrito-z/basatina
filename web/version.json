@@ -1,14 +1,14 @@
 {
- "version": 59,
+ "version": 60,
  "apk": 9,
  "files": {
   "c12.jpg": "ac3fa4c4bc823c0b64c7c69990cf891eb00e6319",
   "c14.jpg": "00f5a26af1b6c701d5ffd8b64b9832f8c3b3fe03",
   "caza.js": "c1d0e34aaa49c5476249d2bff58bcefa7f05ed40",
-  "eu.js": "d573cf7e15fd6bdecbf61e640e8aa9c59b0180bb",
+  "eu.js": "1cafaade87568cdfd90b4e0ce1531d50e16ec256",
   "flood.png": "6d4fa0d5fbc339db9a3c4ffe14e433dc989066fc",
   "flood2.png": "712a7b22803bcae9b052cece1bdbe3c4ccae177e",
-  "index.html": "2c60a0a27d607f1b126f1326806471b3cc3e6bdb",
+  "index.html": "47a7a9518790264d5d34390c8a839ea8b94281ba",
   "logo.jpg": "442927f2c4c5495089c0bd56e454ddc6a4223411",
   "monte.js": "ccaa5ad87b2bbf2c4d8e106bb40d3793efbe49a7",
   "pesca.js": "fba5172885d790d2fc7caf52e3d2fa08f745b612",
