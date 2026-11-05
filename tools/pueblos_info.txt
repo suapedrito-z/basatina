@@ -37,4 +37,4 @@
 - GEOM_PERI: 272 · [('32356.55', 1), ('34330.61', 1), ('21726.13', 1), ('46159.83', 1), ('35485.08', 1), ('31770.28', 1)]
 - BEGINLIFE: 1 · [('06/10/2026', 272)]
 
-pueblos.js: 188 KB · 945 entidades · 272 municipios
+pueblos.js: 80 KB · 945 entidades · 272 municipios
