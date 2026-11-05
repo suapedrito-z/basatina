@@ -1,53 +1,461 @@
-mapa 200 858
-  ref js/script.js
-  ref js/temporal.js
-fallo https://administracionelectronica.navarra.es/IncCarreteras/CamarasCarreteras.kml HTTP Error 404: Not Found
-fallo https://administracionelectronica.navarra.es/IncCarreteras/kml/CamarasCarreteras.kml HTTP Error 404: Not Found
-fallo https://administracionelectronica.navarra.es/IncCarreteras/Kml/CamarasCarreteras.kml HTTP Error 404: Not Found
-fallo https://administracionelectronica.navarra.es/IncCarreteras/kml/CamarasCarreteras.kml HTTP Error 404: Not Found
-
-== JS https://sitna.tracasa.es/api/ 2403618
-    y=e,r.map&&!t&&r.map.trigger(i.A.event.LAYEROPACITY,{layer:r,opacity:e})}isCompatible(e){return!0}isValidFromNames(){return!0}isRaster(){switch(this.type){case i.A.layerType.VECTOR:case i.A.layerType.KML:case i.A.layerType.WFS:case i.A.layerType.GROUP:return!1;default:return!0}}isVisibleByScale(){return!0}isVisibleByName(e){return!0}getTree(){return{name:this.name,title:this.title}}findNode(e,t){c
-    ryTypes);const i=(s=r.url,((l=(s=s||"").indexOf("?"))>=0||(l=s.indexOf("#"))>=0)&&(s=s.substr(0,l)),s.substr(s.lastIndexOf(".")).toLowerCase());var s,l;const c=function(e){switch(e){case a.A.mimeType.KML:return a.A.format.KML;case a.A.mimeType.GPX:return a.A.format.GPX;case a.A.mimeType.JSON:case a.A.mimeType.GEOJSON:return a.A.format.GEOJSON;case a.A.mimeType.GML:return a.A.format.GML;default:ret
-     null}}(r.format)||o.A.getFormatFromFileExtension(i);if(c||r.type===a.A.layerType.KML){c===a.A.format.KML&&(r.type=a.A.layerType.KML);r.title=r.options.title||function(e){for(var t=e=e||"",r=new RegExp("([\\w|\\-|\\.]+\\"+i+")","i"),n=0;n<3;n++){e=decodeURIComponent(e);var o=r.exec(e);if(o.length>1){t=o[1];break}}return t}(r.url)}
-    ",OLD_BROWSER_ALERT:"TC.oldBrowserAlert",CLUSTER_ANIMATION_DURATION:200,ZOOM_ANIMATION_DURATION:300,URL_MAX_LENGTH:2048,METER_PRECISION:0,DEGREE_PRECISION:5,EXTENT_TOLERANCE:.9998,SRSDOWNLOAD_GEOJSON_KML:"urn:ogc:def:crs:OGC::CRS84",url:{SPLIT_REGEX:/([^:]*:)?\/\/([^:]*:?[^@]*@)?([^:\/\?]*):?([^\/\?]*)/,EPSG:"https://epsg.io/"}};if(void 0!==globalThis.SITNA_BASE_URL)n.url.ERROR_LOGGER=globalThis.S
-    "mapbox_streets",MAPBOX_SATELLITE:"mapbox_satellite",BLANK:"ninguno"},n.text={API_ERROR:"Error API SITNA",APP_ERROR:"Error de aplicación"},n.layerType={WMS:"WMS",WMTS:"WMTS",WFS:"WFS",VECTOR:"vector",KML:"KML",GPX:"GPX",GML:"GML",GEOJSON:"GeoJSON",GROUP:"group"},n.geom={POINT:"point",MULTIPOINT:"multipoint",POLYLINE:"polyline",POLYGON:"polygon",MULTIPOLYLINE:"multipolyline",MULTIPOLYGON:"multipoly
-    ,LIKE:"is"},n.logicalOperator={AND:"and",OR:"or"},n.WMTSEncoding={KVP:"KVP",RESTFUL:"RESTful"},n.mimeType={PNG:"image/png",JPEG:"image/jpeg",JSON:"application/json",GEOJSON:"application/vnd.geo+json",KML:"application/vnd.google-earth.kml+xml",KMZ:"application/vnd.google-earth.kmz",GML:"application/gml+xml",GPX:"application/gpx+xml",XML:"application/xml",GEOPACKAGE:"application/geopackage+sqlite3",
-    PEFILE:"x-gis/x-shapefile",ZIP:"application/x-zip"},n.format={JSON:"JSON",KML:"KML",KMZ:"KMZ",GML:"GML",GML2:"GML2",GML3:"GML3",GML32:"GML32",GEOJSON:"GeoJSON",TOPOJSON:"TopoJSON",GPX:"GPX",WKT:"WKT",WKB:"WKB",SHAPEFILE:"SHP",ZIP:"ZIP",GEOPACKAGE:"GPKG"},n.WFSErrors={GETFEATURE_NOT
-    ayerId=e.id,t}let u,f,g;"string"==typeof e?u=new d.A(l.A.extend({},r.getAvailableBaseLayer(e),{map:r})):e instanceof h.A?(u=e,u.map=r):(e.map=r,u=e.type===a.A.layerType.VECTOR||e.type===a.A.layerType.KML||e.type===a.A.layerType.WFS?new p.A(e):new d.A(e));try{await Promise.all([r.wrap.getMap(),u.wrap.getLayer()])}catch(t){const r=t instanceof Error?t:new Error(t);throw r.layerId=e.id,r}r.trigger(a.
-    vent.BEFORELAYERADD,{layer:u}),function(e){return"string"==typeof e||e.type!==a.A.layerType.VECTOR&&e.type!==a.A.layerType.KML&&e.type!==a.A.layerType.WFS}(u)&&(se(u),f=r.wrap.indexOfFirstVector()),-1===f&&(f=r.wrap.getLayerCount());const m=r.state&&r.state.crs?r.state.crs:r.getCRS();if(await o.A.loadProjDef({crs:m}),g=u.isB
-    LATE"})}const d=await this.wrap.exportFeatures(n,t);if(o===a.A.format.KMZ){var p,f;const e=new u,r=(null!==(p=null===(f=/(.+)\.kmz$/i.exec(t.fileName))||void 0===f?void 0:f[1])&&void 0!==p?p:"doc")+".kml";e.file(r,d);return await e.generateAsync({type:"blob",mimeType:s,compression:"DEFLATE"})}return d}))}exportControlStates(){return this.controls.map((e=>e.exportState())).filter((function(e){if(e)
-    Layers[0];return e.title||e.mapLayers.reduce((function(e,t){return e||t.title}),"")||t.tree&&t.tree.title||t.capabilities.Service.Title},h=function(){return!o||i!==a.A.mimeType.JSON&&i!==a.A.mimeType.KML?l.A.toURNCRS(t.getCRS()):a.A.SRSDOWNLOAD_GEOJSON_KML},d=async function(e,t){if(o){return{url:(await e.mapLayer.proxificationTool.cacheHost.getAction(e.url)).action(e.url),data:t}}{const r=await fu
-    tring(0,r)),t=e}return t},getMimeTypeFromUrl:function(e){let t=e.indexOf("?");switch(t>=0?e=e.substr(0,t):(t=e.indexOf("#"),t>=0&&(e=e.substr(0,t))),e.substr(e.lastIndexOf(".")+1).toLowerCase()){case"kml":return i.A.mimeType.KML;case"kmz":return i.A.mimeType.KMZ;case"json":case"geojson":return i.A.mimeType.GEOJSON;case"gml":return i.A.mimeType.GML;case"gpx":return i.A.mimeType.GPX;case"gpkg":retur
-    ":t="eu-ES";break;case"es":t="es-ES";break;default:t="en-US"}return t},getValidFilename:function(e){return(e||"").replace(/[/\\?%*:|"<>]/g,"-")},getFormatFromFileExtension:function(e){switch(e){case".kml":return i.A.format.KML;case".kmz":return i.A.format.KMZ;case".gpx":return i.A.format.GPX;case".json":case".geojson":return i.A.format.GEOJSON;case".gml":return i.A.format.GML;case".wkt":return i.A
-    json":return i.A.format.TOPOJSON;case".gpkg":return i.A.format.GEOPACKAGE;case".shp":return i.A.format.SHAPEFILE;default:return null}},getFileExtensionFromFormat:function(e){switch(e){case i.A.format.KML:return".kml";case i.A.format.KMZ:return".kmz";case i.A.format.GPX:return".gpx";case i.A.format.GEOJSON:return".geojson";case i.A.format.GML:return".gml";case i.A.format.WKT:return".wkt";case i.A.f
-    sponseHeader("Content-type");r({data:i.response,contentType:t||("blob"===i.responseType?"application/zip":""),filename:o})}catch(e){n(e)}};try{i.send(t)}catch(e){n(e)}})),o="";if(r.data.type.indexOf("kml")>=0)o=".kml";else if(r.data.type.indexOf("json")>=0)o=".geojson";else if(r.data.type.indexOf("xml")>=0&&(o=".gml",/outputFormat="\S{1,}"/.exec(t)[0].includes(".kml")||/outputFormat="\S{1,}"/.exec
-     control not initialized"))}async getLayer(){return await(await this.getEditControl()).getLayer()}isStylable(e){var t;const r=null===(t=e._fileHandle)||void 0===t?void 0:t.name;return!r||r.endsWith(".kml")||r.endsWith(".kmz")}async save(e={}){const t=this,o=e.layer||await t.getLayer();let a,s,l,u,h,d,p,f,g=o.features;const y=async function(){(await s(t.map.workLayers)).forEach((e=>C.delete(e)))};i
-    e.LAYER_METADATA_STORE_KEY_PREFIX="TC.fileLayerMetadata.",e._dialogDiv=l.A.getDiv(e.options.dialogDiv),e.options.dialogDiv||document.body.appendChild(e._dialogDiv),e.fileTypes=[{accept:{[i.A.mimeType.KML]:["."+i.A.format.KML]}},{accept:{[i.A.mimeType.KMZ]:["."+i.A.format.KMZ]}},{accept:{[i.A.mimeType.GML]:["."+i.A.format.GML,"."+i.A.format.GML2]}},{accept:{[i.A.mimeType.GEOJSON]:["."+i.A.format.GE
-    RACKSNAPPING:"tracksnapping.tc.geolocation",DRAWTRACK:"drawtrack.tc.geolocation",CLEARTRACK:"cleartrack.tc.geolocation",IMPORTEDTRACK:"importedtrack.tc.geolocation"},supportedFileExtensions:[".gpx",".kml",".kmz"],layer:{GPS:"gps",TRACK:"track",GEOTRACKING:"geotracking"}}),_(this,"markerStyle",{radius:10,fillColor:[255,0,0,100],strokeColor:[255,255,255,255],strokeWidth:2}),_(this,"lineStyle",{strok
-    a.A.layerType.VECTOR,owner:t,stealth:!0,title:"Posicionar.Extremos"});e.on(a.A.event.FEATURESIMPORT,function(e){const t=this,r=async function(e){const r=e.fileName,n=e.dropTarget;var i="."+a.A.format.KML.toLowerCase(),o="."+a.A.format.GPX.toLowerCase();if(r.toLowerCase().indexOf(o)===r.length-o.length||r.toLowerCase().indexOf(i)===r.length-i.length&&n===t){t.clear(t.const.layer.TRACK);const n=func
-    e)}return r};a.forEach((t=>{const r=e(t,i);-1!==r&&o[r].push(t)}))}for(let r=0;r<o.length;r++){const n=o[r];await t.importTrack({...e,features:n,trackIndex:o.length>1?r:void 0,trackCount:o.length})}/.kml$/g.test(r.toLowerCase())&&t.trackLayer&&t.trackLayer.styles&&t.trackLayer.features.forEach((function(e){e.getStyle()||(e instanceof m.A&&t.trackLayer.styles.point?e.setStyle(t.trackLayer.styles.po
-    k}}return r};if("string"==typeof t){var a=n(t,e.availableBaseLayers);o.A.isPlainObject(a)||(a=n(t,e.options.baseLayers)),o.A.isPlainObject(a)&&(r=a.type===i.A.layerType.VECTOR||a.type===i.A.layerType.KML||a.type===i.A.layerType.WFS?new l.A(a):new s.A(a))}else r=t instanceof s.A||t instanceof l.A?t:t.type===i.A.layerType.VECTOR||t.type===i.A.layerType.KML||t.type===i.A.layerType.WFS?new l.A(t):new 
-    ]&&(o.ele=t[2]);break;case"XYM":0!==t[2]&&(o.time=t[2])}const a="rtept"==e.nodeName?Il[i]:kl[i],s=(0,Ta.Gl)(o,a);(0,Ta.NQ)({node:e,properties:o},Fl,Ta.OL,s,r,a)}const Kl=Sl,Xl=["http://www.google.com/kml/ext/2.2"];let Zl=[null,"http://earth.google.com/kml/2.0","http://earth.google.com/kml/2.1","http://earth.google.com/kml/2.2","http://www.opengis.net/kml/2.2"];const Jl=function(e){for(var t=[],r=[
-    tion _c(){sc=[255,255,255,1],pc=new ni({color:wc(TC.Cfg.styles.polygon.fillColor,TC.Cfg.styles.polygon.fillOpacity)}),lc=[20,2],cc="pixels",uc="pixels",hc=[64,64],dc="https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png",gc=new ai({anchor:lc,anchorOrigin:"bottom-left",anchorXUnits:cc,anchorYUnits:uc,crossOrigin:"anonymous",rotation:0,scale:Ec(hc),size:hc,src:dc}),fc="NO_IMAGE",yc=new li({c
-    .showPointNames,this.crossOrigin_=void 0!==e.crossOrigin?e.crossOrigin:"anonymous",this.iconUrlFunction_=e.iconUrlFunction?e.iconUrlFunction:Dc,this.supportedMediaTypes=["application/vnd.google-earth.kml+xml"]}readDocumentOrFolder_(e,t){const r=(0,Ta.Dm)(Zl,{Document:(0,Ta.Vh)(this.readDocumentOrFolder_,this),Folder:(0,Ta.Vh)(this.readDocumentOrFolder_,this),Placemark:(0,Ta.VT)(this.readPlacemark_
-    nt"==n||"Folder"==n){if(r=this.readDocumentOrFolder_(e,[this.getReadOptions(e,t)]),r){if("Document"===n){let e;for(let t in this.sharedSchemas_){const r=this.sharedSchemas_[t];e??={origin:ll.A.format.KML,originalMetadata:{schemas:[]}};const n={id:t,simpleFields:r.map((e=>({...e})))};e.originalMetadata.schemas.push(n)}r.forEach((t=>{this.featureMetadata.set(t,e)}))}return r}return[]}if("Placemark"=
-    {const r=this.readPlacemark_(e,[this.getReadOptions(e,t)]);return r?[r]:[]}if("kml"==n){r=[];for(let n=e.firstElementChild;n;n=n.nextElementSibling){const e=this.readFeaturesFromNode(n,t);e&&(0,Q.X$)(r,e)}return r.forEach((function(e){e.getId()||e.setId(TC.getUID())})),r}return[]}r
-    eURI)&&"name"==t.localName)return(0,Ia.E3)(t);for(let t=e.firstElementChild;t;t=t.nextElementSibling){const e=t.localName;if(Zl.includes(t.namespaceURI)&&("Document"==e||"Folder"==e||"Placemark"==e||"kml"==e)){const e=this.readNameFromNode(t);if(e)return e}}}readNetworkLinks(e){const t=[];if("string"==typeof e){const r=(0,Ta.qg)(e);(0,Q.X$)(t,this.readNetworkLinksFromDocument(r))}else(0,Ta.wz)(e)?
-    tworkLink"==r.localName){const e=(0,Ta.eY)({},tc,r,[]);t.push(e)}for(let r=e.firstElementChild;r;r=r.nextElementSibling){const e=r.localName;!Zl.includes(r.namespaceURI)||"Document"!=e&&"Folder"!=e&&"kml"!=e||(0,Q.X$)(t,this.readNetworkLinksFromNode(r))}return t}readRegion(e){const t=[];if("string"==typeof e){const r=(0,Ta.qg)(e);(0,Q.X$)(t,this.readRegionFromDocument(r))}else(0,Ta.wz)(e)?(0,Q.X$)
-    &&"Region"==r.localName){const e=(0,Ta.eY)({},ic,r,[]);t.push(e)}for(let r=e.firstElementChild;r;r=r.nextElementSibling){const e=r.localName;!Zl.includes(r.namespaceURI)||"Document"!=e&&"Folder"!=e&&"kml"!=e||(0,Q.X$)(t,this.readRegionFromNode(r))}return t}readCamera(e){const t=[];if("string"==typeof e){const r=(0,Ta.qg)(e);(0,Q.X$)(t,this.readCameraFromDocument(r))}else(0,Ta.wz)(e)?(0,Q.X$)(t,thi
-    Name){const e=(0,Ta.eY)({},nc,r,[]);t.push(e)}for(let r=e.firstElementChild;r;r=r.nextElementSibling){const e=r.localName;!Zl.includes(r.namespaceURI)||"Document"!==e&&"Folder"!==e&&"Placemark"!==e&&"kml"!==e||(0,Q.X$)(t,this.readCameraFromNode(r))}return t}writeFeaturesNode(e,t){t=this.adaptOptions(t);const r=(0,Ta.qq)(Zl[4],"kml"),n="http://www.w3.org/2000/xmlns/";r.setAttributeNS(n,"xmlns:gx",X
-    ]),r.setAttributeNS(n,"xmlns:xsi",Ta.pF),r.setAttributeNS(Ta.pF,"xsi:schemaLocation","http://www.opengis.net/kml/2.2 https://developers.google.com/kml/schema/kml22gx.xsd");const i={node:r},o={};e=function(e){const t=[];return e.forEach((function(e){const r=Tc(e,!0),n=e.getGeometry(),i=r.getText();var o;if(i&&i.getText()){switch(!0){case n instanceof _o.A:o=ne
-    .dir||(n.dropFilesCounter++,l.push({name:e,file:t}))}));(await Promise.all(l.map((async r=>{const i=await r.file.async("blob");n.dropFilesCounter--;const o={};s&&(o.type="application/vnd.google-earth.kml+xml");const a=new File([i],r.name,o);if(a._fileSystemFile=e._fileSystemFile||e,t)a._fileHandle=t;else{const t=e._fileHandle;t&&(a._fileHandle=t)}return a})))).forEach((e=>this.processFile(e)))}els
-    o.A,Circle:Mo,flat:{deflateCoordinates:To.z2,inflateCoordinates:Ro.n2,linearRingLength:Oo.K}},ol.featureloader={xhr:No},ol.format={Feature:Ao.A,GMLBase:ko.A,GML:Bo,GML2:us.A,GML3:Go.A,GML32:ld,GPX:Kl,KML:wh,WFS:jo.A,WKT:ha,WKB:Ca,GeoJSON:sl,WMSCapabilities:cs,WMSGetFeatureInfo:ds,WMTSCapabilities:Hs,TopoJSON:Qs,GeoPackage:Dh,Shapefile:td,xsd:{readDecimal:Ia.e4,readBoolean:Ia.Vf,readString:Ia.E3,re
-    onst e=this;e.pixelRatio_=window.devicePixelRatio;const t=function(){e.updateSize()};_h.A.detectMobile()||(t(),window.addEventListener("resize",t))};var qy=function(e,t){switch(e){case ll.A.layerType.KML:case ll.A.mimeType.KML:case ll.A.format.KMZ:return new ol.format.KML({showPointNames:!1,extractStyles:void 0===t||t});case ll.A.layerType.GPX:case ll.A.mimeType.GPX:return new ol.format.GPX;case l
-    r t=this.getMap()._wrap.parent;e.target===this.target&&t.div.classList.remove(ll.A.classes.DROP)}};jm.A.wrap.Map.prototype.enableDragAndDrop=function(e={}){var t=this,r={formatConstructors:[ol.format.KML,ol.format.GPX,new ol.format.GML32({featureNS:"http://www.opengis.net/gml/3.2",featureType:"feature"}),ol.format.GML2,ol.format.GML3CRS84,ol.format.GML2CRS84,ol.format.GML3,ol.format.GeoJSON,new ol
-    n(e,t){const r=this;var n,i,o=!1;const a=e.styles&&e.styles.heatmap;if(Array.isArray(e.url)||e.urls){var s=e.urls||e.url;s=s.map((function(e,t){return jm.A.proxify(e)})),i={url:s,format:new ol.format.KML({showPointNames:!1,extractStyles:!a}),projection:e.crs}}else if(e.url&&e.type!==ll.A.layerType.WFS)(i={url:e.url,projection:e.crs}).format=qy(e.format,!a)||qy(_h.A.getMimeTypeFromUrl(e.url),!a)||q
-    .type,!a),i.loader=i.format instanceof ol.format.KML?function(e,t,n){const o=i.url,a=i.format;r.parent.state=Ym.A.state.LOADING,r.parent.map&&r.parent.map.trigger(ll.A.event.BEFORELAYERUPDATE,{layer:r.parent}),r.parent.proxificationTool.fetch(o,{method
-    vent.FEATURESCLEAR,{layer:r.parent}))}));var y={source:n};return e.minResolution&&(y.minResolution=e.minResolution),e.maxResolution&&(y.maxResolution=e.maxResolution),i&&i.format instanceof ol.format.KML&&!e.cluster||(y.style=t||e.styles),y},jm.A.wrap.layer.Vector.prototype.createStyles=function(e){var t=this,r=!1;if((e=_h.A.extend({},e)).crs=e.crs||jm.A.Cfg.crs,_h.A.isFunction(e.styles))r=!0,t.st
-
-== JS https://administracionelectronica.navarra.es/IncCarreteras/bundles/js?v=tMLrKv2WBNMT5rXQvCbt7g1lUqoRQitIdaOzvrLARRQ1 130100
-    ode-visible tc-ctl-legend-node-inscale\" data-layer-name=\"Cmaras\" data-layer-uid=\"/Cmaras\"><div class=\"tc-ctl-legend-title\">C&aacute;maras</div><div class=\"tc-ctl-legend-watch\"><img src=\"img/camaras/camera.png\" data-img=\"img/camaras/camera.png\" style=\"width:32px;height:37px;\"></div>                                    </li>        </ul>    </li>";},"useData":true}
-        var MARKER_URL_HOVER = 'img/camaras/camera-hover.png';
-                    type: TC.Consts.layerType.KML,
-                    url: "camaras.kml",
+== https://administracionelectronica.navarra.es/IncCarreteras/camaras.kml 200 application/vnd.google-earth.kml+xml 20969
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <Document id="root_doc">
+    <name>CamarasCarreteras.kml</name>
+    <open>1</open>
+    <Schema name="Camaras" id="Camaras">
+      <SimpleField type="string" name="nombre"></SimpleField>
+      <SimpleField type="string" name="municipio"></SimpleField>
+      <SimpleField type="string" name="carretera"></SimpleField>
+      <SimpleField type="string" name="pk"></SimpleField>
+      <SimpleField type="string" name="x_y"></SimpleField>
+      <SimpleField type="string" name="url"></SimpleField>
+    </Schema>
+    <Style id="CamarasEstilos">
+      <BalloonStyle>
+        <text>
+          <![CDATA[ 
+          <style>
+			      h4 {
+              font-size: 0.9em;
+              margin: 0 0.2em 0.5em 0;
+              color: #666;
+              text-shadow: 0 0 0.3em #fff;
+            }
+            table{                
+                font-size: 0.8em;
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+            table td, table th {
+              text-align: left;
+              padding: 0.3em;
+            }
+            tr:nth-child(odd) {
+              background: #eee;
+            }
+            tr:nth-child(even) {
+              background: #fff;
+            }
+            img{
+              width:100%;
+              cursor: zoom-in;
+              display: block;
+            }
+            td[colspan] {
+              padding: 0;
+              max-width: 20em;
+            }
+            tr:last-of-type td[colspan] {
+                padding: 0.3em 0;
+            }
+            button.tc-modal-reload{
+                border: 1px solid;
+                border-color: #555;
+                border-radius: 0.3rem;
+                background-color: #555;
+                color: #fff;
+                padding: 6px 10px;
+                cursor: pointer;
+                font-size: 13px;
+                outline: none;
+            }
+            @media screen and (pointer:coarse) {
+              td[colspan] {                
+                max-width: calc(max(60vw, 380px));
+              }
+            }
+		      </style>
+		 <h4 class="tc-ctl-popup-title">Cámara $[nombre]</h4>
+		<table class="no-move tc-attr"> 
+       <tr>
+				<th>ID</th>
+				<td>$[id]</td>  
+			</tr> 
+			<tr>
+				<th>Nombre</th>
+				<td>$[nombre]</td>  
+			</tr>  
+			<tr> 
+				<th>Municipio</th>
+				<td>$[municipio]</td>
+			</tr>
+			<tr>
+				<th>Carretera</th>
+				<td>$[carretera]</td>
+			</tr>  
+			<tr>
+				<th>PK</th>
+				<td>$[pk]</td>
+			</tr>
+			<tr>
+				<th>X/Y</th>
+				<td>$[x_y]</td>
+			</tr>
+      <tr>
+				<td colspan="2">
+          <img class="tc-ctl-popup-camera-img" src="$[url]" title="Ampliar imagen"/>
+        </td>
+			</tr>
+      <tr>
+        <td colspan="2" style="text-align: right;">
+          <button type="button" class="tc-button tc-modal-reload" title="Actualizar imagen">Actualizar</button>
+        </td>
+      </tr>
+		</table> ]]>
+        </text>
+      </BalloonStyle>
+      <IconStyle>
+        <Icon>
+          <href>img/camaras/camera.png</href>
+        </Icon>
+        <hotSpot x="16" y="0" xunits="pixels" yunits="pixels" />
+      </IconStyle>
+    </Style>
+    <Folder>
+      <name>Cámaras</name>
+      <open>1</open>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">1</SimpleData>
+            <SimpleData name="nombre">Alsasua</SimpleData>
+            <SimpleData name="municipio">ALTSASU/ALSASUA</SimpleData>
+            <SimpleData name="carretera">A-1 / A-10</SimpleData>
+            <SimpleData name="pk">397.38 / 29.72</SimpleData>
+            <SimpleData name="x_y">567179.96 / 4748410.49</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@ALSASUA_A_1_398_440.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-2.177320662815927,42.88534117769525,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">2</SimpleData>
+            <SimpleData name="nombre">Etxegarate</SimpleData>
+            <SimpleData name="municipio">ALTSASU/ALSASUA</SimpleData>
+            <SimpleData name="carretera">A-1 / NA-1001</SimpleData>
+            <SimpleData name="pk">404.90 / 0.14</SimpleData>
+            <SimpleData name="x_y">563010.20 / 4753251.26</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@ETXEGARATE_A_1_404_902.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-2.227834577574094,42.92928501273664,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">3</SimpleData>
+            <SimpleData name="nombre">Arbizu</SimpleData>
+            <SimpleData name="municipio">ARBIZU</SimpleData>
+            <SimpleData name="carretera">A-10</SimpleData>
+            <SimpleData name="pk">18.43</SimpleData>
+            <SimpleData name="x_y">577833.57 / 4750861.74</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@ARBIZU_A_10 18_430.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-2.04653401231172,42.90640051996103,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">4</SimpleData>
+            <SimpleData name="nombre">Zizur Mayor</SimpleData>
+            <SimpleData name="municipio">ZIZUR MAYOR</SimpleData>
+            <SimpleData name="carretera">A-12 / A-15</SimpleData>
+            <SimpleData name="pk">4.40 / 87.91</SimpleData>
+            <SimpleData name="x_y">607714.98 / 4738714.75</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@CIZUR_A_12_4_400.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.68289247199653,42.79340854925897,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">5</SimpleData>
+            <SimpleData name="nombre">Irurtzun</SimpleData>
+            <SimpleData name="municipio">IRURTZUN</SimpleData>
+            <SimpleData name="carretera">A-15 / A-10</SimpleData>
+            <SimpleData name="pk">0.61 / 112.82</SimpleData>
+            <SimpleData name="x_y">594807.83 / 4752356.72</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@IRURTZUN_A15_PK113.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.838383511778494,42.91793995930215,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">6</SimpleData>
+            <SimpleData name="nombre">Leitza</SimpleData>
+            <SimpleData name="municipio">LEITZA</SimpleData>
+            <SimpleData name="carretera">A-15</SimpleData>
+            <SimpleData name="pk">139.60</SimpleData>
+            <SimpleData name="x_y">585917.97 / 4772600.18</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@LEITZA_A_15_139_600.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.944168446706515,43.1012562570202,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">7</SimpleData>
+            <SimpleData name="nombre">Pagozelai</SimpleData>
+            <SimpleData name="municipio">LARRAUN</SimpleData>
+            <SimpleData name="carretera">A-15</SimpleData>
+            <SimpleData name="pk">134.50</SimpleData>
+            <SimpleData name="x_y">585035.73 / 4767933.63</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@PAGOZELAI_A_15_134_450.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.955722233004618,43.05934065531216,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">8</SimpleData>
+            <SimpleData name="nombre">Lekunberri</SimpleData>
+            <SimpleData name="municipio">LEKUNBERRI</SimpleData>
+            <SimpleData name="carretera">A-15</SimpleData>
+            <SimpleData name="pk">127.54</SimpleData>
+            <SimpleData name="x_y">589278.85 / 4763310.39</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@LEKUNBERRI_A_15_127_540.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.904364803560447,43.01722856419015,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">9</SimpleData>
+            <SimpleData name="nombre">Areta</SimpleData>
+            <SimpleData name="municipio">EGÜES</SimpleData>
+            <SimpleData name="carretera">PA-30 / NA-2300</SimpleData>
+            <SimpleData name="pk">5.74 / 0.00</SimpleData>
+            <SimpleData name="x_y">614252.50 / 4741130.12</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@ARETA_PA_30_5_700.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.602486659369818,42.81420622893797,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">10</SimpleData>
+            <SimpleData name="nombre">Berriozar</SimpleData>
+            <SimpleData name="municipio">BERRIOZAR</SimpleData>
+            <SimpleData name="carretera">PA-30 / N-240-A</SimpleData>
+            <SimpleData name="pk">18.24 /3.69</SimpleData>
+            <SimpleData name="x_y">608922.45 / 4743090.35</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@DOMO_BERRIOZAR_PA_30_PK_18_200.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.6672860466957,42.83263109177614,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">11</SimpleData>
+            <SimpleData name="nombre">Talluntxe</SimpleData>
+            <SimpleData name="municipio">ARANGUREN</SimpleData>
+            <SimpleData name="carretera">PA-30 / A-15</SimpleData>
+            <SimpleData name="pk">0.29 / 83.19</SimpleData>
+            <SimpleData name="x_y">611944.99 / 4736798.51</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@DOMO_TALLUNTXE_PA_30_PK_0_200.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.631563347638021,42.77555039783859,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">12</SimpleData>
+            <SimpleData name="nombre">Cordovilla</SimpleData>
+            <SimpleData name="municipio">GALAR</SimpleData>
+            <SimpleData name="carretera">PA-32 / PA-31</SimpleData>
+            <SimpleData name="pk">0.42 / 1.42</SimpleData>
+            <SimpleData name="x_y">611516.54 / 4737744.86</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@CORDOVILLA_PA_32_0_400.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.636612405357369,42.78413273503448,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">13</SimpleData>
+            <SimpleData name="nombre">Belagua</SimpleData>
+            <SimpleData name="municipio">ISABA</SimpleData>
+            <SimpleData name="carretera">NA-137</SimpleData>
+            <SimpleData name="pk">54.75</SimpleData>
+            <SimpleData name="x_y">679364.28 / 4758447.66</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@BELAGUA_EL_FERIAL_PK_55.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-0.8009891967843078,42.95755607429323,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">14</SimpleData>
+            <SimpleData name="nombre">Tudela</SimpleData>
+            <SimpleData name="municipio">TUDELA</SimpleData>
+            <SimpleData name="carretera">A-68 / N-121-C</SimpleData>
+            <SimpleData name="pk">95.69 / 2.06</SimpleData>
+            <SimpleData name="x_y">614341.17 / 4655762.86</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@DOMO_TUDELA_A_68_PK_95_500.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.618388954373391,42.04560298530168,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">15</SimpleData>
+            <SimpleData name="nombre">Arre</SimpleData>
+            <SimpleData name="municipio">EZCABARTE</SimpleData>
+            <SimpleData name="carretera">N-121-A / NA-4251</SimpleData>
+            <SimpleData name="pk">5.63 / 0.05</SimpleData>
+            <SimpleData name="x_y">612515.12 / 4744499.62</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@EXT_FRA_ARRE_N_121_A_PK_5_600.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.623058612334663,42.84479837515519,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">16</SimpleData>
+            <SimpleData name="nombre">Ezcaba</SimpleData>
+            <SimpleData name="municipio">BURLADA</SimpleData>
+            <SimpleData name="carretera">PA-35 / PA-30</SimpleData>
+            <SimpleData name="pk">0.03 / 13.84</SimpleData>
+            <SimpleData name="x_y">612997.17 / 4743321.94</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@EXT_PNA_COTUP_PA_35_PK_0_00.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.617397489462107,42.8341249685796,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">17</SimpleData>
+            <SimpleData name="nombre">Túnel de Belate</SimpleData>
+            <SimpleData name="municipio">BAZTÁN</SimpleData>
+            <SimpleData name="carretera">N-121-A</SimpleData>
+            <SimpleData name="pk">31.110</SimpleData>
+            <SimpleData name="x_y">612824.81 / 4767743.90</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@BELATE_NORTE_N_121_A_PK_31_110.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.6145836622361045,43.05401034731713,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">18</SimpleData>
+            <SimpleData name="nombre">Túnel de Yesa</SimpleData>
+            <SimpleData name="municipio">YESA</SimpleData>
+            <SimpleData name="carretera">A-21</SimpleData>
+            <SimpleData name="pk">48.580</SimpleData>
+            <SimpleData name="x_y">647941.95 / 4720478.13</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@YESA_PAMPLONA_A_21_PK_48_580.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.195976003779139,42.622547244989484,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">19</SimpleData>
+            <SimpleData name="nombre">Túnel del Perdón</SimpleData>
+            <SimpleData name="municipio">UTERGA</SimpleData>
+            <SimpleData name="carretera">A-12</SimpleData>
+            <SimpleData name="pk">13.440</SimpleData>
+            <SimpleData name="x_y">601957.75 / 4731920.36</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@PERDON_ESTELLA_A_12_PK_13_150.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-1.7544996459730126,42.733024402812205,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <styleUrl>#CamarasEstilos</styleUrl>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Camaras">
+            <SimpleData name="id">20</SimpleData>
+            <SimpleData name="nombre">Urbasa</SimpleData>
+            <SimpleData name="municipio">Urbasa</SimpleData>
+            <SimpleData name="carretera">NA-718</SimpleData>
+            <SimpleData name="pk">31.590</SimpleData>
+            <SimpleData name="x_y">567129.45 / 4745624.55</SimpleData>
+            <SimpleData name="url">//administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@URBASA_2_NA_718_PK_31_590.JPG</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>-2.178272,42.860260,0</coordinates>
+        </Point>
+      </Placemark>		
+	</Folder>
+  </Document>
+</kml>
