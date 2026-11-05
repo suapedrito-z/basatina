@@ -76,7 +76,7 @@
     'Enero 2022 · ~300 m³/s': '2022ko urtarrila · ~300 m³/s', 'Febrero 2024 · previsión ~400 m³/s': '2024ko otsaila · iragarpena ~400 m³/s',
     'Dic. 2021 (608)': '2021 abe. (608)', 'Feb. 2024': '2024 ots.',
     // tiempo
-    'Ahora': 'Orain', 'hoy': 'gaur', 'Hoy': 'Gaur', 'Mañana': 'Bihar', 'Humedad': 'Hezetasuna', 'Sensación': 'Sentsazioa', 'Viento': 'Haizea',
+    'Ahora': 'Orain', 'hoy': 'gaur', 'Hoy': 'Gaur', 'Mañana': 'Bihar', 'Humedad': 'Hezetasuna', 'Sensación': 'Sentsazioa', 'Viento': 'Haizea', 'calma': 'barea', 'flojo': 'ahula', 'moderado': 'moderatua', 'fuerte': 'indartsua', 'muy fuerte': 'oso indartsua', 'km/h (racha)': 'km/h (bolada)',
     'Viento (rachas)': 'Haizea (bolada)', 'Máx / mín hoy': 'Gaurko max. / min.', 'Próximas 24 horas': 'Hurrengo 24 orduak', 'Próximos 7 días': 'Hurrengo 7 egunak',
     'Prevista resto del día': 'Egunaren gainerakorako aurreikusia', 'Lluvia hoy (caída)': 'Gaurko euria (erorita)', 'Lluvia total': 'Euria guztira',
     'Lluvia': 'Euria', 'Mínima': 'Minimoa', 'Máxima': 'Maximoa', 'Claro': 'Argia', 'Oscuro': 'Iluna', 'Sol': 'Eguzkia', 'Aspecto': 'Itxura',

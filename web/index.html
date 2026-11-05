@@ -32,7 +32,7 @@ input[type=range]{width:100%}
 body.light{--bg:#eef3f7;--panel:#ffffff;--line:#cfd9e2;--txt:#13202c;--mut:#5a6b7b}
 body.light section{background:#e4ecf2}body.light .topbar,body.light header{background:#ffffff}body.light select.town,body.light .kpi>div,body.light #saihOut{background:#f3f7fa;color:#13202c}
 body.light .note{color:#5a6b7b}body.light #drawer{background:#fff}body.light .btn.on,body.light .seg button.on{color:#fff}
-.mtb{background:rgba(11,17,24,.88)!important;backdrop-filter:blur(3px)}.mtb.on{background:#2f8fd8!important;color:#fff;border-color:#2f8fd8}
+.mtb{background:rgba(11,17,24,.88)!important;backdrop-filter:blur(3px);padding:7px 9px!important}.mtb.on{background:#2f8fd8!important;color:#fff;border-color:#2f8fd8}
 .seg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.seg button{flex:1;min-width:70px}.seg button.on{background:#2f8fd8;color:#fff;border-color:#2f8fd8}
 select.town{width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:#0b1118;color:var(--txt);font-size:15px}
 .dayr{display:grid;grid-template-columns:64px 34px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.dayr:last-child{border-bottom:0}
@@ -257,10 +257,11 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div id="avBanner" style="display:none;color:#fff;padding:8px 10px;border-radius:10px;margin-bottom:8px;font-size:13.5px;cursor:pointer" onclick="showTab('tiempo')"></div>
 <div id="mtWrap" style="position:relative">
   <canvas id="mtc" height="400"></canvas>
-  <div id="mtBar" style="position:absolute;left:8px;top:8px;right:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
+  <div id="mtBar" style="position:absolute;left:6px;top:6px;right:6px;display:flex;gap:4px;flex-wrap:wrap;align-items:flex-start">
     <div style="position:relative"><button class="btn mtb on" id="mtDayB" data-l="tiempo">☀️ Hoy ▾</button>
       <div id="mtDayM" style="display:none;position:absolute;top:44px;left:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;z-index:5;min-width:150px"></div></div>
     <button class="btn mtb" data-l="lluvia">🌧️ Lluvia</button>
+    <button class="btn mtb" data-l="viento">💨 Viento</button>
     <button class="btn mtb" data-l="rios">🌊 Ríos</button>
   </div>
   <div id="mtLeg" style="position:absolute;left:8px;bottom:8px;font-size:11px;background:rgba(11,17,24,.85);border-radius:8px;padding:4px 8px;display:none"></div>
@@ -1146,7 +1147,7 @@ function dayLabel(k){const d=new Date();d.setDate(d.getDate()+k);return dayName(
 function mtBase(){if(mtImg)return;mtImg=new Image();mtImg.onload=()=>mtDraw();mtImg.onerror=()=>{mtImg.bad=1;mtDraw();};
   mtImg.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${NB.s},${NB.w},${NB.n},${NB.e}&WIDTH=900&HEIGHT=960&FORMAT=image/jpeg`;}
 async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');info.textContent='Cargando el tiempo de '+TOWNS.length+' pueblos…';
-  const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&forecast_days=5${TZ}`;
+  const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&forecast_days=5${TZ}`;
   const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
 function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'});
   el.textContent=MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': estaciones principales (caudal en m³/s) · toca una para ver todas las del río · toca fuera para volver':'Toca un río de color para ver sus estaciones (el Bidasoa, en gris, es de otra cuenca y aún no tiene datos)'):
@@ -1157,6 +1158,7 @@ function utm2ll(E,N){const a=6378137,f=1/298.257222101,e2=f*(2-f),k0=.9996,x=E-5
   const C1=ep2*Math.cos(p1)**2,T1=Math.tan(p1)**2,N1=a/Math.sqrt(1-e2*Math.sin(p1)**2),R1=a*(1-e2)/(1-e2*Math.sin(p1)**2)**1.5,D=x/(N1*k0);
   const lat=p1-(N1*Math.tan(p1)/R1)*(D*D/2-(5+3*T1+10*C1-4*C1*C1-9*ep2)*D**4/24+(61+90*T1+298*C1+45*T1*T1-252*ep2-3*C1*C1)*D**6/720);
   const lon=(D-(1+2*T1+C1)*D**3/6+(5-2*C1+28*T1-3*C1*C1+8*ep2+24*T1*T1)*D**5/120)/Math.cos(p1);return [lat*180/Math.PI,-3+lon*180/Math.PI];}
+function windCol(v){return v>=70?'#b71c1c':v>=50?'#e65100':v>=30?'#f9a825':v>=10?'#2e7d32':'#546e7a';}
 function rainCol(r){return r>=15?'#7b2fbf':r>=5?'#1d4fa8':r>=1?'#2f8fd8':r>=0.1?'#6fb9e8':'#0b1118';}
 function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)return;const W=cv.clientWidth,H=Math.round(W*(NB.n-NB.s)/((NB.e-NB.w)*Math.cos(42.6*Math.PI/180)));
   cv.dataset.h=H;const x=fitCanvas(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,H);
@@ -1170,22 +1172,29 @@ function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)r
   const leg=document.getElementById('mtLeg');
   if(MTL==='rios'){mtRivers(x,W,H,P,box,leg);return;}
   if(MTL==='lluvia'){leg.style.display='';leg.innerHTML=[[0.1,'0,1'],[1,'1'],[5,'5'],[15,'15+']].map(([v,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${rainCol(v)}"></span> ${l}`).join(' ')+' mm · '+dayName(MTD);}
+  else if(MTL==='viento'){leg.style.display='';leg.innerHTML=[[5,'calma'],[20,'flojo'],[40,'moderado'],[60,'fuerte'],[80,'muy fuerte']].map(([v,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${windCol(v)}"></span> ${l}`).join(' ')+' · km/h (racha) · '+dayName(MTD);}
   else leg.style.display='none';
   drawPetilla(x,P,false);
   TOWNS.forEach((t,i)=>{let [px,py]=P(t[1],t[2]);if(/^Los Bastanes/.test(t[0])){x.strokeStyle='#ce93d8';x.lineWidth=1;x.beginPath();x.moveTo(px,py);x.lineTo(px-14,py+24);x.stroke();px-=14;py+=24;}const m=MT&&MT[i];let ico='',txt='…',col='rgba(11,17,24,.9)';
     if(m){if(MTL==='tiempo'){if(MTD===0){ico=wxIcon(m.current.weather_code,hh);txt=Math.round(m.current.temperature_2m)+'°';}
         else{ico=wxIcon(m.daily.weather_code[MTD],12);txt=Math.round(m.daily.temperature_2m_max[MTD])+'°/'+Math.round(m.daily.temperature_2m_min[MTD])+'°';}}
+      else if(MTL==='viento'){const now=MTD===0,v=Math.round(now?m.current.wind_speed_10m:m.daily.wind_speed_10m_max[MTD]),g=Math.round(now?m.current.wind_gusts_10m:m.daily.wind_gusts_10m_max[MTD]);
+        ico=' ';txt=v+' ('+g+')';col=windCol(v);m._dir=now?m.current.wind_direction_10m:m.daily.wind_direction_10m_dominant[MTD];}
       else{const r=m.daily.precipitation_sum[MTD]||0;ico=r>=0.1?'💧':'';txt=fmtN(r,r>=10?0:1);col=rainCol(r);}}
     // el dibujo del tiempo va un poco por debajo del pueblo, para no tapar su nombre en el mapa de fondo
-    box(px,py+18,ico,txt,col,['town',i]);});}
+    box(px,py+18,ico,txt,col,['town',i]);
+    // flecha hacia donde sopla el viento (el modelo da de dónde viene)
+    if(MTL==='viento'&&m&&m._dir!=null){x.font='bold 12px system-ui';const bw=x.measureText(txt).width+22,cx=px-bw/2+11;x.save();x.translate(cx,py+19);x.rotate((m._dir+180)*Math.PI/180);
+      x.fillStyle='#fff';x.beginPath();x.moveTo(0,-7);x.lineTo(5,3);x.lineTo(1,1);x.lineTo(1,7);x.lineTo(-1,7);x.lineTo(-1,1);x.lineTo(-5,3);x.closePath();x.fill();x.restore();}});}
 function mtSetLayer(l){MTL=l;document.querySelectorAll('.mtb').forEach(b=>b.classList.toggle('on',b.dataset.l===l));mtInfo();mtDraw();}
 function mtDayMenu(open){const m=document.getElementById('mtDayM');m.style.display=open?'':'none';
   if(open)m.innerHTML=[...Array(NDAYS).keys()].map(k=>`<button class="btn" data-k="${k}" style="display:block;width:100%;border:0;border-radius:0;text-align:left;${k===MTD?'background:#2f8fd8;color:#fff':''}">${dayLabel(k)}</button>`).join('');
-  m.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();MTD=+b.dataset.k;document.getElementById('mtDayB').textContent='☀️ '+dayName(MTD)+' ▾';document.querySelector('.mtb[data-l="lluvia"]').textContent='🌧️ Lluvia · '+dayName(MTD);mtDayMenu(false);if(MTL==='rios')mtSetLayer('tiempo');else mtDraw();});}
+  m.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();MTD=+b.dataset.k;document.getElementById('mtDayB').textContent='☀️ '+dayName(MTD)+' ▾';mtDayMenu(false);if(MTL==='rios')mtSetLayer('tiempo');else mtDraw();});}
 document.getElementById('mtDayB').onclick=e=>{e.stopPropagation();const open=document.getElementById('mtDayM').style.display!=='none';if(MTL!=='tiempo')mtSetLayer('tiempo');mtDayMenu(!open);};
 document.querySelector('.mtb[data-l="lluvia"]').onclick=e=>{e.stopPropagation();mtSetLayer('lluvia');document.getElementById('mtDayB').textContent='☀️ '+dayName(MTD)+' ▾';
   // el día elegido también vale para la lluvia: lo mostramos en el propio botón
-  e.target.textContent='🌧️ Lluvia · '+dayName(MTD);mtDayMenu(false);};
+  mtDayMenu(false);};
+document.querySelector('.mtb[data-l="viento"]').onclick=e=>{e.stopPropagation();mtSetLayer('viento');mtDayMenu(false);};
 document.querySelector('.mtb[data-l="rios"]').onclick=e=>{e.stopPropagation();mtDayMenu(false);mtSetLayer('rios');};
 document.addEventListener('click',()=>mtDayMenu(false));
 document.getElementById('mtc').addEventListener('click',e=>{const r=e.target.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
