@@ -1,42 +1,200 @@
-Alsasua - 200 application/octet-stream 31591 None *
-Alsasua &t=123 200 application/octet-stream 31591 None *
-Etxegarate - 200 application/octet-stream 33744 None *
-Etxegarate &t=123 200 application/octet-stream 33744 None *
-Arbizu - 200 application/octet-stream 203375 None *
-Arbizu &t=123 200 application/octet-stream 203375 None *
-Zizur Mayor - 200 application/octet-stream 65289 None *
-Zizur Mayor &t=123 200 application/octet-stream 65289 None *
-Irurtzun - 200 application/octet-stream 33078 None *
-Irurtzun &t=123 200 application/octet-stream 33078 None *
-Leitza - 200 application/octet-stream 31498 None *
-Leitza &t=123 200 application/octet-stream 31498 None *
-Pagozelai - 200 application/octet-stream 38647 None *
-Pagozelai &t=123 200 application/octet-stream 38647 None *
-Lekunberri - 200 application/octet-stream 56628 None *
-Lekunberri &t=123 200 application/octet-stream 56628 None *
-Areta - 200 application/octet-stream 379222 None *
-Areta &t=123 200 application/octet-stream 379222 None *
-Berriozar - 200 application/octet-stream 380204 None *
-Berriozar &t=123 200 application/octet-stream 380204 None *
-Talluntxe - 200 application/octet-stream 48056 None *
-Talluntxe &t=123 200 application/octet-stream 48056 None *
-Cordovilla - 200 application/octet-stream 58507 None *
-Cordovilla &t=123 200 application/octet-stream 58507 None *
-Belagua - 200 application/octet-stream 373796 None *
-Belagua &t=123 200 application/octet-stream 373796 None *
-Tudela - 200 application/octet-stream 61923 None *
-Tudela &t=123 200 application/octet-stream 61923 None *
-Arre - 200 application/octet-stream 333687 None *
-Arre &t=123 200 application/octet-stream 333687 None *
-Ezcaba - 200 application/octet-stream 387777 None *
-Ezcaba &t=123 200 application/octet-stream 387777 None *
-Túnel de Belate - 200 application/octet-stream 170903 None *
-Túnel de Belate &t=123 200 application/octet-stream 170903 None *
-Túnel de Yesa - 200 application/octet-stream 77475 None *
-Túnel de Yesa &t=123 200 application/octet-stream 77475 None *
-Túnel del Perdón - 200 application/octet-stream 52137 None *
-Túnel del Perdón &t=123 200 application/octet-stream 52137 None *
-Urbasa - 200 application/octet-stream 832349 None *
-Urbasa &t=123 200 application/octet-stream 832349 None *
-Refugio de Belagua - 200 image/jpeg 195473 Thu, 05 Nov 2026 17:00:02 GMT None
-Refugio de Belagua ?t=123 200 image/jpeg 195473 Thu, 05 Nov 2026 17:00:02 GMT None
+
+== Mapa.aspx 200 858
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	Visor de incidencias
+</title><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><link href="css/main.css" rel="stylesheet" /></head>
+<body>
+    <div id="map" tabindex="0"></div>
+    <div id="sv"></div> 
+    <script type="text/javascript" src="//sitna.tracasa.es/api/" crossorigin="anonymous"></script>
+    <script src="/IncCarreteras/bundles/js?v=tMLrKv2WBNMT5rXQvCbt7g1lUqoRQitIdaOzvrLARRQ1"></script>
+
+    <script type="text/javascript">
+        TC.loadJS(TC.version.split(' ')[0] === "1.3.0", "js/temporal.js", function () { });
+    </script>    
+    <script type="text/javascript" src="js/script.js"></script>    
+</body>
+</html>
+
+
+-- JS https://administracionelectronica.navarra.es/IncCarreteras/js/script.js 5599
+   layout/carreteras/config.json
+
+== Mapa.aspx?mode=incidences 200 858
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	Visor de incidencias
+</title><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><link href="css/main.css" rel="stylesheet" /></head>
+<body>
+    <div id="map" tabindex="0"></div>
+    <div id="sv"></div> 
+    <script type="text/javascript" src="//sitna.tracasa.es/api/" crossorigin="anonymous"></script>
+    <script src="/IncCarreteras/bundles/js?v=tMLrKv2WBNMT5rXQvCbt7g1lUqoRQitIdaOzvrLARRQ1"></script>
+
+    <script type="text/javascript">
+        TC.loadJS(TC.version.split(' ')[0] === "1.3.0", "js/temporal.js", function () { });
+    </script>    
+    <script type="text/javascript" src="js/script.js"></script>    
+</body>
+</html>
+
+
+-- JS https://administracionelectronica.navarra.es/IncCarreteras/js/script.js 5599
+   layout/carreteras/config.json
+
+== Default.aspx 200 9886
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
+<head>
+    <title>Incidencias en carretera - navarra.es </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index,follow" />
+    <meta name="Owner" content="Gobierno de Navarra" />
+    <link rel="help" title="Accesibilidad de estas páginas" href="//www.navarra.es/home_es/Aviso/accesibilidad.htm" />
+    <link rel="contents" href="//www.navarra.es/home_es/Indices/Mapa+web/" title="Mapa web. Índice de contenidos" />
+    <link rel="search" href="//www.navarra.es/home_es/Indices/Buscador/" title="Buscador" />
+    <link rel="up" href="#contenido" title="Saltar navegación e ir al contenido" />
+
+    <link rel="alternate stylesheet" type="text/css" href="css/print.css" title="print" id="print" />
+    <link rel="stylesheet" type="text/css" href="css/general.css" />
+    <link rel="stylesheet" type="text/css" href="css/idioma.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="css/print.css" />
+    <link rel="stylesheet" type="text/css" href="css/portada.css" />
+
+    <script type="text/JavaScript" src="js/funcionalidades.js"></script>
+    <script type="text/JavaScript" src="js/herramientas.js"></script>
+
+    <style>
+        #introCategorias .extra {
+            padding: 13px 0px 0px 33px;
+        }
+    </style>
+</head>
+<body>
+    <div id="estructura">
+        <a href="#contenido" class="navegacion" accesskey="1">(ir al contenido)</a>
+        <div id="cabecera">
+            <h1 class="logo">
+                <a href="//www.navarra.es" accesskey="0">
+                    <img alt="Logotipo navarra.es" src="./img/logo.navarra.es.gif" />
+                </a>
+            </h1>
+            <p class="idiomas"><strong>Castellano</strong> <span>|</span> Euskara <span>|</span> Français <span>|</span> English</p>
+            <form class="buscador" id="frmSearch" action="//www.navarra.es/home_es/Indices/Buscador/default.htm" method="get" style="margin-bottom: 10px;">
+                <fieldset>
+                    <span class="nuevo">¡Utilice el buscador!</span>
+                    <label for="q">buscador</label>
+                    <input type="text" id="q" name="q" maxlength="50" value="introduzca palabra/s"
+                        onblur="if(this.value==''){this.value='introduzca palabra/s'}"
+                        onfocus="this.value=''" />
+                    <input name="filetype" value="htm" type="hidden" />
+                    <input class="boton" type="submit" value="buscar" />
+                </fieldset>
+            </form>
+            <map title="navegación primer nivel" id="primerNivel">
+                <ul>
+                    <li class="primero"><a href="//www.navarra.es/home_es/Navarra/" accesskey="n">Navarra</a></li>
+                    <li><a href="//www.nava
+
+-- JS https://administracionelectronica.navarra.es/IncCarreteras/js/funcionalidades.js 782
+
+-- JS https://administracionelectronica.navarra.es/IncCarreteras/js/herramientas.js 4021
+
+-- JS https://administracionelectronica.navarra.es/IncCarreteras/js/lib/jquery.min.js 55272
+   Microsoft.XMLHTTP
+    > e(P,"tr")?(O.getElementsByTagName("tbody")[0]||O.appendChild(O.ownerDocument.createElement("tbody"))):O}}};o.fn.init.prototype=o.fn;function z(E,F){if(F.src){o.ajax({url:F.src,async:false,dataType:"script"})}else{o.globalEval(F.text||F.textContent||F.innerHTML||"")}if(F.parentNode){F.parentNode.removeChild(F)}}function e(){return +new Date}o.extend=o.fn.extend=function(){var J=
+    > =0){var E=G.slice(I,G.length);G=G.slice(0,I)}var H="GET";if(J){if(o.isFunction(J)){K=J;J=null}else{if(typeof J==="object"){J=o.param(J);H="POST"}}}var F=this;o.ajax({url:G,type:H,dataType:"html",data:J,complete:function(M,L){if(L=="success"||L=="notmodified"){F.html(E?o("<div/>").append(M.responseText.replace(/<script(.|\s)*?\/script>/g,"")).find(E):M.responseText)}if(K){F.each
+    > function(E,F){var G=o(this).val();return G==null?null:o.isArray(G)?o.map(G,function(I,H){return{name:F.name,value:I}}):{name:F.name,value:G}}).get()}});o.each("ajaxStart,ajaxStop,ajaxComplete,ajaxError,ajaxSuccess,ajaxSend".split(","),function(E,F){o.fn[F]=function(G){return this.bind(F,G)}});var r=e();o.extend({get:function(E,G,H,F){if(o.isFunction(G)){H=G;G=null}return o.ajax
+    > pe:"GET",url:E,data:G,success:H,dataType:F})},getScript:function(E,F){return o.get(E,null,F,"script")},getJSON:function(E,F,G){return o.get(E,F,G,"json")},post:function(E,G,H,F){if(o.isFunction(G)){H=G;G={}}return o.ajax({type:"POST",url:E,data:G,success:H,dataType:F})},ajaxSetup:function(E){o.extend(o.ajaxSettings,E)},ajaxSetti
+    > ",html:"text/html",script:"text/javascript, application/javascript",json:"application/json, text/javascript",text:"text/plain",_default:"*/*"}},lastModified:{},ajax:function(M){M=o.extend(true,M,o.extend(true,{},o.ajaxSettings,M));var W,F=/=\?(&|$)/g,R,V,G=M.type.toUpperCase();if(M.data&&M.processData&&typeof M.data!=="string"){M.data=o.param(M.data)}if(M.dataType=="jsonp"){if(
+    > l)?(M.url.match(/\?/)?"&":"?")+"_="+E:"")}if(M.data&&G=="GET"){M.url+=(M.url.match(/\?/)?"&":"?")+M.data;M.data=null}if(M.global&&!o.active++){o.event.trigger("ajaxStart")}var Q=/^(\w+:)?\/\/([^\/?#]+)/.exec(M.url);if(M.dataType=="script"&&G=="GET"&&Q&&(Q[1]&&Q[1]!=location.protocol||Q[2]!=location.host)){var H=document.getElementsByTagName("head")[0];var T=document.createEleme
+    > [M.dataType]?M.accepts[M.dataType]+", */*":M.accepts._default)}catch(S){}if(M.beforeSend&&M.beforeSend(J,M)===false){if(M.global&&!--o.active){o.event.trigger("ajaxStop")}J.abort();return false}if(M.global){o.event.trigger("ajaxSend",[J,M])}var N=function(X){if(J.readyState==0){if(P){clearInterval(P);P=null;if(M.global&&!--o.active){o.event.trigger("ajaxStop")}}}else{if(!K&&J&&
+    > ")}},M.timeout)}}try{J.send(M.data)}catch(S){o.handleError(M,J,null,S)}if(!M.async){N()}function I(){if(M.success){M.success(V,R)}if(M.global){o.event.trigger("ajaxSuccess",[J,M])}}function L(){if(M.complete){M.complete(J,R)}if(M.global){o.event.trigger("ajaxComplete",[J,M])}if(M.global&&!--o.active){o.event.trigger("ajaxStop")}}return J},handleError:function(F,H,E,G){if(F.erro
+    > .error(H,E,G)}if(F.global){o.event.trigger("ajaxError",[H,F,G])}},active:0,httpSuccess:function(F){try{return !F.status&&location.protocol=="file:"||(F.status>=200&&F.status<300)||F.status==304||F.status==1223}catch(E){}return false},httpNotModified:function(G,E){try{
+
+==  200 9886
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
+<head>
+    <title>Incidencias en carretera - navarra.es </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index,follow" />
+    <meta name="Owner" content="Gobierno de Navarra" />
+    <link rel="help" title="Accesibilidad de estas páginas" href="//www.navarra.es/home_es/Aviso/accesibilidad.htm" />
+    <link rel="contents" href="//www.navarra.es/home_es/Indices/Mapa+web/" title="Mapa web. Índice de contenidos" />
+    <link rel="search" href="//www.navarra.es/home_es/Indices/Buscador/" title="Buscador" />
+    <link rel="up" href="#contenido" title="Saltar navegación e ir al contenido" />
+
+    <link rel="alternate stylesheet" type="text/css" href="css/print.css" title="print" id="print" />
+    <link rel="stylesheet" type="text/css" href="css/general.css" />
+    <link rel="stylesheet" type="text/css" href="css/idioma.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="css/print.css" />
+    <link rel="stylesheet" type="text/css" href="css/portada.css" />
+
+    <script type="text/JavaScript" src="js/funcionalidades.js"></script>
+    <script type="text/JavaScript" src="js/herramientas.js"></script>
+
+    <style>
+        #introCategorias .extra {
+            padding: 13px 0px 0px 33px;
+        }
+    </style>
+</head>
+<body>
+    <div id="estructura">
+        <a href="#contenido" class="navegacion" accesskey="1">(ir al contenido)</a>
+        <div id="cabecera">
+            <h1 class="logo">
+                <a href="//www.navarra.es" accesskey="0">
+                    <img alt="Logotipo navarra.es" src="./img/logo.navarra.es.gif" />
+                </a>
+            </h1>
+            <p class="idiomas"><strong>Castellano</strong> <span>|</span> Euskara <span>|</span> Français <span>|</span> English</p>
+            <form class="buscador" id="frmSearch" action="//www.navarra.es/home_es/Indices/Buscador/default.htm" method="get" style="margin-bottom: 10px;">
+                <fieldset>
+                    <span class="nuevo">¡Utilice el buscador!</span>
+                    <label for="q">buscador</label>
+                    <input type="text" id="q" name="q" maxlength="50" value="introduzca palabra/s"
+                        onblur="if(this.value==''){this.value='introduzca palabra/s'}"
+                        onfocus="this.value=''" />
+                    <input name="filetype" value="htm" type="hidden" />
+                    <input class="boton" type="submit" value="buscar" />
+                </fieldset>
+            </form>
+            <map title="navegación primer nivel" id="primerNivel">
+                <ul>
+                    <li class="primero"><a href="//www.navarra.es/home_es/Navarra/" accesskey="n">Navarra</a></li>
+                    <li><a href="//www.nava
+
+-- JS https://administracionelectronica.navarra.es/IncCarreteras/js/funcionalidades.js 782
+
+-- JS https://administracionelectronica.navarra.es/IncCarreteras/js/herramientas.js 4021
+
+-- JS https://administracionelectronica.navarra.es/IncCarreteras/js/lib/jquery.min.js 55272
+   Microsoft.XMLHTTP
+    > e(P,"tr")?(O.getElementsByTagName("tbody")[0]||O.appendChild(O.ownerDocument.createElement("tbody"))):O}}};o.fn.init.prototype=o.fn;function z(E,F){if(F.src){o.ajax({url:F.src,async:false,dataType:"script"})}else{o.globalEval(F.text||F.textContent||F.innerHTML||"")}if(F.parentNode){F.parentNode.removeChild(F)}}function e(){return +new Date}o.extend=o.fn.extend=function(){var J=
+    > =0){var E=G.slice(I,G.length);G=G.slice(0,I)}var H="GET";if(J){if(o.isFunction(J)){K=J;J=null}else{if(typeof J==="object"){J=o.param(J);H="POST"}}}var F=this;o.ajax({url:G,type:H,dataType:"html",data:J,complete:function(M,L){if(L=="success"||L=="notmodified"){F.html(E?o("<div/>").append(M.responseText.replace(/<script(.|\s)*?\/script>/g,"")).find(E):M.responseText)}if(K){F.each
+    > function(E,F){var G=o(this).val();return G==null?null:o.isArray(G)?o.map(G,function(I,H){return{name:F.name,value:I}}):{name:F.name,value:G}}).get()}});o.each("ajaxStart,ajaxStop,ajaxComplete,ajaxError,ajaxSuccess,ajaxSend".split(","),function(E,F){o.fn[F]=function(G){return this.bind(F,G)}});var r=e();o.extend({get:function(E,G,H,F){if(o.isFunction(G)){H=G;G=null}return o.ajax
+    > pe:"GET",url:E,data:G,success:H,dataType:F})},getScript:function(E,F){return o.get(E,null,F,"script")},getJSON:function(E,F,G){return o.get(E,F,G,"json")},post:function(E,G,H,F){if(o.isFunction(G)){H=G;G={}}return o.ajax({type:"POST",url:E,data:G,success:H,dataType:F})},ajaxSetup:function(E){o.extend(o.ajaxSettings,E)},ajaxSetti
+    > ",html:"text/html",script:"text/javascript, application/javascript",json:"application/json, text/javascript",text:"text/plain",_default:"*/*"}},lastModified:{},ajax:function(M){M=o.extend(true,M,o.extend(true,{},o.ajaxSettings,M));var W,F=/=\?(&|$)/g,R,V,G=M.type.toUpperCase();if(M.data&&M.processData&&typeof M.data!=="string"){M.data=o.param(M.data)}if(M.dataType=="jsonp"){if(
+    > l)?(M.url.match(/\?/)?"&":"?")+"_="+E:"")}if(M.data&&G=="GET"){M.url+=(M.url.match(/\?/)?"&":"?")+M.data;M.data=null}if(M.global&&!o.active++){o.event.trigger("ajaxStart")}var Q=/^(\w+:)?\/\/([^\/?#]+)/.exec(M.url);if(M.dataType=="script"&&G=="GET"&&Q&&(Q[1]&&Q[1]!=location.protocol||Q[2]!=location.host)){var H=document.getElementsByTagName("head")[0];var T=document.createEleme
+    > [M.dataType]?M.accepts[M.dataType]+", */*":M.accepts._default)}catch(S){}if(M.beforeSend&&M.beforeSend(J,M)===false){if(M.global&&!--o.active){o.event.trigger("ajaxStop")}J.abort();return false}if(M.global){o.event.trigger("ajaxSend",[J,M])}var N=function(X){if(J.readyState==0){if(P){clearInterval(P);P=null;if(M.global&&!--o.active){o.event.trigger("ajaxStop")}}}else{if(!K&&J&&
+    > ")}},M.timeout)}}try{J.send(M.data)}catch(S){o.handleError(M,J,null,S)}if(!M.async){N()}function I(){if(M.success){M.success(V,R)}if(M.global){o.event.trigger("ajaxSuccess",[J,M])}}function L(){if(M.complete){M.complete(J,R)}if(M.global){o.event.trigger("ajaxComplete",[J,M])}if(M.global&&!--o.active){o.event.trigger("ajaxStop")}}return J},handleError:function(F,H,E,G){if(F.erro
+    > .error(H,E,G)}if(F.global){o.event.trigger("ajaxError",[H,F,G])}},active:0,httpSuccess:function(F){try{return !F.status&&location.protocol=="file:"||(F.status>=200&&F.status<300)||F.status==304||F.status==1223}catch(E){}return false},httpNotModified:function(G,E){try{
+fallo incidencias.kml HTTP Error 404: Not Found
+fallo Incidencias.kml HTTP Error 404: Not Found
+fallo incidencias.json HTTP Error 404: Not Found
+fallo obras.kml HTTP Error 404: Not Found
