@@ -1,104 +1,655 @@
-https://www.euskalmet.euskadi.eus/observacion/radar-kapildui-precipitaciones/ 42075
-  /VA/editor/03D36A00/scripts/webmet00-03D36A00-scripts.js
-  /VA/editor/1BEDAD10/scripts/webmet00-1BEDAD10-scripts.js
-  /VA/editor/4C79ADDF/scripts/webmet00-4C79ADDF-scripts.js
-  /VA/editor/5777FDDA/scripts/webmet00-5777FDDA-scripts.js
-  /VA/editor/83ADA70B/scripts/webmet00-83ADA70B-scripts.js
-  /VA/editor/8FDCF604/scripts/webmet00-8FDCF604-scripts.js
-  /VA/editor/C625E914/scripts/webmet00-C625E914-scripts.js
-  /VA/editor/C9E5193B/scripts/webmet00-C9E5193B-scripts.js
-  /VA/image/0FDC4D44/scripts/webmet00-0FDC4D44-scripts.js
-  /VA/image/26D303B3/scripts/webmet00-26D303B3-scripts.js
-  /VA/image/4229953A/scripts/webmet00-4229953A-scripts.js
-  /VA/image/74245990/scripts/webmet00-74245990-scripts.js
-  /VA/image/981A5FF4/scripts/webmet00-981A5FF4-scripts.js
-  /VA/image/D2F46B50/scripts/webmet00-D2F46B50-scripts.js
-  /VA/image/D6DF643C/scripts/webmet00-D6DF643C-scripts.js
-  /VA/image/F3AB8FD5/scripts/webmet00-F3AB8FD5-scripts.js
-  /VA/image/FE25BDF6/scripts/webmet00-FE25BDF6-scripts.js
-  /VA/langselector/E3FAD50B/scripts/webmet00-E3FAD50B-scripts.js
-  /VA/link/1E7AD569/scripts/webmet00-1E7AD569-scripts.js
-  /VA/link/32E74B25/scripts/webmet00-32E74B25-scripts.js
-  /VA/link/5289EAEF/scripts/webmet00-5289EAEF-scripts.js
-  /VA/link/56B61E5D/scripts/webmet00-56B61E5D-scripts.js
-  /VA/link/7F94ADD3/scripts/webmet00-7F94ADD3-scripts.js
-  /VA/link/81AD15EB/scripts/webmet00-81AD15EB-scripts.js
-  /VA/link/F70062A4/scripts/webmet00-F70062A4-scripts.js
-  /frameworks/bootstrap/js/bootstrap-datepicker.min.js
-  /frameworks/bootstrap/js/bootstrap.min.js
-  /frameworks/bootstrap/js/locale/bootstrap-datepicker.es.js
-  /frameworks/bootstrap/js/locale/bootstrap-datepicker.eu.js
-  /frameworks/iso8601-js-period/0.2.1/iso8601.min.js
-  /frameworks/js/vendor/elasticlunr.min.js
-  /frameworks/js/vendor/jquery.min.js
-  /frameworks/js/vendor/jquery.modal.min.js
-  /frameworks/js/vendor/leaflet.js
-  /frameworks/js/vendor/leaflet.timedimension.control.js
-  /frameworks/js/vendor/leaflet.timedimension.js
-  /frameworks/js/vendor/leaflet.timedimension.layer.js
-  /frameworks/js/vendor/leaflet.timedimension.layer.wms.js
-  /frameworks/js/vendor/leaflet.timedimension.player.js
-  /frameworks/js/vendor/leaflet.timedimension.util.js
-  /frameworks/js/vendor/moment-with-locales.min.js
-  /frameworks/js/vendor/popper.min.js
-  /frameworks/js/vendor/scrollBar.js
-  /frameworks/js/vendor/swiper.min.js
-  /frameworks/leaflet-fullscreen/1.4.2/Control.FullScreen.min.js
-  /frameworks/leaflet-nontiledlayer/1.0.7/NonTiledLayer.js
-  /manifest.json
-  /media/assets/icons/webmet00-euskalmet-ico-128x128.png
-  /media/assets/icons/webmet00-podcast-icon.png
-  /observacion/radar-kapildui-precipitaciones/
-  /scripts/custom/js/webmet00-DateFormat.js
-  /scripts/custom/js/webmet00-TileLayer.Grayscale.js
-  /scripts/custom/js/webmet00-const.js
-  /scripts/custom/js/webmet00-functions.js
-  /scripts/custom/js/webmet00-global.js
-  /scripts/custom/js/webmet00-kapilduiMap.js
-  /scripts/custom/js/webmet00-kapilduiMini.js
-  /scripts/custom/js/webmet00-location.js
-  /scripts/custom/js/webmet00-moment.js
-  /scripts/custom/js/webmet00-searcher.js
-  /scripts/custom/js/webmet00-socialNetwork.js
-  /scripts/custom/js/webmet00-swiper-core-nav.js
-  /scripts/webmet00-footer-script.js
-  /scripts/webmet00-header-script.js
-  /scripts/webmet00-menu-script.js
-  /scripts/webmet00-radarkapildui-script.js
-  /scripts/webmet00-script.js
-  /styles/webmet00-radarkapildui-VAs-styles.scss
-  /styles/webmet00-radarkapildui-styles.scss
-  /webmet00/frameworks/fontawesome/js/all.min.js
-  https://webanalytics.aws.euskadi.eus/js/container_lumAYacS.js
-  https://www.euskalmet.euskadi.eus/behaketa/kapilduiko-radarra-prezipitazioak/
-  https://www.euskalmet.euskadi.eus/observacion/radar-kapildui-precipitaciones/
-  https://www.euskalmet.euskadi.eus/vamet/meteoadversa_resume/webmet00-meteoadversa-resume.js
-  https://www.euskalmet.euskadi.eus/vamet/radar_ray/es/webmet00-radar-lightning.css
-  https://www.euskalmet.euskadi.eus/vamet/radar_ray/lightning/webmet00-0000.png
-  https://www.euskalmet.euskadi.eus/vamet/radar_ray/webmet00-radar-lightning.js
-  https://www.euskalmet.euskadi.eus/vamet/radar_reflectivity/es/webmet00-radar-reflectivity.css
-  https://www.euskalmet.euskadi.eus/vamet/radar_reflectivity/max_reflect/webmet00-0000.png
-  https://www.euskalmet.euskadi.eus/vamet/radar_reflectivity/webmet00-radar-reflectivity.js
-  https://www.googletagmanager.com/gtm.js?id=
-  > insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WDLSRT5'); <!-- End GTM--> </script> <script type='text/javascript'> var r01gLang='es'; var r01gPortalCode='webmet00'; var r01gPageCode='radarkapildui'; function setGDPRCookie(value) { var request = new XMLHttpRequest(); request.open("GET", "/r01commonresources/portal/common/r01setGdprCookie.txt?now="+Date.now()+"&value="+value); request.send(); } </script> <link rel="canonical" href="https://www.euskalmet.euskadi.eus/observacion/rad
-  > pildui-precipitaciones/" /> <link rel="alternate" hreflang="eu" href="https://www.euskalmet.euskadi.eus/behaketa/kapilduiko-radarra-prezipitazioak/" /> <link rel="alternate" hreflang="es" href="https://www.euskalmet.euskadi.eus/observacion/radar-kapildui-precipitaciones/" /> <link rel="alternate" hreflang="x-default" href="https://www.euskalmet.euskadi.eus/behaketa/kapilduiko-radarra-prezipitazioak/" /> <!-- NIVEL 1 --> <scri
-  > pt> var request = new XMLHttpRequest(); request.open("GET", "/r01commonresources/portal/common/r01SetNavCookie.txt?title= &link=%2fobservacion%2fradar-kapildui-precipitaciones%2f&level=1"); request.send(); </script> <meta name="language" content="es"> <!--Head euskalmet css, metatags, title --> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes"> <!-- Bootstrap CSS --> <link rel="stylesheet" href="/fram
-  > ss" /><link href="/r01commoninitiative/styles/r01-euskadi.css" rel="stylesheet" type="text/css"><link href="/styles/webmet00-styles.scss" rel="stylesheet" type="text/css"><link href="/styles/webmet00-radarkapildui-styles.scss" rel="stylesheet" type="text/css"><link href="/styles/webmet00-radarkapildui-VAs-styles.scss" rel="stylesheet" type="text/css"><title> </title><script type="application/ld+json"> { "@context":"https://schema.org", "@type":"GovernmentOrganization", "name":"Basque Administrat
-  > eb Portal", "url":"https://www.euskadi.eus/", "logo":"https://www.euskadi.eus/images/web01-2014_euskadieus_logo_menu_01.gif" } </script> </head><body class="page-radar-kapildui"><!-- Google Tag Manager (noscript) --> <noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-WDLSRT5' title="google tag manager" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) --> <!--Header euskalmet--><head
-  > ><ul class="submenu"><li class="main_menu_item"><button class="return" type="button">ATR&Aacute;S</button><h3>OBSERVACI&Oacute;N</h3><p>Consulta los datos de las estaciones meteorol&oacute;gicas, del radar de lluvia y rayos, los niveles de polen</p></li><li class="main-menu__item estaciones-active"><a id="" href="/observacion/datos-de-estaciones/" title="Datos de estaciones">Datos de estaciones</a></li><li class="main-menu__item boletinestaciones-active"><a id="" href="/observacion/boletin-diari
-  > "><a id="" href="/observacion/mapa-de-temperaturas-y-precipitacion/" title="Mapa de temperaturas y precipitaci&oacute;n">Mapa de temperaturas y precipitaci&oacute;n</a></li><li class="main-menu__item kapildui-active"><a id="" href="/observacion/radar-kapildui-precipitaciones/" title="Radar Kapildui - precipit.">Radar Kapildui - precipit.</a></li><li class="main-menu__item meteosat-active"><a id="" href="/observacion/satelite-meteosat/" title="Sat&eacute;lite meteosat">Sat&eacute;lite meteosat</a
-  > iv><ul class="va5289EAEF bcrumb"><li class="bcrumb__item"><span>OBSERVACI&Oacute;N</span></li></ul><script src="/VA/link/5289EAEF/scripts/webmet00-5289EAEF-scripts.js"></script><h1 class="page-title">Radar Kapildui</h1><script src="/VA/editor/C625E914/scripts/webmet00-C625E914-scripts.js"></script></div><div class="rs-links"><span>Compartir</span> <img id="share-button" class="rs-share-icon" src="/media/assets/icons/webmet00-compartir.svg" alt="Compartir"><script src="/VA/image/4229953A/scripts/
-  > t00-4229953A-scripts.js"></script></div></div><!--Aqui van los componentes con la grilla--><section class="sea-grid"><div class="grid-cell"><div class="widget-kapildui component-meteo-hierarchy-body"> <div class="card component-radar-kapildui"> <div class="top-content"> <h2>Radar lluvia y rayos</h2> <div class="form-wraper"> <label for="listaradar" class="sr-only">Seleccione un modelo</label> <select name="seleccion-modelo-a" id="listaradar" class="select"> <opti
-  > t-block"> <h2>Intensidad de precipitacin (mm/h) cada 10 minutos</h2> <p>Este producto ofrece una estimacin de la intensidad de precipitacin a partir de los datos de reflectividad (dBZ) medidas por el radar. Es decir, si continuara precipitando durante una hora de la misma forma, se acumularan las precipitaciones que marca el grfico.</p> <p>Para la conversin de los datos se utiliza la llamada relacin Z-R. En este caso con una frmula estndar conocida como &quot;Relacin de Marshall-Palmer&quot;.</p
-  > Las medidas se realizan cada 10 minutos a 2000 m sobre la superficie del terreno y en un rango de 100 km en torno al radar de Kapildui.</p> </div> <div class="text-block"> <h2>Intensidad de precipitacin acumulada en la ltima hora (mm/h)</h2> <p>Este producto muestra la cantidad de precipitacin en mm acumulada a lo largo de la ltima hora, utilizando datos del radar de Kapildui ajustados con la informacin de los pluvimetros de Euska
-  > lmet.</p> <p>Para su clculo se hace medidas de la intensidad (ver info intensidad) de precipitacin cada 10 minutos a 2000 m sobre la superficie del terreno en un rango de 100 km en torno al radar de Kapildui y se suavizan mediante un producto de seguimiento de la precipitacin.</p> <p>Al proporcionar datos acumulados, es posible que aparezcan valores sobreestimados en zonas montaosas, especialmente fuera de Euskadi, ya que el clutter esta corregido solamente para esta zona.</p> </div> </div> </di
-  > v> </div> <div class="bottom-content"> <div id="kapildui-map" class="overlay-content" style="height: 500px"> </div> <h2 class="sr-only">Leyenda</h2> <h3 class="sr-only">Leyenda de radar</h3> <div class="legend-content"> <h4>PRECIPITACIONES</h4> <ul class="legend-list"> <li class="legend-list__item"> <div class="color-content too-low"> <div class="color"></div> <div class="color"></div> <div class="color"></div> <div class="color"></div> </div> <p>Dbiles</p> </li> <li class="legend
-  > r"></div> <div class="color"></div> </div> <p>Torrenciales</p> </li> </ul> </div> </div> </div> </div></div><div class="grid-cell"><link rel="stylesheet" href="https://www.euskalmet.euskadi.eus/vamet/radar_reflectivity/es/webmet00-radar-reflectivity.css"> <script defer src="https://www.euskalmet.euskadi.eus/vamet/radar_reflectivity/webmet00-radar-reflectivity.js"></script> <div class="widget-radar-reflectivity component-meteo-hierarchy-body"> <div class="card component-radar-reflectivity"> <div 
-  >  <div class="more-information"> <div class="text-block"> <h2>Reflectividad (dBZ) a 0.5 de elevacin</h2> <p>Este producto representa los datos de reflectividad en dBZ (una medida del eco que recibe el radar) medidos con una elevacin de 0.5 y en un rango de 300 km a la redonda. Como los datos que se representan tienen una elevacin fija, estos no se encuentran a la misma altura, sino que a ms distancia estarn a ms altura (elevacin ms curvatura de la tierra).</p> <p>La reflectividad es un valor que 
-  > presencia de granizo, fusin de la nieve...</p> </div> <div class="text-block"> <h2>Reflectividades (dBZ) mximas</h2> <p>Este producto representa los datos de reflectividad (dBZ) mximos medidos por el radar de Kapildui en un rango de 100 km a la redonda. Existen tres vistas, la central, que muestra los mximos en la vertical, la superior, que muestra los mximos en la direccin sur-norte, y la lateral, que muestra los mximos en la direccin oeste-este.</p> <p>La reflectividad es un valor que caracter
-  > g) no-repeat top left;background-size:100%;margin-top:5px;" class="bottom-wrap overlay-content"> <div class="img-modal-swiper"> <img id="last-max-reflect" src="https://www.euskalmet.euskadi.eus/vamet/radar_reflectivity/max_reflect/webmet00-0000.png" alt=""> <div class="overlay-wrap"> <span>Pulsa para ver el detalle de la serie</span> </div> </div> <div class="to-modal"> <div style="background:transparent url(https://www.euskalmet.euskadi.eus/media/assets/imgs/webmet00-relieve_max.png) no-repeat 
-  > ="swiper-button-prev"></div> <div class="swiper-button-next"></div> </div> </div> </div> </div> </div></div><div class="grid-cell"><link rel="stylesheet" href="https://www.euskalmet.euskadi.eus/vamet/radar_ray/es/webmet00-radar-lightning.css"> <script defer src="https://www.euskalmet.euskadi.eus/vamet/radar_ray/webmet00-radar-lightning.js"></script> <div class="widget-radar-lightning component-meteo-hierarchy-body"> <div class="card component-temperature-map"> <div class="top-wrap"> <div class="
-  > corresponde a los datos recogidos por la red de sensores Linet disponibles en el Pas Vasco. De esta forma, es posible relacionar las descargas elctricas con la informacin de precipitacin obtenida del radar meteorolgico de Kapildui, pudiendo observar en tiempo real cmo se localizan los rayos en las tormentas.</p> </div> </div> </div> </div> </div> <div class="bottom-wrap overlay-content"> <div class="img-modal-swiper"> <img id="last-ray-evolution" src="https://www.euskalmet.euskadi.eus/vamet/rada
-  > ap/js/locale/bootstrap-datepicker.eu.js"></script> <script src="/frameworks/js/vendor/leaflet.js"></script> <script src="/frameworks/js/vendor/elasticlunr.min.js"></script> <!-- jQuery Modal webmet00-kapildui-funtions-js.html --> <script src="/scripts/custom/js/webmet00-const.js"></script> <script src="/frameworks/js/vendor/jquery.modal.min.js"></script> <script src="/scripts/custom/js/webmet00-moment.js"></script> <script src="/scripts/custom/js/webmet00-swiper-core-nav.js"></script> <script sr
-  > rks/js/vendor/leaflet.timedimension.player.js"></script> <script type="text/javascript" src="/frameworks/js/vendor/leaflet.timedimension.control.js"></script> <script src="/scripts/custom/js/webmet00-kapilduiMap.js"></script> <script src="/scripts/custom/js/webmet00-kapilduiMini.js"></script> <script src="/scripts/custom/js/webmet00-location.js"></script> <script src="/scripts/custom/js/webmet00-socialNetwork.js"></script> <script type="text/javascript" src="/frameworks/leaflet-nontiledlayer/1.0
-  > aded content of ${city} successfully`); // if(statusTxt == "error") // console.log(`Error loading content of ${city}: ${xhr.status}: ${xhr.statusText}`); // });</script><script src="/scripts/webmet00-radarkapildui-script.js"></script><script src="/scripts/webmet00-script.js"></script> </body></html>
+
+===== /scripts/custom/js/webmet00-kapilduiMap.js 17239
+L.TimeDimension.Layer.ImageOverlay = L.TimeDimension.Layer.extend({
+
+	initialize: function (layer, options) {
+		L.TimeDimension.Layer.prototype.initialize.call(this, layer, options);
+		this._layers = {};
+		this._defaultTime = 0;
+		this._timeCacheBackward = this.options.cacheBackward || this.options.cache || 0;
+		this._timeCacheForward = this.options.cacheForward || this.options.cache || 0;
+		this._getUrlFunction = this.options.getUrlFunction;
+		this._ruta = this.options.getUrlLocal;
+		this._capa = this.options.getZindex;
+		this._valIni = "intensity"; // valor de inicio para la primera capa a mostrar
+
+	},
+
+	_onNewTimeLoading: function (ev) {
+		var layer = this._getLayerForTime(ev.time);
+		if (!this._map.hasLayer(layer)) {
+			this._map.addLayer(layer);
+		}
+	},
+
+	isReady: function (time) {
+		var layer = this._getLayerForTime(time);
+		return layer.isLoaded();
+	},
+	//cargar Layer segun opcion seleccionada
+	_update: function () {
+		if (!this._map)
+			return;
+		var hol = $("#listaradar option:selected").val();
+		var time = map.timeDimension.getCurrentTime();
+		var layer = this._getLayerForTime(time);
+		if (this._currentLayer == null) {
+			this._currentLayer = layer;
+
+		}
+		if (!this._map.hasLayer(layer)) {
+			this._map.addLayer(layer);
+			if (this._valIni != hol) {
+				this._valIni = hol;
+				this._showLayer(layer, time);
+			}
+		} else {
+			this._showLayer(layer, time);
+
+		}
+	},
+
+	_showLayer: function (layer, time) {
+		if (this._currentLayer && this._currentLayer !== layer) {
+			this._currentLayer.hide();
+			this._map.removeLayer(this._currentLayer);
+		}
+
+		layer.show();
+		if (this._currentLayer && this._currentLayer === layer) {
+			return;
+		}
+		this._currentLayer = layer;
+		// Cache management        
+		var times = this._getLoadedTimes();
+		var strTime = String(time);
+		var index = times.indexOf(strTime);
+		var remove = [];
+		// remove times before current time
+		if (this._timeCacheBackward > -1) {
+			var objectsToRemove = index - this._timeCacheBackward;
+			if (objectsToRemove > 0) {
+				remove = times.splice(0, objectsToRemove);
+				this._removeLayers(remove);
+			}
+		}
+		if (this._timeCacheForward > -1) {
+			index = times.indexOf(strTime);
+			var objectsToRemove = times.length - index - this._timeCacheForward - 1;
+			if (objectsToRemove > 0) {
+				remove = times.splice(index + this._timeCacheForward + 1, objectsToRemove);
+				this._removeLayers(remove);
+			}
+		}
+	},
+
+	_getLayerForTime: function (time) {
+		if (!time) {
+			console.warn("â›” Tiempo invÃ¡lido recibido:", time);
+			return L.layerGroup(); // o return null;
+		}
+		var hola = $("#listaradar option:selected").val();
+		var adios = $("#listradar option:selected").val();
+
+		var latitud;
+		var longitud;
+		var resol;
+		if (this._layers.hasOwnProperty(time)) {
+			if (this._valIni == hola) {
+
+				return this._layers[time];
+			} else {
+				this._valIni = hola;
+				if (this._valIni == "intensity" || this._valIni == "acumulated") {
+					imageBounds = new L.LatLngBounds(
+						new L.LatLng(43.655708, -1.28939260),
+						new L.LatLng(41.864983, -3.747800));
+					latitud = 42.7671;
+					longitud = -2.5363;
+					resol = 8;
+					map.setView([42.7671, -2.5363], 8);
+
+
+				} else if (this._valIni == "long_range") {
+					imageBounds = new L.LatLngBounds(
+						new L.LatLng(45.372134, 1.36),
+						new L.LatLng(40.050202, -6.365));
+					latitud = 42.7062105;
+					longitud = -3.693958374;
+					resol = 7;
+					map.setView([42.7671, -2.5363], 7);
+				} else {
+					imageBounds = new L.LatLngBounds(
+						new L.LatLng(43.655708, -1.28939260),
+						new L.LatLng(41.864983, -3.747800));
+					latitud = 42.7671;
+					longitud = -2.5363;
+					resol = 8;
+					map.setView(new L.LatLng(42.7671, -2.5363), 8);
+				}
+			}
+		}
+		var basurl = this._ruta;
+		var url = this._getUrlFunction(basurl, time);
+		if (!url) {
+			console.warn("â›” No se pudo generar URL para el tiempo:", time);
+			return L.layerGroup(); // o null
+		}
+
+
+		var newLayer = L.imageOverlay(url, imageBounds, {
+			opacity: 0.5,
+			interactive: true,
+			center: [latitud, longitud]
+		});
+
+		this._layers[time] = newLayer;
+		newLayer.on('load', (function (layer, time) {
+			layer.setLoaded(true);
+			if (map.timeDimension && time == map.timeDimension.getCurrentTime() && !map.timeDimension.isLoading()) {
+
+				this._showLayer(layer, time);
+
+			}
+			this.fire('timeload', {
+				time: time
+			});
+		}).bind(this, newLayer, time));
+
+		// Hack to hide the layer when added to the map.
+		// It will be shown when timeload event is fired from the map (after all layers are loaded)
+		newLayer.onAdd = (function (map) {
+			Object.getPrototypeOf(this).onAdd.call(this, map);
+			this.hide();
+		}).bind(newLayer);
+		return newLayer;
+	},
+
+	_getLoadedTimes: function () {
+		var result = [];
+		for (var prop in this._layers) {
+			if (this._layers.hasOwnProperty(prop)) {
+				result.push(prop);
+			}
+		}
+		return result.sort();
+	},
+
+	_removeLayers: function (times) {
+		for (var i = 0, l = times.length; i < l; i++) {
+			this._map.removeLayer(this._layers[times[i]]);
+			delete this._layers[times[i]];
+		}
+	},
+
+});
+
+
+var ad = new Date((new Date()).getTime() - 15 * 60000);
+// var ad = new Date((new Date(2019, 10, 12, 00, 00)).getTime());
+var md = ad;
+var inicial;
+var iniP;
+var l = md.getUTCFullYear() + "-";
+l += ((md.getUTCMonth() + 1).toString().length === 1 ? '0' + (md.getUTCMonth() + 1).toString() : md.getUTCMonth() + 1) + "-";
+l += ((md.getUTCDate()).toString().length === 1 ? '0' + (md.getUTCDate()).toString() : md.getUTCDate()) + "T";
+var fechita = l;
+l += ((md.getUTCHours()).toString().length === 1 ? '0' + (md.getUTCHours()).toString() : md.getUTCHours()) + ":";
+l += ((md.getUTCMinutes()).toString().length === 1 ? '0' + (md.getUTCMinutes()).toString() : md.getUTCMinutes().toString()).substring(0, 1) + "0:00Z";
+var fecUTC = l;
+var horita = parseInt(md.getUTCHours().toString() + ((md.getUTCMinutes()).toString().length === 1 ? '0' + (md.getUTCMinutes()).toString() : md.getUTCMinutes().toString()).substring(0, 1) + "0")
+if (horita >= 0 && horita <= 550) {
+	$("select#listahora").find("option[value='00:00-05:50']").prop("selected", true);
+	$("select#listahora").find("option[value='06:00-11:50']").prop("disabled", true);
+	$("select#listahora").find("option[value='12:00-17:50']").prop("disabled", true);
+	$("select#listahora").find("option[value='18:00-23:50']").prop("disabled", true);
+	iniP = fechita + "00:00:00Z";
+} else if (horita >= 600 && horita <= 1150) {
+	$("select#listahora").find("option[value='06:00-11:50']").prop("selected", true);
+	$("select#listahora").find("option[value='12:00-17:50']").prop("disabled", true);
+	$("select#listahora").find("option[value='18:00-23:50']").prop("disabled", true);
+	iniP = fechita + "06:00:00Z";
+} else if (horita >= 1200 && horita <= 1750) {
+	$("select#listahora").find("option[value='
+
+===== /scripts/custom/js/webmet00-const.js 8375
+const hoursConst = [
+    "00:00", "00:10", "00:20", "00:30", "00:40", "00:50",
+    "01:00", "01:10", "01:20", "01:30", "01:40", "01:50",
+    "02:00", "02:10", "02:20", "02:30", "02:40", "02:50",
+    "03:00", "03:10", "03:20", "03:30", "03:40", "03:50",
+    "04:00", "04:10", "04:20", "04:30", "04:40", "04:50",
+    "05:00", "05:10", "05:20", "05:30", "05:40", "05:50",
+    "06:00", "06:10", "06:20", "06:30", "06:40", "06:50",
+    "07:00", "07:10", "07:20", "07:30", "07:40", "07:50",
+    "08:00", "08:10", "08:20", "08:30", "08:40", "08:50",
+    "09:00", "09:10", "09:20", "09:30", "09:40", "09:50",
+    "10:00", "10:10", "10:20", "10:30", "10:40", "10:50",
+    "11:00", "11:10", "11:20", "11:30", "11:40", "11:50",
+    "12:00", "12:10", "12:20", "12:30", "12:40", "12:50",
+    "13:00", "13:10", "13:20", "13:30", "13:40", "13:50",
+    "14:00", "14:10", "14:20", "14:30", "14:40", "14:50",
+    "15:00", "15:10", "15:20", "15:30", "15:40", "15:50",
+    "16:00", "16:10", "16:20", "16:30", "16:40", "16:50",
+    "17:00", "17:10", "17:20", "17:30", "17:40", "17:50",
+    "18:00", "18:10", "18:20", "18:30", "18:40", "18:50",
+    "19:00", "19:10", "19:20", "19:30", "19:40", "19:50",
+    "20:00", "20:10", "20:20", "20:30", "20:40", "20:50",
+    "21:00", "21:10", "21:20", "21:30", "21:40", "21:50",
+    "22:00", "22:10", "22:20", "22:30", "22:40", "22:50",
+    "23:00", "23:10", "23:20", "23:30", "23:40", "23:50"
+];
+    
+const urls = [
+    {
+        codigo: 'pagemeteoprediction',
+        url_es: "/el-tiempo/euskadi/",
+        url_eu: "/eguraldia/euskadi/"
+    }, {
+        codigo: 'pageseadetail',
+        url_es: "/la-mar/euskadi/",
+        url_eu: "/itsasoa/euskadi/"
+    }, {
+        codigo: 'pagepeninsulaiberica',
+        url_es: "/el-tiempo/peninsula-iberica/",
+        url_eu: "/eguraldia/iberiar-penintsula/"
+    }, {
+        codigo: 'europadetail',
+        url_es: "/el-tiempo/europa/",
+        url_eu: "/eguraldia/europa/"
+    }, {
+        codigo: 'indiceultravioleta',
+        url_es: "/el-tiempo/indice-ultravioleta/",
+        url_eu: "/eguraldia/indize-ultramorea/"
+    }, {
+        codigo: 'isobarayvientosuperficial',
+        url_es: "/el-tiempo/mapa-de-isobaras-y-de-viento-superficial/",
+        url_eu: "/eguraldia/isobarak-eta-haizea-azalean/"
+    }, {
+        codigo: 'meteoadversa',
+        url_es: "/el-tiempo/meteoadversa-alertas/",
+        url_eu: "/eguraldia/muturreko-meteorologia-alertak/"
+    }, {
+        codigo: 'modelos',
+        url_es: "/el-tiempo/modelos/",
+        url_eu: "/eguraldia/ereduak/"
+    }, {
+        codigo: 'incendiosforestales',
+        url_es: "/el-tiempo/incendios/",
+        url_eu: "/eguraldia/sute-arriskua/"
+    }, {
+        codigo: 'newsletterdaily',
+        url_es: "/el-tiempo/boletin-diario/",
+        url_eu: "/eguraldia/eguneroko-buletina/"
+    }, {
+        codigo: 'newsletterweekly',
+        url_es: "/el-tiempo/boletin-semanal-medio-plazo/",
+        url_eu: "/eguraldia/asteroko-buletina-epe-ertaina/"
+    }, {
+        codigo: 'newsletterspecial',
+        url_es: "/el-tiempo/boletines-especiales/",
+        url_eu: "/eguraldia/buletin-bereziak/"
+    }, {
+        codigo: 'modelosmar',
+        url_es: "/la-mar/modelos-mar/",
+        url_eu: "/itsasoa/itsas-ereduak/"
+    }, {
+        codigo: 'informacionoceanometeoro',
+        url_es: "/la-mar/informacion-oceano-meteorologica/",
+        url_eu: "/itsasoa/informazio-ozeano-meteorologikoa/"
+    }, {
+        codigo: 'pageseadetail',
+        url_es: "/la-mar/itsaseus/",
+        url_eu: "/itsasoa/itsaseus/"
+    }, {
+        codigo: 'modelosmar',
+        url_es: "/la-mar/modelos-mar/",
+        url_eu: "/itsasoa/itsas-ereduak/"
+    }, {
+        codigo: 'informacionoceanometeoro',
+        url_es: "/la-mar/informacion-oceano-meteorologica/",
+        url_eu: "/itsasoa/informazio-ozeano-meteorologikoa/"
+    }, {
+        codigo: 'itsaseus',
+        url_es: "/la-mar/itsaseus/",
+        url_eu: "/itsasoa/itsaseus/"
+    }, {
+        codigo: 'boletinmaritimo',
+        url_es: "/la-mar/boletin-maritimo/",
+        url_eu: "/itsasoa/itsas-buletina/"
+    }, {
+        codigo: 'euskoos',
+        url_es: "/la-mar/euskoos/",
+        url_eu: "/itsasoa/euskoos/"
+    }, {
+        codigo: 'estaciones',
+        url_es: "/observacion/datos-de-estaciones/",
+        url_eu: "/behaketa/estazioen-datuak/"
+    }, {
+        codigo: 'boletinestaciones',
+        url_es: "/observacion/boletin-diario-de-estaciones/",
+        url_eu: "/behaketa/eguneroko-estazioen-buletina/"
+    }, {
+        codigo: 'mapatemperaturasyprecipitacion',
+        url_es: "/observacion/mapa-de-temperaturas-y-precipitacion/",
+        url_eu: "/behaketa/tenperatura-eta-prezipitazio-mapa/"
+    }, {
+        codigo: 'radarkapildui',
+        url_es: "/observacion/radar-kapildui-precipitaciones/",
+        url_eu: "/behaketa/kapilduiko-radarra-prezipitazioak/"
+    }, {
+        codigo: 'satelitemeteosat',
+        url_es: "/observacion/satelite-meteosat/",
+        url_eu: "/behaketa/meteosat-satelitea/"
+    }, {
+        codigo: 'polen',
+        url_es: "/observacion/polen-euskadi/",
+        url_eu: "/behaketa/polena-euskadin/"
+    }, {
+        codigo: 'avenidas',
+        url_es: "/observacion/vigilancia-de-avenidas/",
+        url_eu: "/behaketa/uholdeen-zainketa/"
+    }, {
+        codigo: 'avisosalacarta',
+        url_es: "/servicios/avisos-a-la-carta/",
+        url_eu: "/zerbitzuak/abisuak-nahieran/"
+    }, {
+        codigo: 'certificados',
+        url_es: "/servicios/certificados/",
+        url_eu: "/zerbitzuak/ziurtagiriak/"
+    }, {
+        codigo: 'recomendaciones',
+        url_es: "/servicios/recomendaciones/",
+        url_eu: "/zerbitzuak/gomendioak/"
+    }, {
+        codigo: 'opendata',
+        url_es: "/servicios/open-data/",
+        url_eu: "/zerbitzuak/open-data/"
+    }, {
+        codigo: 'climaeuskadi',
+        url_es: "/clima/euskadi/",
+        url_eu: "/klima/euskadi/"
+    }, {
+        codigo: 'informesclimatologicos',
+        url_es: "/clima/boletines-climatologicos/",
+        url_eu: "/klima/klimatologia-buletinak/"
+    }, {
+        codigo: 'aprendiendometeo',
+        url_es: "/divulgacion/aprendiendo-meteorologia/",
+        url_eu: "/dibulgazioa/meteorologia-ikasten/"
+    }, {
+        codigo: 'manualestilo',
+        url_es: "/divulgacion/manual-de-estilo/",
+        url_eu: "/dibulgazioa/estilo-gidaliburua/"
+    }, {
+        codigo: 'dictionaryterms',
+        url_es: "/divulgacion/diccionario-de-terminos/",
+        url_eu: "/dibulgazioa/terminologia-gida/"
+    }, {
+        codigo: 'publications',
+        url_es: "/divulgacion/publicaciones/",
+        url_eu: "/dibulgazioa/argitalpenak/"
+    }, {
+        codigo: 'enlacesinteres',
+        url_es: "/divulgacion/enlaces-de-interes/",
+        url_eu: "/dibulgazioa/esteka-interesgarriak/"
+    }, {
+        codigo: 'euskalmetmovil',
+        url_es: "/euskalmet-en-tu-movil-app/",
+        url_eu: "/euskalmet-zure-mugikorrean-app/"
+    }, {
+        codigo: 'ayuda',
+        url_es: "/ayuda-en-euskadieus/",
+        url_eu: "/euskad
+
+===== /vamet/radar_ray/webmet00-radar-lightning.js 3815
+//var rayEvolutionImagesDirectory = 'https://www.migracion2.euskadi.eus/vamet/radar_ray/lightning/';
+var rayEvolutionImagesDirectory = 'https://www.euskalmet.euskadi.eus/vamet/radar_ray/lightning/';
+var rayContent = document.getElementById("ray-evolution-content");
+
+var date = new Date();
+
+var th = date.getUTCHours();
+var h = th < 10 ? "0" + th : th;
+var tm = date.getUTCMinutes();
+var m = tm < 10 ? "0" + tm : tm;
+var time = h + "" + m;
+
+var gmtHour = date.getHours();
+var utcHour = date.getUTCHours();
+var dif = gmtHour - utcHour;
+
+slidersContent(rayEvolutionImagesDirectory, rayContent, "last-ray-evolution");
+
+function slidersContent(directory, content, imgId) {
+
+    $.ajax({ url: directory })
+        .then(function (html) {
+            var document = $(html);
+            var names = [];
+            var htmlResult = '';
+
+            document.find('a[href$=".png"]').each(function () {
+                var pngName = $(this).text();
+                names.push(pngName);
+            });
+            var orderedNames = names.sort();
+            var pos;
+
+            for (var i = 0; i < orderedNames.length; i++) {
+                if (orderedNames[i] > "webmet00-" + time + ".png") {
+                    pos = i;
+                    break;
+                }
+            };
+            if (orderedNames[orderedNames.length] < "webmet00-" + time + ".png") {
+                pos = orderedNames.length;
+            }
+
+            var finalNames = orderedNames.slice(pos - 10, pos);
+
+            $("#" + imgId).attr("src", directory + finalNames[0]);
+
+            finalNames.forEach(function (hour) {
+                htmlResult += `<div class="swiper-slide">
+                            <p class="slider-time">${hourCalc(hour)}</p>
+                            <img src="${directory}${hour}" alt="">
+                        </div>`;
+            });
+
+            content.innerHTML = htmlResult;
+        });
+}
+
+function hourCalc(file) {
+    var year = date.getFullYear();
+    var tmonth = date.getMonth() + 1;
+    var month = tmonth < 10 ? "0" + tmonth : tmonth;
+    var day = date.getDate();
+    var fecha = day + "/" + month + "/" + year;
+    var fechaEu = year + "/" + month + "/" + day;
+
+    var hour = file.slice(9);
+    var first = hour.slice(0, 2);
+    var second = hour.slice(2, 4);
+    var horaLocal = parseInt(first) + dif;
+    var finalHour = r01gLang == 'eu' ? fechaEu + " " + horaLocal + ":" + second + " ordu ofiziala" 
+    				     : fecha + " " + horaLocal + ":" + second + " hora oficial";    
+    return finalHour;
+
+}
+
+//modales con slider swiper
+$(".img-modal-swiper").on("click", function () {
+    $(".modal2").html("");
+    var clickedContent = $(this).next().html();
+    $(".modal2").html(clickedContent);
+    $(".modal2").modal({
+        fadeDuration: 300
+    });
+    //initialize swiper when document ready
+    var mySwiper2 = new Swiper('.swiper-container', {
+        // Optional parameters
+        effect: 'fade',
+        loop: true,
+        observer: true,
+        observeParents: true,
+        autoplay: {
+            delay: 1000,
+            disableOnInteration: false,
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // And if we need scrollbar
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+        fadeEffect: {
+            crossFade: true
+        }
+    });
+
+});
+//modales con contenido texto
+$(".content-modal").on("click", function () {
+    var clickedContent = $(".more-information", this).html();
+    $("#modal1").html(clickedContent);
+    //clickedImg.appendTo(".modal");
+    $("#modal1").modal({
+        fadeDuration: 300
+    });
+});
+
+
+===== /vamet/radar_reflectivity/webmet00-radar-reflectivity.js 3806
+//var maxReflectImagesDirectory = 'https://www.migracion2.euskadi.eus/vamet/radar_reflectivity/max_reflect/';
+var maxReflectImagesDirectory = 'https://www.euskalmet.euskadi.eus/vamet/radar_reflectivity/max_reflect/';
+var maxContent = document.getElementById("max-reflect-content");
+
+var date = new Date();
+
+var th = date.getUTCHours();
+var h = th < 10 ? "0" + th : th;
+var tm = date.getUTCMinutes();
+var m = tm < 10 ? "0" + tm : tm;
+var time = h + "" + m;
+
+var gmtHour = date.getHours();
+var utcHour = date.getUTCHours();
+var dif = gmtHour - utcHour;
+
+slidersContent(maxReflectImagesDirectory, maxContent, "last-max-reflect");
+
+function slidersContent(directory, content, imgId) {
+
+    $.ajax({ url: directory })
+        .then(function (html) {
+            var document = $(html);
+            var names = [];
+            var htmlResult = '';
+
+            document.find('a[href$=".png"]').each(function () {
+                var pngName = $(this).text();
+                names.push(pngName);
+            });
+            var orderedNames = names.sort();
+            var pos;
+
+            for (var i = 0; i < orderedNames.length; i++) {
+                if (orderedNames[i] > "webmet00-" + time + ".png") {
+                    pos = i;
+                    break;
+                }
+            };
+            if (orderedNames[orderedNames.length] < "webmet00-" + time + ".png") {
+                pos = orderedNames.length;
+            }
+
+            var finalNames = orderedNames.slice(pos - 10, pos);
+
+            $("#" + imgId).attr("src", directory + finalNames[0]);
+
+            finalNames.forEach(function (hour) {
+                htmlResult += `<div class="swiper-slide">
+                            <p class="slider-time">${hourCalc(hour)}</p>
+                            <img src="${directory}${hour}" alt="">
+                      </div>`;
+            });
+
+            content.innerHTML = htmlResult;
+        });
+}
+
+function hourCalc(file) {
+    var year = date.getFullYear();
+    var tmonth = date.getMonth() + 1;
+    var month = tmonth < 10 ? "0" + tmonth : tmonth;
+    var day = date.getDate();
+    var fecha = day + "/" + month + "/" + year;
+    var fechaEu = year + "/" + month + "/" + day;
+
+    var hour = file.slice(9);
+    var first = hour.slice(0, 2);
+    var second = hour.slice(2, 4);
+    var horaLocal = parseInt(first) + dif;
+    var finalHour = r01gLang == 'eu' ? fechaEu + " " + horaLocal + ":" + second + " ordu ofiziala" : fecha + " " + horaLocal + ":" + second + " hora oficial";
+    return finalHour;
+
+}
+
+//modales con slider swiper
+$(".img-modal-swiper").on("click", function () {
+    $(".modal2").html("");
+    var clickedContent = $(this).next().html();
+    $(".modal2").html(clickedContent);
+    $(".modal2").modal({
+        fadeDuration: 300
+    });
+    //initialize swiper when document ready
+    var mySwiper2 = new Swiper('.swiper-container', {
+        // Optional parameters
+        effect: 'fade',
+        loop: true,
+        observer: true,
+        observeParents: true,
+        autoplay: {
+            delay: 1000,
+            disableOnInteration: false,
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // And if we need scrollbar
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+        fadeEffect: {
+            crossFade: true
+        }
+    });
+
+});
+//modales con contenido texto
+$(".content-modal").on("click", function () {
+    var clickedContent = $(".more-information", this).html();
+    $("#modal1").html(clickedContent);
+    //clickedImg.appendTo(".modal");
+    $("#modal1").modal({
+        fadeDuration: 300
+    });
+});
+IMG /vamet/radar_ray/lightning/webmet00-0000.png 112263 image/png Thu, 05 Nov 2026 22:55:29 GMT ACAO=*
+IMG /vamet/radar_reflectivity/max_reflect/webmet00-0000.png 45614 image/png Thu, 05 Nov 2026 22:59:22 GMT ACAO=*
