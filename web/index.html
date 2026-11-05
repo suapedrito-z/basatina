@@ -464,8 +464,15 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="card"><b>🌧️ Radar de lluvia</b><div class="note">Dónde está lloviendo (o nevando) ahora y en las últimas 2 horas. Dale a ▶️ para ver hacia dónde se mueve.</div>
 <div class="row" style="align-items:center;margin-top:6px"><button class="btn pri" id="rdPlay">▶️</button><input type="range" id="rdT" min="0" max="0" value="0" style="flex:1"><b id="rdLbl" style="min-width:64px;text-align:right"></b></div></div>
 <div class="card"><div style="position:relative"><canvas id="rdc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="rdcIn">＋</button><button class="btn mtb" id="rdcOut">－</button></div></div><div class="note" style="margin-top:4px">Cuanto más intenso el color, más fuerte llueve; los tonos rojizos son tormenta. El morado con borde es Petilla de Aragón, que es de Navarra, no lluvia.</div></div>
-<div class="card"><b>⚡ Rayos</b><div class="note">No hay un servicio abierto y gratuito de rayos en directo que se pueda meter en la app. AEMET tiene su mapa oficial de rayos:</div><div class="row"><button class="btn" id="rdRayos">⚡ Ver los rayos en AEMET</button></div></div>
-<div class="note" style="margin:0 6px 10px">Radar: RainViewer (uso personal y no comercial), con datos de los radares meteorológicos europeos.</div>
+<div class="card" id="rdAemet"><b>⚡ Rayos (AEMET)</b><div class="note" id="rdAeNote">Cargando…</div><div id="rdAeImgs"></div><div class="row"><button class="btn" id="rdRayos">⚡ Abrir el mapa de rayos de AEMET</button></div></div>
+<div class="card tech" style="display:none"><b>🔧 Claves de radar y rayos</b>
+ <div class="note">Rainbow.ai (radar con previsión de 4 horas) y AEMET OpenData (rayos y radar oficial). Se guardan en el repositorio para que todos los móviles las usen.</div>
+ <label style="display:block;margin-top:8px">Clave de Rainbow.ai<input id="kyRain" class="town" autocomplete="off" placeholder="Pega aquí la clave de Rainbow" style="width:100%;box-sizing:border-box"></label>
+ <div class="row"><button class="btn pri" id="kyRainS">💾 Guardar clave de Rainbow</button></div>
+ <label style="display:block;margin-top:8px">Clave de AEMET OpenData<input id="kyAem" class="town" autocomplete="off" placeholder="Pega aquí la clave de AEMET (la del correo)" style="width:100%;box-sizing:border-box"></label>
+ <div class="row"><button class="btn pri" id="kyAemS">💾 Guardar clave de AEMET</button></div>
+ <div class="note" id="kyMsg"></div></div>
+<div class="note" style="margin:0 6px 10px"><span id="rdSrc">Radar: RainViewer (uso personal y no comercial), con datos de los radares meteorológicos europeos.</span></div>
 </section>
 <section id="t-emb">
 <div class="card" id="emSum"><b>💧 Embalses de Navarra</b><div class="note">Cargando…</div></div>
@@ -2867,6 +2874,55 @@ setInterval(()=>{if(MTL==='radar'&&document.getElementById('t-mtiempo').classLis
 
 function rdPaint(x,P,b,path,cache,redraw){const url=(z,X,Y)=>`${RDH}${path}/256/${z}/${X}/${Y}/2/1_1.png`;
   x.filter='saturate(1.8) contrast(1.2)';drawTiles(x,P,b,url,cache,5,7,1,redraw);x.filter='none';}
+
+
+/* ---------- 🔑 claves guardadas en el repositorio (config/*.json) y radar Rainbow / rayos AEMET ---------- */
+const KEYS={};
+async function keyGet(n){if(n in KEYS)return KEYS[n];KEYS[n]='';try{const r=await fetch(GH_RAW+'config/'+n+'.json?t='+Math.floor(Date.now()/600000));if(r.ok)KEYS[n]=((await r.json()).key||'').trim();}catch(e){}return KEYS[n];}
+async function httpText(u){try{if(APP){const r=await netGet(u);return {code:r.code,body:r.body};}const r=await fetch(u);return {code:r.status,body:await r.text()};}catch(e){return {code:0,body:''};}}
+async function keySave(n,v,test){const m=document.getElementById('kyMsg');if(!v){m.textContent='Pega la clave primero';return;}
+  if(!ghTok()){m.textContent='❌ Falta la llave de edición de GitHub en este móvil';return;}
+  m.textContent='Comprobando la clave…';const ok=await test(v);if(!ok){m.textContent='❌ El servicio no acepta esa clave. Revisa que esté completa (a veces tarda unos minutos en activarse).';return;}
+  try{let sha=null;try{const r=await fetch(GH_API+'config/'+n+'.json?ref=main',{headers:{Authorization:'Bearer '+ghTok()}});if(r.ok)sha=(await r.json()).sha;}catch(e){}
+    await ghPut('config/'+n+'.json',b64u(JSON.stringify({key:v})),'Clave de '+n,sha);KEYS[n]=v;m.textContent='✅ Guardada. Ya se usa en todos los móviles.';RDF=[];RDT={};MTRT={};rdLoad();aeLoad();}
+  catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}}
+const rbTest=async v=>{const r=await httpText('https://api.rainbow.ai/tiles/v1/snapshot?token='+encodeURIComponent(v));return r.code===200&&/snapshot/.test(r.body);};
+const aeTest=async v=>{const r=await httpText('https://opendata.aemet.es/opendata/api/red/rayos/mapa?api_key='+encodeURIComponent(v));try{return JSON.parse(r.body).estado===200;}catch(e){return false;}};
+document.getElementById('kyRainS').onclick=()=>keySave('rainbow',document.getElementById('kyRain').value.trim(),rbTest);
+document.getElementById('kyAemS').onclick=()=>keySave('aemet',document.getElementById('kyAem').value.trim(),aeTest);
+// el radar usa Rainbow si hay clave (más detalle y previsión de 4 h); si no, RainViewer
+const _rdLoad0=rdLoad;
+rdLoad=async function(){const k=await keyGet('rainbow');if(!k)return _rdLoad0();
+  const r=await httpText('https://api.rainbow.ai/tiles/v1/snapshot?token='+encodeURIComponent(k));let snap=null;try{snap=JSON.parse(r.body).snapshot;}catch(e){}
+  if(!snap)return _rdLoad0();
+  const u=(s,ft)=>(z,X,Y)=>`https://api.rainbow.ai/tiles/v1/precip/${s}/${ft}/${z}/${X}/${Y}?token=${encodeURIComponent(k)}`;
+  RDF=[];for(let i=12;i>=0;i-=2)RDF.push({time:snap-i*600,url:u(snap-i*600,0)});
+  for(let ft=1200;ft<=14400;ft+=1200)RDF.push({time:snap+ft,url:u(snap,ft),nc:1});
+  RDH='rb';const s=document.getElementById('rdT');s.max=RDF.length-1;RDI=6;s.value=RDI;
+  const src=document.getElementById('rdSrc');if(src)src.textContent='Radar: Rainbow.ai (radares meteorológicos y previsión de 4 horas). 🔮 = previsión.';
+  if(RDM)rdShow();};
+// pintar: cada fotograma sabe su dirección (Rainbow) o se monta con la de RainViewer
+rdPaint=function(x,P,b,path,cache,redraw){const f=RDF.find(g=>g.path===path||g===path)||null;
+  const url=f&&f.url?f.url:(z,X,Y)=>`${RDH}${path}/256/${z}/${X}/${Y}/2/1_1.png`,zmax=f&&f.url?9:7;
+  x.filter='saturate(1.8) contrast(1.2)';drawTiles(x,P,b,url,cache,5,zmax,f&&f.url?.85:1,redraw);x.filter='none';};
+rdDraw=function(x,P,b){const f=RDF[RDI];if(!f)return;x.fillStyle='rgba(8,16,26,.45)';x.fillRect(0,0,b.W,b.H);rdPaint(x,P,b,f.path||f,RDT,()=>RDM&&RDM.draw());};
+const _mtRadar0=mtRadar;
+mtRadar=function(x,W,H,P,leg){const L=RDF.filter(f=>!f.nc),f=L.length?L[L.length-1]:null;leg.style.display='';
+  if(!f){leg.innerHTML='Cargando el radar…';rdLoad().then(()=>{if(MTL==='radar')mtDraw();});return;}
+  x.fillStyle='rgba(8,16,26,.45)';x.fillRect(0,0,W,H);rdPaint(x,P,{w:NB.w,e:NB.e,n:NB.n,s:NB.s,W,H},f.path||f,MTRT,()=>{if(MTL==='radar')mtDraw();});
+  TOWNS.forEach(t=>{const [px,py]=P(t[1],t[2]);x.fillStyle='#fff';x.beginPath();x.arc(px,py,2.5,0,7);x.fill();});
+  const min=Math.max(0,Math.round((Date.now()/1000-f.time)/60));
+  leg.innerHTML=`📡 Radar de las ${new Date(f.time*1000).toTimeString().slice(0,5)} (hace ${min} min) · si no ves color, ahora no llueve · <a href="#" id="mtRdMore">▶️ ${RDF.some(g=>g.nc)?'animación y previsión':'ver animación'}</a>`;
+  const a=document.getElementById('mtRdMore');if(a)a.onclick=e=>{e.preventDefault();showTab('radar');};};
+// rayos y radar oficial de AEMET (imágenes)
+async function aeImg(path,k){const r=await httpText('https://opendata.aemet.es/opendata/api/'+path+'?api_key='+encodeURIComponent(k));try{const j=JSON.parse(r.body);return j.estado===200?j.datos:null;}catch(e){return null;}}
+async function aeLoad(){const n=document.getElementById('rdAeNote'),box=document.getElementById('rdAeImgs');if(!n)return;const k=await keyGet('aemet');
+  if(!k){n.textContent='Sin la clave de AEMET no se pueden enseñar los rayos aquí. Mientras tanto, puedes abrir su mapa oficial:';box.innerHTML='';return;}
+  n.textContent='Pidiendo los mapas a AEMET…';const [ry,rz]=await Promise.all([aeImg('red/rayos/mapa',k),aeImg('red/radar/regional/za',k)]);
+  n.textContent=ry||rz?'Mapas oficiales de AEMET. Toca uno para verlo en grande.':'AEMET no responde ahora. Prueba en un rato.';
+  box.innerHTML=[[ry,'⚡ Rayos de las últimas horas en España'],[rz,'📡 Radar de Zaragoza (cubre Navarra)']].filter(x=>x[0]).map(([u,t])=>`<div style="margin-top:8px"><b style="font-size:14px">${t}</b><img src="${u}" style="width:100%;border-radius:8px;margin-top:4px;background:#fff;cursor:zoom-in" data-t="${t}" onerror="this.parentNode.remove()"></div>`).join('');
+  box.querySelectorAll('img').forEach(im=>im.onclick=()=>pbFoto(im.src,im.dataset.t));}
+const _rdInit0=rdInit;rdInit=function(){_rdInit0();aeLoad();};
 
 </script>
 </body>
