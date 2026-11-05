@@ -1,0 +1,27 @@
+name: Pueblos
+on:
+  push:
+    paths: ['tools/pueblos.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  pueblos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: pip install pyshp pyproj
+      - name: Descargar de IDENA
+        run: python3 tools/pueblos.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/pueblos.js tools/pueblos_info.txt
+          git commit -m "Pueblos de Navarra (IDENA)" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          git push
