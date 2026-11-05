@@ -1307,14 +1307,20 @@ function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dTechInfo',
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
-  if(mode==='enter'&&!has)pinMode='new';
-  document.getElementById('pinTit').textContent=pinMode==='enter'?'🔧 Zona técnica':'🔑 Nuevo PIN';
-  document.getElementById('pinMsg').textContent=pinMode==='enter'?'Escribe el PIN':'Elige un PIN de 4 a 8 cifras';
+  // primera vez en un móvil: sin PIN guardado, solo entra quien tenga la llave de edición de GitHub
+  if(mode==='enter'&&!has)pinMode='key';
+  const pi=document.getElementById('pinIn');pi.maxLength=pinMode==='key'?200:8;pi.inputMode=pinMode==='key'?'text':'numeric';
+  document.getElementById('pinTit').textContent=pinMode==='enter'?'🔧 Zona técnica':pinMode==='key'?'🔑 Primera vez en este móvil':'🔑 Nuevo PIN';
+  document.getElementById('pinMsg').textContent=pinMode==='enter'?'Escribe el PIN':pinMode==='key'?'Pega la llave de edición de GitHub (empieza por github_pat_)':'Elige un PIN de 4 a 8 cifras';
   document.getElementById('pinIn').value='';document.getElementById('pinBox').style.display='flex';setTimeout(()=>document.getElementById('pinIn').focus(),50);}
 function pinClose(){document.getElementById('pinBox').style.display='none';}
 document.getElementById('pinNo').onclick=pinClose;
 document.getElementById('pinIn').onkeydown=e=>{if(e.key==='Enter')document.getElementById('pinOk').click();};
-document.getElementById('pinOk').onclick=()=>{const v=document.getElementById('pinIn').value.trim(),msg=document.getElementById('pinMsg');
+document.getElementById('pinOk').onclick=async()=>{const v=document.getElementById('pinIn').value.trim(),msg=document.getElementById('pinMsg');
+  if(pinMode==='key'){msg.textContent='Comprobando la llave…';let ok=false;
+    try{const r=await fetch('https://api.github.com/repos/'+GH_REPO,{headers:{Authorization:'Bearer '+v,Accept:'application/vnd.github+json'}});const j=await r.json();ok=r.ok&&j.permissions&&j.permissions.push;}catch(e){msg.textContent='❌ Sin conexión. Prueba otra vez';return;}
+    if(!ok){msg.textContent='❌ Llave no válida';document.getElementById('pinIn').value='';return;}
+    try{localStorage.setItem('ghTok',v);}catch(e){}pinOpen('new');document.getElementById('pinMsg').textContent='✅ Llave correcta. Ahora elige un PIN de 4 a 8 cifras para las próximas veces';return;}
   if(pinMode==='enter'){let ok=false;try{ok=localStorage.getItem('pinH')===pinHash(v);}catch(e){}
     if(ok){TECH=true;try{sessionStorage.setItem('tech','1');}catch(e){}techApply();pinClose();toast('🔧 Zona técnica abierta (en el menú)');}
     else{msg.textContent='❌ PIN incorrecto';document.getElementById('pinIn').value='';}return;}
