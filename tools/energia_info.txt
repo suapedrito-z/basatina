@@ -1,0 +1,111 @@
+
+===== ccaa navarra id 14 dia generacion/estructura-generacion?start_date=2026-11-01T00:00&end_date=2026-11-04T23:59&time_trunc=day&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
+ERROR <HTTPError 500: 'Internal Server Error'>
+b'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8" />\n    <meta name="robots" content="noindex,nofollow,noarchive" />\n    <title>An Error Occurred: Internal Server Error</title>\n    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }\n.container { margin: 30px; max-w'
+
+===== ccaa navarra id 14 hora generacion/estructura-generacion?start_date=2026-11-04T00:00&end_date=2026-11-04T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
+ERROR <HTTPError 400: 'Bad Request'>
+b'{"errors":[{"status":"400","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
+
+===== ccaa navarra id 14 mes generacion/estructura-generacion?start_date=2025-01-01T00:00&end_date=2026-10-31T23:59&time_trunc=month&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
+status 200 bytes 15159
+ - Hidráulica | Hidráulica | n 20 | [{'value': 71826.479, 'percentage': 0.10383769375467103, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 69543.575, 'percentage': 0.14622453785071177, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 66714.347, 'percentage': 0.10610092964710799, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 13225.026, 'percentage': 0.02474343257782705, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
+ - Ciclo combinado | Ciclo combinado | n 20 | [{'value': 189184.633, 'percentage': 0.27349935926197677, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 102994.141, 'percentage': 0.216558764329502, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 29609.532, 'percentage': 0.04709030385346937, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 146287.894, 'percentage': 0.27369811160608004, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
+ - Eólica | Eólica | n 20 | [{'value': 332208.312, 'percentage': 0.48026501430220736, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 194020.006, 'percentage': 0.4079526499916394, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 439739.837, 'percentage': 0.6993519026509806, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 237102.063, 'percentage': 0.44360736303310117, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
+ - Solar fotovoltaica | Solar fotovoltaica | n 20 | [{'value': 17874.729, 'percentage': 0.025841036087119584, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 23759.92, 'percentage': 0.049958365260484285, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 25284.202, 'percentage': 0.040211400668963566, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 84389.894, 'percentage': 0.15788972002315696, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
+ - Otras renovables | Otras renovables | n 20 | [{'value': 27022.557, 'percentage': 0.03906581580080156, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 25759.644, 'percentage': 0.05416304869427349, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 21785.649, 'percentage': 0.03464738419557024, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 20937.298, 'percentage': 0.03917274880403813, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
+ - Cogeneración | Cogeneración | n 20 | [{'value': 53602.033, 'percentage': 0.07749108079322349, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 59517.139, 'percentage': 0.1251426338733891, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 45648.36, 'percentage': 0.0725980789839082, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 32544.136, 'percentage': 0.06088862395579669, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
+ - Generación total | Generación total | n 20 | [{'value': 691718.743, 'percentage': 1, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 475594.425, 'percentage': 1, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 628781.927, 'percentage': 1, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 534486.311, 'percentage': 1, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
+
+===== potencia instalada mes generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2026-10-31T23:59&time_trunc=month&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
+ERROR <HTTPError 500: 'Internal Server Error'>
+b'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8" />\n    <meta name="robots" content="noindex,nofollow,noarchive" />\n    <title>An Error Occurred: Internal Server Error</title>\n    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }\n.container { margin: 30px; max-w'
+
+===== evolucion renovable hora generacion/evolucion-renovable-no-renovable?start_date=2026-11-04T00:00&end_date=2026-11-04T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
+ERROR <HTTPError 400: 'Bad Request'>
+b'{"errors":[{"status":"400","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
+
+===== demanda hora navarra demanda/evolucion?start_date=2026-11-04T00:00&end_date=2026-11-04T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
+ERROR <HTTPError 400: 'Bad Request'>
+b'{"errors":[{"status":"400","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
+
+===== peninsular hora estructura generacion/estructura-generacion?start_date=2026-11-04T00:00&end_date=2026-11-04T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741
+ERROR <HTTPError 400: 'Bad Request'>
+b'{"errors":[{"status":"400","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
+
+===== balance navarra dia balance/balance-electrico?start_date=2026-11-01T00:00&end_date=2026-11-04T23:59&time_trunc=day&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
+ERROR <HTTPError 502: 'Bad Gateway'>
+b'{"errors":[{"status":"502","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
+
+===== OVERPASS power=plant/generator Navarra
+ERROR overpass https://overpass-api.de/api/interpreter <HTTPError 406: 'Not Acceptable'>
+ERROR overpass https://overpass.kumi.systems/api/interpreter TimeoutError('The read operation timed out')
+
+===== AEE Navarra
+ERROR AEE https://aeeolica.org/sobre-la-eolica/mapa-de-parques-eolicos-en-espana/navarra/ <HTTPError 404: 'Not Found'>
+url https://aeeolica.org/en/about-wind-energy/map-of-wind-farms-in-spain/navarra/ status 200 len 161678 enlaces 0
+
+===== IDENA capas energía
+   IDEMUN_Pol_JuegosInf | Parques de juegos infantiles(foro EELL-SITNA)
+   mapaSolar | Mapa solar
+   IDEMUN_Pol_MSEnergia | Potencial energético de los edificios.(foro EELL-SITNA)
+   IDENA_IDEMUN_Pol_MSEnergia | IDENA_IDEMUN_Pol_MSEnergia
+   CARTO1_Lin_51ElecTrans | Cartografía 1:1.000. Línea transformador
+   IDENA_CARTO1_Lin_51ElecTrans | IDENA_CARTO1_Lin_51ElecTrans
+   CARTO1_Txt_51Electri | Cartografía 1:1.000. Texto de electricidad
+   IDENA_CARTO1_Txt_51Electri | IDENA_CARTO1_Txt_51Electri
+   mcpParqueFluvial | MCP. Parque Fluvial
+   PARFLU_Pol_Vegetacion | Zonificación de la vegetación del Parque Fluvial
+   PARFLU_Pol_AreaRecre | Áreas recreativas del Parque Fluvial
+   PARFLU_Pol_EspCanino | Áreas de esparcimiento canino del Parque Fluvial
+   PARFLU_Sym_ArbolSing | Árboles singulares del Parque Fluvial
+   PARFLU_Pol_Infraest | Instalaciones del Parque Fluvial
+   PARFLU_Lin_Itinerarios | Paseos e itinerarios del Parque Fluvial
+   PARFLU_Lin_Alumbrado | Red de alumbrado del Parque Fluvial
+   PARFLU_Sym_Arquetas | Arquetas de la red de alumbrado del Parque Fluvial
+   PARFLU_Sym_Alumbrado | Farolas de la red de alumbrado del Parque Fluvial
+   PARFLU_Sym_Cajas | Cajas de murciélagos en el Parque Fluvial
+   PARFLU_Sym_Paneles | Señales y paneles informativos del Parque Fluvial
+   PARFLU_Lin_Puentes | Puentes y pasarelas del Parque Fluvial
+   PARFLU_Sym_Mobiliario | Mobiliario del Parque Fluvial
+   PARFLU_Sym_ZonaRecre | Juegos infantiles del Parque Fluvial
+   ENERGI_Pol_Cuadricula | Cuadrícula minera
+   IDENA_ENERGI_Pol_Cuadricula | IDENA_ENERGI_Pol_Cuadricula
+   ENERGI_Pol_SeccionA | Sección A
+   IDENA_ENERGI_Pol_SeccionA | IDENA_ENERGI_Pol_SeccionA
+   ENERGI_Pol_SeccionB | Sección B
+   IDENA_ENERGI_Pol_SeccionB | IDENA_ENERGI_Pol_SeccionB
+   ENERGI_Pol_SeccionC | Derechos Sección C
+   IDENA_ENERGI_Pol_SeccionC | IDENA_ENERGI_Pol_SeccionC
+   ENERGI_Pol_ProyectosC | Proyectos Sección C
+   IDENA_ENERGI_Pol_ProyectosC | IDENA_ENERGI_Pol_ProyectosC
+   ENERGI_Pol_Prestamos | Préstamos
+   IDENA_ENERGI_Pol_Prestamos | IDENA_ENERGI_Pol_Prestamos
+   BIODIV_Pol_AcogidaEoli | Capacidad de acogida eólica. Plan Energético 2030
+   energiaEolica | Energía eólica
+   ENERGI_Lin_Peolico | Parques eólicos en servicio
+   IDENA_ENERGI_Lin_Peolico | IDENA_ENERGI_Lin_Peolico
+   ENERGI_Lin_PeolicoTra | Parques eólicos en tramitación
+   IDENA_ENERGI_Lin_PeolicoTra | IDENA_ENERGI_Lin_PeolicoTra
+   ENERGI_Lin_PeolicoDIADesf | Parques eólicos con DIA desfavorable
+   IDENA_ENERGI_Lin_PeolicoDIADesf | IDENA_ENERGI_Lin_PeolicoDIADesf
+   ENERGI_Sym_AeroGen | Aerogeneradores en servicio
+   IDENA_ENERGI_Sym_AeroGen | IDENA_ENERGI_Sym_AeroGen
+   ENERGI_Sym_AeroGenTra | Aerogeneradores en tramitación
+   IDENA_ENERGI_Sym_AeroGenTra | IDENA_ENERGI_Sym_AeroGenTra
+   ENERGI_Sym_AeroGenDIADesf | Aerogeneradores con DIA desfavorable
+   IDENA_ENERGI_Sym_AeroGenDIADesf | IDENA_ENERGI_Sym_AeroGenDIADesf
+   energiaSolar | Energía solar fotovoltaica
+   ENERGI_Pol_PSolar | Plantas solares fotovoltaicas en servicio
+   IDENA_ENERGI_Pol_PSolar | IDENA_ENERGI_Pol_PSolar
+   ENERGI_Pol_PSolarTra | Plantas solares fotovoltaicas en tramitación
+   IDENA_ENERGI_Pol_PSolarTra | IDENA_ENERGI_Pol_PSolarTra
+   BIODIV_Pol_ParquesNat | Espacios Naturales Protegidos. Parques Naturales
+   IDENA_BIODIV_Pol_ParquesNat | IDENA_BIODIV_Pol_ParquesNat
+   INFRAE_Sym_InstPlacaSolares | Instalaciones de NILSA con placas solares (NILSA)
+   IDENA_INFRAE_Sym_InstPlacaSolares | IDENA_INFRAE_Sym_InstPlacaSolares
+   REDRES_Sym_Central | Recogida neumática. Central
+   IDENA_REDRES_Sym_Central | IDENA_REDRES_Sym_Central
+   DOTACI_Sym_BomParques | Parques de Bomberos
+   IDENA_DOTACI_Sym_BomParques | IDENA_DOTACI_Sym_BomParques
+   RecargaVehiElectrico | Recarga de vehículos eléctricos
