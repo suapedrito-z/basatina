@@ -1,111 +1,54 @@
 
-===== ccaa navarra id 14 dia generacion/estructura-generacion?start_date=2026-11-01T00:00&end_date=2026-11-04T23:59&time_trunc=day&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
-ERROR <HTTPError 500: 'Internal Server Error'>
-b'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8" />\n    <meta name="robots" content="noindex,nofollow,noarchive" />\n    <title>An Error Occurred: Internal Server Error</title>\n    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }\n.container { margin: 30px; max-w'
+## ENERGI_Lin_Peolico: 65 · campos ['FEATURE', 'NOMBRE', 'PROMOTOR', 'POT_MW', 'NUMAEROS', 'PUESTSERV', 'EXPEDIENTE', 'RAIPEE', 'DIA', 'EVACUACION', 'GEOM_LONG', 'BEGINLIFE']
+- FEATURE: 1 · [('8200007', 65)]
+- NOMBRE: 65 · [('TXUTXU', 1), ('SAN GREGORIO', 1), ('PESTRIZ', 1), ('LA FRAILA', 1), ('LOS CERROS', 1), ('LA CALERA', 1), ('LA LOMBA', 1), ('ABLITAS', 1)]
+- PROMOTOR: 14 · [('ACCIONA GENERACIÓN RENOVABLE', 28), ('MTORRES', 8), ('ENHOL', 7), ('NATURGY RENOVABLES', 4), ('PARQUE EÓLICO NAVARRA', 4), ('RENOVABLES DEL CIERZO', 4), ('EÓLICA MONTES DE CIERZO', 2), ('EOLICA MONTES DE CIERZO', 2)]
+- POT_MW: 53 · [('4.5', 3), ('4.95', 3), ('33.0', 3), ('15.0', 2), ('49.995', 2), ('49.5', 2), ('50.0', 2), ('24.6', 2)]
+- NUMAEROS: 32 · [('3', 10), ('5', 4), ('41', 4), ('4', 3), ('50', 3), ('25', 2), ('11', 2), ('32', 2)]
+- PUESTSERV: 25 · [('2005', 7), ('2023', 5), ('2001', 5), ('2020', 4), ('1999', 4), ('2004', 3), ('2006', 3), ('2002', 3)]
+- EXPEDIENTE: 65 · [('1048-CE', 1), ('1051-CE', 1), ('1153-CE', 1), ('1079-CE', 1), ('1077-CE', 1), ('1083-CE', 1), ('1082-CE', 1), ('1107-CE, 1172-CE', 1)]
+- RAIPEE: 63 · [('RE-114613', 2), ('PENDIENTE', 2), ('RE-004032', 1), ('RE-000075', 1), ('RE-113579', 1), ('RE-012248', 1), ('RE-003939', 1), ('RE-012246', 1)]
+- DIA: 20 · [('', 36), ('400E/2018 (BON 06/08/2018)', 4), ('1470E/2020 (BON 16/02/2021)', 4), ('332/2002 (BON 22/03/2002)', 3), ('1208E/2016 (BON 04/11/2016)', 2), ('664E/2022 (BON 27/07/2022)', 2), ('1378E/2020 (BON 21/01/2021)', 1), ('863/2012 (BON 18/10/2012), 757E/2017 (22/02/2018)', 1)]
+- EVACUACION: 20 · [('LA SERNA 400 kV', 7), ('TAFALLA 220 KV', 6), ('DISTRIBUCION 66 KV (AFECC. TAFALLA 220 KV)', 6), ('SANGÜESA 220 KV', 6), ('MURUARTE 220 KV', 6), ('DISTRIBUCIÓN 66 KV (AFECC. CORDOVILLA 220 KV)', 5), ('OLITE 220 kV', 4), ('LA SERNA 220 KV', 4)]
+- GEOM_LONG: 65 · [('2458.26', 1), ('1665.24', 1), ('3266.67', 1), ('518.26', 1), ('556.48', 1), ('338.15', 1), ('1819.9', 1), ('4253.36', 1)]
+- BEGINLIFE: 1 · [('19/05/2026', 65)]
 
-===== ccaa navarra id 14 hora generacion/estructura-generacion?start_date=2026-11-04T00:00&end_date=2026-11-04T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
-ERROR <HTTPError 400: 'Bad Request'>
-b'{"errors":[{"status":"400","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
+## ENERGI_Sym_AeroGen: 1422 · campos ['FEATURE', 'NOMBRE', 'MODELO', 'POT_MW', 'PARQUE', 'DIAMET_M', 'ALTURA_M', 'BEGINLIFE']
+- FEATURE: 1 · [('8200014', 1422)]
+- NOMBRE: 1422 · [('RMCII-01', 1), ('BAN-503', 1), ('RMCII-03', 1), ('RMC-02', 1), ('RMC-03', 1), ('RMC-04', 1), ('RMC-05', 1), ('CAL-1.05', 1)]
+- MODELO: 53 · [('G47/660', 466), ('ECO48/700', 167), ('AW77/1500', 115), ('G42/600', 101), ('G52/850', 81), ('LW50/750', 49), ('GE1,5SL', 46), ('ECO44/600', 45)]
+- POT_MW: 35 · [('0.66', 466), ('0.6', 192), ('1.5', 176), ('0.7', 167), ('0.85', 79), ('0.5', 63), ('3.465', 59), ('0.75', 50)]
+- PARQUE: 65 · [('SAN ESTEBAN', 72), ('PEÑABLANCA 2ª FASE', 54), ('LAS LLANAS DE CODÉS 1ª FASE - AGUILAR', 52), ('AIBAR', 52), ('SIERRA DE SELVA', 50), ('IZCO', 50), ('ALAIZ', 50), ('LA BANDERA', 44)]
+- DIAMET_M: 30 · [('47', 466), ('77', 168), ('48', 167), ('42', 115), ('44', 90), ('132', 89), ('52', 79), ('50', 51)]
+- ALTURA_M: 26 · [('45', 412), ('55', 386), ('80', 134), ('50', 89), ('120', 59), ('39', 55), ('40', 45), ('61', 33)]
+- BEGINLIFE: 1 · [('19/05/2026', 1422)]
 
-===== ccaa navarra id 14 mes generacion/estructura-generacion?start_date=2025-01-01T00:00&end_date=2026-10-31T23:59&time_trunc=month&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
-status 200 bytes 15159
- - Hidráulica | Hidráulica | n 20 | [{'value': 71826.479, 'percentage': 0.10383769375467103, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 69543.575, 'percentage': 0.14622453785071177, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 66714.347, 'percentage': 0.10610092964710799, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 13225.026, 'percentage': 0.02474343257782705, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
- - Ciclo combinado | Ciclo combinado | n 20 | [{'value': 189184.633, 'percentage': 0.27349935926197677, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 102994.141, 'percentage': 0.216558764329502, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 29609.532, 'percentage': 0.04709030385346937, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 146287.894, 'percentage': 0.27369811160608004, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
- - Eólica | Eólica | n 20 | [{'value': 332208.312, 'percentage': 0.48026501430220736, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 194020.006, 'percentage': 0.4079526499916394, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 439739.837, 'percentage': 0.6993519026509806, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 237102.063, 'percentage': 0.44360736303310117, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
- - Solar fotovoltaica | Solar fotovoltaica | n 20 | [{'value': 17874.729, 'percentage': 0.025841036087119584, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 23759.92, 'percentage': 0.049958365260484285, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 25284.202, 'percentage': 0.040211400668963566, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 84389.894, 'percentage': 0.15788972002315696, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
- - Otras renovables | Otras renovables | n 20 | [{'value': 27022.557, 'percentage': 0.03906581580080156, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 25759.644, 'percentage': 0.05416304869427349, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 21785.649, 'percentage': 0.03464738419557024, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 20937.298, 'percentage': 0.03917274880403813, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
- - Cogeneración | Cogeneración | n 20 | [{'value': 53602.033, 'percentage': 0.07749108079322349, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 59517.139, 'percentage': 0.1251426338733891, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 45648.36, 'percentage': 0.0725980789839082, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 32544.136, 'percentage': 0.06088862395579669, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
- - Generación total | Generación total | n 20 | [{'value': 691718.743, 'percentage': 1, 'datetime': '2025-01-01T00:00:00.000+01:00'}, {'value': 475594.425, 'percentage': 1, 'datetime': '2025-02-01T00:00:00.000+01:00'}, {'value': 628781.927, 'percentage': 1, 'datetime': '2025-03-01T00:00:00.000+01:00'}] | [{'value': 534486.311, 'percentage': 1, 'datetime': '2026-08-01T00:00:00.000+02:00'}]
+## ENERGI_Pol_PSolar: 59 · campos ['FEATURE', 'NOMBRE', 'PROMOTOR', 'POT_MW', 'PUESTSERV', 'EXPEDIENTE', 'RAIPEE', 'DIA', 'EVACUACION', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+- FEATURE: 1 · [('8200011', 59)]
+- NOMBRE: 59 · [('BARDENAS - HONDO ESPARTOSA', 1), ('CÁSEDA 2', 1), ('MENDAVIA - EL ENCIMERO', 1), ('PSFV TAFALLA', 1), ('ARGUEDAS I - EL COMÚN', 1), ('VALTIERRA', 1), ('CABANILLAS - CORRALIZA DEL VECINO', 1), ('OJO DE VALDELAFUENTE', 1)]
+- PROMOTOR: 26 · [('ACCIONA SOLAR', 9), ('OPDE', 8), ('TUDELA SOLAR', 6), ('ASURMENDI SISTEMAS DE ENERGÍA', 3), ('HELIOSOLAR', 3), ('SOLARTIA', 3), ('RÍOS RENOVABLES', 3), ('FOTONA', 2)]
+- POT_MW: 53 · [('1.26', 3), ('0.99', 2), ('4.5', 2), ('1.44', 2), ('45.0', 2), ('7.49', 1), ('0.24', 1), ('1.591', 1)]
+- PUESTSERV: 14 · [('2008', 15), ('2006', 9), ('2007', 7), ('2026', 6), ('2005', 4), ('2025', 4), ('2023', 3), ('2011', 3)]
+- EXPEDIENTE: 57 · [('3554-CE', 3), ('3695-CE', 1), ('3629-CE', 1), ('5172-CE', 1), ('2212-CE', 1), ('3877-3878-3879-3880-3882-CE', 1), ('3284-CE', 1), ('3665-CE', 1)]
+- RAIPEE: 16 · [('HUERTA SOLAR', 39), ('PENDIENTE', 6), ('RE-100267-100268-102821-102822-102823', 1), ('RE-114319', 1), ('RE-114858', 1), ('RE-115373', 1), ('RE-115828', 1), ('RE-114920', 1)]
+- DIA: 14 · [('', 44), ('242E/2022 (Informe Afecciones Ambientales)', 2), ('397E/2021 (BON 25/05/2021)', 2), ('253E/2022 (Informe Afecciones Ambientales)', 1), ('173E/2021 (BON 30/07/2021) AAA', 1), ('127E/2022 (Informe Afecciones Ambientales)', 1), ('49E/2023 (BON 28/02/2023)', 1), ('40E/2022 (BON 21/03/2022) AAA', 1)]
+- EVACUACION: 9 · [('DISTRIBUCION 13,2 KV', 37), ('DISTRIBUCION 66 KV', 10), ('LA SERNA 400 KV', 3), ('DISTRIBUCION 66 KV (AFECC. TAFALLA 220 KV)', 2), ('CASTEJON 400 KV', 2), ('DISTRIBUCION 66 KV (AFECC. LA SERNA 220 KV)', 2), ('DISTRIBUCION 13,2 KV (AFECC. TAFALLA 220 KV)', 1), ('DISTRIBUCION 13,2 KV (AFECC. TUDELA 220 KV)', 1)]
+- GEOM_AREA: 59 · [('486133.25', 1), ('17251.13', 1), ('142889.27', 1), ('38129.83', 1), ('43893.75', 1), ('631924.97', 1), ('109776.98', 1), ('253088.89', 1)]
+- GEOM_PERI: 59 · [('4233.54', 1), ('661.12', 1), ('1893.77', 1), ('1047.39', 1), ('1701.57', 1), ('3356.55', 1), ('2584.07', 1), ('3262.16', 1)]
+- BEGINLIFE: 1 · [('19/05/2026', 59)]
 
-===== potencia instalada mes generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2026-10-31T23:59&time_trunc=month&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
-ERROR <HTTPError 500: 'Internal Server Error'>
-b'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8" />\n    <meta name="robots" content="noindex,nofollow,noarchive" />\n    <title>An Error Occurred: Internal Server Error</title>\n    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }\n.container { margin: 30px; max-w'
+## OSM centrales: Counter()
 
-===== evolucion renovable hora generacion/evolucion-renovable-no-renovable?start_date=2026-11-04T00:00&end_date=2026-11-04T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
-ERROR <HTTPError 400: 'Bad Request'>
-b'{"errors":[{"status":"400","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
-
-===== demanda hora navarra demanda/evolucion?start_date=2026-11-04T00:00&end_date=2026-11-04T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
-ERROR <HTTPError 400: 'Bad Request'>
-b'{"errors":[{"status":"400","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
-
-===== peninsular hora estructura generacion/estructura-generacion?start_date=2026-11-04T00:00&end_date=2026-11-04T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741
-ERROR <HTTPError 400: 'Bad Request'>
-b'{"errors":[{"status":"400","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
-
-===== balance navarra dia balance/balance-electrico?start_date=2026-11-01T00:00&end_date=2026-11-04T23:59&time_trunc=day&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14
-ERROR <HTTPError 502: 'Bad Gateway'>
-b'{"errors":[{"status":"502","title":"Error Interno","detail":"Los datos solicitados no est\\u00e1n disponibles en este momento. Int\\u00e9ntelo de nuevo m\\u00e1s tarde."}]}'
-
-===== OVERPASS power=plant/generator Navarra
-ERROR overpass https://overpass-api.de/api/interpreter <HTTPError 406: 'Not Acceptable'>
-ERROR overpass https://overpass.kumi.systems/api/interpreter TimeoutError('The read operation timed out')
-
-===== AEE Navarra
-ERROR AEE https://aeeolica.org/sobre-la-eolica/mapa-de-parques-eolicos-en-espana/navarra/ <HTTPError 404: 'Not Found'>
-url https://aeeolica.org/en/about-wind-energy/map-of-wind-farms-in-spain/navarra/ status 200 len 161678 enlaces 0
-
-===== IDENA capas energía
-   IDEMUN_Pol_JuegosInf | Parques de juegos infantiles(foro EELL-SITNA)
-   mapaSolar | Mapa solar
-   IDEMUN_Pol_MSEnergia | Potencial energético de los edificios.(foro EELL-SITNA)
-   IDENA_IDEMUN_Pol_MSEnergia | IDENA_IDEMUN_Pol_MSEnergia
-   CARTO1_Lin_51ElecTrans | Cartografía 1:1.000. Línea transformador
-   IDENA_CARTO1_Lin_51ElecTrans | IDENA_CARTO1_Lin_51ElecTrans
-   CARTO1_Txt_51Electri | Cartografía 1:1.000. Texto de electricidad
-   IDENA_CARTO1_Txt_51Electri | IDENA_CARTO1_Txt_51Electri
-   mcpParqueFluvial | MCP. Parque Fluvial
-   PARFLU_Pol_Vegetacion | Zonificación de la vegetación del Parque Fluvial
-   PARFLU_Pol_AreaRecre | Áreas recreativas del Parque Fluvial
-   PARFLU_Pol_EspCanino | Áreas de esparcimiento canino del Parque Fluvial
-   PARFLU_Sym_ArbolSing | Árboles singulares del Parque Fluvial
-   PARFLU_Pol_Infraest | Instalaciones del Parque Fluvial
-   PARFLU_Lin_Itinerarios | Paseos e itinerarios del Parque Fluvial
-   PARFLU_Lin_Alumbrado | Red de alumbrado del Parque Fluvial
-   PARFLU_Sym_Arquetas | Arquetas de la red de alumbrado del Parque Fluvial
-   PARFLU_Sym_Alumbrado | Farolas de la red de alumbrado del Parque Fluvial
-   PARFLU_Sym_Cajas | Cajas de murciélagos en el Parque Fluvial
-   PARFLU_Sym_Paneles | Señales y paneles informativos del Parque Fluvial
-   PARFLU_Lin_Puentes | Puentes y pasarelas del Parque Fluvial
-   PARFLU_Sym_Mobiliario | Mobiliario del Parque Fluvial
-   PARFLU_Sym_ZonaRecre | Juegos infantiles del Parque Fluvial
-   ENERGI_Pol_Cuadricula | Cuadrícula minera
-   IDENA_ENERGI_Pol_Cuadricula | IDENA_ENERGI_Pol_Cuadricula
-   ENERGI_Pol_SeccionA | Sección A
-   IDENA_ENERGI_Pol_SeccionA | IDENA_ENERGI_Pol_SeccionA
-   ENERGI_Pol_SeccionB | Sección B
-   IDENA_ENERGI_Pol_SeccionB | IDENA_ENERGI_Pol_SeccionB
-   ENERGI_Pol_SeccionC | Derechos Sección C
-   IDENA_ENERGI_Pol_SeccionC | IDENA_ENERGI_Pol_SeccionC
-   ENERGI_Pol_ProyectosC | Proyectos Sección C
-   IDENA_ENERGI_Pol_ProyectosC | IDENA_ENERGI_Pol_ProyectosC
-   ENERGI_Pol_Prestamos | Préstamos
-   IDENA_ENERGI_Pol_Prestamos | IDENA_ENERGI_Pol_Prestamos
-   BIODIV_Pol_AcogidaEoli | Capacidad de acogida eólica. Plan Energético 2030
-   energiaEolica | Energía eólica
-   ENERGI_Lin_Peolico | Parques eólicos en servicio
-   IDENA_ENERGI_Lin_Peolico | IDENA_ENERGI_Lin_Peolico
-   ENERGI_Lin_PeolicoTra | Parques eólicos en tramitación
-   IDENA_ENERGI_Lin_PeolicoTra | IDENA_ENERGI_Lin_PeolicoTra
-   ENERGI_Lin_PeolicoDIADesf | Parques eólicos con DIA desfavorable
-   IDENA_ENERGI_Lin_PeolicoDIADesf | IDENA_ENERGI_Lin_PeolicoDIADesf
-   ENERGI_Sym_AeroGen | Aerogeneradores en servicio
-   IDENA_ENERGI_Sym_AeroGen | IDENA_ENERGI_Sym_AeroGen
-   ENERGI_Sym_AeroGenTra | Aerogeneradores en tramitación
-   IDENA_ENERGI_Sym_AeroGenTra | IDENA_ENERGI_Sym_AeroGenTra
-   ENERGI_Sym_AeroGenDIADesf | Aerogeneradores con DIA desfavorable
-   IDENA_ENERGI_Sym_AeroGenDIADesf | IDENA_ENERGI_Sym_AeroGenDIADesf
-   energiaSolar | Energía solar fotovoltaica
-   ENERGI_Pol_PSolar | Plantas solares fotovoltaicas en servicio
-   IDENA_ENERGI_Pol_PSolar | IDENA_ENERGI_Pol_PSolar
-   ENERGI_Pol_PSolarTra | Plantas solares fotovoltaicas en tramitación
-   IDENA_ENERGI_Pol_PSolarTra | IDENA_ENERGI_Pol_PSolarTra
-   BIODIV_Pol_ParquesNat | Espacios Naturales Protegidos. Parques Naturales
-   IDENA_BIODIV_Pol_ParquesNat | IDENA_BIODIV_Pol_ParquesNat
-   INFRAE_Sym_InstPlacaSolares | Instalaciones de NILSA con placas solares (NILSA)
-   IDENA_INFRAE_Sym_InstPlacaSolares | IDENA_INFRAE_Sym_InstPlacaSolares
-   REDRES_Sym_Central | Recogida neumática. Central
-   IDENA_REDRES_Sym_Central | IDENA_REDRES_Sym_Central
-   DOTACI_Sym_BomParques | Parques de Bomberos
-   IDENA_DOTACI_Sym_BomParques | IDENA_DOTACI_Sym_BomParques
-   RecargaVehiElectrico | Recarga de vehículos eléctricos
+## REE meses 92 ['2019-01'] ['2026-08'] ['Hidráulica', 'Ciclo combinado', 'Eólica', 'Solar fotovoltaica', 'Otras renovables', 'Cogeneración', 'Generación total']
+REE fallo generacion/estructura-generacion?start_date=2026-11-01T00:00&end_date=2026-11-30T23:59&tim HTTP Error 500: Internal Server Error
+REE fallo generacion/estructura-generacion?start_date=2026-11-01T00:00&end_date=2026-11-30T23:59&tim HTTP Error 500: Internal Server Error
+REE fallo generacion/estructura-generacion?start_date=2026-09-01T00:00&end_date=2026-09-30T23:59&tim HTTP Error 500: Internal Server Error
+REE fallo generacion/estructura-generacion?start_date=2026-09-01T00:00&end_date=2026-09-30T23:59&tim HTTP Error 500: Internal Server Error
+## REE días: 0
+REE fallo generacion/potencia-instalada?start_date=2020-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2020-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+## REE potencia instalada: {}
+## calibración eólica {'eol': 1.043, 'eolMW': 1775.2} [('2025-11', 355893, 390571.9), ('2025-12', 155101, 215047.6), ('2026-01', 292132, 310122.9), ('2026-02', 294375, 266250.0), ('2026-03', 359444, 301917.5), ('2026-04', 258566, 240368.8), ('2026-05', 162121, 169512.7), ('2026-06', 201179, 206508.3), ('2026-07', 250218, 261649.7), ('2026-08', 163556, 237102.1), ('2026-09', 211222, None), ('2026-10', 175775, None)]
+## calibración solar {'eol': 1.043, 'eolMW': 1775.2, 'sol': 0.752, 'solMW': 437.4}
