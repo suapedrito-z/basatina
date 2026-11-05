@@ -56,7 +56,7 @@ if not out["rec"] or time.strftime("%H") < "08":
 
 # 3) puertos de montaña en carreteras (Navarra y sus bordes)
 if not out["pue"] or time.strftime("%H") < "08":
-    q = """[out:json][timeout:180];(way["highway"~"^(motorway|trunk|primary|secondary|tertiary|unclassified)$"](41.9,-2.55,43.35,-0.70););node(w)["mountain_pass"="yes"];out tags;"""
+    q = """[out:json][timeout:180];(way["highway"~"^(motorway|trunk|primary|secondary|tertiary|unclassified)$"](41.9,-2.55,43.35,-0.70););node(w)["mountain_pass"="yes"];out body;"""
     j = overpass(q)
     if j:
         L, seen = [], set()
