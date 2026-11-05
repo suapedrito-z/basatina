@@ -463,7 +463,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <section id="t-radar">
 <div class="card"><b>🌧️ Radar de lluvia</b><div class="note">Dónde está lloviendo (o nevando) ahora y en las últimas 2 horas. Dale a ▶️ para ver hacia dónde se mueve.</div>
 <div class="row" style="align-items:center;margin-top:6px"><button class="btn pri" id="rdPlay">▶️</button><input type="range" id="rdT" min="0" max="0" value="0" style="flex:1"><b id="rdLbl" style="min-width:64px;text-align:right"></b></div></div>
-<div class="card"><div style="position:relative"><canvas id="rdc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="rdcIn">＋</button><button class="btn mtb" id="rdcOut">－</button></div></div><div class="note" style="margin-top:4px">Cuanto más intenso el color, más fuerte llueve; los tonos claros y blancos son nieve.</div></div>
+<div class="card"><div style="position:relative"><canvas id="rdc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="rdcIn">＋</button><button class="btn mtb" id="rdcOut">－</button></div></div><div class="note" style="margin-top:4px">Azul: lluvia o llovizna (cuanto más intenso, más fuerte) · amarillo, naranja y rojo: lluvia fuerte o tormenta. El morado con borde es Petilla de Aragón, que es de Navarra, no lluvia.</div></div>
 <div class="card"><b>⚡ Rayos</b><div class="note">No hay un servicio abierto y gratuito de rayos en directo que se pueda meter en la app. AEMET tiene su mapa oficial de rayos:</div><div class="row"><button class="btn" id="rdRayos">⚡ Ver los rayos en AEMET</button></div></div>
 <div class="note" style="margin:0 6px 10px">Radar: RainViewer (uso personal y no comercial), con datos de los radares meteorológicos europeos.</div>
 </section>
@@ -2785,8 +2785,7 @@ function rdShow(){const f=RDF[RDI];if(!f)return;document.getElementById('rdLbl')
 }
 function rdDraw(x,P,b){const f=RDF[RDI];if(!f)return;
   // el mapa base se oscurece un poco y la lluvia se pinta con más color y contraste, para que se vea bien hasta la más débil
-  x.fillStyle='rgba(8,16,26,.45)';x.fillRect(0,0,b.W,b.H);x.filter='saturate(3) contrast(1.6) brightness(1.15)';
-  drawTiles(x,P,b,(z,X,Y)=>`${RDH}${f.path}/256/${z}/${X}/${Y}/2/1_1.png`,RDT,5,7,1,()=>RDM&&RDM.draw());x.filter='none';}
+  x.fillStyle='rgba(8,16,26,.45)';x.fillRect(0,0,b.W,b.H);rdPaint(x,P,b,f.path,RDT,()=>RDM&&RDM.draw());}
 function rdInit(){if(!RDM){RDM=NavMap('rdc',rdDraw,()=>{});mapBtns('rdc',RDM);RDM.zoom(.7);
     document.getElementById('rdT').oninput=e=>{RDI=+e.target.value;rdShow();};
     document.getElementById('rdPlay').onclick=()=>{const b=document.getElementById('rdPlay');if(RDP){clearInterval(RDP);RDP=null;b.textContent='▶️';return;}b.textContent='⏸️';
@@ -2857,15 +2856,18 @@ const _showTabMas=showTab;showTab=function(t){_showTabMas(t);if(t==='gas')setTim
 let MTRT={};
 function mtRadar(x,W,H,P,leg){const f=RDF.length?RDF[RDF.length-1]:null;leg.style.display='';
   if(!f){leg.innerHTML='Cargando el radar…';rdLoad().then(()=>{if(MTL==='radar')mtDraw();});return;}
-  x.fillStyle='rgba(8,16,26,.45)';x.fillRect(0,0,W,H);x.filter='saturate(3) contrast(1.6) brightness(1.15)';
-  drawTiles(x,P,{w:NB.w,e:NB.e,n:NB.n,s:NB.s,W,H},(z,X,Y)=>`${RDH}${f.path}/256/${z}/${X}/${Y}/2/1_1.png`,MTRT,5,7,1,()=>{if(MTL==='radar')mtDraw();});x.filter='none';
-  drawPetilla(x,P,false);
+  x.fillStyle='rgba(8,16,26,.45)';x.fillRect(0,0,W,H);rdPaint(x,P,{w:NB.w,e:NB.e,n:NB.n,s:NB.s,W,H},f.path,MTRT,()=>{if(MTL==='radar')mtDraw();});
   x.font='bold 12px system-ui';TOWNS.forEach(t=>{const [px,py]=P(t[1],t[2]);x.fillStyle='#fff';x.beginPath();x.arc(px,py,2.5,0,7);x.fill();});
   const min=Math.round((Date.now()/1000-f.time)/60);
   leg.innerHTML=`📡 Radar de las ${new Date(f.time*1000).toTimeString().slice(0,5)} (hace ${min} min) · si no ves color, ahora no llueve · <a href="#" id="mtRdMore">▶️ ver animación</a>`;
   const a=document.getElementById('mtRdMore');if(a)a.onclick=e=>{e.preventDefault();showTab('radar');};}
 document.querySelector('.mtb[data-l="radar"]').onclick=e=>{e.stopPropagation();mtDayMenu(false);mtSetLayer('radar');};
 setInterval(()=>{if(MTL==='radar'&&document.getElementById('t-mtiempo').classList.contains('on')){rdLoad().then(()=>{MTRT={};mtDraw();});}},10*60e3);
+
+
+function rdPaint(x,P,b,path,cache,redraw){const url=(z,X,Y)=>`${RDH}${path}/256/${z}/${X}/${Y}/2/1_1.png`;
+  x.filter='sepia(1) hue-rotate(170deg) saturate(6) brightness(1.1)';for(let k=0;k<3;k++)drawTiles(x,P,b,url,cache,5,7,1,redraw);
+  x.filter='saturate(1.6)';drawTiles(x,P,b,url,cache,5,7,1,redraw);x.filter='none';}
 
 </script>
 </body>
