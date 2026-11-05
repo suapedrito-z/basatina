@@ -6,9 +6,7 @@ def get(u, js=True):
     h = dict(UA) if js else {"User-Agent": UA["User-Agent"]}
     return urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=120).read().decode("utf-8", "replace")
 out, seen = [], set()
-KW = ["sender", "GR ", "PR-NA", "SL-NA", "camino de santiago", "cavidad", "cueva", "sima", "fuente", "manantial", "cascada", "nacedero",
-      "área recreativa", "areas recreativas", "refugio", "mirador", "paisaje", "patrimonio", "castillo", "puente", "ermita", "bien de interés",
-      "baño", "incendio", "vía verde", "itinerario", "geológic", "lugares de interés"]
+KW = ["municipio", "concejo", "núcleo", "nucleos de poblacion", "entidades de población", "localidad", "poblaci", "merindad", "comarca", "padrón"]
 for q in KW:
     try:
         j = json.loads(get("https://datos.gob.es/apidata/catalog/dataset/title/" + urllib.parse.quote(q.strip()) + "?_pageSize=60"))
@@ -27,7 +25,7 @@ try:
     x = get("https://idena.navarra.es/ogc/wms?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0", False)
     out.append("\n## WMS")
     for m in re.finditer(r"<Layer[^>]*>\s*<Name>([^<]+)</Name>\s*<Title>([^<]*)</Title>", x):
-        if re.search(r"sender|camino|cavid|cueva|sima|fuente|manant|cascad|nacede|recreat|refugio|mirador|patrim|castill|puente|ermita|baño|incend|vía verde|itinerar|geolog|kárstic", m.group(1) + " " + m.group(2), re.I):
+        if re.search(r"municip|concej|núcleo|nucleo|entidad|poblaci|locali", m.group(1) + " " + m.group(2), re.I):
             out.append(f"- {m.group(1)} :: {m.group(2)}")
 except Exception as e:
     out.append(f"!! WMS {e}")
