@@ -2756,7 +2756,7 @@ function gsInit(){vjLoad(async()=>{if(!GSM){GSM=NavMap('gsc',gsDraw,gsTap);mapBt
   setTimeout(()=>{GSM.draw();GSM.base();},40);gsRender();await gsLive();gsRender();});}
 
 /* ---------- 🏔️ puertos de montaña ---------- */
-function puList(){return ((window.VIAJE&&window.VIAJE.pue)||[]).filter(x=>(x.ele||0)>=550);}
+function puList(){return ((window.VIAJE&&window.VIAJE.pue)||[]).filter(x=>x.ele==null||x.ele>=550);}
 let PUW=null;
 async function puInit(){const el=document.getElementById('puList');vjLoad(async()=>{const P=puList();if(!P.length){el.innerHTML='<div class="card"><div class="note">No se pudieron cargar los puertos ahora.</div></div>';return;}
   if(APP&&!INC)try{await inFetch();}catch(e){}
