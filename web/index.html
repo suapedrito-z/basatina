@@ -282,6 +282,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button class="btn mtb" data-l="lluvia">🌧️ Lluvia</button>
     <button class="btn mtb" data-l="viento">💨 Viento</button>
     <button class="btn mtb" data-l="rios">🌊 Ríos</button>
+    <button class="btn mtb" data-l="radar">📡 Radar</button>
   </div>
   <div id="mtLeg" style="position:absolute;left:8px;bottom:8px;font-size:11px;background:rgba(11,17,24,.85);border-radius:8px;padding:4px 8px;display:none"></div>
 </div>
@@ -1249,7 +1250,7 @@ async function mtFetch(){mtBase();const info=document.getElementById('mtInfo');i
   const u=`${OM}?latitude=${TOWNS.map(t=>t[1]).join(',')}&longitude=${TOWNS.map(t=>t[2]).join(',')}&current=temperature_2m,weather_code,precipitation,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&forecast_days=5${TZ}`;
   const j=await getJSON(u);const j0=j&&(Array.isArray(j)?j[0]:j);if(!j0||!j0.daily||!j0.current){if(!MT)info.textContent='❌ No se pudo cargar el tiempo ahora.';return;}MT=Array.isArray(j)?j:[j];MT.at=Date.now();mtInfo();mtDraw();}
 function mtInfo(){const el=document.getElementById('mtInfo');const hm=new Date().toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'});
-  el.textContent=MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': estaciones principales (caudal en m³/s) · toca una para ver todas las del río · toca fuera para volver':'Toca un río de color para ver sus estaciones (el Bidasoa, en gris, es de otra cuenca y aún no tiene datos)'):
+  el.textContent=MTL==='radar'?'Lluvia y nieve que detecta el radar ahora mismo (RainViewer)':MTL==='rios'?(RSEL?'Río '+RGRP[RSEL].name+': estaciones principales (caudal en m³/s) · toca una para ver todas las del río · toca fuera para volver':'Toca un río de color para ver sus estaciones (el Bidasoa, en gris, es de otra cuenca y aún no tiene datos)'):
     (MT?'Actualizado a las '+hm+' · toca un pueblo para ver su previsión':'Cargando…');}
 // UTM huso 30 (ETRS89) → latitud/longitud
 function utm2ll(E,N){const a=6378137,f=1/298.257222101,e2=f*(2-f),k0=.9996,x=E-500000,y=N,ep2=e2/(1-e2),M=y/k0,mu=M/(a*(1-e2/4-3*e2*e2/64-5*e2**3/256)),e1=(1-Math.sqrt(1-e2))/(1+Math.sqrt(1-e2));
@@ -1270,6 +1271,7 @@ function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)r
     x.textBaseline='alphabetic';mtHits.push([bx,by,bw,22,hit]);return by;};
   const leg=document.getElementById('mtLeg');
   if(MTL==='rios'){mtRivers(x,W,H,P,box,leg);return;}
+  if(MTL==='radar'){mtRadar(x,W,H,P,leg);return;}
   if(MTL==='lluvia'){leg.style.display='';leg.innerHTML=[[0.1,'0,1'],[1,'1'],[5,'5'],[15,'15+']].map(([v,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${rainCol(v)}"></span> ${l}`).join(' ')+' mm · '+dayName(MTD);}
   else if(MTL==='viento'){leg.style.display='';leg.innerHTML=[[5,'calma'],[20,'flojo'],[40,'moderado'],[60,'fuerte'],[80,'muy fuerte']].map(([v,l])=>`<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${windCol(v)}"></span> ${l}`).join(' ')+' · km/h (racha) · '+dayName(MTD);}
   else leg.style.display='none';
@@ -2778,7 +2780,7 @@ async function puInit(){const el=document.getElementById('puList');vjLoad(async(
 /* ---------- 🌧️ radar de lluvia (RainViewer) ---------- */
 let RDM=null,RDF=[],RDI=0,RDH='',RDT={},RDP=null;
 async function rdLoad(){try{const j=await getJSON('https://api.rainviewer.com/public/weather-maps.json');if(!j||!j.radar)return;RDH=j.host;RDF=[...(j.radar.past||[]),...(j.radar.nowcast||[]).map(f=>({...f,nc:1}))];
-  const s=document.getElementById('rdT');s.max=RDF.length-1;RDI=(j.radar.past||[]).length-1;s.value=RDI;rdShow();}catch(e){}}
+  const s=document.getElementById('rdT');s.max=RDF.length-1;RDI=(j.radar.past||[]).length-1;s.value=RDI;if(RDM)rdShow();}catch(e){}}
 function rdShow(){const f=RDF[RDI];if(!f)return;document.getElementById('rdLbl').textContent=(f.nc?'🔮 ':'')+new Date(f.time*1000).toTimeString().slice(0,5);RDM&&RDM.draw();
 }
 function rdDraw(x,P,b){const f=RDF[RDI];if(!f)return;
@@ -2849,6 +2851,21 @@ function agInit(){agLoad(()=>{const el=document.getElementById('agList'),hoy=new
   el.querySelectorAll('[data-s]').forEach(d=>d.onclick=()=>{showTab('pueblos');pbLoad(()=>{pbRenderList();const p=pbList().find(x=>x.slug===d.dataset.s);if(p)pbOpen(p.i);});});});}
 
 const _showTabMas=showTab;showTab=function(t){_showTabMas(t);if(t==='gas')setTimeout(gsInit,40);if(t==='puertos')setTimeout(puInit,40);if(t==='radar')setTimeout(rdInit,40);if(t==='emb')setTimeout(emInit,40);if(t==='agenda')setTimeout(agInit,40);};
+
+
+/* ---------- 📡 radar en el mapa de inicio ---------- */
+let MTRT={};
+function mtRadar(x,W,H,P,leg){const f=RDF.length?RDF[RDF.length-1]:null;leg.style.display='';
+  if(!f){leg.innerHTML='Cargando el radar…';rdLoad().then(()=>{if(MTL==='radar')mtDraw();});return;}
+  x.fillStyle='rgba(8,16,26,.45)';x.fillRect(0,0,W,H);x.filter='saturate(3) contrast(1.6) brightness(1.15)';
+  drawTiles(x,P,{w:NB.w,e:NB.e,n:NB.n,s:NB.s,W,H},(z,X,Y)=>`${RDH}${f.path}/256/${z}/${X}/${Y}/2/1_1.png`,MTRT,5,7,1,()=>{if(MTL==='radar')mtDraw();});x.filter='none';
+  drawPetilla(x,P,false);
+  x.font='bold 12px system-ui';TOWNS.forEach(t=>{const [px,py]=P(t[1],t[2]);x.fillStyle='#fff';x.beginPath();x.arc(px,py,2.5,0,7);x.fill();});
+  const min=Math.round((Date.now()/1000-f.time)/60);
+  leg.innerHTML=`📡 Radar de las ${new Date(f.time*1000).toTimeString().slice(0,5)} (hace ${min} min) · si no ves color, ahora no llueve · <a href="#" id="mtRdMore">▶️ ver animación</a>`;
+  const a=document.getElementById('mtRdMore');if(a)a.onclick=e=>{e.preventDefault();showTab('radar');};}
+document.querySelector('.mtb[data-l="radar"]').onclick=e=>{e.stopPropagation();mtDayMenu(false);mtSetLayer('radar');};
+setInterval(()=>{if(MTL==='radar'&&document.getElementById('t-mtiempo').classList.contains('on')){rdLoad().then(()=>{MTRT={};mtDraw();});}},10*60e3);
 
 </script>
 </body>
