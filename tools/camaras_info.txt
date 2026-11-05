@@ -1,70 +1,13 @@
-
-
-== /vamet/radar_ray/lightning/
- 
- 
-  
-   Index of /vamet/radar_ray/lightning 
-  
-  
- Index of /vamet/radar_ray/lightning 
-    Name                      Last modified        Size    Description     Parent Directory                              -   
-   webmet00-0000.png        2026-11-05 23:55  110K  
-   webmet00-0010.png        2026-11-05 23:55  109K  
-   webmet00-0020.png        2026-11-05 23:55  109K  
-   webmet00-0030.png        2026-11-05 23:55  110K  
-   webmet00-0040.png        2026-11-05 23:55  110K  
-   webmet00-0050.png        2026-11-05 23:55  110K  
-   webmet00-0100.png        2026-11-05 23:55  110K  
-   webmet00-0110.png        2026-11-05 23:55  110K  
-   webmet00-0120.png        2026-11-05 23:55  110K  
-   webmet00-0130.png        2026-11-05 23:55  110K  
-   webmet00-0140.png        2026-11-05 23:55  109K  
-   webmet00-0150.png        2026-11-05 23:55  110K  
-   webmet00-0200.png        2026-11-05 23:55  110K  
-   webmet00-0210.png        2026-11-05 23:55  110K  
-   webmet00-0220.png        2026-11-05 23:55  110K  
-   webmet00-0230.png        2026-11-05 23:55  110K  
-   webmet00-0240.png        2026-11-05 23:55  110K  
-   webmet00-0250.png        2026-11-05 23:55  109K  
-   webmet00-0300.png        2026-11-05 23:55  110K  
-   webmet00-0310.png        2026-11-05 23:55  110K  
-   webmet00-0320.png        2026-11-05 23:55  110K  
-   webmet00-0330.png        2026-11-05 23:55  110K  
-   webmet00-0340.png        2026-11-05 23:55  110K  
-   webmet00-0350.png        2026-11-05 23:55  110K  
-   webmet00
-
-== /vamet/radar_reflectivity/max_reflect/
- 
- 
-  
-   Index of /vamet/radar_reflectivity/max_reflect 
-  
-  
- Index of /vamet/radar_reflectivity/max_reflect 
-    Name                      Last modified        Size    Description     Parent Directory                              -   
-   webmet00-0000.png        2026-11-05 23:59   45K  
-   webmet00-0010.png        2026-11-05 23:59   44K  
-   webmet00-0020.png        2026-11-05 23:59   45K  
-   webmet00-0030.png        2026-11-05 23:59   44K  
-   webmet00-0040.png        2026-11-05 23:59   45K  
-   webmet00-0050.png        2026-11-05 23:59   44K  
-   webmet00-0100.png        2026-11-05 23:59   44K  
-   webmet00-0110.png        2026-11-05 23:59   44K  
-   webmet00-0120.png        2026-11-05 23:59   45K  
-   webmet00-0130.png        2026-11-05 23:59   44K  
-   webmet00-0140.png        2026-11-05 23:59   44K  
-   webmet00-0150.png        2026-11-05 23:59   44K  
-   webmet00-0200.png        2026-11-05 23:59   44K  
-   webmet00-0210.png        2026-11-05 23:59   44K  
-   webmet00-0220.png        2026-11-05 23:59   45K  
-   webmet00-0230.png        2026-11-05 23:59   44K  
-   webmet00-0240.png        2026-11-05 23:59   44K  
-   webmet00-0250.png        2026-11-05 23:59   44K  
-   webmet00-0300.png        2026-11-05 23:59   44K  
-   webmet00-0310.png        2026-11-05 23:59   44K  
-   webmet00-0320.png        2026-11-05 23:59   44K  
-   webmet00-0330.png        2026-11-05 23:59   44K  
-   webmet00-0340.png        2026-11-05 23:59   44K  
-   webmet00-0350.png        2026-11-05 23:
+===== /scripts/webmet00-radarkapildui-script.js 0
+===== /scripts/custom/js/webmet00-kapilduiMini.js 3278
+  > var webdomain = 'https://www.euskalmet.euskadi.eus';
+  > var maxReflectImagesDirectory = webdomain + '/vamet/radar_reflectivity/max_reflect/';
+  > var rayEvolutionImagesDirectory = webdomain + '/vamet/radar_ray/lightning/';
+  > var precipAcumulatedImagesDirectory = webdomain +'/vamet/radar_kapildui_detail/acumulated/today/';
+  > var precipIntensityImagesDirectory = webdomain + '/vamet/radar_kapildui_detail/intensity/today/';
+  >             document.find('a[href$=".png"]').each(function () {
+  >                 if (orderedNames[i] > "webmet00-" + time + ".png") {
+  >             if (orderedNames[orderedNames.length] < "webmet00-" + time + ".png") {
+fallo /vamet/radar/ HTTP Error 404: Not Found
+fallo /vamet/radar_kapildui/ HTTP Error 404: Not Found
+fallo /vamet/ HTTP Error 403: Forbidden
