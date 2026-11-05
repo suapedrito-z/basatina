@@ -75,7 +75,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </style>
 </head>
 <body>
-<div id="splash" style="position:fixed;inset:0;z-index:100;background:#1c1f24;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s;padding:20px"><img src="sonpe2.jpg" alt="Son&amp;Pe Technology Systems" style="width:100%;max-width:480px;border-radius:12px" onerror="this.style.display='none'"></div>
+<div id="splash" style="position:fixed;inset:0;z-index:100;background:#1e1f21;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s;overflow:hidden"><img src="sonpe2.jpg" alt="Son&amp;Pe Technology Systems" style="width:100vw;max-width:700px;transform:scale(1.4);transform-origin:52% 50%" onerror="this.style.display='none'"></div>
 <div class="wrap">
 <header>
   <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.jpg" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>BasatiNA</h1><div id="secTitle" class="note">🏠 Inicio · Navarra</div></div><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
@@ -102,9 +102,12 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="dgroup"><span>Qué hacer</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="monte">🥾 Salir al monte: rutas, cuevas, baño…</button>
+    <button data-t="natfau">🦌 Fauna de Navarra</button>
+    <button data-t="natveg">🌳 Vegetación de Navarra</button>
+    <button data-t="natarb">🌲 Árboles por zonas</button>
     <button data-t="pesca">🎣 Pesca: tramos y normas</button>
     <button data-t="caza">🦌 Caza: calendario de la temporada</button>
-    <button data-t="natura">🌿 Setas, frutos, fauna y vegetación</button>
+    <button data-t="natura">🍄 Setas y frutos: qué coger cada mes</button>
   </div>
   <div class="dgroup"><span>Energía</span><i>▸</i></div>
   <div class="dsub">
@@ -437,7 +440,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Setas y frutos',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -2523,6 +2526,14 @@ function caInit(){if(!CAM){document.getElementById('caZona').innerHTML=CAZ.map((
   setTimeout(()=>{CAM.draw();CAM.base();},40);CAT=Date.now();caList();
   clearInterval(CATIM);CATIM=setInterval(()=>{if(document.getElementById('t-camaras').classList.contains('on')){CAT=Date.now();document.querySelectorAll('#caList img[data-i]').forEach(im=>im.src=caSrc(CAMS[+im.dataset.i]));}else clearInterval(CATIM);},5*60e3);}
 const _showTabCa=showTab;showTab=function(t){_showTabCa(t);if(t==='camaras')setTimeout(caInit,40);};
+
+
+/* menú: Fauna y Vegetación abren la pantalla de naturaleza directamente en su pestaña */
+const _showTabNat=showTab;showTab=function(t){const m={natfau:'fau',natveg:'veg',natarb:'arb',natura:'rec'}[t];
+  if(m){NTAB=m;NCAT='todo';document.querySelectorAll('#natTabs button').forEach(x=>x.classList.toggle('on',x.dataset.t===m));_showTabNat('natura');
+    document.getElementById('secTitle').textContent=TITLES[t]||'';document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));return;}
+  _showTabNat(t);};
+document.querySelectorAll('#drawer button[data-t="natfau"],#drawer button[data-t="natveg"],#drawer button[data-t="natarb"]').forEach(b=>b.onclick=()=>{showTab(b.dataset.t);menu(false);});
 
 </script>
 </body>
