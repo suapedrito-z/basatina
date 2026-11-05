@@ -1,0 +1,27 @@
+name: Viaje (gasolineras, recarga, puertos)
+on:
+  push:
+    paths: ['tools/viaje.py']
+  schedule:
+    - cron: '23 5,11,17 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  viaje:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar
+        run: python3 tools/viaje.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/viaje.js tools/viaje_info.txt
+          git commit -m "Viaje: gasolineras, recarga y puertos" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          git push
