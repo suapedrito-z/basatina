@@ -1,0 +1,29 @@
+name: Energía
+on:
+  push:
+    paths: ['tools/energia.py']
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  energia:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: pip install pyshp pyproj
+      - name: Descargar IDENA, OSM, REE y calibrar
+        run: python3 tools/energia.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/energia.js tools/energia_info.txt
+          git commit -m "Energía en Navarra (IDENA, OSM, REE)" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          git push
