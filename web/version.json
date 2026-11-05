@@ -1,5 +1,5 @@
 {
- "version": 68,
+ "version": 69,
  "apk": 10,
  "files": {
   "c12.jpg": "ac3fa4c4bc823c0b64c7c69990cf891eb00e6319",
@@ -8,7 +8,7 @@
   "eu.js": "975364bcaa229c08595ae05db95f6c2317c54a00",
   "flood.png": "6d4fa0d5fbc339db9a3c4ffe14e433dc989066fc",
   "flood2.png": "712a7b22803bcae9b052cece1bdbe3c4ccae177e",
-  "index.html": "66a98cda62204c711274818f56c3382c29a27a5f",
+  "index.html": "1b30070ab1022994b6d19bd365bc1a2c81d5bc1f",
   "logo.jpg": "442927f2c4c5495089c0bd56e454ddc6a4223411",
   "monte.js": "ccaa5ad87b2bbf2c4d8e106bb40d3793efbe49a7",
   "pesca.js": "fba5172885d790d2fc7caf52e3d2fa08f745b612",
@@ -17,7 +17,9 @@
   "pueblos.js": "a73a3068df69fb50cef307dfe4d4ee18471422e5",
   "rios.js": "c4e2c608075872f3055350d3e70d99b8307d8041",
   "seta.svg": "35a4b97d267a6d106f67b400620c70cd79609803",
-  "sismo.js": "979985207b63fdd571d81a1eea6a44081cded5e1"
+  "sismo.js": "979985207b63fdd571d81a1eea6a44081cded5e1",
+  "sonpe.jpg": "ab8f266bd374821a13f06b057fa9970e191852be",
+  "sonpe_ico.jpg": "bea3670ffffd1c4af50d8dd5029d8883d3c776d1"
  },
  "apkUrl": "https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/BasatiNA.apk"
 }
