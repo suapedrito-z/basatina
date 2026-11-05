@@ -3,6 +3,8 @@ on:
   push:
     paths: ['tools/video.py']
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   video:
     runs-on: ubuntu-latest
@@ -17,7 +19,9 @@ jobs:
           (cd web && python3 -m http.server 8765 >/dev/null 2>&1 &)
           sleep 2
           python3 tools/video.py http://localhost:8765/
-      - uses: actions/upload-artifact@v4
-        with:
-          name: video
-          path: BasatiNA_presentacion.mp4
+      - name: Guardar en la rama «video» (aparte, para no engordar la app)
+        run: |
+          mkdir /tmp/v && cp BasatiNA_presentacion.mp4 /tmp/v/ && cd /tmp/v
+          git init -q -b video && git config user.name "github-actions" && git config user.email "github-actions@users.noreply.github.com"
+          git add . && git commit -qm "Vídeo de presentación"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" video
