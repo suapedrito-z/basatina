@@ -1,12 +1,16 @@
-import json, urllib.request, io, subprocess, sys
-subprocess.run([sys.executable, "-m", "pip", "install", "-q", "--user", "--break-system-packages", "pillow"]); import site, importlib; sys.path.append(site.getusersitepackages()); importlib.invalidate_caches()
-from PIL import Image
+import urllib.parse
+import re, json, urllib.request
 OUT = []
 def get(u):
-    with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0 BasatiNA"}), timeout=60) as f: return f.read()
-j = json.loads(get("https://api.rainviewer.com/public/weather-maps.json")); f = j["radar"]["past"][-1]
-for z, x, y in [(7, 63, 46), (7, 62, 46), (7, 64, 46), (7, 63, 47), (6, 31, 23), (4, 7, 5), (3, 3, 2)]:
-    im = Image.open(io.BytesIO(get(f'{j["host"]}{f["path"]}/256/{z}/{x}/{y}/2/1_1.png'))).convert("RGBA")
-    a = [p for p in im.getdata() if p[3] > 0]
-    OUT.append(f"{z}/{x}/{y} {im.size} pixeles con lluvia: {len(a)} ejemplo {a[:3]}")
+    with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0 BasatiNA"}), timeout=60) as f: return f.read().decode("utf8", "ignore")
+for u in ["https://doc.rainbow.ai/api-ref/scalar.html?spec=tiles", "https://doc.rainbow.ai/tile_colors/"]:
+    try:
+        t = get(u); OUT.append(f"== {u} {len(t)}")
+        OUT += sorted(set(re.findall(r'["\']([^"\']+\.(?:json|ya?ml))["\']', t)))
+        OUT.append(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", t))[:3000])
+        for s in sorted(set(re.findall(r'["\']([^"\']+\.(?:json|ya?ml))["\']', t))):
+            su = s if s.startswith("http") else urllib.parse.urljoin(u, s)
+            try: OUT.append(f"-- SPEC {su}"); OUT.append(get(su)[:12000])
+            except Exception as e: OUT.append(f"fallo {su} {e}")
+    except Exception as e: OUT.append(f"fallo {u} {e}")
 open("tools/camaras_info.txt", "w").write("\n".join(OUT))
