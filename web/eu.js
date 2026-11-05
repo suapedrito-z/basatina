@@ -131,6 +131,7 @@
     '• Licencias: los datos del IGN, IDENA y Open‑Meteo se usan bajo CC BY 4.0; los mapas y capas se muestran sin modificar salvo el cálculo de zonas inundables, que es obra derivada del MDT del IGN. App sin ánimo de lucro.': '• Lizentziak: IGN, IDENA eta Open‑Meteoren datuak CC BY 4.0 lizentziarekin erabiltzen dira; mapak eta geruzak aldatu gabe erakusten dira, uholde-guneen kalkulua izan ezik, IGNren MDTtik eratorritako lana baita. Irabazi-asmorik gabeko aplikazioa.',
     'Toca una ruta (línea) o un punto para ver su ficha, su perfil y el tiempo previsto allí.': 'Ukitu ibilbide bat (lerroa) edo puntu bat haren fitxa, profila eta hango eguraldi-iragarpena ikusteko.',
     'francés': 'frantsesa', 'aragonés': 'aragoiarra', 'Entrada en Navarra': 'Nafarroako sarrera', 'Salida de Navarra': 'Nafarroako irteera',
+    'Ríos': 'Ibaiak', 'Qué hacer': 'Zer egin', 'NA sísmica': 'NA sismikoa', 'Producto oficial de La Z Company': 'La Z Companyren produktu ofiziala',
     'Prueba de conexión con el SAIH Ebro': 'SAIH Ebrorekiko konexio-proba', 'Explorar SAIH 4.0': 'Arakatu SAIH 4.0',
     // monte
     'Buscar ruta, cueva, mirador, pueblo…': 'Bilatu ibilbidea, kobazuloa, begiratokia, herria…', 'Sin capa oficial': 'Geruza ofizialik gabe',

@@ -63,7 +63,10 @@ a{color:var(--acc)}
 #drawer.on{transform:none}
 #drawer .dhead{display:flex;align-items:center;gap:10px;padding:16px 14px;border-bottom:1px solid var(--line)}
 #drawer .dhead img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--acc)}
-#drawer .dgroup{padding:14px 16px 4px;color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+#drawer .dgroup{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;color:var(--txt);font-size:14.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-top:1px solid var(--line);cursor:pointer;user-select:none}
+#drawer .dgroup i{font-style:normal;color:var(--mut);transition:transform .2s}#drawer .dgroup.open i{transform:rotate(90deg)}
+#drawer .dsub{display:none;background:rgba(255,255,255,.03)}#drawer .dgroup.open+.dsub{display:block}#drawer .dsub button{padding-left:30px}
+#zfoot{text-align:center;color:var(--mut);font-size:12px;padding:14px 10px 24px;letter-spacing:.03em}
 #drawer button{display:block;width:100%;text-align:left;background:none;border:none;color:var(--txt);font-size:15px;padding:12px 18px;cursor:pointer}
 #drawer button.on{background:#1f2d3b;border-left:3px solid var(--acc);font-weight:600}
 .hist{border-left:3px solid var(--acc)}
@@ -82,36 +85,50 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <aside id="drawer" aria-label="Menú">
   <div class="dhead"><img src="logo.jpg" alt="" onerror="this.style.display='none'"><b>BasatiNA</b></div>
   <button data-t="mtiempo">🏠 Inicio · Navarra</button>
-  <div class="dgroup">Datos</div>
-  <button data-t="caudal">📊 Caudal de los ríos</button>
-  <button data-t="hist">📜 Datos históricos</button>
-  <button data-t="libre">🎚️ Mapa de riadas (elige caudal)</button>
-  <button data-t="prev">🔮 Previsiones</button>
-  <button data-t="sim">▶️ Simulador de los próximos días</button>
-  <div class="dgroup">Tiempo</div>
-  <button data-t="tiempo">🌦️ El tiempo</button>
-  <button data-t="clima">📈 Histórico del clima</button>
-  <div class="dgroup">Naturaleza</div>
-  <button data-t="monte">🥾 Salir al monte: rutas, cuevas, baño…</button>
-  <button data-t="pesca">🎣 Pesca: tramos y normas</button>
-  <button data-t="caza">🦌 Caza: calendario de la temporada</button>
-  <button data-t="natura">🌿 Setas, frutos, fauna y vegetación</button>
-  <div class="dgroup">Tierra</div>
-  <button data-t="sismo">🌍 Terremotos, fallas y placas</button>
-  <div class="dgroup">App</div>
-  <button data-t="ajustes">⚙️ Ajustes y avisos</button>
-  <button data-t="about">ℹ️ Acerca de</button>
-  <button id="dLang">🌐 Euskaraz</button>
-  <div class="dgroup">Actualizar</div>
-  <button id="dRefresh">🔄 Actualizar datos ahora</button>
-  <button id="dUpdate" style="display:none">⬆️ Buscar nueva versión de la app</button>
-  <div class="dgroup" id="dgApp" style="display:none">🔧 Zona técnica</div>
-  <button data-t="mapa" id="dMapa" style="display:none">🗺️ Mapa del Arga (ahora)</button>
-  <button data-t="ciencia" id="dCiencia" style="display:none">🔬 Modo científico</button>
-  <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
-  <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
-  <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
-  <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
+  <div class="dgroup"><span>Ríos</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="caudal">📊 Caudal de los ríos</button>
+    <button data-t="hist">📜 Datos históricos</button>
+    <button data-t="libre">🎚️ Mapa de riadas (elige caudal)</button>
+    <button data-t="prev">🔮 Previsiones</button>
+    <button data-t="sim">▶️ Simulador de los próximos días</button>
+  </div>
+  <div class="dgroup"><span>El tiempo</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="tiempo">🌦️ El tiempo</button>
+    <button data-t="clima">📈 Histórico del clima</button>
+  </div>
+  <div class="dgroup"><span>Qué hacer</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="monte">🥾 Salir al monte: rutas, cuevas, baño…</button>
+    <button data-t="pesca">🎣 Pesca: tramos y normas</button>
+    <button data-t="caza">🦌 Caza: calendario de la temporada</button>
+    <button data-t="natura">🌿 Setas, frutos, fauna y vegetación</button>
+  </div>
+  <div class="dgroup"><span>NA sísmica</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="sismo">🌍 Terremotos, fallas y placas</button>
+  </div>
+  <div class="dgroup"><span>La Z Sortzailea</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="ajustes">⚙️ Ajustes y avisos</button>
+    <button data-t="about">ℹ️ Acerca de</button>
+    <button id="dLang">🌐 Euskaraz</button>
+  </div>
+  <div class="dgroup"><span>Actualizar</span><i>▸</i></div>
+  <div class="dsub">
+    <button id="dRefresh">🔄 Actualizar datos ahora</button>
+    <button id="dUpdate" style="display:none">⬆️ Buscar nueva versión de la app</button>
+  </div>
+  <div class="dgroup" id="dgApp" style="display:none"><span>🔧 Zona técnica</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="mapa" id="dMapa" style="display:none">🗺️ Mapa del Arga (ahora)</button>
+    <button data-t="ciencia" id="dCiencia" style="display:none">🔬 Modo científico</button>
+    <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
+    <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
+    <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
+    <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
+  </div>
   <div class="note" style="margin:14px;padding:10px;border:1px solid #ffb020;border-radius:10px;color:var(--txt)"><b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original.</div>
 </aside>
 
@@ -375,6 +392,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 
 <script src="rios.js"></script>
 <script src="pesca.js"></script>
+<div id="zfoot">Producto oficial de La Z Company</div>
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
@@ -1158,8 +1176,10 @@ function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)r
     if(m){if(MTL==='tiempo'){if(MTD===0){ico=wxIcon(m.current.weather_code,hh);txt=Math.round(m.current.temperature_2m)+'°';}
         else{ico=wxIcon(m.daily.weather_code[MTD],12);txt=Math.round(m.daily.temperature_2m_max[MTD])+'°/'+Math.round(m.daily.temperature_2m_min[MTD])+'°';}}
       else{const r=m.daily.precipitation_sum[MTD]||0;ico=r>=0.1?'💧':'';txt=fmtN(r,r>=10?0:1);col=rainCol(r);}}
-    const by=box(px,py,ico,txt,col,['town',i]);
-    if(W>340&&['Pamplona','Tudela','Estella','Sangüesa','Elizondo','Tafalla'].includes(t[0])){x.font='10px system-ui';x.textAlign='center';x.fillStyle='#000';x.fillText(t[0],px+1,by+34);x.fillStyle='#fff';x.fillText(t[0],px,by+33);}});}
+    // en los pueblos principales: el nombre arriba y, debajo, el dibujo del tiempo
+    const lab=W>340&&['Pamplona','Tudela','Estella','Sangüesa','Elizondo','Tafalla'].includes(t[0]);
+    box(px,lab?py+12:py,ico,txt,col,['town',i]);
+    if(lab){x.font='bold 10.5px system-ui';x.textAlign='center';x.textBaseline='alphabetic';x.fillStyle='#000';x.fillText(t[0],px+1,py-1);x.fillStyle='#fff';x.fillText(t[0],px,py-2);}});}
 function mtSetLayer(l){MTL=l;document.querySelectorAll('.mtb').forEach(b=>b.classList.toggle('on',b.dataset.l===l));mtInfo();mtDraw();}
 function mtDayMenu(open){const m=document.getElementById('mtDayM');m.style.display=open?'':'none';
   if(open)m.innerHTML=[...Array(NDAYS).keys()].map(k=>`<button class="btn" data-k="${k}" style="display:block;width:100%;border:0;border-radius:0;text-align:left;${k===MTD?'background:#2f8fd8;color:#fff':''}">${dayLabel(k)}</button>`).join('');
@@ -2175,6 +2195,13 @@ document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>{co
   document.addEventListener('touchstart',e=>{const t=e.touches[0];x0=(e.touches.length===1&&!skip(e.target))?t.clientX:null;y0=t.clientY;t0=Date.now();},{passive:true});
   document.addEventListener('touchend',e=>{if(x0===null)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=Math.abs(t.clientY-y0);x0=null;
     if(dx>90&&dy<45&&Date.now()-t0<700&&history.state&&NAVCUR!=='mtiempo')history.back();},{passive:true});})();
+
+
+// ☰ Menú por grupos: al tocar un grupo se abre (y se cierran los demás); al abrir el menú se despliega el de la pantalla actual
+(()=>{const hs=[...document.querySelectorAll('#drawer .dgroup')];
+  hs.forEach(h=>h.onclick=()=>{const o=!h.classList.contains('open');hs.forEach(x=>x.classList.remove('open'));if(o)h.classList.add('open');});
+  const mb=document.getElementById('menuBtn'),prev=mb.onclick;mb.onclick=()=>{prev&&prev();const b=document.querySelector('#drawer .dsub button.on');
+    hs.forEach(x=>x.classList.remove('open'));if(b)b.closest('.dsub').previousElementSibling.classList.add('open');};})();
 
 
 setTimeout(()=>avisosFetch(),2500);setInterval(()=>{AVT=0;avisosFetch();},30*60e3);
