@@ -75,7 +75,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </style>
 </head>
 <body>
-<div id="splash" style="position:fixed;inset:0;z-index:100;background:#0f1720;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s"><img src="logo.jpg" alt="" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid #3ba7ff" onerror="this.style.display='none'"><div style="font-size:22px;font-weight:700;margin-top:14px;color:#e6edf3">BasatiNA</div><div style="color:#93a4b5;margin-top:4px">El río y el tiempo en Navarra</div><img src="sonpe.jpg" alt="Son&amp;Pe Software Technology" style="position:absolute;bottom:28px;width:150px;border-radius:10px" onerror="this.style.display='none'"></div>
+<div id="splash" style="position:fixed;inset:0;z-index:100;background:#1c1f24;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s;padding:20px"><img src="sonpe.jpg" alt="Son&amp;Pe Software Technology" style="width:82%;max-width:380px;border-radius:14px" onerror="this.style.display='none'"><div style="font-size:22px;font-weight:700;margin-top:22px;color:#e6edf3">BasatiNA</div><div style="color:#93a4b5;margin-top:4px">El río y el tiempo en Navarra</div><div style="color:#5f7385;margin-top:18px;font-size:13px">Cargando el mapa…</div></div>
 <div class="wrap">
 <header>
   <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.jpg" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>BasatiNA</h1><div id="secTitle" class="note">🏠 Inicio · Navarra</div></div><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
@@ -131,6 +131,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
   </div>
   <div class="note" style="margin:14px;padding:10px;border:1px solid #ffb020;border-radius:10px;color:var(--txt)"><b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original.</div>
+  <div style="text-align:center;margin:6px 14px 20px"><img src="sonpe.jpg" alt="Son&amp;Pe Software Technology" style="width:100%;max-width:260px;border-radius:10px" onerror="this.style.display='none'"><div class="note" style="margin-top:4px">Un producto de <b>Son&amp;Pe Software Technology</b></div></div>
 </aside>
 
 <!-- ============ MODO 1: MAPA ============ -->
@@ -1336,7 +1337,7 @@ async function aboutRender(){let v='?';if(APP&&window.AndroidNet.webVersion)v=wi
   document.getElementById('abVer').textContent=(apk?'App versión '+apk+' · ':'')+'pantalla '+v;}
 
 // ---------- portada al abrir ----------
-(function(){const sp=document.getElementById('splash');if(!sp)return;setTimeout(()=>{sp.style.opacity='0';setTimeout(()=>sp.remove(),500);},1300);})();
+(function(){const sp=document.getElementById('splash');if(!sp)return;setTimeout(()=>{sp.style.opacity='0';setTimeout(()=>sp.remove(),600);},3000);})();
 
 // ---------- sin conexión: guardar y recuperar los últimos datos ----------
 function offlineSave(){if(CAU)LS.set('off_cau',{t:cauT||Date.now(),d:CAU});if(MT)LS.set('off_mt',{t:MT.at||Date.now(),d:[...MT]});}
