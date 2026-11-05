@@ -464,6 +464,10 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="card"><b>🌧️ Radar de lluvia</b><div class="note">Dónde está lloviendo (o nevando) ahora y en las últimas 2 horas. Dale a ▶️ para ver hacia dónde se mueve.</div>
 <div class="row" style="align-items:center;margin-top:6px"><button class="btn pri" id="rdPlay">▶️</button><input type="range" id="rdT" min="0" max="0" value="0" style="flex:1"><b id="rdLbl" style="min-width:64px;text-align:right"></b></div></div>
 <div class="card"><div style="position:relative"><canvas id="rdc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="rdcIn">＋</button><button class="btn mtb" id="rdcOut">－</button></div></div><div class="note" style="margin-top:4px">Cuanto más intenso el color, más fuerte llueve; los tonos rojizos son tormenta. El morado con borde es Petilla de Aragón, que es de Navarra, no lluvia.</div></div>
+<div class="card"><b>🌧️ Precipitación · radar de Kapildui (Euskalmet)</b><div class="note">El radar de Euskalmet, con más detalle: cubre Euskadi y el oeste y centro de Navarra (hasta Pamplona, Tafalla y la Ribera oeste).</div>
+<div class="row" style="align-items:center;margin-top:6px"><button class="btn pri" id="ekPlay">▶️</button><input type="range" id="ekT" min="0" max="0" value="0" style="flex:1"><b id="ekLbl" style="min-width:64px;text-align:right"></b></div>
+<div style="position:relative"><canvas id="ekc" height="380"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="ekcIn">＋</button><button class="btn mtb" id="ekcOut">－</button></div></div>
+<div class="note" id="ekNote" style="margin-top:4px"></div></div>
 <div class="card" id="rdEus"><b>⚡ Rayos en Euskadi y Navarra (Euskalmet)</b><div class="note" id="rdEusN">Cargando…</div></div>
 <div class="card" id="rdAemet"><b>⚡ Rayos y radar (AEMET)</b><div class="note" id="rdAeNote">Cargando…</div><div id="rdAeImgs"></div><div class="row"><button class="btn" id="rdRayos">⚡ Abrir el mapa de rayos de AEMET</button></div></div>
 <div class="card tech" style="display:none"><b>🔧 Claves de radar y rayos</b>
@@ -2961,6 +2965,20 @@ async function eusRayos(){const n=document.getElementById('rdEusN');if(!n)return
   n.innerHTML=`Rayos de la hora y media hasta las ${t0.toTimeString().slice(0,5)}, de la red LINET (cubre Euskadi y casi toda Navarra). Toca para verla en grande.<img src="${found.src}" style="width:100%;border-radius:8px;margin-top:6px;background:#fff;cursor:zoom-in">`;
   n.querySelector('img').onclick=ev=>pbFoto(ev.target.src,'⚡ Rayos · Euskalmet (red LINET)');}
 const _rdInit1=rdInit;rdInit=function(){_rdInit1();eusRayos();};
+
+
+/* mapa propio del radar de Kapildui, con su animación de las últimas 2 horas */
+let EKM=null,EKI=0,EKP=null;
+function ekDraw(x,P,b){const f=EUSF[EKI];x.fillStyle='rgba(8,16,26,.35)';x.fillRect(0,0,b.W,b.H);if(f)eusDraw(x,P,f,()=>EKM&&EKM.draw());}
+function ekShow(){const f=EUSF[EKI];document.getElementById('ekLbl').textContent=f?new Date(f.time*1000).toTimeString().slice(0,5):'';EKM&&EKM.draw();}
+async function ekInit(){if(!EKM){EKM=NavMap('ekc',ekDraw,()=>{});mapBtns('ekc',EKM);setTimeout(()=>{EKM.fit(42.2,43.45,-2.75,-1.3);},60);
+    document.getElementById('ekT').oninput=e=>{EKI=+e.target.value;ekShow();};
+    document.getElementById('ekPlay').onclick=()=>{const b=document.getElementById('ekPlay');if(EKP){clearInterval(EKP);EKP=null;b.textContent='▶️';return;}b.textContent='⏸️';
+      EKP=setInterval(()=>{if(!document.getElementById('t-radar').classList.contains('on')||!EUSF.length){clearInterval(EKP);EKP=null;b.textContent='▶️';return;}EKI=(EKI+1)%EUSF.length;document.getElementById('ekT').value=EKI;ekShow();},800);};}
+  await eusLoad();const s=document.getElementById('ekT');s.max=Math.max(0,EUSF.length-1);EKI=Math.max(0,EUSF.length-1);s.value=EKI;
+  document.getElementById('ekNote').textContent=EUSF.length?'Cuanto más intenso el color, más fuerte llueve. Si no ves color, no llueve en esa zona. Datos de Euskalmet cada 10 minutos.':'Euskalmet todavía no tiene imágenes de hoy (pasa justo después de medianoche). Vuelve a mirar en un rato.';
+  setTimeout(()=>{EKM.draw();EKM.base();ekShow();},120);}
+const _rdInit2=rdInit;rdInit=function(){_rdInit2();ekInit();};
 
 </script>
 </body>
