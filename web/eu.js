@@ -130,6 +130,7 @@
     '• Dibujo de los ríos y término de Petilla de Aragón: © colaboradores de OpenStreetMap (ODbL).': '• Ibaien marrazkia eta Petilla de Aragongo udal-mugarteak: © OpenStreetMap-en laguntzaileak (ODbL).',
     '• Licencias: los datos del IGN, IDENA y Open‑Meteo se usan bajo CC BY 4.0; los mapas y capas se muestran sin modificar salvo el cálculo de zonas inundables, que es obra derivada del MDT del IGN. App sin ánimo de lucro.': '• Lizentziak: IGN, IDENA eta Open‑Meteoren datuak CC BY 4.0 lizentziarekin erabiltzen dira; mapak eta geruzak aldatu gabe erakusten dira, uholde-guneen kalkulua izan ezik, IGNren MDTtik eratorritako lana baita. Irabazi-asmorik gabeko aplikazioa.',
     'Toca una ruta (línea) o un punto para ver su ficha, su perfil y el tiempo previsto allí.': 'Ukitu ibilbide bat (lerroa) edo puntu bat haren fitxa, profila eta hango eguraldi-iragarpena ikusteko.',
+    'francés': 'frantsesa', 'aragonés': 'aragoiarra', 'Entrada en Navarra': 'Nafarroako sarrera', 'Salida de Navarra': 'Nafarroako irteera',
     'Prueba de conexión con el SAIH Ebro': 'SAIH Ebrorekiko konexio-proba', 'Explorar SAIH 4.0': 'Arakatu SAIH 4.0',
     // monte
     'Buscar ruta, cueva, mirador, pueblo…': 'Bilatu ibilbidea, kobazuloa, begiratokia, herria…', 'Sin capa oficial': 'Geruza ofizialik gabe',
@@ -273,6 +274,7 @@
     [/^Ver en el mapa \($/, 'Ikusi mapan ('],
     [/^(.+) · histórico hasta (.+)$/, '$1 · historikoa $2 arte'],
     [/^pantalla (\d+)$/, 'pantaila $1'],
+    [/^Camino (francés|aragonés) · etapa (\d+): (.+) – (.+)$/, 'Done Jakue bidea ($1) · $2. etapa: $3 – $4'],
     [/^Dibujando las rutas recomendadas: (\d+) de (\d+)…$/, 'Gomendatutako ibilbideak marrazten: $1 / $2…'],
     [/^(.+) · histórico hasta (.+)$/, '$1 · historikoa $2 arte'],
     [/^pantalla (\d+)$/, 'pantaila $1'],

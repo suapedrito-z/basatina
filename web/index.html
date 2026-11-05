@@ -1909,7 +1909,7 @@ const MO_EXTRA={CASC:[{a:{N:'Cascada de Xorroxin',D:'Cascada y poza en un hayedo
    {a:{N:'Cueva de Mendukilo (Astitz)',D:'Cueva turística visitable con guía en la sierra de Aralar (Larraun).'},pt:[42.951,-1.946]}]};
 // capas: [clave, nombre, color, tipo (pt/ln), encendida, campos de nombre]
 const MOL=[['PATRIM_Sym_Senderismo','🥾 Rutas recomendadas','#e65100','pt',1,['NOMBRE']],['GR','🥾 GR (grandes recorridos)','#d32f2f','ln',1,['TRAMO','NOMBRE']],
- ['VV','🚲 Vías verdes','#2e7d32','ln',1,['NOMBRE']],['PATRIM_Lin_CaminoSant','🐚 Camino de Santiago','#f9a825','ln',1,['TRAMO']],
+ ['VV','🚲 Vías verdes','#2e7d32','ln',1,['NOMBRE']],['PATRIM_Lin_CaminoSant','🐚 Camino de Santiago','#fdd835','ln',1,['TRAMO']],
  ['VIS','🕳️ Cuevas visitables','#3e2723','pt',1,['N']],['CASC','💦 Cascadas y nacederos','#0288d1','pt',1,['N']],['DOTACI_Sym_Miradores','👀 Miradores','#7b1fa2','pt',1,['RECTUR']],
  ['HIDROG_Sym_ZonaBano','🏊 Zonas de baño','#00acc1','pt',1,['NOMBRE','PTOAGUA']],['FOREST_Sym_AreasRecForest','🧺 Áreas recreativas','#558b2f','pt',0,['NOMBRE']],
  ['PATRIM_Sym_BICarquite','🏰 Patrimonio (BIC)','#6d4c41','pt',0,['BIC']],['GEOLOG_Sym_Cuevas','🕳️ Todas las cuevas y simas','#8d6e63','pt',0,['CUEVA']],
@@ -1918,6 +1918,7 @@ const MOOV=[['','Sin capa oficial'],['senderos','🥾 Todos los senderos señali
 let MON={},MOM=null,MOSEL=null,MOLOAD=false,MOPF=null;MOL.forEach(l=>MON[l[0]]=!!l[4]);
 function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[k];
   if(k==='GR')return ['DOTACI_Lin_GR1','DOTACI_Lin_GR12','DOTACI_Lin_GR321'].flatMap(x=>(G[x]||{f:[]}).f);
+  if(k==='PATRIM_Lin_CaminoSant'&&G.CAMINO_ETAPAS&&G.CAMINO_ETAPAS.f.length)return G.CAMINO_ETAPAS.f;   // el Camino partido en etapas, con perfil
   if(k==='VV')return ['DOTACI_Lin_VVBidasoa','DOTACI_Lin_VVVascoNav','DOTACI_Lin_VVIrati','DOTACI_Lin_VVPlazaola','DOTACI_Lin_VVTarazoni'].flatMap(x=>(G[x]||{f:[]}).f);
   return (G[k]||{f:[]}).f;}
 function moLoad(cb){if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}

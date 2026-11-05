@@ -133,6 +133,94 @@ for key in RUTAS:
         time.sleep(0.3)
 info.append(f"\nPerfiles de ruta: {ok} bien, {bad} fallos")
 # ---------------------------------------------------------------------------------------------
+# CAMINO DE SANTIAGO y VÍAS VERDES: no tienen GPX, solo la línea (en trozos sueltos). Se unen los trozos
+# en una sola línea ordenada, el Camino se parte en sus etapas clásicas y las alturas salen del
+# modelo del terreno (Open-Meteo). Así también tienen perfil, distancia y desniveles.
+# ---------------------------------------------------------------------------------------------
+import heapq
+def red(rings, junta=2.5):
+    """Red de la ruta: cada vértice es un nudo, unido a sus vecinos de trozo y a los vértices de otros
+    trozos que estén a menos de «junta» km (así se cosen los trozos aunque no coincidan exactamente)."""
+    V = [p for r in rings for p in r]; adj = {i: [] for i in range(len(V))}; k = 0; ring_of = []
+    for ri, r in enumerate(rings):
+        for t in range(len(r)):
+            ring_of.append(ri)
+            if t: adj[k].append((k - 1, km(V[k - 1], V[k]))); adj[k - 1].append((k, km(V[k - 1], V[k])))
+            k += 1
+    for a in range(len(V)):
+        for b in range(a + 1, len(V)):
+            if ring_of[a] != ring_of[b]:
+                d = km(V[a], V[b])
+                if d < junta: adj[a].append((b, d * 3)); adj[b].append((a, d * 3))   # los «cosidos» cuentan triple: se usan solo si hace falta
+    # si aún quedan grupos de trozos sueltos (huecos grandes en el dibujo), se cosen por sus puntos más cercanos
+    while True:
+        vis = {0}; pila = [0]
+        while pila:
+            u = pila.pop()
+            for v, _ in adj[u]:
+                if v not in vis: vis.add(v); pila.append(v)
+        if len(vis) == len(V): break
+        x, y = min(((x, y) for x in vis for y in range(len(V)) if y not in vis), key=lambda t: km(V[t[0]], V[t[1]]))
+        d = km(V[x], V[y]); adj[x].append((y, d * 3)); adj[y].append((x, d * 3))
+    return V, adj
+def camino(V, adj, a, b):
+    """Camino más corto por la red entre los nudos a y b (Dijkstra). Devuelve la lista de puntos."""
+    dist = {a: 0}; prev = {}; h = [(0, a)]
+    while h:
+        d, u = heapq.heappop(h)
+        if u == b: break
+        if d > dist.get(u, 1e9): continue
+        for v, w in adj[u]:
+            if d + w < dist.get(v, 1e9): dist[v] = d + w; prev[v] = u; heapq.heappush(h, (d + w, v))
+    if b not in dist: return None
+    out = [b]
+    while out[-1] != a: out.append(prev[out[-1]])
+    return [V[i] for i in reversed(out)]
+def cerca(V, la, lo): return min(range(len(V)), key=lambda i: km(V[i], (la, lo)))
+def encadenar(rings):
+    """Una sola línea de punta a punta: del extremo de trozo más alejado al otro, por la propia ruta."""
+    V, adj = red(rings)
+    if len(V) < 2: return max(rings, key=len)
+    # los dos puntos más alejados entre sí son las dos puntas de la ruta
+    a, b = max(((x, y) for x in range(len(V)) for y in range(x + 1, len(V))), key=lambda t: km(V[t[0]], V[t[1]]))
+    return camino(V, adj, a, b) or max(rings, key=len)
+def perfil_linea(pts):
+    return perfil([[p[0], p[1], None] for p in pts])
+ETAPAS = {"francés": [("Orreaga/Roncesvalles", 43.0090, -1.3190), ("Zubiri", 42.9300, -1.5030), ("Pamplona", 42.8186, -1.6440),
+                      ("Puente la Reina/Gares", 42.6720, -1.8150), ("Estella-Lizarra", 42.6713, -2.0322), ("Los Arcos", 42.5690, -2.1920), ("Viana", 42.5160, -2.3710)],
+          "aragonés": [("Sangüesa/Zangoza", 42.5750, -1.2830), ("Monreal/Elo", 42.7020, -1.5070), ("Puente la Reina/Gares", 42.6720, -1.8150)]}
+etapas = []
+try:
+    for f in out["PATRIM_Lin_CaminoSant"]["f"]:
+        rama = "francés" if "franc" in f["a"].get("TRAMO", "").lower() else "aragonés"
+        V, adj = red(f["r"])
+        ext = [i for i in range(len(V)) if len(adj[i]) <= 1]
+        # entrada en Navarra: el francés por el norte (Luzaide) y el aragonés por el este; salida: el extremo más al oeste
+        ini = max(ext, key=lambda i: V[i][0]) if rama == "francés" else max(ext, key=lambda i: V[i][1])
+        fin = min(ext, key=lambda i: V[i][1])
+        nudos = [ini] + [cerca(V, la, lo) for _, la, lo in ETAPAS[rama]] + [fin]
+        nombres = ["Entrada en Navarra"] + [n for n, _, _ in ETAPAS[rama]] + ["Salida de Navarra"]
+        n = 0
+        for k in range(len(nudos) - 1):
+            seg = camino(V, adj, nudos[k], nudos[k + 1]); na, nb = nombres[k], nombres[k + 1]
+            if not seg or sum(km(seg[i - 1], seg[i]) for i in range(1, len(seg))) < 3: continue   # trocitos de menos de 3 km
+            n += 1; r = perfil_linea(seg)
+            g = {"a": {"TRAMO": f"Camino {rama} · etapa {n}: {na} – {nb}", "LUGARINI": na, "LUGARFIN": nb}, "r": [seg]}
+            if r: g["s"], g["pf"] = r
+            etapas.append(g); info.append(f"Camino {rama} etapa {n}: {na} – {nb}: {r[0]['km'] if r else '?'} km")
+    out["CAMINO_ETAPAS"] = {"d": "", "f": etapas}
+except Exception as e:
+    info.append(f"fallo Camino: {e}")
+for key in ["DOTACI_Lin_VVBidasoa", "DOTACI_Lin_VVVascoNav", "DOTACI_Lin_VVIrati", "DOTACI_Lin_VVPlazaola", "DOTACI_Lin_VVTarazoni"]:
+    for f in (out.get(key) or {}).get("f", []):
+        try:
+            if sum(km(r_[i - 1], r_[i]) for r_ in f["r"] for i in range(1, len(r_))) < 2: continue   # restos sueltos
+            L = encadenar(f["r"]); r = perfil_linea(L)
+            if r: f["s"], f["pf"] = r; f["r"] = [L]
+            info.append(f"{key}: {r[0]['km'] if r else '?'} km")
+        except Exception as e:
+            info.append(f"fallo {key}: {e}")
+# ---------------------------------------------------------------------------------------------
 # PETILLA DE ARAGÓN: municipio navarro dentro de Zaragoza, en dos enclaves (Petilla y Los Bastanes).
 # Se saca su término de OpenStreetMap y se apunta el centro de cada trozo en monte_info.txt.
 # ---------------------------------------------------------------------------------------------
