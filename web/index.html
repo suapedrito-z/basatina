@@ -1176,10 +1176,8 @@ function mtDraw(){const cv=document.getElementById('mtc');if(cv.clientWidth<10)r
     if(m){if(MTL==='tiempo'){if(MTD===0){ico=wxIcon(m.current.weather_code,hh);txt=Math.round(m.current.temperature_2m)+'°';}
         else{ico=wxIcon(m.daily.weather_code[MTD],12);txt=Math.round(m.daily.temperature_2m_max[MTD])+'°/'+Math.round(m.daily.temperature_2m_min[MTD])+'°';}}
       else{const r=m.daily.precipitation_sum[MTD]||0;ico=r>=0.1?'💧':'';txt=fmtN(r,r>=10?0:1);col=rainCol(r);}}
-    // en los pueblos principales: el nombre arriba y, debajo, el dibujo del tiempo
-    const lab=W>340&&['Pamplona','Tudela','Estella','Sangüesa','Elizondo','Tafalla'].includes(t[0]);
-    box(px,lab?py+12:py,ico,txt,col,['town',i]);
-    if(lab){x.font='bold 10.5px system-ui';x.textAlign='center';x.textBaseline='alphabetic';x.fillStyle='#000';x.fillText(t[0],px+1,py-1);x.fillStyle='#fff';x.fillText(t[0],px,py-2);}});}
+    // el dibujo del tiempo va un poco por debajo del pueblo, para no tapar su nombre en el mapa de fondo
+    box(px,py+18,ico,txt,col,['town',i]);});}
 function mtSetLayer(l){MTL=l;document.querySelectorAll('.mtb').forEach(b=>b.classList.toggle('on',b.dataset.l===l));mtInfo();mtDraw();}
 function mtDayMenu(open){const m=document.getElementById('mtDayM');m.style.display=open?'':'none';
   if(open)m.innerHTML=[...Array(NDAYS).keys()].map(k=>`<button class="btn" data-k="${k}" style="display:block;width:100%;border:0;border-radius:0;text-align:left;${k===MTD?'background:#2f8fd8;color:#fff':''}">${dayLabel(k)}</button>`).join('');
