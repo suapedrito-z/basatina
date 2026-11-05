@@ -37,7 +37,117 @@
 - GEOM_PERI: 59 · [('4233.54', 1), ('661.12', 1), ('1893.77', 1), ('1047.39', 1), ('1701.57', 1), ('3356.55', 1), ('2584.07', 1), ('3262.16', 1)]
 - BEGINLIFE: 1 · [('19/05/2026', 59)]
 
-## OSM centrales: Counter()
+## OSM centrales: Counter({'hydro': 100, 'solar': 75, 'wind': 53, 'biomass': 3, 'gas': 3, 'biogas': 2, '?': 2})
+ * {'src': 'hydro', 'n': 'Electra Cárcar', 'mw': '', 'op': '', 'pt': [42.4615, -2.338], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [43.1417, -1.6071], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.3583, -2.0527], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.801, -1.3598], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.801, -1.3598], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': '', 'op': '', 'pt': [43.1398, -1.8451], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Lorente', 'mw': '0.7 MW', 'op': 'Saltos del Ega', 'pt': [42.6608, -2.0091], 'w': ''}
+ * {'src': 'hydro', 'n': 'Domikoko zentral hidroelektrikoa', 'mw': 'yes', 'op': '', 'pt': [43.2539, -1.7654], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica Irabia', 'mw': '1.36 MW', 'op': 'Acciona', 'pt': [42.985, -1.1583], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [43.278, -1.7736], 'w': ''}
+ * {'src': 'hydro', 'n': 'Arranbideko zentrala', 'mw': '1.956 MW', 'op': 'Gestión de Centrales del Añarbe S.A.', 'pt': [43.2097, -1.8726], 'w': ''}
+ * {'src': 'hydro', 'n': 'Arranbideko zentrala', 'mw': '1.125 MW', 'op': 'Iberdrola', 'pt': [43.2087, -1.875], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica Urroz-Oitz', 'mw': '1.12 MW', 'op': 'Iberdrola', 'pt': [43.1076, -1.6862], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Eléctrica Itoiz', 'mw': '28.40 MW', 'op': 'Canal De Navarra, S.A.', 'pt': [42.801, -1.3598], 'w': ''}
+ * {'src': 'hydro', 'n': 'Igantziko zentrala I', 'mw': '2.36 MW', 'op': 'Iberdrola', 'pt': [43.2303, -1.6765], 'w': ''}
+ * {'src': 'hydro', 'n': 'Igantzi Zantrala II', 'mw': 'yes', 'op': '', 'pt': [43.2283, -1.6801], 'w': ''}
+ * {'src': 'hydro', 'n': 'Leurza-Urroz Zentrala', 'mw': '1.10 MW', 'op': 'Iberdrola', 'pt': [43.0831, -1.7005], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central de Betolegi', 'mw': '2.8 MW', 'op': 'Acciona Energía', 'pt': [42.9598, -1.2527], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica de Mourgues', 'mw': 'yes', 'op': '', 'pt': [43.2153, -1.6709], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica Sartaguda', 'mw': '4.2 MW', 'op': 'Acciona', 'pt': [42.3764, -2.0578], 'w': ''}
+ * {'src': 'hydro', 'n': 'Goiko zentrala', 'mw': '1.46 MW', 'op': 'Reysalde S.L.', 'pt': [43.229, -1.6223], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica El Ferial', 'mw': 'yes', 'op': '', 'pt': [42.2914, -1.5877], 'w': ''}
+ * {'src': 'biogas', 'n': 'Cogeneración Cabanillas', 'mw': '', 'op': '', 'pt': [42.0478, -1.5321], 'w': ''}
+ * {'src': 'hydro', 'n': 'Urkizu zentrala', 'mw': '', 'op': '', 'pt': [43.1103, -1.9191], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Hijos de Martínez', 'mw': 'yes', 'op': '', 'pt': [42.6685, -2.0232], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Saltos del Bidasoa', 'mw': '1.088 MW', 'op': 'Electra Navasturen S.A.', 'pt': [43.2616, -1.6848], 'w': ''}
+ * {'src': 'hydro', 'n': 'Ituren II - Aurtitz', 'mw': '0.746 MW', 'op': 'Central y Coogeneración de Ituren S.A.', 'pt': [43.1329, -1.7247], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica Mugaire', 'mw': '1.32 MW', 'op': 'Marin Mugaire S.L.', 'pt': [43.132, -1.6079], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Mañeru', 'mw': '4.8 MW', 'op': 'Iberdrola', 'pt': [42.6392, -1.8607], 'w': ''}
+ * {'src': 'hydro', 'n': 'Ituren I', 'mw': 'yes', 'op': '', 'pt': [43.1402, -1.7301], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica San Tiburcio', 'mw': '1.36 MW', 'op': 'Iberdrola', 'pt': [43.1705, -1.6749], 'w': ''}
+ * {'src': 'biomass', 'n': 'Planta de Biomasa', 'mw': '30 MW', 'op': 'Acciona Energía', 'pt': [42.5931, -1.2793], 'w': ''}
+ * {'src': 'biomass', 'n': 'Planta de Biomasa de Sangüesa', 'mw': '30 MW', 'op': 'Acciona Energía', 'pt': [42.592, -1.278], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica Eguilor', 'mw': '3.817 MW', 'op': 'Iberdrola', 'pt': [42.845, -1.8051], 'w': ''}
+ * {'src': 'hydro', 'n': 'Zumarrestako zentral elektrikoa', 'mw': '3.74 MW', 'op': 'Iberdrola', 'pt': [43.1399, -1.845], 'w': ''}
+ * {'src': 'hydro', 'n': 'Goiko zentral elektrikoa', 'mw': '1.72 MW', 'op': 'Iberdrola', 'pt': [43.1118, -1.8539], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Electrica Txirriskimengua', 'mw': '1.25 MW', 'op': 'Barbo Energías Renovables S.A.', 'pt': [43.0519, -1.3152], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Etxauri', 'mw': '1.00 MW', 'op': 'Electra Valdizarde', 'pt': [42.7925, -1.7827], 'w': ''}
+ * {'src': 'hydro', 'n': 'Zubietako zentrala', 'mw': '0.72 MW', 'op': 'Iberdrola', 'pt': [43.1251, -1.7494], 'w': ''}
+ * {'src': 'hydro', 'n': 'Rezolako zentrala', 'mw': '1.517 MW', 'op': 'Acciona Energía', 'pt': [43.1662, -1.8594], 'w': ''}
+ * {'src': 'hydro', 'n': 'Cenrral Eléctrica de Alloz', 'mw': '6.72 MW', 'op': 'Iberdrola', 'pt': [42.7053, -1.9416], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Zudaire', 'mw': '3.75 MW', 'op': 'Cementos Portland', 'pt': [42.7772, -2.1299], 'w': ''}
+ * {'src': 'hydro', 'n': 'Maringo zentrala', 'mw': '2.08 MW', 'op': 'Acciona Energía', 'pt': [43.0919, -1.5941], 'w': ''}
+ * {'src': 'gas', 'n': 'Central térmica Castejón 2', 'mw': '379 MW', 'op': 'Iberdrola', 'pt': [42.1716, -1.6779], 'w': ''}
+ * {'src': 'gas', 'n': 'Central térmica Castejón 1 y Castejón 3', 'mw': '843 MW', 'op': 'TotalEnergies España', 'pt': [42.1776, -1.6934], 'w': ''}
+ * {'src': 'gas', 'n': 'Central de Infraestructuras Comunes', 'mw': 'yes', 'op': 'Ciudad Agroalimentaria De Tudela', 'pt': [42.0816, -1.6519], 'w': ''}
+ * {'src': 'hydro', 'n': 'Zentrala Ultzama', 'mw': '', 'op': '', 'pt': [43.0199, -1.6329], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Arlas - Falces', 'mw': '4.41 MW', 'op': 'Acciona Energía', 'pt': [42.4226, -1.7975], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidraulica de Arrollandieta', 'mw': 'yes', 'op': '', 'pt': [43.0542, -1.3119], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': '', 'op': '', 'pt': [43.1659, -1.8595], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica Artesiaga', 'mw': '1.15 MW', 'op': 'Iberdrola', 'pt': [43.1105, -1.5324], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.8948, -1.3012], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica Irurtzun', 'mw': '0.98 MW', 'op': 'Hidroelectrica Dos Hermanas', 'pt': [42.9249, -1.8309], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Olaldea', 'mw': '3.29 MW', 'op': 'Acciona', 'pt': [42.917, -1.2921], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Olaldea II', 'mw': '0.72 MW', 'op': 'Acciona', 'pt': [42.9161, -1.2909], 'w': ''}
+ * {'src': 'hydro', 'n': 'Barazpea', 'mw': 'small_installation', 'op': '', 'pt': [42.8025, -1.7784], 'w': ''}
+ * {'src': 'hydro', 'n': 'Urdaizko Zentral Hidroelektrikoa', 'mw': 'small_installation', 'op': '', 'pt': [42.9089, -1.5324], 'w': ''}
+ * {'src': 'hydro', 'n': 'Ubaun', 'mw': '', 'op': '', 'pt': [43.1017, -1.6212], 'w': ''}
+ * {'src': 'hydro', 'n': 'Azkarateluts', 'mw': 'yes', 'op': 'Abandonada', 'pt': [43.0557, -1.9981], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Isaba', 'mw': '0.90 MW', 'op': 'Ayuntamiento de Isaba', 'pt': [42.8594, -0.9225], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central eléctrica de Azpiroz', 'mw': 'yes', 'op': '', 'pt': [43.0227, -1.9639], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica San Fausto', 'mw': '2.6 MW', 'op': 'Iberdrola', 'pt': [42.6972, -2.0515], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Cabués', 'mw': '2.24 MW', 'op': 'Sodena', 'pt': [42.4683, -1.8122], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Garde', 'mw': 'yes', 'op': '', 'pt': [42.7985, -0.9597], 'w': ''}
+ * {'src': 'hydro', 'n': 'Zentrala', 'mw': 'yes', 'op': '', 'pt': [42.8493, -1.5847], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica de Las Nazas', 'mw': '1.08 MW', 'op': 'Electra Irún Endara S.A.', 'pt': [43.2888, -1.7119], 'w': ''}
+ * {'src': 'hydro', 'n': 'Granada Zentrala', 'mw': '1.16 MW', 'op': 'Andueza Generación Eléctrica S.L.', 'pt': [43.088, -1.3013], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Viana II', 'mw': '4.79 MW', 'op': 'Acciona', 'pt': [42.4629, -2.3378], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Viana I Recajo', 'mw': '3.42 MW', 'op': '', 'pt': [42.4613, -2.3381], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Viana III', 'mw': '4.98 MW', 'op': 'Acciona', 'pt': [42.4613, -2.3011], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Mendavia', 'mw': '4.31 MW', 'op': 'Mediterranea De Energías', 'pt': [42.4501, -2.2666], 'w': ''}
+ * {'src': 'biomass', 'n': 'Ecoenergía Navarra', 'mw': '', 'op': '', 'pt': [42.5716, -1.7691], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Lerín', 'mw': '0.869 MW', 'op': 'Acciona', 'pt': [42.5211, -1.9804], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Tudela', 'mw': '4.83 MW', 'op': 'Acciona', 'pt': [42.0835, -1.6033], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráuical El Berbel', 'mw': '16.35 MW', 'op': 'Corporación Acciona Hidráulica S.L.', 'pt': [42.025, -1.5572], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Eléctrica Orotz-Betelu', 'mw': '1.24 MW', 'op': '', 'pt': [42.8947, -1.3011], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hibráulica Traibuenas', 'mw': '5 MW', 'op': 'Cia. Agroelectrica Tudela, S.A.', 'pt': [42.3561, -1.582], 'w': ''}
+ * {'src': 'biogas', 'n': 'Biogas Caparrosó', 'mw': '', 'op': '', 'pt': [42.2808, -1.6821], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Ecay', 'mw': '0.55 MW', 'op': 'Electra del Ecay', 'pt': [42.769, -1.3825], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Gares Iñurrieta', 'mw': '1.72 MW', 'op': 'Hidroelectricas De Vasconia, S.A.', 'pt': [42.6775, -1.8232], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Urroz Villa', 'mw': 'yes', 'op': '', 'pt': [42.7761, -1.4518], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Molino San Vicente', 'mw': '0.90 MW', 'op': 'Salt de Canet S.A.', 'pt': [42.6894, -1.3191], 'w': ''}
+ * {'src': '?', 'n': '', 'mw': '', 'op': '', 'pt': [42.7127, -1.6632], 'w': ''}
+ * {'src': '?', 'n': '', 'mw': '', 'op': '', 'pt': [42.713, -1.6626], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Aoiz', 'mw': '2.70 MW', 'op': 'Corp. Energía Hidroeléctrica De Navarra, S.A.', 'pt': [42.7927, -1.3608], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Molinar', 'mw': '5 MW', 'op': 'Acciona', 'pt': [42.0881, -1.6012], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica Eugi', 'mw': '1.72 MW', 'op': 'Mancomunidad de la Comarca de Pamplona', 'pt': [42.9713, -1.5144], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Aribe', 'mw': '0.625 MW', 'op': 'Cooperativa Aizpea', 'pt': [42.9461, -1.2558], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Machín', 'mw': '4.2 MW', 'op': 'Acciona Energía', 'pt': [42.2675, -1.8666], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Los Mártires - Lodosa', 'mw': '3.74 MW', 'op': 'Comunidad General De Usuarios Del Canal De Lodosa', 'pt': [42.4174, -2.1066], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Muriilo El Fruto', 'mw': '5 MW', 'op': 'Acciona Energía', 'pt': [42.389, -1.4236], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Carcastillo', 'mw': '0.48 MW', 'op': 'C.G.R. Canal De Bardenas', 'pt': [42.3231, -1.4164], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Santacara', 'mw': '3.50 MW', 'op': 'Acciona', 'pt': [42.3757, -1.5405], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Caparroso', 'mw': '4.23 MW', 'op': 'Acciona', 'pt': [42.3477, -1.6669], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Cárcar', 'mw': '1.39 MW', 'op': 'Hidro Holding S.L.', 'pt': [42.3859, -1.9594], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Canal de Navarra', 'mw': '20 MW', 'op': 'Canal De Navarra, S.A.', 'pt': [42.7916, -1.3765], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Sarria III', 'mw': '2.9 MW', 'op': 'Iniciativas Electricas Sa / Saltos Del Arga, S.L.', 'pt': [42.6876, -1.8262], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Sarria II', 'mw': '4.4 MW', 'op': 'Iniciativas Electricas Sa / Saltos Del Arga, S.L.', 'pt': [42.7001, -1.8277], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Sarria I', 'mw': '6.38 MW', 'op': 'Iniciativas Electricas Sa / Saltos Del Arga, S.L.', 'pt': [42.7089, -1.835], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Larraga', 'mw': '1.02 MW', 'op': 'Ayuntamiento Y Junta Riegos Miranda De Arga', 'pt': [42.5539, -1.8363], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Sangüesina', 'mw': '0.66 MW', 'op': 'Barbo Energías Renovables S.A.', 'pt': [42.5951, -1.2705], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Caseda I y II', 'mw': '2.71 MW', 'op': 'Iberdrola', 'pt': [42.535, -1.3715], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Galipienzo', 'mw': '1.42 MW', 'op': 'Iberdrola', 'pt': [42.5157, -1.418], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Morentín Dicastillo', 'mw': '0.7 MW', 'op': 'Electra Iturmayor S.L', 'pt': [42.5752, -1.9781], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica Morentín', 'mw': '0.6 MW', 'op': 'Ayuntamiento de Oteiza', 'pt': [42.5937, -1.9855], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica San Miguel', 'mw': '0.59 MW', 'op': '', 'pt': [42.5779, -1.8426], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidráulica de Oronzo-Mugairi', 'mw': 'yes', 'op': '', 'pt': [43.1417, -1.607], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.6822, -2.0498], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': 'Electra Irun-Endara', 'pt': [42.7771, -2.1299], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica de Andión', 'mw': '0.9 MW', 'op': 'Sociedad Corralizas y Electra', 'pt': [42.5987, -1.8542], 'w': ''}
 
 ## REE meses 92 ['2019-01'] ['2026-08'] ['Hidráulica', 'Ciclo combinado', 'Eólica', 'Solar fotovoltaica', 'Otras renovables', 'Cogeneración', 'Generación total']
 REE fallo generacion/estructura-generacion?start_date=2026-11-01T00:00&end_date=2026-11-30T23:59&tim HTTP Error 500: Internal Server Error
@@ -45,10 +155,14 @@ REE fallo generacion/estructura-generacion?start_date=2026-11-01T00:00&end_date=
 REE fallo generacion/estructura-generacion?start_date=2026-09-01T00:00&end_date=2026-09-30T23:59&tim HTTP Error 500: Internal Server Error
 REE fallo generacion/estructura-generacion?start_date=2026-09-01T00:00&end_date=2026-09-30T23:59&tim HTTP Error 500: Internal Server Error
 ## REE días: 0
-REE fallo generacion/potencia-instalada?start_date=2020-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
-REE fallo generacion/potencia-instalada?start_date=2020-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
-REE fallo generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
-REE fallo generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2023-01-01T00:00&end_date=2023-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2023-01-01T00:00&end_date=2023-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2024-01-01T00:00&end_date=2024-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2024-01-01T00:00&end_date=2024-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2026-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
+REE fallo generacion/potencia-instalada?start_date=2026-01-01T00:00&end_date=2026-12-31T23:59&time_t HTTP Error 500: Internal Server Error
 ## REE potencia instalada: {}
-## calibración eólica {'eol': 1.043, 'eolMW': 1775.2} [('2025-11', 355893, 390571.9), ('2025-12', 155101, 215047.6), ('2026-01', 292132, 310122.9), ('2026-02', 294375, 266250.0), ('2026-03', 359444, 301917.5), ('2026-04', 258566, 240368.8), ('2026-05', 162121, 169512.7), ('2026-06', 201179, 206508.3), ('2026-07', 250218, 261649.7), ('2026-08', 163556, 237102.1), ('2026-09', 211222, None), ('2026-10', 175775, None)]
-## calibración solar {'eol': 1.043, 'eolMW': 1775.2, 'sol': 0.752, 'solMW': 437.4}
+fallo calibración eólica <urlopen error _ssl.c:1063: The handshake operation timed out>
+fallo calibración solar <urlopen error _ssl.c:1063: The handshake operation timed out>
