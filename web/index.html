@@ -2614,9 +2614,9 @@ const ttUrl=(k,key,orb)=>orb?`https://api.tomtom.com/maps/orbis/traffic/tile/flo
 async function ttLoadKey(){if(TTKEY!==null)return TTKEY;TTKEY='';try{const r=await fetch(GH_RAW+'config/tomtom.json?t='+Math.floor(Date.now()/600000));if(r.ok)TTKEY=((await r.json()).key||'').trim();}catch(e){}
   document.getElementById('inTrafBar').style.display=TTKEY?'':'none';return TTKEY;}
 function ttDraw(x,P,b){if(!TTKEY||!document.getElementById('inTraf').checked)return;
-  const z=Math.max(6,Math.min(15,Math.round(Math.log2(360*b.W/(256*(b.e-b.w)))))),n=2**z,tx=lo=>Math.floor((lo+180)/360*n),ty=la=>{const r=la*Math.PI/180;return Math.floor((1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n);},
+  const z=Math.max(7,Math.min(16,1+Math.round(Math.log2(360*b.W*(window.devicePixelRatio||1)/(256*(b.e-b.w)))))),n=2**z,tx=lo=>Math.floor((lo+180)/360*n),ty=la=>{const r=la*Math.PI/180;return Math.floor((1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n);},
     lon=X=>X/n*360-180,lat=Y=>{const k=Math.PI-2*Math.PI*Y/n;return 180/Math.PI*Math.atan(.5*(Math.exp(k)-Math.exp(-k)));};
-  const x0=tx(b.w),x1=tx(b.e),y0=ty(b.n),y1=ty(b.s);if((x1-x0+1)*(y1-y0+1)>60)return;
+  const x0=tx(b.w),x1=tx(b.e),y0=ty(b.n),y1=ty(b.s);if((x1-x0+1)*(y1-y0+1)>120)return;
   x.globalAlpha=.95;
   for(let X=x0;X<=x1;X++)for(let Y=y0;Y<=y1;Y++){const k=z+'/'+X+'/'+Y;let im=TTT[k];
     if(!im){im=TTT[k]=new Image();im.onload=()=>{if(INM)INM.draw();};im.onerror=()=>{if(!TTORB&&!im.retried){TTORB=true;TTT={};if(INM)INM.draw();}};im.src=ttUrl(k,TTKEY,TTORB)+'&t='+Math.floor(Date.now()/300000);}
