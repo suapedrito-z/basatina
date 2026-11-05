@@ -107,7 +107,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button data-t="natarb">🌲 Árboles por zonas</button>
     <button data-t="pesca">🎣 Pesca: tramos y normas</button>
     <button data-t="caza">🦌 Caza: calendario de la temporada</button>
-    <button data-t="natura">🍄 Setas y frutos: qué coger cada mes</button>
+    <button data-t="natura">🍄 Recolección</button>
   </div>
   <div class="dgroup"><span>Energía</span><i>▸</i></div>
   <div class="dsub">
@@ -337,7 +337,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </section>
 <!-- ============ NATURALEZA ============ -->
 <section id="t-natura">
-<div class="seg" id="natTabs"><button class="btn on" data-t="rec"><img class="emo" src="seta.svg" alt=""> Recolección</button><button class="btn" data-t="fau">🦌 Fauna</button><button class="btn" data-t="veg">🌳 Vegetación</button><button class="btn" data-t="arb">🌲 Árboles por zonas</button></div>
+<div class="seg" id="natTabs" style="display:none"><button class="btn on" data-t="rec"><img class="emo" src="seta.svg" alt=""> Recolección</button><button class="btn" data-t="fau">🦌 Fauna</button><button class="btn" data-t="veg">🌳 Vegetación</button><button class="btn" data-t="arb">🌲 Árboles por zonas</button></div>
 <div class="row" id="natMesRow" style="margin:4px 0"><label style="flex:1">Mes</label><select id="natMes" class="town" style="width:auto">
 <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select></div>
 <div class="seg" id="natCats"></div>
@@ -440,7 +440,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Setas y frutos',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
