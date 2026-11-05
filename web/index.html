@@ -125,6 +125,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button data-t="mapa" id="dMapa" style="display:none">🗺️ Mapa del Arga (ahora)</button>
     <button data-t="ciencia" id="dCiencia" style="display:none">🔬 Modo científico</button>
     <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
+    <button data-t="pueblos" id="dPueblos" style="display:none">🏘️ Pueblos de Navarra (en pruebas)</button>
     <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
     <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
@@ -380,6 +381,20 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="note">Fuente: SAIH Ebro (Confederación Hidrográfica del Ebro), datos cada 15 minutos y provisionales. Los avisos amarillo/naranja/rojo son los umbrales oficiales del SAIH cuando existen. <b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original. (CHE, SOS Navarra 112)</div>
 </section>
 <!-- ============ SAIH ============ -->
+<section id="t-pueblos">
+<div id="pbListV">
+<div class="card"><b>🏘️ Pueblos de Navarra de la A a la Z</b><div class="note">En pruebas: solo se ve en la zona técnica. Toca un pueblo para ver sus datos, su historia y sus fotos.</div>
+<div class="row" style="margin-top:8px"><input id="pbQ" class="town" placeholder="🔎 Buscar pueblo o municipio…" style="flex:1;box-sizing:border-box"><button class="btn" id="pbCfgB">⚙️ Edición</button></div>
+<div id="pbCfg" style="display:none;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
+<label>Tu nombre (aparece como autor)</label><input id="pbName" class="town" style="width:100%;box-sizing:border-box">
+<label>Llave de edición de GitHub</label><input id="pbTok" class="town" type="password" autocomplete="off" style="width:100%;box-sizing:border-box">
+<div class="row"><button class="btn pri" id="pbCfgSave">💾 Guardar y comprobar</button><button class="btn" id="pbCfgDel">🗑️ Borrar llave</button></div><div class="note" id="pbCfgMsg"></div>
+<div class="note">La llave se guarda solo en este móvil.</div></div>
+<div id="pbAZ" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px"></div></div>
+<div class="card" id="pbList"><div class="note">Cargando pueblos…</div></div>
+</div>
+<div id="pbFicha" style="display:none"></div>
+</section>
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
@@ -396,7 +411,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1259,7 +1274,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dMapa','dCiencia','dSaih','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
@@ -2211,6 +2226,117 @@ document.querySelectorAll('#drawer button[data-t]').forEach(b=>b.onclick=()=>{co
 
 
 setTimeout(()=>avisosFetch(),2500);setInterval(()=>{AVT=0;avisosFetch();},30*60e3);
+
+/* =====================================================================
+   🏘️ PUEBLOS DE NAVARRA (en pruebas, solo zona técnica)
+   Datos automáticos: municipio, altitud, habitantes, tiempo, vegetación, qué hay cerca.
+   Contenido propio (historia, curiosidades, fiestas, fotos): se guarda en el repositorio
+   de GitHub (carpeta pueblos/) con la llave de edición de cada editor.
+   ===================================================================== */
+const GH_REPO='suapedrito-z/control-rio-arga',GH_API='https://api.github.com/repos/'+GH_REPO+'/contents/',GH_RAW='https://raw.githubusercontent.com/'+GH_REPO+'/main/';
+let PB=null,PBSEL=null,PBDATA=null,PBLOAD=false;
+const slugify=t=>(t||'').split('/')[0].trim().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/ñ/g,'n').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const ghTok=()=>{try{return localStorage.getItem('ghTok')||'';}catch(e){return '';}},edName=()=>{try{return localStorage.getItem('edName')||'';}catch(e){return '';}};
+const b64u=s=>btoa(unescape(encodeURIComponent(s))),ub64=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
+function pbLoad(cb){if(window.PUEBLOS)return cb();if(PBLOAD)return;PBLOAD=true;const s=document.createElement('script');s.src='pueblos.js';s.onload=()=>{PBLOAD=false;cb();};s.onerror=()=>{PBLOAD=false;cb();};document.body.appendChild(s);}
+function pbList(){if(PB)return PB;const P=window.PUEBLOS;if(!P)return [];
+  PB=P.pueblos.map((p,i)=>({i,n:p.n,m:P.municipios[p.m]||{n:''},lat:p.pt[0],lon:p.pt[1],alt:p.alt,slug:slugify(p.n)+'-'+(p.m||'x')}))
+    .sort((a,b)=>a.n.localeCompare(b.n,'es'));return PB;}
+function pbRenderList(){const q=(document.getElementById('pbQ').value||'').trim().toLowerCase(),L=pbList(),el=document.getElementById('pbList');
+  const nq=q.normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const F=nq?L.filter(p=>(p.n+' '+p.m.n).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(nq)):L;
+  let h='',last='';F.slice(0,nq?200:2000).forEach(p=>{const l=p.n.normalize('NFD')[0].toUpperCase();if(l!==last&&!nq){h+=`<div id="pbL_${l}" style="font-weight:700;color:var(--acc);margin:10px 0 2px">${l}</div>`;last=l;}
+    h+=`<div class="st" data-i="${p.i}" style="cursor:pointer"><div><b>${p.n}</b><div class="s">${p.m.n&&p.m.n!==p.n?p.m.n+' · ':''}${p.alt!=null?p.alt+' m':''}</div></div><span class="note">›</span></div>`;});
+  el.innerHTML=`<div class="note">${F.length} pueblos</div>`+h;
+  el.querySelectorAll('[data-i]').forEach(d=>d.onclick=()=>pbOpen(+d.dataset.i));
+  document.getElementById('pbAZ').innerHTML=nq?'':[...new Set(L.map(p=>p.n.normalize('NFD')[0].toUpperCase()))].map(l=>`<button class="btn" data-l="${l}" style="padding:4px 7px">${l}</button>`).join('');
+  document.querySelectorAll('#pbAZ button').forEach(b=>b.onclick=()=>{const t=document.getElementById('pbL_'+b.dataset.l);if(t)t.scrollIntoView({behavior:'smooth'});});}
+// lectura del contenido propio del pueblo (historia, fotos…)
+async function pbRead(slug){const tok=ghTok();
+  try{if(tok){const r=await fetch(GH_API+'pueblos/'+slug+'.json?ref=main',{headers:{Authorization:'Bearer '+tok,Accept:'application/vnd.github+json'}});
+      if(r.status===404)return {d:{},sha:null};const j=await r.json();return {d:JSON.parse(ub64(j.content)),sha:j.sha};}
+    const r=await fetch(GH_RAW+'pueblos/'+slug+'.json?t='+Date.now());if(!r.ok)return {d:{},sha:null};return {d:await r.json(),sha:null};}catch(e){return {d:{},sha:null,err:1};}}
+async function ghPut(path,b64,msg,sha){const r=await fetch(GH_API+path,{method:'PUT',headers:{Authorization:'Bearer '+ghTok(),Accept:'application/vnd.github+json','Content-Type':'application/json'},
+  body:JSON.stringify({message:msg,content:b64,branch:'main',...(sha?{sha}:{})})});if(!r.ok)throw new Error((await r.text()).slice(0,200));return r.json();}
+async function idenaPoint(layer,lat,lon){const d=.0015,u=`https://idena.navarra.es/ogc/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=${layer}&QUERY_LAYERS=${layer}&STYLES=&CRS=EPSG:4258&BBOX=${lat-d},${lon-d},${lat+d},${lon+d}&WIDTH=101&HEIGHT=101&I=50&J=50&INFO_FORMAT=text/html&FEATURE_COUNT=1`;
+  let t='';try{t=APP?(await netGet(u)).body||'':await (await fetch(u)).text();}catch(e){}
+  const th=[...t.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim()),td=[...t.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim());
+  return th.map((k,i)=>[k,td[i]]).filter(([k,v])=>v&&!/^(FID|OBJECTID|GEOM|SHAPE|FEATURE|BEGINLIFE|X25830|Y25830|ID)/i.test(k));}
+const km=(a,b,c,d)=>{const R=6371,x=(d-b)*Math.PI/180*Math.cos((a+c)/2*Math.PI/180),y=(c-a)*Math.PI/180;return Math.hypot(x,y)*R;};
+async function pbOpen(i){const p=pbList().find(x=>x.i===i);if(!p)return;PBSEL=p;document.getElementById('pbListV').style.display='none';const el=document.getElementById('pbFicha');el.style.display='';
+  const M=p.m,dh=M.hab!=null&&M.hab03!=null?M.hab-M.hab03:null;
+  el.innerHTML=`<button class="btn" id="pbBack">‹ Todos los pueblos</button>
+   <div class="card"><b style="font-size:20px">🏘️ ${p.n}</b><div class="note">${M.n&&M.n!==p.n?'Municipio: '+M.n:'Municipio'}</div>
+    <div class="kpi" style="margin-top:8px"><div><span class="note">📏 Altitud</span><b>${p.alt!=null?p.alt+' m':'—'}</b></div>
+     <div><span class="note">👥 Habitantes del municipio (2025)</span><b>${M.hab!=null?M.hab.toLocaleString('es-ES'):'—'}</b>${dh!=null?`<span class="note">${dh>=0?'▲ +':'▼ '}${dh} desde 2003</span>`:''}</div>
+     <div><span class="note">🗺️ Superficie del municipio</span><b>${M.km2!=null?fmtN(M.km2,1)+' km²':'—'}</b></div><div><span class="note">📍 Coordenadas</span><b style="font-size:14px">${p.lat.toFixed(4)}, ${p.lon.toFixed(4)}</b></div></div></div>
+   <div class="card" id="pbWx"><b>🌦️ El tiempo ahora</b><div class="note">Cargando…</div></div>
+   <div class="card" id="pbVeg"><b>🌳 Vegetación y uso del suelo</b><div class="note">Consultando el mapa oficial…</div></div>
+   <div class="card" id="pbNear"><b>🧭 Cerca (5 km)</b><div class="note">Buscando…</div></div>
+   <div id="pbMine"><div class="card"><div class="note">Cargando la historia y las fotos…</div></div></div>`;
+  document.getElementById('pbBack').onclick=pbBack;window.scrollTo(0,0);
+  // tiempo
+  getJSON(`${OM}?latitude=${p.lat}&longitude=${p.lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=4${TZ}`).then(j=>{const w=document.getElementById('pbWx');if(!w)return;
+    if(!j||!j.current){w.innerHTML='<b>🌦️ El tiempo</b><div class="note">No se pudo cargar ahora.</div>';return;}const c=j.current,d=j.daily;
+    w.innerHTML=`<b>🌦️ El tiempo ahora</b><div style="display:flex;align-items:center;gap:12px;margin:6px 0"><span style="font-size:40px">${wxIcon(c.weather_code,new Date().getHours())}</span><div><b style="font-size:28px">${Math.round(c.temperature_2m)}°</b><div class="note">${wDesc(c.weather_code)} · sensación ${Math.round(c.apparent_temperature)}° · humedad ${c.relative_humidity_2m} % · viento ${Math.round(c.wind_speed_10m)} km/h</div></div></div>`+
+      d.time.slice(1).map((x,k)=>{const i2=k+1,dt=new Date(x+'T12:00');return `<div class="dayr"><b>${DOW[dt.getDay()]} ${dt.getDate()}</b><span style="font-size:20px">${wxIcon(d.weather_code[i2],12)}</span><span class="note">${d.precipitation_sum[i2]>0.1?'💧 '+fmtN(d.precipitation_sum[i2],1)+' mm':''}</span><b>${Math.round(d.temperature_2m_max[i2])}° <span class="note">${Math.round(d.temperature_2m_min[i2])}°</span></b></div>`;}).join('');});
+  // vegetación (mapa de cultivos y aprovechamientos 2023 en el punto del pueblo)
+  idenaPoint('OCUPAC_Pol_MCA_VE2023',p.lat,p.lon).then(rows=>{const v=document.getElementById('pbVeg');if(!v)return;
+    v.innerHTML='<b>🌳 Vegetación y uso del suelo</b>'+(rows.length?rows.map(([k,x])=>`<div class="st"><b>${k}</b><span style="text-align:right">${x}</span></div>`).join(''):'<div class="note">El punto cae en el casco urbano o no hay dato. Mira «Árboles por zonas» para el entorno.</div>')+'<div class="note">Mapa de Cultivos y Aprovechamientos 2023 (IDENA).</div>';});
+  // qué hay cerca
+  moLoad(()=>{const n=document.getElementById('pbNear');if(!n)return;const L=[];
+    for(const Lr of MOL){if(['GEOLOG_Sym_Manantiales','IDEMUN_Sym_Fuentes','GEOLOG_Sym_Cuevas'].includes(Lr[0]))continue;for(const f of moFeats(Lr[0])){const pt=f.pt||(f.r&&f.r[0]&&f.r[0][0]);if(!pt)continue;
+      let dmin=km(p.lat,p.lon,pt[0],pt[1]);if(f.r)for(const q of f.r.flat())dmin=Math.min(dmin,km(p.lat,p.lon,q[0],q[1]));if(dmin<=5)L.push({Lr,f,d:dmin,n:Lr[5].map(x=>f.a[x]).find(Boolean)});}}
+    L.sort((a,b)=>a.d-b.d);n.innerHTML='<b>🧭 Cerca (5 km)</b>'+(L.slice(0,12).map(x=>`<div class="st"><span>${x.Lr[1].split(' ')[0]} ${x.n||x.Lr[1]}</span><span class="note">${fmtN(x.d,1)} km</span></div>`).join('')||'<div class="note">Nada registrado a menos de 5 km.</div>');});
+  pbMine(p);}
+async function pbMine(p){const box=document.getElementById('pbMine');const r=await pbRead(p.slug);if(PBSEL!==p)return;PBDATA=r;const d=r.d||{},can=!!ghTok();
+  const sec=(ico,t,k)=>d[k]?`<div class="card"><b>${ico} ${t}</b><div style="white-space:pre-wrap;margin-top:6px;font-size:14.5px;line-height:1.5">${d[k].replace(/</g,'&lt;')}</div></div>`:'';
+  const fotos=(d.fotos||[]);
+  box.innerHTML=sec('📜','Historia','historia')+sec('💡','Curiosidades','curiosidades')+sec('🎉','Fiestas y tradiciones','fiestas')+sec('🍽️','Gastronomía','gastronomia')+
+   (fotos.length?`<div class="card"><b>📷 Fotos</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">${fotos.map((f,k)=>`<div><img src="${GH_RAW+f.f}" data-k="${k}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer"><div class="note" style="font-size:11px">${(f.t||'').replace(/</g,'&lt;')}</div></div>`).join('')}</div></div>`:'')+
+   (!d.historia&&!d.curiosidades&&!d.fiestas&&!d.gastronomia&&!fotos.length?'<div class="card"><div class="note">Todavía no hay historia ni fotos de este pueblo.</div></div>':'')+
+   (d.ed?`<div class="note">Última edición: ${d.ed} · ${d.fe||''}</div>`:'')+
+   (can?'<div class="row"><button class="btn pri" id="pbEdit">✏️ Editar este pueblo</button></div>':'<div class="note">Para editar, configura tu llave en «⚙️ Edición» (arriba de la lista).</div>');
+  box.querySelectorAll('img[data-k]').forEach(im=>im.onclick=()=>pbFoto(GH_RAW+fotos[+im.dataset.k].f,fotos[+im.dataset.k].t));
+  const b=document.getElementById('pbEdit');if(b)b.onclick=()=>pbEditor(p);}
+function pbFoto(src,t){const o=document.createElement('div');o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px';
+  o.innerHTML=`<img src="${src}" style="max-width:100%;max-height:85vh;border-radius:8px"><div style="color:#fff;margin-top:8px;text-align:center">${(t||'').replace(/</g,'&lt;')}</div><div class="note">Toca para cerrar</div>`;o.onclick=()=>o.remove();document.body.appendChild(o);}
+// reducir la foto a 1280 px y JPEG para que pese poco (unos 150-300 KB)
+function pbShrink(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1280/Math.max(im.width,im.height)),c=document.createElement('canvas');
+  c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.8).split(',')[1]);};im.onerror=rej;im.src=fr.result;};fr.onerror=rej;fr.readAsDataURL(file);});}
+function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById('pbMine');const ta=(k,t,ph)=>`<label>${t}</label><textarea id="pbE_${k}" class="town" rows="${k==='historia'?8:4}" placeholder="${ph}" style="width:100%;box-sizing:border-box;font-family:inherit">${(d[k]||'').replace(/</g,'&lt;')}</textarea>`;
+  box.innerHTML=`<div class="card" style="border-color:var(--acc)"><b>✏️ Editar ${p.n}</b>
+   ${ta('historia','📜 Historia','Origen del pueblo, hechos importantes, edificios…')}${ta('curiosidades','💡 Curiosidades','Leyendas, anécdotas, personajes…')}
+   ${ta('fiestas','🎉 Fiestas y tradiciones','Fechas de fiestas, romerías, costumbres…')}${ta('gastronomia','🍽️ Gastronomía','Platos típicos, productos…')}
+   <label>📷 Añadir fotos (paisajes, monumentos; mejor sin personas)</label><input type="file" id="pbE_f" accept="image/*" multiple class="town" style="width:100%;box-sizing:border-box">
+   <input id="pbE_ft" class="town" placeholder="Pie de foto (opcional)" style="width:100%;box-sizing:border-box;margin-top:6px">
+   ${(d.fotos||[]).length?`<div class="note" style="margin-top:6px">Fotos ya subidas (marca para quitarlas):</div>`+d.fotos.map((f,k)=>`<label style="display:flex;gap:6px;align-items:center;margin:3px 0"><input type="checkbox" data-del="${k}"><img src="${GH_RAW+f.f}" style="width:56px;height:42px;object-fit:cover;border-radius:4px">${(f.t||'').replace(/</g,'&lt;')}</label>`).join(''):''}
+   <div class="row"><button class="btn pri" id="pbSave">💾 Guardar</button><button class="btn" id="pbCancel">Cancelar</button></div><div class="note" id="pbMsg"></div>
+   <div class="note">Lo que guardes se publica en el repositorio público de GitHub y lo verán todos los usuarios de la app.</div></div>`;
+  document.getElementById('pbCancel').onclick=()=>pbMine(p);
+  document.getElementById('pbSave').onclick=async()=>{const msg=document.getElementById('pbMsg'),btn=document.getElementById('pbSave');btn.disabled=true;
+    try{const nd=Object.assign({},d,{n:p.n});['historia','curiosidades','fiestas','gastronomia'].forEach(k=>{nd[k]=document.getElementById('pbE_'+k).value.trim();});
+      const del=new Set([...document.querySelectorAll('[data-del]:checked')].map(x=>+x.dataset.del));nd.fotos=(d.fotos||[]).filter((_,k)=>!del.has(k));
+      const files=[...(document.getElementById('pbE_f').files||[])],cap=document.getElementById('pbE_ft').value.trim();
+      for(let k=0;k<files.length;k++){msg.textContent=`Subiendo foto ${k+1} de ${files.length}…`;const b=await pbShrink(files[k]),path=`pueblos/fotos/${p.slug}/${Date.now()}-${k}.jpg`;
+        await ghPut(path,b,`Foto de ${p.n} (${edName()||'app'})`);nd.fotos.push({f:path,t:cap,by:edName()||'',d:ymd(new Date())});}
+      msg.textContent='Guardando los textos…';nd.ed=edName()||'';nd.fe=new Date().toLocaleString('es-ES');
+      // se vuelve a leer la versión actual por si otra persona ha editado mientras tanto
+      const cur=await pbRead(p.slug);const res=await ghPut(`pueblos/${p.slug}.json`,b64u(JSON.stringify(nd,null,1)),`Pueblo ${p.n} (${edName()||'app'})`,cur.sha);
+      msg.textContent='✅ Guardado';PBDATA={d:nd,sha:res.content&&res.content.sha};setTimeout(()=>pbMine(p),600);}
+    catch(e){msg.textContent='❌ No se pudo guardar: '+e.message;btn.disabled=false;}};}
+function pbBack(){PBSEL=null;document.getElementById('pbFicha').style.display='none';document.getElementById('pbListV').style.display='';}
+function pbCfg(){const c=document.getElementById('pbCfg');const show=c.style.display==='none';c.style.display=show?'':'none';if(!show)return;
+  document.getElementById('pbName').value=edName();document.getElementById('pbTok').value=ghTok()?'••••••••••':'';}
+document.getElementById('pbCfgB').onclick=pbCfg;
+document.getElementById('pbCfgSave').onclick=async()=>{const n=document.getElementById('pbName').value.trim(),t=document.getElementById('pbTok').value.trim(),m=document.getElementById('pbCfgMsg');
+  try{localStorage.setItem('edName',n);if(t&&!/^•+$/.test(t))localStorage.setItem('ghTok',t);}catch(e){}
+  m.textContent='Comprobando la llave…';try{const r=await fetch('https://api.github.com/repos/'+GH_REPO,{headers:{Authorization:'Bearer '+ghTok(),Accept:'application/vnd.github+json'}});const j=await r.json();
+    m.textContent=r.ok&&j.permissions&&j.permissions.push?'✅ Llave correcta: puedes editar.':'❌ La llave no tiene permiso de escritura en el repositorio.';}catch(e){m.textContent='❌ No se pudo comprobar: '+e.message;}};
+document.getElementById('pbCfgDel').onclick=()=>{try{localStorage.removeItem('ghTok');}catch(e){}document.getElementById('pbTok').value='';document.getElementById('pbCfgMsg').textContent='Llave borrada de este móvil.';};
+document.getElementById('pbQ').oninput=pbRenderList;
+const _showTabPb=showTab;showTab=function(t){_showTabPb(t);if(t==='pueblos')pbLoad(()=>{pbRenderList();});};
+
 </script>
 </body>
 </html>

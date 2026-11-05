@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -27,6 +29,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class MainActivity extends Activity {
     private WebView web;
+    private ValueCallback<Uri[]> fileCb;   // para elegir fotos desde la página (editor de pueblos)
+    private static final int PICK = 41;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,21 @@ public class MainActivity extends Activity {
         s.setAllowFileAccess(true);            // leer los archivos guardados en la app
         s.setAllowFileAccessFromFileURLs(true);// necesario para leer los mapas de inundación
         web.setWebViewClient(new WebViewClient());
+        // Permite que la página abra la galería o la cámara para elegir fotos (<input type="file">)
+        web.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onShowFileChooser(WebView v, ValueCallback<Uri[]> cb, FileChooserParams p) {
+                if (fileCb != null) fileCb.onReceiveValue(null);
+                fileCb = cb;
+                Intent pick = new Intent(Intent.ACTION_GET_CONTENT);
+                pick.addCategory(Intent.CATEGORY_OPENABLE);
+                pick.setType("image/*");
+                pick.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, p.getMode() == FileChooserParams.MODE_OPEN_MULTIPLE);
+                Intent chooser = Intent.createChooser(pick, "Elegir foto");
+                try { startActivityForResult(chooser, PICK); } catch (Exception e) { fileCb = null; return false; }
+                return true;
+            }
+        });
         web.addJavascriptInterface(new Net(), "AndroidNet");
         // tamaño de letra elegido en Ajustes
         s.setTextZoom(getSharedPreferences("rio", MODE_PRIVATE).getInt("zoom", 100));
@@ -87,6 +106,21 @@ public class MainActivity extends Activity {
     private void callback(String id, int code, String body) {
         final String js = "window.__netCb(" + JSONObject.quote(id) + "," + code + "," + JSONObject.quote(body) + ")";
         runOnUiThread(() -> web.evaluateJavascript(js, null));
+    }
+
+    @Override
+    protected void onActivityResult(int req, int res, Intent data) {
+        super.onActivityResult(req, res, data);
+        if (req != PICK || fileCb == null) return;
+        Uri[] out = null;
+        if (res == RESULT_OK && data != null) {
+            if (data.getClipData() != null) {
+                int n = data.getClipData().getItemCount(); out = new Uri[n];
+                for (int i = 0; i < n; i++) out[i] = data.getClipData().getItemAt(i).getUri();
+            } else if (data.getData() != null) out = new Uri[]{data.getData()};
+        }
+        fileCb.onReceiveValue(out);
+        fileCb = null;
     }
 
     @Override
