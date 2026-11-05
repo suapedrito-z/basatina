@@ -1,0 +1,114 @@
+fallo DGT https://infocar.dgt.es/datex2/dgt/CCTVSiteTablePublication/all/content.xml HTTP Error 502: Bad Gateway
+fallo DGT http://infocar.dgt.es/datex2/dgt/CCTVSiteTablePublication/all/content.xml HTTP Error 502: Bad Gateway
+
+== https://www.enterat.com/servicios/webcams-pamplona-navarra.php 200 text/html; charset=UTF-8 len 19146 imgs 8 cams 8
+  img ../_images/estructura/logo-mini.png
+  img /_images/estructura/logo-mini.png
+  img /_images/servicios/webcams.jpg
+  img https://administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@ARETA_PA_30_5_700.JPG
+  img https://administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@CIZUR_A_12_4_400.JPG
+  img https://administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@CORDOVILLA_PA_32_0_400.JPG
+  img https://administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@DOMO_BERRIOZAR_PA_30_PK_18_200.JPG
+  img https://administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?CodigoCompleto=camarascarreteras@@@DOMO_TALLUNTXE_PA_30_PK_0_200.JPG
+  iframe https://www.youtube.com/embed/m574FHpq7Vo
+  titulos ['Cámara de tráfico en Berriozar', 'Cámara de tráfico en Cordovilla', 'Cámara de tráfico en Egüés', 'Cámara de tráfico en Tajonar', 'Cámara de tráfico en Zizur Mayor', 'Webcams de Pamplona en directo']
+fallo https://www.enterat.com/servicios/camaras-trafico-navarra.php HTTP Error 404: Not Found
+
+== https://www.alberguesyrefugios.com/contacto 200 text/html; charset=UTF-8 len 6942 imgs 1 cams 0
+  titulos []
+
+== https://www.alberguesyrefugios.com/webcams 200 text/html; charset=UTF-8 len 319672 imgs 37 cams 34
+  img https://alberguesyrefugios.com/img/webcams/Aneto.jpg
+  img https://alberguesyrefugios.com/img/webcams/Angel_Urus_b_000M.jpg
+  img https://alberguesyrefugios.com/img/webcams/Cebollar.jpg
+  img https://alberguesyrefugios.com/img/webcams/Cutas.jpg
+  img https://alberguesyrefugios.com/img/webcams/Estos000M.jpg
+  img https://alberguesyrefugios.com/img/webcams/Llauset2.jpg
+  img https://alberguesyrefugios.com/img/webcams/Mondicieto.jpg
+  img https://alberguesyrefugios.com/img/webcams/Nocito.jpg
+  img https://alberguesyrefugios.com/img/webcams/Pineta.jpg
+  img https://alberguesyrefugios.com/img/webcams/alquezar.jpg
+  img https://alberguesyrefugios.com/img/webcams/angel_orus.jpg
+  img https://alberguesyrefugios.com/img/webcams/bachimaña_n.jpg
+  img https://alberguesyrefugios.com/img/webcams/bachimaña_s.jpg
+  img https://alberguesyrefugios.com/img/webcams/belagua.jpg
+  img https://alberguesyrefugios.com/img/webcams/benasque000M.jpg
+  img https://alberguesyrefugios.com/img/webcams/capdellauset.jpg
+  img https://alberguesyrefugios.com/img/webcams/casadepiedra.jpg
+  img https://alberguesyrefugios.com/img/webcams/cebollar_norte.jpg
+  img https://alberguesyrefugios.com/img/webcams/elola.jpg
+  img https://alberguesyrefugios.com/img/webcams/emb.jpg
+  img https://alberguesyrefugios.com/img/webcams/estos.jpg
+  img https://alberguesyrefugios.com/img/webcams/goriz.jpg
+  img https://alberguesyrefugios.com/img/webcams/goriz2.jpg
+  img https://alberguesyrefugios.com/img/webcams/linza.jpg
+  img https://alberguesyrefugios.com/img/webcams/linza2.jpg
+  img https://alberguesyrefugios.com/img/webcams/lizara.jpg
+  img https://alberguesyrefugios.com/img/webcams/moncayo.jpg
+  img https://alberguesyrefugios.com/img/webcams/montfalco.jpg
+  img https://alberguesyrefugios.com/img/webcams/renclusa.jpg
+  img https://alberguesyrefugios.com/img/webcams/renclusab.jpg
+  img https://alberguesyrefugios.com/img/webcams/respomuso.jpg
+  img https://alberguesyrefugios.com/img/webcams/respomuso_2.jpg
+  img https://alberguesyrefugios.com/img/webcams/viados.jpg
+  img https://www.guiesmeranges.com/camara-refugio/image.jpg
+  titulos ['Webcams']
+
+== https://www.alberguesyrefugios.com/ 200 text/html; charset=UTF-8 len 312592 imgs 45 cams 35
+  img https://alberguesyrefugios.com/img/webcams/Aneto.jpg
+  img https://alberguesyrefugios.com/img/webcams/Angel_Urus_b_000M.jpg
+  img https://alberguesyrefugios.com/img/webcams/Cebollar.jpg
+  img https://alberguesyrefugios.com/img/webcams/Cutas.jpg
+  img https://alberguesyrefugios.com/img/webcams/Estos000M.jpg
+  img https://alberguesyrefugios.com/img/webcams/Llauset2.jpg
+  img https://alberguesyrefugios.com/img/webcams/Mondicieto.jpg
+  img https://alberguesyrefugios.com/img/webcams/Nocito.jpg
+  img https://alberguesyrefugios.com/img/webcams/Pineta.jpg
+  img https://alberguesyrefugios.com/img/webcams/alquezar.jpg
+  img https://alberguesyrefugios.com/img/webcams/angel_orus.jpg
+  img https://alberguesyrefugios.com/img/webcams/bachimaña_n.jpg
+  img https://alberguesyrefugios.com/img/webcams/bachimaña_s.jpg
+  img https://alberguesyrefugios.com/img/webcams/belagua.jpg
+  img https://alberguesyrefugios.com/img/webcams/benasque000M.jpg
+  img https://alberguesyrefugios.com/img/webcams/capdellauset.jpg
+  img https://alberguesyrefugios.com/img/webcams/casadepiedra.jpg
+  img https://alberguesyrefugios.com/img/webcams/cebollar_norte.jpg
+  img https://alberguesyrefugios.com/img/webcams/elola.jpg
+  img https://alberguesyrefugios.com/img/webcams/emb.jpg
+  img https://alberguesyrefugios.com/img/webcams/estos.jpg
+  img https://alberguesyrefugios.com/img/webcams/goriz.jpg
+  img https://alberguesyrefugios.com/img/webcams/goriz2.jpg
+  img https://alberguesyrefugios.com/img/webcams/linza.jpg
+  img https://alberguesyrefugios.com/img/webcams/linza2.jpg
+  img https://alberguesyrefugios.com/img/webcams/lizara.jpg
+  img https://alberguesyrefugios.com/img/webcams/moncayo.jpg
+  img https://alberguesyrefugios.com/img/webcams/montfalco.jpg
+  img https://alberguesyrefugios.com/img/webcams/renclusa.jpg
+  img https://alberguesyrefugios.com/img/webcams/renclusab.jpg
+  img https://alberguesyrefugios.com/img/webcams/respomuso.jpg
+  img https://alberguesyrefugios.com/img/webcams/respomuso_2.jpg
+  img https://alberguesyrefugios.com/img/webcams/viados.jpg
+  img https://www.guiesmeranges.com/camara-refugio/image.jpg
+  img img/iconos/v3/verde/Webcams.png
+  titulos ['Webcams']
+fallo https://www.larrabelagua.com/ <urlopen error [Errno -2] Name or service not known>
+fallo https://www.larra-belagua.com/ <urlopen error [Errno -2] Name or service not known>
+fallo https://www.valledelroncal.es/webcams <urlopen error [Errno -2] Name or service not known>
+fallo https://www.vallederoncal.es/ <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.vallederoncal.es'. (_ssl.c:1081)>
+
+== https://www.windy.com/webcams/1519730803 200 text/html len 8111 imgs 10 cams 0
+  titulos []
+
+== https://www.windy.com/webcams/1610092408 200 text/html len 8111 imgs 10 cams 0
+  titulos []
+fallo https://www.navarra.es/es/carreteras <urlopen error timed out>
+fallo https://www.navarra.es/es/web/carreteras/camaras <urlopen error timed out>
+fallo https://carreteras.navarra.es/ <urlopen error timed out>
+fallo https://www.trafikoa.eus/ <urlopen error timed out>
+fallo https://www.meteonavarra.es/webcams <urlopen error [Errno -2] Name or service not known>
+fallo https://www.meteoroncal.com/ <urlopen error [Errno -2] Name or service not known>
+
+== https://www.abodi.es/ 200 text/html; charset=UTF-8 len 883454 imgs 8 cams 0
+  titulos []
+fallo https://www.turismo.navarra.es/esp/organice-viaje/webcams/ <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1081)>
+fallo https://www.visitnavarra.es/es/webcams HTTP Error 404: Not Found
