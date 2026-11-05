@@ -464,7 +464,8 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="card"><b>🌧️ Radar de lluvia</b><div class="note">Dónde está lloviendo (o nevando) ahora y en las últimas 2 horas. Dale a ▶️ para ver hacia dónde se mueve.</div>
 <div class="row" style="align-items:center;margin-top:6px"><button class="btn pri" id="rdPlay">▶️</button><input type="range" id="rdT" min="0" max="0" value="0" style="flex:1"><b id="rdLbl" style="min-width:64px;text-align:right"></b></div></div>
 <div class="card"><div style="position:relative"><canvas id="rdc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="rdcIn">＋</button><button class="btn mtb" id="rdcOut">－</button></div></div><div class="note" style="margin-top:4px">Cuanto más intenso el color, más fuerte llueve; los tonos rojizos son tormenta. El morado con borde es Petilla de Aragón, que es de Navarra, no lluvia.</div></div>
-<div class="card" id="rdAemet"><b>⚡ Rayos (AEMET)</b><div class="note" id="rdAeNote">Cargando…</div><div id="rdAeImgs"></div><div class="row"><button class="btn" id="rdRayos">⚡ Abrir el mapa de rayos de AEMET</button></div></div>
+<div class="card" id="rdEus"><b>⚡ Rayos en Euskadi y Navarra (Euskalmet)</b><div class="note" id="rdEusN">Cargando…</div></div>
+<div class="card" id="rdAemet"><b>⚡ Rayos y radar (AEMET)</b><div class="note" id="rdAeNote">Cargando…</div><div id="rdAeImgs"></div><div class="row"><button class="btn" id="rdRayos">⚡ Abrir el mapa de rayos de AEMET</button></div></div>
 <div class="card tech" style="display:none"><b>🔧 Claves de radar y rayos</b>
  <div class="note">Rainbow.ai (radar con previsión de 4 horas) y AEMET OpenData (rayos y radar oficial). Se guardan en el repositorio para que todos los móviles las usen.</div>
  <label style="display:block;margin-top:8px">Clave de Rainbow.ai<input id="kyRain" class="town" autocomplete="off" placeholder="Pega aquí la clave de Rainbow" style="width:100%;box-sizing:border-box"></label>
@@ -2918,11 +2919,39 @@ mtRadar=function(x,W,H,P,leg){const L=RDF.filter(f=>!f.nc),f=L.length?L[L.length
 async function aeImg(path,k){const r=await httpText('https://opendata.aemet.es/opendata/api/'+path+'?api_key='+encodeURIComponent(k));try{const j=JSON.parse(r.body);return j.estado===200?j.datos:null;}catch(e){return null;}}
 async function aeLoad(){const n=document.getElementById('rdAeNote'),box=document.getElementById('rdAeImgs');if(!n)return;const k=await keyGet('aemet');
   if(!k){n.textContent='Sin la clave de AEMET no se pueden enseñar los rayos aquí. Mientras tanto, puedes abrir su mapa oficial:';box.innerHTML='';return;}
-  n.textContent='Pidiendo los mapas a AEMET…';const [ry,rz]=await Promise.all([aeImg('red/rayos/mapa',k),aeImg('red/radar/regional/za',k)]);
+  n.textContent='Pidiendo los mapas a AEMET…';const [ry,rz]=await Promise.all([aeImg('red/rayos/mapa',k),aeImg('red/radar/regional/ss',k)]);
   n.textContent=ry||rz?'Mapas oficiales de AEMET. Toca uno para verlo en grande.':'AEMET no responde ahora. Prueba en un rato.';
-  box.innerHTML=[[ry,'⚡ Rayos de las últimas horas en España'],[rz,'📡 Radar de Zaragoza (cubre Navarra)']].filter(x=>x[0]).map(([u,t])=>`<div style="margin-top:8px"><b style="font-size:14px">${t}</b><img src="${u}" style="width:100%;border-radius:8px;margin-top:4px;background:#fff;cursor:zoom-in" data-t="${t}" onerror="this.parentNode.remove()"></div>`).join('');
+  box.innerHTML=[[ry,'⚡ Rayos de las últimas horas en España'],[rz,'📡 Radar de AEMET del Cantábrico (País Vasco y Navarra)']].filter(x=>x[0]).map(([u,t])=>`<div style="margin-top:8px"><b style="font-size:14px">${t}</b><img src="${u}" style="width:100%;border-radius:8px;margin-top:4px;background:#fff;cursor:zoom-in" data-t="${t}" onerror="this.parentNode.remove()"></div>`).join('');
   box.querySelectorAll('img').forEach(im=>im.onclick=()=>pbFoto(im.src,im.dataset.t));}
 const _rdInit0=rdInit;rdInit=function(){_rdInit0();aeLoad();};
+
+
+/* ---------- 📡 radar de Kapildui (Euskalmet): imágenes cada 10 min, más detalle sobre Navarra ---------- */
+const EUS='https://www.euskalmet.euskadi.eus/vamet/',EUSB={n:43.655708,s:41.864983,w:-3.7478,e:-1.2893926};
+let EUSF=[],EUSAT=0;const EUSI={};
+// lista de imágenes del día (carpeta pública): las que pesan mucho son «sin datos»
+async function eusList(dir){const r=await httpText(EUS+dir+'?t='+Math.floor(Date.now()/60000));const L=[];
+  for(const m of r.body.replace(/<[^>]+>/g,' ').matchAll(/(webmet00-(\d{4})\.png)\s+([\d-]+ [\d:]+)\s+([\d.]+[KM]?)/g)){const sz=m[4],kb=/M/.test(sz)?9999:parseFloat(sz);L.push({f:m[1],hm:m[2],kb});}return L;}
+async function eusLoad(){if(Date.now()-EUSAT<5*60e3&&EUSF.length)return EUSF;EUSAT=Date.now();
+  try{const L=await eusList('radar_kapildui_detail/intensity/today/');const now=new Date(),nowHM=now.getUTCHours()*100+now.getUTCMinutes();
+    const ok=L.filter(x=>x.kb<60&&+x.hm<=nowHM);EUSF=ok.slice(-13).map(x=>{const t=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate(),+x.hm.slice(0,2),+x.hm.slice(2)));return {time:t/1000,src:EUS+'radar_kapildui_detail/intensity/today/'+x.f+'?d='+t.toISOString().slice(0,10)};});}catch(e){EUSF=[];}
+  return EUSF;}
+function eusDraw(x,P,f,redraw){if(!f)return;let im=EUSI[f.src];if(!im){im=EUSI[f.src]=new Image();im.onload=redraw;im.src=f.src;}
+  if(im.complete&&im.naturalWidth){const [ax,ay]=P(EUSB.n,EUSB.w),[bx,by]=P(EUSB.s,EUSB.e);x.globalAlpha=.9;x.drawImage(im,ax,ay,bx-ax,by-ay);x.globalAlpha=1;}}
+// el fotograma de Euskalmet más cercano a la hora del radar general
+const eusAt=t=>{let b=null,d=1e9;for(const f of EUSF){const k=Math.abs(f.time-t);if(k<d){d=k;b=f;}}return d<=1800?b:null;};
+const _rdDraw1=rdDraw;rdDraw=function(x,P,b){_rdDraw1(x,P,b);const f=RDF[RDI];if(f&&!f.nc)eusDraw(x,P,eusAt(f.time),()=>RDM&&RDM.draw());};
+const _mtRadar1=mtRadar;mtRadar=function(x,W,H,P,leg){_mtRadar1(x,W,H,P,leg);const L=RDF.filter(f=>!f.nc),f=L[L.length-1];if(f)eusDraw(x,P,eusAt(f.time)||EUSF[EUSF.length-1],()=>{if(MTL==='radar')mtDraw();});
+  if(!EUSF.length&&Date.now()-EUSAT>5*60e3)eusLoad().then(()=>{if(MTL==='radar')mtDraw();});};
+const _rdLoad1=rdLoad;rdLoad=async function(){await Promise.all([_rdLoad1(),eusLoad()]);if(RDM)RDM.draw();
+  const s=document.getElementById('rdSrc');if(s&&EUSF.length&&!/Euskalmet/.test(s.textContent))s.textContent+=' Sobre el oeste y centro de Navarra, con más detalle, el radar de Kapildui (Euskalmet).';};
+// rayos de Euskalmet (red LINET): imagen del último periodo
+async function eusRayos(){const n=document.getElementById('rdEusN');if(!n)return;
+  try{const L=await eusList('radar_ray/lightning/'),now=new Date(),nowHM=now.getUTCHours()*100+now.getUTCMinutes(),c=L.filter(x=>+x.hm<=nowHM).slice(-1)[0];
+    if(!c){n.textContent='Sin datos ahora.';return;}const u=EUS+'radar_ray/lightning/'+c.f+'?d='+now.toISOString().slice(0,13);
+    n.innerHTML=`Rayos de la última hora y media detectados por la red LINET (cubre Euskadi y casi toda Navarra). Toca para verla en grande.<img src="${u}" style="width:100%;border-radius:8px;margin-top:6px;background:#fff;cursor:zoom-in" onerror="this.remove()">`;
+    n.querySelector('img').onclick=e=>pbFoto(e.target.src,'⚡ Rayos · Euskalmet (red LINET)');}catch(e){n.textContent='Euskalmet no responde ahora.';}}
+const _rdInit1=rdInit;rdInit=function(){_rdInit1();eusRayos();};
 
 </script>
 </body>
