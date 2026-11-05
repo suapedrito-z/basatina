@@ -2293,8 +2293,8 @@ async function pbOpen(i){const p=pbList().find(x=>x.i===i);if(!p)return;PBSEL=p;
   const M=p.m,dh=M.hab!=null&&M.hab03!=null?M.hab-M.hab03:null;
   el.innerHTML=`<button class="btn" id="pbBack">‹ Todos los pueblos</button>
    <div class="card"><b style="font-size:20px">🏘️ ${p.n}</b><div class="note">${M.n&&M.n!==p.n?'Municipio: '+M.n:'Municipio'}</div>
-    <div class="kpi" style="margin-top:8px"><div><span class="note">📏 Altitud</span><b>${p.alt!=null?p.alt+' m':'—'}</b></div>
-     <div><span class="note">👥 Habitantes del municipio (2025)</span><b>${M.hab!=null?M.hab.toLocaleString('es-ES'):'—'}</b>${dh!=null?`<span class="note">${dh>=0?'▲ +':'▼ '}${dh} desde 2003</span>`:''}</div>
+    <div class="kpi" style="margin-top:8px"><div id="pbKAlt"><span class="note">📏 Altitud</span><b>${p.alt!=null?p.alt+' m':'—'}</b></div>
+     <div id="pbKHab"><span class="note">👥 Habitantes del municipio (2025)</span><b>${M.hab!=null?M.hab.toLocaleString('es-ES'):'—'}</b>${dh!=null?`<span class="note">${dh>=0?'▲ +':'▼ '}${dh} desde 2003</span>`:''}</div>
      <div><span class="note">🗺️ Superficie del municipio</span><b>${M.km2!=null?fmtN(M.km2,1)+' km²':'—'}</b></div><div><span class="note">📍 Coordenadas</span><b style="font-size:14px">${p.lat.toFixed(4)}, ${p.lon.toFixed(4)}</b></div></div></div>
    <div class="card" id="pbWx"><b>🌦️ El tiempo ahora</b><div class="note">Cargando…</div></div>
    <div class="card" id="pbVeg"><b>🌳 Vegetación y uso del suelo</b><div class="note">Consultando el mapa oficial…</div></div>
@@ -2316,6 +2316,10 @@ async function pbOpen(i){const p=pbList().find(x=>x.i===i);if(!p)return;PBSEL=p;
     L.sort((a,b)=>a.d-b.d);n.innerHTML='<b>🧭 Cerca (5 km)</b>'+(L.slice(0,12).map(x=>`<div class="st"><span>${x.Lr[1].split(' ')[0]} ${x.n||x.Lr[1]}</span><span class="note">${fmtN(x.d,1)} km</span></div>`).join('')||'<div class="note">Nada registrado a menos de 5 km.</div>');});
   pbMine(p);}
 async function pbMine(p){const box=document.getElementById('pbMine');const r=await pbRead(p.slug);if(PBSEL!==p)return;PBDATA=r;const d=r.d||{},can=!!ghTok();
+  // datos corregidos a mano (habitantes del pueblo, altitud): mandan sobre los automáticos
+  const M=p.m,kh=document.getElementById('pbKHab'),ka=document.getElementById('pbKAlt'),quien=d.datBy?` por ${d.datBy.replace(/</g,'&lt;')}`:'';
+  if(kh&&d.hab!=null&&d.hab!=='')kh.innerHTML=`<span class="note">👥 Habitantes del pueblo${d.habAno?' ('+d.habAno+')':''}</span><b>${(+d.hab).toLocaleString('es-ES')}</b><span class="note">✏️ corregido${quien}${M.hab!=null&&M.n!==p.n?` · municipio de ${M.n}: ${M.hab.toLocaleString('es-ES')}`:''}</span>`;
+  if(ka&&d.alt!=null&&d.alt!=='')ka.innerHTML=`<span class="note">📏 Altitud</span><b>${d.alt} m</b><span class="note">✏️ corregido${quien}</span>`;
   const sec=(ico,t,k)=>d[k]?`<div class="card"><b>${ico} ${t}</b><div style="white-space:pre-wrap;margin-top:6px;font-size:14.5px;line-height:1.5">${d[k].replace(/</g,'&lt;')}</div></div>`:'';
   const fotos=(d.fotos||[]);
   box.innerHTML=sec('📜','Historia','historia')+sec('💡','Curiosidades','curiosidades')+sec('🎉','Fiestas y tradiciones','fiestas')+sec('🍽️','Gastronomía','gastronomia')+
@@ -2334,6 +2338,10 @@ function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById(
   box.innerHTML=`<div class="card" style="border-color:var(--acc)"><b>✏️ Editar ${p.n}</b>
    ${ta('historia','📜 Historia','Origen del pueblo, hechos importantes, edificios…')}${ta('curiosidades','💡 Curiosidades','Leyendas, anécdotas, personajes…')}
    ${ta('fiestas','🎉 Fiestas y tradiciones','Fechas de fiestas, romerías, costumbres…')}${ta('gastronomia','🍽️ Gastronomía','Platos típicos, productos…')}
+   <div style="margin-top:10px;padding:8px;border:1px dashed var(--line);border-radius:8px"><b>📊 Corregir datos</b><div class="note">Si un dato automático está mal (por ejemplo, salen los habitantes de todo el valle), pon aquí el bueno. Déjalo vacío para usar el automático.</div>
+    <div class="row" style="gap:6px;margin-top:6px"><label style="flex:2">👥 Habitantes del pueblo<input id="pbE_hab" type="number" min="0" class="town" style="width:100%;box-sizing:border-box" value="${d.hab??''}" placeholder="${p.m.hab??''}"></label>
+     <label style="flex:1">Año<input id="pbE_habAno" type="number" min="1900" max="2100" class="town" style="width:100%;box-sizing:border-box" value="${d.habAno??''}" placeholder="${new Date().getFullYear()}"></label></div>
+    <label>📏 Altitud (m)<input id="pbE_alt" type="number" class="town" style="width:100%;box-sizing:border-box" value="${d.alt??''}" placeholder="${p.alt??''}"></label></div>
    <label>📷 Añadir fotos (paisajes, monumentos; mejor sin personas)</label><input type="file" id="pbE_f" accept="image/*" multiple class="town" style="width:100%;box-sizing:border-box">
    <input id="pbE_ft" class="town" placeholder="Pie de foto (opcional)" style="width:100%;box-sizing:border-box;margin-top:6px">
    ${(d.fotos||[]).length?`<div class="note" style="margin-top:6px">Fotos ya subidas (marca para quitarlas):</div>`+d.fotos.map((f,k)=>`<label style="display:flex;gap:6px;align-items:center;margin:3px 0"><input type="checkbox" data-del="${k}"><img src="${GH_RAW+f.f}" style="width:56px;height:42px;object-fit:cover;border-radius:4px">${(f.t||'').replace(/</g,'&lt;')}</label>`).join(''):''}
@@ -2342,6 +2350,7 @@ function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById(
   document.getElementById('pbCancel').onclick=()=>pbMine(p);
   document.getElementById('pbSave').onclick=async()=>{const msg=document.getElementById('pbMsg'),btn=document.getElementById('pbSave');btn.disabled=true;
     try{const nd=Object.assign({},d,{n:p.n});['historia','curiosidades','fiestas','gastronomia'].forEach(k=>{nd[k]=document.getElementById('pbE_'+k).value.trim();});
+      ['hab','habAno','alt'].forEach(k=>{const v=document.getElementById('pbE_'+k).value.trim();if(v==='')delete nd[k];else nd[k]=Math.round(+v);});if(nd.hab!=null||nd.alt!=null)nd.datBy=edName()||'';else delete nd.datBy;
       const del=new Set([...document.querySelectorAll('[data-del]:checked')].map(x=>+x.dataset.del));nd.fotos=(d.fotos||[]).filter((_,k)=>!del.has(k));
       const files=[...(document.getElementById('pbE_f').files||[])],cap=document.getElementById('pbE_ft').value.trim();
       for(let k=0;k<files.length;k++){msg.textContent=`Subiendo foto ${k+1} de ${files.length}…`;const b=await pbShrink(files[k]),path=`pueblos/fotos/${p.slug}/${Date.now()}-${k}.jpg`;
