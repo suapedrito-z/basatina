@@ -1,14 +1,11 @@
 import urllib.request, re
 OUT = []
 def get(u):
-    with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0 (Linux; Android 14) Chrome/124 Mobile", "Referer": "https://www.euskalmet.euskadi.eus/observacion/radar-kapildui-precipitaciones/"}), timeout=60) as f: return f.read().decode("utf8", "ignore")
-B = "https://www.euskalmet.euskadi.eus"
-for p in ["/scripts/webmet00-radarkapildui-script.js", "/scripts/custom/js/webmet00-kapilduiMini.js"]:
+    with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0 (Linux; Android 14) Chrome/124 Mobile"}), timeout=60) as f: return dict(f.headers), f.read()
+B = "https://www.euskalmet.euskadi.eus/vamet/radar_kapildui_detail/"
+for d in ["", "intensity/today/", "intensity/", "acumulated/today/", "long_range/today/", "long_range/", "reflectivity/today/"]:
     try:
-        t = get(B + p); OUT.append(f"===== {p} {len(t)}")
-        for m in re.finditer(r".{0,250}(?:getUrlFunction|getUrlLocal|http|\.png|\.gif|vamet|/media/).{0,250}", t): OUT.append("  > " + m.group(0)[:500])
-    except Exception as e: OUT.append(f"fallo {p} {e}")
-for d in ["/vamet/radar/", "/vamet/radar_kapildui/", "/vamet/"]:
-    try: OUT.append(f"== {d}\n" + re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", get(B + d)))[:2500])
+        h, b = get(B + d); t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", b.decode("utf8", "ignore")))
+        OUT.append(f"== {d} ACAO={h.get('Access-Control-Allow-Origin')}\n{t[:600]} ... {t[-500:]}")
     except Exception as e: OUT.append(f"fallo {d} {e}")
 open("tools/camaras_info.txt", "w").write("\n".join(OUT))
