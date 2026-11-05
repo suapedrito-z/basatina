@@ -277,7 +277,6 @@
     [/^Camino (francés|aragonés) · etapa (\d+): (.+) – (.+)$/, 'Done Jakue bidea ($1) · $2. etapa: $3 – $4'],
     [/^Dibujando las rutas recomendadas: (\d+) de (\d+)…$/, 'Gomendatutako ibilbideak marrazten: $1 / $2…'],
     [/^(.+) · histórico hasta (.+)$/, '$1 · historikoa $2 arte'],
-    [/^pantalla (\d+)$/, 'pantaila $1'],
     [/^Hoy, (.+): (\d+) modalidades abiertas$/, 'Gaur, $1: $2 modalitate irekita'],
   ];
   const PRE = /^[^\p{L}\p{N}¿¡«“(]+/u, SUF = /[\s:·…,.]+$/u;

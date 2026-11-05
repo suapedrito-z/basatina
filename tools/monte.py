@@ -81,7 +81,13 @@ def om_elev(pts):  # alturas del modelo del terreno de Open-Meteo, de 100 en 100
     for i in range(0, len(pts), 100):
         ch = pts[i:i+100]
         u = "https://api.open-meteo.com/v1/elevation?latitude=" + ",".join(f"{p[0]:.5f}" for p in ch) + "&longitude=" + ",".join(f"{p[1]:.5f}" for p in ch)
-        out += json.loads(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read())["elevation"]; time.sleep(1)
+        for intento in range(4):   # Open-Meteo a veces tarda en contestar: hasta 4 intentos
+            try:
+                out += json.loads(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read())["elevation"]; break
+            except Exception:
+                if intento == 3: raise
+                time.sleep(8)
+        time.sleep(1)
     return out
 def perfil(pts, N=150):
     d = [0.0]
@@ -204,7 +210,9 @@ try:
         for k in range(len(nudos) - 1):
             seg = camino(V, adj, nudos[k], nudos[k + 1]); na, nb = nombres[k], nombres[k + 1]
             if not seg or sum(km(seg[i - 1], seg[i]) for i in range(1, len(seg))) < 3: continue   # trocitos de menos de 3 km
-            n += 1; r = perfil_linea(seg)
+            n += 1
+            try: r = perfil_linea(seg)
+            except Exception as e: r = None; info.append(f"sin alturas {rama} etapa {n}: {e}")
             g = {"a": {"TRAMO": f"Camino {rama} · etapa {n}: {na} – {nb}", "LUGARINI": na, "LUGARFIN": nb}, "r": [seg]}
             if r: g["s"], g["pf"] = r
             etapas.append(g); info.append(f"Camino {rama} etapa {n}: {na} – {nb}: {r[0]['km'] if r else '?'} km")
