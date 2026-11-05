@@ -1,551 +1,209 @@
 
-===== js/script.js 200
-﻿var Carreteras = Carreteras || {};
+===== api/incidents 200 application/json; charset=utf-8 ACAO=None 36017
+{"incidencia":[{"id_incidencia":122122,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"05/11/2026 7:58:16","canal_modificacion":"web","fecha":"05/11/2026 7:50:00","fecha_fin":null,"id_carretera":7,"nombre_carretera":"A-68 AUTOVÍA DEL EBRO","cod_carretera_actual":"A-68","pk":98,"hm":650,"utm_x":616917,"utm_y":4654334,"id_tipo":47,"id_gravedad":11,"titulo":"Enlace  cortado","notas":"","publicable":true,"id_afeccion":28,"desvio_ruta":null,"desvio_texto":null,"guid":"0860e859-3a48-402d-81d0-be3356c1efd8","tipo":"Trabajos de asfaltado","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":"Corte del enlace de la A-68 con la NA-134 (rotonda del Eroski) y la propia rotonda, los días 5 y 6 de noviembre, por trabajos de refuerzo del firme. Los desvíos estarán debidamente señalizados.","id_distrito":4,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Ramal cortado","color":"rojo","nivel_afeccion":0,"distrito":"Tudela","icono_especial":false,"importancia_via":2,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":2,"CERRADA":0,"geo_x":616917,"geo_y":4654334,"categoria_icono":"Obras","fecha_js":"202611050750"},{"id_incidencia":122119,"id_operador":"Centro Control Conservación Carreteras (Obras Públicas) ","fecha_modificacion":"05/11/2026 2:11:40","canal_modificacion":"web","fecha":"05/11/2026 2:10:00","fecha_fin":null,"id_carretera":1,"nombre_carretera":"AP-15 AUTOPISTA DE NAVARRA","cod_carretera_actual":"AP-15","pk":103,"hm":0,"utm_x":602200,"utm_y":4747031,"id_tipo":37,"id_gravedad":11,"titulo":"Corte de carril derecho","notas":"","publicable":true,"id_afeccion":4,"desvio_ruta":null,"desvio_texto":null,"guid":"eee24f2d-ae08-4374-8a93-8c5d378d4729","tipo":"OBRAS","gravedad":"Leve","importancia":4,"id_operador2":"4","descripcion":"Corte de carril derecho entre los PK 103 al 104, por trabajos de estructura. ","id_distrito":5,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Carril derecho cerrado","color":"amarillo","nivel_afeccion":0,"distrito":"Irurtzun Autovías","icono_especial":false,"importancia_via":1,"id_tunel":0,"tunel":"","id_jefe_unidad":5,"JEFE_UNIDAD":"Pedro Larrainzar","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":3,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":1,"CERRADA":0,"geo_x":602200,"geo_y":4747031,"categoria_icono":"Obras","fecha_js":"202611050210"},{"id_incidencia":122117,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"05/11/2026 7:23:53","canal_modificacion":"web","fecha":"05/11/2026 7:12:00","fecha_fin":null,"id_carretera":7,"nombre_carretera":"A-68 AUTOVÍA DEL EBRO","cod_carretera_actual":"A-68","pk":92,"hm":0,"utm_x":612609,"utm_y":4658943,"id_tipo":57,"id_gravedad":11,"titulo":"Carril izquierdo cortado","notas":"","publicable":true,"id_afeccion":6,"desvio_ruta":null,"desvio_texto":null,"guid":"4da4044f-78ca-41ad-8d09-205a6ff040b4","tipo":"Trabajos de jardinería","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":"Corte de carril izquierdo entre los PK 92 y 98, sentido Pamplona, por trabajos de jardinería en la mediana, entre el 6 y el 11 de noviembre. ","id_distrito":4,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Carril izquierdo cerrado","color":"amarillo","nivel_afeccion":0,"distrito":"Tudela","icono_especial":false,"importancia_via":2,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":2,"CERRADA":0,"geo_x":612609,"geo_y":4658943,"categoria_icono":"Obras","fecha_js":"202611050712"},{"id_incidencia":122109,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"03/11/2026 9:29:05","canal_modificacion":"web","fecha":"03/11/2026 9:26:00","fecha_fin":null,"id_carretera":902,"nombre_carretera":"NA-1110 GALAR - VIANA","cod_carretera_actual":"NA-1110","pk":37,"hm":0,"utm_x":579794,"utm_y":4724645,"id_tipo":57,"id_gravedad":11,"titulo":"Paso alternativo","notas":"","publicable":true,"id_afeccion":13,"desvio_ruta":null,"desvio_texto":null,"guid":"91885f14-fdc6-4c15-9f60-2cc327b4d5ab","tipo":"Trabajos de jardinería","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":"Paso alternativo regulado con semáforos en el PK 37 de la NA-1110, Galar-Viana, por trabajos de poda y tala. ","id_distrito":2,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Paso alternativo","color":"amarillo","nivel_afeccion":0,"distrito":"Estella","icono_especial":false,"importancia_via":5,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":7,"CERRADA":0,"geo_x":579794,"geo_y":4724645,"categoria_icono":"Obras","fecha_js":"202611030926"},{"id_incidencia":122063,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"03/11/2026 8:40:26","canal_modificacion":"web","fecha":"03/11/2026 8:40:00","fecha_fin":null,"id_carretera":102,"nombre_carretera":"NA-411 'A-15' - OSTIZ / OSTITZ","cod_carretera_actual":"NA-411","pk":6,"hm":0,"utm_x":596870,"utm_y":4760730,"id_tipo":24,"id_gravedad":10,"titulo":"Paso alternativo","notas":"durarán 3 o 4 semanas.","publicable":true,"id_afeccion":13,"desvio_ruta":null,"desvio_texto":null,"guid":"81b1bcfe-9882-4c31-b5f8-d7bf2c73e2a6","tipo":"Afecciones a obras","gravedad":"Medio","importancia":3,"id_operador2":"2","descripcion":"Paso alternativo regulado por semáforos entre el PK 6 y 7, por trabajos de saneo de calzada.","id_distrito":8,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Paso alternativo","color":"amarillo","nivel_afeccion":0,"distrito":"Irurtzun Carreteras","icono_especial":false,"importancia_via":4,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":5,"CERRADA":0,"geo_x":596870,"geo_y":4760730,"categoria_icono":"Obras","fecha_js":"202611030840"},{"id_incidencia":122003,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"27/10/2026 10:41:42","canal_modificacion":"web","fecha":"27/10/2026 10:39:00","fecha_fin":null,"id_carretera":1,"nombre_carretera":"AP-15 AUTOPISTA DE NAVARRA","cod_carretera_actual":"AP-15","pk":51,"hm":0,"utm_x":609746,"utm_y":4708057,"id_tipo":37,"id_gravedad":11,"titulo":"Corte de carril izquierdo","notas":"","publicable":true,"id_afeccion":6,"desvio_ruta":null,"desvio_texto":null,"guid":"0d115715-f44a-4bf8-bce2-77bba8c68d2c","tipo":"OBRAS","gravedad":"Leve","importancia":4,"id_operador2":"16","descripcion":"Carril izquierdo cortado entre los PK 51 y 52, sentido norte, por reparación de estructura. ","id_distrito":3,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Carril izquierdo cerrado","color":"amarillo","nivel_afeccion":0,"distrito":"Tafalla","icono_especial":false,"importancia_via":1,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":7,"JEFE_TURNO":"Patxi Ruiz","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":1,"CERRADA":0,"geo_x":609746,"geo_y":4708057,"categoria_icono":"Obras","fecha_js":"202610271039"},{"id_incidencia":121950,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"05/10/2026 9:10:22","canal_modificacion":"web","fecha":"05/10/2026 9:02:00","fecha_fin":null,"id_carretera":6,"nombre_carretera":"A-1 AUTOVÍA DEL NORTE","cod_carretera_actual":"A-1","pk":396,"hm":0,"utm_x":565928,"utm_y":4747839,"id_tipo":37,"id_gravedad":11,"titulo":"Arcén derecho ocupado","notas":"","publicable":true,"id_afeccion":1,"desvio_ruta":null,"desvio_texto":null,"guid":"4d0b497d-5213-44f8-b29c-f8f7e3eb246c","tipo":"OBRAS","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":"Arcén derecho ocupado en el PK 396, por instalación de fibra óptica.","id_distrito":5,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Arcén derecho ocupado","color":"verde","nivel_afeccion":0,"distrito":"Irurtzun Autovías","icono_especial":false,"importancia_via":2,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":12,"JEFE_TURNO":"Fernando González","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":2,"CERRADA":0,"geo_x":565928,"geo_y":4747839,"categoria_icono":"Obras","fecha_js":"202610050902"},{"id_incidencia":121907,"id_operador":"Belén Lahuerta Pérez","fecha_modificacion":"05/10/2026 10:54:12","canal_modificacion":"web","fecha":"25/09/2026 9:45:00","fecha_fin":null,"id_carretera":490,"nombre_carretera":"NA-7010 ASTRÁIN - IRURTZUN","cod_carretera_actual":"NA-7010","pk":7,"hm":370,"utm_x":602292,"utm_y":4741054,"id_tipo":37,"id_gravedad":11,"titulo":"Tramo prohibido a Cicloturistas","notas":"•*** Las INCIDENCIAS que ocurran en la NA-7010, entre el PK 7+370 y 16+415, se pasarán a Irurtzun Carreteras, a excepción de las causadas por los propios camiones (BARRO básicamente o la señalización del cruce) Especialmente en el PK 15+340 que es el punto por donde acceden a la cantera***nEmpresa adjudicataria; Obras Especiales Edificación e Infraestructuras (OBENASA)n•tResponsables de atención de incidencias 24h (en orden de notificación);nEncargado de obra: Iñaki Jiménez (telf.: 607.16.76.51)nJefe de obra; Isaac Núñez (telf.: 609.16.81.42)","publicable":true,"id_afeccion":19,"desvio_ruta":null,"desvio_texto":null,"guid":"78a6dd19-8ea8-4dd0-9cc3-88fee3c4b743","tipo":"OBRAS","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":" A partir del 30 de septiembre y por motivos de seguridad, queda restringido para los cicloturistas el uso del tramo, entre el PK 7+370 (cruce de Ororbia) y el PK 16+415 (cruce del Valle de Ollo). Debido a la elevada intensidad del tráfico de camiones provenientes de las obras de desmonte realizadas en el Polígono de Landaben.","id_distrito":1,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Afección en la calzada","color":"amarillo","nivel_afeccion":0,"distrito":"Pamplona","icono_especial":false,"importancia_via":5,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":14,"JEFE_TURNO":"Pablo González Sánchez","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":7,"CERRADA":0,"geo_x":602292,"geo_y":4741054,"categoria_icono":"Obras","fecha_js":"202609250945"},{"id_incidencia":121817,"id_operador":"Karlota Esparza Villanueva","fecha_modificacion":"02/11/2026 4:23:19","canal_modificacion":"web","fecha":"11/09/2026 14:26:00","fecha_fin":null,"id_carretera":422,"nombre_carretera":"NA-6061 OBANOS","cod_carretera_actual":"NA-6061","pk":0,"hm":0,"utm_x":598915,"utm_y":4727315,"id_tipo":46,"id_gravedad":11,"titulo":"Carretera cortada. ","notas":"","publicable":true,"id_afeccion":7,"desvio_ruta":null,"desvio_texto":null,"guid":"ba629867-f90d-44f5-80e8-4f5af1fa7647","tipo":"Trabajos de mantenimiento","gravedad":"Leve","importancia":4,"id_operador2":"16","descripcion":"Carretera cortada entre los PK 0 y 0+820, Obanos, en horario de 8 a 18 horas entre el 14 de septiembre y el 24 de octubre, por trabajos de obras de mejora de seguridad vial. ","id_distrito":1,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Carretera cortada","color":"rojo","nivel_afeccion":0,"distrito":"Pamplona","icono_especial":false,"importancia_via":5,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":14,"JEFE_TURNO":"Pablo González Sánchez","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":7,"CERRADA":0,"geo_x":598915,"geo_y":4727315,"categoria_icono":"Obras","fecha_js":"202609110226"},{"id_incidencia":121722,"id_operador":"Marta Arcas De La Fuente","fecha_modificacion":"14/09/2026 22:32:58","canal_modificacion":"web","fecha":"31/08/2026 18:45:00","fecha_fin":null,"id_carretera":722,"nombre_carretera":"NA-8713 Acceso a MILAGRO","cod_carretera_actual":"NA-8713","pk":1,"hm":0,"utm_x":602658,"utm_y":4677111,"id_tipo":22,"id_gravedad":11,"titulo":"Paso alternativo","notas":"","publicable":true,"id_afeccion":13,"desvio_ruta":null,"desvio_texto":null,"guid":"972395cb-2c69-4c97-a8b3-06ada41f3184","tipo":"Cortes y aperturas al tráfico","gravedad":"Leve","importancia":4,"id_operador2":"32","descripcion":"Paso alternativo en el PK 1 de la NA-8713, regulado por semáforos, por trabajos de mantenimiento.","id_distrito":4,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Paso alternativo","color":"amarillo","nivel_afeccion":0,"distrito":"Tudela","icono_especial":false,"importancia_via":5,"id_tunel":0,"tunel":"","id_jefe_unidad":2,"JEFE_UNIDAD":"Ana Isabel Marchamalo","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":2,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":7,"CERRADA":0,"geo_x":602658,"geo_y":4677111,"categoria_icono":"Obras","fecha_js":"202608310645"},{"id_incidencia":121488,"id_operador":"Centro Control Conservación Carreteras (Obras Públicas) ","fecha_modificacion":"23/07/2026 16:10:23","canal_modificacion":"web","fecha":"23/07/2026 15:00:00","fecha_fin":null,"id_carretera":43,"nombre_carretera":"A-21 AUTOVÍA DEL PIRINEO","cod_carretera_actual":"A-21","pk":30,"hm":900,"utm_x":632596,"utm_y":4724340,"id_tipo":46,"id_gravedad":11,"titulo":"Baipás","notas":"ESTE CORTE ESTARÁ ACTIVO AL MENOS 4 MESES.","publicable":true,"id_afeccion":35,"desvio_ruta":null,"desvio_texto":null,"guid":"52ed6368-9319-4c9b-a1b7-71b48d78ae01","tipo":"Trabajos de mantenimiento","gravedad":"Leve","importancia":4,"id_operador2":"16","descripcion":"Baipás entre el PK 30+900 y el PK 31+400 con tráfico en la calzada Pamplona con doble sentido de circulación.","id_distrito":3,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Ob
 
-(function () {
+===== api/incidents?lang=es 200 application/json; charset=utf-8 ACAO=None 36017
+{"incidencia":[{"id_incidencia":122122,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"05/11/2026 7:58:16","canal_modificacion":"web","fecha":"05/11/2026 7:50:00","fecha_fin":null,"id_carretera":7,"nombre_carretera":"A-68 AUTOVÍA DEL EBRO","cod_carretera_actual":"A-68","pk":98,"hm":650,"utm_x":616917,"utm_y":4654334,"id_tipo":47,"id_gravedad":11,"titulo":"Enlace  cortado","notas":"","publicable":true,"id_afeccion":28,"desvio_ruta":null,"desvio_texto":null,"guid":"0860e859-3a48-402d-81d0-be3356c1efd8","tipo":"Trabajos de asfaltado","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":"Corte del enlace de la A-68 con la NA-134 (rotonda del Eroski) y la propia rotonda, los días 5 y 6 de noviembre, por trabajos de refuerzo del firme. Los desvíos estarán debidamente señalizados.","id_distrito":4,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Ramal cortado","color":"rojo","nivel_afeccion":0,"distrito":"Tudela","icono_especial":false,"importancia_via":2,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":2,"CERRADA":0,"geo_x":616917,"geo_y":4654334,"categoria_icono":"Obras","fecha_js":"202611050750"},{"id_incidencia":122119,"id_operador":"Centro Control Conservación Carreteras (Obras Públicas) ","fecha_modificacion":"05/11/2026 2:11:40","canal_modificacion":"web","fecha":"05/11/2026 2:10:00","fecha_fin":null,"id_carretera":1,"nombre_carretera":"AP-15 AUTOPISTA DE NAVARRA","cod_carretera_actual":"AP-15","pk":103,"hm":0,"utm_x":602200,"utm_y":4747031,"id_tipo":37,"id_gravedad":11,"titulo":"Corte de carril derecho","notas":"","publicable":true,"id_afeccion":4,"desvio_ruta":null,"desvio_texto":null,"guid":"eee24f2d-ae08-4374-8a93-8c5d378d4729","tipo":"OBRAS","gravedad":"Leve","importancia":4,"id_operador2":"4","descripcion":"Corte de carril derecho entre los PK 103 al 104, por trabajos de estructura. ","id_distrito":5,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Carril derecho cerrado","color":"amarillo","nivel_afeccion":0,"distrito":"Irurtzun Autovías","icono_especial":false,"importancia_via":1,"id_tunel":0,"tunel":"","id_jefe_unidad":5,"JEFE_UNIDAD":"Pedro Larrainzar","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":3,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":1,"CERRADA":0,"geo_x":602200,"geo_y":4747031,"categoria_icono":"Obras","fecha_js":"202611050210"},{"id_incidencia":122117,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"05/11/2026 7:23:53","canal_modificacion":"web","fecha":"05/11/2026 7:12:00","fecha_fin":null,"id_carretera":7,"nombre_carretera":"A-68 AUTOVÍA DEL EBRO","cod_carretera_actual":"A-68","pk":92,"hm":0,"utm_x":612609,"utm_y":4658943,"id_tipo":57,"id_gravedad":11,"titulo":"Carril izquierdo cortado","notas":"","publicable":true,"id_afeccion":6,"desvio_ruta":null,"desvio_texto":null,"guid":"4da4044f-78ca-41ad-8d09-205a6ff040b4","tipo":"Trabajos de jardinería","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":"Corte de carril izquierdo entre los PK 92 y 98, sentido Pamplona, por trabajos de jardinería en la mediana, entre el 6 y el 11 de noviembre. ","id_distrito":4,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Carril izquierdo cerrado","color":"amarillo","nivel_afeccion":0,"distrito":"Tudela","icono_especial":false,"importancia_via":2,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":2,"CERRADA":0,"geo_x":612609,"geo_y":4658943,"categoria_icono":"Obras","fecha_js":"202611050712"},{"id_incidencia":122109,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"03/11/2026 9:29:05","canal_modificacion":"web","fecha":"03/11/2026 9:26:00","fecha_fin":null,"id_carretera":902,"nombre_carretera":"NA-1110 GALAR - VIANA","cod_carretera_actual":"NA-1110","pk":37,"hm":0,"utm_x":579794,"utm_y":4724645,"id_tipo":57,"id_gravedad":11,"titulo":"Paso alternativo","notas":"","publicable":true,"id_afeccion":13,"desvio_ruta":null,"desvio_texto":null,"guid":"91885f14-fdc6-4c15-9f60-2cc327b4d5ab","tipo":"Trabajos de jardinería","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":"Paso alternativo regulado con semáforos en el PK 37 de la NA-1110, Galar-Viana, por trabajos de poda y tala. ","id_distrito":2,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Paso alternativo","color":"amarillo","nivel_afeccion":0,"distrito":"Estella","icono_especial":false,"importancia_via":5,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":7,"CERRADA":0,"geo_x":579794,"geo_y":4724645,"categoria_icono":"Obras","fecha_js":"202611030926"},{"id_incidencia":122063,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"03/11/2026 8:40:26","canal_modificacion":"web","fecha":"03/11/2026 8:40:00","fecha_fin":null,"id_carretera":102,"nombre_carretera":"NA-411 'A-15' - OSTIZ / OSTITZ","cod_carretera_actual":"NA-411","pk":6,"hm":0,"utm_x":596870,"utm_y":4760730,"id_tipo":24,"id_gravedad":10,"titulo":"Paso alternativo","notas":"durarán 3 o 4 semanas.","publicable":true,"id_afeccion":13,"desvio_ruta":null,"desvio_texto":null,"guid":"81b1bcfe-9882-4c31-b5f8-d7bf2c73e2a6","tipo":"Afecciones a obras","gravedad":"Medio","importancia":3,"id_operador2":"2","descripcion":"Paso alternativo regulado por semáforos entre el PK 6 y 7, por trabajos de saneo de calzada.","id_distrito":8,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Paso alternativo","color":"amarillo","nivel_afeccion":0,"distrito":"Irurtzun Carreteras","icono_especial":false,"importancia_via":4,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":5,"CERRADA":0,"geo_x":596870,"geo_y":4760730,"categoria_icono":"Obras","fecha_js":"202611030840"},{"id_incidencia":122003,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"27/10/2026 10:41:42","canal_modificacion":"web","fecha":"27/10/2026 10:39:00","fecha_fin":null,"id_carretera":1,"nombre_carretera":"AP-15 AUTOPISTA DE NAVARRA","cod_carretera_actual":"AP-15","pk":51,"hm":0,"utm_x":609746,"utm_y":4708057,"id_tipo":37,"id_gravedad":11,"titulo":"Corte de carril izquierdo","notas":"","publicable":true,"id_afeccion":6,"desvio_ruta":null,"desvio_texto":null,"guid":"0d115715-f44a-4bf8-bce2-77bba8c68d2c","tipo":"OBRAS","gravedad":"Leve","importancia":4,"id_operador2":"16","descripcion":"Carril izquierdo cortado entre los PK 51 y 52, sentido norte, por reparación de estructura. ","id_distrito":3,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Carril izquierdo cerrado","color":"amarillo","nivel_afeccion":0,"distrito":"Tafalla","icono_especial":false,"importancia_via":1,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":7,"JEFE_TURNO":"Patxi Ruiz","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":1,"CERRADA":0,"geo_x":609746,"geo_y":4708057,"categoria_icono":"Obras","fecha_js":"202610271039"},{"id_incidencia":121950,"id_operador":"Yolanda Ansorena Barrenetxea","fecha_modificacion":"05/10/2026 9:10:22","canal_modificacion":"web","fecha":"05/10/2026 9:02:00","fecha_fin":null,"id_carretera":6,"nombre_carretera":"A-1 AUTOVÍA DEL NORTE","cod_carretera_actual":"A-1","pk":396,"hm":0,"utm_x":565928,"utm_y":4747839,"id_tipo":37,"id_gravedad":11,"titulo":"Arcén derecho ocupado","notas":"","publicable":true,"id_afeccion":1,"desvio_ruta":null,"desvio_texto":null,"guid":"4d0b497d-5213-44f8-b29c-f8f7e3eb246c","tipo":"OBRAS","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":"Arcén derecho ocupado en el PK 396, por instalación de fibra óptica.","id_distrito":5,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Arcén derecho ocupado","color":"verde","nivel_afeccion":0,"distrito":"Irurtzun Autovías","icono_especial":false,"importancia_via":2,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":12,"JEFE_TURNO":"Fernando González","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":2,"CERRADA":0,"geo_x":565928,"geo_y":4747839,"categoria_icono":"Obras","fecha_js":"202610050902"},{"id_incidencia":121907,"id_operador":"Belén Lahuerta Pérez","fecha_modificacion":"05/10/2026 10:54:12","canal_modificacion":"web","fecha":"25/09/2026 9:45:00","fecha_fin":null,"id_carretera":490,"nombre_carretera":"NA-7010 ASTRÁIN - IRURTZUN","cod_carretera_actual":"NA-7010","pk":7,"hm":370,"utm_x":602292,"utm_y":4741054,"id_tipo":37,"id_gravedad":11,"titulo":"Tramo prohibido a Cicloturistas","notas":"•*** Las INCIDENCIAS que ocurran en la NA-7010, entre el PK 7+370 y 16+415, se pasarán a Irurtzun Carreteras, a excepción de las causadas por los propios camiones (BARRO básicamente o la señalización del cruce) Especialmente en el PK 15+340 que es el punto por donde acceden a la cantera***nEmpresa adjudicataria; Obras Especiales Edificación e Infraestructuras (OBENASA)n•tResponsables de atención de incidencias 24h (en orden de notificación);nEncargado de obra: Iñaki Jiménez (telf.: 607.16.76.51)nJefe de obra; Isaac Núñez (telf.: 609.16.81.42)","publicable":true,"id_afeccion":19,"desvio_ruta":null,"desvio_texto":null,"guid":"78a6dd19-8ea8-4dd0-9cc3-88fee3c4b743","tipo":"OBRAS","gravedad":"Leve","importancia":4,"id_operador2":"2","descripcion":" A partir del 30 de septiembre y por motivos de seguridad, queda restringido para los cicloturistas el uso del tramo, entre el PK 7+370 (cruce de Ororbia) y el PK 16+415 (cruce del Valle de Ollo). Debido a la elevada intensidad del tráfico de camiones provenientes de las obras de desmonte realizadas en el Polígono de Landaben.","id_distrito":1,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Afección en la calzada","color":"amarillo","nivel_afeccion":0,"distrito":"Pamplona","icono_especial":false,"importancia_via":5,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":14,"JEFE_TURNO":"Pablo González Sánchez","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":7,"CERRADA":0,"geo_x":602292,"geo_y":4741054,"categoria_icono":"Obras","fecha_js":"202609250945"},{"id_incidencia":121817,"id_operador":"Karlota Esparza Villanueva","fecha_modificacion":"02/11/2026 4:23:19","canal_modificacion":"web","fecha":"11/09/2026 14:26:00","fecha_fin":null,"id_carretera":422,"nombre_carretera":"NA-6061 OBANOS","cod_carretera_actual":"NA-6061","pk":0,"hm":0,"utm_x":598915,"utm_y":4727315,"id_tipo":46,"id_gravedad":11,"titulo":"Carretera cortada. ","notas":"","publicable":true,"id_afeccion":7,"desvio_ruta":null,"desvio_texto":null,"guid":"ba629867-f90d-44f5-80e8-4f5af1fa7647","tipo":"Trabajos de mantenimiento","gravedad":"Leve","importancia":4,"id_operador2":"16","descripcion":"Carretera cortada entre los PK 0 y 0+820, Obanos, en horario de 8 a 18 horas entre el 14 de septiembre y el 24 de octubre, por trabajos de obras de mejora de seguridad vial. ","id_distrito":1,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Carretera cortada","color":"rojo","nivel_afeccion":0,"distrito":"Pamplona","icono_especial":false,"importancia_via":5,"id_tunel":0,"tunel":"","id_jefe_unidad":1,"JEFE_UNIDAD":"Belén Lahuerta","id_jefe_turno":14,"JEFE_TURNO":"Pablo González Sánchez","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":1,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":7,"CERRADA":0,"geo_x":598915,"geo_y":4727315,"categoria_icono":"Obras","fecha_js":"202609110226"},{"id_incidencia":121722,"id_operador":"Marta Arcas De La Fuente","fecha_modificacion":"14/09/2026 22:32:58","canal_modificacion":"web","fecha":"31/08/2026 18:45:00","fecha_fin":null,"id_carretera":722,"nombre_carretera":"NA-8713 Acceso a MILAGRO","cod_carretera_actual":"NA-8713","pk":1,"hm":0,"utm_x":602658,"utm_y":4677111,"id_tipo":22,"id_gravedad":11,"titulo":"Paso alternativo","notas":"","publicable":true,"id_afeccion":13,"desvio_ruta":null,"desvio_texto":null,"guid":"972395cb-2c69-4c97-a8b3-06ada41f3184","tipo":"Cortes y aperturas al tráfico","gravedad":"Leve","importancia":4,"id_operador2":"32","descripcion":"Paso alternativo en el PK 1 de la NA-8713, regulado por semáforos, por trabajos de mantenimiento.","id_distrito":4,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Obras","afeccion":"Paso alternativo","color":"amarillo","nivel_afeccion":0,"distrito":"Tudela","icono_especial":false,"importancia_via":5,"id_tunel":0,"tunel":"","id_jefe_unidad":2,"JEFE_UNIDAD":"Ana Isabel Marchamalo","id_jefe_turno":4,"JEFE_TURNO":"Luis Miguel Martín","SOS":false,"DESCANSILLO":false,"PROTOCOLO":false,"RADIO":false,"GPS":false,"TURNO":2,"ID_LUGAR_COMUN":0,"LUGAR_COMUN":"","id_tipo_carretera":7,"CERRADA":0,"geo_x":602658,"geo_y":4677111,"categoria_icono":"Obras","fecha_js":"202608310645"},{"id_incidencia":121488,"id_operador":"Centro Control Conservación Carreteras (Obras Públicas) ","fecha_modificacion":"23/07/2026 16:10:23","canal_modificacion":"web","fecha":"23/07/2026 15:00:00","fecha_fin":null,"id_carretera":43,"nombre_carretera":"A-21 AUTOVÍA DEL PIRINEO","cod_carretera_actual":"A-21","pk":30,"hm":900,"utm_x":632596,"utm_y":4724340,"id_tipo":46,"id_gravedad":11,"titulo":"Baipás","notas":"ESTE CORTE ESTARÁ ACTIVO AL MENOS 4 MESES.","publicable":true,"id_afeccion":35,"desvio_ruta":null,"desvio_texto":null,"guid":"52ed6368-9319-4c9b-a1b7-71b48d78ae01","tipo":"Trabajos de mantenimiento","gravedad":"Leve","importancia":4,"id_operador2":"16","descripcion":"Baipás entre el PK 30+900 y el PK 31+400 con tráfico en la calzada Pamplona con doble sentido de circulación.","id_distrito":3,"numero_personas":0,"documentos_anexos":"","id_categoria":1,"categoria":"Ob
 
-    Carreteras.map = new TC.Map('map', {
-        crs: "EPSG:3857",
-        baseLayers: [
-            "osm",
-            {
-                id: "ign-base",
-                title: "Mapa base (IGN)",
-                type: "WMTS",
-                url: "//www.ign.es/wmts/ign-base",
-                encoding: "KVP",
-                layerNames: "IGNBaseTodo",
-                matrixSet: "GoogleMapsCompatible",
-                format: "image/jpeg",
-                thumbnail: TC.apiLocation + 'TC/css/img/thumb-basemap_ign.png'
-            },
-            {
-                id: "ign-pnoa",
-                title: "Ortofoto PNOA",
-                type: "WMTS",
-                url: "//www.ign.es/wmts/pnoa-ma",
-                encoding: "KVP",
-                layerNames: "OI.OrthoimageCoverage",
-                matrixSet: "GoogleMapsCompatible",
-                format: "image/jpeg",
-                thumbnail: TC.apiLocation + "TC/css/img/thumb-orthophoto_pnoa.jpg"
-            },
-            {
-                id: "ign-raster",
-                type: "WMTS",
-                title: "Cartografía raster (IGN)",
-                url: "//www.ign.es/wmts/mapa-raster",
-                encoding: "KVP",
-                layerNames: "MTN",
-                matrixSet: "GoogleMapsCompatible",
-                format: "image/jpeg",
-                thumbnail: TC.apiLocation + 'TC/css/img/thumb-carto_ign.png'
-            },
-        ],
-        defaultBaseLayer: "osm",
-        initialExtent: [-278805, 5148700, -79274, 5357673],
-        baselayerExtent: [-360109, 5093682, 20800, 5445384],
-        layout: {
-            script: TC.apiLocation + '/tc/layout/responsive/script.js',
-            style: TC.apiLocation + '/tc/layout/responsive/style.css',
-            markup: 'layout/carreteras/markup.html',
-            config: 'layout/carreteras/config.json',
-            i18n: 'layout/carreteras/resources',
-            accordion: true
-        },
-    });
+===== bundle alrededor de api/incidents
+   var _formatIncident = function (id) {
+        var _ctl = this;
 
-    TC.Cfg.notifyApplicationErrors = true;
-    
-    Carreteras.map.ready(function () {
-        var hideIncidentsPanelInNarrowScreens = function () {
-            var _widthChange = function (mq) {
-                if (!mq.matches) {
-                    document.querySelector('.right-panel').classList.add('right-collapsed');
-                }
+        var incident = _getIncidentById.call(_ctl, id);
+
+        if (incident) {
+            var coords = TC.Util.reproject([incident.geo_x, incident.geo_y], Carreteras.Consts.DB_DATA_CRS, _ctl.map.crs);
+            return {
+                x: coords[0],
+                y: coords[1],
+                hoverImageUrl: "img/" + incident.categoria_icono + "/" + incident.color + "1.png"
             };
-
-            if (matchMedia) {
-                var mq = window.matchMedia("(min-width: 42em)");
-                mq.addListener(_widthChange);
-                _widthChange(mq);
-            }
-        }();
-        readyPromResolve();
-    });
-
-    Carreteras.map.loaded(function () {
-
-        if (Carreteras.Utils.isCamerasModeActive()) {
-            document.querySelector('#camera-panel').classList.remove(TC.Consts.classes.COLLAPSED);
-            document.querySelector('#incident-panel').classList.add(TC.Consts.classes.COLLAPSED);
-
-        } else {
-            document.querySelector('#camera-panel').classList.add(TC.Consts.classes.COLLAPSED);
-            document.querySelector('#incident-panel').classList.remove(TC.Consts.classes.COLLAPSED);
         }
-
-        var cameraObserver = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.target.attributes[mutation.attributeName].value.indexOf(TC.Consts.classes.COLLAPSED) > -1) {
-                    Carreteras.map.getControlsByClass(TC.control.CameraPanel)[0].hideFeatures();
-                } else {
-                    Carreteras.map.getControlsByClass(TC.control.CameraPanel)[0].showFeatures();
-                }
-            });
-        });
-
-        var incidentObserver = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.target.attributes[mutation.attributeName].value.indexOf(TC.Consts.classes.COLLAPSED) > -1) {
-                    Carreteras.map.getControlsByClass(TC.control.IncidentPanel)[0].hideFeatures();
-                } else {
-                    Carreteras.map.getControlsByClass(TC.control.IncidentPanel)[0].showFeatures();
-                }
-            });
-        });
-
-        cameraObserver.observe(document.querySelector('.tc-ctl-camera'), {
-            attributes: true,
-            attributeFilter: ["class"],
-            attributeOldValue: true
-        });
-        incidentObserver.observe(document.querySelector('.tc-ctl-incident'), {
-            attributes: true,
-            attributeFilter: ["class"],
-            attributeOldValue: true
-        });
-
-        TC.Cfg.applyChanges({
-            "map": Carreteras.map,
-            "screenCondition": "(max-width: 42em)",
-            "apply": {
-                "event": "click",
-                "elements": [".tc-ctl-bms-node > label", ".tc-ctl-camera-node",".tc-ctl-incident-list > li"],
-                "changes": [
-                    {
-                        "targets": "#tools-panel",
-                        "classes": "right-collapsed"
-                    }
-                ]
-            }
-        });
-        loadedPromResolve();
-    });
-    var readyPromResolve, loadedPromResolve = null;
-    Promise.all([new Promise((r) => { readyPromResolve = r; }), new Promise((r) => { loadedPromResolve = r })]).then(function () {
-        var _attrCtrl = Carreteras.map.getControlsByClass(TC.control.Attribution)[0];
-        _attrCtrl.dataAttributions.push(Carreteras.Utils.getMapIconsCredits());
-        _attrCtrl.render();
-    });
-})();
-
-
-===== layout/carreteras/config.json 200
-﻿{
-  "i18n": true,
-  "maxExtent": false,
-  "workLayers": [
-    {
-      "id": "limite",
-      "title": "Navarra",
-      "url": "//idena.navarra.es/ogc/wms",
-      "type": "WMS",
-      "layerNames": [ "IDENA:REFERE_Lin_Navarra" ]
-    }
-  ],
-  "elevation": {
-    "services": [
-      "elevationServiceIDENA",
-      "elevationServiceIGNFr",
-      "elevationServiceIGNEs"
-    ]
-  },
-  "controls": {
-    "controlContainer": {
-      "div": "ccontainer",
-      "controls": {
-        "navBar": {
-          "side": "left",
-          "options": {
-            "home": false
-          }
-        },
-        "navBarHome": {
-          "side": "left",
-          "options": true
-        },
-        "streetView": {
-          "side": "left",
-          "options": {
-            "viewDiv": "sv",
-            "googleMapsKey": "AIzaSyBlzFnf9aP8oKl7r1bwit-Apu7Z9BUD0Lc"
-          }
-        },
-        "fullScreen": {
-          "side": "left",
-          "options": true
-        },
-        "scaleBar": {
-          "side": "right",
-          "options": true
-        },
-        "warning": {
-          "side": "left",
-          "options": true
-        }
-      }
-    },
-    "basemapSelector": {
-      "div": "bms"
-    },
-    "legend": {
-      "div": "legend"
-    },
-    "coordinates": {
-      "div": "coordinates"
-    },
-    "search": {
-      "div": "search",
-      "allowedSearchTypes": {
-        "coordinates": {},
-        "municipality": {},
-        "urban": {},
-        "road": {},
-        "roadmilestone": {}
-      }
-    },
-    "overviewMap": {
-      "div": "ovmap",
-      "layer": "osm"
-    },
-    "attribution": true,
-    "popup": {
-      "closeButton": true
-    },
-    "incidentPanel": {
-      "div": "incident-panel"
-    },
-    "cameraPanel": {
-      "div": "camera-panel"
-    },
-    "featureTools": false,
-    "featureInfo": {
-      "active": true,
-      "displayElevation": true
-    }
-  }
-}
-
-===== js/temporal.js 200
-﻿
-var getRGBA = function (color, opacity) {
-    var result;
-    if (color) {
-        result = ol.color.asArray(color);
-        result = result.slice();
-        if (opacity !== undefined) {
-            result[3] = opacity;
-        }
-    }
-    else {
-        result = [0, 0, 0, 1];
-    }
-    return result;
-};
-
-var getStyleValue = function (property, feature) {
-    var result = property;
-    var olFeat = feature && feature.wrap && feature.wrap.feature;
-    if (typeof property === 'string') {
-        var match = property.match(/^\$\{(.+)\}$/);
-        if (match && olFeat) {
-            // Permitimos el formato ${prop.subprop.subsubprop}
-            var m = match[1].split('.');
-            var r = olFeat.getProperties();
-            for (var i = 0; i < m.length && r !== undefined; i++) {
-                r = r[m[i]];
-            }
-            if (r === undefined) {
-                r = feature.data;
-                for (var i = 0; i < m.length && r !== undefined; i++) {
-                    r = r[m[i]];
-                }
-            }
-            result = r;
-        }
-    }
-    else if ($.isFunction(property)) {
-        result = property(feature);
-    }
-    return result;
-};
-
-var getNativeStyle = function (olFeat) {
-    var result = olFeat.getStyle();
-    if ($.isFunction(result)) {
-        result = result.call(olFeat);
-    }
-    if ($.isArray(result)) {
-        result = result[0];
-    }
-    return result;
-};
-
-// Transformación de opciones de estilo en un estilo nativo OL3.
-var createNativeStyle = function (options, olFeat) {
-    var nativeStyleOptions = {};
-
-    var feature;
-    if (olFeat) {
-        if (olFeat._wrap) {
-            feature = olFeat._wrap.parent;
-        }
-        else {
-            // Si la API SITNA no ha completado su feature, creamos un mock-up para que no fallen las funciones de estilo
-
-
-
-            feature = {
-                id: TC.wrap.Feature.prototype.getId.call({ feature: olFeat }), // GLS añado el id de la feature para poder filtrar por la capa a la cual pertenece                    
-                features: olFeat.get('features'),
-                getData: function () {
-                    return TC.wrap.Feature.prototype.getData.call({ feature: olFeat });
-                }
-            };
-
-
-        }
-    }
-    var isCluster = feature && $.isArray(feature.features) && feature.features.length > 1 && options.cluster;
-    var styles;
-    if (isCluster) {
-        styles = options.cluster.styles || TC.Cfg.styles.cluster;
-    }
-    else {
-        styles = options.styles || TC.Cfg.styles;
-    }
-
-    if (styles.line) {
-        nativeStyleOptions.stroke = new ol.style.Stroke({
-            color: getStyleValue(styles.line.strokeColor, feature),
-            width: getStyleValue(styles.line.strokeWidth, feature),
-            lineDash: styles.line.lineDash
-        });
-    }
-
-    if (styles.polygon) {
-        nativeStyleOptions.fill = new ol.style.Fill({
-            color: getRGBA(getStyleValue(styles.polygon.fillColor, feature), getStyleValue(styles.polygon.fillOpacity, feature))
-        });
-        nativeStyleOptions.stroke = new ol.style.Stroke({
-            color: getStyleValue(styles.polygon.strokeColor, feature),
-            width: getStyleValue(styles.polygon.strokeWidth, feature),
-            lineDash: styles.polygon.lineDash
-        });
-    }
-
-    var createNativeTextStyle = function (styleObj) {
-        var textOptions = {
-            text: '' + getStyleValue(styleObj.label, feature),
-        };
-        if (styleObj.fontSize) {
-            textOptions.font = getStyleValue(styleObj.fontSize, feature) + 'pt sans-serif';
-        }
-        if (styleObj.angle) {
-            textOptions.rotation = -Math.PI * getStyleValue(styleObj.angle, feature) / 180;
-        }
-        if (styleObj.fontColor) {
-            textOptions.fill = new ol.style.Fill({
-                color: getRGBA(getStyleValue(styleObj.fontColor, feature), 1)
-            });
-        }
-        if (styleObj.labelOutlineColor) {
-            textOptions.stroke = new ol.style.Stroke({
-                color: getRGBA(getStyleValue(styleObj.labelOutlineColor, feature), 1),
-                width: getStyleValue(styleObj.labelOutlineWidth, feature)
-            });
-        }
-        if (styleObj.labelOffset) {
-            textOptions.offsetX = styleObj.labelOffset[0];
-            textOptions.offsetY = styleObj.labelOffset[1];
-        }
-        return new ol.style.Text(textOptions);
     };
 
-    if (styles.point) {
-        var pointOptions = styles.point;
-        var circleOptions = {
-            radius: getStyleValue(pointOptions.radius, feature) ||
-            (getStyleValue(pointOptions.height, feature) + getStyleValue(pointOptions.width, feature)) / 4
+    const bindClickOnIncident = function () {
+        const _ctl = this;
+
+        _ctl.div.querySelectorAll('.' + _ctl.CLASS + '-list > li').forEach(function (li) {
+            li.addEventListener('click', function () {
+                if (this.getAttribute('id')) {
+                    var incidentId = this.getAttribute('id').substr(1);
+                    var incidents = _ctl.incidents.filter(function (item) {
+                        return item.id_incidencia == incidentId;
+                    });
+
+                    if (incidents.length > 0) {
+                        _ctl.hideMarkerPopups();
+                        
+                        var coords = TC.Util.reproject([incidents[0].geo_x, incidents[0].geo_y], Carreteras.Consts.DB_DATA_CRS, _ctl.map.crs);
+
+                        _ctl.map.setCenter(coords, { animate: true }).then(function () {
+                            _ctl.showMarkerPopup({ id: incidentId });
+                            if (TC.browserFeatures.touch() && _ctl.map.defaultInfoContainer === TC.Consts.infoContainer.RESULTS_PANEL) {
+                                _ctl.currentFeature = _ctl.layer.features.find(function (feat) { return feat.id == incidentId });
+                                _ctl.highlightMarker(incidentId);
+                            }
+                        });
+                        
+                    }
+                }
+            });
+        });
+    };
+
+    ctlProto.init = function (map) {
+        var _ctl = this;
+
+        var _addLayerIfEmpty = function () {
+            return new Promise(function (resolve, reject) {
+                if (!_ctl.layer) {
+                    _ctl.getRenderedHtml(_ctl.CLASS + '-legend', { uid: TC.getUID() }, function (out) {                    
+                        map.addLayer({
+                            id: _ctl.LAYER_NAME,
+                            type: TC.Consts.layerType.VECTOR,
+                            customLegend: out
+                        }).then(function (layer) {
+                            layer.setVisibility(!Carreteras.Utils.isCamerasModeActive());
+                            resolve(layer);
+                        });
+                    });
+                } else {
+                    resolve(_ctl.layer);
+                }
+            });
         };
-        if (pointOptions.fillColor) {
-            circleOptions.fill = new ol.style.Fill({
-                color: getRGBA(getStyleValue(pointOptions.fillColor, feature), getStyleValue(pointOptions.fillOpacity, feature))
+
+        var getIncidents = function () {
+            return new Promise(function (resolve, reject) {
+                TC.ajax({
+                    url: 'api/incidents',
+                    contentType: 'application/json',
+                    responseType: 'application/json'
+                })
+                    .then(function (response) {
+                        const data = response.incidencia ? response : response.data; // Compatibilizamos con la respuesta antigua y la moderna de TC.ajax.
+                        var incidents = data.incidencia;
+                        _ctl.incidents = incidents;
+                        _ctl.categoryType = data.categoria_tipo;
+                        var date = data.actualizacion[0]["fecha"].substr(0, data.actualizacion[0]["fecha"].length - 3);
+                        _ctl.filterOptions = _updateFilters(incidents);
+
+                        var orderedIncidents = _orderIncidents.call(_ctl, incidents, 'importancia_via');
+
+                        resolve({ filterOptions: _ctl.filterOptions, date: date, incidents: orderedIncidents });
+                    })
+                    .catch(function (error) {
+                        TC.error("Error de servidor.<br/>" + error, [TC.Consts.msgErrorMode.EMAIL, TC.Consts.msgErrorMode.TOAST]);
+                        reject();
+                    });
             });
-        }
-        if (pointOptions.strokeColor) {
-            circleOptions.stroke = new ol.style.Stroke({
-                color: getStyleValue(pointOptions.strokeColor, feature),
-                width: getStyleValue(pointOptions.strokeWidth, feature),
-                lineDash: pointOptions.lineDash
-            });
-        }
+        };
 
-        if (!isNaN(circleOptions.radius))
-            nativeStyleOptions.image = new ol.style.Circle(circleOptions);
+        const result = TC.control.Panel.prototype.register.call(_ctl, map);
 
-        if (pointOptions.label) {
-            nativeStyleOptions.text = createNativeTextStyle(pointOptions);
-        }
-    }
-    if (styles.marker) {
-        var markerOptions = styles.marker;
-        if (markerOptions.url) {
-            nativeStyleOptions.image = new ol.style.Icon({
-                anchor: markerOptions.anchor,
-                src: markerOptions.url
-            });
-        }
-        if (markerOptions.label) {
-            nativeStyleOptions.text = createNativeTextStyle(markerOptions);
-        }
-    }
-    return [new ol.style.Style(nativeStyleOptions)];
-};
+        map.loaded(function () {
+            var wait = map.getLoadingIndicator().addWait();
 
-var createNativeFeature = function (coords, geometryConstructor, geometryName) {
-    var result;
-    var featureOptions = {};
-    var gn = geometryName || 'geometry';
-    featureOptions[gn] = new geometryConstructor(coords);
-    result = new ol.Feature(featureOptions);
-    if (geometryName) {
-        result.setGeometryName(geometryName);
-    }
-    return result;
-};
+            getIncidents().then(function (incidentsData) {
+                _ctl.renderData({ data: incidentsData }, function () {
 
-TC.wrap.Feature.prototype.createMarker = function (coords, options) {
-    var self = this;
+                    TC.control.Panel.prototype.render.call(_ctl);
 
-    var iconUrl = TC.Util.getPointIconUrl(options);
-    if (iconUrl) {
-        options.url = iconUrl;
-        if ($.isArray(coords)) {
-            self.feature = createNativeFeature(coords, ol.geom.Point, options.geometryName);
-        }
-        else if (self.isNative(coords)) {
-            self.feature = coords;
-            self.parent.geometry = coords.getGeometry().getCoordinates();
-        }
-        self.feature._wrap = self;
-        self.feature.setStyle(createNativeStyle({ styles: { marker: options } }, self.feature));
-    }
-    else {
-        self.createPoint(coords, options);
-    }
-};
+                    var _filterTypesByCategory = function (categoryId, incidents) {
+                        var _populateTypesCombo = function (types) {
+                            var html = '<option value="" selected="selected">Todo</option>';
+                            for (var i = 0; i < types.length; i++) {
+                                var type = types[i];
 
-ol.format.KML.__createStyleDefaults_ = ol.format.KML.createStyleDefaults_;
-ol.format.KML.createStyleDefaults_ = function () {
-    ol.format.KML.__createStyleDefaults_();
+                                html += '<option value="' + type.id_tipo + '">' + type.tipo + '</option>';
+                            }
 
-    ol.format.KML.DEFAULT_FILL_STYLE_.color_ = getRGBA(TC.Cfg.styles.polygon.fillColor, TC.Cfg.styles.polygon.fillOpacity);
-    ol.format.KML.DEFAULT_TEXT_STYLE_.fill_ = new ol.style.Fill({
-        color: ol.format.KML.DEFAULT_COLOR_
-    });
-    ol.format.KML.DEFAULT_STROKE_STYLE_.color_ = getRGBA(TC.Cfg.styles.line.strokeColor, 1);
-    ol.format.KML.DEFAULT_STROKE_STYLE_.width_ = TC.Cfg.styles.line.strokeWidth;
+                            _ctl.div.querySelector('.' + _ctl.CLASS + '-types-select').innerHTML = html;
+                        };
 
-    ol.format.KML.DEFAULT_IMAGE_STYLE_.crossOrigin_ = "";
-};
+                        if (categoryId && incidents) {
+                            //Obtenemos los tipos relacionados con la categoría seleccionada
+                            var typesByCategory = incidents.map(function (item) {
+                                return item.id_tipo;
+                            });
 
-ol.format.KML.IconStyleParser_ = function (e, t) {
-    var o = ol.xml.pushParseAndPop({}, ol.format.KML.ICON_STYLE_PARSERS_, e, t);
-    if (o) {
-        var r, i = t[t.length - 1], n = "Icon" in o ? o.Icon : {}, a = !("Icon" in o) || Object.keys(n).length > 0, l = n.href;
-        l ? r = l : a && (r = ol.format.KML.DEFAULT_IMAGE_STYLE_SRC_);
-        var s, p, c, u = o.hotSpot;
-        if (u) {
-            s = [u.x, u.y];
-            p = u.xunits;
-            c = u.yunits
-        } else if (r === ol.format.KML.DEFAULT_IMAGE_STYLE_SRC_) {
-            s = ol.format.KML.DEFAULT_IMAGE_STYLE_ANCHOR_;
-            p = ol.format.KML.DEFAULT_IMAGE_STYLE_ANCHOR_X_UNITS_;
-            c = ol.format.KML.DEFAULT_IMAGE_STYLE_ANCHOR_Y_UNITS_
-        } else if (/^http:\/\/maps\.(?:google|gstatic)\.com\//.test(r)) {
-            s = [.5, 0];
-            p = ol.style.IconAnchorUnits.FRACTION;
-            c = ol.style.IconAnchorUnits.FRACTION
-        }
-        var g, d = n.x, h = n.y;
-        void 0 !== d && void 0 !== h && (g = [d, h]);
-        var f, y = n.w, m = n.h;
-        void 0 !== y && void 0 !== m && (f = [y, m]);
-        var v, C = o.heading;
-        void 0 !== C && (v = ol.math.toRadians(C));
-        var T = o.scale;
-        if (a) {
-            if (r == ol.format.KML.DEFAULT_IMAGE_STYLE_SRC_) {
-                f = ol.format.KML.DEFAULT_IMAGE_STYLE_SIZE_;
-                void 0 === T && (T = ol.format.KML.DEFAULT_IMAGE_SCALE_MULTIPLIER_)
-            }
-            var _ = new ol.style.Icon({
-                anchor: s,
-                anchorOrigin: ol.style.IconOrigin.BOTTOM_LEFT,
-                anchorXUnits: p,
-                anchorYUnits: c,
-                offset: g,
-                offsetOrigin: ol.style.IconOrigin.BOTTOM_LEFT,
-                rotation: v,
-                scale: T,
-                size: f,
-                src: r
-            });
-            i.imageStyle = _
-        } else
-            i.imageStyle = ol.format.KML.DEFAULT_NO_IMAGE_STYLE_
-    }
-}
+                            var types = [];
+                            for (var i = 0; i < _ctl.filterOptions.types.length; i++) {
+                                var type = _ctl.filterOptions.types[i];
 
-ol.format.KML.STYLE_PARSERS_.null.IconStyle = ol.format.KML.IconStyleParser_;
+                                if (typesByCategory.indexOf(type.id_tipo) >= 0) {
+                                    types.push(type);
+                                }
+                            }
+                            _populateTypesCombo(types);
 
-===== bundle urls
-  >                             url: "img/" + incident.categoria_icono + "/" + incident.color + ".png",
-  >                     url: 'api/incidents',
-  >                 url: "camaras.kml",
+                        } else {
+                            _populateTypesCombo(_ctl.filterOptions.types);
+                        }
+                    };
 
-===== Default.aspx enlaces
-#contenido
-//openstreetmap.org/
-//www.ign.es
-//www.navarra.es
-//www.navarra.es/es/gobierno-de-navarra/departamento-de-cohesion-territorial
-//www.navarra.es/home_es/Actualidad/
-//www.navarra.es/home_es/Aviso/accesibilidad.htm
-//www.navarra.es/home_es/Aviso/avisoLegal.htm
-//www.navarra.es/home_es/Catalogo+de+servicios/
-//www.navarra.es/home_es/Gobierno+de+Navarra/
-//www.navarra.es/home_es/Indices/Buscador/
-//www.navarra.es/home_es/Indices/Mapa+web/
-//www.navarra.es/home_es/Indices/Sugerencias/default.htm
-//www.navarra.es/home_es/Navarra/
-//www.navarra.es/home_es/Temas/
-//www.navarra.es/home_es/Temas/Seguridad/
-//www.navarra.es/home_es/Temas/Seguridad/Trafico+y+seguridad+vial/
-//www.trafikoa.eus
-Mapa.aspx
-Mapa.aspx?mode=cameras
-css/general.css
-css/idioma.css
-css/portada.css
-css/print.css
-http://meteo.navarra.es
-http://www.aemet.es/
-http://www.cfnavarra.es/webgn/sou/instituc/da/index.htm
-http://www.dgt.es
+                    //Impresión
+                    _ctl.div.querySelector('.' + _ctl.CLASS + '-print-btn').addEventListener('click', function () {
+                        var select = _ctl.div.querySelector('.' + _ctl.CLASS + '-order-select');
+                        var order = select.options[select.selectedIndex].value;
+                        window.open("Listado.aspx?print=1&ord=" + escape(order));
+                    });
 
-===== Default.aspx texto
- Incidencias en carretera - navarra.es (ir al contenido) Castellano | Euskara | Français | English ¡Utilice el buscador! buscador Navarra Servicios Temas Gobierno Actualidad Temas : Seguridad : Tráfico y seguridad vial : Incidencias en carretera Consulta de incidencias Visor de mapas Más información Teléfono de información: 848 423 500 Servicio ofrecido por Departamento de Cohesión Territorial Dirección General de Obras Públicas e Infraestructuras Enlaces relacionados Dirección General de Tráfico El tiempo en Navarra Agencia Estatal de Meteorología El tráfico en Euskadi Información sobre el estado de las carreteras de Navarra Desde la Dirección General de Obras Públicas e Infraestructuras, informamos del estado de la Red de Carreteras de la Comunidad Foral. La información se superpone a la cartografía de OpenStreetMap o del Instituto Geográfico Nacional , de cuya actualización no se hace responsable. La información incluye: Incidencias meteorológicas Incidencias en la Red Viaria Incidencias por obras Consulte en el mapa las incidencias previstas en su ruta Consulte las cámaras disponibles en la red de carreteras de Navarra Teléfono de información: 848 423 500 El Centro de Control de Conservación de Carreteras presta servicio las 24 horas del día durante los 365 días del año y mantiene actualizada la información sobre el estado de la Red de Carreteras de Navarra. Deseamos que tenga un buen viaje . Gobierno de Navarra Contacte con nosotros | Accesibilidad | Aviso legal | Mapa web 
+                    //Actualizar
+                    _ctl.div.querySelector('.' + _ctl.CLASS + '-refresh-btn').addEventListener('click', function () {
+                        _ctl.init(map);
+                    });
+
+                    //Actualización del filtrado de incidencias
+                    var selectsClasses = [
+                        '.' + _ctl.CLASS + '-order-select',
+                        '.' + _ctl.CLASS + '-category-select',
+                        '.' + _ctl.CLASS + '-affection-select',
+                        '.' + _ctl.CLASS + '-types-select'];
+
+                    selectsClasses.forEach(function (className) {
+                        document.querySelector(className).addEventListener('change',
+                            function (e) {
+                                var incidents = _updateIncidentsList.call(_ctl);
+                                //Al seleccionar categoría filtrar el combo de tipo
+                                if (e.target.className.indexOf(_ctl.CLASS + '-category-select') >= 0) {
+                                    _filterTypesByCategory(this.options[this.selectedIndex].value, incidents);
+                                }
+
+                                //Ocultar popup si el marcador de la incidencia ya no está en el mapa
+                                var popup = Carreteras.map.getControlsByClass(TC.control.Popup)[0];
+                                if (popup.currentFeature && _ctl.layer.features.filter(function (marker) { return marker.id === popup.currentFeature.id }).length === 0) {
+                                    popup.hide();
+                                }
+                                //ordenar la lista
+                                const incidentList=_ctl.div.querySelector('.' + _ctl.CLASS + '-list');
+                                incidents.forEach(function (incident, index) {
+                                    incidentList.querySelector("li#i" + incident["id_incidencia"]).style.order = index;
+                                })
+                            });
+                    });
+
+                    bindClickOnIncident.call(_ctl);
+
+                    _addLayerIfEmpty().then(function (layer) {
+                        _ctl.layer = layer;
+
+                        _addIncidentMarkers.call(_c
+campo afeccion
+campo categoria
+campo categoria_icono
+campo color
+campo descripcion
+campo desvio_texto
+campo fecha
+campo fechaFin
+campo geo_x
+campo geo_y
+campo getBoundingClientRect
+campo id_incidencia
+campo nombre_carretera
+campo parentNode
+campo pk
+campo scrollIntoView
+campo tipo
+campo titulo
