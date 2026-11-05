@@ -57,12 +57,14 @@ if not out["rec"] or time.strftime("%H") < "08":
 # 3) puertos de montaña en carreteras (Navarra y sus bordes)
 if not out["pue"] or time.strftime("%H") < "08":
     # primero los collados, luego solo los que están en una carretera (mucho más ligero para el servidor)
-    q = """[out:json][timeout:150];node["mountain_pass"="yes"](41.9,-2.55,43.35,-0.70)->.p;way(bn.p)["highway"~"^(motorway|trunk|primary|secondary|tertiary|unclassified)$"]->.w;node.p(w.w);out body;"""
+    # solo los de Navarra en carreteras de verdad (no pistas), más los de la frontera de Belagua y Larrau
+    q = """[out:json][timeout:150];area["ISO3166-2"="ES-NA"]->.a;node["mountain_pass"="yes"](area.a)->.p;way(bn.p)["highway"~"^(trunk|primary|secondary|tertiary)$"]->.w;
+(node.p(w.w);node["mountain_pass"="yes"]["name"~"Pierre Saint-Martin|Larraineko|Larrau"](42.85,-1.1,43.1,-0.7););out body;"""
     j = overpass(q)
     if j:
         L, seen = [], set()
         for e in j["elements"]:
-            t = e.get("tags", {}); n = t.get("name") or t.get("name:es") or t.get("name:eu")
+            t = e.get("tags", {}); n = t.get("name:es") or t.get("name") or t.get("name:eu")
             if not n or n in seen: continue
             seen.add(n)
             L.append({"n": n, "eu": t.get("name:eu") or "", "ele": num(t.get("ele")), "pt": [round(e["lat"], 5), round(e["lon"], 5)]})
