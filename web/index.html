@@ -431,9 +431,14 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <section id="t-incid">
 <div class="card" id="inSum"><b>🚧 Incidencias en las carreteras de Navarra</b><div class="note">Cargando…</div></div>
 <div class="seg" id="inCats" style="margin-bottom:6px"></div>
-<div class="card"><div style="position:relative"><canvas id="inc" height="400"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="inIn">＋</button><button class="btn mtb" id="inOut">－</button></div></div>
+<div class="row" style="margin:0 0 6px"><button class="btn pri" id="inGMaps" style="flex:1">🚗 Ver atascos en Google Maps</button></div>
+<div class="card"><div id="inTrafBar" style="display:none;margin-bottom:6px"><label style="font-size:14px"><input type="checkbox" id="inTraf" checked> 🚗 Tráfico ahora (TomTom)</label>
+ <span class="note" style="margin-left:6px"><b style="color:#2e7d32">━</b> fluido <b style="color:#f9a825">━</b> lento <b style="color:#c62828">━</b> atasco</span></div>
+<div style="position:relative"><canvas id="inc" height="400"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="inIn">＋</button><button class="btn mtb" id="inOut">－</button></div></div>
 <div id="inFicha" style="margin-top:8px"><div class="note">Toca un punto del mapa para ver qué pasa.</div></div></div>
 <div class="card"><b>📋 Lista</b><div id="inList"></div></div>
+<div class="card tech" style="display:none"><b>🔧 Clave de TomTom (tráfico)</b><div class="note">Pega la clave de tu cuenta gratuita de developer.tomtom.com. Se guarda en el repositorio para que todos los móviles vean el tráfico.</div>
+ <input id="ttKey" class="town" placeholder="Clave de TomTom" autocomplete="off" style="width:100%;box-sizing:border-box;margin-top:6px"><div class="row"><button class="btn pri" id="ttSave">💾 Guardar clave</button></div><div class="note" id="ttMsg"></div></div>
 <div class="note" style="margin:0 6px 10px">Fuente: Gobierno de Navarra, Centro de Control de Conservación de Carreteras (información 848 423 500). Para carreteras del Estado, consulta también la DGT.</div>
 </section>
 <section id="t-saih">
@@ -2600,6 +2605,34 @@ function inFicha(){const el=document.getElementById('inFicha'),i=INSEL;if(!i){el
 function inInit(){if(!INM){INM=NavMap('inc',inDraw,inTap);document.getElementById('inIn').onclick=()=>INM.zoom(1.6);document.getElementById('inOut').onclick=()=>INM.zoom(1/1.6);}
   setTimeout(()=>{INM.draw();INM.base();},40);if(!INC||Date.now()-INAT>5*60e3)inFetch();else inRender();}
 const _showTabIn=showTab;showTab=function(t){_showTabIn(t);if(t==='incid')setTimeout(inInit,40);};
+
+
+/* ---------- 🚗 tráfico: botón a Google Maps y capa de TomTom encima del mapa de incidencias ---------- */
+document.getElementById('inGMaps').onclick=()=>{const u='https://www.google.com/maps/@42.70,-1.65,9z/data=!5m1!1e1';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');};
+let TTKEY=null,TTT={};
+async function ttLoadKey(){if(TTKEY!==null)return TTKEY;TTKEY='';try{const r=await fetch(GH_RAW+'config/tomtom.json?t='+Math.floor(Date.now()/600000));if(r.ok)TTKEY=((await r.json()).key||'').trim();}catch(e){}
+  document.getElementById('inTrafBar').style.display=TTKEY?'':'none';return TTKEY;}
+function ttDraw(x,P,b){if(!TTKEY||!document.getElementById('inTraf').checked)return;
+  const z=Math.max(6,Math.min(15,Math.round(Math.log2(360*b.W/(256*(b.e-b.w)))))),n=2**z,tx=lo=>Math.floor((lo+180)/360*n),ty=la=>{const r=la*Math.PI/180;return Math.floor((1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n);},
+    lon=X=>X/n*360-180,lat=Y=>{const k=Math.PI-2*Math.PI*Y/n;return 180/Math.PI*Math.atan(.5*(Math.exp(k)-Math.exp(-k)));};
+  const x0=tx(b.w),x1=tx(b.e),y0=ty(b.n),y1=ty(b.s);if((x1-x0+1)*(y1-y0+1)>60)return;
+  x.globalAlpha=.95;
+  for(let X=x0;X<=x1;X++)for(let Y=y0;Y<=y1;Y++){const k=z+'/'+X+'/'+Y;let im=TTT[k];
+    if(!im){im=TTT[k]=new Image();im.onload=()=>{if(INM)INM.draw();};im.src=`https://api.tomtom.com/traffic/map/4/tile/flow/relative0/${k}.png?key=${encodeURIComponent(TTKEY)}&tileSize=256&t=${Math.floor(Date.now()/300000)}`;}
+    if(im.complete&&im.naturalWidth){const [ax,ay]=P(lat(Y),lon(X)),[bx,by]=P(lat(Y+1),lon(X+1));x.drawImage(im,ax,ay,bx-ax,by-ay);}}
+  x.globalAlpha=1;}
+const _inDraw0=inDraw;inDraw=function(x,P,b,M){ttDraw(x,P,b);_inDraw0(x,P,b,M);};
+document.getElementById('inTraf').onchange=()=>{if(INM)INM.draw();};
+setInterval(()=>{if(document.getElementById('t-incid').classList.contains('on')&&TTKEY){TTT={};if(INM)INM.draw();}},5*60e3);
+document.getElementById('ttSave').onclick=async()=>{const v=document.getElementById('ttKey').value.trim(),m=document.getElementById('ttMsg');if(!v){m.textContent='Pega la clave primero';return;}
+  if(!ghTok()){m.textContent='❌ Falta la llave de edición de GitHub en este móvil';return;}
+  m.textContent='Comprobando la clave con TomTom…';
+  const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=`https://api.tomtom.com/traffic/map/4/tile/flow/relative0/9/253/189.png?key=${encodeURIComponent(v)}`;});
+  if(!ok){m.textContent='❌ TomTom no acepta esa clave';return;}
+  try{let sha=null;try{const r=await fetch(GH_API+'config/tomtom.json?ref=main',{headers:{Authorization:'Bearer '+ghTok()}});if(r.ok)sha=(await r.json()).sha;}catch(e){}
+    await ghPut('config/tomtom.json',b64u(JSON.stringify({key:v})),'Clave de TomTom para el tráfico',sha);TTKEY=v;TTT={};document.getElementById('inTrafBar').style.display='';if(INM)INM.draw();m.textContent='✅ Guardada. El tráfico ya sale en el mapa.';}
+  catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}};
+const _inInit0=inInit;inInit=function(){_inInit0();ttLoadKey().then(()=>{if(INM)INM.draw();});};
 
 </script>
 </body>
