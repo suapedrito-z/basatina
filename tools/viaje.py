@@ -55,8 +55,7 @@ if not out["rec"] or time.strftime("%H") < "08":
         out["rec"] = L; log("recarga", len(L))
 
 # 3) puertos de montaña en carreteras (Navarra y sus bordes)
-if not out["pue"] or time.strftime("%H") < "08":
-    # primero los collados, luego solo los que están en una carretera (mucho más ligero para el servidor)
+if not out["pue"] or len(out["pue"]) > 80 or time.strftime("%H") < "08":
     # solo los de Navarra en carreteras de verdad (no pistas), más los de la frontera de Belagua y Larrau
     q = """[out:json][timeout:150];area["ISO3166-2"="ES-NA"]->.a;node["mountain_pass"="yes"](area.a)->.p;way(bn.p)["highway"~"^(trunk|primary|secondary|tertiary)$"]->.w;
 (node.p(w.w);node["mountain_pass"="yes"]["name"~"Pierre Saint-Martin|Larraineko|Larrau"](42.85,-1.1,43.1,-0.7););out body;"""
