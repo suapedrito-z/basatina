@@ -245,11 +245,10 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </section>
 <!-- ============ EL TIEMPO ============ -->
 <section id="t-tiempo">
-<div class="card"><select class="town" id="tTown"></select><div id="tNow" style="margin-top:8px"><div class="note">Cargando…</div></div></div>
+<div class="card"><select class="town" id="tTown"></select><div id="tNow" style="margin-top:8px"><div class="note">Cargando…</div></div><div id="tExtra" style="margin-top:12px"></div></div>
 <div class="card" id="tAv"><b>⚠️ Avisos de AEMET en Navarra</b><div class="note">Cargando…</div></div>
 <div class="card"><b>Próximas 24 horas</b><div class="note">Línea: temperatura · barras: lluvia (mm por hora)</div><canvas id="tH" height="180"></canvas></div>
 <div class="card"><b>Próximos 7 días</b><div id="tDays"></div></div>
-<div class="card" id="tExtra"></div>
 <div class="note">Fuente: Open‑Meteo (modelos de AEMET, ECMWF y otros), se actualiza al abrir esta pantalla.</div>
 </section>
 <!-- ============ MAPA DEL TIEMPO ============ -->
@@ -1136,7 +1135,7 @@ async function extraRender(){const t=TOWNS[TOWN],el=document.getElementById('tEx
   else h+='<div class="note">No se pudo leer la calidad del aire ahora.</div>';
   h+=`<div class="kpi" style="margin-top:8px"><div><span class="note">🌅 Sol</span><b>${di>=0?hm(d.sunrise[di])+' – '+hm(d.sunset[di]):'—'}</b><span class="note">salida – puesta</span></div>
     <div><span class="note">${m.ico} Luna</span><b>${m.n}</b><span class="note">${m.ill} % iluminada · llena en ${Math.round(m.full)} d · nueva en ${Math.round(m.nw)} d</span></div></div>`;
-  el.innerHTML='<b>🌿 Aire, polen, UV, sol y luna</b>'+h+'<div class="note" style="margin-top:4px">Fuentes: Meteoalarm/AEMET (avisos) y Open‑Meteo / Copernicus CAMS (aire y polen).</div>';}
+  el.innerHTML=h+'<div class="note" style="margin-top:4px">Fuentes: Meteoalarm/AEMET (avisos) y Open‑Meteo / Copernicus CAMS (aire y polen).</div>';}
 
 /* ---------- 🗺️ Mapa del tiempo de Navarra ---------- */
 const NB={w:-2.55,e:-0.70,s:41.88,n:43.47};let MT=null,MTL='tiempo',MTD=0,mtImg=null,mtHits=[];
