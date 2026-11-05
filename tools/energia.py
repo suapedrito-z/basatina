@@ -122,9 +122,9 @@ out["ree"] = {"meses": meses, "tec": {t: [d.get(m) for m in meses] for t, d in m
 log("\n## REE meses", len(meses), meses[:1], meses[-1:], list(mens))
 # producción por días (si REE lo da para Navarra)
 dias = {}
-for back in (0, 1):
+for back in (1,):
     a = (hoy.replace(day=1) - dt.timedelta(days=32*back)).replace(day=1); b = (a + dt.timedelta(days=32)).replace(day=1) - dt.timedelta(days=1)
-    jj = ree(f"generacion/estructura-generacion?start_date={a}T00:00&end_date={b}T23:59&time_trunc=day&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14", 2)
+    jj = ree(f"generacion/estructura-generacion?start_date={a}T00:00&end_date={b}T23:59&time_trunc=day&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14", 1)
     if jj:
         for inc in jj.get("included", []):
             for v in inc["attributes"]["values"]: dias.setdefault(inc["attributes"]["title"], {})[v["datetime"][:10]] = round(v["value"], 1)
@@ -134,8 +134,8 @@ if dias:
 log("## REE días:", len(dias) and len(out["reeDia"]["dias"]))
 # potencia instalada
 pot = {}
-for y in range(hoy.year-3, hoy.year+1):
-    for tt in ("year", "month"):
+for y in range(hoy.year-1, hoy.year):
+    for tt in ("year",):
         jj = ree(f"generacion/potencia-instalada?start_date={y}-01-01T00:00&end_date={y}-12-31T23:59&time_trunc={tt}&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14", 1)
         if jj:
             for inc in jj.get("included", []):
@@ -157,7 +157,12 @@ def curva(v):  # curva de potencia típica de un aerogenerador (fracción de la 
 def om_hist(pts, var, a, b):
     lat = ",".join(str(p[0]) for p in pts); lon = ",".join(str(p[1]) for p in pts)
     u = f"https://archive-api.open-meteo.com/v1/archive?latitude={lat}&longitude={lon}&start_date={a}&end_date={b}&hourly={var}&wind_speed_unit=ms&timezone=Europe%2FMadrid"
-    r = json.loads(get(u, timeout=240)); return r if isinstance(r, list) else [r]
+    for i in range(4):
+        try:
+            r = json.loads(get(u, timeout=240)); return r if isinstance(r, list) else [r]
+        except Exception as e:
+            log("open-meteo reintento", i, e); time.sleep(20)
+    raise RuntimeError("open-meteo no responde")
 cal = {}
 try:
     fin = hoy.replace(day=1) - dt.timedelta(days=1); ini = (fin.replace(day=1) - dt.timedelta(days=330)).replace(day=1)
@@ -199,6 +204,11 @@ try:
         cal["solMW"] = round(sum(smw(p) for p in sol), 1)
     log("## calibración solar", cal)
 except Exception as e: log("fallo calibración solar", e)
+# si hoy no se pudo calibrar, se guarda el ajuste de la última vez
+try:
+    prev = json.loads(open("web/energia.js").read()[len("window.ENERGIA="):-1]).get("cal", {})
+    for k, v in prev.items(): cal.setdefault(k, v)
+except Exception: pass
 out["cal"] = cal
 
 # ---------- 5) formato compacto para el móvil ----------

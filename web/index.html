@@ -126,6 +126,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button data-t="ciencia" id="dCiencia" style="display:none">🔬 Modo científico</button>
     <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
     <button data-t="pueblos" id="dPueblos" style="display:none">🏘️ Pueblos de Navarra (en pruebas)</button>
+    <button data-t="energia" id="dEnergia" style="display:none">⚡ Energía en Navarra (en pruebas)</button>
     <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
     <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
@@ -396,6 +397,19 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </div>
 <div id="pbFicha" style="display:none"></div>
 </section>
+<section id="t-energia">
+<div class="card" id="enSum"><b>⚡ Energía en Navarra</b><div class="note">Cargando…</div></div>
+<div class="card" id="enNow"></div>
+<div class="card" id="enReal"></div>
+<div class="card"><b>🗺️ Parques y centrales</b>
+<div id="enLay" style="display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;margin:6px 0">
+<label><input type="checkbox" data-k="eol" checked> <b style="color:#1e88e5">━</b> Parques eólicos</label><label><input type="checkbox" data-k="aer"> ⚪ Molinos (acerca el mapa)</label>
+<label><input type="checkbox" data-k="sol" checked> <b style="color:#ffb300">■</b> Plantas solares</label><label><input type="checkbox" data-k="otr" checked> <b style="color:#00acc1">●</b> Otras centrales</label></div>
+<div style="position:relative"><canvas id="enc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="enIn">＋</button><button class="btn mtb" id="enOut">－</button></div></div>
+<div id="enFicha" style="margin-top:8px"></div></div>
+<div class="card"><b>📋 Todos los parques</b><input id="enQ" class="town" placeholder="🔎 Buscar parque o empresa…" style="width:100%;box-sizing:border-box;margin:6px 0"><div id="enList"></div></div>
+<div class="note" style="margin:0 6px 10px">Fuentes: Red Eléctrica (REData), Gobierno de Navarra (IDENA), OpenStreetMap y Open‑Meteo.</div>
+</section>
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
@@ -412,7 +426,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🌿 Naturaleza de Navarra',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1275,7 +1289,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dEnergia','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
@@ -2337,6 +2351,129 @@ document.getElementById('pbCfgSave').onclick=async()=>{const n=document.getEleme
 document.getElementById('pbCfgDel').onclick=()=>{try{localStorage.removeItem('ghTok');}catch(e){}document.getElementById('pbTok').value='';document.getElementById('pbCfgMsg').textContent='Llave borrada de este móvil.';};
 document.getElementById('pbQ').oninput=pbRenderList;
 const _showTabPb=showTab;showTab=function(t){_showTabPb(t);if(t==='pueblos')pbLoad(()=>{pbRenderList();});};
+
+
+/* =====================================================================
+   ⚡ ENERGÍA EN NAVARRA (en pruebas, solo zona técnica)
+   - Datos reales: Red Eléctrica (REE), producción por tecnología mes a mes.
+   - Parques: IDENA (Gobierno de Navarra): parques eólicos, aerogeneradores, plantas solares.
+   - Hora a hora: ESTIMACIÓN con la previsión de viento y sol de Open-Meteo en cada parque,
+     ajustada (k) para que cuadre con lo que REE dice que se produjo de verdad.
+   ===================================================================== */
+let ENL=false,ENM=null,ENSEL=null,ENW=null,ENDAY=1,ENMES=null,ENON={eol:1,aer:0,sol:1,otr:1};
+const ENC={'Eólica':'#1e88e5','Solar fotovoltaica':'#ffb300','Hidráulica':'#00acc1','Otras renovables':'#7cb342','Cogeneración':'#8d6e63','Ciclo combinado':'#9e9e9e'};
+function enLoad(cb){if(window.ENERGIA)return cb();if(ENL)return;ENL=true;const s=document.createElement('script');s.src='energia.js';s.onload=()=>{ENL=false;cb();};s.onerror=()=>{ENL=false;document.getElementById('enNow').innerHTML='<div class="note">No se pudieron cargar los datos de energía.</div>';};document.body.appendChild(s);}
+function enCurva(v){if(v==null||v<3||v>25)return 0;if(v>=12)return 1;return (v*v*v-27)/(1728-27);}
+const enMWt=k=>(window.ENERGIA[k]||[]).reduce((s,p)=>s+(p.mw||0),0);
+const fMW=v=>v>=100?fmtN(v,0):fmtN(v,1),fGWh=v=>fmtN(v/1000,1);
+// previsión de viento (80 y 120 m) y sol en los puntos donde hay parques: ayer, hoy y mañana
+async function enWx(){const E=window.ENERGIA;if(ENW&&Date.now()-ENW.at<30*60e3)return ENW;
+  const q=(G,vars)=>`${OM}?latitude=${G.map(g=>g[0]).join(',')}&longitude=${G.map(g=>g[1]).join(',')}&hourly=${vars}&wind_speed_unit=ms&past_days=1&forecast_days=2${TZ}`;
+  const [we,ws]=await Promise.all([getJSON(q(E.gE,'wind_speed_80m,wind_speed_120m')),getJSON(q(E.gS,'shortwave_radiation'))]);
+  if(!we||!ws)return null;const A=x=>Array.isArray(x)?x:[x],WE=A(we),WS=A(ws);
+  const time=WE[0].hourly.time,kE=(E.cal&&E.cal.eol)||1.04,kS=(E.cal&&E.cal.sol)||.75;
+  const v100=(r,i)=>{const a=r.hourly.wind_speed_80m[i],b=r.hourly.wind_speed_120m[i];return a==null||b==null?null:(a+b)/2;};
+  const eol=time.map((_,i)=>kE*WE.reduce((s,r,g)=>s+E.gE[g][2]*enCurva(v100(r,i)),0));
+  const sol=time.map((_,i)=>kS*WS.reduce((s,r,g)=>s+E.gS[g][2]*((r.hourly.shortwave_radiation[i]||0)/1000),0));
+  const vm=time.map((_,i)=>{let s=0,w=0;WE.forEach((r,g)=>{const v=v100(r,i);if(v!=null){s+=v*E.gE[g][2];w+=E.gE[g][2];}});return w?s/w:null;});
+  ENW={at:Date.now(),time,eol,sol,vm,WE,WS};return ENW;}
+function enHourIdx(){const d=new Date(),k=ymd(d)+'T'+String(d.getHours()).padStart(2,'0')+':00';return ENW?ENW.time.indexOf(k):-1;}
+async function enNow(){const el=document.getElementById('enNow'),E=window.ENERGIA,MWe=enMWt('par'),MWs=enMWt('sol');
+  el.innerHTML='<div class="note">Calculando con la previsión del viento y del sol…</div>';const W=await enWx();
+  if(!W){el.innerHTML='<b>⚡ Ahora en Navarra</b><div class="note">No se pudo cargar la previsión ahora. Prueba en un rato.</div>';return;}
+  const i=Math.max(0,enHourIdx()),e=W.eol[i],s=W.sol[i];
+  el.innerHTML=`<b>⚡ Ahora en Navarra <span class="note">(estimado, ${W.time[i].slice(11)} h)</span></b>
+   <div class="kpi" style="margin-top:8px"><div><span class="note">🌬️ Eólica</span><b>${fMW(e)} MW</b><span class="note">${fmtN(100*e/MWe,0)} % de ${fMW(MWe)} MW · viento ${fmtN(W.vm[i]*3.6,0)} km/h</span></div>
+   <div><span class="note">☀️ Solar</span><b>${fMW(s)} MW</b><span class="note">${fmtN(100*s/MWs,0)} % de ${fMW(MWs)} MW</span></div></div>
+   <div class="row" id="enDays" style="margin-top:10px">${['Ayer','Hoy','Mañana'].map((t,k)=>`<button class="btn${k===ENDAY?' pri':''}" data-k="${k}">${t}</button>`).join('')}</div>
+   <canvas id="enH" height="190" style="width:100%;margin-top:6px"></canvas>
+   <div style="display:flex;gap:14px;font-size:12px;margin:2px 0 6px"><span><b style="color:#1e88e5">■</b> Eólica</span><span><b style="color:#ffb300">■</b> Solar</span><span class="note">MW cada hora</span></div>
+   <div id="enDayTot"></div>
+   <div class="note">Estimación hecha con la previsión de viento y sol en cada parque, ajustada para que cuadre con la producción real que publica Red Eléctrica (ajuste eólica ×${fmtN(E.cal.eol||1.04,2)}, solar ×${fmtN(E.cal.sol||.75,2)}). No es la medida real de cada hora.</div>`;
+  el.querySelectorAll('#enDays button').forEach(b=>b.onclick=()=>{ENDAY=+b.dataset.k;el.querySelectorAll('#enDays button').forEach(x=>x.classList.toggle('pri',x===b));enHours();});
+  enHours();enFicha();}
+function enHours(){const W=ENW;if(!W)return;const cv=document.getElementById('enH');if(!cv)return;const x=fitCanvas(cv),Wd=cv.clientWidth,H=LH(cv);
+  const d0=new Date();d0.setDate(d0.getDate()+ENDAY-1);const day=ymd(d0),I=W.time.map((t,i)=>t.startsWith(day)?i:-1).filter(i=>i>=0);
+  const MWe=enMWt('par'),MWs=enMWt('sol'),max=Math.max(200,...I.map(i=>W.eol[i]+W.sol[i]))*1.1,L=34,B=18,bw=(Wd-L-4)/24;
+  x.font='10px sans-serif';x.fillStyle='#93a4b5';x.strokeStyle='rgba(147,164,181,.2)';
+  for(let k=0;k<=4;k++){const v=max*k/4,y=H-B-(H-B-6)*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(Wd,y);x.stroke();x.fillText(Math.round(v),2,y+3);}
+  const now=enHourIdx();
+  I.forEach((i,k)=>{const he=(H-B-6)*W.eol[i]/max,hs=(H-B-6)*W.sol[i]/max,px=L+k*bw;x.fillStyle='#1e88e5';x.fillRect(px+1,H-B-he,bw-2,he);x.fillStyle='#ffb300';x.fillRect(px+1,H-B-he-hs,bw-2,hs);
+    if(i===now){x.strokeStyle='#fff';x.lineWidth=1.5;x.strokeRect(px+.5,6,bw-1,H-B-6);x.strokeStyle='rgba(147,164,181,.2)';x.lineWidth=1;}
+    if(k%3===0){x.fillStyle='#93a4b5';x.fillText(String(k).padStart(2,'0'),px,H-5);}});
+  const se=I.reduce((s,i)=>s+W.eol[i],0),ss=I.reduce((s,i)=>s+W.sol[i],0),n=I.length||24;
+  document.getElementById('enDayTot').innerHTML=`<div class="st"><span>🌬️ Eólica ${['ayer','hoy','mañana'][ENDAY]}</span><span><b>${fmtN(se,0)} MWh</b> <span class="note">· factor ${fmtN(100*se/(MWe*n),0)} %</span></span></div>
+   <div class="st"><span>☀️ Solar ${['ayer','hoy','mañana'][ENDAY]}</span><span><b>${fmtN(ss,0)} MWh</b> <span class="note">· factor ${fmtN(100*ss/(MWs*n),0)} %</span></span></div>
+   <div class="note">Para hacerte una idea: ${fmtN(se+ss,0)} MWh equivale a lo que gastan en un día unos ${fmtN((se+ss)*1000/9,0)} hogares (unos 9 kWh al día cada uno).</div>`;}
+// ---------- datos reales de REE, mes a mes ----------
+function enReal(){const E=window.ENERGIA,R=E.ree,el=document.getElementById('enReal');if(!R||!R.meses.length){el.innerHTML='<b>📊 Producción real</b><div class="note">Sin datos de Red Eléctrica ahora.</div>';return;}
+  if(ENMES==null)ENMES=R.meses.length-1;const m=R.meses[ENMES],[yy,mm]=m.split('-').map(Number),hrs=new Date(yy,mm,0).getDate()*24;
+  const tecs=Object.keys(R.tec).filter(t=>t!=='Generación total'),tot=(R.tec['Generación total']||[])[ENMES]||tecs.reduce((s,t)=>s+(R.tec[t][ENMES]||0),0);
+  const cap={'Eólica':enMWt('par'),'Solar fotovoltaica':enMWt('sol')};
+  for(const [t,d] of Object.entries(E.pot||{})){const ks=Object.keys(d).sort().filter(k=>k<=m);if(ks.length&&!cap[t])cap[t]=d[ks[ks.length-1]];}
+  const ren=['Eólica','Solar fotovoltaica','Hidráulica','Otras renovables'].reduce((s,t)=>s+((R.tec[t]||[])[ENMES]||0),0);
+  const yr=R.meses.map((x,i)=>[x,i]).filter(([x])=>x.startsWith(String(yy))).map(([,i])=>i);
+  el.innerHTML=`<b>📊 Producción real en Navarra</b><div class="note">Datos de Red Eléctrica (REE), por meses. Toca una barra para ver ese mes.</div>
+   <canvas id="enM" height="200" style="width:100%;margin-top:6px"></canvas>
+   <div style="display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;margin:4px 0 8px">${tecs.map(t=>`<span><b style="color:${ENC[t]||'#ccc'}">■</b> ${t}</span>`).join('')}</div>
+   <div class="row" style="align-items:center"><button class="btn" id="enPrev">‹</button><b style="flex:1;text-align:center">${MES[mm-1]} ${yy}</b><button class="btn" id="enNext">›</button></div>
+   <div class="kpi" style="margin:8px 0"><div><span class="note">Producción total</span><b>${fGWh(tot)} GWh</b></div><div><span class="note">Renovable</span><b>${fmtN(100*ren/tot,0)} %</b></div></div>
+   <div class="st" style="font-size:12px"><span class="note">Tecnología</span><span class="note">Producción · % · factor de capacidad</span></div>
+   ${tecs.map(t=>{const v=(R.tec[t]||[])[ENMES]||0;return `<div class="st"><span><b style="color:${ENC[t]||'#ccc'}">■</b> ${t}</span><span><b>${fGWh(v)} GWh</b> <span class="note">· ${fmtN(100*v/tot,0)} %${cap[t]?` · <b>${fmtN(100*v/(cap[t]*hrs),0)} %</b> (${fMW(cap[t])} MW)`:''}</span></span></div>`;}).join('')}
+   ${yr.length?`<div class="note" style="margin-top:8px">En ${yy} (${yr.length} meses): eólica ${fGWh(yr.reduce((s,i)=>s+((R.tec['Eólica']||[])[i]||0),0))} GWh · solar ${fGWh(yr.reduce((s,i)=>s+((R.tec['Solar fotovoltaica']||[])[i]||0),0))} GWh · hidráulica ${fGWh(yr.reduce((s,i)=>s+((R.tec['Hidráulica']||[])[i]||0),0))} GWh.</div>`:''}
+   <div class="note">Factor de capacidad: lo producido dividido entre lo que se habría producido funcionando al 100 % todo el mes. La eólica y la solar usan la potencia de los parques del Gobierno de Navarra (IDENA). REE publica los datos con unos meses de retraso.</div>`;
+  document.getElementById('enPrev').onclick=()=>{if(ENMES>0){ENMES--;enReal();}};document.getElementById('enNext').onclick=()=>{if(ENMES<R.meses.length-1){ENMES++;enReal();}};
+  const cv=document.getElementById('enM'),x=fitCanvas(cv),Wd=cv.clientWidth,H=LH(cv),N=Math.min(24,R.meses.length),i0=R.meses.length-N,L=30,B=16,bw=(Wd-L-2)/N;
+  const tots=R.meses.map((_,i)=>tecs.reduce((s,t)=>s+((R.tec[t]||[])[i]||0),0)),max=Math.max(...tots.slice(i0))*1.08;
+  x.font='10px sans-serif';x.strokeStyle='rgba(147,164,181,.2)';x.fillStyle='#93a4b5';
+  for(let k=0;k<=4;k++){const y=H-B-(H-B-6)*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(Wd,y);x.stroke();x.fillText(Math.round(max*k/4/1000),2,y+3);}
+  x.fillText('GWh',2,10);
+  for(let j=0;j<N;j++){const i=i0+j;let y=H-B;for(const t of tecs){const v=(R.tec[t]||[])[i]||0,h=(H-B-6)*v/max;x.fillStyle=ENC[t]||'#ccc';x.fillRect(L+j*bw+1,y-h,bw-2,h);y-=h;}
+    if(i===ENMES){x.strokeStyle='#fff';x.lineWidth=1.5;x.strokeRect(L+j*bw+.5,6,bw-1,H-B-6);x.strokeStyle='rgba(147,164,181,.2)';x.lineWidth=1;}
+    const [a,b]=R.meses[i].split('-');if(b==='01'||j===0){x.fillStyle='#93a4b5';x.fillText(a,L+j*bw,H-4);}}
+  cv.onclick=e=>{const j=Math.floor((e.offsetX-L)/bw);if(j>=0&&j<N){ENMES=i0+j;enReal();}};}
+// ---------- mapa de parques ----------
+function enDraw(x,P,b,M){const E=window.ENERGIA;if(!E)return;
+  if(ENON.sol)for(const p of E.sol){const sel=ENSEL&&ENSEL.p===p;for(const r of p.r){x.beginPath();r.forEach((q,i)=>{const [a,c]=P(q[0],q[1]);i?x.lineTo(a,c):x.moveTo(a,c);});x.closePath();x.fillStyle='#ffb300';x.globalAlpha=sel?.7:.45;x.fill();x.globalAlpha=1;x.strokeStyle='#e65100';x.lineWidth=sel?3:1;x.stroke();}
+    if(M.z<6){const [a,c]=P(p.c[0],p.c[1]);x.beginPath();x.arc(a,c,Math.max(3,Math.min(9,2+Math.sqrt(p.mw))),0,7);x.fillStyle='#ffb300';x.fill();x.strokeStyle='#fff';x.lineWidth=1;x.stroke();}}
+  if(ENON.eol)for(const p of E.par){const sel=ENSEL&&ENSEL.p===p;for(const r of p.r){x.beginPath();r.forEach((q,i)=>{const [a,c]=P(q[0],q[1]);i?x.lineTo(a,c):x.moveTo(a,c);});x.strokeStyle='#1e88e5';x.lineWidth=sel?5:3;x.stroke();}
+    if(M.z<6){const [a,c]=P(p.c[0],p.c[1]);x.beginPath();x.arc(a,c,Math.max(3,Math.min(10,1.5+Math.sqrt(p.mw))),0,7);x.fillStyle=sel?'#fff':'#1e88e5';x.fill();x.strokeStyle='#0d47a1';x.lineWidth=1;x.stroke();}}
+  if(ENON.aer&&M.z>=4)for(const a of E.aer){const [px,py]=P(a[0],a[1]);if(px<-5||py<-5||px>b.W+5||py>b.H+5)continue;x.beginPath();x.arc(px,py,M.z>12?3.5:2,0,7);x.fillStyle='#fff';x.fill();x.strokeStyle='#0d47a1';x.lineWidth=1;x.stroke();}
+  if(ENON.otr)for(const o of E.otras||[]){const [px,py]=P(o.pt[0],o.pt[1]);x.beginPath();x.arc(px,py,5,0,7);x.fillStyle=o.src==='hydro'?'#00acc1':'#7cb342';x.fill();x.strokeStyle='#fff';x.lineWidth=1;x.stroke();}}
+function enTap(px,py,M){const E=window.ENERGIA;if(!E)return;const P=M.P;let best=null,bd=22;
+  const near=(k,p,pts)=>{for(const q of pts){const [a,c]=P(q[0],q[1]),d=Math.hypot(a-px,c-py);if(d<bd){bd=d;best={k,p};}}};
+  if(ENON.eol)for(const p of E.par)near('eol',p,[p.c,...p.r.flat()]);if(ENON.sol)for(const p of E.sol)near('sol',p,[p.c,...p.r.flat()]);
+  if(ENON.otr)for(const o of E.otras||[])near('otr',o,[o.pt]);
+  if(ENON.aer&&M.z>=4)for(const a of E.aer){const [q,c]=P(a[0],a[1]),d=Math.hypot(q-px,c-py);if(d<Math.min(bd,12)){bd=d;best={k:'aer',p:a};}}
+  ENSEL=best;M.draw();enFicha();}
+function enFicha(){const el=document.getElementById('enFicha'),E=window.ENERGIA;if(!ENSEL){el.innerHTML='<div class="note">Toca un parque en el mapa (o en la lista de abajo) para ver su ficha.</div>';return;}
+  const {k,p}=ENSEL;
+  if(k==='aer'){const pk=p[5]>=0?E.par[p[5]]:null;el.innerHTML=`<b>🌬️ Aerogenerador</b><div class="st"><span>Modelo</span><b>${p[4]||'—'}</b></div><div class="st"><span>Potencia</span><b>${fmtN(p[2],2)} MW</b></div><div class="st"><span>Altura del buje</span><b>${p[3]||'—'} m</b></div>${pk?`<div class="row"><button class="btn" id="enGoP">Ver el parque ${pk.n}</button></div>`:''}`;
+    const g=document.getElementById('enGoP');if(g)g.onclick=()=>{ENSEL={k:'eol',p:pk};ENM.draw();enFicha();};return;}
+  if(k==='otr'){el.innerHTML=`<b>${p.src==='hydro'?'💧 Central hidráulica':'🌱 Central de '+({biomass:'biomasa',biogas:'biogás',gas:'gas',waste:'residuos'}[p.src]||p.src)}</b><div class="st"><span>Nombre</span><b>${p.n||'Sin nombre en el mapa'}</b></div>${p.mw?`<div class="st"><span>Potencia</span><b>${p.mw}</b></div>`:''}${p.op?`<div class="st"><span>Empresa</span><b>${p.op}</b></div>`:''}<div class="note">Datos de OpenStreetMap. Su producción no se publica por separado.</div>`;return;}
+  const eol=k==='eol',aer=eol?E.aer.filter(a=>a[5]===E.par.indexOf(p)):[],mods=[...new Set(aer.map(a=>a[4]))].join(', ');
+  let est='';if(ENW){const d=ymd(new Date()),I=ENW.time.map((t,i)=>t.startsWith(d)?i:-1).filter(i=>i>=0),i=Math.max(0,enHourIdx());
+    if(eol){const r=ENW.WE[p.g],v=j=>{const a=r.hourly.wind_speed_80m[j],b=r.hourly.wind_speed_120m[j];return a==null?null:(a+b)/2;},kk=E.cal.eol||1.04;
+      const ahora=kk*p.mw*enCurva(v(i)),dia=I.reduce((s,j)=>s+kk*p.mw*enCurva(v(j)),0);
+      est=`<div class="st"><span>Ahora (estimado)</span><b>${fmtN(ahora,1)} MW <span class="note">· viento ${fmtN((v(i)||0)*3.6,0)} km/h</span></b></div><div class="st"><span>Hoy (estimado)</span><b>${fmtN(dia,0)} MWh <span class="note">· factor ${fmtN(100*dia/(p.mw*24),0)} %</span></b></div>`;}
+    else{const r=ENW.WS[p.g],kk=E.cal.sol||.75,ahora=kk*p.mw*(r.hourly.shortwave_radiation[i]||0)/1000,dia=I.reduce((s,j)=>s+kk*p.mw*(r.hourly.shortwave_radiation[j]||0)/1000,0);
+      est=`<div class="st"><span>Ahora (estimado)</span><b>${fmtN(ahora,1)} MW</b></div><div class="st"><span>Hoy (estimado)</span><b>${fmtN(dia,1)} MWh <span class="note">· factor ${fmtN(100*dia/(p.mw*24),0)} %</span></b></div>`;}}
+  el.innerHTML=`<b>${eol?'🌬️ Parque eólico':'☀️ Planta solar'} ${p.n}</b>
+   <div class="st"><span>Potencia instalada</span><b>${fmtN(p.mw,p.mw<10?2:1)} MW</b></div>
+   ${eol&&p.na?`<div class="st"><span>Aerogeneradores</span><b>${p.na}</b></div>`:''}${mods?`<div class="st"><span>Modelos</span><b style="text-align:right">${mods}</b></div>`:''}
+   ${eol&&p.h?`<div class="st"><span>Altura del buje</span><b>${p.h} m</b></div>`:''}
+   ${p.emp?`<div class="st"><span>Empresa</span><b style="text-align:right">${p.emp}</b></div>`:''}${p.ano?`<div class="st"><span>En servicio desde</span><b>${p.ano}</b></div>`:''}
+   ${p.ev?`<div class="st"><span>Conecta a la red en</span><b style="text-align:right">${p.ev}</b></div>`:''}${est}
+   <div class="note">La producción real de cada parque no es pública; la estimación usa la previsión del tiempo en su zona.</div>`;}
+function enList(){const E=window.ENERGIA,q=(document.getElementById('enQ').value||'').toLowerCase(),L=[...E.par.map(p=>({k:'eol',p})),...E.sol.map(p=>({k:'sol',p}))].filter(o=>!q||(o.p.n+' '+o.p.emp).toLowerCase().includes(q)).sort((a,b)=>b.p.mw-a.p.mw);
+  const el=document.getElementById('enList');el.innerHTML=L.slice(0,q?80:30).map((o,i)=>`<div class="st" data-i="${i}" style="cursor:pointer"><div><b>${o.k==='eol'?'🌬️':'☀️'} ${o.p.n}</b><div class="s">${o.p.emp}${o.p.ano?' · '+o.p.ano:''}</div></div><b>${fMW(o.p.mw)} MW</b></div>`).join('')+(!q&&L.length>30?`<div class="note">Y ${L.length-30} más: usa el buscador.</div>`:'');
+  el.querySelectorAll('[data-i]').forEach(d=>d.onclick=()=>{const o=L[+d.dataset.i];ENSEL=o;const ps=o.p.r.flat();ENM.fit(Math.min(...ps.map(q=>q[0])),Math.max(...ps.map(q=>q[0])),Math.min(...ps.map(q=>q[1])),Math.max(...ps.map(q=>q[1])));enFicha();document.getElementById('enc').scrollIntoView({behavior:'smooth'});});}
+function enInit(){enLoad(()=>{const E=window.ENERGIA;if(!E._ok){const seen=new Set();E.otras=(E.otras||[]).filter(o=>{if(o.mw==='yes')o.mw='';const k=o.pt.join()+o.src;if(seen.has(k))return false;seen.add(k);return true;});E._ok=1;}
+  document.getElementById('enSum').innerHTML=`<b>⚡ Energía en Navarra</b><div class="note">${E.par.length} parques eólicos (${E.aer.length} molinos, ${fMW(enMWt('par'))} MW) y ${E.sol.length} plantas solares (${fMW(enMWt('sol'))} MW) en servicio. Datos del ${E.t.slice(0,10)}.</div>`;
+  if(!ENM){ENM=NavMap('enc',enDraw,enTap);document.getElementById('enIn').onclick=()=>ENM.zoom(1.6);document.getElementById('enOut').onclick=()=>ENM.zoom(1/1.6);
+    document.querySelectorAll('#enLay input').forEach(c=>c.onchange=()=>{ENON[c.dataset.k]=c.checked?1:0;ENM.draw();});document.getElementById('enQ').oninput=enList;}
+  setTimeout(()=>{ENM.draw();ENM.base();},40);enReal();enList();enFicha();enNow();});}
+const _showTabEn=showTab;showTab=function(t){_showTabEn(t);if(t==='energia')setTimeout(enInit,40);};
 
 </script>
 </body>
