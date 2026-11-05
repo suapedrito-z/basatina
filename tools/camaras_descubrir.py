@@ -1,5 +1,5 @@
 import json, urllib.request, io, subprocess, sys
-subprocess.run([sys.executable, "-m", "pip", "install", "-q", "pillow"])
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "--user", "--break-system-packages", "pillow"]); import site, importlib; sys.path.append(site.getusersitepackages()); importlib.invalidate_caches()
 from PIL import Image
 OUT = []
 def get(u):
