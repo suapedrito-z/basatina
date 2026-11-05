@@ -1,13 +1,13 @@
-import urllib.request, re, urllib.parse
+import urllib.request, re
 OUT = []
 def get(u):
-    with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0 (Linux; Android 14) Chrome/124 Mobile"}), timeout=60) as f: return f.headers.get("Content-Type",""), f.read()
-B = "https://www.euskalmet.euskadi.eus/observacion/radar-kapildui-precipitaciones/"
-ct, b = get(B); t = b.decode("utf8", "ignore"); OUT.append(f"{B} {len(t)}")
-refs = sorted(set(re.findall(r'(?:src|href|data-[\w-]+)=["\']([^"\']+)["\']', t)))
-for r in refs:
-    if re.search(r"radar|kapildui|\.png|\.gif|\.jpg|\.json|\.js|api", r, re.I): OUT.append("  " + r)
-for m in re.finditer(r".{0,200}(?:kapildui|radar).{0,300}", re.sub(r"\s+", " ", t), re.I):
-    OUT.append("  > " + m.group(0)[:500])
-    if len(OUT) > 400: break
+    with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0 (Linux; Android 14) Chrome/124 Mobile"}), timeout=60) as f: return f.headers, f.read()
+B = "https://www.euskalmet.euskadi.eus"
+for p in ["/scripts/custom/js/webmet00-kapilduiMap.js", "/scripts/custom/js/webmet00-const.js", "/vamet/radar_ray/webmet00-radar-lightning.js", "/vamet/radar_reflectivity/webmet00-radar-reflectivity.js"]:
+    try:
+        h, b = get(B + p); t = b.decode("utf8", "ignore"); OUT.append(f"\n===== {p} {len(t)}"); OUT.append(t[:7000])
+    except Exception as e: OUT.append(f"fallo {p} {e}")
+for p in ["/vamet/radar_ray/lightning/webmet00-0000.png", "/vamet/radar_reflectivity/max_reflect/webmet00-0000.png"]:
+    try: h, b = get(B + p); OUT.append(f"IMG {p} {len(b)} {h.get('Content-Type')} {h.get('Last-Modified')} ACAO={h.get('Access-Control-Allow-Origin')}")
+    except Exception as e: OUT.append(f"fallo {p} {e}")
 open("tools/camaras_info.txt", "w").write("\n".join(OUT))
