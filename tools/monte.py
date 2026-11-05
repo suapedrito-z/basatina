@@ -110,11 +110,18 @@ def perfil(pts, N=150):
     for p in smp:  # rellena huecos sueltos
         if p[2] is None: p[2] = last
         last = p[2]
-    # desnivel con «histéresis» de 5 m para que el ruido del GPS no lo infle
+    # Con alturas del modelo del terreno (más bastas) se suavizan con la media de 5 puntos vecinos,
+    # para que los pequeños errores no se sumen como si fueran subidas y bajadas
+    if src == "mdt":
+        z = [p[2] for p in smp]
+        for k in range(len(smp)):
+            v = z[max(0, k - 2):k + 3]; smp[k][2] = sum(v) / len(v)
+    # desnivel con «histéresis» (5 m con GPX, 10 m con el modelo) para que el ruido no lo infle
+    umb = 10 if src == "mdt" else 5
     up = dn = 0.0; ref = smp[0][2]
     for p in smp[1:]:
-        if p[2] - ref >= 5: up += p[2]-ref; ref = p[2]
-        elif ref - p[2] >= 5: dn += ref-p[2]; ref = p[2]
+        if p[2] - ref >= umb: up += p[2]-ref; ref = p[2]
+        elif ref - p[2] >= umb: dn += ref-p[2]; ref = p[2]
     el = [p[2] for p in smp]
     return {"km": round(tot, 2), "up": round(up), "dn": round(dn), "mx": round(max(el)), "mn": round(min(el)), "a0": round(el[0]),
             "c": 1 if km(pts[0], pts[-1]) < 0.3 else 0, "src": src}, [round(e) for e in el]
