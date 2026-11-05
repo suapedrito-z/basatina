@@ -97,6 +97,10 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="dsub">
     <button data-t="tiempo">🌦️ El tiempo</button>
     <button data-t="clima">📈 Histórico del clima</button>
+  </div>
+  <div class="dgroup"><span>Carreteras</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="incid">🚧 Incidencias: obras, cortes, accidentes…</button>
     <button data-t="camaras">📷 Cámaras en directo</button>
   </div>
   <div class="dgroup"><span>Qué hacer</span><i>▸</i></div>
@@ -424,6 +428,14 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div id="caList"></div>
 <div class="note" style="margin:0 6px 10px">Fuentes: Gobierno de Navarra (cámaras de carreteras) y alberguesyrefugios.com (Refugio de Belagua). Las imágenes son de sus dueños.</div>
 </section>
+<section id="t-incid">
+<div class="card" id="inSum"><b>🚧 Incidencias en las carreteras de Navarra</b><div class="note">Cargando…</div></div>
+<div class="seg" id="inCats" style="margin-bottom:6px"></div>
+<div class="card"><div style="position:relative"><canvas id="inc" height="400"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="inIn">＋</button><button class="btn mtb" id="inOut">－</button></div></div>
+<div id="inFicha" style="margin-top:8px"><div class="note">Toca un punto del mapa para ver qué pasa.</div></div></div>
+<div class="card"><b>📋 Lista</b><div id="inList"></div></div>
+<div class="note" style="margin:0 6px 10px">Fuente: Gobierno de Navarra, Centro de Control de Conservación de Carreteras (información 848 423 500). Para carreteras del Estado, consulta también la DGT.</div>
+</section>
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
@@ -440,7 +452,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -2540,6 +2552,54 @@ const _showTabNat=showTab;showTab=function(t){const m={natfau:'fau',natveg:'veg'
     document.getElementById('secTitle').textContent=TITLES[t]||'';document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));return;}
   _showTabNat(t);};
 document.querySelectorAll('#drawer button[data-t="natfau"],#drawer button[data-t="natveg"],#drawer button[data-t="natarb"]').forEach(b=>b.onclick=()=>{showTab(b.dataset.t);menu(false);});
+
+
+/* =====================================================================
+   🚧 INCIDENCIAS EN CARRETERAS (Gobierno de Navarra, en directo)
+   La web oficial no deja leer sus datos desde otra página, así que en la app los pide el móvil (AndroidNet).
+   ===================================================================== */
+const INC_URL='https://administracionelectronica.navarra.es/IncCarreteras/api/incidents';
+let INC=null,INM=null,INSEL=null,INCAT='',INAT=0;
+const INCOL={rojo:'#e53935',amarillo:'#ffb300',verde:'#43a047',negro:'#212121',naranja:'#fb8c00',azul:'#1e88e5'};
+const inIco=c=>/obra/i.test(c)?'🚧':/accident/i.test(c)?'💥':/meteo|nieve|hielo|niebla|viento/i.test(c)?'❄️':/retenc|tr[aá]fico|congest/i.test(c)?'🚗':/cort|cerr/i.test(c)?'⛔':/evento|prueba|deport/i.test(c)?'🚴':'⚠️';
+// UTM huso 30 (ETRS89) → latitud/longitud
+function utm2ll(E,N){const a=6378137,f=1/298.257222101,k0=.9996,e2=f*(2-f),ep=e2/(1-e2),x=E-5e5,M=N/k0,mu=M/(a*(1-e2/4-3*e2*e2/64-5*e2**3/256)),e1=(1-Math.sqrt(1-e2))/(1+Math.sqrt(1-e2));
+  const p=mu+(3*e1/2-27*e1**3/32)*Math.sin(2*mu)+(21*e1*e1/16-55*e1**4/32)*Math.sin(4*mu)+(151*e1**3/96)*Math.sin(6*mu),C=ep*Math.cos(p)**2,T=Math.tan(p)**2,Nn=a/Math.sqrt(1-e2*Math.sin(p)**2),Rr=a*(1-e2)/(1-e2*Math.sin(p)**2)**1.5,D=x/(Nn*k0);
+  const lat=p-(Nn*Math.tan(p)/Rr)*(D*D/2-(5+3*T+10*C-4*C*C-9*ep)*D**4/24+(61+90*T+298*C+45*T*T-252*ep-3*C*C)*D**6/720),lon=(D-(1+2*T+C)*D**3/6+(5-2*C+28*T-3*C*C+8*ep+24*T*T)*D**5/120)/Math.cos(p);
+  return [lat*180/Math.PI,-3+lon*180/Math.PI];}
+const inFecha=s=>{if(!s)return '';const m=String(s).match(/(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+)/);return m?`${+m[1]} ${MES[+m[2]-1]} ${m[3]} · ${m[4].padStart(2,'0')}:${m[5]}`:s;};
+async function inFetch(){const el=document.getElementById('inSum');el.innerHTML='<b>🚧 Incidencias en las carreteras de Navarra</b><div class="note">Pidiendo los datos al Gobierno de Navarra…</div>';
+  let j=null;try{if(APP){const r=await netGet(INC_URL+'?t='+Date.now());if(r.code===200)j=JSON.parse(r.body);}else{const r=await fetch(INC_URL);if(r.ok)j=await r.json();}}catch(e){}
+  if(!j||!j.incidencia){el.innerHTML='<b>🚧 Incidencias</b><div class="note">No se pudieron leer las incidencias ahora. Prueba en un rato.</div><div class="row"><button class="btn" id="inRe">🔄 Reintentar</button></div>';document.getElementById('inRe').onclick=inFetch;return;}
+  // solo lo que hace falta (la fuente trae también datos internos que no se enseñan)
+  INC=j.incidencia.filter(x=>x.publicable!==false&&(x.geo_x||x.utm_x)).map(x=>({id:x.id_incidencia,pt:utm2ll(x.geo_x||x.utm_x,x.geo_y||x.utm_y),cat:x.categoria||'Otros',tipo:x.tipo||'',tit:(x.titulo||'').trim(),des:(x.descripcion||'').trim(),
+    car:x.cod_carretera_actual||'',carN:x.nombre_carretera||'',pk:x.pk,hm:x.hm,af:x.afeccion||'',grav:x.gravedad||'',col:x.color||'amarillo',ini:x.fecha,fin:x.fecha_fin,desv:x.desvio_texto||'',tunel:x.tunel||'',cerr:!!x.CERRADA,imp:x.importancia||9}))
+    .sort((a,b)=>a.imp-b.imp||String(b.ini).localeCompare(String(a.ini)));
+  INAT=Date.now();inRender();}
+function inRender(){const L=INC||[],cats=[...new Set(L.map(x=>x.cat))],F=L.filter(x=>!INCAT||x.cat===INCAT),cort=L.filter(x=>x.cerr||/cortad|cerrad/i.test(x.af+' '+x.tit)).length;
+  document.getElementById('inSum').innerHTML=`<b>🚧 Incidencias en las carreteras de Navarra</b><div class="kpi" style="margin-top:8px"><div><span class="note">Activas ahora</span><b>${L.length}</b></div><div><span class="note">Con cortes</span><b style="color:${cort?'#e53935':'inherit'}">${cort}</b></div></div>
+   <div class="row" style="align-items:center;margin-top:6px"><span class="note" style="flex:1">Actualizado a las ${new Date(INAT).toTimeString().slice(0,5)}</span><button class="btn" id="inRe">🔄 Actualizar</button></div>`;
+  document.getElementById('inRe').onclick=inFetch;
+  document.getElementById('inCats').innerHTML=[['','Todas',L.length],...cats.map(c=>[c,inIco(c)+' '+c,L.filter(x=>x.cat===c).length])].map(([k,n,c])=>`<button class="btn${k===INCAT?' on':''}" data-c="${k}">${n} (${c})</button>`).join('');
+  document.querySelectorAll('#inCats button').forEach(b=>b.onclick=()=>{INCAT=b.dataset.c;INSEL=null;inRender();inFicha();});
+  document.getElementById('inList').innerHTML=F.length?F.map((x,i)=>`<div class="st" data-i="${L.indexOf(x)}" style="cursor:pointer"><div><b><span style="color:${INCOL[x.col]||'#ffb300'}">●</span> ${inIco(x.cat)} ${x.car} · ${x.tit||x.tipo}</b><div class="s">${x.af}${x.pk!=null?' · PK '+x.pk:''}</div></div><span class="note">›</span></div>`).join(''):'<div class="note">No hay incidencias de este tipo ahora mismo. 👍</div>';
+  document.querySelectorAll('#inList [data-i]').forEach(d=>d.onclick=()=>{INSEL=L[+d.dataset.i];INM.fit(INSEL.pt[0]-.05,INSEL.pt[0]+.05,INSEL.pt[1]-.07,INSEL.pt[1]+.07);inFicha();document.getElementById('inc').scrollIntoView({behavior:'smooth'});});
+  if(INM)INM.draw();}
+function inDraw(x,P,b,M){if(!INC)return;for(const i of INC){if(INCAT&&i.cat!==INCAT)continue;const [px,py]=P(i.pt[0],i.pt[1]),sel=INSEL===i,r=sel?13:10;
+  x.beginPath();x.arc(px,py,r,0,7);x.fillStyle=INCOL[i.col]||'#ffb300';x.fill();x.strokeStyle='#fff';x.lineWidth=sel?3:2;x.stroke();x.font=(sel?14:11)+'px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(inIco(i.cat),px,py+1);x.textAlign='start';x.textBaseline='alphabetic';}}
+function inTap(px,py,M){if(!INC)return;let best=null,bd=24;for(const i of INC){if(INCAT&&i.cat!==INCAT)continue;const [a,b]=M.P(i.pt[0],i.pt[1]),d=Math.hypot(a-px,b-py);if(d<bd){bd=d;best=i;}}INSEL=best;M.draw();inFicha();}
+function inFicha(){const el=document.getElementById('inFicha'),i=INSEL;if(!i){el.innerHTML='<div class="note">Toca un punto del mapa para ver qué pasa.</div>';return;}
+  el.innerHTML=`<div style="border-left:4px solid ${INCOL[i.col]||'#ffb300'};padding-left:10px"><b style="font-size:16px">${inIco(i.cat)} ${i.tit||i.tipo}</b>
+   <div class="note">${i.cat}${i.tipo&&i.tipo.toLowerCase()!==i.cat.toLowerCase()?' · '+i.tipo.charAt(0)+i.tipo.slice(1).toLowerCase():''}${i.grav?' · gravedad '+i.grav.toLowerCase():''}</div>
+   ${i.des?`<div style="margin:6px 0;line-height:1.45">${i.des.replace(/</g,'&lt;')}</div>`:''}
+   <div class="st"><span>Carretera</span><b style="text-align:right">${i.carN||i.car}</b></div>
+   ${i.pk!=null?`<div class="st"><span>Punto kilométrico</span><b>${i.pk}${i.hm?','+String(i.hm).padStart(3,'0'):''}</b></div>`:''}
+   ${i.af?`<div class="st"><span>Afección</span><b style="text-align:right">${i.af}</b></div>`:''}${i.tunel?`<div class="st"><span>Túnel</span><b>${i.tunel}</b></div>`:''}
+   ${i.desv?`<div class="st"><span>Desvío</span><b style="text-align:right">${i.desv.replace(/</g,'&lt;')}</b></div>`:''}
+   <div class="st"><span>Desde</span><b>${inFecha(i.ini)}</b></div>${i.fin?`<div class="st"><span>Hasta</span><b>${inFecha(i.fin)}</b></div>`:''}</div>`;}
+function inInit(){if(!INM){INM=NavMap('inc',inDraw,inTap);document.getElementById('inIn').onclick=()=>INM.zoom(1.6);document.getElementById('inOut').onclick=()=>INM.zoom(1/1.6);}
+  setTimeout(()=>{INM.draw();INM.base();},40);if(!INC||Date.now()-INAT>5*60e3)inFetch();else inRender();}
+const _showTabIn=showTab;showTab=function(t){_showTabIn(t);if(t==='incid')setTimeout(inInit,40);};
 
 </script>
 </body>
