@@ -80,7 +80,7 @@ try:
 except Exception as e: log("fallo solar", e)
 
 # ---------- 2) OSM: centrales hidráulicas, biomasa, etc. ----------
-Q = """[out:json][timeout:180];area["boundary"="administrative"]["admin_level"="4"]["name"="Navarra"]->.a;
+Q = """[out:json][timeout:180];area["ISO3166-2"="ES-NA"]->.a;
 (nwr["power"="plant"](area.a);nwr["power"="generator"]["generator:source"~"hydro|biomass|biogas|waste"](area.a););out center tags;"""
 j = None
 for s in ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://overpass.kumi.systems/api/interpreter"] * 2:
@@ -134,12 +134,13 @@ if dias:
 log("## REE días:", len(dias) and len(out["reeDia"]["dias"]))
 # potencia instalada
 pot = {}
-for tt, rng in (("year", (hoy.year-6, hoy.year)), ("month", (hoy.year-1, hoy.year))):
-    jj = ree(f"generacion/potencia-instalada?start_date={rng[0]}-01-01T00:00&end_date={rng[1]}-12-31T23:59&time_trunc={tt}&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14", 2)
-    if jj:
-        for inc in jj.get("included", []):
-            for v in inc["attributes"]["values"]: pot.setdefault(inc["attributes"]["title"], {})[v["datetime"][:7]] = round(v["value"], 1)
-        if pot: break
+for y in range(hoy.year-3, hoy.year+1):
+    for tt in ("year", "month"):
+        jj = ree(f"generacion/potencia-instalada?start_date={y}-01-01T00:00&end_date={y}-12-31T23:59&time_trunc={tt}&geo_trunc=electric_system&geo_limit=ccaa&geo_ids=14", 1)
+        if jj:
+            for inc in jj.get("included", []):
+                for v in inc["attributes"]["values"]: pot.setdefault(inc["attributes"]["title"], {})[v["datetime"][:7]] = round(v["value"], 1)
+            break
 out["pot"] = pot
 log("## REE potencia instalada:", {k: list(v.items())[-2:] for k, v in pot.items()})
 
@@ -200,6 +201,33 @@ try:
 except Exception as e: log("fallo calibración solar", e)
 out["cal"] = cal
 
+# ---------- 5) formato compacto para el móvil ----------
+def gi(grid, c):
+    k = (round(c[0], 1), round(c[1], 1)); return k
+def toint(v):
+    try: return int(float(v))
+    except Exception: return None
+gE = collections.OrderedDict(); gS = collections.OrderedDict()
+par = []
+alt = collections.defaultdict(list)
+for a in out["aero"]: alt[a["a"].get("PARQUE", "")].append(num(a["a"].get("ALTURA_M")) or 0)
+for p in out["parques"]:
+    a = p["a"]; mw = mwp(p) or 0; k = gi(gE, p["c"]); gE[k] = gE.get(k, 0) + mw
+    hs = sorted(alt.get(a.get("NOMBRE", ""), [])) or [0]
+    par.append({"n": a.get("NOMBRE", "").title(), "emp": a.get("PROMOTOR", ""), "mw": round(mw, 3), "na": toint(a.get("NUMAEROS")), "ano": toint(a.get("PUESTSERV")),
+                "ev": a.get("EVACUACION", ""), "ra": a.get("RAIPEE", ""), "h": hs[len(hs)//2], "c": p["c"], "r": p["r"], "g": list(gE).index(k)})
+sol = []
+for p in out["solar"]:
+    a = p["a"]; mw = num(a.get("POT_MW")) or 0; k = gi(gS, p["c"]); gS[k] = gS.get(k, 0) + mw
+    sol.append({"n": a.get("NOMBRE", "").title(), "emp": a.get("PROMOTOR", ""), "mw": round(mw, 3), "ano": toint(a.get("PUESTSERV")), "ev": a.get("EVACUACION", ""),
+                "c": p["c"], "r": [simplify(r, 0.0006) for r in p["r"]], "g": list(gS).index(k)})
+names = [p["n"].upper() for p in par]
+aer = []
+for a in out["aero"]:
+    q = a["a"]; pk = q.get("PARQUE", "").upper()
+    aer.append([a["pt"][0], a["pt"][1], num(q.get("POT_MW")) or 0, toint(q.get("ALTURA_M")) or 0, q.get("MODELO", ""), names.index(pk) if pk in names else -1])
+out = {"t": out["t"], "par": par, "sol": sol, "aer": aer, "otras": out["otras"], "ree": out["ree"], "reeDia": out.get("reeDia"), "pot": out["pot"], "cal": out["cal"],
+       "gE": [[k[0], k[1], round(v, 2)] for k, v in gE.items()], "gS": [[k[0], k[1], round(v, 2)] for k, v in gS.items()]}
 open("web/energia.js", "w").write("window.ENERGIA=" + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";")
 open("tools/energia_info.txt", "w").write("\n".join(info))
 log("tamaño", len(json.dumps(out)) // 1024, "KB")
