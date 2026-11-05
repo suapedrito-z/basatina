@@ -1,0 +1,23 @@
+name: Vídeo de presentación
+on:
+  push:
+    paths: ['tools/video.py']
+  workflow_dispatch:
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-noto-color-emoji
+          pip install playwright && python3 -m playwright install --with-deps chromium
+      - name: Grabar
+        run: |
+          (cd web && python3 -m http.server 8765 >/dev/null 2>&1 &)
+          sleep 2
+          python3 tools/video.py http://localhost:8765/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: BasatiNA_presentacion.mp4
