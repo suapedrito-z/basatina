@@ -144,6 +144,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
     <button data-t="pueblos" id="dPueblos" style="display:none">🏘️ Pueblos de Navarra (en pruebas)</button>
     <button data-t="agenda" id="dAgenda" style="display:none">🎉 Agenda de fiestas (en pruebas)</button>
+    <button data-t="arboles" id="dArboles" style="display:none">🌳 Árboles singulares (en pruebas)</button>
     <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
     <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
@@ -488,6 +489,15 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="card"><b>🎉 Agenda de fiestas</b><div class="note">Las fiestas que vais apuntando en cada pueblo (Pueblos → Editar → fechas de fiestas). Se repiten cada año en las mismas fechas.</div></div>
 <div id="agList"><div class="card"><div class="note">Cargando…</div></div></div>
 </section>
+<section id="t-arboles">
+<div id="arListV">
+<div class="card"><b>🌳 Árboles singulares de Navarra</b><div class="note">Árboles especiales que vais fichando: dónde están, especie, medidas, historia y fotos. En pruebas: solo en la zona técnica.</div>
+<div class="row" style="margin-top:8px"><input id="arQ" class="town" placeholder="🔎 Buscar árbol, especie o pueblo…" style="flex:1;box-sizing:border-box"><button class="btn pri" id="arNew">➕ Añadir</button></div></div>
+<div class="card"><div style="position:relative"><canvas id="arc" height="340"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="arcIn">＋</button><button class="btn mtb" id="arcOut">－</button></div></div></div>
+<div class="card" id="arList"><div class="note">Cargando…</div></div>
+</div>
+<div id="arFicha" style="display:none"></div>
+</section>
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
@@ -504,7 +514,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={gas:'⛽ Gasolineras y recarga',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={arboles:'🌳 Árboles singulares',gas:'⛽ Gasolineras y recarga',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1368,7 +1378,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dAgenda','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dAgenda','dArboles','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
@@ -2974,6 +2984,85 @@ async function ekInit(){if(!EKM){EKM=NavMap('ekc',ekDraw,()=>{});mapBtns('ekc',E
   document.getElementById('ekNote').textContent=EUSF.length?'Cuanto más intenso el color, más fuerte llueve. Si no ves color, no llueve en esa zona. Datos de Euskalmet cada 10 minutos.':'Euskalmet todavía no tiene imágenes de hoy (pasa justo después de medianoche). Vuelve a mirar en un rato.';
   setTimeout(()=>{EKM.draw();EKM.base();ekShow();},120);}
 
+
+
+/* =====================================================================
+   🌳 ÁRBOLES SINGULARES: fichas que crean Pedro y Sonia (carpeta arboles/ del repositorio)
+   ===================================================================== */
+let ARL=null,ARM=null,ARSEL=null,ARPICK=null,ARLOAD=false;
+const arEsc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function arLoad(force){if(ARL&&!force)return ARL;let L=null;
+  // con la llave se lee la carpeta directamente (al momento); sin ella, el resumen que prepara GitHub Actions
+  if(ghTok()){try{const r=await fetch(GH_API+'arboles?ref=main&t='+Date.now(),{headers:{Authorization:'Bearer '+ghTok(),Accept:'application/vnd.github+json'}});
+    if(r.status===404)L=[];else if(r.ok){const F=(await r.json()).filter(f=>f.name.endsWith('.json'));
+      L=(await Promise.all(F.map(async f=>{try{const x=await fetch(GH_API+'arboles/'+f.name+'?ref=main',{headers:{Authorization:'Bearer '+ghTok(),Accept:'application/vnd.github+json'}});const j=await x.json();return Object.assign(JSON.parse(ub64(j.content)),{_sha:j.sha,id:f.name.slice(0,-5)});}catch(e){return null;}}))).filter(Boolean);}}catch(e){}}
+  if(!L){L=await new Promise(res=>{const s=document.createElement('script');s.src='arboles.js?t='+Math.floor(Date.now()/6e4);s.onload=()=>res((window.ARBOLES&&window.ARBOLES.L)||[]);s.onerror=()=>res([]);document.body.appendChild(s);});}
+  ARL=L.sort((a,b)=>(a.n||'').localeCompare(b.n||'','es'));return ARL;}
+function arDraw(x,P,b,M){for(const a of ARL||[]){if(a.lat==null)continue;const [px,py]=P(a.lat,a.lon),sel=ARSEL===a;x.beginPath();x.arc(px,py,sel?10:7,0,7);x.fillStyle='#2e7d32';x.fill();x.strokeStyle='#fff';x.lineWidth=2;x.stroke();
+  x.font='12px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('🌳',px,py-14);x.textAlign='start';x.textBaseline='alphabetic';
+  if(M.z>=4){x.font='bold 11px sans-serif';x.strokeStyle='rgba(255,255,255,.9)';x.lineWidth=3;x.strokeText(a.n||'',px+10,py+4);x.fillStyle='#13202c';x.fillText(a.n||'',px+10,py+4);}}
+  if(ARPICK&&ARPICK.pt){const [px,py]=P(ARPICK.pt[0],ARPICK.pt[1]);x.beginPath();x.arc(px,py,9,0,7);x.fillStyle='#e53935';x.fill();x.strokeStyle='#fff';x.lineWidth=3;x.stroke();}}
+function arTap(px,py,M){const b=M.box(),ll=[b.n-(b.n-b.s)*py/b.H,b.w+(b.e-b.w)*px/b.W];
+  if(ARPICK){ARPICK.pt=[+ll[0].toFixed(5),+ll[1].toFixed(5)];ARPICK.cb(ARPICK.pt);M.draw();return;}
+  let best=null,bd=22;for(const a of ARL||[]){if(a.lat==null)continue;const [x,y]=M.P(a.lat,a.lon),d=Math.hypot(x-px,y-py);if(d<bd){bd=d;best=a;}}if(best)arOpen(best);}
+function arRender(){const q=(document.getElementById('arQ').value||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''),L=(ARL||[]).filter(a=>!q||[a.n,a.sp,a.mun,a.lug].join(' ').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(q));
+  document.getElementById('arList').innerHTML=`<div class="note">${L.length} árboles</div>`+(L.map(a=>`<div class="st" data-id="${arEsc(a.id)}" style="cursor:pointer"><div><b>🌳 ${arEsc(a.n||'Sin nombre')}</b><div class="s">${[a.sp?'<i>'+arEsc(a.sp)+'</i>':'',arEsc(a.mun||a.lug||'')].filter(Boolean).join(' · ')}</div></div><span class="note">${(a.fotos||[]).length?'📷 '+a.fotos.length:''} ›</span></div>`).join('')||'<div class="note">Todavía no hay árboles. Pulsa «➕ Añadir» para crear el primero.</div>');
+  document.querySelectorAll('#arList [data-id]').forEach(d=>d.onclick=()=>arOpen(ARL.find(a=>a.id===d.dataset.id)));ARM&&ARM.draw();}
+function arBack(){ARSEL=null;ARPICK=null;document.getElementById('arFicha').style.display='none';document.getElementById('arListV').style.display='';arRender();setTimeout(()=>{ARM&&ARM.draw();},50);}
+function arOpen(a){ARSEL=a;document.getElementById('arListV').style.display='none';const el=document.getElementById('arFicha');el.style.display='';window.scrollTo(0,0);
+  const row=(t,v)=>v?`<div class="st"><span>${t}</span><b style="text-align:right">${arEsc(v)}</b></div>`:'',fotos=a.fotos||[];
+  el.innerHTML=`<button class="btn" id="arB">‹ Todos los árboles</button>
+   <div class="card"><b style="font-size:20px">🌳 ${arEsc(a.n||'Sin nombre')}</b>${a.sp?`<div class="note"><i>${arEsc(a.sp)}</i></div>`:''}
+    ${row('📍 Lugar',[a.lug,a.mun].filter(Boolean).join(', '))}${row('📏 Altura',a.alt?a.alt+' m':'')}${row('⭕ Perímetro del tronco',a.per?a.per+' cm':'')}
+    ${row('🌳 Diámetro de la copa',a.copa?a.copa+' m':'')}${row('⏳ Edad aproximada',a.edad?a.edad+' años':'')}${row('🛡️ Protección',a.prot)}
+    ${a.lat!=null?`<div class="st"><span>🧭 Coordenadas</span><b>${(+a.lat).toFixed(5)}, ${(+a.lon).toFixed(5)}</b></div><div class="row"><button class="btn pri" id="arGo">🧭 Cómo llegar</button></div>`:''}</div>
+   ${a.des?`<div class="card"><b>📜 Historia y descripción</b><div style="white-space:pre-wrap;margin-top:6px;line-height:1.5">${arEsc(a.des)}</div></div>`:''}
+   ${fotos.length?`<div class="card"><b>📷 Fotos</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">${fotos.map((f,k)=>`<div><img src="${GH_RAW+f.f}" data-k="${k}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer"><div class="note" style="font-size:11px">${arEsc(f.t||'')}</div></div>`).join('')}</div></div>`:''}
+   ${a.ed?`<div class="note">Última edición: ${arEsc(a.ed)} · ${arEsc(a.fe||'')}</div>`:''}
+   ${ghTok()?'<div class="row"><button class="btn pri" id="arEd">✏️ Editar este árbol</button></div>':''}`;
+  document.getElementById('arB').onclick=arBack;const g=document.getElementById('arGo');if(g)g.onclick=()=>openNav(a.lat,a.lon);
+  el.querySelectorAll('img[data-k]').forEach(im=>im.onclick=()=>pbFoto(GH_RAW+fotos[+im.dataset.k].f,fotos[+im.dataset.k].t));
+  const e=document.getElementById('arEd');if(e)e.onclick=()=>arEdit(a);}
+function arSlug(t){return (slugify(t)||'arbol').slice(0,40)+'-'+Date.now().toString(36);}
+function arEdit(a){const nuevo=!a;a=a||{};document.getElementById('arListV').style.display='none';const el=document.getElementById('arFicha');el.style.display='';window.scrollTo(0,0);
+  const inp=(k,t,ph,type)=>`<label style="display:block;margin-top:6px">${t}<input id="arE_${k}" ${type?'type="'+type+'"':''} class="town" placeholder="${ph||''}" value="${arEsc(a[k]??'')}" style="width:100%;box-sizing:border-box"></label>`;
+  el.innerHTML=`<button class="btn" id="arB">‹ Volver</button><div class="card" style="border-color:var(--acc)"><b>${nuevo?'➕ Nuevo árbol':'✏️ Editar '+arEsc(a.n||'')}</b>
+   ${inp('n','🌳 Nombre (el que le da la gente)','Ej.: El roble de Orgi, Haya de Aritzakun…')}${inp('sp','🔬 Especie','Ej.: Quercus robur (roble común)')}
+   ${inp('lug','📍 Paraje o sitio','Ej.: junto a la ermita de San Esteban')}${inp('mun','🏘️ Pueblo o municipio','Ej.: Lizaso')}
+   <div class="row" style="gap:6px">${['alt','per','copa','edad'].map(k=>`<label style="flex:1">${({alt:'Altura (m)',per:'Perímetro (cm)',copa:'Copa (m)',edad:'Edad (años)'})[k]}<input id="arE_${k}" type="number" min="0" class="town" value="${arEsc(a[k]??'')}" style="width:100%;box-sizing:border-box"></label>`).join('')}</div>
+   ${inp('prot','🛡️ Protección','Ej.: Monumento Natural, árbol singular, ninguna…')}
+   <label style="display:block;margin-top:6px">📜 Historia y descripción<textarea id="arE_des" class="town" rows="7" style="width:100%;box-sizing:border-box;font-family:inherit" placeholder="Cómo es, su historia, leyendas, por qué es especial…">${arEsc(a.des||'')}</textarea></label>
+   <div style="margin-top:8px;padding:8px;border:1px dashed var(--line);border-radius:8px"><b>🧭 Dónde está</b><div class="note" id="arPosT">${a.lat!=null?'Ahora: '+(+a.lat).toFixed(5)+', '+(+a.lon).toFixed(5):'Sin posición todavía.'}</div>
+    <div class="row"><button class="btn" id="arMe">📍 Estoy junto al árbol (usar mi ubicación)</button></div><div class="note">O toca en el mapa el sitio exacto:</div>
+    <div style="position:relative"><canvas id="arpc" height="300"></canvas></div></div>
+   <label style="display:block;margin-top:8px">📷 Añadir fotos<input type="file" id="arE_f" accept="image/*" multiple class="town" style="width:100%;box-sizing:border-box"></label>
+   <input id="arE_ft" class="town" placeholder="Pie de foto (opcional)" style="width:100%;box-sizing:border-box;margin-top:6px">
+   ${(a.fotos||[]).length?'<div class="note" style="margin-top:6px">Fotos ya subidas (marca para quitarlas):</div>'+a.fotos.map((f,k)=>`<label style="display:flex;gap:6px;align-items:center;margin:3px 0"><input type="checkbox" data-del="${k}"><img src="${GH_RAW+f.f}" style="width:56px;height:42px;object-fit:cover;border-radius:4px">${arEsc(f.t||'')}</label>`).join(''):''}
+   <div class="row"><button class="btn pri" id="arSave">💾 Guardar</button><button class="btn" id="arCan">Cancelar</button></div><div class="note" id="arMsg"></div>
+   <div class="note">Lo que guardes se publica en el repositorio público de GitHub. Si el árbol está en una finca privada, no pongas la posición exacta.</div></div>`;
+  const pos={pt:a.lat!=null?[+a.lat,+a.lon]:null};const setPos=pt=>{pos.pt=pt;document.getElementById('arPosT').textContent='Posición: '+pt[0].toFixed(5)+', '+pt[1].toFixed(5);};
+  const PM=NavMap('arpc',(x,P)=>{if(pos.pt){const [px,py]=P(pos.pt[0],pos.pt[1]);x.beginPath();x.arc(px,py,9,0,7);x.fillStyle='#e53935';x.fill();x.strokeStyle='#fff';x.lineWidth=3;x.stroke();}},(px,py,M)=>{const b=M.box();setPos([+(b.n-(b.n-b.s)*py/b.H).toFixed(5),+(b.w+(b.e-b.w)*px/b.W).toFixed(5)]);M.draw();});
+  setTimeout(()=>{if(pos.pt)PM.fit(pos.pt[0]-.02,pos.pt[0]+.02,pos.pt[1]-.03,pos.pt[1]+.03);else{PM.draw();PM.base();}},60);
+  document.getElementById('arMe').onclick=async()=>{try{const m=await myPos();setPos([+m.la.toFixed(5),+m.lo.toFixed(5)]);PM.fit(m.la-.01,m.la+.01,m.lo-.015,m.lo+.015);}catch(e){toast('📍 '+e.message);}};
+  document.getElementById('arB').onclick=document.getElementById('arCan').onclick=()=>nuevo?arBack():arOpen(a);
+  document.getElementById('arSave').onclick=async()=>{const msg=document.getElementById('arMsg'),btn=document.getElementById('arSave'),v=k=>document.getElementById('arE_'+k).value.trim();
+    if(!v('n')&&!v('sp')){msg.textContent='Pon al menos el nombre o la especie.';return;}btn.disabled=true;
+    try{const id=a.id||arSlug(v('n')||v('sp')),nd={n:v('n'),sp:v('sp'),lug:v('lug'),mun:v('mun'),prot:v('prot'),des:v('des')};
+      ['alt','per','copa','edad'].forEach(k=>{const x=v(k);if(x!=='')nd[k]=+x;});if(pos.pt){nd.lat=pos.pt[0];nd.lon=pos.pt[1];}
+      const del=new Set([...document.querySelectorAll('#arFicha [data-del]:checked')].map(x=>+x.dataset.del));nd.fotos=(a.fotos||[]).filter((_,k)=>!del.has(k));
+      const files=[...(document.getElementById('arE_f').files||[])],cap=v('ft');
+      for(let k=0;k<files.length;k++){msg.textContent=`Subiendo foto ${k+1} de ${files.length}…`;const b=await pbShrink(files[k]),path=`arboles/fotos/${id}/${Date.now()}-${k}.jpg`;
+        await ghPut(path,b,`Foto del árbol ${nd.n||nd.sp} (${edName()||'app'})`);nd.fotos.push({f:path,t:cap,by:edName()||'',d:ymd(new Date())});}
+      msg.textContent='Guardando la ficha…';nd.ed=edName()||'';nd.fe=new Date().toLocaleString('es-ES');
+      let sha=a._sha||null;try{const r=await fetch(GH_API+'arboles/'+id+'.json?ref=main',{headers:{Authorization:'Bearer '+ghTok()}});if(r.ok)sha=(await r.json()).sha;}catch(e){}
+      const res=await ghPut('arboles/'+id+'.json',b64u(JSON.stringify(nd,null,1)),`Árbol ${nd.n||nd.sp} (${edName()||'app'})`,sha);
+      Object.assign(nd,{id,_sha:res.content&&res.content.sha});if(ARL){const i=ARL.findIndex(x=>x.id===id);if(i>=0)ARL[i]=nd;else ARL.push(nd);}
+      msg.textContent='✅ Guardado';setTimeout(()=>arOpen(nd),500);}
+    catch(e){msg.textContent='❌ No se pudo guardar: '+e.message;btn.disabled=false;}};}
+async function arInit(){if(!ARM){ARM=NavMap('arc',arDraw,arTap);mapBtns('arc',ARM);document.getElementById('arQ').oninput=arRender;
+    document.getElementById('arNew').onclick=()=>{if(!ghTok()){toast('🔑 Para añadir hace falta la llave de edición (Pueblos → ⚙️ Edición)');return;}arEdit(null);};}
+  setTimeout(()=>{ARM.draw();ARM.base();},40);await arLoad();arRender();}
+const _showTabAr=showTab;showTab=function(t){_showTabAr(t);if(t==='arboles')setTimeout(arInit,40);};
 
 </script>
 </body>

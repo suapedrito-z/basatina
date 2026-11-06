@@ -1,0 +1,24 @@
+name: Árboles singulares
+on:
+  push:
+    paths: ['arboles/*.json', 'tools/arboles.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: arboles
+jobs:
+  arboles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/arboles.py
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add web/arboles.js
+          git commit -m "Árboles singulares" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          git push
