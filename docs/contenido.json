@@ -2,9 +2,10 @@
  "marca": {
   "nombre": "BasatiNA",
   "lema": "Navarra en tu bolsillo",
-  "icono": "icono.png",
-  "logo": "sonpe.jpg",
-  "empresa": "Son&Pe Technology Systems"
+  "icono": "img/icono-basatina.png",
+  "logo": "img/logo-basatina.png",
+  "empresa": "Son&Pe Technology Systems",
+  "logo_empresa": "sonpe.jpg"
  },
  "colores": {
   "fondo": "#0d151d",

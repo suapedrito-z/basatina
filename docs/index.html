@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BasatiNA · El río, el tiempo y la naturaleza de Navarra</title>
 <meta name="description" content="App gratuita para Android: ríos y riadas en directo, el tiempo, radar, carreteras, cámaras, monte, setas, fauna y mucho más de Navarra.">
-<link rel="icon" href="icono.png">
+<link rel="icon" href="img/icono-basatina.png">
 <style>
 :root{--bg:#0d151d;--panel:#16212c;--line:#283848;--txt:#e9f1f7;--mut:#9fb0c0;--acc:#29c6f2;--acc2:#ff8a3d;--acc3:#2f7de1}
 
@@ -24,7 +24,7 @@ header span{display:block;color:var(--mut);font-size:14px}
 .dl{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--acc3),var(--acc));color:#fff;text-decoration:none;font-weight:700;font-size:18px;padding:14px 22px;border-radius:14px;box-shadow:0 8px 24px rgba(41,198,242,.25)}
 .dl.alt{background:transparent;border:2px solid var(--acc);box-shadow:none;color:var(--acc);font-size:16px;padding:11px 18px}
 .small{color:var(--mut);font-size:13px;margin-top:10px}
-.hero .logo{width:100%;border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.hero .logo{width:100%;max-width:420px;justify-self:center;background:#fff;padding:18px;border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
 h2{font-size:24px;margin:34px 0 14px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
 .f{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
@@ -54,9 +54,10 @@ footer img{width:120px;border-radius:10px}
  "marca": {
   "nombre": "BasatiNA",
   "lema": "Navarra en tu bolsillo",
-  "icono": "icono.png",
-  "logo": "sonpe.jpg",
-  "empresa": "Son&Pe Technology Systems"
+  "icono": "img/icono-basatina.png",
+  "logo": "img/logo-basatina.png",
+  "empresa": "Son&Pe Technology Systems",
+  "logo_empresa": "sonpe.jpg"
  },
  "colores": {
   "fondo": "#0d151d",
@@ -247,7 +248,7 @@ function draw(c){
  h+=`<h2 id="privacidad">Privacidad</h2><p class="small">${md(c.privacidad)}</p>`;
  if(c.contacto)h+=`<h2 id="contacto">Contacto</h2><p>${md(c.contacto)}</p>`;
  h+=`<div class="aviso">${md(c.aviso)}</div>`;
- h+=`<footer>${m.logo?`<img src="${esc(m.logo)}" alt="">`:''}<div>${md(c.pie)}</div></footer>`;
+ h+=`<footer>${m.logo_empresa?`<img src="${esc(m.logo_empresa)}" alt="">`:''}<div>${md(c.pie)}</div></footer>`;
  document.getElementById('app').innerHTML=h;document.title=(m.nombre||'BasatiNA')+' · '+(m.lema||'');
 }
 let C=JSON.parse(document.getElementById('def').textContent);

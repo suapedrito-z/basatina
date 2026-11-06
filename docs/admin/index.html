@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Panel · BasatiNA</title>
-<link rel="icon" href="../icono.png">
+<link rel="icon" href="../img/icono-basatina.png">
 <style>
 :root{--bg:#0d151d;--panel:#16212c;--line:#283848;--txt:#e9f1f7;--mut:#9fb0c0;--acc:#29c6f2;--acc2:#ff8a3d;--ok:#3ccf7a;--bad:#ff5c5c}
 *{box-sizing:border-box}
@@ -39,7 +39,7 @@ code{background:#0b1219;padding:1px 5px;border-radius:5px}
 </head>
 <body>
 <div class="wrap">
- <div class="row" style="justify-content:space-between"><div class="row"><img src="../icono.png" alt="" style="width:40px;height:40px;border-radius:10px"><div><h1>Panel de la web</h1><div class="note">sonpe-technology.es · solo para Son&amp;Pe</div></div></div><button class="btn" id="out" style="display:none">🚪 Salir</button></div>
+ <div class="row" style="justify-content:space-between"><div class="row"><img src="../img/icono-basatina.png" alt="" style="width:40px;height:40px;border-radius:10px"><div><h1>Panel de la web</h1><div class="note">sonpe-technology.es · solo para Son&amp;Pe</div></div></div><button class="btn" id="out" style="display:none">🚪 Salir</button></div>
 
  <!-- ENTRAR -->
  <div id="login" class="card">
@@ -144,7 +144,7 @@ function render(){
  h+=sec('✨ Qué tiene la app',field(C,'funciones_titulo','Título del apartado')+list(C.funciones,'Cada tarjeta: un emoji, un título y un texto corto.',f=>`<div class="row"><div style="width:80px">${field(f,'icono','Emoji')}</div><div style="flex:1">${field(f,'titulo','Título')}</div></div>`+field(f,'texto','Texto','area'),{icono:'⭐',titulo:'',texto:''},'tarjeta'));
  h+=sec('📄 Apartados propios',list(C.apartados,'Apartados libres: historia, quiénes somos, agradecimientos, fotos de salidas…',a=>field(a,'titulo','Título')+field(a,'texto','Texto','area')+photo(a,'foto','Foto (opcional)'),{titulo:'',texto:'',foto:''},'apartado'));
  h+=sec('📲 Cómo instalarla',field(C,'pasos_titulo','Título')+list(C.pasosObj,'Pasos en orden.',p=>field(p,'t','Paso','area'),{t:''},'paso'));
- h+=sec('🎨 Logo, nombre y colores',field(C,'marca.nombre','Nombre')+field(C,'marca.lema','Lema')+field(C,'marca.empresa','Empresa')+photo(C,'marca.icono','Icono pequeño (cuadrado)',true)+photo(C,'marca.logo','Logo grande')+
+ h+=sec('🎨 Logo, nombre y colores',field(C,'marca.nombre','Nombre')+field(C,'marca.lema','Lema')+field(C,'marca.empresa','Empresa')+photo(C,'marca.icono','Icono pequeño (cuadrado)',true)+photo(C,'marca.logo','Logo grande')+photo(C,'marca.logo_empresa','Logo de Son&Pe (pie de página)')+
   '<label>Colores</label><div class="cols">'+colores.map(([k,l])=>{const id='c'+k;setTimeout(()=>{const el=$(id);if(el)el.oninput=()=>{C.colores[k]=el.value;save();};},0);return `<div class="col"><input type="color" id="${id}" value="${esc(C.colores[k]||'#000000')}">${l}</div>`;}).join('')+'</div>');
  h+=sec('📚 Fuentes, privacidad y avisos',list(C.fuentes,'Fuentes de datos.',f=>field(f,'tema','Tema')+field(f,'texto','Fuentes','area'),{tema:'',texto:''},'fuente')+field(C,'fuentes_nota','Nota de licencias','area')+field(C,'privacidad','Privacidad','area')+field(C,'contacto','Contacto (si lo dejas vacío no sale)','area','Por ejemplo: info@sonpe-technology.es')+field(C,'aviso','Aviso importante','area')+field(C,'pie','Pie de página','area'));
  $('forms').innerHTML=h;
