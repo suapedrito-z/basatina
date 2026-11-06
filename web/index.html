@@ -176,7 +176,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
   </div>
   <div class="note" style="margin:14px;padding:10px;border:1px solid #ffb020;border-radius:10px;color:var(--txt)"><b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original.</div>
-  <div style="text-align:center;margin:6px 14px 20px;background:#1c1f24;border-radius:12px;padding:12px"><img src="sonpe2.jpg" alt="Son&amp;Pe Technology Systems" style="width:100%;max-width:300px;border-radius:12px" onerror="this.style.display='none'"><div class="note" style="margin-top:4px">Propiedad de <b>Son&amp;Pe Technology Systems</b></div></div>
+  <div style="text-align:center;margin:6px 14px 20px;background:#1c1f24;border-radius:12px;padding:12px"><img src="sonpe2.jpg" alt="Son&amp;Pe Technology Systems" style="width:100%;max-width:300px;border-radius:12px" onerror="this.style.display='none'"><div class="note" style="margin-top:4px">Propiedad de <b>Son&amp;Pe Technology Systems</b></div><div class="note" style="margin-top:4px"><a href="#" class="webSP" style="color:var(--acc)">🌐 sonpe-technology.es</a></div></div>
 </aside>
 
 <!-- ============ MODO 1: MAPA ============ -->
@@ -349,7 +349,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <div class="card"><b>¿Qué es?</b><div class="note">Una app para seguir el río Arga y el tiempo en Navarra: caudales en directo, el embalse de Eugui, previsión de lluvia y un simulador de riadas para aprender cómo se comporta el río.</div></div>
 <div class="card"><b>Fuentes de datos</b><div class="note">• Caudales, niveles y embalses: SAIH Ebro (Confederación Hidrográfica del Ebro).<br>• Tiempo, previsión e histórico: Open‑Meteo (AEMET, ECMWF, ERA5).<br>• Ortofotos, mapas y modelo del terreno: Instituto Geográfico Nacional (PNOA, MDT25), CNIG.<br>• Riadas históricas: CHE, Ayuntamiento de Pamplona y prensa local.<br>• Avisos meteorológicos: AEMET a través de Meteoalarm (EUMETNET).<br>• Calidad del aire y polen: Copernicus CAMS, vía Open‑Meteo.<br>• Rutas, pesca, caza, cuevas, fuentes, miradores y patrimonio: Gobierno de Navarra · IDENA (CC BY 4.0).<br>• Terremotos: EMSC (Centro Sismológico Euromediterráneo), con datos de la Red Sísmica Nacional del IGN.<br>• Fallas activas: base de datos QAFI del IGME‑CSIC.<br>• Dibujo de los ríos y término de Petilla de Aragón: © colaboradores de OpenStreetMap (ODbL).<br>• Licencias: los datos del IGN, IDENA y Open‑Meteo se usan bajo CC BY 4.0; los mapas y capas se muestran sin modificar salvo el cálculo de zonas inundables, que es obra derivada del MDT del IGN. App sin ánimo de lucro.</div></div>
 <div class="card" style="border-color:#ffb020"><b>⚠️ Importante</b><div class="note"><b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original. El simulador es un modelo sencillo. Avisos oficiales: CHE, SOS Navarra 112, AEMET y tu Ayuntamiento.</div></div>
-<div class="card" style="text-align:center;background:#1c1f24"><img src="sonpe2.jpg" alt="Son&amp;Pe Technology Systems" style="width:100%;max-width:400px;border-radius:12px" onerror="this.style.display='none'"><div class="note" style="margin-top:6px">Propiedad de <b>Son&amp;Pe Technology Systems</b> · Sonia y Pedro · 2026</div><div class="note">Creado por <b>Son&amp;Pe Technology Systems</b></div></div>
+<div class="card" style="text-align:center;background:#1c1f24"><img src="sonpe2.jpg" alt="Son&amp;Pe Technology Systems" style="width:100%;max-width:400px;border-radius:12px" onerror="this.style.display='none'"><div class="note" style="margin-top:6px">Propiedad de <b>Son&amp;Pe Technology Systems</b> · Sonia y Pedro · 2026</div><div class="note">Creado por <b>Son&amp;Pe Technology Systems</b></div><div class="note" style="margin-top:4px"><a href="#" class="webSP" style="color:var(--acc)">🌐 sonpe-technology.es</a></div></div>
 </section>
 <div id="grBox" style="position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:60;display:none;align-items:flex-end;justify-content:center">
  <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px 14px 0 0;padding:14px;width:100%;max-width:700px">
@@ -3286,7 +3286,7 @@ async function diOpen(id){const e=diL().find(x=>x.id===id);if(!e)return;DISEL=id
   if(fs.length){document.getElementById('diFotos').innerHTML=`<div class="card"><b>📷 Fotos</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">${fs.map((f,k)=>`<img src="${f}" data-k="${k}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer">`).join('')}</div></div>`;
     document.querySelectorAll('#diFotos img').forEach(im=>im.onclick=()=>pbFoto(im.src,e.tit));}
   document.getElementById('diB').onclick=diBack;document.getElementById('diEd').onclick=()=>diEdit(e);const g=document.getElementById('diGo');if(g)g.onclick=()=>openNav(e.pt[0],e.pt[1]);
-  document.getElementById('diSh').onclick=()=>{const t=`📖 ${e.tit||'Salida'} — ${e.fecha}${e.lugar?' · '+e.lugar:''}\n${w?`Tiempo: ${Math.round(w.tx)}°/${Math.round(w.tn)}°, ${fmtN(w.ll,1)} mm\n`:''}${e.vistos?'Vimos: '+e.vistos+'\n':''}${e.notas||''}\n(BasatiNA · Son&Pe Technology Systems)`;if(APP)window.AndroidNet.share(t);else navigator.clipboard&&navigator.clipboard.writeText(t);};
+  document.getElementById('diSh').onclick=()=>{const t=`📖 ${e.tit||'Salida'} — ${e.fecha}${e.lugar?' · '+e.lugar:''}\n${w?`Tiempo: ${Math.round(w.tx)}°/${Math.round(w.tn)}°, ${fmtN(w.ll,1)} mm\n`:''}${e.vistos?'Vimos: '+e.vistos+'\n':''}${e.notas||''}\n(BasatiNA · Son&Pe Technology Systems · sonpe-technology.es)`;if(APP)window.AndroidNet.share(t);else navigator.clipboard&&navigator.clipboard.writeText(t);};
   document.getElementById('diDel').onclick=async()=>{if(!confirm('¿Borrar esta salida y sus fotos del móvil?'))return;for(let k=0;k<(e.nf||0);k++)await IDB.del(e.id+'-'+k).catch(()=>{});lsSet('diario',diL().filter(x=>x.id!==e.id));diBack();};}
 function diBack(){DISEL=null;document.getElementById('diFicha').style.display='none';document.getElementById('diListV').style.display='';diRender();setTimeout(()=>DIM&&DIM.draw(),50);}
 function diEdit(e){const nuevo=!e;e=e||{id:'d'+Date.now().toString(36),fecha:ymd(new Date())};const el=document.getElementById('diFicha');el.style.display='';document.getElementById('diListV').style.display='none';window.scrollTo(0,0);
@@ -3365,6 +3365,8 @@ async function seInit(){const el=document.getElementById('seBody');el.innerHTML=
 
 const _showTabDi=showTab;showTab=function(t){_showTabDi(t);if(t==='diario')setTimeout(diInit,40);if(t==='sitios')setTimeout(msInit,40);if(t==='semana')setTimeout(seInit,40);};
 
+
+document.querySelectorAll('.webSP').forEach(a=>a.onclick=e=>{e.preventDefault();const u='https://sonpe-technology.es';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');});
 </script>
 </body>
 </html>
