@@ -2432,7 +2432,7 @@ setTimeout(()=>avisosFetch(),2500);setInterval(()=>{AVT=0;avisosFetch();},30*60e
    Contenido propio (historia, curiosidades, fiestas, fotos): se guarda en el repositorio
    de GitHub (carpeta pueblos/) con la llave de edición de cada editor.
    ===================================================================== */
-const GH_REPO='suapedrito-z/control-rio-arga',GH_API='https://api.github.com/repos/'+GH_REPO+'/contents/',GH_RAW='https://raw.githubusercontent.com/'+GH_REPO+'/main/';
+const GH_REPO='suapedrito-z/basatina',GH_API='https://api.github.com/repos/'+GH_REPO+'/contents/',GH_RAW='https://raw.githubusercontent.com/'+GH_REPO+'/main/';
 let PB=null,PBSEL=null,PBDATA=null,PBLOAD=false;
 const slugify=t=>(t||'').split('/')[0].trim().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/ñ/g,'n').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const ghTok=()=>{try{return localStorage.getItem('ghTok')||'';}catch(e){return '';}},edName=()=>{try{return localStorage.getItem('edName')||'';}catch(e){return '';}};

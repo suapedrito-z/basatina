@@ -1,6 +1,6 @@
 {
- "version": 118,
- "apk": 13,
+ "version": 119,
+ "apk": 14,
  "files": {
   "agenda.js": "c4fc3a14d96b53057b6c9b77d8504163c279c2c4",
   "arboles.js": "dab84c81d4425d3e9c47e266ccc824e5746fa1f7",
@@ -11,7 +11,7 @@
   "eu.js": "975364bcaa229c08595ae05db95f6c2317c54a00",
   "flood.png": "6d4fa0d5fbc339db9a3c4ffe14e433dc989066fc",
   "flood2.png": "712a7b22803bcae9b052cece1bdbe3c4ccae177e",
-  "index.html": "eb867eb42345ebf14a348618fc44afdd47645cea",
+  "index.html": "90ec11321a7a2210fa16ca66bcf779debab5519a",
   "logo.jpg": "442927f2c4c5495089c0bd56e454ddc6a4223411",
   "monte.js": "ccaa5ad87b2bbf2c4d8e106bb40d3793efbe49a7",
   "pesca.js": "fba5172885d790d2fc7caf52e3d2fa08f745b612",
@@ -25,5 +25,5 @@
   "sonpe2_ico.jpg": "9da2bcf822019ade2b5114a48b020d4586486325",
   "viaje.js": "46bf10fac718ba5d9ca40a55a2658a6e26696f2f"
  },
- "apkUrl": "https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/BasatiNA.apk"
+ "apkUrl": "https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk"
 }

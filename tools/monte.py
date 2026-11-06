@@ -7,7 +7,7 @@ import io, json, time, urllib.request, urllib.parse, zipfile, collections
 import shapefile, sys
 sys.setrecursionlimit(20000)
 from pyproj import Transformer
-UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "*/*"}
+UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/basatina)", "Accept": "*/*"}
 B = "https://idena.navarra.es/descargas/"
 CAPAS = ["GEOLOG_Sym_Cuevas", "DOTACI_Sym_Miradores", "FOREST_Sym_AreasRecForest", "HIDROG_Sym_ZonaBano", "PATRIM_Sym_BICarquite",
          "GEOLOG_Sym_Manantiales", "IDEMUN_Sym_Fuentes", "PATRIM_Sym_Senderismo",

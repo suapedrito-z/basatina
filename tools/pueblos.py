@@ -8,7 +8,7 @@ Escribe tools/pueblos_info.txt con los campos que trae cada capa.
 import io, json, time, urllib.request, zipfile, collections
 import shapefile
 from pyproj import Transformer
-UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "*/*"}
+UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/basatina)", "Accept": "*/*"}
 tr = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
 def shp(key):
     z = zipfile.ZipFile(io.BytesIO(urllib.request.urlopen(urllib.request.Request("https://idena.navarra.es/descargas/" + key + ".zip", headers=UA), timeout=180).read()))

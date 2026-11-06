@@ -18,7 +18,7 @@ def fetch():
         for intento in range(3):
             try:
                 req = urllib.request.Request(s, data=data, headers={
-                    "User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)"})
+                    "User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/basatina)"})
                 with urllib.request.urlopen(req, timeout=240) as r:
                     j = json.load(r)
                     if j.get("elements"):

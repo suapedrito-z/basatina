@@ -8,7 +8,7 @@
 import io, json, time, math, re, urllib.request, urllib.parse, zipfile, collections, datetime as dt
 import shapefile
 from pyproj import Transformer
-UA = {"User-Agent": "BasatiNA/3.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "*/*"}
+UA = {"User-Agent": "BasatiNA/3.0 (+https://github.com/suapedrito-z/basatina)", "Accept": "*/*"}
 B = "https://idena.navarra.es/descargas/"
 tr = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
 info = []

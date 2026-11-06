@@ -3,7 +3,7 @@
 #  - Puntos de recarga de coche eléctrico (OpenStreetMap)
 #  - Puertos de montaña en carreteras (OpenStreetMap)
 import json, time, urllib.request, urllib.parse
-UA = {"User-Agent": "BasatiNA/3.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "application/json, */*"}
+UA = {"User-Agent": "BasatiNA/3.0 (+https://github.com/suapedrito-z/basatina)", "Accept": "application/json, */*"}
 info = []
 def log(*a):
     s = " ".join(str(x) for x in a); print(s, flush=True); info.append(s)

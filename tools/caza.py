@@ -4,7 +4,7 @@ Busca en el catálogo de datos abiertos (datos.gob.es, publicador Gobierno de Na
 Escribe tools/caza_info.txt con lo encontrado. Lo ejecuta GitHub Actions.
 """
 import io, json, time, urllib.request, urllib.parse, zipfile, collections
-UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "application/json"}
+UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/basatina)", "Accept": "application/json"}
 def get(url, binary=False):
     h = dict(UA)
     if binary: h["Accept"] = "*/*"      # los .zip de IDENA dan error 406 si se pide JSON

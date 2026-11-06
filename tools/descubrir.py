@@ -1,7 +1,7 @@
 """Lista datasets de IDENA (datos.gob.es) y capas WMS para: senderos, cuevas, fuentes, cascadas, áreas recreativas,
 refugios, miradores, patrimonio, Camino de Santiago, zonas de baño, incendios. Escribe tools/descubrir.txt"""
 import json, re, ssl, urllib.parse, urllib.request
-UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "application/json"}
+UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/basatina)", "Accept": "application/json"}
 def get(u, js=True):
     h = dict(UA) if js else {"User-Agent": UA["User-Agent"]}
     return urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=120).read().decode("utf-8", "replace")

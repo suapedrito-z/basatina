@@ -5,7 +5,7 @@ Terremotos y fallas activas de Navarra y alrededores. Guarda web/sismo.js y escr
 - Fallas activas (del Cuaternario): base de datos QAFI del IGME-CSIC.
 """
 import json, time, urllib.parse, urllib.request
-UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/control-rio-arga)", "Accept": "*/*"}
+UA = {"User-Agent": "PedritoControlRioArga/2.0 (+https://github.com/suapedrito-z/basatina)", "Accept": "*/*"}
 # recuadro algo mayor que Navarra (sur, oeste, norte, este) para ver también lo que pasa cerca
 S, W, N, E = 41.7, -2.9, 43.6, -0.4
 info = []

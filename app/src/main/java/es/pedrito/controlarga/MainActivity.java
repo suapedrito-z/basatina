@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
     }
 
     /** Dirección desde la que se descargan las actualizaciones de la pantalla (repositorio público) */
-    static final String BASE = "https://raw.githubusercontent.com/suapedrito-z/control-rio-arga/main/web/";
+    static final String BASE = "https://raw.githubusercontent.com/suapedrito-z/basatina/main/web/";
 
     static String readAll(InputStream in) throws Exception {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
