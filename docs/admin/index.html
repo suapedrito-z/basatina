@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel · BasatiNA</title>
+<link rel="icon" href="../icono.png">
+<style>
+:root{--bg:#0d151d;--panel:#16212c;--line:#283848;--txt:#e9f1f7;--mut:#9fb0c0;--acc:#29c6f2;--acc2:#ff8a3d;--ok:#3ccf7a;--bad:#ff5c5c}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.45}
+.wrap{max-width:860px;margin:0 auto;padding:14px 14px 120px}
+h1{font-size:22px;margin:8px 0 4px}h2{font-size:18px;margin:0}
+.note{color:var(--mut);font-size:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+details.card>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:17px}
+details.card>summary:after{content:'▸';color:var(--mut)}details[open].card>summary:after{content:'▾'}
+details.card[open]>summary{margin-bottom:10px}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+input[type=text],input[type=password],input[type=date],textarea{width:100%;background:#0b1219;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;font-size:15px}
+textarea{min-height:80px;resize:vertical}
+input[type=color]{width:48px;height:36px;border:none;background:none;padding:0}
+.btn{background:#22313f;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:9px 13px;font:inherit;font-size:14px;cursor:pointer}
+.btn.pri{background:linear-gradient(135deg,#2f7de1,#29c6f2);border:none;color:#fff;font-weight:700}
+.btn.warn{background:#3a2020;border-color:#6b2a2a}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.item{border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px 0;background:#121c26}
+.item .row{justify-content:flex-end}
+.thumb{max-width:140px;max-height:90px;border-radius:8px;display:block;margin:6px 0;background:#000}
+.cols{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.col{display:flex;align-items:center;gap:8px;font-size:14px}
+#bar{position:fixed;left:0;right:0;bottom:0;background:rgba(13,21,29,.96);border-top:1px solid var(--line);padding:10px 14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;z-index:5}
+#msg{position:fixed;left:50%;transform:translateX(-50%);bottom:74px;background:#22313f;border:1px solid var(--line);padding:10px 14px;border-radius:12px;display:none;z-index:6;max-width:92%}
+.hint{background:rgba(41,198,242,.08);border:1px solid rgba(41,198,242,.3);border-radius:10px;padding:10px;font-size:14px;color:var(--mut)}
+code{background:#0b1219;padding:1px 5px;border-radius:5px}
+.hist div{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="row" style="justify-content:space-between"><div class="row"><img src="../icono.png" alt="" style="width:40px;height:40px;border-radius:10px"><div><h1>Panel de la web</h1><div class="note">sonpe-technology.es · solo para Son&amp;Pe</div></div></div><button class="btn" id="out" style="display:none">🚪 Salir</button></div>
+
+ <!-- ENTRAR -->
+ <div id="login" class="card">
+  <h2>🔑 Entrar</h2>
+  <p class="note">Pega la <b>llave de edición de GitHub</b> (la que empieza por <code>github_pat_</code>, la misma de la zona técnica de la app). Se guarda solo en este navegador.</p>
+  <input type="password" id="tok" placeholder="github_pat_…" autocomplete="off">
+  <div class="row" style="margin-top:10px"><button class="btn pri" id="go">Entrar</button><span class="note" id="lmsg"></span></div>
+  <p class="note" style="margin-top:14px">¿No la tienes a mano? Créala de nuevo: <a style="color:var(--acc)" href="https://github.com/settings/personal-access-tokens/new" target="_blank">nueva llave en GitHub</a> → <i>Only select repositories</i> → <b>basatina</b> → Permisos: <b>Contents: Read and write</b>.</p>
+ </div>
+
+ <!-- EDITOR -->
+ <div id="ed" style="display:none">
+  <div class="hint">✏️ Cambia lo que quieras, mira la <b>Vista previa</b> y pulsa <b>Publicar</b>. En 1-2 minutos se ve en la web.<br>Trucos de texto: <code>**negrita**</code> · <code>*resaltado*</code> · los enlaces <code>https://…</code> se ponen solos · Intro = salto de línea.</div>
+  <div id="forms"></div>
+  <details class="card"><summary>🕓 Historial (volver atrás)</summary><div class="note">Cada vez que publicáis queda guardada una copia. Pulsa «Cargar» para traer una versión anterior al editor (no se publica hasta que pulses Publicar).</div><div class="hist" id="hist"><div class="note">Cargando…</div></div></details>
+ </div>
+</div>
+<div id="bar" style="display:none"><button class="btn" id="prevB">👁️ Vista previa</button><button class="btn warn" id="undoB">↩️ Descartar cambios</button><button class="btn pri" id="pubB">🚀 Publicar</button></div>
+<div id="msg"></div>
+
+<script>
+const OWNER='suapedrito-z',REPO='basatina',FILE='docs/contenido.json',API='https://api.github.com/repos/'+OWNER+'/'+REPO;
+let TOK=localStorage.getItem('sp_tok')||'',C=null,ORIG='',SHA=null,WHO='';
+const $=id=>document.getElementById(id);
+const msg=(t,ms=3500)=>{const m=$('msg');m.innerHTML=t;m.style.display='block';clearTimeout(msg.t);if(ms)msg.t=setTimeout(()=>m.style.display='none',ms);};
+const esc=t=>String(t??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const b64e=s=>{const b=new TextEncoder().encode(s);let r='';for(let i=0;i<b.length;i+=0x8000)r+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(r);};
+const b64d=s=>new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,'')),c=>c.charCodeAt(0)));
+async function gh(path,opt={}){const r=await fetch(API+path,{...opt,headers:{'Authorization':'Bearer '+TOK,'Accept':'application/vnd.github+json',...(opt.body?{'Content-Type':'application/json'}:{})}});const j=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(j.message||('HTTP '+r.status));e.status=r.status;throw e;}return j;}
+
+/* ---------- entrar ---------- */
+async function login(t){
+ TOK=t.trim();$('lmsg').textContent='Comprobando…';
+ try{
+  const r=await gh('');
+  if(r.permissions&&r.permissions.push===false)throw new Error('Esta llave no tiene permiso para cambiar el proyecto');
+  try{const u=await fetch('https://api.github.com/user',{headers:{'Authorization':'Bearer '+TOK}}).then(x=>x.json());WHO=u.login||'';}catch(e){}
+  localStorage.setItem('sp_tok',TOK);$('login').style.display='none';$('out').style.display='';await load();
+ }catch(e){$('lmsg').textContent='❌ '+(e.status===401?'La llave no vale o ha caducado':e.message);TOK='';}
+}
+$('go').onclick=()=>login($('tok').value);
+$('tok').onkeydown=e=>{if(e.key==='Enter')login($('tok').value);};
+$('out').onclick=()=>{if(dirty()&&!confirm('Tienes cambios sin publicar. ¿Salir igualmente?'))return;localStorage.removeItem('sp_tok');location.reload();};
+
+async function load(ref){
+ const j=await gh('/contents/'+FILE+'?ref='+(ref||'main')+'&t='+Date.now());
+ const txt=b64d(j.content);
+ if(!ref){SHA=j.sha;ORIG=txt;}
+ C=JSON.parse(txt);
+ const d=localStorage.getItem('sp_draft');
+ if(!ref&&d&&norm(d)!==norm(ORIG)&&confirm('Hay cambios que no llegaste a publicar. ¿Recuperarlos?'))C=JSON.parse(d);
+ $('ed').style.display='';$('bar').style.display='flex';render();hist();
+}
+const norm=t=>{try{return JSON.stringify(typeof t==='string'?JSON.parse(t):t);}catch(e){return '';}};
+const dirty=()=>C&&norm(clean())!==norm(ORIG);
+
+/* ---------- campos ---------- */
+const get=(o,p)=>p.split('.').reduce((a,k)=>a==null?a:a[k],o);
+const set=(o,p,v)=>{const k=p.split('.');let a=o;k.slice(0,-1).forEach(x=>{a[x]=a[x]??{};a=a[x];});a[k.at(-1)]=v;};
+function field(obj,key,lab,type='text',ph=''){
+ const v=get(obj,key)??'';const id='f'+Math.random().toString(36).slice(2);
+ setTimeout(()=>{const el=$(id);if(!el)return;el.oninput=()=>{set(obj,key,el.value);save();};},0);
+ if(type==='area')return `<label>${lab}</label><textarea id="${id}" placeholder="${esc(ph)}">${esc(v)}</textarea>`;
+ return `<label>${lab}</label><input type="${type}" id="${id}" value="${esc(v)}" placeholder="${esc(ph)}">`;
+}
+function photo(obj,key,lab,png){
+ const v=get(obj,key)||'';const id='p'+Math.random().toString(36).slice(2);
+ setTimeout(()=>{
+  const f=$(id+'f'),x=$(id+'x');if(!f)return;
+  f.onchange=async()=>{const file=f.files[0];if(!file)return;try{msg('⏫ Subiendo foto…',0);const path=await upload(file,png);set(obj,key,path);save();render();msg('✅ Foto subida. Publica para que se vea en la web.');}catch(e){msg('❌ No se pudo subir: '+e.message,6000);}};
+  if(x)x.onclick=()=>{set(obj,key,'');save();render();};
+ },0);
+ return `<label>${lab}</label>${v?`<img class="thumb" src="../${esc(v)}">`:'<div class="note">(sin foto)</div>'}<div class="row"><label class="btn" style="margin:0;color:var(--txt)">📷 ${v?'Cambiar':'Poner'} foto<input type="file" id="${id}f" accept="image/*" style="display:none"></label>${v?`<button class="btn" id="${id}x">🗑️ Quitar</button>`:''}</div>`;
+}
+function list(arr,title,make,blank,lab){
+ const id='l'+Math.random().toString(36).slice(2);
+ setTimeout(()=>{
+  const a=$(id+'a');if(a)a.onclick=()=>{arr.unshift(JSON.parse(JSON.stringify(blank)));save();render();};
+  document.querySelectorAll(`[data-l="${id}"]`).forEach(b=>b.onclick=()=>{const i=+b.dataset.i,op=b.dataset.op;
+   if(op==='del'){if(!confirm('¿Borrar '+lab+'?'))return;arr.splice(i,1);}
+   if(op==='up'&&i>0)[arr[i-1],arr[i]]=[arr[i],arr[i-1]];
+   if(op==='dn'&&i<arr.length-1)[arr[i+1],arr[i]]=[arr[i],arr[i+1]];
+   save();render();});
+ },0);
+ return `<div class="row" style="justify-content:space-between"><span class="note">${title}</span><button class="btn" id="${id}a">➕ Añadir ${lab}</button></div>`+
+  arr.map((it,i)=>`<div class="item">${make(it,i)}<div class="row" style="margin-top:8px"><button class="btn" data-l="${id}" data-i="${i}" data-op="up">⬆️</button><button class="btn" data-l="${id}" data-i="${i}" data-op="dn">⬇️</button><button class="btn warn" data-l="${id}" data-i="${i}" data-op="del">🗑️ Borrar</button></div></div>`).join('');
+}
+function sec(t,body,open){return `<details class="card"${open?' open':''}><summary>${t}</summary>${body}</details>`;}
+
+function render(){
+ sync();
+ const openNow=[...document.querySelectorAll('#forms details')].map(d=>d.open);
+ C.marca=C.marca||{};C.colores=C.colores||{};C.portada=C.portada||{};['novedades','funciones','apartados','pasos','fuentes'].forEach(k=>C[k]=C[k]||[]);
+ C.pasosObj=C.pasos.map(t=>({t}));
+ const colores=[['fondo','Fondo'],['tarjeta','Tarjetas'],['borde','Bordes'],['texto','Texto'],['suave','Texto suave'],['principal','Color principal'],['naranja','Acento naranja'],['azul','Acento azul']];
+ let h='';
+ h+=sec('📰 Novedades',list(C.novedades,'Lo primero de la lista sale arriba en la web.',n=>field(n,'fecha','Fecha','date')+field(n,'titulo','Título')+field(n,'texto','Texto','area')+photo(n,'foto','Foto (opcional)'),{fecha:new Date().toISOString().slice(0,10),titulo:'',texto:'',foto:''},'novedad'),true);
+ h+=sec('🏠 Portada',field(C,'portada.titulo','Titular (lo que va entre *asteriscos* sale en color)')+field(C,'portada.texto','Texto de debajo','area')+field(C,'portada.boton','Texto del botón')+field(C,'portada.enlace','Enlace del botón')+field(C,'portada.nota','Nota pequeña bajo el botón'));
+ h+=sec('✨ Qué tiene la app',field(C,'funciones_titulo','Título del apartado')+list(C.funciones,'Cada tarjeta: un emoji, un título y un texto corto.',f=>`<div class="row"><div style="width:80px">${field(f,'icono','Emoji')}</div><div style="flex:1">${field(f,'titulo','Título')}</div></div>`+field(f,'texto','Texto','area'),{icono:'⭐',titulo:'',texto:''},'tarjeta'));
+ h+=sec('📄 Apartados propios',list(C.apartados,'Apartados libres: historia, quiénes somos, agradecimientos, fotos de salidas…',a=>field(a,'titulo','Título')+field(a,'texto','Texto','area')+photo(a,'foto','Foto (opcional)'),{titulo:'',texto:'',foto:''},'apartado'));
+ h+=sec('📲 Cómo instalarla',field(C,'pasos_titulo','Título')+list(C.pasosObj,'Pasos en orden.',p=>field(p,'t','Paso','area'),{t:''},'paso'));
+ h+=sec('🎨 Logo, nombre y colores',field(C,'marca.nombre','Nombre')+field(C,'marca.lema','Lema')+field(C,'marca.empresa','Empresa')+photo(C,'marca.icono','Icono pequeño (cuadrado)',true)+photo(C,'marca.logo','Logo grande')+
+  '<label>Colores</label><div class="cols">'+colores.map(([k,l])=>{const id='c'+k;setTimeout(()=>{const el=$(id);if(el)el.oninput=()=>{C.colores[k]=el.value;save();};},0);return `<div class="col"><input type="color" id="${id}" value="${esc(C.colores[k]||'#000000')}">${l}</div>`;}).join('')+'</div>');
+ h+=sec('📚 Fuentes, privacidad y avisos',list(C.fuentes,'Fuentes de datos.',f=>field(f,'tema','Tema')+field(f,'texto','Fuentes','area'),{tema:'',texto:''},'fuente')+field(C,'fuentes_nota','Nota de licencias','area')+field(C,'privacidad','Privacidad','area')+field(C,'contacto','Contacto (si lo dejas vacío no sale)','area','Por ejemplo: info@sonpe-technology.es')+field(C,'aviso','Aviso importante','area')+field(C,'pie','Pie de página','area'));
+ $('forms').innerHTML=h;
+ [...document.querySelectorAll('#forms details')].forEach((d,i)=>{if(openNow.length)d.open=openNow[i];});
+}
+// los pasos se editan como objetos y se guardan como textos
+const sync=()=>{if(C&&C.pasosObj){C.pasos=C.pasosObj.map(p=>p.t);}};
+const clean=()=>{sync();const x=JSON.parse(JSON.stringify(C));delete x.pasosObj;return x;};
+function saveAll(){sync();localStorage.setItem('sp_draft',JSON.stringify(clean(),null,1));}
+
+/* ---------- fotos ---------- */
+function shrink(file,png){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>{const M=png?512:1600,s=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL(png?'image/png':'image/jpeg',.86).split(',')[1]);};im.onerror=()=>rej(new Error('no es una imagen'));im.src=URL.createObjectURL(file);});}
+async function upload(file,png){
+ const b=await shrink(file,png);
+ const name=(file.name.replace(/\.[^.]+$/,'').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'foto').slice(0,40);
+ const path='img/'+new Date().toISOString().slice(0,10)+'-'+Date.now().toString(36)+'-'+name+(png?'.png':'.jpg');
+ await gh('/contents/docs/'+path,{method:'PUT',body:JSON.stringify({message:'Web: foto '+name+(WHO?' ('+WHO+')':''),content:b})});
+ return path;
+}
+
+/* ---------- vista previa, descartar, publicar ---------- */
+$('prevB').onclick=()=>{localStorage.setItem('sp_preview',JSON.stringify(clean()));window.open('../?preview=1','_blank');};
+$('undoB').onclick=()=>{if(!confirm('¿Descartar todos los cambios sin publicar?'))return;C=JSON.parse(ORIG);localStorage.removeItem('sp_draft');render();msg('↩️ Cambios descartados');};
+$('pubB').onclick=async()=>{
+ const body=JSON.stringify(clean(),null,1)+'\n';
+ if(norm(body)===norm(ORIG)){msg('No hay cambios que publicar');return;}
+ if(!confirm('¿Publicar los cambios en la web?'))return;
+ msg('🚀 Publicando…',0);
+ const put=()=>gh('/contents/'+FILE,{method:'PUT',body:JSON.stringify({message:'Web: cambios desde el panel'+(WHO?' ('+WHO+')':''),content:b64e(body),sha:SHA})});
+ try{let r;try{r=await put();}catch(e){if(e.status===409||e.status===422){const j=await gh('/contents/'+FILE+'?ref=main&t='+Date.now());SHA=j.sha;r=await put();}else throw e;}
+  SHA=r.content.sha;ORIG=body;localStorage.removeItem('sp_draft');msg('✅ ¡Publicado! En 1-2 minutos lo verás en sonpe-technology.es',7000);hist();
+ }catch(e){msg('❌ No se pudo publicar: '+e.message,8000);}
+};
+window.addEventListener('beforeunload',e=>{if(dirty()){e.preventDefault();e.returnValue='';}});
+
+/* ---------- historial ---------- */
+async function hist(){
+ try{const l=await gh('/commits?path='+FILE+'&per_page=12');
+  $('hist').innerHTML=l.map((c,i)=>`<div><span>${new Date(c.commit.author.date).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}<br><span class="note">${esc(c.commit.message.split('\n')[0])}</span></span>${i?`<button class="btn" data-sha="${c.sha}">Cargar</button>`:'<span class="note">actual</span>'}</div>`).join('');
+  document.querySelectorAll('#hist [data-sha]').forEach(b=>b.onclick=async()=>{if(dirty()&&!confirm('Perderás los cambios sin publicar. ¿Seguir?'))return;await load(b.dataset.sha);saveAll();msg('📥 Versión anterior cargada. Revísala y pulsa Publicar para recuperarla.',6000);});
+ }catch(e){$('hist').innerHTML='<div class="note">No se pudo cargar el historial</div>';}
+}
+
+// guardar borrador en cada cambio
+function save(){saveAll();}
+if(TOK)login(TOK);
+</script>
+</body>
+</html>

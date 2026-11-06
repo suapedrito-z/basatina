@@ -8,6 +8,7 @@
 <link rel="icon" href="icono.png">
 <style>
 :root{--bg:#0d151d;--panel:#16212c;--line:#283848;--txt:#e9f1f7;--mut:#9fb0c0;--acc:#29c6f2;--acc2:#ff8a3d;--acc3:#2f7de1}
+
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
 a{color:var(--acc)}
@@ -37,54 +38,215 @@ footer{margin:40px 0 0;padding:24px 0 40px;border-top:1px solid var(--line);colo
 footer img{width:120px;border-radius:10px}
 @media(max-width:760px){.hero{grid-template-columns:1fr}.hero .logo{order:-1}}
 .cred{padding-left:18px;line-height:1.5}.cred li{margin:4px 0;font-size:.95em}
+.news{display:grid;gap:12px}
+.n{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;grid-template-columns:1fr;gap:12px}
+.n.ft{grid-template-columns:160px 1fr}.n img{width:100%;border-radius:12px;object-fit:cover;max-height:160px}
+.n small{color:var(--mut)}.n b{display:block;font-size:17px;margin:2px 0 4px}.n p{margin:0;color:var(--mut)}
+.ap{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;margin-bottom:10px}.ap.ft{grid-template-columns:1fr 1fr}.ap img{width:100%;border-radius:16px}.ap p{color:var(--mut)}
+#prev{position:fixed;top:0;left:0;right:0;background:#ff8a3d;color:#000;text-align:center;font-weight:700;padding:6px;z-index:9}
+@media(max-width:760px){.n.ft,.ap.ft{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header><img src="icono.png" alt=""><div><b>BasatiNA</b><span>Navarra en tu bolsillo</span></div></header>
-
-<section class="hero">
- <div>
-  <h1>El río, el tiempo y la naturaleza de <em>Navarra</em>, en una app.</h1>
-  <p>Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, monte, setas, fauna, energía… Todo con datos oficiales, gratis y sin publicidad.</p>
-  <a class="dl" href="https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk">⬇️ Descargar para Android</a>
-  <div class="small">Archivo APK gratuito · Android 7 o superior · se actualiza solo</div>
- </div>
- <img class="logo" src="sonpe.jpg" alt="Son&amp;Pe Technology Systems">
-</section>
-
-<h2>Qué tiene</h2>
-<div class="grid">
- <div class="f"><i>🌊</i><b>Ríos en directo</b><p>Caudal del Arga, Irati, Ega, Aragón y Ebro (SAIH Ebro), embalses y mapa de riadas.</p></div>
- <div class="f"><i>🌦️</i><b>El tiempo</b><p>Mapa de Navarra con lluvia, viento y temperatura, avisos de AEMET, aire, polen, UV, sol y luna.</p></div>
- <div class="f"><i>📡</i><b>Radar y rayos</b><p>Dónde llueve ahora, la animación de las últimas horas y los rayos oficiales de AEMET.</p></div>
- <div class="f"><i>🚧</i><b>Carreteras</b><p>Incidencias oficiales, tráfico, puertos de montaña con nieve y cámaras en directo.</p></div>
- <div class="f"><i>⛽</i><b>Gasolineras</b><p>Precios del día de todas las gasolineras de Navarra y puntos de recarga eléctrica.</p></div>
- <div class="f"><i>🥾</i><b>Salir al monte</b><p>Rutas, GR, vías verdes, Camino de Santiago, cuevas, cascadas, miradores y fuentes.</p></div>
- <div class="f"><i>🍄</i><b>Naturaleza</b><p>Setas y frutos de cada mes, fauna, vegetación y árboles de cada zona.</p></div>
- <div class="f"><i>📸</i><b>¿Qué planta es?</b><p>Haz una foto y te dice la especie (Pl@ntNet). Para aves, enlace a Merlin.</p></div>
- <div class="f"><i>📖</i><b>Tu diario</b><p>Apunta tus salidas con fotos y el tiempo que hizo, y guarda tus sitios secretos de setas.</p></div>
- <div class="f"><i>📍</i><b>Cerca de mí</b><p>Lo más cercano a donde estás: pueblos, gasolineras, cámaras, fuentes, puertos…</p></div>
- <div class="f"><i>⚡</i><b>Energía</b><p>Eólica y solar de Navarra hora a hora y los datos reales de Red Eléctrica.</p></div>
- <div class="f"><i>🔔</i><b>Avisos</b><p>Si sube el río, si cortan tu carretera, si nieva en un puerto o si el finde viene bueno.</p></div>
-</div>
-
-<h2>Cómo instalarla</h2>
-<div class="steps">
- <div>Desde el móvil Android, pulsa <b>«Descargar para Android»</b>.</div>
- <div>Abre el archivo descargado. Si el móvil lo pide, permite <b>instalar apps de esta fuente</b> (solo esta vez).</div>
- <div>Pulsa <b>Instalar</b> y ábrela. A partir de ahí se actualiza sola.</div>
-</div>
-
-<h2 id="fuentes">Fuentes y créditos</h2>
-<ul class="cred"><li><b>🌊 Ríos y embalses:</b> SAIH Ebro (Confederación Hidrográfica del Ebro) · Ministerio para la Transición Ecológica (embalses)</li><li><b>🌦️ Tiempo:</b> Open‑Meteo (CC BY 4.0) con modelos de AEMET, ECMWF, Météo‑France y DWD · histórico ERA5 (Copernicus)</li><li><b>⚠️ Avisos, radar y rayos:</b> © AEMET (AEMET OpenData) · Meteoalarm (EUMETNET) · RainViewer · Euskalmet – Gobierno Vasco (CC BY 4.0)</li><li><b>💨 Aire y polen:</b> Copernicus CAMS, vía Open‑Meteo</li><li><b>🚧 Carreteras:</b> Gobierno de Navarra (incidencias y cámaras de tráfico) · tráfico © TomTom · Google Maps (enlace externo)</li><li><b>📷 Cámaras:</b> Gobierno de Navarra · Refugio de Belagua (alberguesyrefugios.com). Las imágenes son de sus dueños.</li><li><b>⛽ Gasolineras:</b> Ministerio para la Transición Ecológica (Geoportal de carburantes)</li><li><b>🔌 Recarga y puertos:</b> © colaboradores de OpenStreetMap (ODbL), vía Overpass</li><li><b>⚡ Energía:</b> Red Eléctrica (REData) · parques: Gobierno de Navarra · IDENA</li><li><b>🗺️ Mapas y terreno:</b> Instituto Geográfico Nacional y CNIG (PNOA, MDT25, CC BY 4.0) · IDENA – Gobierno de Navarra (CC BY 4.0) · © OpenStreetMap (ODbL)</li><li><b>🥾 Monte y naturaleza:</b> Gobierno de Navarra · IDENA (rutas, pesca, caza, cuevas, fuentes, miradores, patrimonio)</li><li><b>📸 Identificar plantas:</b> Pl@ntNet (uso no comercial) · aves: enlaces a Merlin (Cornell Lab) y Google Lens</li><li><b>🌍 Terremotos y fallas:</b> EMSC con datos de la Red Sísmica Nacional (IGN) · QAFI del IGME‑CSIC</li><li><b>🏘️ Pueblos y fiestas:</b> datos.gob.es · Gobierno de Navarra · Wikipedia (CC BY‑SA) · aportaciones propias</li><li><b>🌊 Riadas históricas:</b> CHE, Ayuntamiento de Pamplona y prensa local</li></ul>
-<p class="small">Datos CC BY 4.0 (IGN, IDENA, Open‑Meteo, Euskalmet) usados citando su origen. Las marcas y logotipos son de sus dueños. App gratuita, sin publicidad y sin ánimo de lucro.</p>
-<h2 id="privacidad">Privacidad</h2>
-<p class="small">BasatiNA no recoge ni envía datos personales. El diario, las fotos y los sitios secretos se guardan solo en el móvil. La ubicación se usa en el momento para mostrar lo cercano y no se guarda ni se comparte.</p>
-
-<div class="aviso">⚠️ <b>Ante el riesgo, haz caso siempre a los avisos oficiales.</b> Los datos de esta app pueden variar respecto a los de la fuente original. Emergencias: 112.</div>
-
-<footer><img src="sonpe.jpg" alt=""><div>Propiedad de <b>Son&amp;Pe Technology Systems</b> · Sonia y Pedro · Navarra, 2026<br>Datos: SAIH Ebro, AEMET, Gobierno de Navarra (IDENA), Red Eléctrica, Open‑Meteo, Ministerio para la Transición Ecológica y OpenStreetMap.</div></footer>
-</div>
+<div class="wrap" id="app"></div>
+<script id="def" type="application/json">{
+ "marca": {
+  "nombre": "BasatiNA",
+  "lema": "Navarra en tu bolsillo",
+  "icono": "icono.png",
+  "logo": "sonpe.jpg",
+  "empresa": "Son&Pe Technology Systems"
+ },
+ "colores": {
+  "fondo": "#0d151d",
+  "tarjeta": "#16212c",
+  "borde": "#283848",
+  "texto": "#e9f1f7",
+  "suave": "#9fb0c0",
+  "principal": "#29c6f2",
+  "naranja": "#ff8a3d",
+  "azul": "#2f7de1"
+ },
+ "portada": {
+  "titulo": "El río, el tiempo y la naturaleza de *Navarra*, en una app.",
+  "texto": "Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, monte, setas, fauna, energía… Todo con datos oficiales, gratis y sin publicidad.",
+  "boton": "⬇️ Descargar para Android",
+  "enlace": "https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk",
+  "nota": "Archivo APK gratuito · Android 7 o superior · se actualiza solo"
+ },
+ "novedades": [
+  {
+   "fecha": "2026-11-06",
+   "titulo": "¡Estrenamos web!",
+   "texto": "BasatiNA ya tiene su casa en sonpe-technology.es. La versión 3.4 trae fuentes y créditos, aviso de buen finde para el monte, diario de salidas y sitios secretos.",
+   "foto": ""
+  }
+ ],
+ "funciones_titulo": "Qué tiene",
+ "funciones": [
+  {
+   "icono": "🌊",
+   "titulo": "Ríos en directo",
+   "texto": "Caudal del Arga, Irati, Ega, Aragón y Ebro (SAIH Ebro), embalses y mapa de riadas."
+  },
+  {
+   "icono": "🌦️",
+   "titulo": "El tiempo",
+   "texto": "Mapa de Navarra con lluvia, viento y temperatura, avisos de AEMET, aire, polen, UV, sol y luna."
+  },
+  {
+   "icono": "📡",
+   "titulo": "Radar y rayos",
+   "texto": "Dónde llueve ahora, la animación de las últimas horas y los rayos oficiales de AEMET."
+  },
+  {
+   "icono": "🚧",
+   "titulo": "Carreteras",
+   "texto": "Incidencias oficiales, tráfico, puertos de montaña con nieve y cámaras en directo."
+  },
+  {
+   "icono": "⛽",
+   "titulo": "Gasolineras",
+   "texto": "Precios del día de todas las gasolineras de Navarra y puntos de recarga eléctrica."
+  },
+  {
+   "icono": "🥾",
+   "titulo": "Salir al monte",
+   "texto": "Rutas, GR, vías verdes, Camino de Santiago, cuevas, cascadas, miradores y fuentes."
+  },
+  {
+   "icono": "🍄",
+   "titulo": "Naturaleza",
+   "texto": "Setas y frutos de cada mes, fauna, vegetación y árboles de cada zona."
+  },
+  {
+   "icono": "📸",
+   "titulo": "¿Qué planta es?",
+   "texto": "Haz una foto y te dice la especie (Pl@ntNet). Para aves, enlace a Merlin."
+  },
+  {
+   "icono": "📖",
+   "titulo": "Tu diario",
+   "texto": "Apunta tus salidas con fotos y el tiempo que hizo, y guarda tus sitios secretos de setas."
+  },
+  {
+   "icono": "📍",
+   "titulo": "Cerca de mí",
+   "texto": "Lo más cercano a donde estás: pueblos, gasolineras, cámaras, fuentes, puertos…"
+  },
+  {
+   "icono": "⚡",
+   "titulo": "Energía",
+   "texto": "Eólica y solar de Navarra hora a hora y los datos reales de Red Eléctrica."
+  },
+  {
+   "icono": "🔔",
+   "titulo": "Avisos",
+   "texto": "Si sube el río, si cortan tu carretera, si nieva en un puerto o si el finde viene bueno."
+  }
+ ],
+ "apartados": [],
+ "pasos_titulo": "Cómo instalarla",
+ "pasos": [
+  "Desde el móvil Android, pulsa **«Descargar para Android»**.",
+  "Abre el archivo descargado. Si el móvil lo pide, permite **instalar apps de esta fuente** (solo esta vez).",
+  "Pulsa **Instalar** y ábrela. A partir de ahí se actualiza sola."
+ ],
+ "fuentes": [
+  {
+   "tema": "🌊 Ríos y embalses",
+   "texto": "SAIH Ebro (Confederación Hidrográfica del Ebro) · Ministerio para la Transición Ecológica (embalses)"
+  },
+  {
+   "tema": "🌦️ Tiempo",
+   "texto": "Open‑Meteo (CC BY 4.0) con modelos de AEMET, ECMWF, Météo‑France y DWD · histórico ERA5 (Copernicus)"
+  },
+  {
+   "tema": "⚠️ Avisos, radar y rayos",
+   "texto": "© AEMET (AEMET OpenData) · Meteoalarm (EUMETNET) · RainViewer · Euskalmet – Gobierno Vasco (CC BY 4.0)"
+  },
+  {
+   "tema": "💨 Aire y polen",
+   "texto": "Copernicus CAMS, vía Open‑Meteo"
+  },
+  {
+   "tema": "🚧 Carreteras",
+   "texto": "Gobierno de Navarra (incidencias y cámaras de tráfico) · tráfico © TomTom · Google Maps (enlace externo)"
+  },
+  {
+   "tema": "📷 Cámaras",
+   "texto": "Gobierno de Navarra · Refugio de Belagua (alberguesyrefugios.com). Las imágenes son de sus dueños."
+  },
+  {
+   "tema": "⛽ Gasolineras",
+   "texto": "Ministerio para la Transición Ecológica (Geoportal de carburantes)"
+  },
+  {
+   "tema": "🔌 Recarga y puertos",
+   "texto": "© colaboradores de OpenStreetMap (ODbL), vía Overpass"
+  },
+  {
+   "tema": "⚡ Energía",
+   "texto": "Red Eléctrica (REData) · parques: Gobierno de Navarra · IDENA"
+  },
+  {
+   "tema": "🗺️ Mapas y terreno",
+   "texto": "Instituto Geográfico Nacional y CNIG (PNOA, MDT25, CC BY 4.0) · IDENA – Gobierno de Navarra (CC BY 4.0) · © OpenStreetMap (ODbL)"
+  },
+  {
+   "tema": "🥾 Monte y naturaleza",
+   "texto": "Gobierno de Navarra · IDENA (rutas, pesca, caza, cuevas, fuentes, miradores, patrimonio)"
+  },
+  {
+   "tema": "📸 Identificar plantas",
+   "texto": "Pl@ntNet (uso no comercial) · aves: enlaces a Merlin (Cornell Lab) y Google Lens"
+  },
+  {
+   "tema": "🌍 Terremotos y fallas",
+   "texto": "EMSC con datos de la Red Sísmica Nacional (IGN) · QAFI del IGME‑CSIC"
+  },
+  {
+   "tema": "🏘️ Pueblos y fiestas",
+   "texto": "datos.gob.es · Gobierno de Navarra · Wikipedia (CC BY‑SA) · aportaciones propias"
+  },
+  {
+   "tema": "🌊 Riadas históricas",
+   "texto": "CHE, Ayuntamiento de Pamplona y prensa local"
+  }
+ ],
+ "fuentes_nota": "Datos CC BY 4.0 (IGN, IDENA, Open‑Meteo, Euskalmet) usados citando su origen. «Weather data by Open‑Meteo» y «Weather data by RainViewer». © AEMET. Las marcas y logotipos son de sus dueños. App gratuita, sin publicidad y sin ánimo de lucro.",
+ "privacidad": "BasatiNA no recoge ni envía datos personales. El diario, las fotos y los sitios secretos se guardan solo en el móvil. La ubicación se usa en el momento para mostrar lo cercano y no se guarda ni se comparte.",
+ "aviso": "⚠️ **Ante el riesgo, haz caso siempre a los avisos oficiales.** Los datos de esta app pueden variar respecto a los de la fuente original. Emergencias: 112.",
+ "contacto": "",
+ "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026"
+}</script>
+<script>
+// La web se dibuja a partir de contenido.json (lo que se edita desde /admin).
+const esc=t=>String(t??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1">$1</a>').replace(/\n/g,'<br>');
+const fd=d=>{try{return new Date(d+'T12:00').toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})}catch(e){return d}};
+function draw(c){
+ const k=c.colores||{},r=document.documentElement.style;
+ [['fondo','--bg'],['tarjeta','--panel'],['borde','--line'],['texto','--txt'],['suave','--mut'],['principal','--acc'],['naranja','--acc2'],['azul','--acc3']].forEach(([a,b])=>k[a]&&r.setProperty(b,k[a]));
+ const m=c.marca||{},p=c.portada||{};let h='';
+ if(location.search.includes('preview'))h+='<div id="prev">👁️ VISTA PREVIA — todavía no está publicado</div>';
+ h+=`<header><img src="${esc(m.icono)}" alt=""><div><b>${esc(m.nombre)}</b><span>${esc(m.lema)}</span></div></header>`;
+ h+=`<section class="hero"><div><h1>${md(p.titulo)}</h1><p>${md(p.texto)}</p><a class="dl" href="${esc(p.enlace)}">${esc(p.boton)}</a><div class="small">${md(p.nota)}</div></div>${m.logo?`<img class="logo" src="${esc(m.logo)}" alt="${esc(m.empresa)}">`:''}</section>`;
+ const nv=(c.novedades||[]).filter(n=>n.titulo||n.texto);
+ if(nv.length){h+='<h2 id="novedades">Novedades</h2><div class="news">'+nv.map(n=>`<div class="n${n.foto?' ft':''}">${n.foto?`<img src="${esc(n.foto)}" alt="">`:''}<div><small>${esc(fd(n.fecha))}</small><b>${esc(n.titulo)}</b><p>${md(n.texto)}</p></div></div>`).join('')+'</div>';}
+ h+=`<h2>${esc(c.funciones_titulo)}</h2><div class="grid">`+(c.funciones||[]).map(f=>`<div class="f"><i>${esc(f.icono)}</i><b>${esc(f.titulo)}</b><p>${md(f.texto)}</p></div>`).join('')+'</div>';
+ (c.apartados||[]).filter(a=>a.titulo||a.texto).forEach(a=>{h+=`<h2>${esc(a.titulo)}</h2><div class="ap${a.foto?' ft':''}"><div><p>${md(a.texto)}</p></div>${a.foto?`<img src="${esc(a.foto)}" alt="">`:''}</div>`;});
+ h+=`<h2>${esc(c.pasos_titulo)}</h2><div class="steps">`+(c.pasos||[]).map(s=>`<div>${md(s)}</div>`).join('')+'</div>';
+ h+='<h2 id="fuentes">Fuentes y créditos</h2><ul class="cred">'+(c.fuentes||[]).map(f=>`<li><b>${esc(f.tema)}:</b> ${md(f.texto)}</li>`).join('')+`</ul><p class="small">${md(c.fuentes_nota)}</p>`;
+ h+=`<h2 id="privacidad">Privacidad</h2><p class="small">${md(c.privacidad)}</p>`;
+ if(c.contacto)h+=`<h2 id="contacto">Contacto</h2><p>${md(c.contacto)}</p>`;
+ h+=`<div class="aviso">${md(c.aviso)}</div>`;
+ h+=`<footer>${m.logo?`<img src="${esc(m.logo)}" alt="">`:''}<div>${md(c.pie)}</div></footer>`;
+ document.getElementById('app').innerHTML=h;document.title=(m.nombre||'BasatiNA')+' · '+(m.lema||'');
+}
+let C=JSON.parse(document.getElementById('def').textContent);
+if(location.search.includes('preview')){try{const x=JSON.parse(localStorage.getItem('sp_preview'));if(x)C=x;}catch(e){}draw(C);}
+else{draw(C);fetch('contenido.json?t='+Date.now()).then(r=>r.json()).then(x=>{C=x;draw(C);}).catch(()=>{});}
+</script>
 </body>
 </html>

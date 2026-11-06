@@ -1,0 +1,171 @@
+{
+ "marca": {
+  "nombre": "BasatiNA",
+  "lema": "Navarra en tu bolsillo",
+  "icono": "icono.png",
+  "logo": "sonpe.jpg",
+  "empresa": "Son&Pe Technology Systems"
+ },
+ "colores": {
+  "fondo": "#0d151d",
+  "tarjeta": "#16212c",
+  "borde": "#283848",
+  "texto": "#e9f1f7",
+  "suave": "#9fb0c0",
+  "principal": "#29c6f2",
+  "naranja": "#ff8a3d",
+  "azul": "#2f7de1"
+ },
+ "portada": {
+  "titulo": "El río, el tiempo y la naturaleza de *Navarra*, en una app.",
+  "texto": "Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, monte, setas, fauna, energía… Todo con datos oficiales, gratis y sin publicidad.",
+  "boton": "⬇️ Descargar para Android",
+  "enlace": "https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk",
+  "nota": "Archivo APK gratuito · Android 7 o superior · se actualiza solo"
+ },
+ "novedades": [
+  {
+   "fecha": "2026-11-06",
+   "titulo": "¡Estrenamos web!",
+   "texto": "BasatiNA ya tiene su casa en sonpe-technology.es. La versión 3.4 trae fuentes y créditos, aviso de buen finde para el monte, diario de salidas y sitios secretos.",
+   "foto": ""
+  }
+ ],
+ "funciones_titulo": "Qué tiene",
+ "funciones": [
+  {
+   "icono": "🌊",
+   "titulo": "Ríos en directo",
+   "texto": "Caudal del Arga, Irati, Ega, Aragón y Ebro (SAIH Ebro), embalses y mapa de riadas."
+  },
+  {
+   "icono": "🌦️",
+   "titulo": "El tiempo",
+   "texto": "Mapa de Navarra con lluvia, viento y temperatura, avisos de AEMET, aire, polen, UV, sol y luna."
+  },
+  {
+   "icono": "📡",
+   "titulo": "Radar y rayos",
+   "texto": "Dónde llueve ahora, la animación de las últimas horas y los rayos oficiales de AEMET."
+  },
+  {
+   "icono": "🚧",
+   "titulo": "Carreteras",
+   "texto": "Incidencias oficiales, tráfico, puertos de montaña con nieve y cámaras en directo."
+  },
+  {
+   "icono": "⛽",
+   "titulo": "Gasolineras",
+   "texto": "Precios del día de todas las gasolineras de Navarra y puntos de recarga eléctrica."
+  },
+  {
+   "icono": "🥾",
+   "titulo": "Salir al monte",
+   "texto": "Rutas, GR, vías verdes, Camino de Santiago, cuevas, cascadas, miradores y fuentes."
+  },
+  {
+   "icono": "🍄",
+   "titulo": "Naturaleza",
+   "texto": "Setas y frutos de cada mes, fauna, vegetación y árboles de cada zona."
+  },
+  {
+   "icono": "📸",
+   "titulo": "¿Qué planta es?",
+   "texto": "Haz una foto y te dice la especie (Pl@ntNet). Para aves, enlace a Merlin."
+  },
+  {
+   "icono": "📖",
+   "titulo": "Tu diario",
+   "texto": "Apunta tus salidas con fotos y el tiempo que hizo, y guarda tus sitios secretos de setas."
+  },
+  {
+   "icono": "📍",
+   "titulo": "Cerca de mí",
+   "texto": "Lo más cercano a donde estás: pueblos, gasolineras, cámaras, fuentes, puertos…"
+  },
+  {
+   "icono": "⚡",
+   "titulo": "Energía",
+   "texto": "Eólica y solar de Navarra hora a hora y los datos reales de Red Eléctrica."
+  },
+  {
+   "icono": "🔔",
+   "titulo": "Avisos",
+   "texto": "Si sube el río, si cortan tu carretera, si nieva en un puerto o si el finde viene bueno."
+  }
+ ],
+ "apartados": [],
+ "pasos_titulo": "Cómo instalarla",
+ "pasos": [
+  "Desde el móvil Android, pulsa **«Descargar para Android»**.",
+  "Abre el archivo descargado. Si el móvil lo pide, permite **instalar apps de esta fuente** (solo esta vez).",
+  "Pulsa **Instalar** y ábrela. A partir de ahí se actualiza sola."
+ ],
+ "fuentes": [
+  {
+   "tema": "🌊 Ríos y embalses",
+   "texto": "SAIH Ebro (Confederación Hidrográfica del Ebro) · Ministerio para la Transición Ecológica (embalses)"
+  },
+  {
+   "tema": "🌦️ Tiempo",
+   "texto": "Open‑Meteo (CC BY 4.0) con modelos de AEMET, ECMWF, Météo‑France y DWD · histórico ERA5 (Copernicus)"
+  },
+  {
+   "tema": "⚠️ Avisos, radar y rayos",
+   "texto": "© AEMET (AEMET OpenData) · Meteoalarm (EUMETNET) · RainViewer · Euskalmet – Gobierno Vasco (CC BY 4.0)"
+  },
+  {
+   "tema": "💨 Aire y polen",
+   "texto": "Copernicus CAMS, vía Open‑Meteo"
+  },
+  {
+   "tema": "🚧 Carreteras",
+   "texto": "Gobierno de Navarra (incidencias y cámaras de tráfico) · tráfico © TomTom · Google Maps (enlace externo)"
+  },
+  {
+   "tema": "📷 Cámaras",
+   "texto": "Gobierno de Navarra · Refugio de Belagua (alberguesyrefugios.com). Las imágenes son de sus dueños."
+  },
+  {
+   "tema": "⛽ Gasolineras",
+   "texto": "Ministerio para la Transición Ecológica (Geoportal de carburantes)"
+  },
+  {
+   "tema": "🔌 Recarga y puertos",
+   "texto": "© colaboradores de OpenStreetMap (ODbL), vía Overpass"
+  },
+  {
+   "tema": "⚡ Energía",
+   "texto": "Red Eléctrica (REData) · parques: Gobierno de Navarra · IDENA"
+  },
+  {
+   "tema": "🗺️ Mapas y terreno",
+   "texto": "Instituto Geográfico Nacional y CNIG (PNOA, MDT25, CC BY 4.0) · IDENA – Gobierno de Navarra (CC BY 4.0) · © OpenStreetMap (ODbL)"
+  },
+  {
+   "tema": "🥾 Monte y naturaleza",
+   "texto": "Gobierno de Navarra · IDENA (rutas, pesca, caza, cuevas, fuentes, miradores, patrimonio)"
+  },
+  {
+   "tema": "📸 Identificar plantas",
+   "texto": "Pl@ntNet (uso no comercial) · aves: enlaces a Merlin (Cornell Lab) y Google Lens"
+  },
+  {
+   "tema": "🌍 Terremotos y fallas",
+   "texto": "EMSC con datos de la Red Sísmica Nacional (IGN) · QAFI del IGME‑CSIC"
+  },
+  {
+   "tema": "🏘️ Pueblos y fiestas",
+   "texto": "datos.gob.es · Gobierno de Navarra · Wikipedia (CC BY‑SA) · aportaciones propias"
+  },
+  {
+   "tema": "🌊 Riadas históricas",
+   "texto": "CHE, Ayuntamiento de Pamplona y prensa local"
+  }
+ ],
+ "fuentes_nota": "Datos CC BY 4.0 (IGN, IDENA, Open‑Meteo, Euskalmet) usados citando su origen. «Weather data by Open‑Meteo» y «Weather data by RainViewer». © AEMET. Las marcas y logotipos son de sus dueños. App gratuita, sin publicidad y sin ánimo de lucro.",
+ "privacidad": "BasatiNA no recoge ni envía datos personales. El diario, las fotos y los sitios secretos se guardan solo en el móvil. La ubicación se usa en el momento para mostrar lo cercano y no se guarda ni se comparte.",
+ "aviso": "⚠️ **Ante el riesgo, haz caso siempre a los avisos oficiales.** Los datos de esta app pueden variar respecto a los de la fuente original. Emergencias: 112.",
+ "contacto": "",
+ "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026"
+}

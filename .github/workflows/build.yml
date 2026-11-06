@@ -4,6 +4,7 @@
 name: Construir APK
 on:
   push:
+    paths: ['app/**', 'build.gradle', 'settings.gradle', 'gradle.properties', 'keystore/**', '.github/workflows/build.yml']
   workflow_dispatch:
 permissions:
   contents: write

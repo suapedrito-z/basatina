@@ -172,6 +172,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
     <button data-t="agenda" id="dAgenda" style="display:none">🎉 Agenda de fiestas (en pruebas)</button>
     <button data-t="arboles" id="dArboles" style="display:none">🌳 Árboles y plantas singulares (en pruebas)</button>
     <button data-t="editor" id="dEditor" style="display:none">✏️ Editar contenidos de la app</button>
+    <button id="dWebAdm" style="display:none">🌐 Editar la web sonpe-technology.es</button>
     <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
     <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
@@ -1458,7 +1459,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dAgenda','dArboles','dEditor','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dAgenda','dArboles','dEditor','dWebAdm','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
@@ -3378,6 +3379,8 @@ const _showTabDi=showTab;showTab=function(t){_showTabDi(t);if(t==='diario')setTi
 
 document.querySelectorAll('.crL').forEach(a=>a.onclick=e=>{e.preventDefault();const u=a.dataset.url;if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');});
 document.querySelectorAll('.webSP').forEach(a=>a.onclick=e=>{e.preventDefault();const u='https://sonpe-technology.es';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');});
+
+document.getElementById('dWebAdm').onclick=()=>{const u='https://sonpe-technology.es/admin/';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');};
 </script>
 </body>
 </html>
