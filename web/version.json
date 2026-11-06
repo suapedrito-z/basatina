@@ -1,5 +1,5 @@
 {
- "version": 110,
+ "version": 111,
  "apk": 11,
  "files": {
   "agenda.js": "c4fc3a14d96b53057b6c9b77d8504163c279c2c4",
@@ -23,7 +23,7 @@
   "sismo.js": "979985207b63fdd571d81a1eea6a44081cded5e1",
   "sonpe2.jpg": "b15402e1a817968b2389f507df4408c69ab47047",
   "sonpe2_ico.jpg": "9da2bcf822019ade2b5114a48b020d4586486325",
-  "viaje.js": "2b10518ef49107ef59c7d249ceb824bd4c852f66"
+  "viaje.js": "f697362a8ec87461cff1abe753a971cc8f480d3f"
  },
  "apkUrl": "https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/BasatiNA.apk"
 }
