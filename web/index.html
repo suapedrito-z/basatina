@@ -968,6 +968,26 @@ if(!window.AndroidNet)(async()=>{const info=document.getElementById('fcInfo');le
    ===================================================== */
 const APP=!!window.AndroidNet;window.__netCbs={};
 window.__netCb=(id,code,body)=>{const f=window.__netCbs[id];delete window.__netCbs[id];if(f)f({code,body});};
+// VERSIÓN WEB (navegador, iPhone, ordenador): imitamos lo que hace la caja de Android con lo que permite el navegador
+if(!APP){
+ const cb=(id,c,b)=>window.__netCb(id,c,b);
+ window.AndroidNet={
+  get:(u,id)=>{fetch(u).then(async r=>cb(id,r.status,await r.text())).catch(()=>cb(id,0,''));},
+  share:t=>{if(navigator.share)navigator.share({text:t}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>{try{toast('📋 Copiado')}catch(e){}});},
+  openUrl:u=>window.open(u,'_blank'),reload:()=>location.reload(),
+  updateWeb:id=>setTimeout(()=>cb(id,200,'{"ok":false}'),0),
+  postImage:(u,b64,field,extra,id)=>{try{const bin=atob(b64),a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);const fd=new FormData();fd.append(field,new Blob([a],{type:'image/jpeg'}),'foto.jpg');(extra||'').split('&').forEach(kv=>{const i=kv.indexOf('=');if(i>0)fd.append(kv.slice(0,i),kv.slice(i+1));});fetch(u,{method:'POST',body:fd}).then(async r=>cb(id,r.status,await r.text())).catch(()=>cb(id,0,''));}catch(e){cb(id,0,'');}},
+  openApp:()=>false,setAlerts:()=>{},testAlert:()=>{try{toast('🔔 Los avisos solo funcionan en la app de Android')}catch(e){}},setTextZoom:()=>{},
+  appVersion:()=>'',webVersion:()=>'',lastCrash:()=>''
+ };
+ window.__WEB=true;
+ document.addEventListener('DOMContentLoaded',()=>{try{if(localStorage.getItem('webBanOff'))return;}catch(e){}
+  const d=document.createElement('div');d.id='webBan';
+  d.style.cssText='position:fixed;left:8px;right:8px;bottom:8px;z-index:200;background:#16212c;border:1px solid #29c6f2;border-radius:14px;padding:10px 12px;font-size:13px;color:#e9f1f7;box-shadow:0 6px 24px rgba(0,0,0,.5);display:flex;gap:10px;align-items:center';
+  d.innerHTML='<div style="flex:1">🌐 <b>Versión web de BasatiNA.</b> Los caudales al minuto, las incidencias en directo y los avisos con la app cerrada solo están en la <a href="https://sonpe-technology.es" style="color:#29c6f2">app de Android</a>.</div><button style="background:#22313f;color:#fff;border:1px solid #283848;border-radius:10px;padding:6px 10px">OK</button>';
+  d.querySelector('button').onclick=()=>{d.remove();try{localStorage.setItem('webBanOff','1')}catch(e){}};
+  document.body.appendChild(d);});
+}
 function netGet(url){return new Promise(res=>{const id='n'+Date.now()+Math.random();window.__netCbs[id]=res;window.AndroidNet.get(url,id);});}
 // Previsión directa de Open-Meteo (lo mismo que hace la tarea automática, pero desde el móvil)
 const FPTS=[[43.00,-1.47,.2],[42.97,-1.51,.15],[42.93,-1.50,.15],[42.97,-1.68,.25],[42.90,-1.70,.1],[42.82,-1.64,.15]];
@@ -3223,7 +3243,7 @@ const PN='https://my-api.plantnet.org/v2/';let IDORG='auto',IDLAST=null;
 const IDORGS=[['auto','🤖 Automático'],['leaf','🍃 Hoja'],['flower','🌸 Flor'],['fruit','🍒 Fruto'],['bark','🪵 Corteza']];
 function idOrgs(){const el=document.getElementById('idOrg');el.innerHTML='<span class="note" style="width:100%">¿Qué sale en la foto?</span>'+IDORGS.map(([k,t])=>`<button class="btn${k===IDORG?' on':''}" data-o="${k}" style="padding:5px 8px;font-size:13px">${t}</button>`).join('');
   el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{IDORG=b.dataset.o;idOrgs();});}
-function postImg(url,b64,field,extra){return new Promise(res=>{if(!APP||!window.AndroidNet.postImage){res({code:-1,body:''});return;}const id='p'+Date.now()+Math.random().toString(36).slice(2);
+function postImg(url,b64,field,extra){return new Promise(res=>{if(!window.AndroidNet||!window.AndroidNet.postImage){res({code:-1,body:''});return;}const id='p'+Date.now()+Math.random().toString(36).slice(2);
   window.__netCbs[id]=res;window.AndroidNet.postImage(url,b64,field,extra,id);});}
 async function idGo(file){const el=document.getElementById('idRes');const k=await keyGet('plantnet');
   if(!k){el.innerHTML='<div class="note">Falta poner la clave de Pl@ntNet (zona técnica → esta misma pantalla, abajo).</div>';return;}

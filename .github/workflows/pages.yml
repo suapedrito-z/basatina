@@ -1,0 +1,42 @@
+# Publica la web sonpe-technology.es: la portada (docs/) y la app en versión web (web/ → /app/)
+name: Publicar web
+on:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'web/**', '.github/workflows/pages.yml']
+  workflow_run:
+    workflows: ['Árboles singulares', 'Datos de caza', 'Energía', 'Tramos de pesca', 'Dibujo de los ríos', 'Viaje (gasolineras, recarga, puertos)', 'Agenda de fiestas', 'Salir al monte', 'Pueblos', 'Terremotos y fallas']
+    types: [completed]
+  schedule:
+    - cron: '41 */3 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.dep.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Montar la web
+        run: |
+          mkdir -p _site/app
+          cp -r docs/. _site/
+          cp -r web/. _site/app/
+          touch _site/.nojekyll
+          ls _site | head -50
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: dep
+        uses: actions/deploy-pages@v4
