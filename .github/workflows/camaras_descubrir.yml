@@ -17,4 +17,9 @@ jobs:
           git add tools/camaras_info.txt
           git commit -m "Cámaras: prueba de fuentes" || exit 0
           git pull --rebase
-          git push
+          for i in 1 2 3 4 5 6; do
+            git push && break
+            sleep $((i*15))
+            git pull --rebase -X theirs || true
+            if [ -f tools/make_version.py ]; then python3 tools/make_version.py && git add web/version.json && git commit -m "Nueva versión de la pantalla" || true; fi
+          done
