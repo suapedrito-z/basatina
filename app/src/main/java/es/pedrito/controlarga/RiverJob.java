@@ -63,6 +63,7 @@ public class RiverJob extends JobService {
             try { check(this); } catch (Exception ignored) {}
             try { checkRoads(this); } catch (Exception ignored) {}
             try { checkSnow(this); } catch (Exception ignored) {}
+            try { checkFinde(this); } catch (Exception ignored) {}
             jobFinished(p, false);
         }).start();
         return true;   // el trabajo sigue en otro hilo
@@ -185,6 +186,32 @@ public class RiverJob extends JobService {
         }
         sp.edit().putString("snowDay", today).apply();
         if (txt.length() > 0) notify(c, "❄️ Mañana se espera nieve en los puertos", txt + ". Antes de salir, mira el estado de las carreteras (848 423 500).", 400);
+    }
+
+    /** Los jueves desde las 18:00: ¿viene buen fin de semana para el monte en el pueblo elegido? */
+    static void checkFinde(Context c) throws Exception {
+        JSONObject cfg = cfg(c);
+        org.json.JSONArray f = cfg.optJSONArray("finde");
+        if (!cfg.optBoolean("on", false) || f == null || f.length() < 3) return;
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        if (cal.get(java.util.Calendar.DAY_OF_WEEK) != java.util.Calendar.THURSDAY || cal.get(java.util.Calendar.HOUR_OF_DAY) < 18) return;
+        String today = String.format(java.util.Locale.US, "%tF", cal);
+        SharedPreferences sp = c.getSharedPreferences("rio", MODE_PRIVATE);
+        if (today.equals(sp.getString("findeDay", ""))) return;
+        JSONObject d = new JSONObject(get("https://api.open-meteo.com/v1/forecast?latitude=" + f.optDouble(1) + "&longitude=" + f.optDouble(2)
+                + "&daily=precipitation_sum,precipitation_probability_max,temperature_2m_max,temperature_2m_min,wind_gusts_10m_max&forecast_days=4&timezone=Europe%2FMadrid")).getJSONObject("daily");
+        sp.edit().putString("findeDay", today).apply();
+        // índices 2 y 3 = sábado y domingo (hoy es jueves)
+        boolean bueno = true; StringBuilder t = new StringBuilder();
+        String[] dias = {"Sábado", "Domingo"};
+        for (int k = 0; k < 2; k++) {
+            int i = k + 2;
+            double ll = d.getJSONArray("precipitation_sum").optDouble(i, 0), pr = d.getJSONArray("precipitation_probability_max").optDouble(i, 0);
+            double tx = d.getJSONArray("temperature_2m_max").optDouble(i, 15), tn = d.getJSONArray("temperature_2m_min").optDouble(i, 5), ra = d.getJSONArray("wind_gusts_10m_max").optDouble(i, 0);
+            if (ll >= 1 || pr >= 40 || tx > 32 || tx < 4 || ra > 60) bueno = false;
+            t.append(k > 0 ? " · " : "").append(dias[k]).append(String.format(java.util.Locale.forLanguageTag("es-ES"), " %.0f°/%.0f°%s", tx, tn, ll >= 0.5 ? String.format(java.util.Locale.forLanguageTag("es-ES"), ", %.0f mm", ll) : ""));
+        }
+        if (bueno) notify(c, "🥾 Buen finde para el monte en " + f.optString(0), t + ". ¡A disfrutarlo!", 410);
     }
 
     static void notify(Context c, String title, String text, int id) {
