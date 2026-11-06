@@ -9,6 +9,14 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- apps de identificación que BasatiNA puede abrir -->
+    <queries>
+        <package android:name="com.labs.merlinbirdid.app" />
+        <package android:name="com.google.ar.lens" />
+        <package android:name="org.plantnet" />
+        <package android:name="org.inaturalist.android" />
+    </queries>
+
     <application
         android:label="BasatiNA"
         android:icon="@mipmap/ic_launcher"

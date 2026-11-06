@@ -111,6 +111,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
   <div class="dgroup"><span>Qué hacer</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="monte">🥾 Salir al monte: rutas, cuevas, baño…</button>
+    <button data-t="ident">📸 Identificar planta o ave por foto</button>
     <button data-t="natfau">🦌 Fauna de Navarra</button>
     <button data-t="natveg">🌳 Vegetación de Navarra</button>
     <button data-t="natarb">🌲 Árboles por zonas</button>
@@ -505,6 +506,16 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <div class="row" style="margin-top:6px"><input id="edQ" class="town" placeholder="🔎 Buscar…" style="flex:1;box-sizing:border-box"><button class="btn pri" id="edNew">➕ Añadir</button></div><div class="note" id="edMsg"></div></div>
 <div id="edBody"></div>
 </section>
+<section id="t-ident">
+<div class="card"><b>🌿 ¿Qué planta es?</b><div class="note">Haz una foto a una hoja, flor, fruto o corteza (mejor de cerca y solo una parte) y te dice qué planta o árbol es. Funciona con Pl@ntNet, un proyecto científico.</div>
+<div class="row" style="margin-top:8px"><label class="btn pri" style="flex:1;text-align:center">📷 Hacer o elegir foto<input type="file" id="idF" accept="image/*" style="display:none"></label></div>
+<div class="row" style="gap:4px;flex-wrap:wrap" id="idOrg"></div>
+<div id="idRes"></div></div>
+<div class="card"><b>🐦 ¿Qué ave es?</b><div class="note">Para aves no hay un servicio gratuito que se pueda meter en la app. Lo mejor es <b>Merlin</b> (de la Universidad de Cornell): identifica por foto y también por el canto. Si no la tienes, el botón te lleva a instalarla.</div>
+<div class="row"><button class="btn" id="idMerlin">🐦 Abrir Merlin</button><button class="btn" id="idLens">🔍 Abrir Google Lens</button></div></div>
+<div class="card tech" style="display:none"><b>🔧 Clave de Pl@ntNet</b><input id="kyPn" class="town" autocomplete="off" placeholder="Pega aquí la clave de my.plantnet.org" style="width:100%;box-sizing:border-box;margin-top:6px">
+<div class="row"><button class="btn pri" id="kyPnS">💾 Guardar clave de Pl@ntNet</button></div><div class="note" id="kyPnMsg"></div></div>
+</section>
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
@@ -521,7 +532,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={arboles:'🌳 Árboles y plantas singulares',editor:'✏️ Editar contenidos',gas:'⛽ Gasolineras y recarga',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={ident:'📸 Identificar por foto',arboles:'🌳 Árboles y plantas singulares',editor:'✏️ Editar contenidos',gas:'⛽ Gasolineras y recarga',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -3059,6 +3070,7 @@ function arEdit(a){const nuevo=!a;a=a||{};document.getElementById('arListV').sty
       ['alt','per','copa','edad'].forEach(k=>{const x=v(k);if(x!=='')nd[k]=+x;});if(pos.pt){nd.lat=pos.pt[0];nd.lon=pos.pt[1];}
       const del=new Set([...document.querySelectorAll('#arFicha [data-del]:checked')].map(x=>+x.dataset.del));nd.fotos=(a.fotos||[]).filter((_,k)=>!del.has(k));
       const files=[...(document.getElementById('arE_f').files||[])],cap=v('ft');
+      if(window.ARPREFOTO&&document.getElementById('arPreF')){const path=`arboles/fotos/${id}/${Date.now()}-id.jpg`;msg.textContent='Subiendo la foto…';await ghPut(path,window.ARPREFOTO,`Foto de ${nd.n||nd.sp} (${edName()||'app'})`);nd.fotos.push({f:path,t:'Foto de la identificación',by:edName()||'',d:ymd(new Date())});window.ARPREFOTO=null;}
       for(let k=0;k<files.length;k++){msg.textContent=`Subiendo foto ${k+1} de ${files.length}…`;const b=await pbShrink(files[k]),path=`arboles/fotos/${id}/${Date.now()}-${k}.jpg`;
         await ghPut(path,b,`Foto del árbol ${nd.n||nd.sp} (${edName()||'app'})`);nd.fotos.push({f:path,t:cap,by:edName()||'',d:ymd(new Date())});}
       msg.textContent='Guardando la ficha…';nd.ed=edName()||'';nd.fe=new Date().toLocaleString('es-ES');
@@ -3136,6 +3148,48 @@ async function edSave(msg){const m=document.getElementById('edMsg');if(!ghTok())
   catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}}
 function edInit(){document.getElementById('edSet').onchange=edList;document.getElementById('edQ').oninput=edList;document.getElementById('edNew').onclick=()=>edForm(document.getElementById('edSet').value,null);edList();}
 const _showTabEd=showTab;showTab=function(t){_showTabEd(t);if(t==='editor')setTimeout(edInit,40);};
+
+
+/* =====================================================================
+   📸 IDENTIFICAR PLANTAS (Pl@ntNet) Y AVES (Merlin / Google Lens)
+   ===================================================================== */
+const PN='https://my-api.plantnet.org/v2/';let IDORG='auto',IDLAST=null;
+const IDORGS=[['auto','🤖 Automático'],['leaf','🍃 Hoja'],['flower','🌸 Flor'],['fruit','🍒 Fruto'],['bark','🪵 Corteza']];
+function idOrgs(){const el=document.getElementById('idOrg');el.innerHTML='<span class="note" style="width:100%">¿Qué sale en la foto?</span>'+IDORGS.map(([k,t])=>`<button class="btn${k===IDORG?' on':''}" data-o="${k}" style="padding:5px 8px;font-size:13px">${t}</button>`).join('');
+  el.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{IDORG=b.dataset.o;idOrgs();});}
+function postImg(url,b64,field,extra){return new Promise(res=>{if(!APP||!window.AndroidNet.postImage){res({code:-1,body:''});return;}const id='p'+Date.now()+Math.random().toString(36).slice(2);
+  window.__netCbs[id]=res;window.AndroidNet.postImage(url,b64,field,extra,id);});}
+async function idGo(file){const el=document.getElementById('idRes');const k=await keyGet('plantnet');
+  if(!k){el.innerHTML='<div class="note">Falta poner la clave de Pl@ntNet (zona técnica → esta misma pantalla, abajo).</div>';return;}
+  if(!APP||!window.AndroidNet.postImage){el.innerHTML='<div class="note">📱 Para identificar hace falta la app versión 12 o más nueva (la del enlace de descarga de siempre).</div>';return;}
+  el.innerHTML='<div class="note">Mirando la foto…</div>';const b64=await pbShrink(file);IDLAST=b64;
+  el.innerHTML=`<img src="data:image/jpeg;base64,${b64}" style="width:100%;max-height:260px;object-fit:cover;border-radius:8px;margin-top:8px"><div class="note">Preguntando a Pl@ntNet…</div>`;
+  const r=await postImg(PN+'identify/all?lang=es&include-related-images=true&nb-results=5&api-key='+encodeURIComponent(k),b64,'images','organs='+IDORG);
+  let j=null;try{j=JSON.parse(r.body);}catch(e){}
+  if(!j||!j.results){el.innerHTML+=`<div class="note">❌ ${r.code===404?'No se ha reconocido ninguna planta. Prueba con otra foto más cerca de una hoja o flor.':r.code===429?'Se han gastado las identificaciones gratuitas de hoy. Mañana más.':'No se pudo identificar ahora (código '+r.code+').'}</div>`;return;}
+  const res=j.results.slice(0,5);
+  el.innerHTML=`<img src="data:image/jpeg;base64,${b64}" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px;margin-top:8px">`+
+   res.map((x,i)=>{const s=x.species||{},com=(s.commonNames||[])[0]||'',img=(x.images||[])[0],pc=Math.round((x.score||0)*100);
+     return `<div class="card" style="padding:8px;margin-top:8px;${i===0?'border-color:#43a047':''}"><div style="display:flex;gap:8px">${img?`<img src="${img.url.s||img.url.m}" style="width:72px;height:72px;object-fit:cover;border-radius:6px">`:''}
+      <div style="flex:1"><b>${arEsc(com||s.scientificNameWithoutAuthor)}</b><div class="note"><i>${arEsc(s.scientificNameWithoutAuthor||'')}</i>${s.family?' · familia '+arEsc(s.family.scientificNameWithoutAuthor||''):''}</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:4px"><span style="flex:1;height:8px;background:#0b1118;border-radius:4px;overflow:hidden"><span style="display:block;width:${pc}%;height:100%;background:${pc>=50?'#43a047':pc>=20?'#fdd835':'#e53935'}"></span></span><b style="font-size:13px">${pc} %</b></div></div></div>
+      ${ghTok()?`<div class="row"><button class="btn" data-f="${i}">➕ Crear su ficha en Árboles y plantas</button></div>`:''}</div>`;}).join('')+
+   `<div class="note" style="margin-top:6px">${res[0]&&res[0].score<.2?'⚠️ No está muy seguro: haz otra foto más cerca de una sola hoja o flor. ':''}Nunca te comas una planta o fruto solo por lo que diga una app. Identificaciones que quedan hoy: ${j.remainingIdentificationRequests??'—'}. Fuente: Pl@ntNet.</div>`;
+  el.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const x=res[+b.dataset.f],s=x.species||{};showTab('arboles');setTimeout(()=>arEdit(null,{n:(s.commonNames||[])[0]||'',sp:s.scientificNameWithoutAuthor||'',foto:IDLAST}),300);});}
+document.getElementById('idF').onchange=e=>{const f=e.target.files&&e.target.files[0];if(f)idGo(f);e.target.value='';};
+document.getElementById('idMerlin').onclick=()=>{if(APP&&window.AndroidNet.openApp)window.AndroidNet.openApp('com.labs.merlinbirdid.app');else window.open('https://merlin.allaboutbirds.org/','_blank');};
+document.getElementById('idLens').onclick=()=>{if(APP&&window.AndroidNet.openApp)window.AndroidNet.openApp('com.google.ar.lens');else window.open('https://lens.google.com/','_blank');};
+document.getElementById('kyPnS').onclick=async()=>{const m=document.getElementById('kyPnMsg'),v=document.getElementById('kyPn').value.trim();
+  if(!v){m.textContent='Pega la clave primero';return;}if(!ghTok()){m.textContent='❌ Falta la llave de edición de GitHub en este móvil';return;}
+  m.textContent='Comprobando la clave con Pl@ntNet…';const r=await httpText(PN+'projects?lang=es&api-key='+encodeURIComponent(v));
+  if(r.code!==200){m.textContent='❌ Pl@ntNet no acepta esa clave (código '+r.code+'). Revisa que esté completa.';return;}
+  try{let sha=null;try{const x=await fetch(GH_API+'config/plantnet.json?ref=main',{headers:{Authorization:'Bearer '+ghTok()}});if(x.ok)sha=(await x.json()).sha;}catch(e){}
+    await ghPut('config/plantnet.json',b64u(JSON.stringify({key:v})),'Clave de Pl@ntNet',sha);KEYS.plantnet=v;m.textContent='✅ Guardada. Ya se puede identificar en todos los móviles.';}
+  catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}};
+const _showTabId=showTab;showTab=function(t){_showTabId(t);if(t==='ident')idOrgs();};
+// el editor de árboles puede venir ya relleno desde el identificador (nombre, especie y la foto)
+const _arEdit0=arEdit;arEdit=function(a,pre){_arEdit0(a);if(!pre)return;if(pre.n)document.getElementById('arE_n').value=pre.n;if(pre.sp)document.getElementById('arE_sp').value=pre.sp;
+  if(pre.foto){window.ARPREFOTO=pre.foto;const l=document.getElementById('arE_f').parentNode;l.insertAdjacentHTML('afterend','<div class="note" id="arPreF">📷 Se guardará también la foto que has usado para identificarla.</div>');}};
 
 </script>
 </body>

@@ -242,6 +242,47 @@ public class MainActivity extends Activity {
         }
 
         /** Tamaño de letra: 100 normal, 115 grande, 130 muy grande */
+        /** Envía una foto (JPEG en base64) a un servicio como «multipart/form-data» (identificar plantas con Pl@ntNet) */
+        @JavascriptInterface
+        public void postImage(final String url, final String b64, final String field, final String extra, final String id) {
+            new Thread(() -> {
+                int code = 0; String body;
+                try {
+                    byte[] img = android.util.Base64.decode(b64, android.util.Base64.DEFAULT);
+                    String bd = "----BasatiNA" + System.currentTimeMillis();
+                    HttpURLConnection c = (HttpURLConnection) new URL(url).openConnection();
+                    c.setConnectTimeout(20000); c.setReadTimeout(60000); c.setDoOutput(true); c.setRequestMethod("POST");
+                    c.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + bd);
+                    c.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android) BasatiNA/3.2");
+                    java.io.OutputStream o = c.getOutputStream();
+                    o.write(("--" + bd + "\r\nContent-Disposition: form-data; name=\"" + field + "\"; filename=\"foto.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n").getBytes("UTF-8"));
+                    o.write(img); o.write("\r\n".getBytes("UTF-8"));
+                    // campos de texto extra: «nombre=valor&nombre=valor»
+                    if (extra != null && !extra.isEmpty()) for (String kv : extra.split("&")) {
+                        int i = kv.indexOf('='); if (i < 0) continue;
+                        o.write(("--" + bd + "\r\nContent-Disposition: form-data; name=\"" + kv.substring(0, i) + "\"\r\n\r\n" + kv.substring(i + 1) + "\r\n").getBytes("UTF-8"));
+                    }
+                    o.write(("--" + bd + "--\r\n").getBytes("UTF-8")); o.close();
+                    code = c.getResponseCode();
+                    InputStream in = code < 400 ? c.getInputStream() : c.getErrorStream();
+                    body = in == null ? "" : readAll(in);
+                } catch (Exception e) { body = ""; }
+                callback(id, code, body);
+            }).start();
+        }
+
+        /** Abre otra app instalada (Merlin, Google Lens…); si no está, su página en Google Play */
+        @JavascriptInterface
+        public void openApp(final String pkg) {
+            runOnUiThread(() -> {
+                try {
+                    Intent i = getPackageManager().getLaunchIntentForPackage(pkg);
+                    if (i == null) i = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://play.google.com/store/apps/details?id=" + pkg));
+                    startActivity(i);
+                } catch (Exception ignored) {}
+            });
+        }
+
         @JavascriptInterface
         public void setTextZoom(final int z) {
             getSharedPreferences("rio", MODE_PRIVATE).edit().putInt("zoom", z).apply();
