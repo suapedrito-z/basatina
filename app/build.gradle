@@ -7,8 +7,8 @@ android {
         applicationId "es.pedrito.controlarga"
         minSdk 24
         targetSdk 34
-        versionCode 15
-        versionName "3.5"
+        versionCode 16
+        versionName "3.6"
     }
     // Firma fija: así cada versión nueva se instala encima de la anterior sin desinstalar.
     // La contraseña NO está aquí: GitHub la pasa desde el secreto KEYSTORE_PASS del repositorio.

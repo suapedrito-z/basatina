@@ -32,6 +32,8 @@ public class MainActivity extends Activity {
     private ValueCallback<Uri[]> fileCb;   // para elegir fotos desde la página (editor de pueblos)
     private static final int PICK = 41;
     private static final int GEO = 42;
+    private static final int CAM = 43;
+    private Uri camUri; private File camFile; private boolean camMulti;
     private android.webkit.GeolocationPermissions.Callback geoCb;   // «Qué hay cerca de mí»
     private String geoOrigin;
 
@@ -60,12 +62,13 @@ public class MainActivity extends Activity {
             public boolean onShowFileChooser(WebView v, ValueCallback<Uri[]> cb, FileChooserParams p) {
                 if (fileCb != null) fileCb.onReceiveValue(null);
                 fileCb = cb;
-                Intent pick = new Intent(Intent.ACTION_GET_CONTENT);
-                pick.addCategory(Intent.CATEGORY_OPENABLE);
-                pick.setType("image/*");
-                pick.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, p.getMode() == FileChooserParams.MODE_OPEN_MULTIPLE);
-                Intent chooser = Intent.createChooser(pick, "Elegir foto");
-                try { startActivityForResult(chooser, PICK); } catch (Exception e) { fileCb = null; return false; }
+                camMulti = p.getMode() == FileChooserParams.MODE_OPEN_MULTIPLE;
+                // primero pedimos permiso de cámara (solo la primera vez); luego se abre el selector
+                if (checkSelfPermission(android.Manifest.permission.CAMERA) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{android.Manifest.permission.CAMERA}, CAM);
+                    return true;
+                }
+                openPicker();
                 return true;
             }
             // la página pide la ubicación: si Android ya dio permiso, se contesta que sí; si no, se pregunta al usuario
@@ -122,9 +125,36 @@ public class MainActivity extends Activity {
         runOnUiThread(() -> web.evaluateJavascript(js, null));
     }
 
+    // Selector de fotos: galería + «Hacer foto» con la cámara (si hay permiso)
+    private void openPicker() {
+        Intent pick = new Intent(Intent.ACTION_GET_CONTENT);
+        pick.addCategory(Intent.CATEGORY_OPENABLE);
+        pick.setType("image/*");
+        pick.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, camMulti);
+        Intent chooser = Intent.createChooser(pick, "Hacer o elegir foto");
+        camUri = null; camFile = null;
+        if (checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            try {
+                File dir = new File(getCacheDir(), "fotos"); dir.mkdirs();
+                for (File f : dir.listFiles()) if (System.currentTimeMillis() - f.lastModified() > 86400000L) f.delete();
+                camFile = new File(dir, "foto_" + System.currentTimeMillis() + ".jpg");
+                camUri = Uri.parse("content://" + getPackageName() + ".fotos/" + camFile.getName());
+                Intent cam = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                cam.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, camUri);
+                cam.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                cam.setClipData(android.content.ClipData.newRawUri("foto", camUri));
+                if (cam.resolveActivity(getPackageManager()) != null)
+                    chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cam});
+                else { camUri = null; camFile = null; }
+            } catch (Exception e) { camUri = null; camFile = null; }
+        }
+        try { startActivityForResult(chooser, PICK); } catch (Exception e) { if (fileCb != null) fileCb.onReceiveValue(null); fileCb = null; }
+    }
+
     @Override
     public void onRequestPermissionsResult(int req, String[] perms, int[] res) {
         super.onRequestPermissionsResult(req, perms, res);
+        if (req == CAM) { if (fileCb != null) openPicker(); return; }
         if (req == GEO && geoCb != null) {
             boolean ok = false;
             for (int r : res) ok |= r == android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -137,7 +167,10 @@ public class MainActivity extends Activity {
         super.onActivityResult(req, res, data);
         if (req != PICK || fileCb == null) return;
         Uri[] out = null;
-        if (res == RESULT_OK && data != null) {
+        boolean camOk = camFile != null && camFile.exists() && camFile.length() > 0;
+        if (res == RESULT_OK && camOk && (data == null || (data.getData() == null && (data.getClipData() == null || camUri.equals(data.getClipData().getItemAt(0).getUri()))))) {
+            out = new Uri[]{camUri};
+        } else if (res == RESULT_OK && data != null) {
             if (data.getClipData() != null) {
                 int n = data.getClipData().getItemCount(); out = new Uri[n];
                 for (int i = 0; i < n; i++) out[i] = data.getClipData().getItemAt(i).getUri();
