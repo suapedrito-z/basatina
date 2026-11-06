@@ -29,9 +29,14 @@ jobs:
           ref: main
       - name: Montar la web
         run: |
-          mkdir -p _site/app
-          cp -r docs/. _site/
-          cp -r web/. _site/app/
+          cp -r docs/. _site/ 2>/dev/null || { mkdir -p _site; cp -r docs/. _site/; }
+          # la versión web va escondida en /probar-7q4m hasta que se marque «visible» en el panel
+          VIS=$(python3 -c "import json;print(json.load(open('docs/contenido.json')).get('app_web',{}).get('visible',False))")
+          if [ "$VIS" = "True" ]; then DEST=app; else DEST=probar-7q4m; fi
+          mkdir -p _site/$DEST
+          cp -r web/. _site/$DEST/
+          if [ "$DEST" != "app" ]; then sed -i 's#<head>#<head><meta name="robots" content="noindex,nofollow">#' _site/$DEST/index.html; fi
+          echo "App web en /$DEST"
           touch _site/.nojekyll
           ls _site | head -50
       - uses: actions/configure-pages@v5

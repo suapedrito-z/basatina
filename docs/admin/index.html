@@ -127,6 +127,7 @@ function list(arr,title,make,blank,lab){
  return `<div class="row" style="justify-content:space-between"><span class="note">${title}</span><button class="btn" id="${id}a">➕ Añadir ${lab}</button></div>`+
   arr.map((it,i)=>`<div class="item">${make(it,i)}<div class="row" style="margin-top:8px"><button class="btn" data-l="${id}" data-i="${i}" data-op="up">⬆️</button><button class="btn" data-l="${id}" data-i="${i}" data-op="dn">⬇️</button><button class="btn warn" data-l="${id}" data-i="${i}" data-op="del">🗑️ Borrar</button></div></div>`).join('');
 }
+function check(obj,key,lab){const id='k'+Math.random().toString(36).slice(2);setTimeout(()=>{const el=$(id);if(el)el.onchange=()=>{set(obj,key,el.checked);save();};},0);return `<label style="display:flex;gap:8px;align-items:center;color:var(--txt);font-size:15px"><input type="checkbox" id="${id}" ${get(obj,key)?'checked':''} style="width:20px;height:20px">${lab}</label>`;}
 function sec(t,body,open){return `<details class="card"${open?' open':''}><summary>${t}</summary>${body}</details>`;}
 
 function render(){
@@ -138,6 +139,8 @@ function render(){
  let h='';
  h+=sec('📰 Novedades',list(C.novedades,'Lo primero de la lista sale arriba en la web.',n=>field(n,'fecha','Fecha','date')+field(n,'titulo','Título')+field(n,'texto','Texto','area')+photo(n,'foto','Foto (opcional)'),{fecha:new Date().toISOString().slice(0,10),titulo:'',texto:'',foto:''},'novedad'),true);
  h+=sec('🏠 Portada',field(C,'portada.titulo','Titular (lo que va entre *asteriscos* sale en color)')+field(C,'portada.texto','Texto de debajo','area')+field(C,'portada.boton','Texto del botón')+field(C,'portada.enlace','Enlace del botón')+field(C,'portada.nota','Nota pequeña bajo el botón'));
+ C.app_web=C.app_web||{visible:false,boton:'🌐 Usar en el navegador',nota:''};
+ h+=sec('🌐 Versión web de la app',`<div class="hint">Mientras está en pruebas, la versión web está escondida en <a style="color:var(--acc)" href="../probar-7q4m/" target="_blank">sonpe-technology.es/probar-7q4m</a> (no sale en Google ni en la portada). Cuando marquéis la casilla y publiquéis, pasa a <b>sonpe-technology.es/app</b> y sale un botón en la portada.</div>`+check(C,'app_web.visible','Mostrar la versión web en la portada')+field(C,'app_web.boton','Texto del botón')+field(C,'app_web.nota','Nota pequeña','area'));
  h+=sec('✨ Qué tiene la app',field(C,'funciones_titulo','Título del apartado')+list(C.funciones,'Cada tarjeta: un emoji, un título y un texto corto.',f=>`<div class="row"><div style="width:80px">${field(f,'icono','Emoji')}</div><div style="flex:1">${field(f,'titulo','Título')}</div></div>`+field(f,'texto','Texto','area'),{icono:'⭐',titulo:'',texto:''},'tarjeta'));
  h+=sec('📄 Apartados propios',list(C.apartados,'Apartados libres: historia, quiénes somos, agradecimientos, fotos de salidas…',a=>field(a,'titulo','Título')+field(a,'texto','Texto','area')+photo(a,'foto','Foto (opcional)'),{titulo:'',texto:'',foto:''},'apartado'));
  h+=sec('📲 Cómo instalarla',field(C,'pasos_titulo','Título')+list(C.pasosObj,'Pasos en orden.',p=>field(p,'t','Paso','area'),{t:''},'paso'));

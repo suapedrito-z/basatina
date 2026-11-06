@@ -22,6 +22,7 @@ header span{display:block;color:var(--mut);font-size:14px}
 .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--acc3),var(--acc) 60%,var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{color:var(--mut);font-size:17px;margin:0 0 22px}
 .dl{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--acc3),var(--acc));color:#fff;text-decoration:none;font-weight:700;font-size:18px;padding:14px 22px;border-radius:14px;box-shadow:0 8px 24px rgba(41,198,242,.25)}
+.dl.alt{background:transparent;border:2px solid var(--acc);box-shadow:none;color:var(--acc);font-size:16px;padding:11px 18px}
 .small{color:var(--mut);font-size:13px;margin-top:10px}
 .hero .logo{width:100%;border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
 h2{font-size:24px;margin:34px 0 14px}
@@ -218,7 +219,12 @@ footer img{width:120px;border-radius:10px}
  "privacidad": "BasatiNA no recoge ni envía datos personales. El diario, las fotos y los sitios secretos se guardan solo en el móvil. La ubicación se usa en el momento para mostrar lo cercano y no se guarda ni se comparte.",
  "aviso": "⚠️ **Ante el riesgo, haz caso siempre a los avisos oficiales.** Los datos de esta app pueden variar respecto a los de la fuente original. Emergencias: 112.",
  "contacto": "",
- "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026"
+ "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026",
+ "app_web": {
+  "visible": false,
+  "boton": "🌐 Usar en el navegador",
+  "nota": "También funciona en iPhone y ordenador, sin instalar nada."
+ }
 }</script>
 <script>
 // La web se dibuja a partir de contenido.json (lo que se edita desde /admin).
@@ -231,7 +237,7 @@ function draw(c){
  const m=c.marca||{},p=c.portada||{};let h='';
  if(location.search.includes('preview'))h+='<div id="prev">👁️ VISTA PREVIA — todavía no está publicado</div>';
  h+=`<header><img src="${esc(m.icono)}" alt=""><div><b>${esc(m.nombre)}</b><span>${esc(m.lema)}</span></div></header>`;
- h+=`<section class="hero"><div><h1>${md(p.titulo)}</h1><p>${md(p.texto)}</p><a class="dl" href="${esc(p.enlace)}">${esc(p.boton)}</a><div class="small">${md(p.nota)}</div></div>${m.logo?`<img class="logo" src="${esc(m.logo)}" alt="${esc(m.empresa)}">`:''}</section>`;
+ h+=`<section class="hero"><div><h1>${md(p.titulo)}</h1><p>${md(p.texto)}</p><a class="dl" href="${esc(p.enlace)}">${esc(p.boton)}</a><div class="small">${md(p.nota)}</div>${c.app_web&&c.app_web.visible?`<div style="margin-top:12px"><a class="dl alt" href="app/">${esc(c.app_web.boton)}</a><div class="small">${md(c.app_web.nota)}</div></div>`:''}</div>${m.logo?`<img class="logo" src="${esc(m.logo)}" alt="${esc(m.empresa)}">`:''}</section>`;
  const nv=(c.novedades||[]).filter(n=>n.titulo||n.texto);
  if(nv.length){h+='<h2 id="novedades">Novedades</h2><div class="news">'+nv.map(n=>`<div class="n${n.foto?' ft':''}">${n.foto?`<img src="${esc(n.foto)}" alt="">`:''}<div><small>${esc(fd(n.fecha))}</small><b>${esc(n.titulo)}</b><p>${md(n.texto)}</p></div></div>`).join('')+'</div>';}
  h+=`<h2>${esc(c.funciones_titulo)}</h2><div class="grid">`+(c.funciones||[]).map(f=>`<div class="f"><i>${esc(f.icono)}</i><b>${esc(f.titulo)}</b><p>${md(f.texto)}</p></div>`).join('')+'</div>';

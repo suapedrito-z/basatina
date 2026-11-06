@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /probar-7q4m/

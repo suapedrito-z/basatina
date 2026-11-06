@@ -167,5 +167,10 @@
  "privacidad": "BasatiNA no recoge ni envía datos personales. El diario, las fotos y los sitios secretos se guardan solo en el móvil. La ubicación se usa en el momento para mostrar lo cercano y no se guarda ni se comparte.",
  "aviso": "⚠️ **Ante el riesgo, haz caso siempre a los avisos oficiales.** Los datos de esta app pueden variar respecto a los de la fuente original. Emergencias: 112.",
  "contacto": "",
- "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026"
+ "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026",
+ "app_web": {
+  "visible": false,
+  "boton": "🌐 Usar en el navegador",
+  "nota": "También funciona en iPhone y ordenador, sin instalar nada."
+ }
 }
