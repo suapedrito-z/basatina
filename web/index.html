@@ -144,7 +144,8 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
     <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
     <button data-t="pueblos" id="dPueblos" style="display:none">🏘️ Pueblos de Navarra (en pruebas)</button>
     <button data-t="agenda" id="dAgenda" style="display:none">🎉 Agenda de fiestas (en pruebas)</button>
-    <button data-t="arboles" id="dArboles" style="display:none">🌳 Árboles singulares (en pruebas)</button>
+    <button data-t="arboles" id="dArboles" style="display:none">🌳 Árboles y plantas singulares (en pruebas)</button>
+    <button data-t="editor" id="dEditor" style="display:none">✏️ Editar contenidos de la app</button>
     <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
     <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
     <button id="dLock" style="display:none">🔒 Salir de la zona técnica</button>
@@ -491,12 +492,18 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 </section>
 <section id="t-arboles">
 <div id="arListV">
-<div class="card"><b>🌳 Árboles singulares de Navarra</b><div class="note">Árboles especiales que vais fichando: dónde están, especie, medidas, historia y fotos. En pruebas: solo en la zona técnica.</div>
+<div class="card"><b>🌳 Árboles y plantas singulares</b><div class="note">Árboles y plantas especiales que vais fichando: dónde están, especie, medidas, historia y fotos. En pruebas: solo en la zona técnica.</div>
 <div class="row" style="margin-top:8px"><input id="arQ" class="town" placeholder="🔎 Buscar árbol, especie o pueblo…" style="flex:1;box-sizing:border-box"><button class="btn pri" id="arNew">➕ Añadir</button></div></div>
 <div class="card"><div style="position:relative"><canvas id="arc" height="340"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="arcIn">＋</button><button class="btn mtb" id="arcOut">－</button></div></div></div>
 <div class="card" id="arList"><div class="note">Cargando…</div></div>
 </div>
 <div id="arFicha" style="display:none"></div>
+</section>
+<section id="t-editor">
+<div class="card"><b>✏️ Editar contenidos de la app</b><div class="note">Aquí podéis corregir, añadir o quitar fichas de las secciones de naturaleza. Los cambios salen en todos los móviles. Los datos oficiales en directo (ríos, embalses, tiempo, carreteras, energía…) no se pueden tocar desde aquí.</div>
+<select class="town" id="edSet" style="width:100%;margin-top:8px"><option value="rec">🍄 Recolección: setas, frutos y frutales</option><option value="fau">🦌 Fauna</option><option value="veg">🌳 Vegetación</option><option value="arb">🌲 Árboles para reconocer (por zonas)</option></select>
+<div class="row" style="margin-top:6px"><input id="edQ" class="town" placeholder="🔎 Buscar…" style="flex:1;box-sizing:border-box"><button class="btn pri" id="edNew">➕ Añadir</button></div><div class="note" id="edMsg"></div></div>
+<div id="edBody"></div>
 </section>
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
@@ -514,7 +521,7 @@ table.ph{width:100%;border-collapse:collapse;font-size:13.5px}table.ph td{paddin
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={arboles:'🌳 Árboles singulares',gas:'⛽ Gasolineras y recarga',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={arboles:'🌳 Árboles y plantas singulares',editor:'✏️ Editar contenidos',gas:'⛽ Gasolineras y recarga',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna de Navarra',natveg:'🌳 Vegetación de Navarra',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Salir al monte',natura:'🍄 Recolección',caza:'🦌 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1378,7 +1385,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dAgenda','dArboles','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dAgenda','dArboles','dEditor','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
@@ -3027,6 +3034,7 @@ function arSlug(t){return (slugify(t)||'arbol').slice(0,40)+'-'+Date.now().toStr
 function arEdit(a){const nuevo=!a;a=a||{};document.getElementById('arListV').style.display='none';const el=document.getElementById('arFicha');el.style.display='';window.scrollTo(0,0);
   const inp=(k,t,ph,type)=>`<label style="display:block;margin-top:6px">${t}<input id="arE_${k}" ${type?'type="'+type+'"':''} class="town" placeholder="${ph||''}" value="${arEsc(a[k]??'')}" style="width:100%;box-sizing:border-box"></label>`;
   el.innerHTML=`<button class="btn" id="arB">‹ Volver</button><div class="card" style="border-color:var(--acc)"><b>${nuevo?'➕ Nuevo árbol':'✏️ Editar '+arEsc(a.n||'')}</b>
+   <label style="display:block;margin-top:6px">Tipo<select id="arE_tipo" class="town" style="width:100%">${[['arbol','🌳 Árbol'],['arbusto','🌿 Arbusto'],['planta','🌱 Planta o flor']].map(([k,t])=>`<option value="${k}" ${(a.tipo||'arbol')===k?'selected':''}>${t}</option>`).join('')}</select></label>
    ${inp('n','🌳 Nombre (el que le da la gente)','Ej.: El roble de Orgi, Haya de Aritzakun…')}${inp('sp','🔬 Especie','Ej.: Quercus robur (roble común)')}
    ${inp('lug','📍 Paraje o sitio','Ej.: junto a la ermita de San Esteban')}${inp('mun','🏘️ Pueblo o municipio','Ej.: Lizaso')}
    <div class="row" style="gap:6px">${['alt','per','copa','edad'].map(k=>`<label style="flex:1">${({alt:'Altura (m)',per:'Perímetro (cm)',copa:'Copa (m)',edad:'Edad (años)'})[k]}<input id="arE_${k}" type="number" min="0" class="town" value="${arEsc(a[k]??'')}" style="width:100%;box-sizing:border-box"></label>`).join('')}</div>
@@ -3047,7 +3055,7 @@ function arEdit(a){const nuevo=!a;a=a||{};document.getElementById('arListV').sty
   document.getElementById('arB').onclick=document.getElementById('arCan').onclick=()=>nuevo?arBack():arOpen(a);
   document.getElementById('arSave').onclick=async()=>{const msg=document.getElementById('arMsg'),btn=document.getElementById('arSave'),v=k=>document.getElementById('arE_'+k).value.trim();
     if(!v('n')&&!v('sp')){msg.textContent='Pon al menos el nombre o la especie.';return;}btn.disabled=true;
-    try{const id=a.id||arSlug(v('n')||v('sp')),nd={n:v('n'),sp:v('sp'),lug:v('lug'),mun:v('mun'),prot:v('prot'),des:v('des')};
+    try{const id=a.id||arSlug(v('n')||v('sp')),nd={tipo:document.getElementById('arE_tipo').value,n:v('n'),sp:v('sp'),lug:v('lug'),mun:v('mun'),prot:v('prot'),des:v('des')};
       ['alt','per','copa','edad'].forEach(k=>{const x=v(k);if(x!=='')nd[k]=+x;});if(pos.pt){nd.lat=pos.pt[0];nd.lon=pos.pt[1];}
       const del=new Set([...document.querySelectorAll('#arFicha [data-del]:checked')].map(x=>+x.dataset.del));nd.fotos=(a.fotos||[]).filter((_,k)=>!del.has(k));
       const files=[...(document.getElementById('arE_f').files||[])],cap=v('ft');
@@ -3063,6 +3071,71 @@ async function arInit(){if(!ARM){ARM=NavMap('arc',arDraw,arTap);mapBtns('arc',AR
     document.getElementById('arNew').onclick=()=>{if(!ghTok()){toast('🔑 Para añadir hace falta la llave de edición (Pueblos → ⚙️ Edición)');return;}arEdit(null);};}
   setTimeout(()=>{ARM.draw();ARM.base();},40);await arLoad();arRender();}
 const _showTabAr=showTab;showTab=function(t){_showTabAr(t);if(t==='arboles')setTimeout(arInit,40);};
+
+
+/* ---------- 🌳 árboles y plantas de los editores también en «Árboles por zonas» ---------- */
+const arIco=a=>({arbusto:'🌿',planta:'🌱'})[a&&a.tipo]||'🌳';
+const _zDraw0=zDraw;zDraw=function(x,P,b,M){_zDraw0(x,P,b,M);for(const a of ARL||[]){if(a.lat==null)continue;const [px,py]=P(a.lat,a.lon);
+  x.beginPath();x.arc(px,py,9,0,7);x.fillStyle='#fff';x.fill();x.strokeStyle='#2e7d32';x.lineWidth=2;x.stroke();x.font='12px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(arIco(a),px,py+1);x.textAlign='start';x.textBaseline='alphabetic';}};
+const _zTap0=zTap;zTap=function(px,py,M){if(!M.ov){let best=null,bd=16;for(const a of ARL||[]){if(a.lat==null)continue;const [x,y]=M.P(a.lat,a.lon),d=Math.hypot(x-px,y-py);if(d<bd){bd=d;best=a;}}
+  if(best){const el=document.getElementById('arbZona');el.innerHTML=`<div class="card" style="border-color:#2e7d32"><b style="font-size:16px">${arIco(best)} ${arEsc(best.n||best.sp)}</b>${best.sp?`<div class="note"><i>${arEsc(best.sp)}</i></div>`:''}
+    <div class="note">📍 ${arEsc([best.lug,best.mun].filter(Boolean).join(', '))}</div>${best.des?`<div style="margin-top:4px;font-size:14px">${arEsc(best.des.slice(0,220))}${best.des.length>220?'…':''}</div>`:''}
+    ${(best.fotos||[]).length?`<img src="${GH_RAW+best.fotos[0].f}" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;margin-top:6px">`:''}
+    <div class="row"><button class="btn pri" id="zArGo">Ver la ficha completa</button></div></div>`;
+    document.getElementById('zArGo').onclick=()=>{showTab('arboles');setTimeout(async()=>{await arLoad();arOpen(ARL.find(x=>x.id===best.id)||best);},300);};el.scrollIntoView({behavior:'smooth',block:'nearest'});return;}}
+  _zTap0(px,py,M);};
+const _arbRender0=arbRender;arbRender=function(el){_arbRender0(el);arLoad().then(()=>{ZM&&ZM.draw();});};
+// en la lista y el mapa de árboles singulares, el icono según el tipo
+const _arRender0=arRender;arRender=function(){_arRender0();document.querySelectorAll('#arList [data-id] b').forEach(b=>{const a=(ARL||[]).find(x=>x.id===b.closest('[data-id]').dataset.id);if(a)b.innerHTML=b.innerHTML.replace('🌳',arIco(a));});};
+
+/* =====================================================================
+   ✏️ EDITOR DE CONTENIDOS (naturaleza): los cambios se guardan en config/natura.json
+   y se mezclan con los datos de la app al arrancar. {set:{items:[{_k,...}],hide:[nombres]}}
+   ===================================================================== */
+const EDS={rec:{A:NREC,t:'Recolección',f:['i','n','l','c','m','p','d'],cats:[['seta','🍄 Seta'],['silv','🌰 Fruto del monte'],['frut','🍑 Frutal']]},
+  fau:{A:NFAU,t:'Fauna',f:['i','n','l','c','e','w','m'],cats:[['mam','🦌 Mamífero'],['ave','🦅 Ave'],['rio','🐟 De río'],['otro','🦎 Otros']]},
+  veg:{A:NVEG,t:'Vegetación',f:['i','n','w','t','d']},arb:{A:NARB,t:'Árboles para reconocer',f:['n','l','h','z']}};
+const EDL={i:'Icono (emoji)',n:'Nombre',l:'Nombre científico',c:'Tipo',e:'Estado de protección (Común, Protegida, Vulnerable, En peligro…)',w:'Dónde se ve',m:'Meses en que se ve / se recoge',p:'Mejores meses',d:'Descripción',t:'Mejor época',h:'Cómo reconocerlo',z:'Zonas de Navarra'};
+let EDC={rec:{items:[],hide:[]},fau:{items:[],hide:[]},veg:{items:[],hide:[]},arb:{items:[],hide:[]}},EDSHA=null,EDORIG=null;
+function edApply(){if(!EDORIG){EDORIG={};for(const k in EDS)EDORIG[k]=EDS[k].A.slice();}
+  for(const k in EDS){const A=EDS[k].A,c=EDC[k]||{items:[],hide:[]};A.length=0;EDORIG[k].forEach(x=>A.push(x));
+    for(const it of c.items||[]){const i=A.findIndex(x=>x.n===it._k);const o=Object.assign({},it);delete o._k;if(i>=0)A[i]=Object.assign({},A[i],o);else A.push(o);}
+    for(const n of c.hide||[]){const i=A.findIndex(x=>x.n===n);if(i>=0)A.splice(i,1);}}}
+async function edLoad(){try{const r=await fetch(GH_RAW+'config/natura.json?t='+Math.floor(Date.now()/6e4));if(r.ok){const j=await r.json();for(const k in EDS)EDC[k]=Object.assign({items:[],hide:[]},j[k]||{});edApply();
+    if(document.getElementById('t-natura').classList.contains('on'))natRender();}}catch(e){}}
+edLoad();
+function edList(){const k=document.getElementById('edSet').value,S=EDS[k],q=(document.getElementById('edQ').value||'').toLowerCase(),el=document.getElementById('edBody');
+  const L=S.A.filter(x=>!q||(x.n+' '+(x.l||'')).toLowerCase().includes(q)),mine=new Set((EDC[k].items||[]).map(x=>x.n)),hid=EDC[k].hide||[];
+  el.innerHTML=`<div class="card">${L.map(x=>`<div class="st" data-n="${arEsc(x.n)}" style="cursor:pointer"><div><b>${/^</.test(x.i||'')?x.i:arEsc(x.i||'')} ${arEsc(x.n)}</b>${x.l?` <i class="note">${arEsc(x.l)}</i>`:''}${mine.has(x.n)?' <span class="pill" style="background:#1e88e5;color:#fff;font-size:10.5px">editado</span>':''}</div><span class="note">✏️</span></div>`).join('')||'<div class="note">Nada con ese nombre.</div>'}</div>
+   ${hid.length?`<div class="card"><b>🙈 Quitados de la app</b>${hid.map(n=>`<div class="st"><span>${arEsc(n)}</span><button class="btn" data-un="${arEsc(n)}">↩️ Volver a poner</button></div>`).join('')}</div>`:''}`;
+  el.querySelectorAll('[data-n]').forEach(d=>d.onclick=()=>edForm(k,S.A.find(x=>x.n===d.dataset.n)));
+  el.querySelectorAll('[data-un]').forEach(b=>b.onclick=async()=>{EDC[k].hide=EDC[k].hide.filter(n=>n!==b.dataset.un);await edSave(`Volver a poner ${b.dataset.un}`);});}
+function edForm(k,x){const S=EDS[k],nuevo=!x;x=x||{};const el=document.getElementById('edBody');window.scrollTo(0,0);
+  const months=(id,sel)=>`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">${NMES.map((m,i)=>`<label style="font-size:13px;padding:3px 6px;border:1px solid var(--line);border-radius:6px"><input type="checkbox" data-${id}="${i+1}" ${(sel||[]).includes(i+1)?'checked':''}> ${m.slice(0,3)}</label>`).join('')}</div>`;
+  const fld=f=>{const lab=`<label style="display:block;margin-top:8px"><b style="font-size:13.5px">${EDL[f]}</b>`;
+    if(f==='m'||f==='p')return lab+'</label>'+months(f,x[f]);
+    if(f==='c')return lab+`<select id="edF_c" class="town" style="width:100%">${S.cats.map(([v,t])=>`<option value="${v}" ${x.c===v?'selected':''}>${t}</option>`).join('')}</select></label>`;
+    if(f==='z')return lab+'</label>'+`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">${NZON.map(z=>`<label style="font-size:13px;padding:3px 6px;border:1px solid ${z.col};border-radius:6px"><input type="checkbox" data-z="${z.id}" ${(x.z||[]).includes(z.id)?'checked':''}> ${z.n}</label>`).join('')}</div>`;
+    if(f==='d'||f==='h'||f==='w'||f==='t')return lab+`<textarea id="edF_${f}" class="town" rows="${f==='d'||f==='h'?4:2}" style="width:100%;box-sizing:border-box;font-family:inherit">${arEsc(x[f]||'')}</textarea></label>`;
+    return lab+`<input id="edF_${f}" class="town" value="${arEsc(f==='i'&&/^</.test(x.i||'')?'🍄':(x[f]||''))}" style="width:100%;box-sizing:border-box"></label>`;};
+  el.innerHTML=`<div class="card" style="border-color:var(--acc)"><b>${nuevo?'➕ Añadir a '+S.t:'✏️ '+arEsc(x.n)}</b>${S.f.map(fld).join('')}
+   <div class="row" style="margin-top:10px"><button class="btn pri" id="edOk">💾 Guardar</button><button class="btn" id="edCan">Cancelar</button>${nuevo?'':'<button class="btn" id="edDel">🙈 Quitar de la app</button>'}</div>
+   ${!nuevo&&(EDC[k].items||[]).some(i=>i._k===x.n||i.n===x.n)?'<div class="row"><button class="btn" id="edRes">↩️ Deshacer mis cambios (volver al original)</button></div>':''}<div class="note" id="edFMsg"></div></div>`;
+  document.getElementById('edCan').onclick=edList;
+  document.getElementById('edOk').onclick=async()=>{const it={_k:nuevo?null:(EDC[k].items.find(i=>i.n===x.n)||{})._k||x.n};
+    for(const f of S.f){if(f==='m'||f==='p')it[f]=[...el.querySelectorAll(`[data-${f}]:checked`)].map(c=>+c.dataset[f]);else if(f==='z')it.z=[...el.querySelectorAll('[data-z]:checked')].map(c=>c.dataset.z);
+      else{let v=document.getElementById('edF_'+f).value.trim();if(f==='i'&&v==='🍄'&&/^</.test(x.i||''))v=x.i;it[f]=v;}}
+    if(!it.n){document.getElementById('edFMsg').textContent='Falta el nombre.';return;}if(!it._k)it._k=it.n;
+    if(k==='rec'&&!it.m.length){document.getElementById('edFMsg').textContent='Marca al menos un mes.';return;}
+    EDC[k].items=(EDC[k].items||[]).filter(i=>i._k!==it._k);EDC[k].items.push(it);await edSave(`${nuevo?'Añadir':'Editar'} ${it.n} (${S.t})`);};
+  const d=document.getElementById('edDel');if(d)d.onclick=async()=>{if(!confirm('¿Quitar «'+x.n+'» de la app? Se puede volver a poner luego.'))return;EDC[k].hide=[...new Set([...(EDC[k].hide||[]),x.n])];await edSave(`Quitar ${x.n} (${S.t})`);};
+  const rs=document.getElementById('edRes');if(rs)rs.onclick=async()=>{EDC[k].items=EDC[k].items.filter(i=>i._k!==x.n&&i.n!==x.n);await edSave(`Deshacer cambios en ${x.n}`);};}
+async function edSave(msg){const m=document.getElementById('edMsg');if(!ghTok()){toast('🔑 Hace falta la llave de edición en este móvil');return;}m.textContent='Guardando…';
+  try{let sha=null;try{const r=await fetch(GH_API+'config/natura.json?ref=main',{headers:{Authorization:'Bearer '+ghTok()}});if(r.ok)sha=(await r.json()).sha;}catch(e){}
+    await ghPut('config/natura.json',b64u(JSON.stringify(EDC,null,1)),msg+' ('+(edName()||'app')+')',sha);edApply();m.textContent='✅ Guardado: '+msg;edList();}
+  catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}}
+function edInit(){document.getElementById('edSet').onchange=edList;document.getElementById('edQ').oninput=edList;document.getElementById('edNew').onclick=()=>edForm(document.getElementById('edSet').value,null);edList();}
+const _showTabEd=showTab;showTab=function(t){_showTabEd(t);if(t==='editor')setTimeout(edInit,40);};
 
 </script>
 </body>
