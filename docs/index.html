@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BasatiNA · El río, el tiempo y la naturaleza de Navarra</title>
+<meta name="description" content="App gratuita para Android: ríos y riadas en directo, el tiempo, radar, carreteras, cámaras, monte, setas, fauna y mucho más de Navarra.">
+<link rel="icon" href="icono.png">
+<style>
+:root{--bg:#0d151d;--panel:#16212c;--line:#283848;--txt:#e9f1f7;--mut:#9fb0c0;--acc:#29c6f2;--acc2:#ff8a3d;--acc3:#2f7de1}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
+a{color:var(--acc)}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+header{padding:28px 0 8px;display:flex;align-items:center;gap:14px}
+header img{width:58px;height:58px;border-radius:14px}
+header b{font-size:24px;letter-spacing:.01em}
+header span{display:block;color:var(--mut);font-size:14px}
+.hero{padding:26px 0 30px;display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center}
+.hero h1{font-size:clamp(28px,5vw,46px);line-height:1.1;margin:0 0 14px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--acc3),var(--acc) 60%,var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);font-size:17px;margin:0 0 22px}
+.dl{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--acc3),var(--acc));color:#fff;text-decoration:none;font-weight:700;font-size:18px;padding:14px 22px;border-radius:14px;box-shadow:0 8px 24px rgba(41,198,242,.25)}
+.small{color:var(--mut);font-size:13px;margin-top:10px}
+.hero .logo{width:100%;border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+h2{font-size:24px;margin:34px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+.f i{font-style:normal;font-size:28px;display:block;margin-bottom:6px}
+.f b{display:block;margin-bottom:4px}
+.f p{margin:0;color:var(--mut);font-size:14px}
+.steps{counter-reset:s;display:grid;gap:10px}
+.steps div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px 12px 52px;position:relative}
+.steps div:before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#04121f;font-weight:800;display:flex;align-items:center;justify-content:center}
+.aviso{margin:34px 0 0;border:1px solid #ffb020;background:rgba(255,176,32,.08);border-radius:14px;padding:14px;font-size:15px}
+footer{margin:40px 0 0;padding:24px 0 40px;border-top:1px solid var(--line);color:var(--mut);font-size:14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+footer img{width:120px;border-radius:10px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero .logo{order:-1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><img src="icono.png" alt=""><div><b>BasatiNA</b><span>Navarra en tu bolsillo</span></div></header>
+
+<section class="hero">
+ <div>
+  <h1>El río, el tiempo y la naturaleza de <em>Navarra</em>, en una app.</h1>
+  <p>Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, monte, setas, fauna, energía… Todo con datos oficiales, gratis y sin publicidad.</p>
+  <a class="dl" href="https://github.com/suapedrito-z/control-rio-arga/releases/latest/download/BasatiNA.apk">⬇️ Descargar para Android</a>
+  <div class="small">Archivo APK gratuito · Android 8 o superior · se actualiza solo</div>
+ </div>
+ <img class="logo" src="sonpe.jpg" alt="Son&amp;Pe Technology Systems">
+</section>
+
+<h2>Qué tiene</h2>
+<div class="grid">
+ <div class="f"><i>🌊</i><b>Ríos en directo</b><p>Caudal del Arga, Irati, Ega, Aragón y Ebro (SAIH Ebro), embalses y mapa de riadas.</p></div>
+ <div class="f"><i>🌦️</i><b>El tiempo</b><p>Mapa de Navarra con lluvia, viento y temperatura, avisos de AEMET, aire, polen, UV, sol y luna.</p></div>
+ <div class="f"><i>📡</i><b>Radar y rayos</b><p>Dónde llueve ahora, la animación de las últimas horas y los rayos oficiales de AEMET.</p></div>
+ <div class="f"><i>🚧</i><b>Carreteras</b><p>Incidencias oficiales, tráfico, puertos de montaña con nieve y cámaras en directo.</p></div>
+ <div class="f"><i>⛽</i><b>Gasolineras</b><p>Precios del día de todas las gasolineras de Navarra y puntos de recarga eléctrica.</p></div>
+ <div class="f"><i>🥾</i><b>Salir al monte</b><p>Rutas, GR, vías verdes, Camino de Santiago, cuevas, cascadas, miradores y fuentes.</p></div>
+ <div class="f"><i>🍄</i><b>Naturaleza</b><p>Setas y frutos de cada mes, fauna, vegetación y árboles de cada zona.</p></div>
+ <div class="f"><i>📸</i><b>¿Qué planta es?</b><p>Haz una foto y te dice la especie (Pl@ntNet). Para aves, enlace a Merlin.</p></div>
+ <div class="f"><i>📖</i><b>Tu diario</b><p>Apunta tus salidas con fotos y el tiempo que hizo, y guarda tus sitios secretos de setas.</p></div>
+ <div class="f"><i>📍</i><b>Cerca de mí</b><p>Lo más cercano a donde estás: pueblos, gasolineras, cámaras, fuentes, puertos…</p></div>
+ <div class="f"><i>⚡</i><b>Energía</b><p>Eólica y solar de Navarra hora a hora y los datos reales de Red Eléctrica.</p></div>
+ <div class="f"><i>🔔</i><b>Avisos</b><p>Si sube el río, si cortan tu carretera, si nieva en un puerto o si el finde viene bueno.</p></div>
+</div>
+
+<h2>Cómo instalarla</h2>
+<div class="steps">
+ <div>Desde el móvil Android, pulsa <b>«Descargar para Android»</b>.</div>
+ <div>Abre el archivo descargado. Si el móvil lo pide, permite <b>instalar apps de esta fuente</b> (solo esta vez).</div>
+ <div>Pulsa <b>Instalar</b> y ábrela. A partir de ahí se actualiza sola.</div>
+</div>
+
+<div class="aviso">⚠️ <b>Ante el riesgo, haz caso siempre a los avisos oficiales.</b> Los datos de esta app pueden variar respecto a los de la fuente original. Emergencias: 112.</div>
+
+<footer><img src="sonpe.jpg" alt=""><div>Propiedad de <b>Son&amp;Pe Technology Systems</b> · Sonia y Pedro · Navarra, 2026<br>Datos: SAIH Ebro, AEMET, Gobierno de Navarra (IDENA), Red Eléctrica, Open‑Meteo, Ministerio para la Transición Ecológica y OpenStreetMap.</div></footer>
+</div>
+</body>
+</html>
