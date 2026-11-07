@@ -238,12 +238,12 @@ function draw(c){
  const m=c.marca||{},p=c.portada||{};let h='';
  if(location.search.includes('preview'))h+='<div id="prev">👁️ VISTA PREVIA — todavía no está publicado</div>';
  h+=`<header><img src="${esc(m.icono)}" alt=""><div><b>${esc(m.nombre)}</b><span>${esc(m.lema)}</span></div></header>`;
- h+=`<section class="hero"><div><h1>${md(p.titulo)}</h1><p>${md(p.texto)}</p><a class="dl" href="${esc(p.enlace)}">${esc(p.boton)}</a><div class="small">${md(p.nota)}</div>${c.app_web&&c.app_web.visible?`<div style="margin-top:12px"><a class="dl alt" href="app/">${esc(c.app_web.boton)}</a><div class="small">${md(c.app_web.nota)}</div></div>`:''}</div>${m.logo?`<img class="logo" src="${esc(m.logo)}" alt="${esc(m.empresa)}">`:''}</section>`;
+ h+=`<section class="hero"><div><h1>${md(p.titulo)}</h1><p>${md(p.texto)}</p>${p.pausada?`<span class="dl" style="opacity:.55;cursor:default">📱 Muy pronto para Android</span><div class="small">Estamos dando los últimos retoques. ¡Vuelve pronto!</div>`:`<a class="dl" href="${esc(p.enlace)}">${esc(p.boton)}</a><div class="small">${md(p.nota)}</div>`}${c.app_web&&c.app_web.visible?`<div style="margin-top:12px"><a class="dl alt" href="app/">${esc(c.app_web.boton)}</a><div class="small">${md(c.app_web.nota)}</div></div>`:''}</div>${m.logo?`<img class="logo" src="${esc(m.logo)}" alt="${esc(m.empresa)}">`:''}</section>`;
  const nv=(c.novedades||[]).filter(n=>n.titulo||n.texto);
  if(nv.length){h+='<h2 id="novedades">Novedades</h2><div class="news">'+nv.map(n=>`<div class="n${n.foto?' ft':''}">${n.foto?`<img src="${esc(n.foto)}" alt="">`:''}<div><small>${esc(fd(n.fecha))}</small><b>${esc(n.titulo)}</b><p>${md(n.texto)}</p></div></div>`).join('')+'</div>';}
  h+=`<h2>${esc(c.funciones_titulo)}</h2><div class="grid">`+(c.funciones||[]).map(f=>`<div class="f"><i>${esc(f.icono)}</i><b>${esc(f.titulo)}</b><p>${md(f.texto)}</p></div>`).join('')+'</div>';
  (c.apartados||[]).filter(a=>a.titulo||a.texto).forEach(a=>{h+=`<h2>${esc(a.titulo)}</h2><div class="ap${a.foto?' ft':''}"><div><p>${md(a.texto)}</p></div>${a.foto?`<img src="${esc(a.foto)}" alt="">`:''}</div>`;});
- h+=`<h2>${esc(c.pasos_titulo)}</h2><div class="steps">`+(c.pasos||[]).map(s=>`<div>${md(s)}</div>`).join('')+'</div>';
+ if(!p.pausada)h+=`<h2>${esc(c.pasos_titulo)}</h2><div class="steps">`+(c.pasos||[]).map(s=>`<div>${md(s)}</div>`).join('')+'</div>';
  h+='<h2 id="fuentes">Fuentes y créditos</h2><ul class="cred">'+(c.fuentes||[]).map(f=>`<li><b>${esc(f.tema)}:</b> ${md(f.texto)}</li>`).join('')+`</ul><p class="small">${md(c.fuentes_nota)}</p>`;
  h+=`<h2 id="privacidad">Privacidad</h2><p class="small">${md(c.privacidad)}</p>`;
  if(c.contacto)h+=`<h2 id="contacto">Contacto</h2><p>${md(c.contacto)}</p>`;

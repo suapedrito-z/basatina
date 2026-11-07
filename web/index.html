@@ -175,8 +175,8 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
     <button data-t="caza">🦌 Caza: calendario de la temporada</button>
     <button data-t="natura">🍄 Recolección</button>
   </div>
-  <div class="dgroup"><span>Participa</span><i>▸</i></div>
-  <div class="dsub">
+  <div class="dgroup tech" style="display:none"><span>Participa</span><i>▸</i></div>
+  <div class="dsub tech" style="display:none">
     <button data-t="enviar">📤 Envía tu foto</button>
     <button data-t="fotos">🖼️ Fotos de la gente y reto del mes</button>
   </div>
@@ -193,7 +193,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
     <button data-t="ajustes">⚙️ Ajustes y avisos</button>
     <button data-t="about">ℹ️ Acerca de</button>
     <button data-t="creditos">📚 Fuentes y créditos</button>
-    <button data-t="buzon">💬 Buzón de sugerencias</button>
+    <button data-t="buzon" class="tech" style="display:none">💬 Buzón de sugerencias</button>
     <button id="dLang">🌐 Euskaraz</button>
   </div>
   <div class="dgroup"><span>Actualizar</span><i>▸</i></div>
@@ -367,8 +367,8 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
  <button data-go="ident"><span>📸</span>¿Qué planta es?</button>
  <button data-go="camaras"><span>📷</span>Cámaras</button>
  <button data-go="semana"><span>📊</span>La semana</button>
- <button data-go="fotos"><span>🖼️</span>Fotos de la gente</button>
- <button data-go="enviar"><span>📤</span>Envía tu foto</button>
+ <button data-go="fotos" class="tech" style="display:none"><span>🖼️</span>Fotos de la gente</button>
+ <button data-go="enviar" class="tech" style="display:none"><span>📤</span>Envía tu foto</button>
 </div>
 <div class="note">Mapa base: © Instituto Geográfico Nacional · Tiempo: Open‑Meteo · Ríos: SAIH Ebro.</div>
 </section>
@@ -409,8 +409,8 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <div class="card"><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🌊 Ríos y embalses</b><div class="note">SAIH Ebro (Confederación Hidrográfica del Ebro) · Ministerio para la Transición Ecológica (embalses)</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🌦️ Tiempo</b><div class="note">Open‑Meteo (CC BY 4.0) con modelos de AEMET, ECMWF, Météo‑France y DWD · histórico ERA5 (Copernicus)</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>⚠️ Avisos, radar y rayos</b><div class="note">© AEMET (AEMET OpenData) · Meteoalarm (EUMETNET) · RainViewer · Euskalmet – Gobierno Vasco (CC BY 4.0)</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>💨 Aire y polen</b><div class="note">Copernicus CAMS, vía Open‑Meteo</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🚧 Carreteras</b><div class="note">Gobierno de Navarra (incidencias y cámaras de tráfico) · tráfico © TomTom · Google Maps (enlace externo)</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>📷 Cámaras</b><div class="note">Gobierno de Navarra · Refugio de Belagua (alberguesyrefugios.com). Las imágenes son de sus dueños.</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>⛽ Gasolineras</b><div class="note">Ministerio para la Transición Ecológica (Geoportal de carburantes)</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🔌 Recarga y puertos</b><div class="note">© colaboradores de OpenStreetMap (ODbL), vía Overpass</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>⚡ Energía</b><div class="note">Red Eléctrica (REData) · parques: Gobierno de Navarra · IDENA</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🗺️ Mapas y terreno</b><div class="note">Instituto Geográfico Nacional y CNIG (PNOA, MDT25, CC BY 4.0) · IDENA – Gobierno de Navarra (CC BY 4.0) · © OpenStreetMap (ODbL)</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🥾 Monte y naturaleza</b><div class="note">Gobierno de Navarra · IDENA (rutas, pesca, caza, cuevas, fuentes, miradores, patrimonio)</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>📸 Identificar plantas</b><div class="note">Pl@ntNet (uso no comercial) · aves: enlaces a Merlin (Cornell Lab) y Google Lens</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🌍 Terremotos y fallas</b><div class="note">EMSC con datos de la Red Sísmica Nacional (IGN) · QAFI del IGME‑CSIC</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🏘️ Pueblos y fiestas</b><div class="note">datos.gob.es · Gobierno de Navarra · Wikipedia (CC BY‑SA) · aportaciones propias</div></div><div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>🌊 Riadas históricas</b><div class="note">CHE, Ayuntamiento de Pamplona y prensa local</div></div></div>
 <div class="card"><b>🔗 Webs de las fuentes</b><div class="note" style="line-height:2"><a href="#" data-url="https://open-meteo.com" class="crL" style="color:var(--acc)">Open‑Meteo</a> · <a href="#" data-url="https://www.rainviewer.com" class="crL" style="color:var(--acc)">RainViewer</a> · <a href="#" data-url="https://www.aemet.es" class="crL" style="color:var(--acc)">AEMET</a> · <a href="#" data-url="https://datosabiertos.navarra.es" class="crL" style="color:var(--acc)">Gobierno de Navarra · Open Data</a> · <a href="#" data-url="https://www.saihebro.com" class="crL" style="color:var(--acc)">SAIH Ebro</a> · <a href="#" data-url="https://www.euskalmet.euskadi.eus" class="crL" style="color:var(--acc)">Euskalmet</a> · <a href="#" data-url="https://www.ree.es" class="crL" style="color:var(--acc)">Red Eléctrica</a> · <a href="#" data-url="https://www.openstreetmap.org/copyright" class="crL" style="color:var(--acc)">OpenStreetMap</a> · <a href="#" data-url="https://www.tomtom.com" class="crL" style="color:var(--acc)">TomTom</a> · <a href="#" data-url="https://plantnet.org" class="crL" style="color:var(--acc)">Pl@ntNet</a> · <a href="#" data-url="https://www.ign.es" class="crL" style="color:var(--acc)">IGN · CNIG</a> · <a href="#" data-url="https://www.emsc-csem.org" class="crL" style="color:var(--acc)">EMSC</a></div></div>
 <div class="card"><b>📄 Licencias</b><div class="note">Los datos con licencia CC BY 4.0 (IGN, IDENA, Open‑Meteo, Euskalmet) se usan citando su origen. Los mapas y capas se muestran sin modificar, salvo el cálculo de zonas inundables, que es obra derivada del MDT del IGN. Datos meteorológicos: «Weather data by Open‑Meteo» y «Weather data by RainViewer». © AEMET: autorizado el uso citando a AEMET como autora. Iconos: Phosphor Icons (licencia MIT, © Phosphor Icons). PDF: jsPDF (licencia MIT). Las marcas y logotipos son de sus dueños. App gratuita, sin publicidad y sin ánimo de lucro.</div></div>
-<div class="card"><b>🔒 Privacidad</b><div class="note">Tu diario, sus fotos y tus sitios secretos se guardan <b>solo en tu móvil</b>. La ubicación solo se usa en el momento, para mostrarte lo que tienes cerca.<br>La app solo envía datos cuando <b>tú lo decides</b>: el <b>buzón de sugerencias</b> (tu correo, para contestarte, vía Web3Forms) y <b>«Envía tu foto»</b> (la foto y lo que escribas, vía Cloudinary y Web3Forms; ver las condiciones en esa pantalla). Puedes pedir que borremos tus datos desde el buzón, y reclamar ante la AEPD (aepd.es).</div></div>
-<div class="card"><b>✉️ Contacto</b><div class="note">¿Eres dueño de algún dato o imagen y quieres que lo cambiemos o lo quitemos? Escríbenos desde el <a href="#" onclick="showTab('buzon');return false" style="color:var(--acc)">buzón de sugerencias</a> y lo atendemos enseguida.</div></div>
+<div class="card"><b>🔒 Privacidad</b><div class="note">La app no recoge ni envía tus datos personales. Tu diario, sus fotos y tus sitios secretos se guardan <b>solo en tu móvil</b>. La ubicación solo se usa en el momento, para mostrarte lo que tienes cerca.</div><div class="note tech" style="display:none;margin-top:6px">🔧 <b>Cuando se activen el buzón y «Envía tu foto»</b>, este texto tendrá que decir qué datos se envían (correo, foto, alias), a qué servicios (Web3Forms, Cloudinary) y cómo pedir que se borren.</div></div>
+<div class="card tech" style="display:none"><b>✉️ Contacto</b><div class="note">¿Eres dueño de algún dato o imagen y quieres que lo cambiemos o lo quitemos? Escríbenos desde el <a href="#" onclick="showTab('buzon');return false" style="color:var(--acc)">buzón de sugerencias</a> y lo atendemos enseguida.</div></div>
 </section>
 <!-- ============ ACERCA DE ============ -->
 <section id="t-about">
@@ -3774,7 +3774,8 @@ async function foRetoSave(){const m=document.getElementById('foRM'),t=document.g
   try{await glEdit(G=>{G.reto=t?{t,d,hasta:h}:null;G.instagram=ig;G.hashtag=ht.length>1?ht:'#BasatiNA';},'Reto del mes e Instagram');m.textContent='✅ Guardado. Sale en todos los móviles en unos minutos.';foRender();}
   catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}}
 
-const _showTabFo=showTab;showTab=function(t){_showTabFo(t);if(t==='enviar')setTimeout(enInit,40);if(t==='fotos')setTimeout(foInit,40);};
+const FO_PRIV=['buzon','enviar','fotos'];
+const _showTabFo=showTab;showTab=function(t){if(FO_PRIV.includes(t)&&!TECH)t='sim';_showTabFo(t);if(t==='enviar')setTimeout(enInit,40);if(t==='fotos')setTimeout(foInit,40);};
 
 /* ---------- 📄 JUSTIFICANTE EN PDF de la autorización de cada foto (zona técnica) ----------
    Reúne en un PDF lo que se guardó junto a la foto al enviarla: datos, fecha y hora, las 4 casillas

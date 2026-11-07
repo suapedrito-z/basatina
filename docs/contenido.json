@@ -22,7 +22,8 @@
   "texto": "Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, monte, setas, fauna, energía… Todo con datos oficiales, gratis y sin publicidad.",
   "boton": "⬇️ Descargar para Android",
   "enlace": "https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk",
-  "nota": "Archivo APK gratuito · Android 7 o superior · se actualiza solo"
+  "nota": "Archivo APK gratuito · Android 7 o superior · se actualiza solo",
+  "pausada": true
  },
  "novedades": [
   {
