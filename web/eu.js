@@ -247,6 +247,11 @@
     'antes · tamaño = magnitud': 'lehenago · tamaina = magnitudea',
     'Llegan con la app actualizada (versión 6 o más): pulsa «⬆️ Buscar nueva versión de la app» en el menú.': 'Aplikazio eguneratuarekin iristen dira (6. bertsioa edo berriagoa): sakatu menuko «⬆️ Bilatu aplikazioaren bertsio berria».',
     'Acerca de': 'Honi buruz', 'ℹ️ Acerca de': 'ℹ️ Honi buruz', 'ℹ️ Información técnica': 'ℹ️ Informazio teknikoa',
+    'Participa': 'Parte hartu', 'Envía tu foto': 'Bidali zure argazkia', 'Fotos de la gente y reto del mes': 'Jendearen argazkiak eta hilabeteko erronka',
+    'Fotos de la gente': 'Jendearen argazkiak', 'Hacer o elegir foto': 'Atera edo aukeratu argazkia', 'Enviar foto': 'Bidali argazkia', 'Galería': 'Galeria', 'Mapa': 'Mapa',
+    'Todas': 'Guztiak', 'Río': 'Ibaia', 'Paisaje': 'Paisaia', 'Fauna': 'Fauna', 'Flora': 'Flora', 'Setas': 'Perretxikoak', 'Pueblo': 'Herria', 'Participar': 'Parte hartu',
+    'Muy pronto en Instagram': 'Laster Instagramen', 'Síguenos en Instagram': 'Jarraitu gaitzazu Instagramen', 'Autorización': 'Baimena', 'Tus fotos enviadas': 'Bidalitako zure argazkiak',
+    'Publicada': 'Argitaratuta', 'En revisión': 'Berrikusten', 'Compartir': 'Partekatu',
     'Cuidado con las amanitas blancas (láminas siempre blancas = peligro).': 'Kontuz amanita zuriekin (orri beti zuriak = arriskua).',
   };
   // meses y días para las fechas que arma la propia app
