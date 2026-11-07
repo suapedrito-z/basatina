@@ -179,6 +179,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
   <div class="dsub tech" style="display:none">
     <button data-t="enviar">📤 Envía tu foto</button>
     <button data-t="fotos">🖼️ Fotos de la gente y reto del mes</button>
+    <button data-t="buzon">💬 Buzón de sugerencias</button>
   </div>
   <div class="dgroup"><span>Energía</span><i>▸</i></div>
   <div class="dsub">
@@ -193,7 +194,6 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
     <button data-t="ajustes">⚙️ Ajustes y avisos</button>
     <button data-t="about">ℹ️ Acerca de</button>
     <button data-t="creditos">📚 Fuentes y créditos</button>
-    <button data-t="buzon" class="tech" style="display:none">💬 Buzón de sugerencias</button>
     <button id="dLang">🌐 Euskaraz</button>
   </div>
   <div class="dgroup"><span>Actualizar</span><i>▸</i></div>
@@ -386,20 +386,21 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <section id="t-ajustes"><div id="ajBody"></div></section>
 <!-- ============ BUZÓN DE SUGERENCIAS ============ -->
 <section id="t-buzon">
-<div class="card"><b>💬 Buzón de sugerencias</b><div class="note">¿Echas algo en falta, has visto un error o un dato que no cuadra? Cuéntanoslo. Te contestaremos a tu correo.</div></div>
+<div class="card"><b>💬 Buzón de sugerencias</b><div class="note">¿Echas algo en falta, has visto un error o un dato que no cuadra? Cuéntanoslo.<br><b>Es anónimo:</b> no te pedimos nombre ni correo, así que <b>no podremos contestarte</b>. Leemos todos los mensajes.</div></div>
 <div class="card" id="bzForm">
- <label class="note" style="display:block">Tu nombre (opcional)<input id="bzN" class="town" autocomplete="name" style="width:100%;box-sizing:border-box;margin-top:4px"></label>
- <label class="note" style="display:block;margin-top:10px">Tu correo electrónico <b style="color:var(--bad)">*</b><input id="bzE" type="email" class="town" autocomplete="email" placeholder="para poder contestarte" style="width:100%;box-sizing:border-box;margin-top:4px"></label>
- <div class="note" style="margin-top:10px">¿Qué es?</div>
+ <div class="note">¿Qué es?</div>
  <div class="seg" id="bzT"><button class="btn on" data-v="Sugerencia">💡 Sugerencia</button><button class="btn" data-v="Error">🐞 Error</button><button class="btn" data-v="Dato a corregir">✏️ Dato</button><button class="btn" data-v="Otro">💬 Otro</button></div>
- <label class="note" style="display:block;margin-top:10px">Mensaje <b style="color:var(--bad)">*</b><textarea id="bzM" class="town" rows="6" style="width:100%;box-sizing:border-box;margin-top:4px;font:inherit" placeholder="Escribe aquí tu sugerencia…"></textarea></label>
+ <div class="note" style="margin-top:10px;padding:8px;border-radius:10px;border:1px dashed var(--acc2)">⚠️ No escribas tu nombre, teléfono, correo ni datos de otras personas.</div>
+ <label class="note" style="display:block;margin-top:10px">Mensaje <b style="color:var(--bad)">*</b><textarea id="bzM" class="town" rows="6" maxlength="2000" style="width:100%;box-sizing:border-box;margin-top:4px;font:inherit" placeholder="Escribe aquí tu sugerencia…"></textarea></label>
  <input id="bzH" type="checkbox" style="display:none" tabindex="-1" autocomplete="off">
- <label class="note" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px"><input type="checkbox" id="bzOk" style="margin-top:3px">Acepto que Son&amp;Pe use mi correo solo para responder a este mensaje.</label>
+ <label class="note" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px"><input type="checkbox" class="bzOk" style="margin-top:3px"><span>Tengo <b>14 años o más</b>.</span></label>
+ <label class="note" style="display:flex;gap:8px;align-items:flex-start;margin-top:8px"><input type="checkbox" class="bzOk" style="margin-top:3px"><span>Mi mensaje <b>no incluye datos personales</b> míos ni de otras personas.</span></label>
  <div class="row" style="margin-top:10px"><button class="btn pri" id="bzS" style="flex:1">📨 Enviar</button></div>
  <div class="note" id="bzMsg"></div>
+ <div class="note" style="margin-top:8px">Los mensajes se envían a través del servicio Web3Forms. No guardamos ningún dato que te identifique y borramos los mensajes una vez leídos.</div>
 </div>
 <div class="card tech" style="display:none"><b>🔧 Clave del buzón (Web3Forms)</b>
- <div class="note">Créala gratis en web3forms.com poniendo info@sonpe-technology.es: la clave llega a ese correo. Al guardarla se envía un mensaje de prueba.</div>
+ <div class="note">Créala gratis en web3forms.com poniendo participa@sonpe-technology.es: la clave llega a ese correo (los mensajes del buzón y los avisos de fotos llegarán ahí). Al guardarla se envía un mensaje de prueba.</div>
  <input id="kyW3" class="town" autocomplete="off" placeholder="Pega aquí la clave (access key)" style="width:100%;box-sizing:border-box;margin-top:6px">
  <div class="row"><button class="btn pri" id="kyW3S">💾 Guardar clave del buzón</button></div><div class="note" id="kyW3M"></div></div>
 </section>
@@ -3548,19 +3549,21 @@ document.getElementById('dWebAdm').onclick=()=>{const u='https://sonpe-technolog
 let BZT='Sugerencia';
 document.querySelectorAll('#bzT button').forEach(b=>b.onclick=()=>{BZT=b.dataset.v;document.querySelectorAll('#bzT button').forEach(x=>x.classList.toggle('on',x===b));});
 async function w3Send(key,data){const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(Object.assign({access_key:key,from_name:'Buzón BasatiNA'},data))});const j=await r.json().catch(()=>({}));return !!j.success;}
-document.getElementById('bzS').onclick=async()=>{const m=document.getElementById('bzMsg'),e=document.getElementById('bzE').value.trim(),t=document.getElementById('bzM').value.trim(),n=document.getElementById('bzN').value.trim();
- if(document.getElementById('bzH').checked)return;
- if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){m.textContent='❌ Pon tu correo para que podamos contestarte.';return;}
+// Buzón ANÓNIMO: no se pide nombre ni correo. Solo el tipo y el mensaje, más 2 casillas obligatorias.
+document.getElementById('bzS').onclick=async()=>{const m=document.getElementById('bzMsg'),t=document.getElementById('bzM').value.trim();
+ if(document.getElementById('bzH').checked)return;                      // trampa para robots
  if(t.length<5){m.textContent='❌ Escribe tu mensaje.';return;}
- if(!document.getElementById('bzOk').checked){m.textContent='❌ Marca la casilla para que podamos usar tu correo para responderte.';return;}
+ if(![...document.querySelectorAll('.bzOk')].every(c=>c.checked)){m.textContent='❌ Marca las dos casillas para poder enviarlo.';return;}
+ const ult=+(lsGet('bzUlt',0)||0);if(Date.now()-ult<30000){m.textContent='⏳ Espera unos segundos antes de mandar otro.';return;}
  const k=await keyGet('web3forms');if(!k){m.textContent='⏳ El buzón todavía no está activado. Inténtalo más tarde.';return;}
  const b=document.getElementById('bzS');b.disabled=true;m.textContent='Enviando…';
- try{const ok=await w3Send(k,{subject:'BasatiNA · '+BZT+(n?' de '+n:''),name:n||'(sin nombre)',email:e,replyto:e,tipo:BZT,mensaje:t,app:(APP?'Android':'Web')+' · '+(LS.get('cfg',{}).tema||'')+' · '+new Date().toLocaleString('es-ES'),botcheck:false});
-  if(ok){m.textContent='✅ ¡Gracias! Hemos recibido tu mensaje y te contestaremos a '+e+'.';document.getElementById('bzM').value='';try{localStorage.setItem('bzMail',e);localStorage.setItem('bzName',n);}catch(x){}}
+ try{const ok=await w3Send(k,{subject:'BasatiNA · '+BZT+' (anónimo)',tipo:BZT,mensaje:t,casillas:'14 años o más · sin datos personales',app:APP?'Android':'Web',botcheck:false});
+  if(ok){m.textContent='✅ ¡Gracias! Hemos recibido tu mensaje.';document.getElementById('bzM').value='';document.querySelectorAll('.bzOk').forEach(c=>c.checked=false);lsSet('bzUlt',Date.now());}
   else m.textContent='❌ No se pudo enviar. Revisa la conexión e inténtalo de nuevo.';}
  catch(x){m.textContent='❌ No se pudo enviar. Revisa la conexión e inténtalo de nuevo.';}
  b.disabled=false;};
-try{document.getElementById('bzE').value=localStorage.getItem('bzMail')||'';document.getElementById('bzN').value=localStorage.getItem('bzName')||'';}catch(e){}
+// borra el nombre y correo que guardaba la versión anterior del buzón en este móvil
+try{localStorage.removeItem('bzMail');localStorage.removeItem('bzName');}catch(e){}
 document.getElementById('kyW3S').onclick=async()=>{const m=document.getElementById('kyW3M'),v=document.getElementById('kyW3').value.trim();if(!v){m.textContent='Pega la clave primero';return;}
  if(!ghTok()){m.textContent='❌ Falta la llave de edición de GitHub en este móvil';return;}
  m.textContent='Enviando un mensaje de prueba…';
