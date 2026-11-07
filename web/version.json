@@ -1,5 +1,5 @@
 {
- "version": 140,
+ "version": 141,
  "apk": 16,
  "files": {
   "agenda.js": "c4fc3a14d96b53057b6c9b77d8504163c279c2c4",
@@ -11,7 +11,7 @@
   "eu.js": "60b7fcc7634d2802ab1a0a90789bdf31eb6304eb",
   "flood.png": "6d4fa0d5fbc339db9a3c4ffe14e433dc989066fc",
   "flood2.png": "712a7b22803bcae9b052cece1bdbe3c4ccae177e",
-  "index.html": "dedcbe94ec5d4d733e27f3420149b3e30d8afb6c",
+  "index.html": "c0f6ecc037afc67dc43dd388e8f9271797a50d30",
   "logo.jpg": "442927f2c4c5495089c0bd56e454ddc6a4223411",
   "logo.png": "5a4acff3ebac8e7b2e2be74d99bf5a3652086fe3",
   "monte.js": "2b741add1b44de67b14e1270508956974812b15f",
@@ -24,6 +24,8 @@
   "sismo.js": "a2212ab74c0f191cd49fbc9a370de51789094578",
   "sonpe2.jpg": "b15402e1a817968b2389f507df4408c69ab47047",
   "sonpe2_ico.jpg": "9da2bcf822019ade2b5114a48b020d4586486325",
+  "sonpe3.jpg": "0f31794604b30913105ca6205697811fa64826f7",
+  "sonpe3_ico.jpg": "566285e1373e631847647a7a33c61e12b27b7ea4",
   "viaje.js": "4d2171c211f5677f4518ef6da2d5046c7dc50f4f"
  },
  "apkUrl": "https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk"
