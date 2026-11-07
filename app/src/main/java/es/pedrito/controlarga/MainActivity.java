@@ -364,6 +364,29 @@ public class MainActivity extends Activity {
             runOnUiThread(() -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
         }
 
+        /** Guarda un archivo que hace la página (p. ej. un PDF) y abre «Compartir» para guardarlo en Drive, enviarlo por correo... */
+        @JavascriptInterface
+        public void shareFile(final String name, final String b64, final String mime) {
+            runOnUiThread(() -> {
+                try {
+                    String n = name.replaceAll("[^A-Za-z0-9._-]", "_");
+                    File dir = new File(getCacheDir(), "fotos");
+                    dir.mkdirs();
+                    try (FileOutputStream o = new FileOutputStream(new File(dir, n))) {
+                        o.write(android.util.Base64.decode(b64, android.util.Base64.DEFAULT));
+                    }
+                    Uri u = Uri.parse("content://" + getPackageName() + ".fotos/" + n);
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    i.setType(mime);
+                    i.putExtra(Intent.EXTRA_STREAM, u);
+                    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(Intent.createChooser(i, "Guardar o enviar"));
+                } catch (Exception e) {
+                    android.widget.Toast.makeText(MainActivity.this, "No se pudo crear el archivo", android.widget.Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
         @JavascriptInterface
         public void share(final String text) {
             // Abre el menú de "Compartir" de Android (WhatsApp, Claude, correo...)
