@@ -1698,7 +1698,8 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
 function techApply(){['dgApp','dMapa','dCiencia','dSaih','dAgenda','dArboles','dEditor','dWebAdm','dDesc','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
-  document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
+  document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');
+  try{if(!TECH){const c=document.getElementById('pbCfg');if(c)c.style.display='none';}if(PBSEL)pbMine(PBSEL);}catch(e){}}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
   // primera vez en un móvil: sin PIN guardado, solo entra quien tenga la llave de edición de GitHub
@@ -2686,6 +2687,8 @@ const GH_REPO='suapedrito-z/basatina',GH_API='https://api.github.com/repos/'+GH_
 let PB=null,PBSEL=null,PBDATA=null,PBLOAD=false;
 const slugify=t=>(t||'').split('/')[0].trim().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/ñ/g,'n').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const ghTok=()=>{try{return localStorage.getItem('ghTok')||'';}catch(e){return '';}},edName=()=>{try{return localStorage.getItem('edName')||'';}catch(e){return '';}};
+// editar solo si el modo administrador está abierto Y hay llave de edición en el móvil
+const canEd=()=>TECH&&!!ghTok();
 const b64u=s=>btoa(unescape(encodeURIComponent(s))),ub64=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
 function pbLoad(cb){if(window.PUEBLOS)return cb();if(PBLOAD)return;PBLOAD=true;const s=document.createElement('script');s.src='pueblos.js';s.onload=()=>{PBLOAD=false;cb();};s.onerror=()=>{PBLOAD=false;cb();};document.body.appendChild(s);}
 function pbList(){if(PB)return PB;const P=window.PUEBLOS;if(!P)return [];
@@ -2738,7 +2741,7 @@ async function pbOpen(i){const p=pbList().find(x=>x.i===i);if(!p)return;PBSEL=p;
       let dmin=km(p.lat,p.lon,pt[0],pt[1]);if(f.r)for(const q of f.r.flat())dmin=Math.min(dmin,km(p.lat,p.lon,q[0],q[1]));if(dmin<=5)L.push({Lr,f,d:dmin,n:Lr[5].map(x=>f.a[x]).find(Boolean)});}}
     L.sort((a,b)=>a.d-b.d);n.innerHTML='<b>🧭 Cerca (5 km)</b>'+(L.slice(0,12).map(x=>`<div class="st"><span>${x.Lr[1].split(' ')[0]} ${x.n||x.Lr[1]}</span><span class="note">${fmtN(x.d,1)} km</span></div>`).join('')||'<div class="note">Nada registrado a menos de 5 km.</div>');});
   pbMine(p);}
-async function pbMine(p){const box=document.getElementById('pbMine');const r=await pbRead(p.slug);if(PBSEL!==p)return;PBDATA=r;const d=r.d||{},can=!!ghTok();
+async function pbMine(p){const box=document.getElementById('pbMine');const r=await pbRead(p.slug);if(PBSEL!==p)return;PBDATA=r;const d=r.d||{},can=canEd();
   // datos corregidos a mano (habitantes del pueblo, altitud): mandan sobre los automáticos
   const M=p.m,kh=document.getElementById('pbKHab'),ka=document.getElementById('pbKAlt'),quien=d.datBy?` por ${d.datBy.replace(/</g,'&lt;')}`:'';
   if(kh&&d.hab!=null&&d.hab!=='')kh.innerHTML=`<span class="note">👥 Habitantes del pueblo${d.habAno?' ('+d.habAno+')':''}</span><b>${(+d.hab).toLocaleString('es-ES')}</b><span class="note">✏️ corregido${quien}${M.hab!=null&&M.n!==p.n?` · municipio de ${M.n}: ${M.hab.toLocaleString('es-ES')}`:''}</span>`;
@@ -2757,7 +2760,7 @@ function pbFoto(src,t){const o=document.createElement('div');o.style.cssText='po
 // reducir la foto a 1280 px y JPEG para que pese poco (unos 150-300 KB)
 function pbShrink(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1280/Math.max(im.width,im.height)),c=document.createElement('canvas');
   c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.8).split(',')[1]);};im.onerror=rej;im.src=fr.result;};fr.onerror=rej;fr.readAsDataURL(file);});}
-function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById('pbMine');const ta=(k,t,ph)=>`<label>${t}</label><textarea id="pbE_${k}" class="town" rows="${k==='historia'?8:4}" placeholder="${ph}" style="width:100%;box-sizing:border-box;font-family:inherit">${(d[k]||'').replace(/</g,'&lt;')}</textarea>`;
+function pbEditor(p){if(!canEd())return pbMine(p);const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById('pbMine');const ta=(k,t,ph)=>`<label>${t}</label><textarea id="pbE_${k}" class="town" rows="${k==='historia'?8:4}" placeholder="${ph}" style="width:100%;box-sizing:border-box;font-family:inherit">${(d[k]||'').replace(/</g,'&lt;')}</textarea>`;
   box.innerHTML=`<div class="card" style="border-color:var(--acc)"><b>✏️ Editar ${p.n}</b>
    ${ta('historia','📜 Historia','Origen del pueblo, hechos importantes, edificios…')}${ta('curiosidades','💡 Curiosidades','Leyendas, anécdotas, personajes…')}
    ${ta('fiestas','🎉 Fiestas y tradiciones','Fechas de fiestas, romerías, costumbres…')}
@@ -2771,7 +2774,7 @@ function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById(
    <div class="row"><button class="btn pri" id="pbSave">💾 Guardar</button><button class="btn" id="pbCancel">Cancelar</button></div><div class="note" id="pbMsg"></div>
    <div class="note">Lo que guardes se publica en el repositorio público de GitHub y lo verán todos los usuarios de la app.</div></div>`;
   document.getElementById('pbCancel').onclick=()=>pbMine(p);
-  document.getElementById('pbSave').onclick=async()=>{const msg=document.getElementById('pbMsg'),btn=document.getElementById('pbSave');btn.disabled=true;
+  document.getElementById('pbSave').onclick=async()=>{const msg=document.getElementById('pbMsg'),btn=document.getElementById('pbSave');if(!canEd()){msg.textContent='🔒 Solo se puede editar en modo administrador';return;}btn.disabled=true;
     try{const nd=Object.assign({},d,{n:p.n});['historia','curiosidades','fiestas'].forEach(k=>{nd[k]=document.getElementById('pbE_'+k).value.trim();});
       ['hab','habAno','alt'].forEach(k=>{const v=document.getElementById('pbE_'+k).value.trim();if(v==='')delete nd[k];else nd[k]=Math.round(+v);});if(nd.hab!=null||nd.alt!=null)nd.datBy=edName()||'';else delete nd.datBy;
       const del=new Set([...document.querySelectorAll('[data-del]:checked')].map(x=>+x.dataset.del));nd.fotos=(d.fotos||[]).filter((_,k)=>!del.has(k));
@@ -3347,7 +3350,7 @@ function arOpen(a){ARSEL=a;document.getElementById('arListV').style.display='non
    ${a.des?`<div class="card"><b>📜 Historia y descripción</b><div style="white-space:pre-wrap;margin-top:6px;line-height:1.5">${arEsc(a.des)}</div></div>`:''}
    ${fotos.length?`<div class="card"><b>📷 Fotos</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">${fotos.map((f,k)=>`<div><img src="${GH_RAW+f.f}" data-k="${k}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer"><div class="note" style="font-size:11px">${arEsc(f.t||'')}</div></div>`).join('')}</div></div>`:''}
    ${a.ed?`<div class="note">Última edición: ${arEsc(a.ed)} · ${arEsc(a.fe||'')}</div>`:''}
-   ${ghTok()?'<div class="row"><button class="btn pri" id="arEd">✏️ Editar este árbol</button></div>':''}`;
+   ${canEd()?'<div class="row"><button class="btn pri" id="arEd">✏️ Editar este árbol</button></div>':''}`;
   document.getElementById('arB').onclick=arBack;const g=document.getElementById('arGo');if(g)g.onclick=()=>openNav(a.lat,a.lon);
   el.querySelectorAll('img[data-k]').forEach(im=>im.onclick=()=>pbFoto(GH_RAW+fotos[+im.dataset.k].f,fotos[+im.dataset.k].t));
   const e=document.getElementById('arEd');if(e)e.onclick=()=>arEdit(a);}
@@ -3483,7 +3486,7 @@ async function idGo(file){const el=document.getElementById('idRes');const k=awai
      return `<div class="card" style="padding:8px;margin-top:8px;${i===0?'border-color:#43a047':''}"><div style="display:flex;gap:8px">${img?`<img src="${img.url.s||img.url.m}" style="width:72px;height:72px;object-fit:cover;border-radius:6px">`:''}
       <div style="flex:1"><b>${arEsc(com||s.scientificNameWithoutAuthor)}</b><div class="note"><i>${arEsc(s.scientificNameWithoutAuthor||'')}</i>${s.family?' · familia '+arEsc(s.family.scientificNameWithoutAuthor||''):''}</div>
       <div style="display:flex;align-items:center;gap:6px;margin-top:4px"><span style="flex:1;height:8px;background:#0b1118;border-radius:4px;overflow:hidden"><span style="display:block;width:${pc}%;height:100%;background:${pc>=50?'#43a047':pc>=20?'#fdd835':'#e53935'}"></span></span><b style="font-size:13px">${pc} %</b></div></div></div>
-      ${ghTok()?`<div class="row"><button class="btn" data-f="${i}">➕ Crear su ficha en Árboles y plantas</button></div>`:''}</div>`;}).join('')+
+      ${canEd()?`<div class="row"><button class="btn" data-f="${i}">➕ Crear su ficha en Árboles y plantas</button></div>`:''}</div>`;}).join('')+
    `<div class="note" style="margin-top:6px">${res[0]&&res[0].score<.2?'⚠️ No está muy seguro: haz otra foto más cerca de una sola hoja o flor. ':''}Nunca te comas una planta o fruto solo por lo que diga una app. Identificaciones que quedan hoy: ${j.remainingIdentificationRequests??'—'}. Fuente: Pl@ntNet.</div>`;
   el.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{const x=res[+b.dataset.f],s=x.species||{};showTab('arboles');setTimeout(()=>arEdit(null,{n:(s.commonNames||[])[0]||'',sp:s.scientificNameWithoutAuthor||'',foto:IDLAST}),300);});}
 document.getElementById('idF').onchange=e=>{const f=e.target.files&&e.target.files[0];if(f)idGo(f);e.target.value='';};
