@@ -1,0 +1,11 @@
+name: Prueba GPX
+on:
+  push:
+    paths: ['tools/bici_prueba.py']
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/bici_prueba.py
