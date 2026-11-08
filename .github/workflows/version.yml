@@ -1,0 +1,27 @@
+# Robot de la "huella" de la pantalla.
+# Cada vez que alguien cambia algo en web/ (también editando a mano en la web de GitHub),
+# este robot vuelve a calcular web/version.json para que los móviles se enteren del cambio
+# y descarguen la pantalla nueva. Así no hace falta ejecutar tools/make_version.py en un ordenador.
+name: Huella de la pantalla
+on:
+  push:
+    branches: [main]
+    paths: ['web/**', '!web/version.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: version, cancel-in-progress: false }
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/make_version.py
+      - name: Guardar si ha cambiado
+        run: |
+          git config user.name "basatina-bot"
+          git config user.email "basatina-bot@users.noreply.github.com"
+          git add web/version.json
+          git diff --cached --quiet && echo "Sin cambios" && exit 0
+          git commit -m "Huella de la pantalla actualizada (automático)"
+          git pull --rebase origin main && git push
