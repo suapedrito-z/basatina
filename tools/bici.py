@@ -20,7 +20,7 @@ INFO = []
 def get(url, tries=3, binario=False):
     for i in range(tries):
         try:
-            b = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=90).read()
+            b = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=40).read()
             return b if binario else b.decode("utf-8", "replace")
         except Exception as e:
             INFO.append("  reintento %d %s %s" % (i + 1, url, e)); time.sleep(4 * (i + 1))
@@ -142,9 +142,10 @@ def pamplona():
     for base in ["https://sig.pamplona.es/ogc/wfs", "https://sig.pamplona.es/ogc/ows", "https://sig.pamplona.es/geoserver/wfs", "https://sig.pamplona.es/ogc/Pamplona/wfs"]:
         u = base + "?" + urllib.parse.urlencode({"service": "WFS", "version": "2.0.0", "request": "GetFeature", "typeNames": capa,
                                                  "outputFormat": "application/json", "srsName": "EPSG:4326", "count": "20000"})
-        try: b = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=200).read().decode("utf-8", "replace")
+        try: b = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=25).read().decode("utf-8", "replace")
         except Exception as e: b = None; INFO.append("  " + str(e))
         INFO.append("PAMPLONA %s -> %s" % (base, (b or "ERROR")[:160].replace("\n", " ")))
+        if b is None and "timed out" in " ".join(INFO[-2:]): break   # el servidor no responde desde aquí: no insistimos
         if not b or not b.lstrip().startswith("{"): continue
         try: j = json.loads(b)
         except Exception: continue
