@@ -1,0 +1,39 @@
+# Datos abiertos del Gobierno de Navarra (alojamientos, restaurantes, museos, monumentos, festivos).
+# Se ejecuta cada lunes, cuando cambia tools/abiertos.py, o a mano desde la pestaña Actions.
+name: Datos abiertos de Navarra
+on:
+  push:
+    paths: ['tools/abiertos.py']
+  schedule:
+    - cron: '23 5 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  abiertos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: pip install pyproj
+      - name: Explorar (lista de campos)
+        run: python3 tools/abiertos.py --explorar
+      - name: Descargar
+        run: python3 tools/abiertos.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add tools/abiertos_info.txt
+          [ -f web/abiertos.js ] && git add web/abiertos.js
+          git commit -m "Datos abiertos de Navarra actualizados" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          for i in 1 2 3 4 5 6; do
+            git push && break
+            sleep $((i*15))
+            git pull --rebase -X theirs || true
+            python3 tools/make_version.py && git add web/version.json && git commit -m "Nueva versión de la pantalla" || true
+          done
