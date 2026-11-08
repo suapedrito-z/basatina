@@ -125,13 +125,21 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 /* fotos de la gente */
 .foGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.foGrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;cursor:pointer;background:#0b1118}
 #foCat{flex-wrap:nowrap;overflow-x:auto}#foCat button{flex:none}
+/* avisos plegables */
+.avd{padding:9px 0;border-bottom:1px solid var(--line)}.avd:last-child{border-bottom:0}
+.avd summary{cursor:pointer;list-style:none;display:flex;gap:6px;align-items:flex-start;line-height:1.35}.avd summary::-webkit-details-marker{display:none}
+.avd summary:after{content:'▸';margin-left:auto;color:var(--mut);transition:transform .2s;flex:none}.avd[open] summary:after{transform:rotate(90deg)}
+.avd .s{font-size:12.5px;color:var(--mut);margin:6px 0 0 4px;line-height:1.45}
+/* deslizar hacia abajo para actualizar */
+#ptr{position:fixed;left:50%;top:0;z-index:90;transform:translate(-50%,-60px);background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:20px;padding:7px 14px;font-size:13.5px;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none;transition:opacity .2s;opacity:0;white-space:nowrap}
+#ptr.on{opacity:1}#ptr.gira i{display:inline-block;animation:gira 1s linear infinite}
 </style>
 </head>
 <body>
 <div id="splash" style="position:fixed;inset:0;z-index:100;background:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s;overflow:hidden"><img src="sonpe3.jpg" alt="Son&amp;Pe Technology Systems" style="width:92vw;max-width:600px" onerror="this.style.display='none'"></div>
 <div class="wrap">
 <header>
-  <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.png" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>BasatiNA</h1><div id="secTitle" class="note">🏠 Inicio · Navarra</div></div><button id="topRef" aria-label="Actualizar datos" title="Actualizar datos">🔄</button><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
+  <div class="topbar"><button id="menuBtn" aria-label="Abrir menú">☰</button><img id="logo" alt="" src="logo.png" onerror="this.style.display='none'"><div style="flex:1;min-width:0"><h1>BasatiNA</h1><div id="secTitle" class="note">🏠 Inicio · Navarra</div></div><div id="wx"><div id="wxTop"><span id="wxIco"></span><span id="wxT"></span></div><div id="wxClock"></div><div id="wxDate"></div></div></div>
 </header>
 <div id="updBar" style="display:none;position:sticky;top:0;z-index:40;background:#14508f;color:#fff;padding:10px 14px;font-size:14px;display:none;gap:8px;align-items:center;justify-content:space-between"><span id="updTxt"></span><button class="btn pri" id="updBtn"></button></div>
 <div id="drawerBg"></div>
@@ -139,39 +147,19 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
   <div class="dhead"><img src="logo.png" alt="" onerror="this.style.display='none'"><div><b>BasatiNA</b><small class="lema"><span class="es">Navarra en tu bolsillo</span><span class="eu">Nafarroa zure poltsikoan</span></small></div></div>
   <button data-t="mtiempo">🏠 Inicio · Navarra</button>
   <button data-t="cerca">📍 Qué hay cerca de mí</button>
-  <button data-t="semana">📊 La semana en Navarra</button>
-  <div class="dgroup"><span>Ríos</span><i>▸</i></div>
-  <div class="dsub">
-    <button data-t="caudal">📊 Caudal de los ríos</button>
-    <button data-t="emb">💧 Embalses de Navarra</button>
-    <button data-t="hist">📜 Datos históricos</button>
-    <button data-t="libre">🎚️ Mapa de riadas (elige caudal)</button>
-    <button data-t="prev">🔮 Previsiones</button>
-    <button data-t="sim">▶️ Simulador de los próximos días</button>
-  </div>
   <div class="dgroup"><span>El tiempo</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="tiempo">🌦️ El tiempo</button>
     <button data-t="clima">📈 Histórico del clima</button>
     <button data-t="radar">🌧️ Radar de lluvia</button>
   </div>
-  <div class="dgroup"><span>Carreteras</span><i>▸</i></div>
+  <div class="dgroup"><span>Ríos</span><i>▸</i></div>
   <div class="dsub">
-    <button data-t="incid">🚧 Incidencias: obras, cortes, accidentes…</button>
-    <button data-t="camaras">📷 Cámaras en directo</button>
-    <button data-t="puertos">🏔️ Puertos de montaña</button>
-    <button data-t="gas">⛽ Gasolineras y recarga eléctrica</button>
-  </div>
-  <div class="dgroup"><span>Qué hacer</span><i>▸</i></div>
-  <div class="dsub">
-    <button data-t="monte">🥾 Escapadas: rutas, cuevas, baño…</button>
-    <button data-t="diario">📖 Mi diario de salidas</button>
-    <button data-t="sitios">🔒 Mis sitios secretos</button>
-    <button data-t="cultura">🎭 Agenda cultural</button>
-    <button data-t="deporte">🏆 Deporte navarro</button>
-    <button data-t="pesca">🎣 Pesca</button>
-    <button data-t="caza">🏹 Caza</button>
-    <button data-t="natura">🍄 Recolección</button>
+    <button data-t="caudal">📊 Caudal de los ríos</button>
+    <button data-t="emb">💧 Embalses de Navarra</button>
+    <button data-t="prev">🔮 Previsión de los próximos 3 días</button>
+    <button data-t="libre">🎚️ Mapa de riadas (elige caudal)</button>
+    <button data-t="hist">📜 Datos históricos</button>
   </div>
   <div class="dgroup"><span>Vida silvestre</span><i>▸</i></div>
   <div class="dsub">
@@ -180,19 +168,48 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
     <button data-t="natarb">🌲 Árboles por zonas</button>
     <button data-t="ident">📸 Identificar plantas o aves</button>
   </div>
+  <div class="dgroup"><span>Carreteras</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="incid">🚧 Incidencias: obras, cortes…</button>
+    <button data-t="gas">⛽ Gasolineras y precios</button>
+    <button data-t="puertos">🏔️ Puertos de montaña</button>
+    <button data-t="camaras">📷 Cámaras en directo</button>
+  </div>
+  <div class="dgroup"><span>Localidades</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="pueblos">🏘️ Localidades de Navarra</button>
+  </div>
+  <div class="dgroup"><span>NA Sostenible</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="energia">⚡ Energía actual</button>
+  </div>
+  <div class="dgroup"><span>NA sísmica</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="sismo">🌍 Terremotos, fallas y placas</button>
+  </div>
+  <div class="dgroup"><span>Qué hacer</span><i>▸</i></div>
+  <div class="dsub">
+    <button data-t="monte">🥾 Escapadas: rutas, cuevas, baño…</button>
+    <button data-t="cultura">🎭 Agenda cultural</button>
+    <button data-t="deporte">🏆 Deporte navarro</button>
+    <button data-t="natura">🍄 Recolección</button>
+  </div>
   <div class="dgroup"><span>Turismo</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="dormir">🛏️ Dónde dormir</button>
     <button data-t="comer">🍽️ Dónde comer y recetas</button>
     <button data-t="patrimonio">🏛️ Museos y monumentos</button>
   </div>
-  <div class="dgroup"><span>Energía</span><i>▸</i></div>
+  <div class="dgroup"><span>Mi Espacio</span><i>▸</i></div>
   <div class="dsub">
-    <button data-t="energia">⚡ Energía en Navarra: eólica, solar…</button>
+    <button data-t="diario">📖 Mi diario de salidas</button>
+    <button data-t="sitios">🔒 Mis sitios secretos</button>
   </div>
-  <div class="dgroup"><span>NA sísmica</span><i>▸</i></div>
+  <div class="dgroup"><span>Participa</span><i>▸</i></div>
   <div class="dsub">
-    <button data-t="sismo">🌍 Terremotos, fallas y placas</button>
+    <button data-t="enviar" class="tech" style="display:none">📤 Envía tu foto</button>
+    <button data-t="fotos">🖼️ Fotos de la gente y reto del mes</button>
+    <button data-t="buzon">💬 Buzón de sugerencias</button>
   </div>
   <div class="dgroup"><span>Configuración</span><i>▸</i></div>
   <div class="dsub">
@@ -203,18 +220,11 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
     <button data-t="creditos">📚 Fuentes y créditos</button>
     <button id="dRefresh" style="display:none">🔄 Actualizar datos ahora</button>
   </div>
-  <div class="dgroup"><span>Participa</span><i>▸</i></div>
-  <div class="dsub">
-    <button data-t="enviar" class="tech" style="display:none">📤 Envía tu foto</button>
-    <button data-t="fotos">🖼️ Fotos de la gente y reto del mes</button>
-    <button data-t="buzon">💬 Buzón de sugerencias</button>
-  </div>
   <div class="dgroup" id="dgApp" style="display:none"><span>Administrador</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="mapa" id="dMapa" style="display:none">🗺️ Mapa del Arga (ahora)</button>
     <button data-t="ciencia" id="dCiencia" style="display:none">🔬 Modo científico</button>
     <button data-t="saih" id="dSaih" style="display:none">📡 Conexión SAIH Ebro</button>
-    <button data-t="pueblos" id="dPueblos" style="display:none">🏘️ Pueblos de Navarra (en pruebas)</button>
     <button data-t="agenda" id="dAgenda" style="display:none">🎉 Agenda de fiestas (en pruebas)</button>
     <button data-t="arboles" id="dArboles" style="display:none">🌳 Árboles y plantas singulares (en pruebas)</button>
     <button data-t="editor" id="dEditor" style="display:none">✏️ Editar contenidos de la app</button>
@@ -335,7 +345,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
     <div><label>Caudal ahora en Pamplona: <b id="fbv">20</b> m³/s</label><input type="range" id="fb" min="0.5" max="500" step="0.1" value="20"></div>
     <div><label>¿Y si lloviera más? <b id="fmv">×1</b></label><input type="range" id="fm" min="1" max="6" step="0.5" value="1"></div>
   </div>
-  <div class="row"><button class="btn pri" id="fplay">▶ Ver la previsión en el mapa</button></div>
+  <div class="row" style="display:none"><button class="btn pri" id="fplay">▶ Ver la previsión en el mapa</button></div>
   <div class="note">Lluvia prevista: Open‑Meteo, media de 6 puntos de la cuenca (Quinto Real, Eugui, Zubiri, Ultzama, Juslapeña y Pamplona), actualizada cada 3 horas (en la app, la descarga el propio móvil). En la app, el caudal de ahora se toma solo del SAIH Ebro (Burlada); en la web lo pones tú. El modelo es sencillo. <b>⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES.</b> Los datos de esta app pueden variar respecto a los de la fuente original. (CHE, SOS Navarra 112, Ayuntamiento).</div>
 </div>
 </section>
@@ -364,22 +374,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
   <div id="mtLeg" style="position:absolute;left:8px;bottom:8px;right:60px;font-size:12.5px;line-height:1.5;color:#1d2b36;background:rgba(255,255,255,.94);border:1px solid rgba(0,0,0,.15);box-shadow:0 2px 8px rgba(0,0,0,.25);border-radius:8px;padding:5px 9px;display:none"></div>
 </div>
 <div class="note" id="mtInfo">Toca un pueblo para ver su previsión.</div>
-<div id="quick">
- <button data-go="caudal"><span>🌊</span>Ríos<small id="qRio"></small></button>
- <button data-go="radar"><span>🌧️</span>Radar</button>
- <button data-go="tiempo"><span>🌦️</span>Mi tiempo</button>
- <button data-go="cerca"><span>📍</span>Cerca de mí</button>
- <button data-go="incid"><span>🚧</span>Carreteras<small id="qInc"></small></button>
- <button data-go="puertos"><span>🏔️</span>Puertos</button>
- <button data-go="gas"><span>⛽</span>Gasolina</button>
- <button data-go="monte"><span>🥾</span>Escapadas</button>
- <button data-go="diario"><span>📖</span>Mi diario</button>
- <button data-go="ident"><span>📸</span>¿Qué planta es?</button>
- <button data-go="camaras"><span>📷</span>Cámaras</button>
- <button data-go="semana"><span>📊</span>La semana</button>
- <button data-go="fotos" class="tech" style="display:none"><span>🖼️</span>Fotos de la gente</button>
- <button data-go="enviar" class="tech" style="display:none"><span>📤</span>Envía tu foto</button>
-</div>
+<div id="seHome" style="margin-top:12px"><b style="display:block;font-size:17px;margin:4px 4px 8px">📊 La semana en Navarra</b><div id="seBody"></div></div>
 <div class="note">Mapa base: © Instituto Geográfico Nacional · Tiempo: Open‑Meteo · Ríos: SAIH Ebro.</div>
 </section>
 <!-- ============ HISTÓRICO DEL CLIMA ============ -->
@@ -527,8 +522,8 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <!-- ============ SAIH ============ -->
 <section id="t-pueblos">
 <div id="pbListV">
-<div class="card"><b>🏘️ Pueblos de Navarra de la A a la Z</b><div class="note">En pruebas: solo se ve en el modo administrador. Toca un pueblo para ver sus datos, su historia y sus fotos.</div>
-<div class="row" style="margin-top:8px"><input id="pbQ" class="town" placeholder="🔎 Buscar pueblo o municipio…" style="flex:1;box-sizing:border-box"><button class="btn" id="pbCfgB">⚙️ Edición</button></div>
+<div class="card"><b>🏘️ Localidades de Navarra de la A a la Z</b><div class="note">Toca una localidad para ver sus datos, su historia y sus fotos.</div>
+<div class="row" style="margin-top:8px"><input id="pbQ" class="town" placeholder="🔎 Buscar localidad o municipio…" style="flex:1;box-sizing:border-box"><button class="btn tech" id="pbCfgB" style="display:none">⚙️ Edición</button></div>
 <div id="pbCfg" style="display:none;margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
 <label>Tu nombre (aparece como autor)</label><input id="pbName" class="town" style="width:100%;box-sizing:border-box">
 <label>Llave de edición de GitHub</label><input id="pbTok" class="town" type="password" autocomplete="off" style="width:100%;box-sizing:border-box">
@@ -587,7 +582,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <section id="t-radar">
 <div class="card"><b>🌧️ Radar de lluvia</b><div class="note">Dónde está lloviendo (o nevando) ahora y en las últimas 2 horas. Dale a ▶️ para ver hacia dónde se mueve.</div>
 <div class="row" style="align-items:center;margin-top:6px"><button class="btn pri" id="rdPlay">▶️</button><input type="range" id="rdT" min="0" max="0" value="0" style="flex:1"><b id="rdLbl" style="min-width:64px;text-align:right"></b></div></div>
-<div class="card"><div style="position:relative"><canvas id="rdc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="rdcIn">＋</button><button class="btn mtb" id="rdcOut">－</button></div></div><div class="note" style="margin-top:4px">Cuanto más intenso el color, más fuerte llueve; los tonos rojizos son tormenta. El morado con borde es Petilla de Aragón, que es de Navarra, no lluvia.</div></div>
+<div class="card"><div style="position:relative"><canvas id="rdc" height="420"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="rdcIn">＋</button><button class="btn mtb" id="rdcOut">－</button></div></div><div class="rdLeg" style="display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;font-size:14px"><span>🟨 Nubes bajas</span><span>🟦 Nubes con precipitación</span><span>🟥 Tormentas</span></div><div class="note" style="margin-top:6px">🟪 La zona morada es <b>Petilla de Aragón</b> (municipio navarro dentro de Zaragoza): ese color no tiene nada que ver con el radar de lluvia.</div></div>
 <div id="ekNote" style="display:none"></div><div id="rdEusN" style="display:none"></div><div class="card" id="rdAemet"><b>⚡ Rayos y radar (AEMET)</b><div class="note" id="rdAeNote">Cargando…</div><div id="rdAeImgs"></div><div class="row"><button class="btn" id="rdRayos">⚡ Abrir el mapa de rayos de AEMET</button></div></div>
 <div class="card tech" style="display:none"><b>🔧 Claves de radar y rayos</b>
  <div class="note">Rainbow.ai (radar con previsión de 4 horas) y AEMET OpenData (rayos y radar oficial). Se guardan en el repositorio para que todos los móviles las usen.</div>
@@ -771,7 +766,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <div class="card" id="paList"></div>
 <div class="card"><div class="note">Datos abiertos del Gobierno de Navarra (Turismo de Navarra y museos), actualizados cada semana.</div></div>
 </section>
-<section id="t-semana"><div id="seBody"></div></section>
+
 <section id="t-saih">
 <div class="card" id="saihCard"><b>📡 Prueba de conexión con el SAIH Ebro</b>
   <div class="note">Solo en la app: el móvil pide las páginas desde tu conexión. Pulsa «Explorar SAIH», espera a que ponga «Listo» (1–2 minutos) y luego «Compartir resultado» para pasárselo a Claude.</div>
@@ -788,7 +783,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <script src="eu.js"></script>
 <script>
 /* ---------- pestañas ---------- */
-const TITLES={buzon:'💬 Buzón de sugerencias',creditos:'📚 Fuentes y créditos',diario:'📖 Mi diario de salidas',sitios:'🔒 Mis sitios secretos',semana:'📊 La semana en Navarra',ident:'📸 Identificar plantas o aves',arboles:'🌳 Árboles y plantas singulares',editor:'✏️ Editar contenidos',gas:'⛽ Gasolineras y recarga',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna',natveg:'🌳 Vegetación',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía en Navarra',pueblos:'🏘️ Pueblos de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Escapadas',natura:'🍄 Recolección',caza:'🏹 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsiones',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
+const TITLES={buzon:'💬 Buzón de sugerencias',creditos:'📚 Fuentes y créditos',diario:'📖 Mi diario de salidas',sitios:'🔒 Mis sitios secretos',semana:'📊 La semana en Navarra',ident:'📸 Identificar plantas o aves',arboles:'🌳 Árboles y plantas singulares',editor:'✏️ Editar contenidos',gas:'⛽ Gasolineras y precios',puertos:'🏔️ Puertos de montaña',radar:'🌧️ Radar de lluvia',emb:'💧 Embalses de Navarra',cerca:'📍 Qué hay cerca de mí',agenda:'🎉 Agenda de fiestas',incid:'🚧 Incidencias en carreteras',natfau:'🦌 Fauna',natveg:'🌳 Vegetación',natarb:'🌲 Árboles por zonas',camaras:'📷 Cámaras en directo',energia:'⚡ Energía actual',pueblos:'🏘️ Localidades de Navarra',sismo:'🌍 Terremotos y fallas',monte:'🥾 Escapadas',natura:'🍄 Recolección',caza:'🏹 Caza en Navarra',pesca:'🎣 Pesca en Navarra',ajustes:'⚙️ Ajustes y avisos',about:'ℹ️ Acerca de',tiempo:'🌦️ El tiempo',mtiempo:'🏠 Inicio · Navarra',clima:'📈 Histórico del clima',libre:'🎚️ Mapa de riadas',mapa:'🗺️ Mapa del Arga (ahora)',juego:'🎮 Esquema (juego)',ciencia:'🔬 Modo científico',hist:'📜 Datos históricos',prev:'🔮 Previsión de los próximos 3 días',sim:'▶️ Simulador de los próximos días',saih:'📡 Conexión SAIH Ebro',caudal:'📊 Caudal de los ríos'};
 function menu(open){document.getElementById('drawer').classList.toggle('on',open);document.getElementById('drawerBg').classList.toggle('on',open);}
 function showTab(t){const sec=(t==='sim'||t==='libre')?'mapa':t;setMapMode(t);document.querySelectorAll('#drawer button[data-t]').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+sec));document.getElementById('secTitle').textContent=TITLES[t]||'';
@@ -1438,8 +1433,7 @@ setMapMode('mapa');
 function toast(t,btn,fn){const b=document.getElementById('updBar');document.getElementById('updTxt').textContent=t;const k=document.getElementById('updBtn');
   if(btn){k.style.display='';k.textContent=btn;k.onclick=fn;}else k.style.display='none';b.style.display='flex';if(!btn)setTimeout(()=>{b.style.display='none';},4000);}
 /* 🔄 botón de la barra de arriba: hace lo mismo que «Actualizar datos ahora» y gira mientras tanto */
-document.getElementById('topRef').onclick=async()=>{const b=document.getElementById('topRef');if(b.classList.contains('gira'))return;b.classList.add('gira');
-  try{await document.getElementById('dRefresh').onclick();}catch(e){}setTimeout(()=>b.classList.remove('gira'),800);};
+
 document.getElementById('dRefresh').onclick=async()=>{menu(false);toast('Actualizando datos…');
   if(APP){await Promise.all([appForecast(),wxFetch(),cauFetch()]);toast('✅ Caudales, previsión y tiempo actualizados');}
   else{fcRender();wxRender();toast('✅ Datos al día (la previsión se renueva sola cada 3 horas)');}};
@@ -1532,7 +1526,9 @@ function avEs(ev){const s=(ev||'').toLowerCase(),T=[[/snow|ice/,'nieve y hielo']
 function fmtDT(d){return isNaN(d)?'':d.toLocaleString(LOC,{weekday:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
 function avisosHTML(L){if(L==null)return '<div class="note">No se pudieron leer los avisos ahora. Consulta aemet.es → Avisos.</div>';
   if(!L.length)return '<div class="note">✅ Sin avisos meteorológicos activos en Navarra.</div>';
-  return L.map(a=>{const s=SEVC[a.sev]||['⚠️',a.sev,'#ef6c00'];return `<div class="st" style="align-items:flex-start"><div><b style="color:${s[2]}">${s[0]} ${s[1]}</b> · ${a.area}<div class="s">${a.ev}</div><div class="s">${fmtDT(a.on)} → ${fmtDT(a.exp)}</div></div></div>`;}).join('');}
+  return L.map(a=>{const s=SEVC[a.sev]||['⚠️',a.sev,'#ef6c00'];return avDet(`<b style="color:${s[2]}">${s[0]} ${s[1]}</b>`,`${a.area}<br>${a.ev}<br>${fmtDT(a.on)} → ${fmtDT(a.exp)}`);}).join('');}
+// cada aviso: lo principal (en negrita) a la vista y los detalles, en letra pequeña, en un desplegable
+function avDet(main,det){return det?`<details class="avd"><summary>${main}</summary><div class="s">${det}</div></details>`:`<div class="avd avd0">${main}</div>`;}
 // aviso visible en el inicio si hay alguno
 function avisoBanner(){const el=document.getElementById('avBanner');if(!el)return;const L=AVISOS||[];if(!L.length){el.style.display='none';return;}
   const s=SEVC[L[0].sev]||SEVC.Moderate;el.style.display='';el.style.background=s[2];el.innerHTML=`${s[0]} <b>${L.length} aviso${L.length>1?'s':''} de AEMET en Navarra</b> · ${L[0].ev} (${L[0].area}) · toca para ver`;}
@@ -1679,7 +1675,7 @@ window.addEventListener('resize',()=>{const on=document.querySelector('section.o
 // Ojo: esto oculta las herramientas a la vista, no es seguridad real (el código de la app es público).
 const pinHash=p=>{let h=5381;for(const c of 'arga:'+p)h=((h<<5)+h+c.charCodeAt(0))>>>0;return h.toString(36);};
 let TECH=false;try{TECH=sessionStorage.getItem('tech')==='1';}catch(e){}
-function techApply(){['dgApp','dMapa','dCiencia','dSaih','dPueblos','dAgenda','dArboles','dEditor','dWebAdm','dDesc','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
+function techApply(){['dgApp','dMapa','dCiencia','dSaih','dAgenda','dArboles','dEditor','dWebAdm','dDesc','dTechInfo','dPin','dLock'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=TECH&&(APP||id!=='dSaih')?'':'none';});
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');}
 let pinMode='enter',pinFirst='';
 function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
@@ -1730,7 +1726,7 @@ function cfgSave(){LS.set('cfg',CFG);cfgApply();if(typeof applyIcons==='function
 function ajustesRender(){const el=document.getElementById('ajBody'),nat=APP&&window.AndroidNet.setAlerts;
   const seg=(k,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button class="btn${CFG[k]==v?' on':''}" data-k="${k}" data-v="${v}">${l}</button>`).join('')}</div>`;
   el.innerHTML=`<div class="card"><b>🎨 Aspecto</b>${seg('tema',[['alegre','🌈 Alegre'],['claro','☀️ Claro'],['oscuro','🌙 Oscuro'],['auto','📱 Como el móvil']])}<div class="note" style="margin-top:8px">Iconos del menú</div>${seg('iconos',[['pro','Profesionales'],['emoji','Emojis']])}</div>
-  <div class="card"><b>🔠 Tamaño de letra</b>${nat?seg('letra',[[100,'Normal'],[115,'Grande'],[130,'Muy grande']]):'<div class="note">Disponible con la app actualizada (versión 6 o más).</div>'}</div>
+  <div class="card"><b>🔠 Tamaño de letra</b>${nat?seg('letra',[[100,'Pequeña'],[115,'Media'],[130,'Grande']]):'<div class="note">Disponible con la app actualizada (versión 6 o más).</div>'}</div>
   <div class="card"><b>🔔 Avisos en el móvil</b>
    ${nat?`<div class="note">La app mira el SAIH cada 15 minutos, aunque esté cerrada, y te avisa si el Arga en Burlada:</div>
    ${seg('avisos',[[true,'Activados'],[false,'Desactivados']])}
@@ -2678,7 +2674,7 @@ function pbRenderList(){const q=(document.getElementById('pbQ').value||'').trim(
   const F=nq?L.filter(p=>(p.n+' '+p.m.n).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(nq)):L;
   let h='',last='';F.slice(0,nq?200:2000).forEach(p=>{const l=p.n.normalize('NFD')[0].toUpperCase();if(l!==last&&!nq){h+=`<div id="pbL_${l}" style="font-weight:700;color:var(--acc);margin:10px 0 2px">${l}</div>`;last=l;}
     h+=`<div class="st" data-i="${p.i}" style="cursor:pointer"><div><b>${p.n}</b><div class="s">${p.m.n&&p.m.n!==p.n?p.m.n+' · ':''}${p.alt!=null?p.alt+' m':''}</div></div><span class="note">›</span></div>`;});
-  el.innerHTML=`<div class="note">${F.length} pueblos</div>`+h;
+  el.innerHTML=`<div class="note">${F.length} localidades</div>`+h;
   el.querySelectorAll('[data-i]').forEach(d=>d.onclick=()=>pbOpen(+d.dataset.i));
   document.getElementById('pbAZ').innerHTML=nq?'':[...new Set(L.map(p=>p.n.normalize('NFD')[0].toUpperCase()))].map(l=>`<button class="btn" data-l="${l}" style="padding:4px 7px">${l}</button>`).join('');
   document.querySelectorAll('#pbAZ button').forEach(b=>b.onclick=()=>{const t=document.getElementById('pbL_'+b.dataset.l);if(t)t.scrollIntoView({behavior:'smooth'});});}
@@ -2692,11 +2688,11 @@ async function ghPut(path,b64,msg,sha){const r=await fetch(GH_API+path,{method:'
 async function idenaPoint(layer,lat,lon){const d=.0015,u=`https://idena.navarra.es/ogc/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=${layer}&QUERY_LAYERS=${layer}&STYLES=&CRS=EPSG:4258&BBOX=${lat-d},${lon-d},${lat+d},${lon+d}&WIDTH=101&HEIGHT=101&I=50&J=50&INFO_FORMAT=text/html&FEATURE_COUNT=1`;
   let t='';try{t=APP?(await netGet(u)).body||'':await (await fetch(u)).text();}catch(e){}
   const th=[...t.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim()),td=[...t.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m=>m[1].replace(/<[^>]+>/g,'').trim());
-  return th.map((k,i)=>[k,td[i]]).filter(([k,v])=>v&&!/^(FID|OBJECTID|GEOM|SHAPE|FEATURE|BEGINLIFE|X25830|Y25830|ID)/i.test(k));}
+  return th.map((k,i)=>[k,td[i]]).filter(([k,v])=>v&&!/^(FID|OBJECTID|GEOM|SHAPE|FEATURE|BEGINLIFE|X25830|Y25830|ID)/i.test(k)&&!/^(CRECINTO|ETIQUETA|CABIDA|CGRUPO|GRUPO|COBERTURARAP|COBERTURA1|NOTA1|NOTAUSO1)$/i.test(k.trim()));}
 const km=(a,b,c,d)=>{const R=6371,x=(d-b)*Math.PI/180*Math.cos((a+c)/2*Math.PI/180),y=(c-a)*Math.PI/180;return Math.hypot(x,y)*R;};
 async function pbOpen(i){const p=pbList().find(x=>x.i===i);if(!p)return;PBSEL=p;document.getElementById('pbListV').style.display='none';const el=document.getElementById('pbFicha');el.style.display='';
   const M=p.m,dh=M.hab!=null&&M.hab03!=null?M.hab-M.hab03:null;
-  el.innerHTML=`<button class="btn" id="pbBack">‹ Todos los pueblos</button>
+  el.innerHTML=`<button class="btn" id="pbBack">‹ Todas las localidades</button>
    <div class="card"><b style="font-size:20px">🏘️ ${p.n}</b><div class="note">${M.n&&M.n!==p.n?'Municipio: '+M.n:'Municipio'}</div>
     <div class="kpi" style="margin-top:8px"><div id="pbKAlt"><span class="note">📏 Altitud</span><b>${p.alt!=null?p.alt+' m':'—'}</b></div>
      <div id="pbKHab"><span class="note">👥 Habitantes del municipio (2025)</span><b>${M.hab!=null?M.hab.toLocaleString('es-ES'):'—'}</b>${dh!=null?`<span class="note">${dh>=0?'▲ +':'▼ '}${dh} desde 2003</span>`:''}</div>
@@ -2727,11 +2723,11 @@ async function pbMine(p){const box=document.getElementById('pbMine');const r=awa
   if(ka&&d.alt!=null&&d.alt!=='')ka.innerHTML=`<span class="note">📏 Altitud</span><b>${d.alt} m</b><span class="note">✏️ corregido${quien}</span>`;
   const sec=(ico,t,k)=>d[k]?`<div class="card"><b>${ico} ${t}</b><div style="white-space:pre-wrap;margin-top:6px;font-size:14.5px;line-height:1.5">${d[k].replace(/</g,'&lt;')}</div></div>`:'';
   const fotos=(d.fotos||[]);
-  box.innerHTML=sec('📜','Historia','historia')+sec('💡','Curiosidades','curiosidades')+sec('🎉','Fiestas y tradiciones','fiestas')+sec('🍽️','Gastronomía','gastronomia')+
+  box.innerHTML=sec('📜','Historia','historia')+sec('💡','Curiosidades','curiosidades')+sec('🎉','Fiestas y tradiciones','fiestas')+
    (fotos.length?`<div class="card"><b>📷 Fotos</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">${fotos.map((f,k)=>`<div><img src="${GH_RAW+f.f}" data-k="${k}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer"><div class="note" style="font-size:11px">${(f.t||'').replace(/</g,'&lt;')}</div></div>`).join('')}</div></div>`:'')+
-   (!d.historia&&!d.curiosidades&&!d.fiestas&&!d.gastronomia&&!fotos.length?'<div class="card"><div class="note">Todavía no hay historia ni fotos de este pueblo.</div></div>':'')+
+   (!d.historia&&!d.curiosidades&&!d.fiestas&&!fotos.length?'<div class="card"><div class="note">Todavía no hay historia ni fotos de esta localidad.</div></div>':'')+
    (d.ed?`<div class="note">Última edición: ${d.ed} · ${d.fe||''}</div>`:'')+
-   (can?'<div class="row"><button class="btn pri" id="pbEdit">✏️ Editar este pueblo</button></div>':'<div class="note">Para editar, configura tu llave en «⚙️ Edición» (arriba de la lista).</div>');
+   (can?'<div class="row"><button class="btn pri" id="pbEdit">✏️ Editar esta localidad</button></div>':TECH?'<div class="note">Para editar, configura tu llave en «⚙️ Edición» (arriba de la lista).</div>':'');
   box.querySelectorAll('img[data-k]').forEach(im=>im.onclick=()=>pbFoto(GH_RAW+fotos[+im.dataset.k].f,fotos[+im.dataset.k].t));
   const b=document.getElementById('pbEdit');if(b)b.onclick=()=>pbEditor(p);}
 function pbFoto(src,t){const o=document.createElement('div');o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px';
@@ -2742,10 +2738,7 @@ function pbShrink(file){return new Promise((res,rej)=>{const fr=new FileReader()
 function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById('pbMine');const ta=(k,t,ph)=>`<label>${t}</label><textarea id="pbE_${k}" class="town" rows="${k==='historia'?8:4}" placeholder="${ph}" style="width:100%;box-sizing:border-box;font-family:inherit">${(d[k]||'').replace(/</g,'&lt;')}</textarea>`;
   box.innerHTML=`<div class="card" style="border-color:var(--acc)"><b>✏️ Editar ${p.n}</b>
    ${ta('historia','📜 Historia','Origen del pueblo, hechos importantes, edificios…')}${ta('curiosidades','💡 Curiosidades','Leyendas, anécdotas, personajes…')}
-   ${ta('fiestas','🎉 Fiestas y tradiciones','Fechas de fiestas, romerías, costumbres…')}${ta('gastronomia','🍽️ Gastronomía','Platos típicos, productos…')}
-   <div style="margin-top:10px;padding:8px;border:1px dashed var(--line);border-radius:8px"><b>📅 Fechas de fiestas (para la agenda)</b><div class="note">Se repiten cada año en las mismas fechas. Deja vacías las que no uses.</div>
-    ${[0,1,2].map(k=>{const f=(d.fiestasF||[])[k]||{};return `<div style="margin-top:6px"><input id="pbF_n${k}" class="town" placeholder="Nombre (p. ej. Fiestas patronales, San Juan…)" value="${(f.n||'').replace(/"/g,'&quot;')}" style="width:100%;box-sizing:border-box">
-     <div class="row" style="gap:6px;margin-top:4px"><label style="flex:1">Empiezan<input id="pbF_i${k}" type="date" class="town" style="width:100%;box-sizing:border-box" value="${f.ini||''}"></label><label style="flex:1">Acaban<input id="pbF_f${k}" type="date" class="town" style="width:100%;box-sizing:border-box" value="${f.fin||''}"></label></div></div>`;}).join('')}</div>
+   ${ta('fiestas','🎉 Fiestas y tradiciones','Fechas de fiestas, romerías, costumbres…')}
    <div style="margin-top:10px;padding:8px;border:1px dashed var(--line);border-radius:8px"><b>📊 Corregir datos</b><div class="note">Si un dato automático está mal (por ejemplo, salen los habitantes de todo el valle), pon aquí el bueno. Déjalo vacío para usar el automático.</div>
     <div class="row" style="gap:6px;margin-top:6px"><label style="flex:2">👥 Habitantes del pueblo<input id="pbE_hab" type="number" min="0" class="town" style="width:100%;box-sizing:border-box" value="${d.hab??''}" placeholder="${p.m.hab??''}"></label>
      <label style="flex:1">Año<input id="pbE_habAno" type="number" min="1900" max="2100" class="town" style="width:100%;box-sizing:border-box" value="${d.habAno??''}" placeholder="${new Date().getFullYear()}"></label></div>
@@ -2757,8 +2750,7 @@ function pbEditor(p){const d=(PBDATA&&PBDATA.d)||{},box=document.getElementById(
    <div class="note">Lo que guardes se publica en el repositorio público de GitHub y lo verán todos los usuarios de la app.</div></div>`;
   document.getElementById('pbCancel').onclick=()=>pbMine(p);
   document.getElementById('pbSave').onclick=async()=>{const msg=document.getElementById('pbMsg'),btn=document.getElementById('pbSave');btn.disabled=true;
-    try{const nd=Object.assign({},d,{n:p.n});['historia','curiosidades','fiestas','gastronomia'].forEach(k=>{nd[k]=document.getElementById('pbE_'+k).value.trim();});
-      nd.fiestasF=[0,1,2].map(k=>({n:document.getElementById('pbF_n'+k).value.trim(),ini:document.getElementById('pbF_i'+k).value,fin:document.getElementById('pbF_f'+k).value})).filter(f=>f.ini);if(!nd.fiestasF.length)delete nd.fiestasF;
+    try{const nd=Object.assign({},d,{n:p.n});['historia','curiosidades','fiestas'].forEach(k=>{nd[k]=document.getElementById('pbE_'+k).value.trim();});
       ['hab','habAno','alt'].forEach(k=>{const v=document.getElementById('pbE_'+k).value.trim();if(v==='')delete nd[k];else nd[k]=Math.round(+v);});if(nd.hab!=null||nd.alt!=null)nd.datBy=edName()||'';else delete nd.datBy;
       const del=new Set([...document.querySelectorAll('[data-del]:checked')].map(x=>+x.dataset.del));nd.fotos=(d.fotos||[]).filter((_,k)=>!del.has(k));
       const files=[...(document.getElementById('pbE_f').files||[])],cap=document.getElementById('pbE_ft').value.trim();
@@ -3490,7 +3482,7 @@ const _arEdit0=arEdit;arEdit=function(a,pre){_arEdit0(a);if(!pre)return;if(pre.n
 
 /* ---------- accesos rápidos del inicio e iconos de los grupos del menú ---------- */
 document.querySelectorAll('#quick [data-go]').forEach(b=>b.onclick=()=>showTab(b.dataset.go));
-(()=>{const I={'Ríos':'🌊','El tiempo':'🌦️','Carreteras':'🚗','Qué hacer':'🥾','Participa':'📸','Energía':'⚡','NA sísmica':'🌍','Configuración':'⚙️','Vida silvestre':'🦋','Turismo':'🧭','Administrador':'🔧'};
+(()=>{const I={'Ríos':'🌊','El tiempo':'🌦️','Carreteras':'🚗','Qué hacer':'🥾','Participa':'📸','Energía':'⚡','NA Sostenible':'♻️','Localidades':'🏘️','Mi Espacio':'⭐','NA sísmica':'🌍','Configuración':'⚙️','Vida silvestre':'🦋','Turismo':'🧭','Administrador':'🔧'};
   document.querySelectorAll('#drawer .dgroup span').forEach(s=>{const k=s.textContent.trim();if(I[k])s.dataset.ico=I[k];});})();
 
 /* ---------- ICONOS PROFESIONALES (Phosphor Icons, licencia MIT) ---------- */
@@ -3516,6 +3508,8 @@ function secIco(){const t=document.getElementById('secTitle');if(!t||t.__busy||(
  if(document.body.classList.contains('pro')){const clean=txt.replace(EMO,'');t.innerHTML=(k&&ICK[k]?icoBox(k,12,20):'')+arEsc(clean);t.dataset.done=t.textContent;}
  t.__busy=false;}
 new MutationObserver(()=>{const t=document.getElementById('secTitle');if(!t.__busy&&document.body.classList.contains('pro'))secIco();}).observe(document.getElementById('secTitle'),{childList:true,characterData:true,subtree:true});
+Object.assign(ICK,{'g:NA Sostenible':ICK['g:Energía']||'lightning','g:Localidades':'buildings','g:Mi Espacio':'book-open-text'});
+Object.assign(ICC,{'g:NA Sostenible':'#43a047','g:Localidades':'#6d4c41','g:Mi Espacio':'#8e24aa'});ICC.pueblos='#6d4c41';
 applyIcons((CFG.iconos||'pro')==='pro');
 
 
@@ -3626,7 +3620,6 @@ async function seInit(){const el=document.getElementById('seBody');el.innerHTML=
    <div class="card"><b>🔮 Los próximos 7 días</b><div class="note" style="margin-top:4px">${fut<2?'☀️ Semana bastante seca: se esperan de media menos de 2 mm.':fut<15?`🌦️ Algo de lluvia: unos ${fmtN(fut,0)} mm de media en Navarra.`:`🌧️ Semana lluviosa: unos ${fmtN(fut,0)} mm de media. Ojo a los ríos.`}</div></div>
    <div class="card"><b>⛽ Gasolina y carreteras</b><div class="kpi" style="margin-top:8px"><div><span class="note">Gasolina 95 (media)</span><b>${fmtN(av(g95),3)} €</b></div><div><span class="note">Diésel (media)</span><b>${fmtN(av(dA),3)} €</b></div></div>
     ${INC?`<div class="note" style="margin-top:6px">🚧 Ahora hay ${INC.length} incidencias en las carreteras de Navarra${INC.filter(n=>n.cerr||/cortad|cerrad/i.test(n.af+' '+n.tit)).length?', '+INC.filter(n=>n.cerr||/cortad|cerrad/i.test(n.af+' '+n.tit)).length+' con cortes':''}.</div>`:''}</div>
-   <div class="row" style="flex-wrap:wrap"><button class="btn" onclick="showTab('caudal')">🌊 Ver los ríos</button><button class="btn" onclick="showTab('emb')">💧 Embalses</button><button class="btn" onclick="showTab('energia')">⚡ Energía</button></div>
    <div class="note" style="margin:6px">Datos: Open‑Meteo (29 pueblos de referencia), Ministerio (gasolineras) y Gobierno de Navarra (carreteras).</div>`;}
 
 const _showTabDi=showTab;showTab=function(t){_showTabDi(t);if(t==='diario')setTimeout(diInit,40);if(t==='sitios')setTimeout(msInit,40);if(t==='semana')setTimeout(seInit,40);};
@@ -4036,11 +4029,11 @@ function dpAdmin(){const el=document.getElementById('dpAdm'),x=DPED||{dep:DPDEP|
 const MA_PATH='avisos/escapadas.json',MA_DEF={avisos:[]};
 async function moAvisos(){const el=document.getElementById('moAv'),hoy=hoyYmd(),L=[];
   const [G,av,inc]=await Promise.all([jsLoad(MA_PATH,MA_DEF).catch(()=>MA_DEF),avisosFetch().catch(()=>null),moCortes()]);
-  (G.avisos||[]).filter(a=>!a.hasta||a.hasta>=hoy).forEach(a=>L.push(`<div class="st" style="align-items:flex-start"><div>📢 <b>${esc(a.t)}</b>${a.txt?`<div class="s">${esc(a.txt)}</div>`:''}${a.hasta?`<div class="s">Hasta el ${foFecha(a.hasta)}</div>`:''}${TECH?` <button class="btn" data-mx="${esc(a.id)}">🗑️</button>`:''}</div></div>`));
-  if(av&&av.length)L.push(`<div class="st"><div>🌩️ <b>${av.length} aviso${av.length>1?'s':''} de AEMET en Navarra</b><div class="s">${esc(av[0].ev)} (${esc(av[0].area)})</div></div></div>`);
+  (G.avisos||[]).filter(a=>!a.hasta||a.hasta>=hoy).forEach(a=>L.push(avDet(`📢 <b>${esc(a.t)}</b>`,[a.txt?esc(a.txt):'',a.hasta?`Hasta el ${foFecha(a.hasta)}`:''].filter(Boolean).join('<br>')+(TECH?` <button class="btn" data-mx="${esc(a.id)}">🗑️</button>`:''))));
+  if(av&&av.length)L.push(avDet(`🌩️ <b>${av.length} aviso${av.length>1?'s':''} de AEMET en Navarra</b>`,av.map(a=>`${esc(a.ev)} (${esc(a.area)})`).join('<br>')));
   const bat=(typeof CAZA_CAL!=='undefined'?CAZA_CAL:[]).filter(c=>/batida|monter/i.test(c.mod)&&cazaEstado(c,new Date())[0]==='si');
-  if(bat.length)L.push(`<div class="st"><div>🐗 <b>Hoy es día de batidas y monterías</b> (${[...new Set(bat.map(c=>c.sp))].join(', ').toLowerCase()})<div class="s">Ropa de colores vivos, no salgas de los caminos y respeta los carteles de «Cacería en curso». Mira los cotos en Qué hacer → Caza.</div></div></div>`);
-  if(inc&&inc.length)L.push(`<div class="st"><div>🚧 <b>${inc.length} carretera${inc.length>1?'s':''} cortada${inc.length>1?'s':''}</b><div class="s">${inc.slice(0,4).map(x=>esc(x)).join(' · ')}${inc.length>4?' · …':''}</div></div></div>`);
+  if(bat.length)L.push(avDet(`🐗 <b>Hoy es día de batidas y monterías</b>`,`${[...new Set(bat.map(c=>c.sp))].join(', ').toLowerCase()}. Ropa de colores vivos, no salgas de los caminos y respeta los carteles de «Cacería en curso».`));
+  if(inc&&inc.length)L.push(avDet(`🚧 <b>${inc.length} carretera${inc.length>1?'s':''} cortada${inc.length>1?'s':''}</b>`,inc.map(x=>esc(x)).join('<br>')));
   el.innerHTML='<b>⚠️ Antes de salir hoy</b>'+(L.length?L.join(''):'<div class="note">✅ Hoy no tenemos avisos para el monte.</div>')+
     '<div class="note" style="margin-top:6px">Los cortes de senderos y pistas no tienen una fuente oficial automática: si ves un cartel, <a href="#" id="moAvBz">avísanos</a>. Ante el riesgo, haz caso siempre a los avisos oficiales · Emergencias 112.</div>';
   document.getElementById('moAvBz').onclick=e=>{e.preventDefault();bzIr('Dato a corregir','Aviso para escapadas (corte de camino, sendero cerrado…): \nDónde: \nDesde cuándo: ');};
@@ -4223,6 +4216,30 @@ async function foJustificante(d){
     else if(APP){toast('⬆️ Para guardar PDFs actualiza la app: menú → Buscar nueva versión');}
     else doc.save(n);}
   catch(e){toast('❌ No se pudo hacer el PDF: '+e.message);}}
+
+/* ---------- 📊 «La semana en Navarra» en el Inicio (se recalcula como mucho cada 30 min) ---------- */
+let SEHT=0;
+function seHome(force){if(!force&&Date.now()-SEHT<30*60e3)return;SEHT=Date.now();seInit().catch(()=>{SEHT=0;const el=document.getElementById('seBody');if(el)el.innerHTML='<div class="card"><div class="note">No se pudo calcular ahora. Desliza la pantalla hacia abajo para reintentar.</div></div>';});}
+const _showTabSe=showTab;showTab=function(t){_showTabSe(t);if(t==='mtiempo')setTimeout(()=>seHome(),300);};
+setTimeout(()=>{const s=document.getElementById('t-mtiempo');if(s&&s.classList.contains('on'))seHome();},1500);
+
+/* ---------- 🔄 deslizar hacia abajo (estando arriba del todo) para actualizar los datos ---------- */
+(()=>{const ind=document.createElement('div');ind.id='ptr';document.body.appendChild(ind);
+  const LIM=90,skip=el=>el.closest('canvas,svg,input,select,textarea,.seg,#drawer,#pinBox,[data-noswipe]');
+  let y0=null,dy=0,busy=false;
+  const show=t=>{ind.innerHTML=t;ind.classList.add('on');};
+  const hide=()=>{ind.classList.remove('on','gira');ind.style.transform='translate(-50%,-60px)';};
+  document.addEventListener('touchstart',e=>{dy=0;const enHeader=!!e.target.closest('header');
+    y0=(!busy&&e.touches.length===1&&window.scrollY<=0&&!document.getElementById('drawer').classList.contains('on')&&(enHeader||!skip(e.target)))?e.touches[0].clientY:null;},{passive:true});
+  document.addEventListener('touchmove',e=>{if(y0===null)return;dy=e.touches[0].clientY-y0;
+    if(dy<=0||window.scrollY>0){hide();return;}
+    ind.style.transform=`translate(-50%,${Math.min(dy*.5,70)-10}px)`;show(dy>LIM?'<i>↻</i> Suelta para actualizar':'<i>↓</i> Desliza para actualizar');},{passive:true});
+  document.addEventListener('touchend',async()=>{if(y0===null)return;y0=null;
+    if(dy<=LIM||busy){hide();return;}
+    busy=true;ind.classList.add('gira');show('<i>↻</i> Actualizando…');ind.style.transform='translate(-50%,24px)';
+    try{await document.getElementById('dRefresh').onclick();}catch(e){}
+    try{seHome(true);}catch(e){}
+    setTimeout(()=>{hide();busy=false;},700);},{passive:true});})();
 </script>
 </body>
 </html>

@@ -52,7 +52,7 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 ## 5. Modo administrador (antes «zona técnica»)
 
 - **Cómo se entra**: tocar 5 veces el logo y meter el PIN. La primera vez en cada móvil pide la llave de edición de GitHub.
-- **Qué hay dentro**: Pueblos (en pruebas), Agenda de fiestas, Modo científico, SAIH, las casillas de claves, 📊 Descargas de la app (lee `download_count` de las releases de GitHub) y, en «Fotos de la gente», la subida de fotos de Instagram.
+- **Qué hay dentro**: Agenda de fiestas, Modo científico, SAIH, las casillas de claves, 📊 Descargas de la app (lee `download_count` de las releases de GitHub) y, en «Fotos de la gente», la subida de fotos de Instagram.
 - **Fotos (desde nov. 2026)**: «Fotos de la gente» es pública. «Envía tu foto» (el formulario con alias y correo) sigue solo en el modo administrador hasta resolver el tratamiento de datos personales. Mientras, los administradores suben fotos de Instagram con permiso del autor (solo se guarda el @usuario).
 - **Huella automática**: `.github/workflows/version.yml` ejecuta `tools/make_version.py` en cada push que toque `web/`, así que editar a mano en la web de GitHub también llega a los móviles.
 - **Listas editables desde la app** (modo administrador): `agenda/cultura.json` (Agenda cultural), `deporte/partidos.json` (Deporte navarro), `avisos/escapadas.json` (avisos de «Antes de salir hoy»). Helpers `jsLoad`/`jsEdit`.
@@ -60,8 +60,12 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 - **Bici** (`tools/bici.py`, robot `bici.yml` los martes → `web/bici.js`, ~2 MB, se carga solo al activar una capa de bici en Escapadas): capas de IDENA (DOTACI_Lin_RutasBTT, EuroVelo1/3, INFRAE_*SIGMC: red ciclista, puntos de riesgo, aparcabicis, servicios) y salidas de rutas de carretera/gravel de visitnavarra.es (sus GPX dan 404 en la web oficial: solo ponemos el pueblo de salida y el enlace). El SIG de Pamplona (sig.pamplona.es) no responde desde GitHub.
 - **Manuales**: `manuales/` tiene el manual de usuario en PDF. El de administrador es interno y **no se sube aquí** (el repositorio es público): lo guardan Pedro y Sonia.
 
+- **Localidades** (antes «Pueblos», pantalla `pueblos`): ya es pública, en su propio grupo del menú. Editar sigue siendo solo para administradores.
+- **Actualizar datos**: ya no hay botón 🔄 arriba; se desliza la pantalla hacia abajo estando arriba del todo (llama a `dRefresh`).
+- **Inicio**: debajo del mapa sale «La semana en Navarra» (`seInit` → `#seBody`), ya no hay accesos rápidos.
+- **Avisos**: cada aviso usa `avDet(principal, detalles)`: la parte en negrita a la vista y el resto en un desplegable.
+
 ## 6. Cosas pendientes o ideas
 
-- **Pueblos**: abrirlo a todo el mundo cuando tenga contenido.
 - **Asistente con IA dentro de la app**: solo con la clave protegida en un servidor, nunca en el repositorio público.
 - **Radar con previsión (Rainbow.ai)**: preparado, pero sin clave, porque pide tarjeta.
