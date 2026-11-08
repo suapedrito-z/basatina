@@ -1,0 +1,16 @@
+{
+ "avisos": [
+  {
+   "id": "ev1bera",
+   "t": "Vía verde del Bidasoa / EuroVelo 1: cerrado el tramo Zalain Zoko (Bera) – Endarlatsa",
+   "txt": "Cerrado hasta nuevo aviso (Turismo de Navarra).",
+   "hasta": ""
+  },
+  {
+   "id": "ev1sunbilla",
+   "t": "Vía verde del Bidasoa / EuroVelo 1: cerrado por obras el tramo Sunbilla – Doneztebe/Santesteban",
+   "txt": "Obras desde el 18 de agosto hasta final de año (Turismo de Navarra).",
+   "hasta": "2026-12-31"
+  }
+ ]
+}

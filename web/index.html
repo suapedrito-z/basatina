@@ -2376,7 +2376,9 @@ const MOL=[['PATRIM_Sym_Senderismo','🥾 Rutas recomendadas','#e65100','pt',1,[
  ['VIS','🕳️ Cuevas visitables','#3e2723','pt',1,['N']],['CASC','💦 Cascadas y nacederos','#0288d1','pt',1,['N']],['DOTACI_Sym_Miradores','👀 Miradores','#7b1fa2','pt',1,['RECTUR']],
  ['HIDROG_Sym_ZonaBano','🏊 Zonas de baño','#00acc1','pt',1,['NOMBRE','PTOAGUA']],['FOREST_Sym_AreasRecForest','🧺 Áreas recreativas','#558b2f','pt',0,['NOMBRE']],
  ['PATRIM_Sym_BICarquite','🏰 Patrimonio (BIC)','#6d4c41','pt',0,['BIC']],['GEOLOG_Sym_Cuevas','🕳️ Todas las cuevas y simas','#8d6e63','pt',0,['CUEVA']],
- ['IDEMUN_Sym_Fuentes','🚰 Fuentes públicas','#4fc3f7','pt',0,['FUENTE']],['GEOLOG_Sym_Manantiales','💧 Manantiales','#90caf9','pt',0,['MANANTIAL']]];
+ ['IDEMUN_Sym_Fuentes','🚰 Fuentes públicas','#4fc3f7','pt',0,['FUENTE']],['GEOLOG_Sym_Manantiales','💧 Manantiales','#90caf9','pt',0,['MANANTIAL']],
+ ['BICI_carretera','🚴 Bici de carretera','#e91e63','ln',0,['NOMBRE']],['BICI_gravel','🚵 Gravel','#795548','ln',0,['NOMBRE']],['BICI_btt','🚵 BTT (bici de montaña)','#ff6f00','ln',0,['NOMBRE']],
+ ['BICI_ev1','🚲 EuroVelo 1','#1565c0','ln',0,['NOMBRE']],['BICI_vv','🚲 Vías verdes (Turismo de Navarra)','#43a047','ln',0,['NOMBRE']],['BICI_pam','🚲 Carriles bici de Pamplona','#00bcd4','ln',0,['BCAT']]];
 const MOOV=[['','Sin capa oficial'],['senderos','🥾 Todos los senderos señalizados (PR, SL)'],['FOREST_Ras_ProbQuemaAnual','🔥 Probabilidad de incendio'],['FOREST_Pol_HcoIncendioA','🔥 Incendios 2019‑2023'],['FOREST_Pol_ZonUsoFuego','🔥 Zonas de uso del fuego'],['DOTACI_Sym_PtosAgua','🚒 Puntos de agua contra incendios']];
 let MON={},MOM=null,MOSEL=null,MOLOAD=false,MOPF=null;MOL.forEach(l=>MON[l[0]]=!!l[4]);
 function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[k];
@@ -2384,7 +2386,12 @@ function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[
   if(k==='PATRIM_Lin_CaminoSant'&&G.CAMINO_ETAPAS&&G.CAMINO_ETAPAS.f.length)return G.CAMINO_ETAPAS.f;   // el Camino partido en etapas, con perfil
   if(k==='VV')return ['DOTACI_Lin_VVBidasoa','DOTACI_Lin_VVVascoNav','DOTACI_Lin_VVIrati','DOTACI_Lin_VVPlazaola','DOTACI_Lin_VVTarazoni'].flatMap(x=>(G[x]||{f:[]}).f);
   return (G[k]||{f:[]}).f;}
-function moLoad(cb){if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}
+/* 🚴 rutas en bici (web/bici.js, lo genera tools/bici.py): se cargan con las capas del monte y se meten en MO_EXTRA */
+function biciApply(){const B=window.BICI;if(!B)return;const nm=t=>({carretera:'Bici de carretera',gravel:'Gravel',btt:'BTT',ev1:'EuroVelo 1',vv:'Vía verde'})[t]||t;
+  ['carretera','gravel','btt','ev1','vv'].forEach(t=>{MO_EXTRA['BICI_'+t]=(B.rutas||[]).filter(r=>r.tipo===t).map(r=>({a:{NOMBRE:r.n,BKM:r.km?fmtN(r.km,1)+' km':null,BDES:r.des?r.des+' m':null,BDIF:r.dif||null,URL:r.url,D:nm(t)+' · Turismo de Navarra (visitnavarra.es). En la ficha oficial tienes el GPX y la descripción.'},r:r.r}));});
+  MO_EXTRA.BICI_pam=(B.pamplona||[]).map(f=>({a:{BCAT:f.a.CAT||'Vía ciclable',NOMBRE:f.a.VIA&&f.a.VIA!=='SIN NOMBRE'?f.a.VIA:null,D:'Red ciclable · Ayuntamiento de Pamplona (sig.pamplona.es)'},r:f.r}));}
+let BILOAD=false;function biciLoad(cb){if(window.BICI||BILOAD){cb();return;}BILOAD=true;const s=document.createElement('script');s.src='bici.js';s.onload=s.onerror=()=>{biciApply();cb();};document.body.appendChild(s);}
+function moLoad(cb){biciLoad(()=>{if(window.MONTE_GEO&&MOM)MOM.draw();});if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}
 function moDraw(x,P,b,M){const r=Math.max(2.5,Math.min(7,2+M.z*.3));
   for(const [k,,c,t] of MOL){if(!MON[k])continue;const big=k==='VIS'||k==='CASC';for(const f of moFeats(k)){const sel=MOSEL&&MOSEL.f===f;
     if(t==='pt'&&f.r)for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.lineCap='round';x.lineJoin='round';x.strokeStyle='#fff';x.lineWidth=sel?7:4.5;x.stroke();x.strokeStyle=c;x.lineWidth=sel?4:2.5;x.stroke();}
@@ -2404,7 +2411,7 @@ async function zInfoMo(px,py,M){const el=document.getElementById('moFicha');el.i
   let h='';if(th.length&&td.length>=th.length)th.forEach((k,i)=>{if(td[i]&&!/^(FID|OBJECTID|GEOM|SHAPE|FEATURE|BEGINLIFE|X25830|Y25830)/i.test(k))h+=`<div class="st"><b>${k}</b><span style="text-align:right">${td[i]}</span></div>`;});
   else{const p=t.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();if(p)h=`<div class="note">${p.slice(0,600)}</div>`;}
   el.innerHTML=`<div class="card"><b>📍 ${MOOV.find(z=>z[0]===M.ov)[1]}</b>${h||'<div class="note">Aquí no hay nada en esta capa (acércate más para consultar).</div>'}<div class="note">Fuente: Gobierno de Navarra · IDENA.</div></div>`;}
-const LAB={TRAMO:'Tramo',NOMBRE:'Nombre',DESCRIPCIO:'Descripción',TIPO:'Tipo',COTA:'Altitud (m)',MUNICIPIO:'Municipio',TOPONIMIA:'Paraje',LONGITUD:'Longitud (m)',PROFUNDIDA:'Profundidad (m)',
+const LAB={BKM:'Distancia',BDES:'Desnivel',BDIF:'Dificultad',BCAT:'Tipo de vía',TRAMO:'Tramo',NOMBRE:'Nombre',DESCRIPCIO:'Descripción',TIPO:'Tipo',COTA:'Altitud (m)',MUNICIPIO:'Municipio',TOPONIMIA:'Paraje',LONGITUD:'Longitud (m)',PROFUNDIDA:'Profundidad (m)',
   LUGARINI:'Salida',LUGARFIN:'Llegada',ALTITUDMAX:'Altitud máx. (m)',ALTITUDMIN:'Altitud mín. (m)',DESNIPOSI:'Desnivel + (m)',DESNINEGA:'Desnivel − (m)',BARBACOA:'Barbacoa',EQUIPAMIEN:'Equipamiento',
   PARKING:'Aparcamiento',VEGETACION:'Vegetación',ELEPAISAJE:'Paisaje',DEMARCACIO:'Zona',PTOAGUA:'Punto',POBLACION:'Localidad',ZONATUR:'Zona',POTABLE:'Agua potable',RIO:'Cuenca',CODIGO:'Código',D:'',N:''};
 async function moFicha(){const el=document.getElementById('moFicha');MOPF=null;if(!MOSEL){el.innerHTML='';return;}const {L,f,ll}=MOSEL,a=f.a,[k,name,col,,,nf]=L;
