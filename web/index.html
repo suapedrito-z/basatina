@@ -246,7 +246,7 @@ body.bna #mtBox #mtInfo{color:#fff;opacity:.95;margin:6px 4px 0;position:relativ
 body.bna #mtBox #avBanner,body.bna #mtBox #sisBanner{box-shadow:0 2px 8px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.35)}
 body.bna [style*="background:#0b1118"]{background:#E1E7E2!important}
 body.bna .topbar{padding-left:4px}
-.bnaEd{font-size:13px;padding:6px 12px;border-radius:20px}
+body.bna .bnaEd,.bnaEd{font-family:'Lato',sans-serif;font-size:12.5px;font-weight:700;padding:4px 6px;border:none!important;background:none!important;box-shadow:none!important;color:var(--mut)!important;display:inline-flex;align-items:center;gap:4px}
 #bnaAccBox{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
 #bnaAccBox>div{background:var(--bg);width:100%;max-width:560px;max-height:86vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:16px 14px calc(18px + env(safe-area-inset-bottom));box-sizing:border-box}
 .bnaAccL{display:flex;flex-direction:column;gap:6px;margin-top:6px}
@@ -4568,7 +4568,7 @@ function bnHome(){const H=document.getElementById('bnaHome');if(!H||!isBna())ret
   const hoy=hoyYmd(),ev=lsGet('agendaMia',[]).filter(x=>x.f===hoy).sort((a,b)=>(a.h||'99').localeCompare(b.h||'99'));
   if(ev.length)now+=`<div onclick="bnDiGo('cal')">${bnTile('cultura',22,40)}<div><b>Hoy en tu calendario</b><small>${ev.slice(0,3).map(x=>(x.h?esc(x.h)+' ':'')+esc(x.t)).join(' · ')}</small></div><span class="bdg ok">${ev.length}</span></div>`;
   const A=bnAcc();
-  H.innerHTML=`<div class="bnaH" style="justify-content:space-between"><span>Accesos directos</span><button class="btn bnaEd" id="bnaAccEdit">✏️ Editar</button></div>
+  H.innerHTML=`<div class="bnaH" style="justify-content:space-between"><span>Accesos directos</span><button class="btn bnaEd" id="bnaAccEdit">Editar ›</button></div>
     ${A.length?`<div class="bnaQ">${A.map(k=>`<button data-go="${k}">${bnTile(k,26,46)}<span>${BNL[k]}</span></button>`).join('')}</div>`:'<div class="note" style="margin:0 4px 12px">No tienes accesos directos. Pulsa «Editar» para elegirlos.</div>'}
     ${now?`<div class="bnaH">Ahora en Navarra</div><div class="bnaNow">${now}</div>`:''}`;
   H.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>showTab(b.dataset.go));
@@ -4628,7 +4628,7 @@ function notRender(){const V=document.getElementById('diNotV'),N=lsGet('notas',[
   s.querySelectorAll('#diSeg button').forEach(b=>b.onclick=()=>{DIV=b.dataset.v;if(DIV==='sal'&&typeof diBack==='function')diBack();diSegApply();});})();
 const _bnSTd=showTab;showTab=function(t){_bnSTd(t);if(t==='diario')setTimeout(diSegApply,80);};
 // ---------- barra inferior ----------
-const BNN=[['mtiempo','Inicio','i-inicio'],['semana','La semana','i-semana'],['cerca','Cerca','i-pin'],['diario','Mi diario','i-libro'],['_menu','Menú','i-menu']];
+const BNN=[['mtiempo','Inicio','i-inicio'],['cultura','Agenda','i-agenda'],['cerca','Cerca','i-pin'],['diario','Mi diario','i-libro'],['_menu','Menú','i-menu']];
 function bnNav(){let n=document.getElementById('bnaNav');if(!n){n=document.createElement('div');n.id='bnaNav';document.body.appendChild(n);
   n.innerHTML=BNN.map(([k,l,i])=>`<button data-k="${k}">${bnSvg(i,24)}<span>${l}</span></button>`).join('');
   n.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(b.dataset.k==='_menu'){const mb=document.getElementById('menuBtn');mb.onclick?mb.onclick():menu(true);}else{menu(false);showTab(b.dataset.k);}});}}
