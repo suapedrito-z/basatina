@@ -1,1 +1,1 @@
-window.AGENDA={"t":"2026-11-08 16:22","fiestas":[],"con":[{"s":"abaigar-1","p":"Abáigar","f":0},{"s":"aberin-5","p":"Aberin","f":0},{"s":"ablitas-6","p":"Ablitas","f":0}]};
+window.AGENDA={"t":"2026-11-08 16:43","fiestas":[],"con":[{"s":"abaigar-1","p":"Abáigar","f":0},{"s":"aberin-5","p":"Aberin","f":0},{"s":"ablitas-6","p":"Ablitas","f":0},{"s":"aibar-9","p":"Aibar / Oibar","f":0}]};
