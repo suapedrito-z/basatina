@@ -23,7 +23,7 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 | `.github/workflows/*.yml` | Tareas automáticas: `build.yml` compila la APK; el resto actualiza datos |
 | `app/src/main/java/es/pedrito/controlarga/` | Código Android: `MainActivity` (WebView + puente `AndroidNet`), `RiverJob` (avisos en segundo plano), `RiverWidget` |
 | `app/build.gradle` | `versionCode` / `versionName` de la APK. Súbelo si cambias algo de Android |
-| `config/*.json` | Claves de servicios (TomTom, AEMET). Las guarda la propia app desde la zona técnica |
+| `config/*.json` | Claves de servicios (TomTom, AEMET). Las guarda la propia app desde el modo administrador |
 | `pueblos/` | Historia, fiestas y fotos que escriben Pedro y Sonia desde la app |
 
 ## 3. Reglas para no romper nada
@@ -36,7 +36,7 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 5. **Internet desde la app**:
    - Las webs que no permiten CORS (SAIH, Gobierno de Navarra, Ministerio…) se piden con `netGet(url)`, que usa el puente Android y solo funciona dentro de la app (`APP===true`).
    - Las que sí lo permiten se piden con `fetch`.
-6. **No pongas contraseñas ni claves en el código.** Las claves van en `config/*.json` y se guardan desde la app (zona técnica). La firma de la APK usa el secreto `KEYSTORE_PASS` de GitHub.
+6. **No pongas contraseñas ni claves en el código.** Las claves van en `config/*.json` y se guardan desde la app (modo administrador). La firma de la APK usa el secreto `KEYSTORE_PASS` de GitHub.
 7. **Siempre en español** (y euskera en `eu.js` si se puede). Mensajes claros, sin tecnicismos.
 8. **Aviso que debe seguir saliendo**: «⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES».
 
@@ -46,13 +46,15 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 - **Tiempo**: `getJSON(url)` (Open‑Meteo, con `OM` y `TZ`), `wxIcon(code,hora)`, `wDesc(code)`.
 - **Formato y cálculo**: `fmtN(número,decimales)`, `km(lat1,lon1,lat2,lon2)`, `ymd(fecha)`.
 - **Interfaz**: `toast(texto)`, `menu(true/false)`, `showTab('nombre')`.
-- **Zona técnica**: variable `TECH` y función `techApply()`. Los elementos con clase `tech` solo se ven ahí.
+- **Modo administrador** (en el código sigue llamándose «zona técnica»): variable `TECH` y función `techApply()`. Los elementos con clase `tech` solo se ven ahí.
 - **GitHub desde la app**: `ghTok()`, `ghPut(ruta, base64, mensaje, sha)` (lo usan Pueblos y las claves).
 
-## 5. Zona técnica
+## 5. Modo administrador (antes «zona técnica»)
 
 - **Cómo se entra**: tocar 5 veces el logo y meter el PIN. La primera vez en cada móvil pide la llave de edición de GitHub.
-- **Qué hay dentro**: Pueblos (en pruebas), Agenda de fiestas, Modo científico, SAIH, y las casillas de claves.
+- **Qué hay dentro**: Pueblos (en pruebas), Agenda de fiestas, Modo científico, SAIH, las casillas de claves, 📊 Descargas de la app (lee `download_count` de las releases de GitHub) y, en «Fotos de la gente», la subida de fotos de Instagram.
+- **Fotos (desde nov. 2026)**: «Fotos de la gente» es pública. «Envía tu foto» (el formulario con alias y correo) sigue solo en el modo administrador hasta resolver el tratamiento de datos personales. Mientras, los administradores suben fotos de Instagram con permiso del autor (solo se guarda el @usuario).
+- **Manuales**: `manuales/` tiene el manual de usuario y el de administrador en PDF.
 
 ## 6. Cosas pendientes o ideas
 

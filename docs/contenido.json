@@ -96,7 +96,13 @@
    "texto": "Si sube el río, si cortan tu carretera, si nieva en un puerto o si el finde viene bueno."
   }
  ],
- "apartados": [],
+ "apartados": [
+  {
+   "titulo": "📸 Tus fotos en BasatiNA",
+   "texto": "¿Haces fotos bonitas de Navarra? Súbelas a **tu Instagram** con el hashtag **#BasatiNA**.\nSi nos gusta alguna, te escribimos por mensaje privado de Instagram para pedirte permiso. Si nos dices que sí, sale en la app, en «Fotos de la gente», con tu @usuario y un enlace a tu publicación.\nNo te pedimos ningún dato: ni nombre, ni correo.",
+   "foto": ""
+  }
+ ],
  "pasos_titulo": "Cómo instalarla",
  "pasos": [
   "Desde el móvil Android, pulsa **«Descargar para Android»**.",
