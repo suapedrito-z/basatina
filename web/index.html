@@ -133,6 +133,117 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 /* deslizar hacia abajo para actualizar */
 #ptr{position:fixed;left:50%;top:0;z-index:90;transform:translate(-50%,-60px);background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:20px;padding:7px 14px;font-size:13.5px;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none;transition:opacity .2s;opacity:0;white-space:nowrap}
 #ptr.on{opacity:1}#ptr.gira i{display:inline-block;animation:gira 1s linear infinite}
+/* ===== tema «BasatiNA» (nuevo diseño, colores del logo) ===== */
+@font-face{font-family:'Montserrat';font-weight:700 800;font-style:normal;font-display:swap;src:url(bna-montserrat.woff2) format('woff2')}
+@font-face{font-family:'Lato';font-weight:400;font-style:normal;font-display:swap;src:url(bna-lato-400.woff2) format('woff2')}
+@font-face{font-family:'Lato';font-weight:700;font-style:normal;font-display:swap;src:url(bna-lato-700.woff2) format('woff2')}
+@font-face{font-family:'Lato';font-weight:900;font-style:normal;font-display:swap;src:url(bna-lato-900.woff2) format('woff2')}
+body.bna{--bg:#F3F6F1;--panel:#ffffff;--line:#E1E7E2;--txt:#1D1D1D;--mut:#6B7A72;--acc:#3D7031;--acc2:#DD4826;--acc3:#097BA4;--verde:#3D7031;--verde2:#5E8F4E;--azul:#097BA4;--azul2:#0D6285;--rojo:#DD4826;
+  font-family:'Lato',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg)}
+body.bna section{background:transparent}
+body.bna h1,body.bna h2,body.bna h3,body.bna .card>b:first-child,body.bna #seHome>b,body.bna .bnaH{font-family:'Montserrat','Lato',system-ui,sans-serif;letter-spacing:-.01em}
+body.bna .card{border-radius:18px;border:1px solid var(--line);box-shadow:0 4px 16px rgba(29,45,35,.06)}
+body.bna .btn{border-radius:12px}
+body.bna .btn.on,body.bna .seg button.on{background:var(--verde);border-color:var(--verde);color:#fff}
+body.bna .btn.pri{background:linear-gradient(135deg,var(--verde),var(--azul));border-color:transparent;color:#fff}
+body.bna a{color:var(--azul2)}
+/* cabecera blanca, logo en chapa blanca sin tocarlo */
+body.bna header,body.bna .topbar{background:#fff!important}
+body.bna header{border-radius:0 0 22px 22px;box-shadow:0 4px 16px rgba(29,45,35,.07);margin-bottom:8px}
+body.bna .topbar:after{display:block;height:3px;background:linear-gradient(90deg,var(--verde),var(--azul) 70%,var(--rojo))}
+body.bna #logo{border:none;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+body.bna .topbar h1{font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:19px;color:#1D1D1D}
+body.bna .na{color:#DD4826}
+body.bna #secTitle{color:var(--mut)}
+body.bna #wx,body.bna #wx *{color:#1D1D1D}
+body.bna #menuBtn{background:#F3F6F1;border:1px solid var(--line);color:#1D1D1D;border-radius:14px}
+body.bna #topRef{border-color:var(--line);background:#F3F6F1}
+/* menú lateral */
+body.bna #drawer{background:#F3F6F1;width:min(90vw,380px);padding:0 0 20px}
+body.bna #drawer .dhead{position:relative;overflow:hidden;background:linear-gradient(120deg,#3D7031,#097BA4);color:#fff;border:none;padding:22px 16px 30px}
+body.bna #drawer .dhead:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-38px;height:60px;background:#F3F6F1;border-radius:50% 50% 0 0/100% 100% 0 0}
+body.bna #drawer .dhead b{font-family:'Montserrat',sans-serif;font-weight:800;font-size:21px}
+body.bna #drawer .dhead img{border:none;background:#fff;width:58px;height:58px;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+body.bna #drawer .dhead .na{color:#fff;opacity:.95}
+body.bna #bnaDGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px 12px;grid-auto-flow:row dense}
+body.bna #bnaDGrid>button,body.bna #bnaDGrid>.dgroup{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 8px rgba(29,45,35,.05);padding:12px 10px;display:flex;align-items:center;gap:9px;margin:0;width:auto;
+  color:#1D1D1D;font-size:13.5px;font-weight:700;text-transform:none;letter-spacing:0;line-height:1.2;min-height:56px;box-sizing:border-box;text-align:left}
+body.bna #bnaDGrid>.dgroup span{display:flex;align-items:center;gap:9px}
+body.bna button,body.bna input,body.bna select,body.bna textarea{font-family:inherit}
+body.bna #dpDep{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}body.bna #dpDep button{flex:none;display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:8px 14px}
+.bnaHero .go{position:relative;z-index:1;display:inline-block;margin-top:8px;font-weight:700;font-size:14px;cursor:pointer;opacity:.95}
+body.bna #bnaDGrid>.dgroup i{margin-left:auto;font-size:12px}
+body.bna #bnaDGrid>.dgroup.open{border-color:var(--verde);box-shadow:0 0 0 2px rgba(61,112,49,.15)}
+body.bna #bnaDGrid>.dsub{grid-column:1/-1;background:#fff;border-radius:16px;border:1px solid var(--line);padding:4px 0}
+body.bna #drawer .dsub button{padding:10px 12px;margin:2px 6px;width:calc(100% - 12px);display:flex;align-items:center;gap:10px;font-size:14.5px;color:#1D1D1D}
+body.bna #drawer button.on,body.bna #drawer .dsub button.on{background:#E5EFE1;border-left:3px solid var(--verde);color:#2b5222}
+body.bna #bnaDGrid>button.on{border-left:3px solid var(--verde)}
+body.bna #drawer .dgroup span:before{content:none}
+#bnaSearch{display:none}
+body.bna #bnaSearch{display:flex;align-items:center;gap:8px;margin:0 12px 10px;position:relative;z-index:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 12px;box-shadow:0 2px 8px rgba(29,45,35,.06)}
+body.bna #bnaSearch input{flex:1;border:none;outline:none;background:transparent;font:inherit;font-size:15px;padding:12px 0;color:#1D1D1D}
+body.bna #bnaSearch svg{color:var(--mut)}
+#bnaSRes{display:none}body.bna #bnaSRes.on{display:block;margin:0 12px 8px;background:#fff;border-radius:16px;border:1px solid var(--line);padding:4px 0}
+body.bna #bnaDGrid.off{display:none}
+/* casillas de icono */
+.bt{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;flex:none}
+.bt.g{background:#E5EFE1;color:#3D7031}.bt.b{background:#DDEFF6;color:#0D6285}.bt.r{background:#FBE5DF;color:#DD4826}
+body.bna .icb{box-shadow:none}
+/* inicio */
+#bnaHome{display:none}body.bna #bnaHome{display:block}
+.bnaHero{position:relative;overflow:hidden;border-radius:22px;padding:18px 18px 22px;color:#fff;background:linear-gradient(125deg,#3D7031 0%,#4f8a46 35%,#097BA4 100%);box-shadow:0 8px 24px rgba(13,98,133,.22);margin-bottom:12px}
+.bnaHero:after{content:"";position:absolute;right:-60px;bottom:-70px;width:220px;height:160px;border-radius:50%;border:16px solid rgba(255,255,255,.12)}
+.bnaHero .l1{font-size:13px;opacity:.9}.bnaHero .l1:first-letter{text-transform:uppercase}
+.bnaHero .town{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;margin-top:2px}
+.bnaHero .tt{display:flex;align-items:center;gap:12px;margin-top:6px}
+.bnaHero .tt b{font-family:'Montserrat',sans-serif;font-weight:800;font-size:46px;line-height:1}
+.bnaHero .tt span{font-size:40px;line-height:1}
+.bnaHero .mm{font-size:13.5px;opacity:.92}
+.bnaHero .pill{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer}
+.bnaHero .pill i{width:9px;height:9px;border-radius:50%;background:#8fe07d;display:inline-block}
+.bnaQ{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.bnaQ button{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:11.5px;font-weight:700;color:#1D1D1D;line-height:1.15;cursor:pointer;box-shadow:0 2px 8px rgba(29,45,35,.05)}
+.bnaQ button:active{transform:scale(.96)}
+.bnaH{font-weight:800;font-size:17px;margin:4px 4px 8px;display:flex;align-items:center;gap:8px}
+.bnaNow{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.bnaNow>div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px 12px;display:flex;align-items:center;gap:11px;cursor:pointer;box-shadow:0 2px 8px rgba(29,45,35,.05)}
+.bnaNow b{display:block;font-size:14.5px}.bnaNow small{color:var(--mut);font-size:12.5px}
+.bnaNow .bdg{margin-left:auto;font-size:11.5px;font-weight:900;border-radius:20px;padding:4px 9px;white-space:nowrap}
+.bdg.ok{background:#E5EFE1;color:#3D7031}.bdg.am{background:#FFF3D6;color:#a66a00}.bdg.ro{background:#FBE5DF;color:#DD4826}.bdg.az{background:#DDEFF6;color:#0D6285}
+body.bna #seHome>b{font-weight:800}
+/* barra inferior */
+#bnaNav{display:none}
+body.bna #bnaNav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:45;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(29,45,35,.08);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+body.bna #bnaNav button{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;font-size:11px;font-weight:700;color:#6B7A72;padding:4px 0;cursor:pointer}
+body.bna #bnaNav button.on{color:#3D7031}
+body.bna #bnaNav button.on svg{background:#E5EFE1;border-radius:12px}
+body.bna #bnaNav svg{width:44px;height:28px;padding:2px 10px;box-sizing:border-box}
+body.bna .wrap{padding-bottom:78px}
+/* deporte */
+.dpl{display:flex;align-items:center;gap:8px;margin:14px 0 6px;padding:8px 10px;background:#fff;border:1px solid var(--line);border-left:5px solid var(--verde);border-radius:12px}
+.dpl b{font-family:'Montserrat',sans-serif;font-size:14px;flex:1;min-width:0}
+.dpl.n{border-left-color:#DD4826}.dpl.v{border-left-color:#097BA4}
+.dpb{font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;border-radius:20px;padding:3px 8px;white-space:nowrap}
+.dpl .dpb{background:#E5EFE1;color:#3D7031}.dpl.n .dpb{background:#FBE5DF;color:#DD4826}.dpl.v .dpb{background:#DDEFF6;color:#0D6285}
+.dpm{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px;margin:6px 0;box-shadow:0 2px 8px rgba(29,45,35,.04)}
+.dpd{flex:none;width:48px;text-align:center;background:#F3F6F1;border-radius:12px;padding:5px 0;line-height:1.05}
+.dpd small{display:block;font-size:10px;font-weight:900;color:#6B7A72;text-transform:uppercase}
+.dpd b{display:block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;color:#1D1D1D}
+.dpt{flex:1;min-width:0}
+.dpn{display:flex;align-items:center;gap:7px;font-weight:700;font-size:14px;line-height:1.3;margin:1px 0}
+.dpe{flex:none;width:22px;height:22px;border-radius:50%;color:#fff;font-size:9.5px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}
+.dpt .s{font-size:12px;color:var(--mut);margin-top:3px}
+.dph{flex:none;text-align:right;font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#0D6285}
+.dph.res{color:#3D7031;font-size:16px}.dph small{display:block;font-family:'Lato',sans-serif;font-size:11px;color:var(--mut);font-weight:700}
+.dpsp{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px}
+/* ríos: semáforo */
+#cauSem{display:none}body.bna #cauSem{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 10px}
+#cauSem>div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center}
+#cauSem b{display:block;font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800}
+#cauSem small{font-size:12px;font-weight:700;color:var(--mut)}
+#cauSem .ok b{color:#3D7031}#cauSem .am b{color:#d18a00}#cauSem .ro b{color:#DD4826}
+body.bna .st[data-al]{border-left:4px solid var(--line);padding-left:10px}
+body.bna .st[data-al="#2e7d32"]{border-left-color:#5E8F4E}body.bna .st[data-al="#f9a825"]{border-left-color:#f2b417}body.bna .st[data-al="#ef6c00"]{border-left-color:#ef6c00}body.bna .st[data-al="#c62828"]{border-left-color:#DD4826}
 </style>
 </head>
 <body>
@@ -360,6 +471,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 </section>
 <!-- ============ MAPA DEL TIEMPO ============ -->
 <section id="t-mtiempo">
+<div id="bnaHome"></div>
 <div id="avBanner" style="display:none;color:#fff;padding:8px 10px;border-radius:10px;margin-bottom:8px;font-size:13.5px;cursor:pointer" onclick="showTab('tiempo')"></div>
 <div id="sisBanner" style="display:none;color:#fff;background:#6a1b9a;padding:8px 10px;border-radius:10px;margin-bottom:8px;font-size:13.5px;cursor:pointer" onclick="showTab('sismo')"></div>
 <div id="mtWrap" style="position:relative">
@@ -510,6 +622,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <div class="row" style="justify-content:space-between;align-items:center"><div class="note" id="cauInfo">Datos en tiempo real del SAIH Ebro</div><button class="btn" id="cauRef">🔄 Actualizar</button></div>
 <div class="seg" id="rivSeg"><button class="btn on" data-r="arga">🌊 Arga</button><button class="btn" data-r="irati">🌲 Irati</button><button class="btn" data-r="ega">🍇 Ega</button><button class="btn" data-r="aragon">⛰️ Aragón</button><button class="btn" data-r="ebro">🏞️ Ebro</button></div>
 <div id="cauArgaView">
+<div id="cauSem"></div>
 <div id="cauEugui"></div>
 <div class="note">Toca una estación para ver su gráfica de las últimas horas.</div>
 <div class="card"><b>🌊 Río Arga (de arriba abajo)</b><div id="cauArga"></div></div>
@@ -1376,7 +1489,7 @@ function stRow(code,label){const st=CAU&&CAU[code];if(!st)return `<div class="st
   const q=pick(st,'q'),n=pick(st,'n'),main=q||n,al=alertOf(n);
   const v=main?`${fmtN(main.VALOR_QM,main.DECIMALES_VALOR??2)} <span style="font-size:13px">${main.LS_UNID_ING||''}</span>`:'—';
   const sub=[q&&n?'nivel '+fmtN(n.VALOR_QM,2)+' m':'',main?TREND[main.LS_TENDENCIA]||'':'',main?hhmm(main.ULTIMA_FECHA):''].filter(Boolean).join(' · ');
-  return `<div class="st" data-code="${code}" data-lab="${label}" style="cursor:pointer"><div><b>${label} <span class="note">📈</span></b><div class="s">${sub}</div>${al?`<div class="s" style="color:${al[1]};font-weight:600">${al[0]}</div>`:''}</div><div class="v">${v}</div></div>`;}
+  return `<div class="st" data-code="${code}" data-lab="${label}"${al?` data-al="${al[1]}"`:''} style="cursor:pointer"><div><b>${label} <span class="note">📈</span></b><div class="s">${sub}</div>${al?`<div class="s" style="color:${al[1]};font-weight:600">${al[0]}</div>`:''}</div><div class="v">${v}</div></div>`;}
 function cauRender(){const A=document.getElementById('cauArga'),F=document.getElementById('cauAfl'),E=document.getElementById('cauEugui');
   if(!APP){A.innerHTML=F.innerHTML='';E.innerHTML='<div class="card">📱 Esta sección funciona en la app <b>BasatiNA</b>: el móvil lee los datos del SAIH Ebro desde tu conexión.</div>';return;}
   if(!CAU){A.innerHTML='<div class="note">Cargando…</div>';return;}
@@ -1739,16 +1852,17 @@ setTimeout(()=>showTab('mtiempo'),30);
    ===================================================================== */
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
 // ---------- ajustes ----------
-let CFG=Object.assign({tema:'alegre',letra:100,avisos:false,qAma:150,qRoj:300,subida:30},LS.get('cfg',{}));
+let CFG=Object.assign({tema:'bna',letra:100,avisos:false,qAma:150,qRoj:300,subida:30},LS.get('cfg',{}));
 if(!CFG.tema2){CFG.tema2=1;CFG.tema='alegre';LS.set('cfg',CFG);}
-function cfgApply(){document.body.classList.toggle('alegre',CFG.tema==='alegre');const dark=CFG.tema==='oscuro'||(CFG.tema==='auto'&&!(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches));
+if(!CFG.tema3){CFG.tema3=1;CFG.tema='bna';LS.set('cfg',CFG);}   // nuevo diseño BasatiNA por defecto (se puede volver al anterior en Ajustes)
+function cfgApply(){document.body.classList.toggle('alegre',CFG.tema==='alegre');document.body.classList.toggle('bna',CFG.tema==='bna');const dark=CFG.tema==='oscuro'||(CFG.tema==='auto'&&!(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches));
   document.body.classList.toggle('light',!dark);
   if(APP&&window.AndroidNet.setTextZoom)window.AndroidNet.setTextZoom(CFG.letra);
   if(APP&&window.AndroidNet.setAlerts)window.AndroidNet.setAlerts(JSON.stringify({on:CFG.avisos,qAma:CFG.qAma,qRoj:CFG.qRoj,subida:CFG.subida,roads:CFG.roads||[],snow:CFG.snow||[],finde:CFG.finde?[TOWNS[TOWN][0],TOWNS[TOWN][1],TOWNS[TOWN][2]]:null}));}
 function cfgSave(){LS.set('cfg',CFG);cfgApply();if(typeof applyIcons==='function')applyIcons((CFG.iconos||'pro')==='pro');}
 function ajustesRender(){const el=document.getElementById('ajBody'),nat=APP&&window.AndroidNet.setAlerts;
   const seg=(k,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button class="btn${CFG[k]==v?' on':''}" data-k="${k}" data-v="${v}">${l}</button>`).join('')}</div>`;
-  el.innerHTML=`<div class="card"><b>🎨 Aspecto</b>${seg('tema',[['alegre','🌈 Alegre'],['claro','☀️ Claro'],['oscuro','🌙 Oscuro'],['auto','📱 Como el móvil']])}<div class="note" style="margin-top:8px">Iconos del menú</div>${seg('iconos',[['pro','Profesionales'],['emoji','Emojis']])}</div>
+  el.innerHTML=`<div class="card"><b>🎨 Aspecto</b>${seg('tema',[['bna','🌿 BasatiNA (nuevo)'],['alegre','🌈 Alegre'],['claro','☀️ Claro'],['oscuro','🌙 Oscuro'],['auto','📱 Como el móvil']])}<div class="note" style="margin-top:8px">Iconos del menú</div>${seg('iconos',[['pro','Profesionales'],['emoji','Emojis']])}</div>
   <div class="card"><b>🔠 Tamaño de letra</b>${nat?seg('letra',[[100,'Pequeña'],[115,'Media'],[130,'Grande']]):'<div class="note">Disponible con la app actualizada (versión 6 o más).</div>'}</div>
   <div class="card"><b>🔔 Avisos en el móvil</b>
    ${nat?`<div class="note">La app mira el SAIH cada 15 minutos, aunque esté cerrada, y te avisa si el Arga en Burlada:</div>
@@ -4016,7 +4130,8 @@ const DP_DEPS=[['','Todos','🏆'],['futbol','Fútbol','⚽'],['sala','Fútbol s
 let DPDEP='',DPCOMP='',DPED=null;
 const dpIco=d=>(DP_DEPS.find(x=>x[0]===d)||DP_DEPS[10])[2];
 async function dpRender(){const G=await jsLoad(DP_PATH,DP_DEF),hoy=hoyYmd();
-  const ds=document.getElementById('dpDep');ds.innerHTML=DP_DEPS.map(c=>`<button class="btn${c[0]===DPDEP?' on':''}" data-v="${c[0]}">${c[2]} ${c[1]}</button>`).join('');
+  const ds=document.getElementById('dpDep');const BNS={futbol:'s-futbol',sala:'s-sala',balonc:'s-basket',balonm:'s-balonmano',pelota:'s-pelota',voley:'s-voley','':'i-trofeo'},dIc=d=>isBna()&&BNS[d]?bnSvg(BNS[d],18):dpIco(d);
+  ds.innerHTML=DP_DEPS.map(c=>`<button class="btn${c[0]===DPDEP?' on':''}" data-v="${c[0]}">${dIc(c[0])} ${c[1]}</button>`).join('');
   ds.querySelectorAll('button').forEach(b=>b.onclick=()=>{DPDEP=b.dataset.v;DPCOMP='';dpRender();});
   const P0=(G.partidos||[]).filter(x=>!DPDEP||x.dep===DPDEP);
   /* Orden de las ligas: por deporte (orden de los botones) y dentro, de la más alta a la más baja (campo «o»).
@@ -4031,7 +4146,16 @@ async function dpRender(){const G=await jsLoad(DP_PATH,DP_DEF),hoy=hoyYmd();
   const cs=document.getElementById('dpComp');cs.innerHTML=CS.length>1?[['','📋 Todas las ligas'],...CS.map(c=>[c,c])].map(c=>`<button class="btn${c[0]===DPCOMP?' on':''}" data-v="${esc(c[0])}">${esc(c[1])}</button>`).join(''):'';
   cs.querySelectorAll('button').forEach(b=>b.onclick=()=>{DPCOMP=b.dataset.v;dpRender();});
   const P=P0.filter(x=>!DPCOMP||x.comp===DPCOMP);
-  const fila=(x,conComp)=>`<div class="st" style="align-items:flex-start"><div style="flex:1"><b>${dpIco(x.dep)} ${esc(x.loc)} – ${esc(x.vis)}</b>${x.res?` <b style="color:var(--acc)">${esc(x.res)}</b>`:''}
+  const DPC=['#3D7031','#097BA4','#DD4826','#0D6285','#5E8F4E','#b5651d','#6b4fa0','#2f7d7a'];
+  const ini=n=>{const w=String(n||'').replace(/^(C\.?D\.?|C\.?B\.?|S\.?D\.?|C\.?A\.?|U\.?D\.?|CB|CD|SD|BM|BC)\s+/i,'').split(/[\s\-]+/).filter(Boolean);return ((w[0]||'?')[0]+((w[1]||'')[0]||(w[0]||'')[1]||'')).toUpperCase();};
+  const col=n=>{let h=0;for(const c of String(n||''))h=(h*31+c.charCodeAt(0))>>>0;return DPC[h%DPC.length];};
+  const eq=n=>`<div class="dpn"><span class="dpe" style="background:${col(n)}">${esc(ini(n))}</span><span>${esc(n)}</span></div>`;
+  const nivel=(d,c,o)=>/vasco|país vasco/i.test(c)?['v','Vasco-navarra']:(d!=='pelota'&&!/fase navarra/i.test(c)&&o<=3)?['n','Nacional']:['','Navarra'];
+  const filaB=x=>{const dt=new Date(x.f+'T12:00');return `<div class="dpm"><div class="dpd"><small>${dt.toLocaleDateString('es-ES',{weekday:'short'}).replace('.','')}</small><b>${dt.getDate()}</b><small>${dt.toLocaleDateString('es-ES',{month:'short'}).replace('.','')}</small></div>
+    <div class="dpt">${eq(x.loc)}${eq(x.vis)}${x.lugar?`<div class="s">📍 ${esc(x.lugar)}</div>`:''}${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">Más información / clasificación ›</a></div>`:''}
+    ${TECH?`<div class="row"><button class="btn" data-ed="${esc(x.id)}">✏️ Editar / poner resultado</button></div>`:''}</div>
+    ${x.res?`<div class="dph res">${esc(x.res)}<small>Final</small></div>`:`<div class="dph">${x.h?esc(x.h):'--:--'}<small>${x.h?'hora':'pendiente'}</small></div>`}</div>`;};
+  const fila=(x,conComp)=>isBna()?filaB(x):`<div class="st" style="align-items:flex-start"><div style="flex:1"><b>${dpIco(x.dep)} ${esc(x.loc)} – ${esc(x.vis)}</b>${x.res?` <b style="color:var(--acc)">${esc(x.res)}</b>`:''}
     ${conComp?`<div class="s">${esc(x.comp||'')}</div>`:''}<div class="s">📅 ${fLarga(x.f)}${x.h?' · '+esc(x.h)+' h':' · Hora pendiente'}${x.lugar?' · 📍 '+esc(x.lugar):''}</div>
     ${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">🔗 Más información / clasificación</a></div>`:''}
     ${TECH?`<div class="row"><button class="btn" data-ed="${esc(x.id)}">✏️ Editar / poner resultado</button></div>`:''}</div></div>`;
@@ -4041,8 +4165,9 @@ async function dpRender(){const G=await jsLoad(DP_PATH,DP_DEF),hoy=hoyYmd();
     if(DPCOMP)return L.slice(0,60).map(x=>fila(x,false)).join('');
     let h='',dep0='';
     KS.forEach(k=>{const [d,c]=k.split('|'),Q=L.filter(x=>x.dep===d&&x.comp===c);if(!Q.length)return;
-      if(!DPDEP&&d!==dep0){dep0=d;const D=DP_DEPS.find(z=>z[0]===d)||DP_DEPS[10];h+=`<div style="margin:12px 0 2px;font-size:1.05em"><b>${D[2]} ${esc(D[1])}</b></div>`;}
-      h+=`<div style="margin:10px 0 2px;padding:4px 8px;border-left:4px solid var(--acc);background:rgba(127,127,127,.12);border-radius:4px"><b>🏆 ${esc(c)}</b> <span class="s">(${Q.length})</span></div>`;
+      if(!DPDEP&&d!==dep0){dep0=d;const D=DP_DEPS.find(z=>z[0]===d)||DP_DEPS[10];h+=isBna()?`<div class="dpsp">${dIc(d)} ${esc(D[1])}</div>`:`<div style="margin:12px 0 2px;font-size:1.05em"><b>${D[2]} ${esc(D[1])}</b></div>`;}
+      if(isBna()){const nv=nivel(d,c,OC[k]);h+=`<div class="dpl ${nv[0]}"><b>${esc(c)}</b><span class="dpb">${nv[1]}</span><span class="s">${Q.length}</span></div>`;}
+      else h+=`<div style="margin:10px 0 2px;padding:4px 8px;border-left:4px solid var(--acc);background:rgba(127,127,127,.12);border-radius:4px"><b>🏆 ${esc(c)}</b> <span class="s">(${Q.length})</span></div>`;
       h+=Q.slice(0,max).map(x=>fila(x,false)).join('');
       if(Q.length>max)h+=`<div class="row"><button class="btn" data-dd="${esc(d)}" data-cc="${esc(c)}">Ver los ${Q.length} partidos ›</button></div>`;});
     return h;};
@@ -4337,6 +4462,89 @@ function trInit(){vjLoad(()=>trBici(()=>{if(!TRM){TRM=NavMap('trc',trDraw,trTap)
   setTimeout(()=>{TRM.draw();TRM.base();},60);}));}
 const _showTabTr=showTab;showTab=function(t){_showTabTr(t);if(t==='transp')setTimeout(trInit,40);};
 Object.assign(ICK,{transp:'leaf'});Object.assign(ICC,{transp:'#2e7d32'});if(typeof applyIcons==='function')applyIcons((CFG.iconos||'pro')==='pro');
+
+var BNI={"i-tiempo":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"11\" r=\"4.5\"/><path d=\"M12 2.5v2M4 11H2.5M5.6 4.6l1.4 1.4M18.4 4.6 17 6\"/><path d=\"M10 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13.4 2.4A3.8 3.8 0 0 0 10 26z\" fill=\"currentColor\" fill-opacity=\".12\"/></g>","i-rios":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M16 3s-7 8-7 13a7 7 0 0 0 14 0c0-5-7-13-7-13z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M3 26c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2 2.5-2 5-2\"/></g>","i-hoja":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 27C5 13 13 5 27 5c0 14-8 22-22 22z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M5 27 19 13M12 20h6M15 17v-5\"/></g>","i-carretera":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 3 4 29M21 3l7 26\"/><path d=\"M16 5v4M16 14v4M16 23v4\"/></g>","i-casa":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 15 12 7l9 8v12H3z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M21 12l4-3 4 3v15h-8M9 27v-6h6v6\"/></g>","i-sostenible":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"16\" cy=\"16\" r=\"12.5\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M18 6l-7 11h6l-3 9 8-12h-6z\"/></g>","i-sismo":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 17h5l2-6 3 14 3-20 3 17 2-9 2 4h8\"/></g>","i-monte":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 27 12 11l5 8 3-4 10 12z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M12 11V4l6 2.5-6 2.5\"/></g>","i-cama":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 8v19M3 22h26v5M29 22v-5a4 4 0 0 0-4-4H14v9\" /><circle cx=\"8.5\" cy=\"16\" r=\"3\" fill=\"currentColor\" fill-opacity=\".12\"/></g>","i-libro":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6c4-1.5 8-1.5 12 1 4-2.5 8-2.5 12-1v20c-4-1.5-8-1.5-12 1-4-2.5-8-2.5-12-1z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M16 7v20\"/></g>","i-chat":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 6h22v15H14l-6 5v-5H5z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M10 12h12M10 16h8\"/></g>","i-ajustes":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"16\" cy=\"16\" r=\"4\"/><path d=\"M16 3v4M16 25v4M3 16h4M25 16h4M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M6.8 25.2l2.8-2.8M22.4 9.6l2.8-2.8\"/><circle cx=\"16\" cy=\"16\" r=\"8.5\" fill=\"currentColor\" fill-opacity=\".12\"/></g>","i-pin":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M16 29s9-8.5 9-15a9 9 0 0 0-18 0c0 6.5 9 15 9 15z\" fill=\"currentColor\" fill-opacity=\".12\"/><circle cx=\"16\" cy=\"14\" r=\"3.2\"/></g>","i-trofeo":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 4h12v8a6 6 0 0 1-12 0z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M10 7H5a5 5 0 0 0 5 6M22 7h5a5 5 0 0 1-5 6M16 18v5M11 28h10l-1-5h-8z\"/></g>","i-agenda":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"6\" width=\"24\" height=\"22\" rx=\"4\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M4 12h24M10 3v5M22 3v5\"/><circle cx=\"16\" cy=\"20\" r=\"2.5\"/></g>","i-camara":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 10h6l2-3h10l2 3h6v16H3z\" fill=\"currentColor\" fill-opacity=\".12\"/><circle cx=\"16\" cy=\"17\" r=\"5\"/></g>","i-mapa":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l8-3 10 3 8-3v21l-8 3-10-3-8 3z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M11 4v21M21 7v21\"/></g>","i-inicio":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 14 16 4l12 10v14H4z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M13 28v-8h6v8\"/></g>","i-menu":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\"><rect x=\"4\" y=\"4\" width=\"10\" height=\"10\" rx=\"3\"/><rect x=\"18\" y=\"4\" width=\"10\" height=\"10\" rx=\"3\"/><rect x=\"4\" y=\"18\" width=\"10\" height=\"10\" rx=\"3\"/><rect x=\"18\" y=\"18\" width=\"10\" height=\"10\" rx=\"3\"/></g>","i-buscar":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.6\" stroke-linecap=\"round\"><circle cx=\"14\" cy=\"14\" r=\"9\"/><path d=\"m21 21 7 7\"/></g>","i-seta":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 16C3 9 9 4 16 4s13 5 13 12z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M12 16v8a4 4 0 0 0 8 0v-8\"/></g>","i-museo":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 11 16 4l13 7z\" fill=\"currentColor\" fill-opacity=\".12\"/><path d=\"M6 13v11M12 13v11M20 13v11M26 13v11M3 28h26\"/></g>","i-comer":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 3v26M5 3v7a4 4 0 0 0 8 0V3M23 29V3c-4 2-5 8-5 12h5\"/></g>","s-futbol":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linejoin=\"round\"><circle cx=\"16\" cy=\"16\" r=\"12.5\"/><path d=\"M16 10l5 3.6-1.9 5.9h-6.2L11 13.6z\" fill=\"currentColor\"/><path d=\"M16 10V4M21 13.6l5.5-2M19.1 19.5l3.4 5M12.9 19.5l-3.4 5M11 13.6l-5.5-2\"/></g>","s-basket":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\"><circle cx=\"16\" cy=\"16\" r=\"12.5\"/><path d=\"M3.5 16h25M16 3.5v25M7 7c4 4 4 14 0 18M25 7c-4 4-4 14 0 18\"/></g>","s-balonmano":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"><circle cx=\"16\" cy=\"16\" r=\"12.5\"/><path d=\"M8 6.5c3 4 9 5 16 2M4.5 19c5-2 11 0 14 9M27.5 13c-5 1-8 6-7 14\"/></g>","s-pelota":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"><rect x=\"20\" y=\"3\" width=\"8\" height=\"26\" rx=\"2\" fill=\"currentColor\" fill-opacity=\".15\"/><circle cx=\"10\" cy=\"17\" r=\"6.5\"/><path d=\"M5.5 13.5c3 1 6 4 6.5 9.5\"/></g>","s-voley":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"><circle cx=\"16\" cy=\"16\" r=\"12.5\"/><path d=\"M16 3.5c-2 6-2 10 0 12.5 4 0 9 2 11.5 5M16 16c-3 3-8 5-12 4M9 6c4 1 10 6 11 13\"/></g>","s-sala":"<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 26V9h26v17\"/><path d=\"M8 26V14h16v12\" fill=\"currentColor\" fill-opacity=\".15\"/></g>"};
+/* =====================================================================
+   🎨 TEMA «BasatiNA» (nuevo diseño). Solo cambia el aspecto: mismos datos y conexiones.
+   Se quita en Ajustes → Aspecto eligiendo otro tema.
+   ===================================================================== */
+const isBna=()=>document.body.classList.contains('bna');
+function bnSvg(n,s){return BNI&&BNI[n]?`<svg class="ico" width="${s}" height="${s}" viewBox="0 0 32 32">${BNI[n]}</svg>`:'';}
+// icono propio por pestaña o grupo y su familia de color (g verde · b azul · r rojo)
+var BNK={mtiempo:'i-inicio',cerca:'i-pin',tiempo:'i-tiempo',clima:'i-tiempo',caudal:'i-rios',emb:'i-rios',deporte:'i-trofeo',cultura:'i-agenda',agenda:'i-agenda',camaras:'i-camara',fotos:'i-camara',ident:'i-camara',
+  mapa:'i-mapa',libre:'i-mapa',natura:'i-seta',patrimonio:'i-museo',comer:'i-comer',dormir:'i-cama',monte:'i-monte',puertos:'i-monte',diario:'i-libro',creditos:'i-libro',buzon:'i-chat',ajustes:'i-ajustes',sismo:'i-sismo',
+  pueblos:'i-casa',energia:'i-sostenible',transp:'i-sostenible',incid:'i-carretera',natveg:'i-hoja',natarb:'i-hoja',
+  'g:El tiempo':'i-tiempo','g:Ríos':'i-rios','g:Vida silvestre':'i-hoja','g:Carreteras':'i-carretera','g:Localidades':'i-casa','g:NA Sostenible':'i-sostenible','g:NA sísmica':'i-sismo',
+  'g:Qué hacer':'i-monte','g:Turismo':'i-cama','g:Mi Espacio':'i-libro','g:Participa':'i-chat','g:Configuración':'i-ajustes','g:Administrador':'i-ajustes'};
+var BNF={mtiempo:'g',cerca:'r',tiempo:'b',clima:'b',radar:'b',caudal:'b',emb:'b',prev:'b',libre:'b',hist:'b',deporte:'r',cultura:'r',camaras:'r',incid:'r',gas:'r',puertos:'r',natura:'g',monte:'g',
+  comer:'r',dormir:'b',patrimonio:'g',diario:'g',sitios:'g',buzon:'r',fotos:'r',ajustes:'b',sismo:'r',pueblos:'g',energia:'g',transp:'g',
+  'g:El tiempo':'b','g:Ríos':'b','g:Vida silvestre':'g','g:Carreteras':'r','g:Localidades':'g','g:NA Sostenible':'g','g:NA sísmica':'r','g:Qué hacer':'g','g:Turismo':'b','g:Mi Espacio':'g','g:Participa':'r','g:Configuración':'b','g:Administrador':'b'};
+function bnFam(k){if(BNF&&BNF[k])return BNF[k];const c=(ICC[k]||'#0b7ba8').replace('#','');const r=parseInt(c.slice(0,2),16)/255,g=parseInt(c.slice(2,4),16)/255,b=parseInt(c.slice(4,6),16)/255;
+  const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;if(d<.15)return'b';let h=mx===r?((g-b)/d)%6:mx===g?(b-r)/d+2:(r-g)/d+4;h=(h*60+360)%360;return h>=70&&h<170?'g':h>=170&&h<300?'b':'r';}
+function bnTile(k,s,box){const n=BNK&&BNK[k],f=bnFam(k),inner=n?bnSvg(n,s):(ICK[k]?icoSvg(ICK[k],Math.round(s*.85)):'');
+  return inner?`<span class="bt ${f}" style="width:${box}px;height:${box}px;border-radius:${Math.round(box*.32)}px">${inner}</span>`:'';}
+// nombre con «NA» en rojo (como en el logo)
+function bnWord(on){document.querySelectorAll('.topbar h1,#drawer .dhead b').forEach(h=>{if(h.dataset.w===undefined)h.dataset.w=h.textContent;
+  h.innerHTML=on&&h.dataset.w==='BasatiNA'?'Basati<span class="na">NA</span>':arEsc(h.dataset.w);});}
+// menú lateral: buscador + rejilla de tarjetas
+function bnDrawer(on){const dr=document.getElementById('drawer');let g=document.getElementById('bnaDGrid');
+  if(on&&!g){const head=dr.querySelector('.dhead');
+    head.insertAdjacentHTML('afterend',`<label id="bnaSearch">${bnSvg('i-buscar',20)}<input id="bnaQ" type="search" placeholder="Buscar en la app…" autocomplete="off"></label><div id="bnaSRes"></div><div id="bnaDGrid"></div>`);
+    g=document.getElementById('bnaDGrid');
+    [...dr.children].filter(x=>x.matches('button[data-t],.dgroup,.dsub')).forEach(x=>g.appendChild(x));
+    const q=document.getElementById('bnaQ'),R=document.getElementById('bnaSRes');
+    q.oninput=()=>{const t=q.value.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      if(!t){R.classList.remove('on');R.innerHTML='';g.classList.remove('off');return;}
+      const L=[...g.querySelectorAll('button')].filter(b=>b.style.display!=='none'&&(b.textContent||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(t));
+      g.classList.add('off');R.classList.add('on');
+      R.innerHTML=L.length?'':'<div class="note" style="padding:10px 14px">No hay nada con ese nombre.</div>';
+      L.forEach(b=>{const c=document.createElement('div');c.className='dsub';c.style.display='block';const nb=document.createElement('button');nb.innerHTML=b.innerHTML;nb.onclick=()=>{q.value='';q.oninput();b.click();};c.appendChild(nb);R.appendChild(c);});};}
+  else if(!on&&g){const S=document.getElementById('bnaSearch'),R=document.getElementById('bnaSRes');[...g.children].forEach(x=>g.parentNode.insertBefore(x,g));g.remove();S&&S.remove();R&&R.remove();}}
+// iconos en casilla de color
+function bnIcons(){if(!isBna()||!document.body.classList.contains('pro'))return;
+  document.querySelectorAll('#drawer button').forEach(b=>{const k=b.dataset.t||b.id,ic=b.querySelector('.icb');if(ic){const t=bnTile(k,20,34);if(t)ic.outerHTML=t;}});
+  document.querySelectorAll('#drawer .dgroup>span').forEach(s=>{const k='g:'+s.dataset.k;s.querySelectorAll('span[style],.bt').forEach(x=>x.remove());const t=bnTile(k,22,38);if(t)s.insertAdjacentHTML('afterbegin',t);});}
+const _bnAI=applyIcons;applyIcons=function(p){document.querySelectorAll('#drawer .bt,#secTitle .bt').forEach(x=>x.remove());if(!isBna()){const t=document.getElementById('secTitle');if(t)delete t.dataset.done;}_bnAI(p);bnIcons();};
+const _bnSI=secIco;secIco=function(){_bnSI();const t=document.getElementById('secTitle');if(!isBna()||!t)return;const ic=t.querySelector('.icb');
+  if(ic){const k=Object.keys(TITLES).find(x=>TITLES[x]&&TITLES[x].replace(EMO,'')===t.textContent);const tl=k?bnTile(k,13,20):'';if(tl){t.__busy=true;ic.outerHTML=tl;t.dataset.done=t.textContent;t.__busy=false;}}};
+// ---------- inicio ----------
+const BNQ=[['tiempo','El tiempo'],['caudal','Ríos'],['incid','Carreteras'],['cerca','Cerca de mí'],['monte','Escapadas'],['deporte','Deporte'],['cultura','Agenda'],['natura','Recolección']];
+let BNDP=null;
+function bnHome(){const H=document.getElementById('bnaHome');if(!H||!isBna())return;const d=new Date();
+  const tt=(document.getElementById('wxT')||{}).textContent||'',ic=(document.getElementById('wxIco')||{}).textContent||'';
+  let mm='';try{if(FC&&FC.temp&&FC.t0){const t0=new Date(FC.t0).getTime(),hoy=ymd(d),V=FC.temp.filter((v,i)=>v!=null&&ymd(new Date(t0+i*3600e3))===hoy);if(V.length)mm='Máx. '+Math.round(Math.max(...V))+'° · Mín. '+Math.round(Math.min(...V))+'°';}}catch(e){}
+  const ref=typeof cauRefQ==='function'&&CAU?cauRefQ():null;
+  const lvl=v=>v>=CFG.qRoj?['ro','Peligro']:v>=CFG.qAma?['am','Alerta']:['ok','Normal'];
+  const pill=ref?`<div class="pill" onclick="showTab('caudal')"><i style="background:${lvl(ref.v)[0]==='ok'?'#8fe07d':lvl(ref.v)[0]==='am'?'#ffd34d':'#ff8a70'}"></i>Arga en ${ref.where}: ${fmtN(ref.v,1)} m³/s · ${lvl(ref.v)[1]}</div>`:'';
+  let now='';
+  if(ref){const l=lvl(ref.v);now+=`<div onclick="showTab('caudal')">${bnTile('caudal',22,40)}<div><b>Río Arga en ${ref.where}</b><small>${fmtN(ref.v,1)} m³/s ahora</small></div><span class="bdg ${l[0]}">${l[1]}</span></div>`;}
+  if(BNDP){const hoy=hoyYmd(),P=(BNDP.partidos||[]).filter(x=>x.f>=hoy&&!x.res).sort((a,b)=>(a.f+(a.h||'99')).localeCompare(b.f+(b.h||'99')));
+    const top=P.filter(x=>(x.o==null?50:+x.o)<=3)[0]||P[0];
+    if(top)now+=`<div onclick="showTab('deporte')">${bnTile('deporte',22,40)}<div><b>${esc(top.loc)} – ${esc(top.vis)}</b><small>${esc(top.comp||'')} · ${fLarga(top.f)}${top.h?' · '+esc(top.h)+' h':''}</small></div><span class="bdg az">Deporte</span></div>`;}
+  H.innerHTML=`<div class="bnaHero"><div class="l1">${d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long'})}</div><div class="town">Pamplona · Iruña</div>
+    ${tt?`<div class="tt"><span>${ic}</span><b>${esc(tt)}</b></div>`:`<div class="go" onclick="showTab('tiempo')">Ver el tiempo de hoy ›</div>`}${mm?`<div class="mm">${mm}</div>`:''}${pill}</div>
+    <div class="bnaQ">${BNQ.map(([k,l])=>`<button data-go="${k}">${bnTile(k,26,46)}<span>${l}</span></button>`).join('')}</div>
+    ${now?`<div class="bnaH">Ahora en Navarra</div><div class="bnaNow">${now}</div>`:''}<div class="bnaH">El mapa del tiempo</div>`;
+  H.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>showTab(b.dataset.go));}
+// ---------- barra inferior ----------
+const BNN=[['mtiempo','Inicio','i-inicio'],['caudal','Ríos','i-rios'],['cerca','Cerca','i-pin'],['diario','Mi diario','i-libro'],['_menu','Menú','i-menu']];
+function bnNav(){let n=document.getElementById('bnaNav');if(!n){n=document.createElement('div');n.id='bnaNav';document.body.appendChild(n);
+  n.innerHTML=BNN.map(([k,l,i])=>`<button data-k="${k}">${bnSvg(i,24)}<span>${l}</span></button>`).join('');
+  n.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(b.dataset.k==='_menu'){const mb=document.getElementById('menuBtn');mb.onclick?mb.onclick():menu(true);}else{menu(false);showTab(b.dataset.k);}});}}
+let BNTAB='mtiempo';
+function bnNavOn(){document.querySelectorAll('#bnaNav button').forEach(b=>b.classList.toggle('on',b.dataset.k===BNTAB));}
+const _bnST=showTab;showTab=function(t){_bnST(t);BNTAB=t;bnNavOn();if(t==='mtiempo')bnHome();};
+// ---------- ríos: semáforo ----------
+function bnCauSem(){const S=document.getElementById('cauSem');if(!S||!CAU)return;let c=[0,0,0];
+  Object.values(CAU).forEach(st=>{const a=alertOf(pick(st,'n'));if(!a)return;if(/rojo|naranja/.test(a[0]))c[2]++;else if(/amarillo/.test(a[0]))c[1]++;else c[0]++;});
+  S.innerHTML=c[0]+c[1]+c[2]?`<div class="ok"><b>${c[0]}</b><small>Normal</small></div><div class="am"><b>${c[1]}</b><small>Aviso amarillo</small></div><div class="ro"><b>${c[2]}</b><small>Naranja o rojo</small></div>`:'';}
+const _bnCR=cauRender;cauRender=function(){_bnCR();try{bnCauSem();bnHome();}catch(e){}};
+// ---------- encender / apagar ----------
+function bnApply(){const on=isBna();bnWord(on);bnDrawer(on);if(on){bnNav();bnNavOn();bnHome();}applyIcons((CFG.iconos||'pro')==='pro');}
+const _bnCA=cfgApply;cfgApply=function(){_bnCA();try{bnApply();}catch(e){console.log(e);}};
+bnApply();
+jsLoad(DP_PATH,DP_DEF).then(G=>{BNDP=G;bnHome();}).catch(()=>{});
+setInterval(()=>{if(isBna()&&BNTAB==='mtiempo')bnHome();},60e3);setTimeout(bnHome,3000);
 </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 #  · El resto (lo metido a mano) se mantiene. Se guardan los partidos de los últimos 7 días (resultados).
 #  · Si una fuente falla, se conservan sus partidos de la vez anterior.
 #  Campo «o» = orden de la liga dentro de su deporte (1 = la más alta).
-import json, re, urllib.request, urllib.parse, datetime, os, base64, sys
+import html, json, re, urllib.request, urllib.parse, datetime, os, base64, sys
 
 PATH = "deporte/partidos.json"
 UA = {"User-Agent": "Mozilla/5.0 (BasatiNA)"}
@@ -72,7 +72,7 @@ def traer_pelota():
     h = open(os.environ["PELOTA_HTML"], encoding="utf-8", errors="replace").read() if os.environ.get("PELOTA_HTML") else get(URL_PEL, timeout=60)
     out = []
     for row in re.findall(r"<tr[^>]*>(.*?)</tr>", h, re.S):
-        cells = [re.sub(r"&nbsp;", " ", re.sub(r"<[^>]+>", "", c)).strip()
+        cells = [html.unescape(re.sub(r"&nbsp;", " ", re.sub(r"<[^>]+>", "", c))).replace("\xa0", " ").strip()
                  for c in re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)]
         if len(cells) < 7 or not re.match(r"\d{2}/\d{2}/\d{4}", cells[0]):
             continue
