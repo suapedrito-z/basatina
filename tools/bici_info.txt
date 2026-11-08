@@ -1,36 +1,36 @@
-IDENA {'btt': 81, 'ev': 13, 'red': 10904, 'riesgo': 139, 'aparca': 1846, 'serv': 4645} · salidas carretera/gravel 26
+IDENA {'btt': 81, 'ev': 13, 'red': 10904, 'riesgo': 139, 'aparca': 1846, 'serv': 3900} · salidas carretera/gravel 27
 IDENA DOTACI_Lin_RutasBTT -> btt: 81 elementos · campos ['FEATURE', 'IDRUTA', 'NOMBRE', 'IMAGEN', 'DESCRIPCIO', 'FUENTE', 'URL', 'LONGITUD', 'DESNIVEL', 'DURACION', 'CIRCULAR', 'DIFICULTAD', 'DESCARGA', 'FECHAREF', 'GEOM_LONG', 'BEGINLIFE'] · ejemplo {"IDRUTA": 355, "NOMBRE": "Pamplona-desembocadura Arakil-Arga", "IMAGEN": "image_504_auto__https://www.misescapadaspornavarra.com/wp-content/uploads/2021/05/cendea-olza.jpg", "DESCRIPCIO": "Cendea de Olza", "FUENTE": "misescapadaspornavarra", "URL": "https://www.misescapadaspornavarra.com/btt/355ebtt-desembocadura-de-arga-arakil/", "LONGITUD": 56.0, "DESNIVEL": 571, "DURACION": "4:00", "CIRCULAR":
 IDENA DOTACI_Lin_EuroVelo1 -> ev: 8 elementos · campos ['FEATURE', 'IDRUTA', 'RUTA', 'TRAMO', 'URL', 'DESCARGA', 'GEOM_LONG', 'BEGINLIFE'] · ejemplo {"IDRUTA": "6", "RUTA": "Eurovelo 1", "TRAMO": "(Conexión) Vía Verde Bidasoa", "URL": "https://www.eurovelospain.com/", "DESCARGA": "https://en.eurovelo.com/route/get-gpx/2?developed=1"}
 IDENA DOTACI_Lin_EuroVelo3 -> ev: 5 elementos · campos ['FEATURE', 'IDRUTA', 'RUTA', 'TRAMO', 'OBSERVACIO', 'URL', 'DESCARGA', 'GEOM_LONG', 'BEGINLIFE'] · ejemplo {"IDRUTA": "4", "RUTA": "EuroVelo 3", "TRAMO": "Estella-Lizarra - Logroño", "OBSERVACIO": "Developed with signs", "URL": "https://www.eurovelospain.com/", "DESCARGA": "https://en.eurovelo.com/route/get-gpx/26?developed=1"}
 IDENA INFRAE_Lin_TrazadoSIGMC -> red: 10904 elementos · campos ['FEATURE', 'MUNICIPIO', 'TITULAR', 'ESTADO', 'VIA', 'FECHACONST', 'FECHAMANTE', 'TIPOVIACIC', 'PLATAFORMA', 'CVMOTOR', 'CPEATONES', 'FIRME', 'SITUACION', 'SENTIDO', 'DIROPUESTA', 'CARRILES', 'COLOR', 'DELIMITACI', 'PROTECCION', 'POSICION', 'SHORIZONTA', 'ANCHURA', 'AMINUTIL', 'PENDEXTREM', 'PENDMEDIA', 'PENDMAXIMA', 'LONGITUD', 'VELOCIDAD', 'CONEXION', 'RAMPA', 'ILUMINACIO', 'ANTIDESLIZ', 'RUTA', 'SEMAFORO', 'NIVACUSTIC', 'VELPARALEL', 'OBSERVACIO', 'FUENTEINFO', 'FECHAOBTEN', 'BEGINLIFE'] · ejemplo {"MUNICIPIO": "Pamplona / Iruña", "TITULAR": "SCL (Sin clasificar)", "ESTADO": "USO (En uso)", "VIA": "PLAZA FUEROS DE NAVARRA/NAFARROAKO FORUEN PLAZA", "FECHACONST": "2026-01-30", "TIPOVIACIC": "CBP (Carril bici protegido)", "PLATAFORMA": "CUM (Calle urbana motorizada)", "CVMOTOR": "NOC (No compartido)", "CPEATONES": "NOC (No compartido)", "FIRME": "ASF (Asfalto)", "SITUACION": "SUP (Superficial)
 IDENA INFRAE_Sym_PtoRiesgoSIGMC -> riesgo: 139 elementos · campos ['FEATURE', 'MUNICIPIO', 'OBSERVACIO', 'FUENTEINFO', 'DESCRIPCIO', 'FECHAOBTEN', 'BEGINLIFE'] · ejemplo {"MUNICIPIO": "Esteribar", "FUENTEINFO": "Propios", "DESCRIPCIO": "Curva en cuesta de baja visibilidad, hay separadores de carril.", "FECHAOBTEN": "2021-04-16"}
 IDENA INFRAE_Sym_AparcamientoSIGMC -> aparca: 1846 elementos · campos ['FEATURE', 'MUNICIPIO', 'TITULAR', 'ESTADO', 'TIPOAB', 'NOMBRE', 'NUMESTRUCT', 'ANCLAJE', 'PLAZAS', 'ACCESO', 'VIGILADO', 'TARIFA', 'CUBIERTA', 'CTRANSPUB', 'OBSERVACIO', 'FUENTEINFO', 'FECHAOBTEN', 'BEGINLIFE'] · ejemplo {"MUNICIPIO": "Pamplona / Iruña", "TITULAR": "SCL (Sin clasificar)", "ESTADO": "USO (En uso)", "TIPOAB": "FDH (Fijación doble horizontal)", "NUMESTRUCT": 2, "ANCLAJE": "ATO (Atornillado)", "PLAZAS": 12, "ACCESO": "LIB (Libre)", "VIGILADO": "NOV (No vigilado)", "TARIFA": "GRA (Gratuito)", "CUBIERTA": "NOE (No existe)", "CTRANSPUB": "NOC (Sin conexión)", "FUENTEINFO": "Propios", "FECHAOBTEN": "2022-
-IDENA INFRAE_Sym_ServSIGMC -> serv: 4645 elementos · campos ['FEATURE', 'MUNICIPIO', 'TITULAR', 'ESTADO', 'TIPOSB', 'NOMBRE', 'OBSERVACIO', 'FUENTEINFO', 'FECHAOBTEN', 'BEGINLIFE'] · ejemplo {"MUNICIPIO": "Pamplona / Iruña", "TITULAR": "SCL (Sin clasificar)", "ESTADO": "USO (En uso)", "TIPOSB": "PNI (Panel informativo)", "OBSERVACIO": "Mirador de Pamplona", "FUENTEINFO": "Propios", "FECHAOBTEN": "2021-05-03"}
-SALIDA carretera la-montana-navarra -> None None
+IDENA INFRAE_Sym_ServSIGMC -> serv: 3900 elementos · campos ['FEATURE', 'MUNICIPIO', 'TITULAR', 'ESTADO', 'TIPOSB', 'NOMBRE', 'OBSERVACIO', 'FUENTEINFO', 'FECHAOBTEN', 'BEGINLIFE'] · ejemplo {"MUNICIPIO": "Pamplona / Iruña", "TITULAR": "SCL (Sin clasificar)", "ESTADO": "USO (En uso)", "TIPOSB": "PNI (Panel informativo)", "OBSERVACIO": "Mirador de Pamplona", "FUENTEINFO": "Propios", "FECHAOBTEN": "2021-05-03"}
+SALIDA carretera la-montana-navarra -> Ochagavía [42.9057, -1.09027]
 SALIDA carretera roncal-y-salazar -> Ochagavía [42.9057, -1.09027]
-SALIDA carretera valle-de-roncal -> Ochagavía [42.9057, -1.09027]
+SALIDA carretera valle-de-roncal -> Isaba [42.86078, -0.92287]
 SALIDA carretera la-ruta-del-oso -> Isaba [42.86078, -0.92287]
-SALIDA carretera valles-de-arce-y-aezkoa -> Isaba [42.86078, -0.92287]
+SALIDA carretera valles-de-arce-y-aezkoa -> Auritz/Burguete [42.99036, -1.33449]
 SALIDA carretera vuelta-a-baztan -> Auritz/Burguete [42.99036, -1.33449]
 SALIDA carretera vuelta-a-sakana -> Altsasu/Alsasua [42.89518, -2.16931]
-SALIDA carretera la-navarra-verde -> Altsasu/Alsasua [42.89518, -2.16931]
-SALIDA carretera vuelta-a-ultzama -> Lekunberri [43.00499, -1.9022]
-SALIDA carretera valles-de-tierra-estella -> Irurtzun [42.91859, -1.82766]
-SALIDA carretera vuelta-a-codes -> Estella-Lizarra [42.6712, -2.03104]
-SALIDA carretera historia-de-un-reino -> Bargota [42.56127, -2.31275]
+SALIDA carretera la-navarra-verde -> Lekunberri [43.00499, -1.9022]
+SALIDA carretera vuelta-a-ultzama -> Irurtzun [42.91859, -1.82766]
+SALIDA carretera valles-de-tierra-estella -> Estella-Lizarra [42.6712, -2.03104]
+SALIDA carretera vuelta-a-codes -> Bargota [42.56127, -2.31275]
+SALIDA carretera historia-de-un-reino -> Sangüesa [42.57623, -1.28321]
 SALIDA carretera la-navarra-media -> Tafalla [42.52627, -1.67674]
-SALIDA carretera la-ruta-del-agua -> Tafalla [42.52627, -1.67674]
+SALIDA carretera la-ruta-del-agua -> Zizur Mayor [42.7846, -1.68926]
 SALIDA carretera vuelta-a-erreniega -> Zizur Mayor [42.7846, -1.68926]
-SALIDA carretera ruta-de-los-dinosaurios -> Zizur Mayor [42.7846, -1.68926]
-SALIDA gravel vuelta-a-irati -> None None
-SALIDA gravel vuelta-a-itzaga -> Auritz/Burguete [42.99036, -1.33449]
-SALIDA gravel vuelta-a-sakana-1 -> Urroz-Villa [42.77865, -1.45937]
-SALIDA gravel sierras-de-urbasa-y-lokiz -> Altsasu/Alsasua [42.89518, -2.16931]
-SALIDA gravel la-tierra-del-carlismo -> Murieta [42.65658, -2.1544]
-SALIDA gravel arazuri-ororbia-ibero-paseo-fluvial-del-arga -> Villatuerta [42.65891, -1.99275]
+SALIDA carretera ruta-de-los-dinosaurios -> Fitero [42.05915, -1.85966]
+SALIDA gravel vuelta-a-irati -> Auritz/Burguete [42.99036, -1.33449]
+SALIDA gravel vuelta-a-itzaga -> Urroz-Villa [42.77865, -1.45937]
+SALIDA gravel vuelta-a-sakana-1 -> Altsasu/Alsasua [42.89518, -2.16931]
+SALIDA gravel sierras-de-urbasa-y-lokiz -> Murieta [42.65658, -2.1544]
+SALIDA gravel la-tierra-del-carlismo -> Villatuerta [42.65891, -1.99275]
+SALIDA gravel arazuri-ororbia-ibero-paseo-fluvial-del-arga -> Arazuri [42.81632, -1.72033]
 SALIDA gravel castillos-y-fortalezas-1 -> Sangüesa [42.57623, -1.28321]
-SALIDA gravel castillos-y-fortalezas-2 -> Sangüesa [42.57623, -1.28321]
-SALIDA gravel de-arguedas-a-ochagavia -> Olite [42.47944, -1.64975]
+SALIDA gravel castillos-y-fortalezas-2 -> Olite [42.47944, -1.64975]
+SALIDA gravel de-arguedas-a-ochagavia -> Arguedas [42.17569, -1.59649]
 SALIDA gravel bardenas-reales -> Arguedas [42.17569, -1.59649]
 SALIDA gravel eurovelo-1 -> Doneztebe/Santesteban [43.13149, -1.66817]
-SALIDA gravel eurovelo-3-collado-organbide-aoiz -> Doneztebe/Santesteban [43.13149, -1.66817]
+SALIDA gravel eurovelo-3-collado-organbide-aoiz -> Orbaitzetako Ola/Fábrica de Orbaitzeta None
