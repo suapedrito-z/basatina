@@ -1,229 +1,228 @@
 rutas 0 ({'carretera': 0, 'gravel': 0, 'btt': 0, 'vv': 0, 'ev1': 0}) · red ciclable Pamplona 0 tramos
 LISTA carretera /es/navarra-en-bici-carretera -> OK 616237 bytes
   fichas 16 (subpáginas 0) · gpx directos en la lista 0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Sangüesa_Historia de un Reino_20260218105819797.gpx URL can't contain control characters. '/documents/8191683/55753519/Sangüesa_Historia de un Reino_20260218105819797.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Sangüesa_Historia de un Reino_20260218105819797.gpx URL can't contain control characters. '/documents/8191683/55753519/Sangüesa_Historia de un Reino_20260218105819797.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Sangüesa_Historia de un Reino_20260218105819797.gpx URL can't contain control characters. '/documents/8191683/55753519/Sangüesa_Historia de un Reino_20260218105819797.gpx' (found at least ' ')
-  carretera | historia-de-un-reino | km=70.97 des=1118.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia_La montaña navarra_IDENA_20260218105749600.gpx URL can't contain control characters. '/documents/8191683/55753519/Otsagabia_La montaña navarra_IDENA_20260218105749600.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia_La montaña navarra_IDENA_20260218105749600.gpx URL can't contain control characters. '/documents/8191683/55753519/Otsagabia_La montaña navarra_IDENA_20260218105749600.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia_La montaña navarra_IDENA_20260218105749600.gpx URL can't contain control characters. '/documents/8191683/55753519/Otsagabia_La montaña navarra_IDENA_20260218105749600.gpx' (found at least ' ')
-  carretera | la-montana-navarra | km=122.95 des=1717.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla_La Navarra Media_20260218105710517.gpx URL can't contain control characters. '/documents/8191683/55753519/Tafalla_La Navarra Media_20260218105710517.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla_La Navarra Media_20260218105710517.gpx URL can't contain control characters. '/documents/8191683/55753519/Tafalla_La Navarra Media_20260218105710517.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla_La Navarra Media_20260218105710517.gpx URL can't contain control characters. '/documents/8191683/55753519/Tafalla_La Navarra Media_20260218105710517.gpx' (found at least ' ')
-  carretera | la-navarra-media | km=94.36 des=932.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Lekunberri_La Navarra Verde.gpx URL can't contain control characters. '/documents/8191683/55753519/Lekunberri_La Navarra Verde.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Lekunberri_La Navarra Verde.gpx URL can't contain control characters. '/documents/8191683/55753519/Lekunberri_La Navarra Verde.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Lekunberri_La Navarra Verde.gpx URL can't contain control characters. '/documents/8191683/55753519/Lekunberri_La Navarra Verde.gpx' (found at least ' ')
-  carretera | la-navarra-verde | km=82.94 des=1581.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Zizur Mayor_Ruta del agua_20260218105421059.gpx URL can't contain control characters. '/documents/8191683/55753519/Zizur Mayor_Ruta del agua_20260218105421059.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Zizur Mayor_Ruta del agua_20260218105421059.gpx URL can't contain control characters. '/documents/8191683/55753519/Zizur Mayor_Ruta del agua_20260218105421059.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Zizur Mayor_Ruta del agua_20260218105421059.gpx URL can't contain control characters. '/documents/8191683/55753519/Zizur Mayor_Ruta del agua_20260218105421059.gpx' (found at least ' ')
-  carretera | la-ruta-del-agua | km=105.5 des=1934.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_La Ruta del Oso_IDENA_20260218105259566.gpx URL can't contain control characters. '/documents/8191683/55753519/Isaba_La Ruta del Oso_IDENA_20260218105259566.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_La Ruta del Oso_IDENA_20260218105259566.gpx URL can't contain control characters. '/documents/8191683/55753519/Isaba_La Ruta del Oso_IDENA_20260218105259566.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_La Ruta del Oso_IDENA_20260218105259566.gpx URL can't contain control characters. '/documents/8191683/55753519/Isaba_La Ruta del Oso_IDENA_20260218105259566.gpx' (found at least ' ')
-  carretera | la-ruta-del-oso | km=110.49 des=1628.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia. Roncal y Salazar_20260218105919510.gpx URL can't contain control characters. '/documents/8191683/55753519/Otsagabia. Roncal y Salazar_20260218105919510.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia. Roncal y Salazar_20260218105919510.gpx URL can't contain control characters. '/documents/8191683/55753519/Otsagabia. Roncal y Salazar_20260218105919510.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia. Roncal y Salazar_20260218105919510.gpx URL can't contain control characters. '/documents/8191683/55753519/Otsagabia. Roncal y Salazar_20260218105919510.gpx' (found at least ' ')
-  carretera | roncal-y-salazar | km=72.62 des=790.0 dif=Baja | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Fitero_Ruta de los Dinosaurios_IDENA_20260218105008957.gpx URL can't contain control characters. '/documents/8191683/55753519/Fitero_Ruta de los Dinosaurios_IDENA_20260218105008957.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Fitero_Ruta de los Dinosaurios_IDENA_20260218105008957.gpx URL can't contain control characters. '/documents/8191683/55753519/Fitero_Ruta de los Dinosaurios_IDENA_20260218105008957.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Fitero_Ruta de los Dinosaurios_IDENA_20260218105008957.gpx URL can't contain control characters. '/documents/8191683/55753519/Fitero_Ruta de los Dinosaurios_IDENA_20260218105008957.gpx' (found at least ' ')
-  carretera | ruta-de-los-dinosaurios | km=73.0 des=846.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Valle de Roncal_20260218105850272.gpx URL can't contain control characters. '/documents/8191683/55753519/Isaba_Valle de Roncal_20260218105850272.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Valle de Roncal_20260218105850272.gpx URL can't contain control characters. '/documents/8191683/55753519/Isaba_Valle de Roncal_20260218105850272.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Valle de Roncal_20260218105850272.gpx URL can't contain control characters. '/documents/8191683/55753519/Isaba_Valle de Roncal_20260218105850272.gpx' (found at least ' ')
-  carretera | valle-de-roncal | km=55.57 des=1004.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Burguete. Valle de Arce_20260218104941096.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete. Valle de Arce_20260218104941096.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Burguete. Valle de Arce_20260218104941096.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete. Valle de Arce_20260218104941096.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Burguete. Valle de Arce_20260218104941096.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete. Valle de Arce_20260218104941096.gpx' (found at least ' ')
-  carretera | valles-de-arce-y-aezkoa | km=42.6 des=617.0 dif=Baja | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Estella_Valles de Tierra Estella_IDENA_20260218105113110.gpx URL can't contain control characters. '/documents/8191683/55753519/Estella_Valles de Tierra Estella_IDENA_20260218105113110.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Estella_Valles de Tierra Estella_IDENA_20260218105113110.gpx URL can't contain control characters. '/documents/8191683/55753519/Estella_Valles de Tierra Estella_IDENA_20260218105113110.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Estella_Valles de Tierra Estella_IDENA_20260218105113110.gpx URL can't contain control characters. '/documents/8191683/55753519/Estella_Valles de Tierra Estella_IDENA_20260218105113110.gpx' (found at least ' ')
-  carretera | valles-de-tierra-estella | km=87.69 des=1190.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta Baztan.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_Vuelta Baztan.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta Baztan.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_Vuelta Baztan.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta Baztan.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_Vuelta Baztan.gpx' (found at least ' ')
-  carretera | vuelta-a-baztan | km=125.61 des=2351.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Bargota_Vuelta a Codés_IDENA_20260218105633311.gpx URL can't contain control characters. '/documents/8191683/55753519/Bargota_Vuelta a Codés_IDENA_20260218105633311.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Bargota_Vuelta a Codés_IDENA_20260218105633311.gpx URL can't contain control characters. '/documents/8191683/55753519/Bargota_Vuelta a Codés_IDENA_20260218105633311.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Bargota_Vuelta a Codés_IDENA_20260218105633311.gpx URL can't contain control characters. '/documents/8191683/55753519/Bargota_Vuelta a Codés_IDENA_20260218105633311.gpx' (found at least ' ')
-  carretera | vuelta-a-codes | km=79.09 des=1234.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Zizur Mayor_Vuelta a Erreniega_20260218105346938.gpx URL can't contain control characters. '/documents/8191683/55753519/Zizur Mayor_Vuelta a Erreniega_20260218105346938.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Zizur Mayor_Vuelta a Erreniega_20260218105346938.gpx URL can't contain control characters. '/documents/8191683/55753519/Zizur Mayor_Vuelta a Erreniega_20260218105346938.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Zizur Mayor_Vuelta a Erreniega_20260218105346938.gpx URL can't contain control characters. '/documents/8191683/55753519/Zizur Mayor_Vuelta a Erreniega_20260218105346938.gpx' (found at least ' ')
-  carretera | vuelta-a-erreniega | km=64.51 des=745.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sierras y valles.gpx URL can't contain control characters. '/documents/8191683/55753519/Altsasu_Sierras y valles.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sierras y valles.gpx URL can't contain control characters. '/documents/8191683/55753519/Altsasu_Sierras y valles.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sierras y valles.gpx URL can't contain control characters. '/documents/8191683/55753519/Altsasu_Sierras y valles.gpx' (found at least ' ')
-  carretera | vuelta-a-sakana | km=89.24 des=1423.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Irurtzun_Vuelta a Ultzama_20260218105208087.gpx URL can't contain control characters. '/documents/8191683/55753519/Irurtzun_Vuelta a Ultzama_20260218105208087.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Irurtzun_Vuelta a Ultzama_20260218105208087.gpx URL can't contain control characters. '/documents/8191683/55753519/Irurtzun_Vuelta a Ultzama_20260218105208087.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Irurtzun_Vuelta a Ultzama_20260218105208087.gpx URL can't contain control characters. '/documents/8191683/55753519/Irurtzun_Vuelta a Ultzama_20260218105208087.gpx' (found at least ' ')
-  carretera | vuelta-a-ultzama | km=49.01 des=552.0 dif=Baja | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Sang%C3%BCesa_Historia%20de%20un%20Reino_20260218105819797.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Sang%C3%BCesa_Historia%20de%20un%20Reino_20260218105819797.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Sang%C3%BCesa_Historia%20de%20un%20Reino_20260218105819797.gpx HTTP Error 404: Not Found
+  carretera | Historia de un Reino | km=70.97 des=1118.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia_La%20monta%C3%B1a%20navarra_IDENA_20260218105749600.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia_La%20monta%C3%B1a%20navarra_IDENA_20260218105749600.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia_La%20monta%C3%B1a%20navarra_IDENA_20260218105749600.gpx HTTP Error 404: Not Found
+  carretera | La montaña navarra | km=122.95 des=1717.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla_La%20Navarra%20Media_20260218105710517.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla_La%20Navarra%20Media_20260218105710517.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla_La%20Navarra%20Media_20260218105710517.gpx HTTP Error 404: Not Found
+  carretera | La Navarra Media | km=94.36 des=932.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Lekunberri_La%20Navarra%20Verde.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Lekunberri_La%20Navarra%20Verde.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Lekunberri_La%20Navarra%20Verde.gpx HTTP Error 404: Not Found
+  carretera | La Navarra verde | km=82.94 des=1581.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Zizur%20Mayor_Ruta%20del%20agua_20260218105421059.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Zizur%20Mayor_Ruta%20del%20agua_20260218105421059.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Zizur%20Mayor_Ruta%20del%20agua_20260218105421059.gpx HTTP Error 404: Not Found
+  carretera | La ruta del agua | km=105.5 des=1934.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_La%20Ruta%20del%20Oso_IDENA_20260218105259566.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_La%20Ruta%20del%20Oso_IDENA_20260218105259566.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_La%20Ruta%20del%20Oso_IDENA_20260218105259566.gpx HTTP Error 404: Not Found
+  carretera | La ruta del oso | km=110.49 des=1628.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia.%20Roncal%20y%20Salazar_20260218105919510.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia.%20Roncal%20y%20Salazar_20260218105919510.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Otsagabia.%20Roncal%20y%20Salazar_20260218105919510.gpx HTTP Error 404: Not Found
+  carretera | Roncal y Salazar | km=72.62 des=790.0 dif=Baja | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Fitero_Ruta%20de%20los%20Dinosaurios_IDENA_20260218105008957.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Fitero_Ruta%20de%20los%20Dinosaurios_IDENA_20260218105008957.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Fitero_Ruta%20de%20los%20Dinosaurios_IDENA_20260218105008957.gpx HTTP Error 404: Not Found
+  carretera | Ruta de los dinosaurios | km=73.0 des=846.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Valle%20de%20Roncal_20260218105850272.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Valle%20de%20Roncal_20260218105850272.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Valle%20de%20Roncal_20260218105850272.gpx HTTP Error 404: Not Found
+  carretera | Valle de Roncal | km=55.57 des=1004.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Burguete.%20Valle%20de%20Arce_20260218104941096.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Burguete.%20Valle%20de%20Arce_20260218104941096.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Burguete.%20Valle%20de%20Arce_20260218104941096.gpx HTTP Error 404: Not Found
+  carretera | Valles de Arce y Aezkoa | km=42.6 des=617.0 dif=Baja | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Estella_Valles%20de%20Tierra%20Estella_IDENA_20260218105113110.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Estella_Valles%20de%20Tierra%20Estella_IDENA_20260218105113110.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Estella_Valles%20de%20Tierra%20Estella_IDENA_20260218105113110.gpx HTTP Error 404: Not Found
+  carretera | Valles de Tierra Estella | km=87.69 des=1190.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta%20Baztan.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta%20Baztan.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta%20Baztan.gpx HTTP Error 404: Not Found
+  carretera | Vuelta a Baztan | km=125.61 des=2351.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Bargota_Vuelta%20a%20Cod%C3%A9s_IDENA_20260218105633311.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Bargota_Vuelta%20a%20Cod%C3%A9s_IDENA_20260218105633311.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Bargota_Vuelta%20a%20Cod%C3%A9s_IDENA_20260218105633311.gpx HTTP Error 404: Not Found
+  carretera | Vuelta a Codés | km=79.09 des=1234.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Zizur%20Mayor_Vuelta%20a%20Erreniega_20260218105346938.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Zizur%20Mayor_Vuelta%20a%20Erreniega_20260218105346938.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Zizur%20Mayor_Vuelta%20a%20Erreniega_20260218105346938.gpx HTTP Error 404: Not Found
+  carretera | Vuelta a Erreniega | km=64.51 des=745.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sierras%20y%20valles.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sierras%20y%20valles.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sierras%20y%20valles.gpx HTTP Error 404: Not Found
+  carretera | Sierras y valles | km=89.24 des=1423.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Irurtzun_Vuelta%20a%20Ultzama_20260218105208087.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Irurtzun_Vuelta%20a%20Ultzama_20260218105208087.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Irurtzun_Vuelta%20a%20Ultzama_20260218105208087.gpx HTTP Error 404: Not Found
+  carretera | Vuelta a Ultzama | km=49.01 des=552.0 dif=Baja | gpx=1 tramos=0
 LISTA gravel /es/navarra-en-gravel -> OK 627666 bytes
   fichas 12 (subpáginas 0) · gpx directos en la lista 0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Paseo Fluvial del Arga. Arazuri-Orobia-Ibero_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Paseo Fluvial del Arga. Arazuri-Orobia-Ibero_IDENA.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Paseo Fluvial del Arga. Arazuri-Orobia-Ibero_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Paseo Fluvial del Arga. Arazuri-Orobia-Ibero_IDENA.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Paseo Fluvial del Arga. Arazuri-Orobia-Ibero_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Paseo Fluvial del Arga. Arazuri-Orobia-Ibero_IDENA.gpx' (found at least ' ')
-  gravel | arazuri-ororbia-ibero-paseo-fluvial-del-arga | km=13.86 des=56.0 dif=Baja | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Bardenas Reales_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Bardenas Reales_IDENA.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Bardenas Reales_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Bardenas Reales_IDENA.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Bardenas Reales_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Bardenas Reales_IDENA.gpx' (found at least ' ')
-  gravel | bardenas-reales | km=107.12 des=984.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Sangüesa_Castillos y Fortalezas. Etapa 1.gpx URL can't contain control characters. '/documents/8191683/55753519/Sangüesa_Castillos y Fortalezas. Etapa 1.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Sangüesa_Castillos y Fortalezas. Etapa 1.gpx URL can't contain control characters. '/documents/8191683/55753519/Sangüesa_Castillos y Fortalezas. Etapa 1.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Sangüesa_Castillos y Fortalezas. Etapa 1.gpx URL can't contain control characters. '/documents/8191683/55753519/Sangüesa_Castillos y Fortalezas. Etapa 1.gpx' (found at least ' ')
-  gravel | castillos-y-fortalezas-1 | km=126.09 des=1640.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Castillos y Fortalezas. Etapa 2. Olite.gpx URL can't contain control characters. '/documents/8191683/55753519/Olite_Castillos y Fortalezas. Etapa 2. Olite.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Castillos y Fortalezas. Etapa 2. Olite.gpx URL can't contain control characters. '/documents/8191683/55753519/Olite_Castillos y Fortalezas. Etapa 2. Olite.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Castillos y Fortalezas. Etapa 2. Olite.gpx URL can't contain control characters. '/documents/8191683/55753519/Olite_Castillos y Fortalezas. Etapa 2. Olite.gpx' (found at least ' ')
-  gravel | castillos-y-fortalezas-2 | km=97.12 des=1194.0 dif=Media | gpx=1 tramos=0
-  gravel | de-arguedas-a-ochagavia | km=282.87 des=470.0 dif=Media | gpx=0 tramos=0
-  gravel | eurovelo-1 | km=203.0 des=1489.0 dif=Media | gpx=0 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Paseo%20Fluvial%20del%20Arga.%20Arazuri-Orobia-Ibero_IDENA.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Paseo%20Fluvial%20del%20Arga.%20Arazuri-Orobia-Ibero_IDENA.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Paseo%20Fluvial%20del%20Arga.%20Arazuri-Orobia-Ibero_IDENA.gpx HTTP Error 404: Not Found
+  gravel | Arazuri-Ororbia-Ibero. Paseo fluvial del Arga | km=13.86 des=56.0 dif=Baja | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Bardenas%20Reales_IDENA.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Bardenas%20Reales_IDENA.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Bardenas%20Reales_IDENA.gpx HTTP Error 404: Not Found
+  gravel | Bardenas Reales | km=107.12 des=984.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Sang%C3%BCesa_Castillos%20y%20Fortalezas.%20Etapa%201.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Sang%C3%BCesa_Castillos%20y%20Fortalezas.%20Etapa%201.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Sang%C3%BCesa_Castillos%20y%20Fortalezas.%20Etapa%201.gpx HTTP Error 404: Not Found
+  gravel | Castillos y fortalezas (1) | km=126.09 des=1640.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Castillos%20y%20Fortalezas.%20Etapa%202.%20Olite.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Castillos%20y%20Fortalezas.%20Etapa%202.%20Olite.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Castillos%20y%20Fortalezas.%20Etapa%202.%20Olite.gpx HTTP Error 404: Not Found
+  gravel | Castillos y fortalezas (2) | km=97.12 des=1194.0 dif=Media | gpx=1 tramos=0
+  gravel | De Arguedas a Ochagavía | km=282.87 des=470.0 dif=Media | gpx=0 tramos=0
+  gravel | EuroVelo 1 | km=203.0 des=1489.0 dif=Media | gpx=0 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/navarra-eurovelo-3-desde-el-collado-de-organbide-hasta-aoiz-.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/navarra-eurovelo-3-desde-el-collado-de-organbide-hasta-aoiz-.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/navarra-eurovelo-3-desde-el-collado-de-organbide-hasta-aoiz-.gpx HTTP Error 404: Not Found
-  gravel | eurovelo-3-collado-organbide-aoiz | km=56.62 des=1193.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Villatuerta_Tierra de batallas.gpx URL can't contain control characters. '/documents/8191683/55753519/Villatuerta_Tierra de batallas.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Villatuerta_Tierra de batallas.gpx URL can't contain control characters. '/documents/8191683/55753519/Villatuerta_Tierra de batallas.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Villatuerta_Tierra de batallas.gpx URL can't contain control characters. '/documents/8191683/55753519/Villatuerta_Tierra de batallas.gpx' (found at least ' ')
-  gravel | la-tierra-del-carlismo | km=69.53 des=1003.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Murieta_Sierras de Urbasa y Lokiz.gpx URL can't contain control characters. '/documents/8191683/55753519/Murieta_Sierras de Urbasa y Lokiz.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Murieta_Sierras de Urbasa y Lokiz.gpx URL can't contain control characters. '/documents/8191683/55753519/Murieta_Sierras de Urbasa y Lokiz.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Murieta_Sierras de Urbasa y Lokiz.gpx URL can't contain control characters. '/documents/8191683/55753519/Murieta_Sierras de Urbasa y Lokiz.gpx' (found at least ' ')
-  gravel | sierras-de-urbasa-y-lokiz | km=83.31 des=1883.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta a Irati.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_Vuelta a Irati.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta a Irati.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_Vuelta a Irati.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta a Irati.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_Vuelta a Irati.gpx' (found at least ' ')
-  gravel | vuelta-a-irati | km=70.68 des=1440.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Urroz Villa_Vuelta a Itzaga.gpx URL can't contain control characters. '/documents/8191683/55753519/Urroz Villa_Vuelta a Itzaga.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Urroz Villa_Vuelta a Itzaga.gpx URL can't contain control characters. '/documents/8191683/55753519/Urroz Villa_Vuelta a Itzaga.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Urroz Villa_Vuelta a Itzaga.gpx URL can't contain control characters. '/documents/8191683/55753519/Urroz Villa_Vuelta a Itzaga.gpx' (found at least ' ')
-  gravel | vuelta-a-itzaga | km=81.82 des=1306.0 dif=Alta | gpx=1 tramos=0
+  gravel | EuroVelo 3: collado Organbide-Aoiz | km=56.62 des=1193.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Villatuerta_Tierra%20de%20batallas.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Villatuerta_Tierra%20de%20batallas.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Villatuerta_Tierra%20de%20batallas.gpx HTTP Error 404: Not Found
+  gravel | La tierra del Carlismo | km=69.53 des=1003.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Murieta_Sierras%20de%20Urbasa%20y%20Lokiz.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Murieta_Sierras%20de%20Urbasa%20y%20Lokiz.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Murieta_Sierras%20de%20Urbasa%20y%20Lokiz.gpx HTTP Error 404: Not Found
+  gravel | Sierras de Urbasa y Lokiz | km=83.31 des=1883.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta%20a%20Irati.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta%20a%20Irati.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_Vuelta%20a%20Irati.gpx HTTP Error 404: Not Found
+  gravel | Vuelta a Irati | km=70.68 des=1440.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Urroz%20Villa_Vuelta%20a%20Itzaga.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Urroz%20Villa_Vuelta%20a%20Itzaga.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Urroz%20Villa_Vuelta%20a%20Itzaga.gpx HTTP Error 404: Not Found
+  gravel | Vuelta a Itzaga | km=81.82 des=1306.0 dif=Alta | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sakana.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sakana.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Altsasu_Sakana.gpx HTTP Error 404: Not Found
-  gravel | vuelta-a-sakana-1 | km=63.75 des=787.0 dif=Baja | gpx=1 tramos=0
+  gravel | Vuelta a Sakana | km=63.75 des=787.0 dif=Baja | gpx=1 tramos=0
 LISTA btt /es/bici-y-btt/espacios-btt-de-navarra -> OK 650113 bytes
   fichas 20 (subpáginas 0) · gpx directos en la lista 0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui-Sima de Iguzquiza-Ayegui.gpx URL can't contain control characters. '/documents/8191683/55753519/Ayegui-Sima de Iguzquiza-Ayegui.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui-Sima de Iguzquiza-Ayegui.gpx URL can't contain control characters. '/documents/8191683/55753519/Ayegui-Sima de Iguzquiza-Ayegui.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui-Sima de Iguzquiza-Ayegui.gpx URL can't contain control characters. '/documents/8191683/55753519/Ayegui-Sima de Iguzquiza-Ayegui.gpx' (found at least ' ')
-  btt | ayegui-sima-iguzquiza-recondita-tierra-estella | km=7.62 des=125.0 dif=Baja | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui-Sima%20de%20Iguzquiza-Ayegui.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui-Sima%20de%20Iguzquiza-Ayegui.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui-Sima%20de%20Iguzquiza-Ayegui.gpx HTTP Error 404: Not Found
+  btt | Ayegui-Sima de Igúzquiza-Ayegui. Recóndita Tierra Estella | km=7.62 des=125.0 dif=Baja | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_enduro_IDENA_20260218111406030.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_enduro_IDENA_20260218111406030.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_enduro_IDENA_20260218111406030.gpx HTTP Error 404: Not Found
-  btt | bizibide | km=23.68 des=843.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_Burdin Bidea_IDENA_20260218110336782.gpx URL can't contain control characters. '/documents/8191683/55753519/Lesaka_Burdin Bidea_IDENA_20260218110336782.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_Burdin Bidea_IDENA_20260218110336782.gpx URL can't contain control characters. '/documents/8191683/55753519/Lesaka_Burdin Bidea_IDENA_20260218110336782.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_Burdin Bidea_IDENA_20260218110336782.gpx URL can't contain control characters. '/documents/8191683/55753519/Lesaka_Burdin Bidea_IDENA_20260218110336782.gpx' (found at least ' ')
-  btt | burdin-bidea | km=36.42 des=1419.0 dif=Alta | gpx=1 tramos=0
+  btt | Bizibide | km=23.68 des=843.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_Burdin%20Bidea_IDENA_20260218110336782.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_Burdin%20Bidea_IDENA_20260218110336782.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Lesaka_Burdin%20Bidea_IDENA_20260218110336782.gpx HTTP Error 404: Not Found
+  btt | Burdin Bidea | km=36.42 des=1419.0 dif=Alta | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/circuito-rojo-irrisarri-bike-park.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/circuito-rojo-irrisarri-bike-park.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/circuito-rojo-irrisarri-bike-park.gpx HTTP Error 404: Not Found
-  btt | descensos-en-irrisarri-bike-park | km=0.94 des=133.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Fustiñana_la Bardena Negra_20260218110421675.gpx URL can't contain control characters. '/documents/8191683/55753519/Fustiñana_la Bardena Negra_20260218110421675.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Fustiñana_la Bardena Negra_20260218110421675.gpx URL can't contain control characters. '/documents/8191683/55753519/Fustiñana_la Bardena Negra_20260218110421675.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Fustiñana_la Bardena Negra_20260218110421675.gpx URL can't contain control characters. '/documents/8191683/55753519/Fustiñana_la Bardena Negra_20260218110421675.gpx' (found at least ' ')
-  btt | el-lado-oscuro-de-las-bardenas | km=70.0 des=815.0 dif=Baja | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Basaburua_ El misticismo del norte_IDENA_20260218111015820.gpx URL can't contain control characters. '/documents/8191683/55753519/Basaburua_ El misticismo del norte_IDENA_20260218111015820.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Basaburua_ El misticismo del norte_IDENA_20260218111015820.gpx URL can't contain control characters. '/documents/8191683/55753519/Basaburua_ El misticismo del norte_IDENA_20260218111015820.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Basaburua_ El misticismo del norte_IDENA_20260218111015820.gpx URL can't contain control characters. '/documents/8191683/55753519/Basaburua_ El misticismo del norte_IDENA_20260218111015820.gpx' (found at least ' ')
-  btt | el-misticismo-del-norte | km=37.53 des=1086.0 dif=Media | gpx=1 tramos=0
+  btt | Descensos en IrriSarri Bike Park | km=0.94 des=133.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Fusti%C3%B1ana_la%20Bardena%20Negra_20260218110421675.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Fusti%C3%B1ana_la%20Bardena%20Negra_20260218110421675.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Fusti%C3%B1ana_la%20Bardena%20Negra_20260218110421675.gpx HTTP Error 404: Not Found
+  btt | El lado oscuro de las Bardenas | km=70.0 des=815.0 dif=Baja | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Basaburua_%20El%20misticismo%20del%20norte_IDENA_20260218111015820.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Basaburua_%20El%20misticismo%20del%20norte_IDENA_20260218111015820.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Basaburua_%20El%20misticismo%20del%20norte_IDENA_20260218111015820.gpx HTTP Error 404: Not Found
+  btt | El misticismo del norte | km=37.53 des=1086.0 dif=Media | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Monteplano_20260218110910041.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Monteplano_20260218110910041.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Olite_Monteplano_20260218110910041.gpx HTTP Error 404: Not Found
-  btt | el-monteplano | km=42.05 des=316.0 dif=Media | gpx=1 tramos=0
+  btt | El Monteplano | km=42.05 des=316.0 dif=Media | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Eremua_Enduro_IDENA_20260218111248219.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Eremua_Enduro_IDENA_20260218111248219.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Eremua_Enduro_IDENA_20260218111248219.gpx HTTP Error 404: Not Found
-  btt | eremua | km=26.18 des=1179.0 dif=Alta | gpx=1 tramos=0
+  btt | Eremua | km=26.18 des=1179.0 dif=Alta | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Estella-Villatuerta-Estella_20260218112503324.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Estella-Villatuerta-Estella_20260218112503324.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Estella-Villatuerta-Estella_20260218112503324.gpx HTTP Error 404: Not Found
-  btt | estella-villatuerta-por-la-ribera-del-ega | km=12.6 des=31.0 dif=Baja | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Ruta del Visón_Falces-Peralta_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Ruta del Visón_Falces-Peralta_IDENA.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Ruta del Visón_Falces-Peralta_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Ruta del Visón_Falces-Peralta_IDENA.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Ruta del Visón_Falces-Peralta_IDENA.gpx URL can't contain control characters. '/documents/8191683/55753519/Ruta del Visón_Falces-Peralta_IDENA.gpx' (found at least ' ')
-  btt | falces-peralta-funes-marcilla-terrotorio-vison | km=15.5 des=7.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_La ruta del estraperlo_20260218110301574.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_La ruta del estraperlo_20260218110301574.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_La ruta del estraperlo_20260218110301574.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_La ruta del estraperlo_20260218110301574.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_La ruta del estraperlo_20260218110301574.gpx URL can't contain control characters. '/documents/8191683/55753519/Burguete_La ruta del estraperlo_20260218110301574.gpx' (found at least ' ')
-  btt | la-ruta-del-estraperlo | km=38.85 des=589.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Acedo_Sierra de Lokiz_IDENA_20260218110650006.gpx URL can't contain control characters. '/documents/8191683/55753519/Acedo_Sierra de Lokiz_IDENA_20260218110650006.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Acedo_Sierra de Lokiz_IDENA_20260218110650006.gpx URL can't contain control characters. '/documents/8191683/55753519/Acedo_Sierra de Lokiz_IDENA_20260218110650006.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Acedo_Sierra de Lokiz_IDENA_20260218110650006.gpx URL can't contain control characters. '/documents/8191683/55753519/Acedo_Sierra de Lokiz_IDENA_20260218110650006.gpx' (found at least ' ')
-  btt | la-secreta-berrueza-sierra-de-lokiz | km=34.61 des=544.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Artika_San Cristobal_20260218110452774.gpx URL can't contain control characters. '/documents/8191683/55753519/Artika_San Cristobal_20260218110452774.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Artika_San Cristobal_20260218110452774.gpx URL can't contain control characters. '/documents/8191683/55753519/Artika_San Cristobal_20260218110452774.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Artika_San Cristobal_20260218110452774.gpx URL can't contain control characters. '/documents/8191683/55753519/Artika_San Cristobal_20260218110452774.gpx' (found at least ' ')
-  btt | la-subida-al-fuerte | km=30.3 des=997.0 dif=Media | gpx=1 tramos=0
+  btt | Estella-Villatuerta-Estella. Por la ribera del Ega | km=12.6 des=31.0 dif=Baja | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Ruta%20del%20Vis%C3%B3n_Falces-Peralta_IDENA.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Ruta%20del%20Vis%C3%B3n_Falces-Peralta_IDENA.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Ruta%20del%20Vis%C3%B3n_Falces-Peralta_IDENA.gpx HTTP Error 404: Not Found
+  btt | Falces-Peralta-Funes-Marcilla. Terrotorio visón | km=15.5 des=7.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_La%20ruta%20del%20estraperlo_20260218110301574.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_La%20ruta%20del%20estraperlo_20260218110301574.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Burguete_La%20ruta%20del%20estraperlo_20260218110301574.gpx HTTP Error 404: Not Found
+  btt | La ruta del estraperlo | km=38.85 des=589.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Acedo_Sierra%20de%20Lokiz_IDENA_20260218110650006.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Acedo_Sierra%20de%20Lokiz_IDENA_20260218110650006.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Acedo_Sierra%20de%20Lokiz_IDENA_20260218110650006.gpx HTTP Error 404: Not Found
+  btt | La secreta Berrueza | km=34.61 des=544.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Artika_San%20Cristobal_20260218110452774.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Artika_San%20Cristobal_20260218110452774.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Artika_San%20Cristobal_20260218110452774.gpx HTTP Error 404: Not Found
+  btt | La subida al fuerte | km=30.3 des=997.0 dif=Media | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Etxarri_Sakana_IDENA_20260218110607778.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Etxarri_Sakana_IDENA_20260218110607778.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Etxarri_Sakana_IDENA_20260218110607778.gpx HTTP Error 404: Not Found
-  btt | la-vuelta-a-sakana | km=61.48 des=1017.0 dif=Media | gpx=1 tramos=0
+  btt | La vuelta a Sakana en Mtb | km=61.48 des=1017.0 dif=Media | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Enduro_IDENA_20260218111338207.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Enduro_IDENA_20260218111338207.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Isaba_Enduro_IDENA_20260218111338207.gpx HTTP Error 404: Not Found
-  btt | larra-belagua | km=20.67 des=1039.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Peralta_ Vallacuera y Peñalén_IDENA_20260218110838224.gpx URL can't contain control characters. '/documents/8191683/55753519/Peralta_ Vallacuera y Peñalén_IDENA_20260218110838224.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Peralta_ Vallacuera y Peñalén_IDENA_20260218110838224.gpx URL can't contain control characters. '/documents/8191683/55753519/Peralta_ Vallacuera y Peñalén_IDENA_20260218110838224.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Peralta_ Vallacuera y Peñalén_IDENA_20260218110838224.gpx URL can't contain control characters. '/documents/8191683/55753519/Peralta_ Vallacuera y Peñalén_IDENA_20260218110838224.gpx' (found at least ' ')
-  btt | ravin-de-penalen | km=38.46 des=669.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Roncal_Santa Bárbara y Puntatxamar_20260218110942387.gpx URL can't contain control characters. '/documents/8191683/55753519/Roncal_Santa Bárbara y Puntatxamar_20260218110942387.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Roncal_Santa Bárbara y Puntatxamar_20260218110942387.gpx URL can't contain control characters. '/documents/8191683/55753519/Roncal_Santa Bárbara y Puntatxamar_20260218110942387.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Roncal_Santa Bárbara y Puntatxamar_20260218110942387.gpx URL can't contain control characters. '/documents/8191683/55753519/Roncal_Santa Bárbara y Puntatxamar_20260218110942387.gpx' (found at least ' ')
-  btt | santa-barbara-y-puntatxamar | km=31.11 des=1565.0 dif=Alta | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui_Senderos Sagrados_IDENA_20260218111043968.gpx URL can't contain control characters. '/documents/8191683/55753519/Ayegui_Senderos Sagrados_IDENA_20260218111043968.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui_Senderos Sagrados_IDENA_20260218111043968.gpx URL can't contain control characters. '/documents/8191683/55753519/Ayegui_Senderos Sagrados_IDENA_20260218111043968.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui_Senderos Sagrados_IDENA_20260218111043968.gpx URL can't contain control characters. '/documents/8191683/55753519/Ayegui_Senderos Sagrados_IDENA_20260218111043968.gpx' (found at least ' ')
-  btt | senderos-sagrados | km=35.51 des=887.0 dif=Media | gpx=1 tramos=0
+  btt | Larra-Belagua | km=20.67 des=1039.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Peralta_%20Vallacuera%20y%20Pe%C3%B1al%C3%A9n_IDENA_20260218110838224.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Peralta_%20Vallacuera%20y%20Pe%C3%B1al%C3%A9n_IDENA_20260218110838224.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Peralta_%20Vallacuera%20y%20Pe%C3%B1al%C3%A9n_IDENA_20260218110838224.gpx HTTP Error 404: Not Found
+  btt | Barranco de Peñalén | km=38.46 des=669.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Roncal_Santa%20B%C3%A1rbara%20y%20Puntatxamar_20260218110942387.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Roncal_Santa%20B%C3%A1rbara%20y%20Puntatxamar_20260218110942387.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Roncal_Santa%20B%C3%A1rbara%20y%20Puntatxamar_20260218110942387.gpx HTTP Error 404: Not Found
+  btt | Santa Bárbara y Puntatxamar | km=31.11 des=1565.0 dif=Alta | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui_Senderos%20Sagrados_IDENA_20260218111043968.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui_Senderos%20Sagrados_IDENA_20260218111043968.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Ayegui_Senderos%20Sagrados_IDENA_20260218111043968.gpx HTTP Error 404: Not Found
+  btt | Senderos sagrados | km=35.51 des=887.0 dif=Media | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla-Olite-Tafalla.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla-Olite-Tafalla.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Tafalla-Olite-Tafalla.gpx HTTP Error 404: Not Found
-  btt | tafalla-olite-el-corazon-de-zona-media | km=13.42 des=30.0 dif=Media | gpx=1 tramos=0
-  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Desembocadura Arga_Villafranca.gpx URL can't contain control characters. '/documents/8191683/55753519/Desembocadura Arga_Villafranca.gpx' (found at least ' ')
-  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Desembocadura Arga_Villafranca.gpx URL can't contain control characters. '/documents/8191683/55753519/Desembocadura Arga_Villafranca.gpx' (found at least ' ')
-  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Desembocadura Arga_Villafranca.gpx URL can't contain control characters. '/documents/8191683/55753519/Desembocadura Arga_Villafranca.gpx' (found at least ' ')
-  btt | villafranca-desembocadura-rio-arga-en-el-aragon | km=8.84 des=1.0 dif=Baja | gpx=1 tramos=0
+  btt | Tafalla-Olite-Tafalla. El corazón de la Zona Media | km=13.42 des=30.0 dif=Media | gpx=1 tramos=0
+  reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/Desembocadura%20Arga_Villafranca.gpx HTTP Error 404: Not Found
+  reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/Desembocadura%20Arga_Villafranca.gpx HTTP Error 404: Not Found
+  reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/Desembocadura%20Arga_Villafranca.gpx HTTP Error 404: Not Found
+  btt | Villafranca. Desembocadura del río Arga en el Aragón | km=8.84 des=1.0 dif=Baja | gpx=1 tramos=0
 LISTA vv /es/vias-verdes-de-navarra -> OK 245186 bytes
   fichas 6 (subpáginas 0) · gpx directos en la lista 0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-plazaola_20260220080126761.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-plazaola_20260220080126761.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-plazaola_20260220080126761.gpx HTTP Error 404: Not Found
-  vv | camino-natural-via-verde-plazaola | km=43.08 des=972.0 dif=Baja | gpx=1 tramos=0
+  vv | Camino Natural-Vía Verde Plazaola: Leitza-Sarasa | km=43.08 des=972.0 dif=Baja | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/eurovelo-1-pamplona-iruna.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/eurovelo-1-pamplona-iruna.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/eurovelo-1-pamplona-iruna.gpx HTTP Error 404: Not Found
-  vv | eurovelo-1-sarasa-pamplona | km=9.68 des=114.0 dif=Baja | gpx=1 tramos=0
+  vv | EuroVelo 1 | km=9.68 des=114.0 dif=Baja | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/navarra-via-verde-del-bidasoa.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/navarra-via-verde-del-bidasoa.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/navarra-via-verde-del-bidasoa.gpx HTTP Error 404: Not Found
-  vv | via-verde-bidasoa | km=34.0 des=290.0 dif=Baja | gpx=1 tramos=0
+  vv | Vía Verde del Bidasoa | km=34.0 des=290.0 dif=Baja | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-ferrocarril-vasco-navar.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-ferrocarril-vasco-navar.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-ferrocarril-vasco-navar.gpx HTTP Error 404: Not Found
-  vv | via-verde-del-ferrocarril-vasco-navarro | km=28.14 des=233.0 dif=Baja | gpx=1 tramos=0
+  vv | Camino Natural-Vía Verde del Ferrocarril Vasco-Navarro | km=28.14 des=233.0 dif=Baja | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/navarra-via-verde-del-irati-lumbier.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/navarra-via-verde-del-irati-lumbier.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/navarra-via-verde-del-irati-lumbier.gpx HTTP Error 404: Not Found
-  vv | via-verde-irati | km=6.41 des=110.0 dif=Baja | gpx=1 tramos=0
+  vv | Vía Verde Irati | km=6.41 des=110.0 dif=Baja | gpx=1 tramos=0
   reintento 1 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-tarazonica.gpx HTTP Error 404: Not Found
   reintento 2 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-tarazonica.gpx HTTP Error 404: Not Found
   reintento 3 https://www.visitnavarra.es/documents/8191683/55753519/navarra-camino-natural-via-verde-del-tarazonica.gpx HTTP Error 404: Not Found
-  vv | via-verde-tarazonica | km=13.94 des=119.0 dif=Baja | gpx=1 tramos=0
+  vv | Camino Natural-Vía Verde del Tarazonica | km=13.94 des=119.0 dif=Baja | gpx=1 tramos=0
 LISTA ev1 /es/bici-y-btt/eurovelo-1-en-navarra -> OK 199828 bytes
   fichas 0 (subpáginas 0) · gpx directos en la lista 0
-  reintento 1 https://sig.pamplona.es/ogc/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=Pamplona%3AMOVI_Lin_RedCiclable&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=20000 <urlopen error timed out>
+EUROVELO https://www.eurovelospain.com/etapas/ev1-etapa-01/ -> EuroVelo 1 etapa 01 | gpx=0 tramos=0
+EUROVELO https://www.eurovelospain.com/etapas/ev1-etapa-02/ -> EuroVelo 1 etapa 02 | gpx=0 tramos=0
+EUROVELO https://www.eurovelospain.com/etapas/ev1-etapa-03/ -> EuroVelo 1 etapa 03 | gpx=0 tramos=0
+EUROVELO https://www.eurovelospain.com/etapas/ev1-etapa-04/ -> EuroVelo 1 etapa 04 | gpx=0 tramos=0
+EUROVELO https://www.eurovelospain.com/etapas/ev1-etapa-05/ -> EuroVelo 1 etapa 05 | gpx=0 tramos=0
+  <urlopen error timed out>
 PAMPLONA https://sig.pamplona.es/ogc/wfs -> ERROR
-  reintento 1 https://sig.pamplona.es/ogc/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=Pamplona%3AMOVI_Lin_RedCiclable&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=20000 <urlopen error timed out>
-PAMPLONA https://sig.pamplona.es/ogc/ows -> ERROR
-  reintento 1 https://sig.pamplona.es/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=Pamplona%3AMOVI_Lin_RedCiclable&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=20000 <urlopen error timed out>
-PAMPLONA https://sig.pamplona.es/geoserver/wfs -> ERROR
-  reintento 1 https://sig.pamplona.es/ogc/Pamplona/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=Pamplona%3AMOVI_Lin_RedCiclable&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=20000 <urlopen error timed out>
-PAMPLONA https://sig.pamplona.es/ogc/Pamplona/wfs -> ERROR
