@@ -1,0 +1,37 @@
+# Datos abiertos del Gobierno de Navarra (alojamientos, restaurantes, museos, monumentos, festivos).
+# Se ejecuta cada lunes, cuando cambia tools/bici.py, o a mano desde la pestaña Actions.
+name: Rutas en bici
+on:
+  push:
+    paths: ['tools/bici.py']
+  schedule:
+    - cron: '47 4 * * 2'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bici:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: true
+      - name: Descargar
+        run: python3 tools/bici.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add tools/bici_info.txt
+          [ -f web/bici.js ] && git add web/bici.js
+          git commit -m "Rutas en bici actualizadas" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          for i in 1 2 3 4 5 6; do
+            git push && break
+            sleep $((i*15))
+            git pull --rebase -X theirs || true
+            python3 tools/make_version.py && git add web/version.json && git commit -m "Nueva versión de la pantalla" || true
+          done
