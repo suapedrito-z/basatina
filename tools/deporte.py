@@ -2,6 +2,7 @@
 #  · Pelota: cartelera de la Federación Navarra de Pelota (fnpelota.com). Solo el Campeonato
 #    Navarro de Clubes (sénior) de División de Honor, 1ª y 2ª; fuera Juegos Deportivos (escolares).
 #  · Baloncesto: ligas sénior de la Federación Navarra de Baloncesto (2ª División, 1ª y 2ª Autonómica).
+#  · Baloncesto vasco-navarro: 1ª y 2ª División de la Federación Vasca, solo partidos con equipo navarro.
 #  · Balonmano: ligas sénior de la Federación Navarra de Balonmano (1ª Nacional fem., 2ª Nacional masc.).
 #  · El resto (lo metido a mano) se mantiene. Se guardan los partidos de los últimos 7 días (resultados).
 #  · Si una fuente falla, se conservan sus partidos de la vez anterior.
@@ -33,7 +34,7 @@ def nombre(s):
         elif i and w.lower() in MINUS:
             out.append(w.lower())
         else:
-            out.append("-".join(p[:1].upper() + p[1:].lower() for p in w.split("-")))
+            out.append("/".join("-".join(p[:1].upper() + p[1:].lower() for p in q.split("-")) for q in w.split("/")))
     return " ".join(out)
 
 # ---------------- PELOTA ----------------
@@ -136,6 +137,48 @@ def traer_baloncesto():
                             "f": f, "h": "" if h == "00:00" else h, "lugar": lugar, "url": URL_FNB, "res": res})
     return out
 
+# ---------------- BALONCESTO vasco-navarro (Federación Vasca: 1ª y 2ª División) ----------------
+# Solo los partidos en los que juega un equipo navarro (club que no está en la lista de clubes vascos).
+ESF = "https://esb.optimalwayconsulting.com/esf/1/GxgkvuHIaZfnRat0UN9xafd8TyzGDHjN"
+URL_ESF = "https://basketbasko.com/es/liga-primera-nacional/"
+def esf(p):
+    return json.loads(base64.b64decode(get(ESF + p, headers={"Accept": "application/json"}, timeout=90))).get("messageData") or []
+def traer_baloncesto_pv():
+    vascos = {c["id"] for c in esf("/Clubs/getActiveWeb")}
+    out = []
+    for cat in esf("/CategoryRegistered/getVisibleWeb"):
+        n = re.sub(r"\s+", " ", cat.get("categoryRegisteredName") or "").lower()
+        if str(cat.get("zone")) != "1" or "(p.v.)" not in n.replace("( ", "(").replace(" )", ")"):
+            continue
+        fem = "fem" in n
+        if n.startswith("prim"):
+            comp, o = "1ª División %s (vasco-navarra)" % ("femenina" if fem else "masculina"), 4
+        elif n.startswith("segunda"):
+            comp, o = "2ª División %s (vasco-navarra)" % ("femenina" if fem else "masculina"), 5
+        else:
+            continue
+        for gr in esf("/Competition/getCompetitionGroupVisibleWeb/%s" % cat["idCategoryRegistred"]):
+            if "copa" in (gr.get("nameGrupCompetition") or "").lower():
+                continue
+            R = esf("/FCBQWeb/getAllGamesByGrupWithMatchRecords/%s" % gr["idGroup"])
+            for r in ((R or {}).get("rounds") or {}).values():
+                for m in (r.get("matches") or {}).values():
+                    if m.get("idLocalClub") in vascos and m.get("idVisitorClub") in vascos:
+                        continue
+                    f, h = (m.get("matchDay") or " ").split(" ")[0], ((m.get("matchDay") or "  ").split(" ") + [""])[1][:5]
+                    if not (desde <= f <= hasta):
+                        continue
+                    res = ""
+                    if f < hoy and m.get("localScore") not in (None, "") and m.get("visitorScore") not in (None, ""):
+                        res = "%s-%s" % (m["localScore"], m["visitorScore"])
+                    lugar = nombre(m.get("nameField") or "")
+                    if m.get("nameTown"):
+                        lugar += (", " if lugar else "") + nombre(m["nameTown"])
+                    out.append({"id": "fbv" + str(m["idMatch"]), "dep": "balonc", "comp": comp, "o": o,
+                                "loc": nombre(m.get("nameLocalTeam")), "vis": nombre(m.get("nameVisitorTeam")),
+                                "f": f, "h": "" if h == "00:00" else h, "lugar": lugar, "url": URL_ESF, "res": res})
+    return out
+
 # ---------------- BALONMANO (Federación Navarra, iSquad) ----------------
 BASE_BM = "https://resultadosbalonmano.isquad.es/"
 def traer_balonmano():
@@ -185,6 +228,7 @@ if os.path.exists(PATH):
 viejos = G.get("partidos", [])
 FUENTES = [("pelota", lambda x: x.get("dep") == "pelota", traer_pelota),
            ("baloncesto", lambda x: str(x.get("id", "")).startswith("fnb"), traer_baloncesto),
+           ("baloncesto vasco-navarro", lambda x: str(x.get("id", "")).startswith("fbv"), traer_baloncesto_pv),
            ("balonmano", lambda x: str(x.get("id", "")).startswith("bm"), traer_balonmano)]
 P = [x for x in viejos if not any(es(x) for _, es, _ in FUENTES)]
 for nom, es, traer in FUENTES:

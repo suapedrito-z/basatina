@@ -66,6 +66,19 @@
    "res": "50-51"
   },
   {
+   "id": "fbv99611",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Valle de Aranguren Ibarra Mutilbasket",
+   "vis": "Tabirako Baque",
+   "f": "2026-11-01",
+   "h": "17:00",
+   "lugar": "Pdvo. Mutilva, Mutilva",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "61-55"
+  },
+  {
    "id": "fnb56091",
    "dep": "balonc",
    "comp": "2ª Autonómica femenina",
@@ -103,6 +116,19 @@
    "lugar": "Pdvo. Liceo Monjardín, Pamplona/Iruña",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
    "res": "69-47"
+  },
+  {
+   "id": "fbv103019",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Elaborados Naturales Valle de Egüés",
+   "vis": "Ekisolar Araberri",
+   "f": "2026-11-01",
+   "h": "18:00",
+   "lugar": "Pol. Sarriguren, Sarriguren",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "82-94"
   },
   {
    "id": "pel0211202612001",
@@ -1106,6 +1132,19 @@
    "res": "70-75"
   },
   {
+   "id": "fbv99789",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Hostal Lola Gazte Berriak",
+   "vis": "Atletico San Sebastian",
+   "f": "2026-11-07",
+   "h": "16:00",
+   "lugar": "Pol. Idaki, Ansoain",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "79-71"
+  },
+  {
    "id": "bm1613720",
    "dep": "balonm",
    "comp": "1ª Nacional femenina (fase navarra)",
@@ -1405,6 +1444,32 @@
    "res": "52-42"
   },
   {
+   "id": "fbv99846",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Elaborados Naturales Valle de Egüés",
+   "vis": "Lagunak",
+   "f": "2026-11-07",
+   "h": "18:00",
+   "lugar": "Pol. Sarriguren, Sarriguren",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "41-69"
+  },
+  {
+   "id": "fbv99164",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Navasket 1dm",
+   "vis": "Leioa Sbt",
+   "f": "2026-11-07",
+   "h": "18:00",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "69-77"
+  },
+  {
    "id": "bm1613718",
    "dep": "balonm",
    "comp": "1ª Nacional femenina (fase navarra)",
@@ -1548,6 +1613,19 @@
    "res": "72-54"
   },
   {
+   "id": "fbv99616",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Tabirako Baque",
+   "vis": "San Ignacio - Premo",
+   "f": "2026-11-07",
+   "h": "19:00",
+   "lugar": "Polideportivo Landako, Durango",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "63-76"
+  },
+  {
    "id": "bm1613662",
    "dep": "balonm",
    "comp": "1ª Nacional femenina (fase navarra)",
@@ -1626,6 +1704,19 @@
    "res": "104-66"
   },
   {
+   "id": "fbv99618",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Hotel Iriguibel Navarro Villoslada",
+   "vis": "Bidassoa Hondarribia Ikasbasket",
+   "f": "2026-11-07",
+   "h": "19:30",
+   "lugar": "Pol. Iribarren, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "61-54"
+  },
+  {
    "id": "fnb56095",
    "dep": "balonc",
    "comp": "2ª Autonómica femenina",
@@ -1665,6 +1756,19 @@
    "res": "75-77"
   },
   {
+   "id": "fbv99617",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Ibaeta Basket Easo Cafes Baque",
+   "vis": "Valle de Aranguren Ibarra Mutilbasket",
+   "f": "2026-11-07",
+   "h": "20:00",
+   "lugar": "Pdvo. Josean Gaska, Donostia-San Sebastián",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "59-65"
+  },
+  {
    "id": "fnb55966",
    "dep": "balonc",
    "comp": "1ª Autonómica femenina",
@@ -1676,6 +1780,19 @@
    "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
    "res": "66-52"
+  },
+  {
+   "id": "fbv99167",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Spirit Hotels & Apartments Santutxu",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2026-11-07",
+   "h": "20:20",
+   "lugar": "Pol. Colegio Berrio Otxoa, Bilbao",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": "70-76"
   },
   {
    "id": "pel08112026- !Horario provisional-",
@@ -2042,6 +2159,19 @@
    "res": ""
   },
   {
+   "id": "fbv99847",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Ondoan Ointxe",
+   "vis": "Liceo Monjardin",
+   "f": "2026-11-08",
+   "h": "16:00",
+   "lugar": "Pol. Labegaraieta, Bergara",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "pel0811202616001",
    "dep": "pelota",
    "comp": "Trinkete copa xare parejas trinkete",
@@ -2224,6 +2354,19 @@
    "res": ""
   },
   {
+   "id": "fbv99790",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Megacalzado Ardoi",
+   "vis": "Navasket 2df",
+   "f": "2026-11-08",
+   "h": "18:00",
+   "lugar": "Pdvo. Municipal Zizur Mayor, Zizur Mayor",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "pel0811202619001",
    "dep": "pelota",
    "comp": "Mano parejas masc. 4&#170;",
@@ -2377,6 +2520,19 @@
    "h": "16:00",
    "lugar": "Pdvo. Berriozar, Berriozar",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99794",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Atletico San Sebastian",
+   "vis": "Megacalzado Ardoi",
+   "f": "2026-11-14",
+   "h": "16:00",
+   "lugar": "Pol. Aiete, Donostia-San Sebastián",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -2575,6 +2731,19 @@
    "res": ""
   },
   {
+   "id": "fbv99174",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Elaborados Naturales Valle de Egüés",
+   "vis": "Aisla Armeti Gdko Ibaizabal",
+   "f": "2026-11-14",
+   "h": "18:00",
+   "lugar": "Pol. Sarriguren, Sarriguren",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "bm1613669",
    "dep": "balonm",
    "comp": "1ª Nacional femenina (fase navarra)",
@@ -2650,6 +2819,19 @@
    "h": "18:45",
    "lugar": "Pdvo. Maristas, Sarriguren",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99795",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Axa Ortiz de Zarate Amurrio",
+   "vis": "Hostal Lola Gazte Berriak",
+   "f": "2026-11-14",
+   "h": "18:45",
+   "lugar": "Pol. Bañueta, Amurrio",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -2822,6 +3004,32 @@
    "res": ""
   },
   {
+   "id": "fbv99625",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "San Ignacio - Premo",
+   "vis": "Ibaeta Basket Easo Cafes Baque",
+   "f": "2026-11-14",
+   "h": "20:00",
+   "lugar": "Pdvo. San Ignacio, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99850",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Hormigones Vascos Escolapios Bilbao",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2026-11-14",
+   "h": "20:00",
+   "lugar": "Colegio Escolapios, Bilbao",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "bm1613557",
    "dep": "balonm",
    "comp": "2ª Nacional masculina (fase navarra)",
@@ -2897,6 +3105,19 @@
    "h": "10:15",
    "lugar": "Polideportivo Municipal de Doneztebe/ Santesteban",
    "url": "https://resultadosbalonmano.isquad.es/competicion.php?id_superficie=1&seleccion=0&id_territorial=31&id=1039695&id_categoria=3029&id_competicion=211481",
+   "res": ""
+  },
+  {
+   "id": "fbv99849",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Lagunak",
+   "vis": "Ondoan Ointxe",
+   "f": "2026-11-15",
+   "h": "11:45",
+   "lugar": "Pdvo. Municipal Barañain, Barañain",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -3030,6 +3251,19 @@
    "res": ""
   },
   {
+   "id": "fbv99624",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Valle de Aranguren Ibarra Mutilbasket",
+   "vis": "Hotel Iriguibel Navarro Villoslada",
+   "f": "2026-11-15",
+   "h": "17:00",
+   "lugar": "Pdvo. Mutilva, Mutilva",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb56378",
    "dep": "balonc",
    "comp": "2ª Autonómica femenina",
@@ -3053,6 +3287,45 @@
    "h": "18:00",
    "lugar": "Pdvo. Lagunak, Barañáin",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99848",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Liceo Monjardin",
+   "vis": "Alkivent Toju",
+   "f": "2026-11-15",
+   "h": "18:00",
+   "lugar": "Liceo Monjardin, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99171",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Mondragon Unibertsitatea",
+   "vis": "Navasket 1dm",
+   "f": "2026-11-15",
+   "h": "18:00",
+   "lugar": "Ibarra Kiroldegia, Aretxabaleta",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99793",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Navasket 2df",
+   "vis": "Goierri Aldapa",
+   "f": "2026-11-15",
+   "h": "18:20",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -3238,6 +3511,32 @@
    "res": ""
   },
   {
+   "id": "fbv99796",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Hostal Lola Gazte Berriak",
+   "vis": "Spirit Hotels & Apartments Santutxu",
+   "f": "2026-11-21",
+   "h": "16:00",
+   "lugar": "Pol. Idaki, Ansoain",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99855",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Lagunak",
+   "vis": "Liceo Monjardin",
+   "f": "2026-11-21",
+   "h": "16:00",
+   "lugar": "Pdvo. Municipal Barañain, Barañain",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "ru1",
    "dep": "rugby",
    "comp": "División de Honor B (masc.)",
@@ -3277,6 +3576,19 @@
    "res": ""
   },
   {
+   "id": "fbv99853",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Tabirako Baque",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2026-11-21",
+   "h": "16:30",
+   "lugar": "Polideportivo Landako, Durango",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb55655",
    "dep": "balonc",
    "comp": "2ª Autonómica masculina",
@@ -3300,6 +3612,19 @@
    "h": "17:00",
    "lugar": "Alfonso X el Sabio, San Adrián",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99182",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Baskonia",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2026-11-21",
+   "h": "17:00",
+   "lugar": "Pol. Mendizorroza, Vitoria-Gasteiz",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -3381,6 +3706,19 @@
    "res": ""
   },
   {
+   "id": "fbv99799",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Navasket 2df",
+   "vis": "Mazarredo Fisioterapia Unamuno",
+   "f": "2026-11-21",
+   "h": "18:00",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb55341",
    "dep": "balonc",
    "comp": "2ª División masculina (fase navarra)",
@@ -3391,6 +3729,19 @@
    "h": "18:30",
    "lugar": "Pdvo. Mun. Noain, Noain",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99797",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Axa Ortiz de Zarate Amurrio",
+   "vis": "Megacalzado Ardoi",
+   "f": "2026-11-21",
+   "h": "18:45",
+   "lugar": "Col. Lucas Rey, Amurrio",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -3430,6 +3781,19 @@
    "h": "19:20",
    "lugar": "Pdvo. Rochapea, Pamplona/Iruña",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99631",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Hotel Iriguibel Navarro Villoslada",
+   "vis": "San Ignacio - Premo",
+   "f": "2026-11-21",
+   "h": "19:30",
+   "lugar": "Pol. Iribarren, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -3482,6 +3846,19 @@
    "h": "20:00",
    "lugar": "Pdvo. Elizgibela, Burlada",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99178",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Navasket 1dm",
+   "vis": "Disdira Bitxitegia Isb",
+   "f": "2026-11-21",
+   "h": "20:15",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -3599,6 +3976,19 @@
    "h": "12:30",
    "lugar": "Pdvo. Municipal Esquiroz, Esquiroz",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99632",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Next Fertility Araski",
+   "vis": "Valle de Aranguren Ibarra Mutilbasket",
+   "f": "2026-11-22",
+   "h": "12:30",
+   "lugar": "Pol. Mendizorroza, Vitoria-Gasteiz",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -4096,6 +4486,32 @@
    "res": ""
   },
   {
+   "id": "fbv99639",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Chubby Studio Araba",
+   "vis": "Hotel Iriguibel Navarro Villoslada",
+   "f": "2026-11-28",
+   "h": "16:00",
+   "lugar": "Pol. Divino Maestro, Vitoria-Gasteiz",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99800",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Spirit Hotels & Apartments Santutxu",
+   "vis": "Navasket 2df",
+   "f": "2026-11-28",
+   "h": "16:00",
+   "lugar": "Pol. Colegio Berrio Otxoa, Bilbao",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "ru2",
    "dep": "rugby",
    "comp": "División de Honor B (masc.)",
@@ -4132,6 +4548,19 @@
    "h": "17:00",
    "lugar": "Alfonso X el Sabio, San Adrián",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99856",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Alkivent Toju",
+   "vis": "Lagunak",
+   "f": "2026-11-28",
+   "h": "17:00",
+   "lugar": "Pol. Sologana, Ullibari-Arrazua",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -4184,6 +4613,32 @@
    "h": "18:00",
    "lugar": "Pdvo. Berriozar, Berriozar",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99859",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Elaborados Naturales Valle de Egüés",
+   "vis": "Zornotza St Bilbao Basket",
+   "f": "2026-11-28",
+   "h": "18:00",
+   "lugar": "Pol. Sarriguren, Sarriguren",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99185",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Vascons Getxo",
+   "vis": "Navasket 1dm",
+   "f": "2026-11-28",
+   "h": "18:00",
+   "lugar": "Pol.fadura, Getxo",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -4369,6 +4824,19 @@
    "res": ""
   },
   {
+   "id": "fbv99638",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "San Ignacio - Premo",
+   "vis": "Next Fertility Araski",
+   "f": "2026-11-28",
+   "h": "20:00",
+   "lugar": "Pdvo. San Ignacio, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "bm1613730",
    "dep": "balonm",
    "comp": "1ª Nacional femenina (fase navarra)",
@@ -4512,6 +4980,19 @@
    "res": ""
   },
   {
+   "id": "fbv99637",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Valle de Aranguren Ibarra Mutilbasket",
+   "vis": "Askartza Claret",
+   "f": "2026-11-29",
+   "h": "17:00",
+   "lugar": "Pdvo. Mutilva, Mutilva",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb56104",
    "dep": "balonc",
    "comp": "2ª Autonómica femenina",
@@ -4522,6 +5003,45 @@
    "h": "18:00",
    "lugar": "Pdvo. Sagrado Corazon, Pamplona/Iruña",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99803",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Megacalzado Ardoi",
+   "vis": "Hostal Lola Gazte Berriak",
+   "f": "2026-11-29",
+   "h": "18:00",
+   "lugar": "Pdvo. Municipal Zizur Mayor, Zizur Mayor",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99857",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Liceo Monjardin",
+   "vis": "Hormigones Vascos Escolapios Bilbao",
+   "f": "2026-11-29",
+   "h": "18:00",
+   "lugar": "Liceo Monjardin, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99187",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Elaborados Naturales Valle de Egüés",
+   "vis": "Askartza Claret",
+   "f": "2026-11-29",
+   "h": "18:00",
+   "lugar": "Pol. Sarriguren, Sarriguren",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -4889,6 +5409,45 @@
    "res": ""
   },
   {
+   "id": "fbv99646",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Askartza Claret",
+   "vis": "San Ignacio - Premo",
+   "f": "2026-12-12",
+   "h": "16:00",
+   "lugar": "Col.askartza, Leioa",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99805",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Hostal Lola Gazte Berriak",
+   "vis": "Goierri Aldapa",
+   "f": "2026-12-12",
+   "h": "16:00",
+   "lugar": "Pol. Idaki, Ansoain",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99807",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Atletico San Sebastian",
+   "vis": "Navasket 2df",
+   "f": "2026-12-12",
+   "h": "16:00",
+   "lugar": "Pol. Aiete, Donostia-San Sebastián",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb56105",
    "dep": "balonc",
    "comp": "2ª Autonómica femenina",
@@ -4925,6 +5484,19 @@
    "h": "16:30",
    "lugar": "Pdvo. Mun. Noain, Noain",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99862",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Tabirako Baque",
+   "vis": "Liceo Monjardin",
+   "f": "2026-12-12",
+   "h": "16:30",
+   "lugar": "Polideportivo Landako, Durango",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -5045,6 +5617,19 @@
    "res": ""
   },
   {
+   "id": "fbv103024",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Navasket 1dm",
+   "vis": "Ekisolar Araberri",
+   "f": "2026-12-12",
+   "h": "18:00",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb55556",
    "dep": "balonc",
    "comp": "2ª División masculina (fase navarra)",
@@ -5120,6 +5705,19 @@
    "h": "19:30",
    "lugar": "Pdvo. Buztintxuri, Pamplona/Iruña",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99644",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Hotel Iriguibel Navarro Villoslada",
+   "vis": "Universidad Deusto Loiola Indautxu",
+   "f": "2026-12-12",
+   "h": "19:30",
+   "lugar": "Pol. Iribarren, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -5341,6 +5939,71 @@
    "h": "18:00",
    "lugar": "Pdvo. Lagunak, Barañáin",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99647",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Gernika Kesb",
+   "vis": "Valle de Aranguren Ibarra Mutilbasket",
+   "f": "2026-12-13",
+   "h": "18:00",
+   "lugar": "Pol. Maloste, Gernika-Lumo",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99804",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Megacalzado Ardoi",
+   "vis": "Spirit Hotels & Apartments Santutxu",
+   "f": "2026-12-13",
+   "h": "18:00",
+   "lugar": "Pdvo. Municipal Zizur Mayor, Zizur Mayor",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99860",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Elaborados Naturales Valle de Egüés",
+   "vis": "Alkivent Toju",
+   "f": "2026-12-13",
+   "h": "18:00",
+   "lugar": "Pol. Sarriguren, Sarriguren",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99863",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Hormigones Vascos Escolapios Bilbao",
+   "vis": "Lagunak",
+   "f": "2026-12-13",
+   "h": "18:00",
+   "lugar": "Colegio Escolapios, Bilbao",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99197",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Mondragon Unibertsitatea",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2026-12-13",
+   "h": "18:00",
+   "lugar": "Ibarra Kiroldegia, Aretxabaleta",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -5591,6 +6254,32 @@
    "res": ""
   },
   {
+   "id": "fbv99811",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Goierri Aldapa",
+   "vis": "Megacalzado Ardoi",
+   "f": "2026-12-19",
+   "h": "16:00",
+   "lugar": "Aldiri Pol., Urretxu",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99865",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Lagunak",
+   "vis": "Tabirako Baque",
+   "f": "2026-12-19",
+   "h": "16:00",
+   "lugar": "Pdvo. Municipal Barañain, Barañain",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb55522",
    "dep": "balonc",
    "comp": "1ª Autonómica masculina",
@@ -5640,6 +6329,19 @@
    "h": "17:00",
    "lugar": "Pdvo. San Cernin, Pamplona/Iruña",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99810",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Mazarredo Fisioterapia Unamuno",
+   "vis": "Hostal Lola Gazte Berriak",
+   "f": "2026-12-19",
+   "h": "17:00",
+   "lugar": "Pol. Municipal de la Casilla, Bilbao",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -5705,6 +6407,19 @@
    "h": "18:00",
    "lugar": "Pdvo. Berriozar, Berriozar",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99200",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Elaborados Naturales Valle de Egüés",
+   "vis": "Vascons Getxo",
+   "f": "2026-12-19",
+   "h": "18:00",
+   "lugar": "Pol. Sarriguren, Sarriguren",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -5851,6 +6566,32 @@
    "res": ""
   },
   {
+   "id": "fbv99651",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "San Ignacio - Premo",
+   "vis": "Gernika Kesb",
+   "f": "2026-12-19",
+   "h": "20:00",
+   "lugar": "Pdvo. San Ignacio, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99199",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Easo Basket",
+   "vis": "Navasket 1dm",
+   "f": "2026-12-19",
+   "h": "20:00",
+   "lugar": "Pdvo. Josean Gaska, Donostia-San Sebastián",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "bm1613570",
    "dep": "balonm",
    "comp": "2ª Nacional masculina (fase navarra)",
@@ -5981,6 +6722,32 @@
    "res": ""
   },
   {
+   "id": "fbv99867",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Ondoan Ointxe",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2026-12-20",
+   "h": "16:00",
+   "lugar": "Pol. Labegaraieta, Bergara",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99650",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Valle de Aranguren Ibarra Mutilbasket",
+   "vis": "La Salle Versia",
+   "f": "2026-12-20",
+   "h": "17:00",
+   "lugar": "Pdvo. Mutilva, Mutilva",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb55738",
    "dep": "balonc",
    "comp": "2ª Autonómica masculina",
@@ -6017,6 +6784,45 @@
    "h": "18:00",
    "lugar": "Pdvo. Mun. Zizur Mayor, Zizur Mayor",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99654",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Vascons Getxo",
+   "vis": "Hotel Iriguibel Navarro Villoslada",
+   "f": "2026-12-20",
+   "h": "18:00",
+   "lugar": "Pol.fadura, Getxo",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99866",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Liceo Monjardin",
+   "vis": "Zornotza St Bilbao Basket",
+   "f": "2026-12-20",
+   "h": "18:00",
+   "lugar": "Liceo Monjardin, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99809",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Navasket 2df",
+   "vis": "Axa Ortiz de Zarate Amurrio",
+   "f": "2026-12-20",
+   "h": "18:20",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -6254,6 +7060,19 @@
    "res": ""
   },
   {
+   "id": "fbv99814",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Hostal Lola Gazte Berriak",
+   "vis": "Navasket 2df",
+   "f": "2027-01-09",
+   "h": "16:00",
+   "lugar": "Pol. Idaki, Ansoain",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb56112",
    "dep": "balonc",
    "comp": "2ª Autonómica femenina",
@@ -6423,6 +7242,58 @@
    "res": ""
   },
   {
+   "id": "fbv99869",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Elaborados Naturales Valle de Egüés",
+   "vis": "Liceo Monjardin",
+   "f": "2027-01-09",
+   "h": "18:00",
+   "lugar": "Pol. Sarriguren, Sarriguren",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99870",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Zornotza St Bilbao Basket",
+   "vis": "Lagunak",
+   "f": "2027-01-09",
+   "h": "18:00",
+   "lugar": "Pol. Artxanda, Bilbao",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99206",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Navasket 1dm",
+   "vis": "Spirit Hotels & Apartments Santutxu",
+   "f": "2027-01-09",
+   "h": "18:00",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99661",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "La Salle Versia",
+   "vis": "San Ignacio - Premo",
+   "f": "2027-01-09",
+   "h": "18:20",
+   "lugar": "Col.la Salle, Bilbao",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb55670",
    "dep": "balonc",
    "comp": "2ª Autonómica masculina",
@@ -6459,6 +7330,19 @@
    "h": "19:00",
    "lugar": "Pdvo. Lizarreria, Estella/Lizarra",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99662",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Bidassoa Hondarribia Ikasbasket",
+   "vis": "Valle de Aranguren Ibarra Mutilbasket",
+   "f": "2027-01-09",
+   "h": "19:00",
+   "lugar": "Pol. Hondartza, Hondarribia",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -6501,6 +7385,19 @@
    "res": ""
   },
   {
+   "id": "fbv99657",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Hotel Iriguibel Navarro Villoslada",
+   "vis": "Tabirako Baque",
+   "f": "2027-01-09",
+   "h": "19:30",
+   "lugar": "Pol. Iribarren, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb55363",
    "dep": "balonc",
    "comp": "2ª División masculina (fase navarra)",
@@ -6524,6 +7421,19 @@
    "h": "20:00",
    "lugar": "Pdvo. Mun - Edif. Idaki, Ansoáin",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99212",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Easo Basket",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2027-01-09",
+   "h": "20:00",
+   "lugar": "Pdvo. Josean Gaska, Donostia-San Sebastián",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -6706,6 +7616,19 @@
    "h": "18:00",
    "lugar": "Pdvo. Mun. Zizur Mayor, Zizur Mayor",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99813",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Megacalzado Ardoi",
+   "vis": "Mazarredo Fisioterapia Unamuno",
+   "f": "2027-01-10",
+   "h": "18:00",
+   "lugar": "Pdvo. Municipal Zizur Mayor, Zizur Mayor",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -6943,6 +7866,32 @@
    "res": ""
   },
   {
+   "id": "fbv99817",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Atletico San Sebastian",
+   "vis": "Hostal Lola Gazte Berriak",
+   "f": "2027-01-16",
+   "h": "16:00",
+   "lugar": "Pol. Aiete, Donostia-San Sebastián",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99874",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Lagunak",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2027-01-16",
+   "h": "16:00",
+   "lugar": "Pdvo. Municipal Barañain, Barañain",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb55620",
    "dep": "balonc",
    "comp": "1ª Autonómica masculina",
@@ -7070,6 +8019,19 @@
    "h": "18:00",
    "lugar": "Pdvo. Irulegi, Mutilva",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99213",
+   "dep": "balonc",
+   "comp": "1ª División masculina (vasco-navarra)",
+   "o": 4,
+   "loc": "Navasket 1dm",
+   "vis": "Elaborados Naturales Valle de Egüés",
+   "f": "2027-01-16",
+   "h": "18:00",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
@@ -7281,6 +8243,32 @@
    "res": ""
   },
   {
+   "id": "fbv99664",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "San Ignacio - Premo",
+   "vis": "Bidassoa Hondarribia Ikasbasket",
+   "f": "2027-01-16",
+   "h": "20:00",
+   "lugar": "Pdvo. San Ignacio, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99669",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Ibaeta Basket Easo Cafes Baque",
+   "vis": "Hotel Iriguibel Navarro Villoslada",
+   "f": "2027-01-16",
+   "h": "20:00",
+   "lugar": "Pdvo. Josean Gaska, Donostia-San Sebastián",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
    "id": "fnb56116",
    "dep": "balonc",
    "comp": "2ª Autonómica femenina",
@@ -7369,6 +8357,45 @@
    "h": "18:00",
    "lugar": "Pdvo. Lagunak, Barañáin",
    "url": "https://www.fnbaloncesto.com/resultados-y-clasificaciones/",
+   "res": ""
+  },
+  {
+   "id": "fbv99875",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Liceo Monjardin",
+   "vis": "Ondoan Ointxe",
+   "f": "2027-01-17",
+   "h": "18:00",
+   "lugar": "Liceo Monjardin, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99663",
+   "dep": "balonc",
+   "comp": "1ª División femenina (vasco-navarra)",
+   "o": 4,
+   "loc": "Gráficas Juaristi",
+   "vis": "Valle de Aranguren Ibarra Mutilbasket",
+   "f": "2027-01-17",
+   "h": "18:15",
+   "lugar": "Aritzbatalde Kir., Zarautz",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
+   "res": ""
+  },
+  {
+   "id": "fbv99818",
+   "dep": "balonc",
+   "comp": "2ª División femenina (vasco-navarra)",
+   "o": 5,
+   "loc": "Navasket 2df",
+   "vis": "Megacalzado Ardoi",
+   "f": "2027-01-17",
+   "h": "18:20",
+   "lugar": "Pdvo. Teresianas, Pamplona/Iruña",
+   "url": "https://basketbasko.com/es/liga-primera-nacional/",
    "res": ""
   },
   {
