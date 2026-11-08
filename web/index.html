@@ -182,6 +182,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
   <div class="dgroup"><span>NA Sostenible</span><i>▸</i></div>
   <div class="dsub">
     <button data-t="energia">⚡ Energía actual</button>
+    <button data-t="transp">🚲 Transporte sostenible</button>
   </div>
   <div class="dgroup"><span>NA sísmica</span><i>▸</i></div>
   <div class="dsub">
@@ -533,6 +534,26 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <div class="card" id="pbList"><div class="note">Cargando pueblos…</div></div>
 </div>
 <div id="pbFicha" style="display:none"></div>
+</section>
+<!-- ============ TRANSPORTE SOSTENIBLE ============ -->
+<section id="t-transp">
+<div class="card"><b>🚲 Transporte sostenible</b><div class="note">Para moverte por Navarra contaminando menos: dónde cargar el coche eléctrico, carriles bici, aparcabicis y transporte público.</div>
+<div class="row" style="margin-top:8px"><button class="btn pri" id="trNear">📍 Lo más cercano a mí</button></div><div class="note" id="trMsg"></div></div>
+<div class="card"><div id="trLay" style="display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13.5px;margin-bottom:6px">
+<label><input type="checkbox" data-k="rec" checked> <b style="color:#8e24aa">●</b> Recarga eléctrica</label>
+<label><input type="checkbox" data-k="red" checked> <b style="color:#2e7d32">━</b> Carriles bici</label>
+<label><input type="checkbox" data-k="aparca"> <b style="color:#1e88e5">●</b> Aparcabicis</label>
+<label><input type="checkbox" data-k="ev"> <b style="color:#f57c00">━</b> EuroVelo</label>
+<label><input type="checkbox" data-k="riesgo"> <b style="color:#e53935">▲</b> Puntos peligrosos para la bici</label></div>
+<div style="position:relative"><canvas id="trc" height="400"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="trcIn">＋</button><button class="btn mtb" id="trcOut">－</button></div></div>
+<div class="note" style="margin-top:4px">Toca un punto o una línea para ver su ficha. Acerca el mapa para ver los carriles bici de cada pueblo.</div><div id="trFicha" style="margin-top:8px"></div></div>
+<div class="card" id="trList" style="display:none"></div>
+<div class="card"><b>🚌 Transporte público</b>
+<div class="st"><div><b>🚍 Villavesas (Comarca de Pamplona)</b><div class="s">Líneas, horarios y paradas del Transporte Urbano Comarcal. También en la app «Tu Villavesa». Atención: 948 42 32 42.</div></div><button class="btn trL" data-url="https://www.infotuc.es">Abrir</button></div>
+<div class="st"><div><b>🚌 NBUS · autobuses entre pueblos</b><div class="s">Líneas de autobús interurbano del Gobierno de Navarra.</div></div><button class="btn trL" data-url="https://nbus.navarra.es">Abrir</button></div>
+<div class="st"><div><b>🚆 Tren</b><div class="s">Horarios y billetes de Renfe (Pamplona, Tafalla, Olite, Tudela, Altsasu…).</div></div><button class="btn trL" data-url="https://www.renfe.com">Abrir</button></div>
+<div class="st"><div><b>🔐 nbici · aparcamientos cerrados para bici en Pamplona</b><div class="s">Aparcamientos cubiertos y seguros del Ayuntamiento de Pamplona (hay que darse de alta).</div></div><button class="btn trL" data-url="https://www.pamplona.es/nbici">Abrir</button></div></div>
+<div class="note" style="margin:0 6px 10px">Recarga eléctrica: OpenStreetMap (puede faltar alguna). Carriles bici, aparcabicis, EuroVelo y puntos peligrosos: IDENA (Gobierno de Navarra).</div>
 </section>
 <section id="t-energia">
 <div class="card" id="enSum"><b>⚡ Energía en Navarra</b><div class="note">Cargando…</div></div>
@@ -4240,6 +4261,54 @@ setTimeout(()=>{const s=document.getElementById('t-mtiempo');if(s&&s.classList.c
     try{await document.getElementById('dRefresh').onclick();}catch(e){}
     try{seHome(true);}catch(e){}
     setTimeout(()=>{hide();busy=false;},700);},{passive:true});})();
+
+/* ---------- 🚲 TRANSPORTE SOSTENIBLE (NA Sostenible) ----------
+   Junta datos que la app ya descarga: recarga eléctrica (web/viaje.js) y bici (web/bici.js), más enlaces al transporte público. */
+TITLES.transp='🚲 Transporte sostenible';
+let TRM=null,TRSEL=null,TRPOS=null;const TRON={rec:true,red:true,aparca:false,ev:false,riesgo:false};
+const TRCOL={red:'#2e7d32',ev:'#f57c00',aparca:'#1e88e5',riesgo:'#e53935',rec:'#8e24aa'};
+const trOpen=u=>{if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');};
+function trBici(cb){if(window.BICI)return cb();biciLoad(()=>{});let n=0;const t=setInterval(()=>{if(window.BICI||++n>75){clearInterval(t);cb();}},200);}
+function trFeats(k){if(k==='rec')return ((window.VIAJE||{}).rec||[]).map(r=>({k,r,pt:r.pt}));const B=window.BICI;return B&&B.idena&&B.idena[k]?B.idena[k].map(f=>({k,f,pt:f.pt,ln:f.r})):[];}
+function trDraw(x,P,b,M){const fuera=(px,py)=>px<-9||py<-9||px>b.W+9||py>b.H+9;
+  for(const k of ['red','ev'])if(TRON[k])for(const o of trFeats(k)){if(!o.ln)continue;x.strokeStyle=TRCOL[k];x.lineWidth=TRSEL===o?5:(k==='ev'?3:2.5);x.beginPath();
+    for(const seg of o.ln){seg.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});}x.stroke();}
+  for(const k of ['aparca','rec'])if(TRON[k])for(const o of trFeats(k)){if(!o.pt)continue;const [px,py]=P(o.pt[0],o.pt[1]);if(fuera(px,py))continue;
+    x.beginPath();x.arc(px,py,TRSEL===o?9:(k==='rec'?6:5),0,7);x.fillStyle=TRCOL[k];x.fill();x.strokeStyle='#fff';x.lineWidth=1.5;x.stroke();}
+  if(TRON.riesgo)for(const o of trFeats('riesgo')){if(!o.pt)continue;const [px,py]=P(o.pt[0],o.pt[1]);if(fuera(px,py))continue;const r=TRSEL===o?10:7;
+    x.beginPath();x.moveTo(px,py-r);x.lineTo(px+r,py+r*.8);x.lineTo(px-r,py+r*.8);x.closePath();x.fillStyle=TRCOL.riesgo;x.fill();x.strokeStyle='#fff';x.lineWidth=1.5;x.stroke();}
+  if(TRPOS){const [px,py]=P(TRPOS.la,TRPOS.lo);x.beginPath();x.arc(px,py,7,0,7);x.fillStyle='#1e88e5';x.fill();x.strokeStyle='#fff';x.lineWidth=3;x.stroke();}}
+function trTap(px,py,M){let best=null,bd=20;
+  for(const k of Object.keys(TRON))if(TRON[k])for(const o of trFeats(k)){
+    if(o.pt){const [a,c]=M.P(o.pt[0],o.pt[1]),d=Math.hypot(a-px,c-py);if(d<bd){bd=d;best=o;}}
+    if(o.ln)for(const seg of o.ln)for(const q of seg){const [a,c]=M.P(q[0],q[1]),d=Math.hypot(a-px,c-py);if(d<bd){bd=d;best=o;}}}
+  TRSEL=best;M.draw();trFicha();}
+function trFicha(){const el=document.getElementById('trFicha'),o=TRSEL;if(!o){el.innerHTML='';return;}
+  if(o.r){const r=o.r;el.innerHTML=`<b>⚡ ${esc(r.n||'Punto de recarga')}</b>${r.op&&r.op!==r.n?`<div class="note">${esc(r.op)}</div>`:''}
+    ${r.kw?`<div class="st"><span>Potencia máxima</span><b>${esc(r.kw)}</b></div>`:''}${r.cap?`<div class="st"><span>Plazas</span><b>${esc(r.cap)}</b></div>`:''}${(r.tip||[]).length?`<div class="st"><span>Conectores</span><b style="text-align:right">${esc(r.tip.join(', '))}</b></div>`:''}
+    ${r.fee?`<div class="st"><span>De pago</span><b>${r.fee==='yes'?'Sí':r.fee==='no'?'Gratis':esc(r.fee)}</b></div>`:''}${r.h?`<div class="st"><span>Horario</span><b>${esc(r.h)}</b></div>`:''}
+    <div class="row"><button class="btn pri" id="trGo">🧭 Cómo llegar</button></div>`;}
+  else{const a=o.f.a||{},ico={red:'🚲',ev:'🌍',aparca:'🅿️',riesgo:'⚠️'}[o.k];
+    el.innerHTML=`<b>${ico} ${esc(a.N||'')}</b>${a.D?`<div class="note">${esc(a.D)}</div>`:''}${a.URL?`<div class="row"><button class="btn" id="trWeb">🌐 Más información</button></div>`:''}${o.pt?'<div class="row"><button class="btn pri" id="trGo">🧭 Cómo llegar</button></div>':''}`;
+    const w=document.getElementById('trWeb');if(w)w.onclick=()=>trOpen(a.URL);}
+  const g=document.getElementById('trGo');if(g)g.onclick=()=>openNav(o.pt[0],o.pt[1]);}
+function trCerca(){const el=document.getElementById('trList');if(!TRPOS){el.style.display='none';return;}
+  const near=(k,n)=>trFeats(k).filter(o=>o.pt).map(o=>({o,d:km(TRPOS.la,TRPOS.lo,o.pt[0],o.pt[1])})).sort((a,b)=>a.d-b.d).slice(0,n);
+  const fila=(x,t,s)=>`<div class="st" data-tk="${x.o.k}" data-ti="${trFeats(x.o.k).findIndex(z=>z.pt===x.o.pt)}" style="cursor:pointer"><div><b>${t}</b>${s?`<div class="s">${s}</div>`:''}</div><span class="note">${fmtN(x.d,1)} km</span></div>`;
+  const R=near('rec',5),A=near('aparca',5);
+  el.style.display='';el.innerHTML='<b>📍 Lo más cercano a ti</b>'+
+    (R.length?'<div class="note" style="margin-top:6px">⚡ Recarga eléctrica</div>'+R.map(x=>fila(x,esc(x.o.r.n||'Punto de recarga'),esc([x.o.r.kw,(x.o.r.tip||[]).join(', ')].filter(Boolean).join(' · ')))).join(''):'')+
+    (A.length?'<div class="note" style="margin-top:6px">🅿️ Aparcabicis</div>'+A.map(x=>fila(x,'Aparcabicis',esc(x.o.f.a.D||''))).join(''):'');
+  el.querySelectorAll('[data-tk]').forEach(d=>d.onclick=()=>{const o=trFeats(d.dataset.tk)[+d.dataset.ti];if(!o)return;if(!TRON[o.k]){TRON[o.k]=true;const c=document.querySelector(`#trLay [data-k="${o.k}"]`);if(c)c.checked=true;}
+    TRSEL=o;trFicha();TRM.fit(o.pt[0]-.01,o.pt[0]+.01,o.pt[1]-.015,o.pt[1]+.015);document.getElementById('trc').scrollIntoView({behavior:'smooth'});});}
+function trInit(){vjLoad(()=>trBici(()=>{if(!TRM){TRM=NavMap('trc',trDraw,trTap);mapBtns('trc',TRM);
+    document.querySelectorAll('#trLay input').forEach(c=>c.onchange=()=>{TRON[c.dataset.k]=c.checked;if(TRSEL&&!TRON[TRSEL.k]){TRSEL=null;trFicha();}TRM.draw();});
+    document.querySelectorAll('.trL').forEach(b=>b.onclick=()=>trOpen(b.dataset.url));
+    document.getElementById('trNear').onclick=async()=>{const m=document.getElementById('trMsg');m.textContent='Buscando tu posición…';
+      try{TRPOS=await myPos();m.textContent='';TRM.fit(TRPOS.la-.05,TRPOS.la+.05,TRPOS.lo-.07,TRPOS.lo+.07);trCerca();}catch(e){m.textContent='❌ '+e.message;}};}
+  setTimeout(()=>{TRM.draw();TRM.base();},60);}));}
+const _showTabTr=showTab;showTab=function(t){_showTabTr(t);if(t==='transp')setTimeout(trInit,40);};
+Object.assign(ICK,{transp:'leaf'});Object.assign(ICC,{transp:'#2e7d32'});if(typeof applyIcons==='function')applyIcons((CFG.iconos||'pro')==='pro');
 </script>
 </body>
 </html>
