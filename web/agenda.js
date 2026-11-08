@@ -1,1 +1,1 @@
-window.AGENDA={"t":"2026-11-05 21:41","fiestas":[],"con":[]};
+window.AGENDA={"t":"2026-11-08 16:00","fiestas":[],"con":[{"s":"abaigar-1","p":"Abáigar","f":0}]};
