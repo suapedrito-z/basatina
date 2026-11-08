@@ -238,6 +238,10 @@ body.bna .wrap{padding-bottom:78px}
 .dpsp{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px}
 body.bna #menuBtn{display:none}
 #mtc{touch-action:pan-y}
+/* mapas (salvo el de inicio): margen a los lados para poder desplazar la pantalla con el dedo */
+.mapm{margin-left:22px!important;margin-right:22px!important}canvas.mapm{width:calc(100% - 44px)!important}
+
+
 body.bna #mtBox{position:relative;overflow:hidden;background:linear-gradient(125deg,#3D7031 0%,#4f8a46 35%,#097BA4 100%);border-radius:22px;padding:10px 10px 8px;box-shadow:0 8px 24px rgba(13,98,133,.22)}
 body.bna #mtBox:after{content:"";position:absolute;right:-60px;bottom:-70px;width:220px;height:160px;border-radius:50%;border:16px solid rgba(255,255,255,.10);pointer-events:none}
 body.bna #mtBox #mtWrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.18)}
@@ -4646,6 +4650,13 @@ const _bnCA=cfgApply;cfgApply=function(){_bnCA();try{bnApply();}catch(e){console
 bnApply();
 jsLoad(DP_PATH,DP_DEF).then(G=>{BNDP=G;bnHome();}).catch(()=>{});
 setInterval(()=>{if(isBna()&&BNTAB==='mtiempo')bnHome();},60e3);setTimeout(bnHome,3000);
+
+// mapas con margen lateral (todos menos el de inicio): se estrecha el contenedor con los botones +/- si lo hay
+(function(){const IDS='map dem pc czc moc sic trc enc cac inc gsc rdc arc dic msc foc arbc arpc dipc'.split(' ');
+ function mm(){IDS.forEach(i=>{const c=document.getElementById(i);if(!c||c.dataset.mm)return;c.dataset.mm=1;const p=c.parentElement;
+  if(p&&p.tagName==='DIV'&&p.style.position==='relative'&&!p.classList.contains('card'))p.classList.add('mapm');else c.classList.add('mapm');
+  try{typeof resizeAll==='function'&&resizeAll();}catch(e){}});}
+ mm();try{new MutationObserver(mm).observe(document.body,{childList:true,subtree:true});}catch(e){}})();
 </script>
 </body>
 </html>
