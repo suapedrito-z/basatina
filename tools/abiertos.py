@@ -70,6 +70,104 @@ def explorar():
     open("tools/abiertos_info.txt", "w").write("\n".join(out) + "\n")
     print("\n".join(out))
 
+# ---------------------------------------------------------------- descarga para la app
+import unicodedata, html as H
+NOPUB = "no se consiente"
+def norm(s):
+    s = unicodedata.normalize("NFD", (s or "").lower())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    return re.sub(r"[^a-z0-9]+", " ", s).strip()
+def limpio(v):
+    v = (v or "").strip() if isinstance(v, str) else ("" if v is None else str(v))
+    return "" if NOPUB in v.lower() else v
+def texto(htm, n=1600):
+    t = re.sub(r"<br\s*/?>", "\n", htm or "", flags=re.I); t = re.sub(r"<[^>]+>", "", t); t = H.unescape(t)
+    t = re.sub(r"\n\s*\n+", "\n", t).strip()
+    return t if len(t) <= n else t[:n].rsplit(" ", 1)[0] + "…"
+
+# Coordenadas de los pueblos (web/pueblos.js, del Nomenclátor de IDENA) para situar lo que solo trae el nombre del pueblo
+P = open("web/pueblos.js", encoding="utf-8").read(); P = json.loads(P[P.index("{"):P.rindex("}") + 1])
+IDX, MUNI = {}, {}
+for p in P["pueblos"]:
+    for alt in [p["n"]] + p["n"].split("/"):
+        IDX.setdefault(norm(alt), p["pt"])
+for k, m in P["municipios"].items():
+    pts = [p["pt"] for p in P["pueblos"] if p["m"] == k]
+    if pts:
+        for alt in [m["n"]] + m["n"].split("/"):
+            MUNI.setdefault(norm(alt), IDX.get(norm(alt)) or pts[0])
+SIN = []
+def donde(loc, muni=""):
+    for cand in [loc] + (loc or "").split("/") + [muni] + (muni or "").split("/"):
+        c = norm(cand)
+        if not c: continue
+        if c in IDX: return IDX[c]
+        if c in MUNI: return MUNI[c]
+    SIN.append(loc or muni); return None
+
+def recurso(slug, nombre=None):
+    p = paquete(slug)
+    R = [r for r in p["resources"] if r.get("datastore_active") and (nombre is None or nombre in (r.get("name") or ""))]
+    return filas(R[0]["id"])
+
+def descargar():
+    from pyproj import Transformer
+    utm = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
+    out = {"t": time.strftime("%Y-%m-%d")}
+    # 🛏️ alojamientos: [tipo, nombre, categoría, dirección, localidad, zona, plazas, lat, lon, web, teléfono]
+    al = []
+    for tipo in ["hotel", "rural", "apart", "albergue", "camping"]:
+        for f in recurso(CONJ[tipo]):
+            pt = donde(f.get("LOCALIDAD"), f.get("MUNICIPIO")) or [None, None]
+            al.append([tipo, limpio(f.get("NOMBRE")), limpio(f.get("CATEGORIA")) or limpio(f.get("MODALIDAD")), limpio(f.get("DIRECCION")),
+                       limpio(f.get("LOCALIDAD")), limpio(f.get("SUB_ZONA")), int(f.get("PLAZAS") or 0) if str(f.get("PLAZAS") or "0").isdigit() else 0,
+                       pt[0], pt[1], limpio(f.get("WEB")), limpio(f.get("TELEFONO_RESERVAS_1"))])
+        time.sleep(1)
+    out["aloj"] = al
+    # 🍽️ restaurantes: [nombre, categoría, especialidad, dirección, localidad, zona, lat, lon, web, teléfono]
+    out["rest"] = []
+    for f in recurso(CONJ["rest"]):
+        pt = donde(f.get("LOCALIDAD"), f.get("MUNICIPIO")) or [None, None]
+        out["rest"].append([limpio(f.get("NOMBRE")), limpio(f.get("CATEGORIA")), limpio(f.get("Especialidad")), limpio(f.get("DIRECCION")),
+                            limpio(f.get("LOCALIDAD")), limpio(f.get("SUB_ZONA")), pt[0], pt[1], limpio(f.get("WEB")), limpio(f.get("TELEFONO_RESERVAS_1"))])
+    # 🏛️ museos (con horario y precio)
+    out["museos"] = []
+    for f in recurso(CONJ["museo"]):
+        pt = donde(f.get("LOCALIDAD")) or [None, None]
+        nom = limpio(f.get("NOMBRE")); nom = nom.title() if nom.isupper() else nom
+        out["museos"].append({"n": nom, "loc": limpio(f.get("LOCALIDAD")), "dir": limpio(f.get("DIRECCION")), "tel": limpio(f.get("TELEFONO")),
+                              "web": limpio(f.get("WEB")), "hor": texto(limpio(f.get("HORARIO")), 900), "pre": texto(limpio(f.get("PRECIO")), 300),
+                              "des": texto(limpio(f.get("DESCRIPCION")), 900), "lat": pt[0], "lon": pt[1]})
+    # 🏰 arte y monumentos: [nombre, tipo, estilo, localidad, zona, lat, lon]  (coordenadas UTM 30N -> grados)
+    out["arte"] = []
+    for f in recurso(CONJ["arte"]):
+        try: lon, lat = utm.transform(float(f["GEORR_X"]), float(f["GEORR_Y"])); lat, lon = round(lat, 5), round(lon, 5)
+        except Exception: lat = lon = None
+        loc = limpio(f.get("NombreLocalidad")); loc = loc.title() if loc.isupper() else loc
+        out["arte"].append([limpio(f.get("Nombre")), limpio(f.get("Tipo")), limpio(f.get("ESTILO")), loc, limpio(f.get("DescripZona")), lat, lon])
+    # 🎉 festivos locales por año: {"2026": [["Abáigar", "01-22"], ...]}
+    MES = {m: i + 1 for i, m in enumerate(["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"])}
+    out["festivos"] = {}
+    for r in paquete(CONJ["festivos"])["resources"]:
+        y = re.match(r"(\d{4})", r.get("name") or "")
+        if not (y and r.get("datastore_active")) or int(y.group(1)) < int(time.strftime("%Y")) - 1: continue
+        L = []
+        for f in filas(r["id"]):
+            m, d = MES.get(norm(f.get("MES"))), str(f.get("DIA") or "").strip()
+            if m and d.isdigit(): L.append([(f.get("LOCALIDAD") or "").strip().title(), "%02d-%02d" % (m, int(d))])
+        out["festivos"][y.group(1)] = L
+    # 🥘 productos típicos y recetas
+    out["recetas"] = [{"n": limpio(f.get("Nombre")), "tipo": limpio(f.get("Tipo")), "sub": limpio(f.get("Subtipo")), "do": f.get("DenominacionOrigen") == "S",
+                       "txt": texto(f.get("DescripImpresion"), 1600)} for f in recurso(CONJ["recetas"])]
+    s = json.dumps(out, ensure_ascii=False, separators=(",", ":"))
+    open("web/abiertos.js", "w", encoding="utf-8").write("// Datos abiertos del Gobierno de Navarra (datosabiertos.navarra.es, CC BY 4.0). Generado por tools/abiertos.py\nwindow.ABIERTOS=" + s + ";\n")
+    info = "alojamientos %d · restaurantes %d · museos %d · arte %d · festivos %s · recetas %d\nSin situar (%d): %s" % (
+        len(out["aloj"]), len(out["rest"]), len(out["museos"]), len(out["arte"]), {k: len(v) for k, v in out["festivos"].items()}, len(out["recetas"]),
+        len(set(SIN)), ", ".join(sorted(set(x for x in SIN if x)))[:3000])
+    print(info); open("tools/abiertos_info.txt", "a").write("\n" + "=" * 80 + "\nRESUMEN\n" + info + "\n")
+
 if __name__ == "__main__":
     if "--explorar" in sys.argv:
         explorar()
+    else:
+        descargar()
