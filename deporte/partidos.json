@@ -1,0 +1,124 @@
+{
+ "partidos": [
+  {
+   "id": "osa0",
+   "dep": "futbol",
+   "comp": "LaLiga (masc.)",
+   "loc": "Osasuna",
+   "vis": "Málaga",
+   "f": "2026-11-22",
+   "h": "18:30",
+   "lugar": "El Sadar (Pamplona)",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "osa1",
+   "dep": "futbol",
+   "comp": "LaLiga (masc.)",
+   "loc": "Valencia CF",
+   "vis": "Osasuna",
+   "f": "2026-11-29",
+   "h": "14:00",
+   "lugar": "Mestalla (Valencia)",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "osa2",
+   "dep": "futbol",
+   "comp": "LaLiga (masc.)",
+   "loc": "Osasuna",
+   "vis": "Elche",
+   "f": "2026-12-06",
+   "h": "",
+   "lugar": "El Sadar (Pamplona)",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "pro0",
+   "dep": "futbol",
+   "comp": "Segunda Federación (masc.)",
+   "loc": "Utebo",
+   "vis": "Osasuna Promesas",
+   "f": "2026-11-08",
+   "h": "12:00",
+   "lugar": "Campo Santa Ana (Utebo)",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "pro1",
+   "dep": "futbol",
+   "comp": "Segunda Federación (masc.)",
+   "loc": "Osasuna Promesas",
+   "vis": "SD Logroñés",
+   "f": "2026-11-14",
+   "h": "17:00",
+   "lugar": "Tajonar",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "pro2",
+   "dep": "futbol",
+   "comp": "Segunda Federación (masc.)",
+   "loc": "Osasuna Promesas",
+   "vis": "Barbastro",
+   "f": "2026-11-21",
+   "h": "17:00",
+   "lugar": "Tajonar",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "osw0",
+   "dep": "futbol",
+   "comp": "Primera Federación (fem.)",
+   "loc": "Osasuna W",
+   "vis": "Tenerife B W",
+   "f": "2026-11-08",
+   "h": "13:00",
+   "lugar": "Tajonar",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "osw1",
+   "dep": "futbol",
+   "comp": "Copa de la Reina",
+   "loc": "Logroño United",
+   "vis": "Osasuna W",
+   "f": "2026-11-12",
+   "h": "19:00",
+   "lugar": "",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "osw2",
+   "dep": "futbol",
+   "comp": "Primera Federación (fem.)",
+   "loc": "CP Cacereño W",
+   "vis": "Osasuna W",
+   "f": "2026-11-15",
+   "h": "12:00",
+   "lugar": "",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  },
+  {
+   "id": "osw3",
+   "dep": "futbol",
+   "comp": "Primera Federación (fem.)",
+   "loc": "Real Sociedad B W",
+   "vis": "Osasuna W",
+   "f": "2026-11-22",
+   "h": "18:30",
+   "lugar": "",
+   "url": "https://www.osasuna.es/partidos-osasuna",
+   "res": ""
+  }
+ ]
+}

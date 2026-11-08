@@ -756,7 +756,8 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <!-- ============ 🏆 DEPORTE NAVARRO ============ -->
 <section id="t-deporte">
 <div class="card"><b>🏆 Deporte navarro</b><div class="note">Próximos partidos de los equipos navarros en las primeras y segundas categorías nacionales: fútbol, fútbol sala, baloncesto, balonmano, pelota, voleibol, natación…</div>
- <div class="seg" id="dpDep" style="margin-top:8px"></div></div>
+ <div class="seg" id="dpDep" style="margin-top:8px"></div>
+ <div class="seg" id="dpComp" style="margin-top:6px"></div></div>
 <div class="card" id="dpProx"></div>
 <div class="card" id="dpRes"></div>
 <div class="card"><b>📨 ¿Falta un partido o un equipo?</b><div class="note">Avísanos por el buzón y lo añadimos.</div><div class="row"><button class="btn pri" onclick="bzIr('Partido','Deporte y categoría: \nPartido (local - visitante): \nDónde: \nCuándo (día y hora): \nEnlace: ')">📨 Avisar de un partido</button></div></div>
@@ -4009,14 +4010,19 @@ document.getElementById('agNext').onclick=()=>{const [y,m]=AGMES.split('-').map(
    No hay una fuente gratuita que tenga todos los deportes, así que la lista la mantenéis vosotros. */
 const DP_PATH='deporte/partidos.json',DP_DEF={partidos:[]};
 const DP_DEPS=[['','Todos','🏆'],['futbol','Fútbol','⚽'],['sala','Fútbol sala','🥅'],['balonc','Baloncesto','🏀'],['balonm','Balonmano','🤾'],['pelota','Pelota','🔵'],['voley','Voleibol','🏐'],['natacion','Natación','🏊'],['rugby','Rugby','🏉'],['hockey','Hockey','🏑'],['otros','Otros','🏅']];
-let DPDEP='',DPED=null;
+let DPDEP='',DPCOMP='',DPED=null;
 const dpIco=d=>(DP_DEPS.find(x=>x[0]===d)||DP_DEPS[10])[2];
 async function dpRender(){const G=await jsLoad(DP_PATH,DP_DEF),hoy=hoyYmd();
   const ds=document.getElementById('dpDep');ds.innerHTML=DP_DEPS.map(c=>`<button class="btn${c[0]===DPDEP?' on':''}" data-v="${c[0]}">${c[2]} ${c[1]}</button>`).join('');
-  ds.querySelectorAll('button').forEach(b=>b.onclick=()=>{DPDEP=b.dataset.v;dpRender();});
-  const P=(G.partidos||[]).filter(x=>!DPDEP||x.dep===DPDEP);
+  ds.querySelectorAll('button').forEach(b=>b.onclick=()=>{DPDEP=b.dataset.v;DPCOMP='';dpRender();});
+  const P0=(G.partidos||[]).filter(x=>!DPDEP||x.dep===DPDEP);
+  /* Subpestañas por competición: salen solas de las competiciones que haya en los partidos */
+  const CS=[...new Set(P0.map(x=>x.comp).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));if(DPCOMP&&!CS.includes(DPCOMP))DPCOMP='';
+  const cs=document.getElementById('dpComp');cs.innerHTML=CS.length>1?[['','📋 Todas'],...CS.map(c=>[c,c])].map(c=>`<button class="btn${c[0]===DPCOMP?' on':''}" data-v="${esc(c[0])}">${esc(c[1])}</button>`).join(''):'';
+  cs.querySelectorAll('button').forEach(b=>b.onclick=()=>{DPCOMP=b.dataset.v;dpRender();});
+  const P=P0.filter(x=>!DPCOMP||x.comp===DPCOMP);
   const fila=x=>`<div class="st" style="align-items:flex-start"><div style="flex:1"><b>${dpIco(x.dep)} ${esc(x.loc)} – ${esc(x.vis)}</b>${x.res?` <b style="color:var(--acc)">${esc(x.res)}</b>`:''}
-    <div class="s">${esc(x.comp||'')}</div><div class="s">📅 ${fLarga(x.f)}${x.h?' · '+esc(x.h)+' h':''}${x.lugar?' · 📍 '+esc(x.lugar):''}</div>
+    <div class="s">${esc(x.comp||'')}</div><div class="s">📅 ${fLarga(x.f)}${x.h?' · '+esc(x.h)+' h':' · Hora pendiente'}${x.lugar?' · 📍 '+esc(x.lugar):''}</div>
     ${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">🔗 Más información / entradas</a></div>`:''}
     ${TECH?`<div class="row"><button class="btn" data-ed="${esc(x.id)}">✏️ Editar / poner resultado</button></div>`:''}</div></div>`;
   const prox=P.filter(x=>x.f>=hoy).sort((a,b)=>(a.f+(a.h||'')).localeCompare(b.f+(b.h||''))).slice(0,30);
