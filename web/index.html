@@ -2393,7 +2393,7 @@ function biciApply(){const B=window.BICI;if(!B)return;
   ['carretera','gravel'].forEach(t=>{MO_EXTRA['BICI_'+t]=(B.salidas||[]).filter(r=>r.tipo===t).map(r=>({a:{NOMBRE:r.n,LUGARINI:r.ini,BKM:r.km?fmtN(r.km,1)+' km':null,BDES:r.des?r.des+' m':null,BDIF:r.dif||null,URL:r.url,
     D:'El punto marca el pueblo de salida. El recorrido completo está en la ficha oficial de Turismo de Navarra (visitnavarra.es).'},pt:r.pt}));});}
 let BILOAD=false;function biciLoad(cb){if(window.BICI||BILOAD){cb();return;}BILOAD=true;const s=document.createElement('script');s.src='bici.js';s.onload=s.onerror=()=>{biciApply();cb();};document.body.appendChild(s);}
-function moLoad(cb){biciLoad(()=>{if(window.MONTE_GEO&&MOM)MOM.draw();});if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}
+function moLoad(cb){if(Object.keys(MON).some(k=>k.startsWith('BICI_')&&MON[k]))biciLoad(()=>{if(MOM)MOM.draw();});if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}
 function moDraw(x,P,b,M){const r=Math.max(2.5,Math.min(7,2+M.z*.3));
   for(const [k,,c,t] of MOL){if(!MON[k])continue;const big=k==='VIS'||k==='CASC';for(const f of moFeats(k)){const sel=MOSEL&&MOSEL.f===f;
     if(t==='pt'&&f.r)for(const ring of f.r){x.beginPath();ring.forEach((q,i)=>{const [px,py]=P(q[0],q[1]);i?x.lineTo(px,py):x.moveTo(px,py);});x.lineCap='round';x.lineJoin='round';x.strokeStyle='#fff';x.lineWidth=sel?7:4.5;x.stroke();x.strokeStyle=c;x.lineWidth=sel?4:2.5;x.stroke();}
@@ -2525,7 +2525,7 @@ function moSearch(q){const res=document.getElementById('moRes');q=(q||'').trim()
     let s=90,n=-90,w=180,e=-180;(r.f.r?r.f.r.flat():[r.f.pt]).forEach(([la,lo])=>{s=Math.min(s,la);n=Math.max(n,la);w=Math.min(w,lo);e=Math.max(e,lo);});
     if(!r.f.r){s-=.02;n+=.02;w-=.03;e+=.03;}MOM.fit(s,n,w,e);MOSEL={L:r.L,f:r.f,ll};MOM.draw();moFicha();res.innerHTML='';document.getElementById('moQ').value='';});}
 function moLayers(){document.getElementById('moLay').innerHTML=MOL.map(([k,n,c])=>`<label style="display:inline-flex;align-items:center;gap:5px;margin:3px 10px 3px 0;color:var(--txt)"><input type="checkbox" data-k="${k}" ${MON[k]?'checked':''}><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${c}"></span>${n}</label>`).join('');
-  document.querySelectorAll('#moLay input').forEach(i=>i.onchange=()=>{MON[i.dataset.k]=i.checked;MOM.draw();});}
+  document.querySelectorAll('#moLay input').forEach(i=>i.onchange=()=>{MON[i.dataset.k]=i.checked;if(i.checked&&i.dataset.k.startsWith('BICI_')&&!window.BICI){document.getElementById('moInfo').textContent='🚲 Cargando las rutas en bici…';biciLoad(()=>{document.getElementById('moInfo').textContent='Toca una ruta (línea) o un punto para ver su ficha.';MOM.draw();});}MOM.draw();});}
 function moInit(){if(!MOM){MOM=NavMap('moc',moDraw,moTap);
     document.getElementById('moIn').onclick=()=>MOM.zoom(1.6);document.getElementById('moOut').onclick=()=>MOM.zoom(1/1.6);document.getElementById('moAll').onclick=()=>{MOM.la=42.66;MOM.lo=-1.63;MOM.z=1;MOM.draw();MOM.base();};
     document.getElementById('moOv').innerHTML=MOOV.map(([k,n])=>`<option value="${k}">${n}</option>`).join('');
