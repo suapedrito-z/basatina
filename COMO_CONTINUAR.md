@@ -56,6 +56,7 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 - **Fotos (desde nov. 2026)**: «Fotos de la gente» es pública. «Envía tu foto» (el formulario con alias y correo) sigue solo en el modo administrador hasta resolver el tratamiento de datos personales. Mientras, los administradores suben fotos de Instagram con permiso del autor (solo se guarda el @usuario).
 - **Huella automática**: `.github/workflows/version.yml` ejecuta `tools/make_version.py` en cada push que toque `web/`, así que editar a mano en la web de GitHub también llega a los móviles.
 - **Listas editables desde la app** (modo administrador): `agenda/cultura.json` (Agenda cultural), `deporte/partidos.json` (Deporte navarro), `avisos/escapadas.json` (avisos de «Antes de salir hoy»). Helpers `jsLoad`/`jsEdit`.
+- **Datos abiertos de Navarra** (`tools/abiertos.py`, robot `abiertos.yml` cada lunes → `web/abiertos.js`, se carga solo al abrir Turismo): alojamientos, restaurantes, museos, arte y monumentos, festivos locales (salen en la Agenda cultural) y productos típicos/recetas. Usa la API CKAN (`package_show`) por nombre de conjunto; alojamientos y restaurantes se sitúan en su pueblo con `web/pueblos.js`. `python3 tools/abiertos.py --explorar` lista los campos en `tools/abiertos_info.txt`.
 - **Manuales**: `manuales/` tiene el manual de usuario en PDF. El de administrador es interno y **no se sube aquí** (el repositorio es público): lo guardan Pedro y Sonia.
 
 ## 6. Cosas pendientes o ideas
