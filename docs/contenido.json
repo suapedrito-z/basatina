@@ -104,7 +104,7 @@
   },
   {
    "titulo": "🛡️ ¿Por qué salen avisos de seguridad al instalarla?",
-   "texto": "Son **normales y no significan que la app tenga nada malo**. Android avisa siempre que instalas una app que **no viene de Google Play**, porque Google no la ha revisado.\nBasatiNA no está en Google Play porque es un proyecto **gratuito y sin ánimo de lucro**. La app no pide datos personales, no tiene publicidad y su código es público en GitHub.\nLos avisos salen al instalarla. La primera vez que la app se actualice a una versión nueva, Android puede pedir el mismo permiso para BasatiNA: es el mismo caso y se acepta igual.",
+   "texto": "Son **normales y no significan que la app tenga nada malo**. Android avisa siempre que instalas una app que **no viene de Google Play**, porque Google no la ha revisado.\nBasatiNA no está en Google Play porque es un proyecto **gratuito y sin ánimo de lucro**. La app no pide datos personales, no tiene publicidad y su código es público en GitHub.\nLos avisos salen al instalarla. La primera vez que la app se actualice a una versión nueva, Android puede pedir el mismo permiso para BasatiNA: es el mismo caso y se acepta igual.\nGuía de instalación paso a paso en PDF: https://sonpe-technology.es/manuales/BasatiNA_Como_instalarla.pdf\nManual de la app en PDF: https://sonpe-technology.es/manuales/BasatiNA_Manual_de_usuario.pdf",
    "foto": ""
   }
  ],
