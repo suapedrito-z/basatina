@@ -651,19 +651,6 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
-   "id": "paicertameninternacionalpelotavasca20261112",
-   "t": "I Certamen Internacional Pelota Vasca",
-   "cat": "otros",
-   "f": "2026-11-12",
-   "ff": "",
-   "h": "",
-   "lugar": "Frontón Labrit",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/i-certamen-internacional-pelota-vasca",
-   "desc": "",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
    "id": "cncrianzapositiva36anos420261112",
    "t": "Crianza positiva 3-6 años",
    "cat": "otros",
@@ -675,6 +662,19 @@
    "url": "https://www.culturanavarra.es/es/agenda/2026-11-12/taller/crianza-positiva-3-6-anos-4",
    "desc": "",
    "src": "Cultura Navarra"
+  },
+  {
+   "id": "paicertameninternacionalpelotavasca20261112",
+   "t": "I Certamen Internacional Pelota Vasca",
+   "cat": "otros",
+   "f": "2026-11-12",
+   "ff": "",
+   "h": "",
+   "lugar": "Frontón Labrit",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/i-certamen-internacional-pelota-vasca",
+   "desc": "",
+   "src": "Ayuntamiento de Pamplona"
   },
   {
    "id": "cntreintacastanuelasparalondres20261112",
@@ -898,6 +898,19 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
+   "id": "cnintroduccionalclimateriocomprenderlaperi20261116",
+   "t": "Introducción al climaterio: comprender la perimenopausia y la menopausia",
+   "cat": "otros",
+   "f": "2026-11-16",
+   "ff": "",
+   "h": "",
+   "lugar": "Biblioteca de Navarra. Sala Polivalente",
+   "pueblo": "Pamplona",
+   "url": "https://www.culturanavarra.es/es/agenda/2026-11-16/taller/introduccion-al-climaterio-comprender-la-perimenopausia-y-la-menopausia",
+   "desc": "",
+   "src": "Cultura Navarra"
+  },
+  {
    "id": "patallermujeresqueinspiranemprendenytransf20261116",
    "t": "Mujeres que inspiran, emprenden y transforman",
    "cat": "otros",
@@ -922,19 +935,6 @@
    "url": "https://www.pamplona.es/actualidad/eventos/exposicion-pamplona-es-moda-iruna-moda-da",
    "desc": "Exposición",
    "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "cnintroduccionalclimateriocomprenderlaperi20261116",
-   "t": "Introducción al climaterio: comprender la perimenopausia y la menopausia",
-   "cat": "otros",
-   "f": "2026-11-16",
-   "ff": "",
-   "h": "",
-   "lugar": "Biblioteca de Navarra. Sala Polivalente",
-   "pueblo": "Pamplona",
-   "url": "https://www.culturanavarra.es/es/agenda/2026-11-16/taller/introduccion-al-climaterio-comprender-la-perimenopausia-y-la-menopausia",
-   "desc": "",
-   "src": "Cultura Navarra"
   },
   {
    "id": "patallerpalabrasqueflorecenbibliotecadesan20261117",
@@ -1119,6 +1119,19 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
+   "id": "cncrianzapositiva36anos620261119",
+   "t": "Crianza positiva 3-6 años",
+   "cat": "otros",
+   "f": "2026-11-19",
+   "ff": "",
+   "h": "",
+   "lugar": "Biblioteca de Navarra. Sala planta 1",
+   "pueblo": "Pamplona",
+   "url": "https://www.culturanavarra.es/es/agenda/2026-11-19/taller/crianza-positiva-3-6-anos-6",
+   "desc": "",
+   "src": "Cultura Navarra"
+  },
+  {
    "id": "pajornadastransformaciondigitalotdchalleng20261119",
    "t": "OTD Challenge 2026",
    "cat": "charla",
@@ -1145,19 +1158,6 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
-   "id": "cncrianzapositiva36anos620261119",
-   "t": "Crianza positiva 3-6 años",
-   "cat": "otros",
-   "f": "2026-11-19",
-   "ff": "",
-   "h": "",
-   "lugar": "Biblioteca de Navarra. Sala planta 1",
-   "pueblo": "Pamplona",
-   "url": "https://www.culturanavarra.es/es/agenda/2026-11-19/taller/crianza-positiva-3-6-anos-6",
-   "desc": "",
-   "src": "Cultura Navarra"
-  },
-  {
    "id": "paiiciclodemonologosfeministasmejorserarei20261120",
    "t": "Mejor será reirnos",
    "cat": "teatro",
@@ -1169,6 +1169,19 @@
    "url": "https://www.pamplona.es/actualidad/eventos/ii-ciclo-de-monologos-feministas-mejor-sera-reirnos-casa-de-las-mujeres",
    "desc": "II Ciclo de monólogos feministas",
    "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "cnbarnekartografiakmemoriaisiltasunaetaegu20261120",
+   "t": "Barne kartografiak: memoria, isiltasuna eta egunerokotasuna aztertzeko irakurketa eta idazketa dinamikak",
+   "cat": "otros",
+   "f": "2026-11-20",
+   "ff": "",
+   "h": "",
+   "lugar": "",
+   "pueblo": "",
+   "url": "https://www.culturanavarra.es/es/agenda/2026-11-20/taller/barne-kartografiak-memoria-isiltasuna-eta-egunerokotasuna-aztertzeko-irakurketa-eta-idazketa-dinamikak",
+   "desc": "Taller en euskera",
+   "src": "Cultura Navarra"
   },
   {
    "id": "padiamundialporlosderechosdelainfancia20261120",
@@ -1208,19 +1221,6 @@
    "url": "https://www.pamplona.es/actualidad/eventos/concierto-la-oreja-de-van-gogh-navarra-arena",
    "desc": "Concierto",
    "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "cnbarnekartografiakmemoriaisiltasunaetaegu20261120",
-   "t": "Barne kartografiak: memoria, isiltasuna eta egunerokotasuna aztertzeko irakurketa eta idazketa dinamikak",
-   "cat": "otros",
-   "f": "2026-11-20",
-   "ff": "",
-   "h": "",
-   "lugar": "",
-   "pueblo": "",
-   "url": "https://www.culturanavarra.es/es/agenda/2026-11-20/taller/barne-kartografiak-memoria-isiltasuna-eta-egunerokotasuna-aztertzeko-irakurketa-eta-idazketa-dinamikak",
-   "desc": "Taller en euskera",
-   "src": "Cultura Navarra"
   },
   {
    "id": "paencuentroclubesdelecturaencastellanodena20261121",
@@ -1951,5 +1951,5 @@
    "src": "Ayuntamiento de Pamplona"
   }
  ],
- "act": "2026-11-08 23:15"
+ "act": "2026-11-08 23:21"
 }
