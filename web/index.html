@@ -344,6 +344,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <!-- ============ MAPA DEL TIEMPO ============ -->
 <section id="t-mtiempo">
 <div id="avBanner" style="display:none;color:#fff;padding:8px 10px;border-radius:10px;margin-bottom:8px;font-size:13.5px;cursor:pointer" onclick="showTab('tiempo')"></div>
+<div id="sisBanner" style="display:none;color:#fff;background:#6a1b9a;padding:8px 10px;border-radius:10px;margin-bottom:8px;font-size:13.5px;cursor:pointer" onclick="showTab('sismo')"></div>
 <div id="mtWrap" style="position:relative">
   <canvas id="mtc" height="400"></canvas>
   <div id="mtBar" style="position:absolute;left:5px;top:5px;right:5px;display:flex;gap:3px;flex-wrap:nowrap;align-items:flex-start">
@@ -4018,6 +4019,20 @@ function moAvAdmin(){const el=document.getElementById('moAvAdm');
 
 Object.assign(TITLES,{cultura:'🎭 Agenda cultural',deporte:'🏆 Deporte navarro'});
 const _showTabNuevo=showTab;showTab=function(t){_showTabNuevo(t);if(t==='cultura')setTimeout(agRender,30);if(t==='deporte')setTimeout(dpRender,30);if(t==='monte')setTimeout(moAvisos,30);};
+
+/* ---------- 🌍 AVISO DE TERREMOTOS EN EL INICIO ----------
+   Pide al EMSC (que recoge los datos del IGN) los terremotos de magnitud 2,5 o más de las últimas 24 h
+   en la zona de Navarra. Si hay alguno, sale una franja morada en el inicio. Se mira como mucho cada 30 min. */
+let SISAV=0;
+async function sismoAviso(){if(Date.now()-SISAV<30*60e3)return;SISAV=Date.now();const el=document.getElementById('sisBanner');if(!el)return;
+  try{const t0=new Date(Date.now()-864e5).toISOString().slice(0,19);
+    const j=await getJSON(`https://www.seismicportal.eu/fdsnws/event/1/query?format=json&starttime=${t0}&minlat=41.9&maxlat=43.4&minlon=-2.6&maxlon=-0.6&minmag=2.5&limit=20`);
+    const F=(j&&j.features||[]).map(f=>f.properties).filter(p=>p.mag!=null).sort((a,b)=>b.mag-a.mag);
+    if(!F.length){el.style.display='none';return;}
+    const p=F[0],hace=Math.max(1,Math.round((Date.now()-Date.parse(p.time))/36e5));
+    el.innerHTML=`🌍 <b>Terremoto de magnitud ${(+p.mag).toFixed(1).replace('.',',')}</b> hace ${hace} h${F.length>1?` (y ${F.length-1} más en 24 h)`:''} · datos IGN/EMSC · toca para ver`;el.style.display='';}
+  catch(e){}}
+setTimeout(sismoAviso,3500);setInterval(sismoAviso,31*60e3);
 
 /* ---------- 📊 DESCARGAS DE LA APP (solo administrador) ----------
    GitHub guarda cuántas veces se ha descargado cada archivo de cada versión (release).
