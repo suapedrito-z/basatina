@@ -72,3 +72,8 @@ recetas  productos-t-picos-y-recetas
     filas: 43
     {"_id": 1, "num_fila": "1", "CodRecurso": "4995", "IdRecursoCategoria": "5371", "Tipo": "Productos típicos", "Subtipo": null, "DenominacionOrigen": "S", "CertificacionCalidad": "N", "DIPLOMACOMPROMISO": "NO", "URLIdRecursoCategoria": null, "URLNombreBuscador": "Gastronomia-y-Vinos", "URLNombreCast": "Aceite de Oliva", "Nombre": "Aceite de Oliva", "Path": "07\\01\\01\\00\\", "ImgFichero": "4995FotoTH1.jpg", "DescripZona": null, "DescripImpresion": "<br>Según la mitología, Atenea, diosa de la sabiduría, hizo brotar de una lanza un olivo, y a continuación sentenció: <em>\"... no sólo sus frutos serán buenos para comer, sino que de ellos se obtendrá un líquido extraordinario, el cual servirá para alimen"}
     {"_id": 2, "num_fila": "2", "CodRecurso": "4286", "IdRecursoCategoria": "5369", "Tipo": "Platos típicos", "Subtipo": "Segundo", "DenominacionOrigen": "N", "CertificacionCalidad": "N", "DIPLOMACOMPROMISO": "NO", "URLIdRecursoCategoria": null, "URLNombreBuscador": "Gastronomia-y-Vinos", "URLNombreCast": "Ajoarriero", "Nombre": "Ajoarriero", "Path": "07\\02\\00\\00\\", "ImgFichero": "4286FotoTH1.JPG", "DescripZona": null, "DescripImpresion": "<br />Aunque Navarra no tiene mar, el bacalao al ajoarriero es <b>una de las recetas más típicas</b>; nunca falta en los menús tradicionales y es protagonista de muchos concursos en las fiestas patronales de la región.<br /><br />La receta, que normalment"}
+
+================================================================================
+RESUMEN
+alojamientos 2846 · restaurantes 552 · museos 10 · arte 95 · festivos {'2026': 655, '2025': 655} · recetas 43
+Sin situar (0): 
