@@ -3888,8 +3888,8 @@ const foFecha=d=>{try{return new Date(d+'T12:00').toLocaleDateString('es-ES',{da
 
 /* ================= 📤 ENVÍA TU FOTO ================= */
 function enCheck(){const ok=[...document.querySelectorAll('.enOk')].every(c=>c.checked);document.getElementById('enS').disabled=!(ok&&ENFOTO);}
-function enInit(){
-  if(!enInit.done){enInit.done=1;
+function envInit(){
+  if(!envInit.done){envInit.done=1;
     const cs=document.getElementById('enCat');cs.innerHTML=FO_CATS.map(c=>`<button class="btn${c[0]===ENCAT?' on':''}" data-v="${c[0]}">${c[1]} ${c[2]}</button>`).join('');
     cs.querySelectorAll('button').forEach(b=>b.onclick=()=>{ENCAT=b.dataset.v;cs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));});
     document.getElementById('enCondT').innerHTML=FO_COND;
@@ -4072,7 +4072,7 @@ async function igSend(){const m=document.getElementById('igM'),b=document.getEle
   b.disabled=false;}
 
 const FO_PRIV=['enviar'];   // «Fotos de la gente» ya es pública; «Envía tu foto» sigue solo para administradores
-const _showTabFo=showTab;showTab=function(t){if(FO_PRIV.includes(t)&&!TECH)t='sim';_showTabFo(t);if(t==='enviar')setTimeout(enInit,40);if(t==='fotos')setTimeout(foInit,40);};
+const _showTabFo=showTab;showTab=function(t){if(FO_PRIV.includes(t)&&!TECH)t='sim';_showTabFo(t);if(t==='enviar')setTimeout(envInit,40);if(t==='fotos')setTimeout(foInit,40);};
 
 /* =====================================================================
    📦 LISTAS QUE EDITÁIS VOSOTROS (agenda cultural, partidos, avisos de escapadas)
