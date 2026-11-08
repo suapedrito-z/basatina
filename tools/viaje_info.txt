@@ -1,6 +1,1 @@
-gasolineras 255 08/11/2026 7:00:23
-overpass https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
-overpass https://overpass.private.coffee/api/interpreter The read operation timed out
-overpass https://overpass.kumi.systems/api/interpreter The read operation timed out
-recarga 96
-puertos 40 [('Col de la Pierre Saint-Martin', 1765.0), ('Portillo de Eraize', 1578.0), ('Puerto de Larrau', 1573.0), ('Collado de Lepoeder', 1429.0), ('Paso Laza', 1129.0), ('Puerto de Ibañeta', 1057.0), ('Puerto de Lizarraga', 1031.0), ('Puerto de Bernedo', 1000.0), ('La Aldea', 1000.0), ('la Corona', 950.0), ('Urbasa', 927.0), ('Alto de Mezkiritz', 922.0), ('Alto de Urkiaga', 911.06), ('Igoliko lepoa', 894.61), ('Etxauri gaina', 848.0), ('Puerto de Belate', 847.0), ('Alto de Errea', 842.0), ('Puerto de Arteta', 832.81), ('Alto Erro', 802.17), ('Puerto de Huici', 802.0), ('Puerto de Zugargarate', 798.0), ('Alto de Lerga', 764.0), ('Alto de Loiti', 726.0), ('Puerto de Usategieta', 694.0), ('Sierra del Perdón', 681.1), ('Puerto de Izpegi', 672.0), ('Alto de Iso', 670.0), ('Puerto de Lizarrusti', 620.69), ('Azpirotz', 617.0), ('Paso de Otxondo', 602.0), ('Ezkisaroi Lepoa', 512.0), ('Puerto de Lizarrieta', 441.0), ('Puerto de Lizuniaga', 219.0), ('Uaburuko lepoa', 128.8), ('Puerto Nuevo de Zudaire', None), ('Puerto de Artesiaga', None), ('Puerto de Ulzurrun', None), ('Alto de Ataburu', None), ('Genbe', None), ('Putzuzar', None)]
+gasolineras 255 08/11/2026 12:53:14
