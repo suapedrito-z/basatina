@@ -2377,8 +2377,9 @@ const MOL=[['PATRIM_Sym_Senderismo','🥾 Rutas recomendadas','#e65100','pt',1,[
  ['HIDROG_Sym_ZonaBano','🏊 Zonas de baño','#00acc1','pt',1,['NOMBRE','PTOAGUA']],['FOREST_Sym_AreasRecForest','🧺 Áreas recreativas','#558b2f','pt',0,['NOMBRE']],
  ['PATRIM_Sym_BICarquite','🏰 Patrimonio (BIC)','#6d4c41','pt',0,['BIC']],['GEOLOG_Sym_Cuevas','🕳️ Todas las cuevas y simas','#8d6e63','pt',0,['CUEVA']],
  ['IDEMUN_Sym_Fuentes','🚰 Fuentes públicas','#4fc3f7','pt',0,['FUENTE']],['GEOLOG_Sym_Manantiales','💧 Manantiales','#90caf9','pt',0,['MANANTIAL']],
- ['BICI_carretera','🚴 Bici de carretera','#e91e63','ln',0,['NOMBRE']],['BICI_gravel','🚵 Gravel','#795548','ln',0,['NOMBRE']],['BICI_btt','🚵 BTT (bici de montaña)','#ff6f00','ln',0,['NOMBRE']],
- ['BICI_ev1','🚲 EuroVelo 1','#1565c0','ln',0,['NOMBRE']],['BICI_vv','🚲 Vías verdes (Turismo de Navarra)','#43a047','ln',0,['NOMBRE']],['BICI_pam','🚲 Carriles bici de Pamplona','#00bcd4','ln',0,['BCAT']]];
+ ['BICI_btt','🚵 Rutas de BTT','#ff6f00','ln',0,['N']],['BICI_ev','🚲 EuroVelo 1 y 3','#1565c0','ln',0,['N']],['BICI_red','🚲 Red ciclista (carriles y vías ciclistas)','#00bcd4','ln',0,['N']],
+ ['BICI_carretera','🚴 Rutas de carretera (salida)','#e91e63','pt',0,['NOMBRE']],['BICI_gravel','🚵 Rutas de gravel (salida)','#795548','pt',0,['NOMBRE']],
+ ['BICI_riesgo','⚠️ Puntos de riesgo para ciclistas','#d50000','pt',0,['N']],['BICI_aparca','🅿️ Aparcabicis','#5c6bc0','pt',0,['N']],['BICI_serv','🔧 Servicios para ciclistas','#26a69a','pt',0,['N']]];
 const MOOV=[['','Sin capa oficial'],['senderos','🥾 Todos los senderos señalizados (PR, SL)'],['FOREST_Ras_ProbQuemaAnual','🔥 Probabilidad de incendio'],['FOREST_Pol_HcoIncendioA','🔥 Incendios 2019‑2023'],['FOREST_Pol_ZonUsoFuego','🔥 Zonas de uso del fuego'],['DOTACI_Sym_PtosAgua','🚒 Puntos de agua contra incendios']];
 let MON={},MOM=null,MOSEL=null,MOLOAD=false,MOPF=null;MOL.forEach(l=>MON[l[0]]=!!l[4]);
 function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[k];
@@ -2387,9 +2388,10 @@ function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[
   if(k==='VV')return ['DOTACI_Lin_VVBidasoa','DOTACI_Lin_VVVascoNav','DOTACI_Lin_VVIrati','DOTACI_Lin_VVPlazaola','DOTACI_Lin_VVTarazoni'].flatMap(x=>(G[x]||{f:[]}).f);
   return (G[k]||{f:[]}).f;}
 /* 🚴 rutas en bici (web/bici.js, lo genera tools/bici.py): se cargan con las capas del monte y se meten en MO_EXTRA */
-function biciApply(){const B=window.BICI;if(!B)return;const nm=t=>({carretera:'Bici de carretera',gravel:'Gravel',btt:'BTT',ev1:'EuroVelo 1',vv:'Vía verde'})[t]||t;
-  ['carretera','gravel','btt','ev1','vv'].forEach(t=>{MO_EXTRA['BICI_'+t]=(B.rutas||[]).filter(r=>r.tipo===t).map(r=>({a:{NOMBRE:r.n,BKM:r.km?fmtN(r.km,1)+' km':null,BDES:r.des?r.des+' m':null,BDIF:r.dif||null,URL:r.url,D:nm(t)+' · Turismo de Navarra (visitnavarra.es). En la ficha oficial tienes el GPX y la descripción.'},r:r.r}));});
-  MO_EXTRA.BICI_pam=(B.pamplona||[]).map(f=>({a:{BCAT:f.a.CAT||'Vía ciclable',NOMBRE:f.a.VIA&&f.a.VIA!=='SIN NOMBRE'?f.a.VIA:null,D:'Red ciclable · Ayuntamiento de Pamplona (sig.pamplona.es)'},r:f.r}));}
+function biciApply(){const B=window.BICI;if(!B)return;
+  Object.entries(B.idena||{}).forEach(([k,L])=>{MO_EXTRA['BICI_'+k]=L.map(f=>({a:{N:f.a.N||null,D:(f.a.D?f.a.D+'. ':'')+'Fuente: IDENA (Gobierno de Navarra).'},r:f.r,pt:f.pt}));});
+  ['carretera','gravel'].forEach(t=>{MO_EXTRA['BICI_'+t]=(B.salidas||[]).filter(r=>r.tipo===t).map(r=>({a:{NOMBRE:r.n,LUGARINI:r.ini,BKM:r.km?fmtN(r.km,1)+' km':null,BDES:r.des?r.des+' m':null,BDIF:r.dif||null,URL:r.url,
+    D:'El punto marca el pueblo de salida. El recorrido completo está en la ficha oficial de Turismo de Navarra (visitnavarra.es).'},pt:r.pt}));});}
 let BILOAD=false;function biciLoad(cb){if(window.BICI||BILOAD){cb();return;}BILOAD=true;const s=document.createElement('script');s.src='bici.js';s.onload=s.onerror=()=>{biciApply();cb();};document.body.appendChild(s);}
 function moLoad(cb){biciLoad(()=>{if(window.MONTE_GEO&&MOM)MOM.draw();});if(window.MONTE_GEO)return cb();if(MOLOAD)return;MOLOAD=true;const s=document.createElement('script');s.src='monte.js';s.onload=()=>{MOLOAD=false;cb();};s.onerror=()=>{MOLOAD=false;cb();};document.body.appendChild(s);}
 function moDraw(x,P,b,M){const r=Math.max(2.5,Math.min(7,2+M.z*.3));

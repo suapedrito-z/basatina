@@ -136,39 +136,93 @@ def eurovelo():
         if segs: out.append({"tipo": "ev1", "n": "EuroVelo 1 · " + nombre, "km": num(km.group(1)) if km else None, "des": None, "dif": "", "url": u, "r": segs})
     return out
 
-def pamplona():
-    """Red ciclable de Pamplona por WFS (GeoServer del SIG municipal). Probamos varias direcciones."""
-    capa = "Pamplona:MOVI_Lin_RedCiclable"
-    for base in ["https://sig.pamplona.es/ogc/wfs", "https://sig.pamplona.es/ogc/ows", "https://sig.pamplona.es/geoserver/wfs", "https://sig.pamplona.es/ogc/Pamplona/wfs"]:
-        u = base + "?" + urllib.parse.urlencode({"service": "WFS", "version": "2.0.0", "request": "GetFeature", "typeNames": capa,
-                                                 "outputFormat": "application/json", "srsName": "EPSG:4326", "count": "20000"})
-        try: b = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=25).read().decode("utf-8", "replace")
-        except Exception as e: b = None; INFO.append("  " + str(e))
-        INFO.append("PAMPLONA %s -> %s" % (base, (b or "ERROR")[:160].replace("\n", " ")))
-        if b is None and "timed out" in " ".join(INFO[-2:]): break   # el servidor no responde desde aquí: no insistimos
-        if not b or not b.lstrip().startswith("{"): continue
-        try: j = json.loads(b)
-        except Exception: continue
-        out = []
-        for f in j.get("features", []):
-            g = f.get("geometry") or {}; P = f.get("properties") or {}
-            lines = g.get("coordinates", [])
-            if g.get("type") == "LineString": lines = [lines]
-            for ln in lines:
-                pts = [[round(c[1], 5), round(c[0], 5)] for c in ln]
-                # si vinieran en UTM (no en grados) no valen
-                if pts and abs(pts[0][0]) <= 90:
-                    out.append({"a": {"CAT": P.get("CATEGORIA") or P.get("TIPO_VIA") or "", "VIA": P.get("VIA") or ""}, "r": [simplify(pts, 0.00008)]})
-        INFO.append("  tramos red ciclable: %d · campos: %s" % (len(out), list((j.get("features") or [{}])[0].get("properties", {}).keys())[:20]))
-        if out: return out
-    return []
+IDENA = {  # capa de IDENA -> (clave en la app, tolerancia de simplificación)
+    "DOTACI_Lin_RutasBTT": ("btt", 0.00025), "DOTACI_Lin_EuroVelo1": ("ev", 0.0003), "DOTACI_Lin_EuroVelo3": ("ev", 0.0003),
+    "INFRAE_Lin_TrazadoSIGMC": ("red", 0.00015), "INFRAE_Sym_PtoRiesgoSIGMC": ("riesgo", 0), "INFRAE_Sym_AparcamientoSIGMC": ("aparca", 0),
+    "INFRAE_Sym_ServSIGMC": ("serv", 0)}
+NOMBRE = ["NOMBRE", "NOM_RUTA", "RUTA", "DENOMINACI", "ETAPA", "TRAMO", "DESCRIPCIO", "TIPO", "SERVICIO", "DENOMINA"]
+FUERA = {"FEATURE", "BEGINLIFE", "GEOM_LONG", "GEOM_AREA", "GEOM_PERI", "OBJECTID", "FID", "ID", "X25830", "Y25830", "SHAPE_LENG", "SHAPE_AREA"}
+
+def idena():
+    """Capas oficiales de bici de IDENA (Gobierno de Navarra, CC BY 4.0), en shapefile UTM 30N."""
+    import io, zipfile, sys, collections, shapefile
+    from pyproj import Transformer
+    sys.setrecursionlimit(100000)
+    tr = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
+    out = collections.defaultdict(list)
+    for capa, (clave, tol) in IDENA.items():
+        b = get("https://idena.navarra.es/descargas/" + capa + ".zip", binario=True)
+        if not b: INFO.append("IDENA %s -> ERROR" % capa); continue
+        z = zipfile.ZipFile(io.BytesIO(b)); names = z.namelist(); base = [n[:-4] for n in names if n.lower().endswith(".shp")][0]
+        g = lambda ext: io.BytesIO(z.read([n for n in names if n.lower() == (base + ext).lower()][0]))
+        sf = shapefile.Reader(shp=g(".shp"), dbf=g(".dbf"), encoding="cp1252"); campos = [f[0] for f in sf.fields[1:]]
+        n0 = len(out[clave]); ej = None
+        for sr in sf.iterShapeRecords():
+            at = {k: (v.strip() if isinstance(v, str) else v) for k, v in zip(campos, sr.record)}
+            at = {k: v for k, v in at.items() if k not in FUERA and v not in ("", None, "-") and not (isinstance(v, (int, float)) and v == 0)}
+            ej = ej or at
+            nom = next((str(at[k]) for k in NOMBRE if at.get(k)), "")
+            det = " · ".join("%s: %s" % (k.capitalize(), str(v)[:80]) for k, v in at.items() if str(v) != nom)[:400]
+            if capa.startswith("DOTACI_Lin_EuroVelo"): nom = ("EuroVelo 1 · " if "1" in capa[-1] else "EuroVelo 3 · ") + nom
+            a = {"N": nom, "D": det}
+            s = sr.shape
+            if not s.points: continue
+            if s.shapeType in (1, 8, 11, 21) or not s.parts:
+                lo, la = tr.transform(*s.points[0][:2]); out[clave].append({"a": a, "pt": [round(la, 5), round(lo, 5)]}); continue
+            parts = list(s.parts) + [len(s.points)]; rings = []
+            for i in range(len(parts) - 1):
+                pts = [[round(la, 5), round(lo, 5)] for lo, la in (tr.transform(x, y) for x, y in s.points[parts[i]:parts[i + 1]])]
+                pts = simplify(pts, tol)
+                if len(pts) >= 2: rings.append(pts)
+            if rings: out[clave].append({"a": a, "r": rings})
+        INFO.append("IDENA %s -> %s: %d elementos · campos %s · ejemplo %s" % (capa, clave, len(out[clave]) - n0, campos, json.dumps(ej, ensure_ascii=False, default=str)[:400]))
+    return dict(out)
+
+def salidas():
+    """Rutas de carretera y gravel de visitnavarra: sus GPX están rotos en la web oficial (404),
+    así que ponemos un punto en el pueblo de salida con la ficha y el enlace."""
+    import unicodedata
+    def norm(s):
+        s = unicodedata.normalize("NFD", (s or "").lower()); s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+        return re.sub(r"[^a-z0-9]+", " ", s).strip()
+    P = open("web/pueblos.js", encoding="utf-8").read(); P = json.loads(P[P.index("{"):P.rindex("}") + 1]); IDX = {}
+    for p in P["pueblos"]:
+        for alt in [p["n"]] + p["n"].split("/"): IDX.setdefault(norm(alt), p["pt"])
+    out = []
+    for tipo in ("carretera", "gravel"):
+        p = get(BASE + LISTAS[tipo]) or ""
+        for m in re.finditer(r'href="([^"]*/detalle-ruta/-/r/[^"#?]+)"', p):
+            url = absu(m.group(1))
+            if any(o["url"] == url for o in out): continue
+            txt = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " | ", p[max(0, m.start() - 1500):m.end() + 1500])))
+            ini = re.search(r"([A-ZÁÉÍÓÚÑ][^|]{1,40}?)\s*\|\s*(?:\|\s*)*(?:Carretera|Gravel)\b", txt)
+            pt = None
+            if ini:
+                for c in [ini.group(1)] + ini.group(1).split("/"):
+                    pt = IDX.get(norm(c))
+                    if pt: break
+            r = ficha_datos(url)
+            INFO.append("SALIDA %s %s -> %s %s" % (tipo, url.rsplit("/", 1)[-1], ini and ini.group(1), pt))
+            if pt and r: out.append(dict(r, tipo=tipo, ini=ini.group(1).strip(), pt=pt, url=url))
+            time.sleep(.5)
+    return out
+
+def ficha_datos(url):
+    p = get(url)
+    if not p: return None
+    t = re.search(r"<h1[^>]*>(.*?)</h1>", p, re.S)
+    nombre = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", t.group(1)))).strip() if t else url.rsplit("/", 1)[-1].replace("-", " ").capitalize()
+    txt = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", p, flags=re.S))))
+    km = re.search(r"(\d+(?:[.,]\d+)?)\s*km", txt); des = re.search(r"Desnivel[^\d]{0,20}(\d+(?:[.,]\d+)?)", txt, re.I)
+    dif = re.search(r"\b(Muy alta|Alta|Media|Baja|Muy baja)\b", txt)
+    return {"n": nombre, "km": num(km.group(1)) if km else None, "des": int(num(des.group(1))) if des else None, "dif": dif.group(1) if dif else ""}
 
 if __name__ == "__main__":
-    rutas = visitnavarra() + eurovelo()
-    pam = pamplona()
-    out = {"t": time.strftime("%Y-%m-%d"), "rutas": rutas, "pamplona": pam}
-    INFO.insert(0, "rutas %d (%s) · red ciclable Pamplona %d tramos" % (len(rutas), {t: sum(1 for r in rutas if r["tipo"] == t) for t in LISTAS}, len(pam)))
+    capas = idena()
+    sal = salidas()
+    out = {"t": time.strftime("%Y-%m-%d"), "idena": capas, "salidas": sal}
+    INFO.insert(0, "IDENA %s · salidas carretera/gravel %d" % ({k: len(v) for k, v in capas.items()}, len(sal)))
     open("tools/bici_info.txt", "w").write("\n".join(INFO) + "\n")
-    print("\n".join(INFO[:400]))
-    if rutas or pam:
-        open("web/bici.js", "w", encoding="utf-8").write("// Rutas en bici: Turismo de Navarra (visitnavarra.es) y red ciclable del Ayuntamiento de Pamplona (sig.pamplona.es). Generado por tools/bici.py\nwindow.BICI=" + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";\n")
+    print("\n".join(INFO[:300]))
+    if capas or sal:
+        open("web/bici.js", "w", encoding="utf-8").write("// Bici: IDENA (Gobierno de Navarra, CC BY 4.0) y rutas de Turismo de Navarra (visitnavarra.es). Generado por tools/bici.py\nwindow.BICI=" + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";\n")
