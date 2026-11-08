@@ -755,7 +755,7 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 </section>
 <!-- ============ 🏆 DEPORTE NAVARRO ============ -->
 <section id="t-deporte">
-<div class="card"><b>🏆 Deporte navarro</b><div class="note">Próximos partidos de los equipos navarros en las primeras y segundas categorías nacionales: fútbol, fútbol sala, baloncesto, balonmano, pelota, voleibol, natación…</div>
+<div class="card"><b>🏆 Deporte navarro</b><div class="note">Próximos partidos de los equipos navarros (primeros equipos) ordenados por ligas: ligas nacionales y primera y segunda liga navarra de fútbol, fútbol sala, baloncesto, balonmano, pelota, voleibol… Se actualiza solo cada miércoles.</div>
  <div class="seg" id="dpDep" style="margin-top:8px"></div>
  <div class="seg" id="dpComp" style="margin-top:6px"></div></div>
 <div class="card" id="dpProx"></div>
@@ -4019,19 +4019,38 @@ async function dpRender(){const G=await jsLoad(DP_PATH,DP_DEF),hoy=hoyYmd();
   const ds=document.getElementById('dpDep');ds.innerHTML=DP_DEPS.map(c=>`<button class="btn${c[0]===DPDEP?' on':''}" data-v="${c[0]}">${c[2]} ${c[1]}</button>`).join('');
   ds.querySelectorAll('button').forEach(b=>b.onclick=()=>{DPDEP=b.dataset.v;DPCOMP='';dpRender();});
   const P0=(G.partidos||[]).filter(x=>!DPDEP||x.dep===DPDEP);
-  /* Subpestañas por competición: salen solas de las competiciones que haya en los partidos */
-  const CS=[...new Set(P0.map(x=>x.comp).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));if(DPCOMP&&!CS.includes(DPCOMP))DPCOMP='';
-  const cs=document.getElementById('dpComp');cs.innerHTML=CS.length>1?[['','📋 Todas'],...CS.map(c=>[c,c])].map(c=>`<button class="btn${c[0]===DPCOMP?' on':''}" data-v="${esc(c[0])}">${esc(c[1])}</button>`).join(''):'';
+  /* Orden de las ligas: por deporte (orden de los botones) y dentro, de la más alta a la más baja (campo «o»).
+     En pelota se agrupa primero por especialidad y luego por liga. */
+  const OC={};P0.forEach(x=>{const k=x.dep+'|'+x.comp,o=x.o==null?50:+x.o;if(!(k in OC)||o<OC[k])OC[k]=o;});
+  const dI=d=>{const i=DP_DEPS.findIndex(c=>c[0]===d);return i<0?99:i;};
+  const kOrd=k=>{const [d,c]=k.split('|');return d==='pelota'?[dI(d),c.split(' · ')[0],OC[k],c]:[dI(d),'',OC[k],c];};
+  const cmpK=(a,b)=>{const A=kOrd(a),B=kOrd(b);return A[0]-B[0]||A[1].localeCompare(B[1],'es')||A[2]-B[2]||A[3].localeCompare(B[3],'es');};
+  const KS=Object.keys(OC).sort(cmpK);
+  /* Subpestañas por liga (solo al elegir un deporte) */
+  const CS=DPDEP?KS.map(k=>k.split('|')[1]):[];if(DPCOMP&&!CS.includes(DPCOMP))DPCOMP='';
+  const cs=document.getElementById('dpComp');cs.innerHTML=CS.length>1?[['','📋 Todas las ligas'],...CS.map(c=>[c,c])].map(c=>`<button class="btn${c[0]===DPCOMP?' on':''}" data-v="${esc(c[0])}">${esc(c[1])}</button>`).join(''):'';
   cs.querySelectorAll('button').forEach(b=>b.onclick=()=>{DPCOMP=b.dataset.v;dpRender();});
   const P=P0.filter(x=>!DPCOMP||x.comp===DPCOMP);
-  const fila=x=>`<div class="st" style="align-items:flex-start"><div style="flex:1"><b>${dpIco(x.dep)} ${esc(x.loc)} – ${esc(x.vis)}</b>${x.res?` <b style="color:var(--acc)">${esc(x.res)}</b>`:''}
-    <div class="s">${esc(x.comp||'')}</div><div class="s">📅 ${fLarga(x.f)}${x.h?' · '+esc(x.h)+' h':' · Hora pendiente'}${x.lugar?' · 📍 '+esc(x.lugar):''}</div>
-    ${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">🔗 Más información / entradas</a></div>`:''}
+  const fila=(x,conComp)=>`<div class="st" style="align-items:flex-start"><div style="flex:1"><b>${dpIco(x.dep)} ${esc(x.loc)} – ${esc(x.vis)}</b>${x.res?` <b style="color:var(--acc)">${esc(x.res)}</b>`:''}
+    ${conComp?`<div class="s">${esc(x.comp||'')}</div>`:''}<div class="s">📅 ${fLarga(x.f)}${x.h?' · '+esc(x.h)+' h':' · Hora pendiente'}${x.lugar?' · 📍 '+esc(x.lugar):''}</div>
+    ${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">🔗 Más información / clasificación</a></div>`:''}
     ${TECH?`<div class="row"><button class="btn" data-ed="${esc(x.id)}">✏️ Editar / poner resultado</button></div>`:''}</div></div>`;
-  const prox=P.filter(x=>x.f>=hoy).sort((a,b)=>(a.f+(a.h||'')).localeCompare(b.f+(b.h||''))).slice(0,30);
-  const res=P.filter(x=>x.f<hoy).sort((a,b)=>(b.f+(b.h||'')).localeCompare(a.f+(a.h||''))).slice(0,15);
-  document.getElementById('dpProx').innerHTML='<b>📅 Próximos partidos</b>'+(prox.length?prox.map(fila).join(''):'<div class="note">Todavía no hay partidos apuntados.</div>');
-  document.getElementById('dpRes').innerHTML='<b>🏁 Últimos partidos</b>'+(res.length?res.map(fila).join(''):'<div class="note">Aún no hay resultados.</div>');
+  const asc=(a,b)=>(a.f+(a.h||'99')).localeCompare(b.f+(b.h||'99')),desc=(a,b)=>asc(b,a);
+  /* Si hay una liga elegida: lista entera. Si no: un bloque por liga con sus primeros partidos y «Ver todos». */
+  const pinta=(L,max,vacio)=>{if(!L.length)return `<div class="note">${vacio}</div>`;
+    if(DPCOMP)return L.slice(0,60).map(x=>fila(x,false)).join('');
+    let h='',dep0='';
+    KS.forEach(k=>{const [d,c]=k.split('|'),Q=L.filter(x=>x.dep===d&&x.comp===c);if(!Q.length)return;
+      if(!DPDEP&&d!==dep0){dep0=d;const D=DP_DEPS.find(z=>z[0]===d)||DP_DEPS[10];h+=`<div style="margin:12px 0 2px;font-size:1.05em"><b>${D[2]} ${esc(D[1])}</b></div>`;}
+      h+=`<div style="margin:10px 0 2px;padding:4px 8px;border-left:4px solid var(--acc);background:rgba(127,127,127,.12);border-radius:4px"><b>🏆 ${esc(c)}</b> <span class="s">(${Q.length})</span></div>`;
+      h+=Q.slice(0,max).map(x=>fila(x,false)).join('');
+      if(Q.length>max)h+=`<div class="row"><button class="btn" data-dd="${esc(d)}" data-cc="${esc(c)}">Ver los ${Q.length} partidos ›</button></div>`;});
+    return h;};
+  const prox=P.filter(x=>x.f>=hoy).sort(asc),res=P.filter(x=>x.f<hoy).sort(desc);
+  const mx=DPDEP?6:3;
+  document.getElementById('dpProx').innerHTML='<b>📅 Próximos partidos</b>'+pinta(prox,mx,'Todavía no hay partidos apuntados.');
+  document.getElementById('dpRes').innerHTML='<b>🏁 Últimos resultados</b>'+pinta(res,mx,'Aún no hay resultados.');
+  document.querySelectorAll('#dpProx [data-cc],#dpRes [data-cc]').forEach(b=>b.onclick=()=>{DPDEP=b.dataset.dd;DPCOMP=b.dataset.cc;dpRender();document.getElementById('t-deporte').scrollIntoView({behavior:'smooth'});});
   document.querySelectorAll('#dpProx [data-ed],#dpRes [data-ed]').forEach(b=>b.onclick=()=>{DPED=(G.partidos||[]).find(x=>x.id===b.dataset.ed)||null;dpAdmin();document.getElementById('dpAdm').scrollIntoView({behavior:'smooth'});});
   if(TECH)dpAdmin();}
 function dpAdmin(){const el=document.getElementById('dpAdm'),x=DPED||{dep:DPDEP||'futbol',f:hoyYmd()};
@@ -4045,7 +4064,7 @@ function dpAdmin(){const el=document.getElementById('dpAdm'),x=DPED||{dep:DPDEP|
    <label class="note" style="display:block;margin-top:6px">Resultado (cuando se haya jugado)<input id="dpR" class="town" maxlength="20" value="${esc(x.res)}" placeholder="p. ej. 2-1" style="width:100%;box-sizing:border-box"></label>
    <div class="row" style="margin-top:8px"><button class="btn pri" id="dpS" style="flex:1">💾 ${DPED?'Guardar cambios':'Publicar partido'}</button>${DPED?'<button class="btn" id="dpX">🗑️ Borrar</button><button class="btn" id="dpN">✖️</button>':''}</div><div class="note" id="dpMsg"></div>`;
   const v=id=>document.getElementById(id).value.trim(),msg=t=>document.getElementById('dpMsg').textContent=t;
-  document.getElementById('dpS').onclick=async()=>{const p={id:DPED?DPED.id:'p'+Date.now().toString(36),dep:v('dpD'),comp:v('dpC'),loc:v('dpL'),vis:v('dpV'),f:v('dpF'),h:v('dpH'),lugar:v('dpLu'),url:v('dpU'),res:v('dpR')};
+  document.getElementById('dpS').onclick=async()=>{const p={id:DPED?DPED.id:'p'+Date.now().toString(36),dep:v('dpD'),comp:v('dpC'),loc:v('dpL'),vis:v('dpV'),f:v('dpF'),h:v('dpH'),lugar:v('dpLu'),url:v('dpU'),res:v('dpR')};if(DPED&&DPED.o!=null)p.o=DPED.o;
     if(!p.comp||!p.loc||!p.vis||!p.f){msg('❌ Rellena competición, equipos y día.');return;}if(p.url&&!urlOk(p.url)){msg('❌ El enlace tiene que empezar por https://');return;}
     msg('💾 Guardando…');try{await jsEdit(DP_PATH,DP_DEF,G=>{G.partidos=(G.partidos||[]).filter(x=>x.id!==p.id&&x.f>=ymd(new Date(Date.now()-60*864e5)));G.partidos.push(p);},'Deporte: '+p.loc+' - '+p.vis);
       DPED=null;msg('✅ Publicado.');dpRender();}catch(e){msg('❌ '+e.message);}};
