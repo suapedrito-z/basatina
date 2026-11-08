@@ -138,7 +138,7 @@ def eurovelo():
 
 IDENA = {  # capa de IDENA -> (clave en la app, tolerancia de simplificación)
     "DOTACI_Lin_RutasBTT": ("btt", 0.00025), "DOTACI_Lin_EuroVelo1": ("ev", 0.0003), "DOTACI_Lin_EuroVelo3": ("ev", 0.0003),
-    "INFRAE_Lin_TrazadoSIGMC": ("red", 0.00015), "INFRAE_Sym_PtoRiesgoSIGMC": ("riesgo", 0), "INFRAE_Sym_AparcamientoSIGMC": ("aparca", 0),
+    "INFRAE_Lin_TrazadoSIGMC": ("red", 0.0003), "INFRAE_Sym_PtoRiesgoSIGMC": ("riesgo", 0), "INFRAE_Sym_AparcamientoSIGMC": ("aparca", 0),
     "INFRAE_Sym_ServSIGMC": ("serv", 0)}
 NOMBRE = ["NOMBRE", "NOM_RUTA", "RUTA", "DENOMINACI", "ETAPA", "TRAMO", "DESCRIPCIO", "TIPO", "SERVICIO", "DENOMINA"]
 FUERA = {"FEATURE", "BEGINLIFE", "GEOM_LONG", "GEOM_AREA", "GEOM_PERI", "OBJECTID", "FID", "ID", "X25830", "Y25830", "SHAPE_LENG", "SHAPE_AREA"}
@@ -161,22 +161,46 @@ def idena():
             at = {k: (v.strip() if isinstance(v, str) else v) for k, v in zip(campos, sr.record)}
             at = {k: v for k, v in at.items() if k not in FUERA and v not in ("", None, "-") and not (isinstance(v, (int, float)) and v == 0)}
             ej = ej or at
-            nom = next((str(at[k]) for k in NOMBRE if at.get(k)), "")
-            det = " · ".join("%s: %s" % (k.capitalize(), str(v)[:80]) for k, v in at.items() if str(v) != nom)[:400]
-            if capa.startswith("DOTACI_Lin_EuroVelo"): nom = ("EuroVelo 1 · " if "1" in capa[-1] else "EuroVelo 3 · ") + nom
-            a = {"N": nom, "D": det}
+            a = ficha_idena(clave, at)
+            if a is None: continue
             s = sr.shape
             if not s.points: continue
             if s.shapeType in (1, 8, 11, 21) or not s.parts:
-                lo, la = tr.transform(*s.points[0][:2]); out[clave].append({"a": a, "pt": [round(la, 5), round(lo, 5)]}); continue
+                lo, la = tr.transform(*s.points[0][:2]); out[clave].append({"a": a, "pt": [round(la, 4), round(lo, 4)]}); continue
             parts = list(s.parts) + [len(s.points)]; rings = []
             for i in range(len(parts) - 1):
-                pts = [[round(la, 5), round(lo, 5)] for lo, la in (tr.transform(x, y) for x, y in s.points[parts[i]:parts[i + 1]])]
+                pts = [[round(la, 4), round(lo, 4)] for lo, la in (tr.transform(x, y) for x, y in s.points[parts[i]:parts[i + 1]])]
                 pts = simplify(pts, tol)
                 if len(pts) >= 2: rings.append(pts)
             if rings: out[clave].append({"a": a, "r": rings})
         INFO.append("IDENA %s -> %s: %d elementos · campos %s · ejemplo %s" % (capa, clave, len(out[clave]) - n0, campos, json.dumps(ej, ensure_ascii=False, default=str)[:400]))
     return dict(out)
+
+def txt_cod(v):
+    """«CBP (Carril bici protegido)» -> «Carril bici protegido»"""
+    v = str(v or ""); m = re.match(r"^\w{2,4} \((.*)\)$", v); return m.group(1) if m else v
+
+def ficha_idena(clave, at):
+    """Solo lo que sirve en la ficha de la app (para que el archivo pese poco)."""
+    g = lambda k: at.get(k) not in (None, "") and str(at.get(k)).strip() or ""
+    if clave == "btt":
+        return {"N": g("NOMBRE"), "D": g("DESCRIPCIO")[:200], "BKM": g("LONGITUD") and "%s km" % g("LONGITUD"), "BDES": g("DESNIVEL") and "%s m" % g("DESNIVEL"),
+                "BDIF": g("DIFICULTAD"), "BDUR": g("DURACION"), "URL": g("URL"), "DESCARGA": g("DESCARGA")}
+    if clave == "ev":
+        return {"N": "%s · %s" % (g("RUTA").replace("Eurovelo", "EuroVelo"), g("TRAMO")), "D": g("OBSERVACIO"), "URL": g("URL"), "DESCARGA": g("DESCARGA")}
+    if clave == "red":
+        return {"N": txt_cod(g("TIPOVIACIC")) or "Vía ciclista", "D": " · ".join(x for x in [g("VIA").split("/")[0].title(), g("MUNICIPIO")] if x)}
+    if clave == "riesgo":
+        return {"N": g("DESCRIPCIO")[:160] or "Punto de riesgo", "D": g("MUNICIPIO")}
+    if clave == "aparca":
+        d = [g("NOMBRE"), g("PLAZAS") and g("PLAZAS") + " plazas", "cubierto" if "SIE" in g("CUBIERTA") else "", "vigilado" if g("VIGILADO").startswith("SI") else "",
+             txt_cod(g("TARIFA")).lower(), g("MUNICIPIO")]
+        return {"N": "Aparcabicis", "D": " · ".join(x for x in d if x)}
+    if clave == "serv":
+        t = txt_cod(g("TIPOSB"))
+        if re.search(r"panel|informativ", t, re.I): return None   # los paneles informativos no aportan y son la mayoría
+        return {"N": t or "Servicio", "D": " · ".join(x for x in [g("NOMBRE"), g("OBSERVACIO")[:100], g("MUNICIPIO")] if x)}
+    return {"N": "", "D": ""}
 
 def salidas():
     """Rutas de carretera y gravel de visitnavarra: sus GPX están rotos en la web oficial (404),
@@ -194,7 +218,7 @@ def salidas():
         for m in re.finditer(r'href="([^"]*/detalle-ruta/-/r/[^"#?]+)"', p):
             url = absu(m.group(1))
             if any(o["url"] == url for o in out): continue
-            txt = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " | ", p[max(0, m.start() - 1500):m.end() + 1500])))
+            txt = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " | ", p[m.end():m.end() + 2500])))   # el pueblo va DESPUÉS del enlace, en la misma tarjeta
             ini = re.search(r"([A-ZÁÉÍÓÚÑ][^|]{1,40}?)\s*\|\s*(?:\|\s*)*(?:Carretera|Gravel)\b", txt)
             pt = None
             if ini:

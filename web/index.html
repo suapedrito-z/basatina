@@ -2389,7 +2389,7 @@ function moFeats(k){const G=window.MONTE_GEO||{};if(MO_EXTRA[k])return MO_EXTRA[
   return (G[k]||{f:[]}).f;}
 /* 🚴 rutas en bici (web/bici.js, lo genera tools/bici.py): se cargan con las capas del monte y se meten en MO_EXTRA */
 function biciApply(){const B=window.BICI;if(!B)return;
-  Object.entries(B.idena||{}).forEach(([k,L])=>{MO_EXTRA['BICI_'+k]=L.map(f=>({a:{N:f.a.N||null,D:(f.a.D?f.a.D+'. ':'')+'Fuente: IDENA (Gobierno de Navarra).'},r:f.r,pt:f.pt}));});
+  Object.entries(B.idena||{}).forEach(([k,L])=>{MO_EXTRA['BICI_'+k]=L.map(f=>({a:Object.assign({},f.a,{D:(f.a.D?f.a.D+'. ':'')+'Fuente: IDENA (Gobierno de Navarra).'}),r:f.r,pt:f.pt}));});
   ['carretera','gravel'].forEach(t=>{MO_EXTRA['BICI_'+t]=(B.salidas||[]).filter(r=>r.tipo===t).map(r=>({a:{NOMBRE:r.n,LUGARINI:r.ini,BKM:r.km?fmtN(r.km,1)+' km':null,BDES:r.des?r.des+' m':null,BDIF:r.dif||null,URL:r.url,
     D:'El punto marca el pueblo de salida. El recorrido completo está en la ficha oficial de Turismo de Navarra (visitnavarra.es).'},pt:r.pt}));});}
 let BILOAD=false;function biciLoad(cb){if(window.BICI||BILOAD){cb();return;}BILOAD=true;const s=document.createElement('script');s.src='bici.js';s.onload=s.onerror=()=>{biciApply();cb();};document.body.appendChild(s);}
@@ -2413,7 +2413,7 @@ async function zInfoMo(px,py,M){const el=document.getElementById('moFicha');el.i
   let h='';if(th.length&&td.length>=th.length)th.forEach((k,i)=>{if(td[i]&&!/^(FID|OBJECTID|GEOM|SHAPE|FEATURE|BEGINLIFE|X25830|Y25830)/i.test(k))h+=`<div class="st"><b>${k}</b><span style="text-align:right">${td[i]}</span></div>`;});
   else{const p=t.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();if(p)h=`<div class="note">${p.slice(0,600)}</div>`;}
   el.innerHTML=`<div class="card"><b>📍 ${MOOV.find(z=>z[0]===M.ov)[1]}</b>${h||'<div class="note">Aquí no hay nada en esta capa (acércate más para consultar).</div>'}<div class="note">Fuente: Gobierno de Navarra · IDENA.</div></div>`;}
-const LAB={BKM:'Distancia',BDES:'Desnivel',BDIF:'Dificultad',BCAT:'Tipo de vía',TRAMO:'Tramo',NOMBRE:'Nombre',DESCRIPCIO:'Descripción',TIPO:'Tipo',COTA:'Altitud (m)',MUNICIPIO:'Municipio',TOPONIMIA:'Paraje',LONGITUD:'Longitud (m)',PROFUNDIDA:'Profundidad (m)',
+const LAB={BKM:'Distancia',BDUR:'Duración',BDES:'Desnivel',BDIF:'Dificultad',BCAT:'Tipo de vía',TRAMO:'Tramo',NOMBRE:'Nombre',DESCRIPCIO:'Descripción',TIPO:'Tipo',COTA:'Altitud (m)',MUNICIPIO:'Municipio',TOPONIMIA:'Paraje',LONGITUD:'Longitud (m)',PROFUNDIDA:'Profundidad (m)',
   LUGARINI:'Salida',LUGARFIN:'Llegada',ALTITUDMAX:'Altitud máx. (m)',ALTITUDMIN:'Altitud mín. (m)',DESNIPOSI:'Desnivel + (m)',DESNINEGA:'Desnivel − (m)',BARBACOA:'Barbacoa',EQUIPAMIEN:'Equipamiento',
   PARKING:'Aparcamiento',VEGETACION:'Vegetación',ELEPAISAJE:'Paisaje',DEMARCACIO:'Zona',PTOAGUA:'Punto',POBLACION:'Localidad',ZONATUR:'Zona',POTABLE:'Agua potable',RIO:'Cuenca',CODIGO:'Código',D:'',N:''};
 async function moFicha(){const el=document.getElementById('moFicha');MOPF=null;if(!MOSEL){el.innerHTML='';return;}const {L,f,ll}=MOSEL,a=f.a,[k,name,col,,,nf]=L;
