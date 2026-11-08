@@ -119,6 +119,114 @@
    "lugar": "",
    "url": "https://www.osasuna.es/partidos-osasuna",
    "res": ""
+  },
+  {
+   "id": "xota1",
+   "dep": "sala",
+   "comp": "Liga Prime Futsal (masc.)",
+   "loc": "Inter Movistar",
+   "vis": "Osasuna Magna Xota",
+   "f": "2026-11-14",
+   "h": "17:00",
+   "lugar": "",
+   "url": "https://futsal.rfef.es/equipo/magna-xota-fs/20/2026/info",
+   "res": ""
+  },
+  {
+   "id": "xota2",
+   "dep": "sala",
+   "comp": "Liga Prime Futsal (masc.)",
+   "loc": "Osasuna Magna Xota",
+   "vis": "O Parrulo Ferrol",
+   "f": "2026-11-20",
+   "h": "19:30",
+   "lugar": "Pabellón Anaitasuna (Pamplona)",
+   "url": "https://futsal.rfef.es/equipo/magna-xota-fs/20/2026/info",
+   "res": ""
+  },
+  {
+   "id": "xota3",
+   "dep": "sala",
+   "comp": "Liga Prime Futsal (masc.)",
+   "loc": "Santa Coloma",
+   "vis": "Osasuna Magna Xota",
+   "f": "2026-11-27",
+   "h": "",
+   "lugar": "",
+   "url": "https://futsal.rfef.es/equipo/magna-xota-fs/20/2026/info",
+   "res": ""
+  },
+  {
+   "id": "anm1",
+   "dep": "balonm",
+   "comp": "División de Honor Plata (masc.)",
+   "loc": "Anaitasuna",
+   "vis": "Santander C. Sinfín",
+   "f": "2026-11-15",
+   "h": "",
+   "lugar": "Pabellón Anaitasuna (Pamplona)",
+   "url": "https://balonmano.isquad.es/imprimir_calendario_v3.php?id=1038106",
+   "res": ""
+  },
+  {
+   "id": "anm2",
+   "dep": "balonm",
+   "comp": "División de Honor Plata (masc.)",
+   "loc": "Agustinos Alicante",
+   "vis": "Anaitasuna",
+   "f": "2026-11-22",
+   "h": "",
+   "lugar": "",
+   "url": "https://balonmano.isquad.es/imprimir_calendario_v3.php?id=1038106",
+   "res": ""
+  },
+  {
+   "id": "anm3",
+   "dep": "balonm",
+   "comp": "División de Honor Plata (masc.)",
+   "loc": "Anaitasuna",
+   "vis": "BM Benidorm",
+   "f": "2026-11-29",
+   "h": "",
+   "lugar": "Pabellón Anaitasuna (Pamplona)",
+   "url": "https://balonmano.isquad.es/imprimir_calendario_v3.php?id=1038106",
+   "res": ""
+  },
+  {
+   "id": "anw1",
+   "dep": "balonm",
+   "comp": "División de Honor Oro (fem.)",
+   "loc": "Anaitasuna",
+   "vis": "BM Zuazo",
+   "f": "2026-11-15",
+   "h": "",
+   "lugar": "Pabellón Anaitasuna (Pamplona)",
+   "url": "https://balonmano.isquad.es/imprimir_calendario_v3.php?id=1038106",
+   "res": ""
+  },
+  {
+   "id": "anw2",
+   "dep": "balonm",
+   "comp": "División de Honor Oro (fem.)",
+   "loc": "BM Ikasa Boadilla",
+   "vis": "Anaitasuna",
+   "f": "2026-11-22",
+   "h": "",
+   "lugar": "",
+   "url": "https://balonmano.isquad.es/imprimir_calendario_v3.php?id=1038106",
+   "res": ""
+  },
+  {
+   "id": "anw3",
+   "dep": "balonm",
+   "comp": "División de Honor Oro (fem.)",
+   "loc": "Anaitasuna",
+   "vis": "BM Bolaños",
+   "f": "2026-12-06",
+   "h": "",
+   "lugar": "Pabellón Anaitasuna (Pamplona)",
+   "url": "https://balonmano.isquad.es/imprimir_calendario_v3.php?id=1038106",
+   "res": ""
   }
  ]
 }
