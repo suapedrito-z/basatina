@@ -884,12 +884,12 @@ body.bna .st[data-al="#2e7d32"]{border-left-color:#5E8F4E}body.bna .st[data-al="
 </section>
 <!-- ============ 🎭 AGENDA CULTURAL ============ -->
 <section id="t-cultura">
-<div class="card"><b>🎭 Agenda cultural de Navarra</b><div class="note">Conciertos, teatro, charlas, exposiciones, coros, cine… Toca un día del calendario para ver qué hay.</div>
+<div class="card"><b>🎭 Agenda cultural de Navarra</b><div class="note">Conciertos, teatro, charlas, exposiciones, coros, cine… Toca un día del calendario para ver qué hay. Se actualiza sola cada día con la agenda de Cultura Navarra (Gobierno de Navarra) y la del Ayuntamiento de Pamplona.</div>
  <div class="seg" id="agCat" style="margin-top:8px"></div></div>
 <div class="card"><div style="display:flex;align-items:center;gap:8px"><button class="btn" id="agPrev">◀</button><b id="agMes" style="flex:1;text-align:center"></b><button class="btn" id="agNext">▶</button></div><div id="agCal" style="margin-top:8px"></div></div>
 <div class="card" id="agDia"></div>
 <div class="card"><b>📨 ¿Conoces un evento que no sale?</b><div class="note">Mándanoslo por el buzón (qué es, dónde, cuándo y un enlace si lo hay). Lo revisamos y, si encaja, lo publicamos.</div><div class="row"><button class="btn pri" onclick="bzIr('Evento cultural','Evento: \nDónde: \nCuándo (día y hora): \nEnlace: ')">📨 Avisar de un evento</button></div></div>
-<div class="card"><b>🔗 Más agendas</b><div class="note">Agendas oficiales con más eventos: <a href="https://www.culturanavarra.es" target="_blank">Cultura Navarra</a> · <a href="https://www.pamplona.es" target="_blank">Ayuntamiento de Pamplona</a> · y la web de tu ayuntamiento o casa de cultura.</div></div>
+<div class="card"><b>🔗 Más agendas</b><div class="note">Agendas oficiales de donde sacamos los eventos: <a href="https://www.culturanavarra.es" target="_blank">Cultura Navarra</a> · <a href="https://www.pamplona.es" target="_blank">Ayuntamiento de Pamplona</a> · y la web de tu ayuntamiento o casa de cultura.</div></div>
 <div class="card tech" style="display:none;border:2px solid #8e24aa" id="agAdm"></div>
 </section>
 <!-- ============ 🏆 DEPORTE NAVARRO ============ -->
@@ -4116,7 +4116,7 @@ async function agRender(){const G=await jsLoad(AG_PATH,AG_DEF),hoy=hoyYmd();if(!
     c+=`<button data-d="${s}" style="padding:6px 0;border-radius:9px;border:${s===hoy?'2px solid var(--acc)':'1px solid rgba(127,127,127,.25)'};background:${s===AGSEL?'var(--acc)':'transparent'};color:${s===AGSEL?'#fff':'inherit'};opacity:${s<hoy?.55:1};font:inherit;cursor:pointer">${d}<div style="height:7px;font-size:9px;line-height:7px;color:${s===AGSEL?'#fff':'#8e24aa'}">${n?'●'.repeat(Math.min(n,3)):''}</div></button>`;}
   const cal=document.getElementById('agCal');cal.innerHTML=c+'</div>';cal.querySelectorAll('button[data-d]').forEach(b=>b.onclick=()=>{AGSEL=b.dataset.d;agRender();});
   // eventos del día elegido + próximos
-  const del=E.filter(e=>agEnDia(e,AGSEL)).sort((a,b)=>(a.h||'').localeCompare(b.h||''));
+  const del=E.filter(e=>agEnDia(e,AGSEL)).sort((a,b)=>((a.ff&&a.ff!==a.f)?1:0)-((b.ff&&b.ff!==b.f)?1:0)||(a.h||'99').localeCompare(b.h||'99'));
   const prox=E.filter(e=>(e.ff||e.f)>=hoy&&!agEnDia(e,AGSEL)).sort((a,b)=>(a.f+(a.h||'')).localeCompare(b.f+(b.h||''))).slice(0,15);
   const fila=e=>`<div class="st" style="align-items:flex-start"><div style="flex:1"><b>${agIco(e.cat)} ${esc(e.t)}</b>
     <div class="s">${e.ff&&e.ff!==e.f?'Del '+foFecha(e.f)+' al '+foFecha(e.ff):fLarga(e.f)}${e.h?' · '+esc(e.h)+' h':''}</div>
