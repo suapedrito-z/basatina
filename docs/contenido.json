@@ -23,7 +23,7 @@
   "boton": "⬇️ Descargar para Android",
   "enlace": "https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk",
   "nota": "Archivo APK gratuito · Android 7 o superior · se actualiza solo",
-  "pausada": true
+  "pausada": false
  },
  "novedades": [
   {

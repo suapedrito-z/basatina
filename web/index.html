@@ -680,6 +680,17 @@ body.light #drawer{background:#fff}body.light #drawer .dgroup{color:var(--acc3)}
 <div id="foGal"></div>
 <div class="card" id="foMapC" style="display:none"><div style="position:relative"><canvas id="foc" height="380"></canvas><div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="focIn">＋</button><button class="btn mtb" id="focOut">－</button></div></div><div class="note" id="foMapN" style="margin-top:6px">Toca un punto para ver la foto. Los sitios son aproximados.</div></div>
 <div class="row"><button class="btn pri" style="flex:1" onclick="showTab('enviar')">📤 Envía tu foto</button></div>
+<div class="card tech" style="display:none;border:2px solid #c13584"><b>🔧 Subir foto de paisaje de Instagram</b>
+ <div class="note">Solo administradores. Para ir llenando la galería mientras el envío de fotos de la gente está parado. Se publica directamente, <b>sin pedir ni guardar datos personales</b>: solo el crédito (@usuario) que sale con la foto.</div>
+ <div class="row" style="margin-top:8px"><label class="btn pri" style="flex:1;text-align:center">📷 Elegir foto<input type="file" id="igF" accept="image/*" style="display:none"></label></div>
+ <img id="igPrev" alt="" style="display:none;width:100%;max-height:300px;object-fit:contain;border-radius:10px;margin-top:6px;background:#0b1118">
+ <div class="seg" id="igCat" style="margin-top:8px"></div>
+ <label class="note" style="display:block;margin-top:8px">Lugar <b style="color:var(--bad)">*</b><input id="igL" class="town" maxlength="80" placeholder="p. ej. Foz de Lumbier" style="width:100%;box-sizing:border-box;margin-top:4px"></label>
+ <label class="note" style="display:block;margin-top:8px">Autor en Instagram <b style="color:var(--bad)">*</b> <span class="note">(sale con la foto)</span><input id="igA" class="town" maxlength="31" autocomplete="off" placeholder="@usuario" style="width:100%;box-sizing:border-box;margin-top:4px"></label>
+ <label class="note" style="display:block;margin-top:8px">Enlace a la publicación (opcional)<input id="igU" class="town" maxlength="200" autocomplete="off" placeholder="https://www.instagram.com/p/…" style="width:100%;box-sizing:border-box;margin-top:4px"></label>
+ <label class="note" style="display:block;margin-top:8px">Comentario (opcional)<input id="igD" class="town" maxlength="300" style="width:100%;box-sizing:border-box;margin-top:4px"></label>
+ <label class="note" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px"><input type="checkbox" id="igOk" style="margin-top:3px"><span>✍️ La foto es nuestra o <b>el autor nos ha dado permiso</b> para publicarla en BasatiNA, y no salen personas reconocibles, menores ni matrículas.</span></label>
+ <div class="row" style="margin-top:8px"><button class="btn pri" id="igS" style="flex:1">📤 Subir y publicar</button></div><div class="note" id="igM"></div></div>
 <div class="card tech" style="display:none"><b>🔧 Fotos recibidas, pendientes de revisar</b><div class="note">Solo salen en la app las que apruebes. Las descartadas se quedan en Cloudinary: bórralas allí de vez en cuando (Media Library → carpeta basatina/recibidas).</div>
  <div class="row"><button class="btn pri" id="foPendB">🔄 Ver las fotos recibidas</button></div><div id="foPendL"></div></div>
 <div class="card tech" style="display:none"><b>🔧 Reto del mes e Instagram</b>
@@ -3725,10 +3736,11 @@ function foTap(px,py,M){let best=null,bd=22;foList().filter(f=>f.la).forEach(f=>
 function foOpen(id){const f=(FOG.fotos||[]).find(x=>x.id===id);if(!f)return;const c=foCat(f.cat);
   document.getElementById('foBoxI').src=cldT(f.url,'c_limit,w_1600,q_auto,f_auto');
   document.getElementById('foBoxT').innerHTML=`<b>${c[1]} ${arEsc(f.lugar||c[2])}</b>${f.gana?' · ⭐ Ganadora del reto':''}<div style="opacity:.8;font-size:13px;margin-top:2px">📷 ${arEsc(f.alias||'')} · ${foFecha(f.d)}</div>${f.desc?`<div style="font-size:14px;margin-top:6px">${arEsc(f.desc)}</div>`:''}
-   <div class="row"><button class="btn" id="foBxSh">📤 Compartir</button>${f.la?'<button class="btn" id="foBxMap">🗺️ Ver en el mapa</button>':''}
+   <div class="row"><button class="btn" id="foBxSh">📤 Compartir</button>${f.ig?'<button class="btn" id="foBxIg">📷 Ver en Instagram</button>':''}${f.la?'<button class="btn" id="foBxMap">🗺️ Ver en el mapa</button>':''}
    <button class="btn tech" id="foBxW" style="display:none">${f.gana?'☆ Quitar de ganadora':'⭐ Ganadora del reto'}</button><button class="btn tech" id="foBxPdf" style="display:none">📄 Justificante</button><button class="btn red tech" id="foBxDel" style="display:none">🗑️ Quitar de la galería</button></div><div class="note" id="foBxM" style="color:#ddd"></div>`;
   techApply();const box=document.getElementById('foBox');box.style.display='flex';
   document.getElementById('foBxSh').onclick=()=>{const t=`📸 ${f.lugar||''} · foto de ${f.alias||''} en BasatiNA, Navarra en tu bolsillo ${FOG.hashtag}\n${cldT(f.url,'c_limit,w_1600,q_auto')}`;if(APP&&window.AndroidNet.share)window.AndroidNet.share(t);else if(navigator.share)navigator.share({text:t}).catch(()=>{});else{navigator.clipboard&&navigator.clipboard.writeText(t);toast('📋 Copiado');}};
+  const bi=document.getElementById('foBxIg');if(bi)bi.onclick=()=>foOpenUrl(f.ig);
   const bm=document.getElementById('foBxMap');if(bm)bm.onclick=()=>{box.style.display='none';FOVISTA='m';document.querySelectorAll('#foVista button').forEach(x=>x.classList.toggle('on',x.dataset.v==='m'));foRender();setTimeout(()=>FOM.fit(+f.la-.05,+f.la+.05,+f.lo-.07,+f.lo+.07),80);};
   const tm=t=>document.getElementById('foBxM').textContent=t;
   document.getElementById('foBxPdf').onclick=()=>foJustificante(Object.assign({},f,{estado:'Publicada en la app'+(f.gana?' · ganadora del reto':'')}));
@@ -3742,7 +3754,7 @@ async function foInit(){
     const cs=document.getElementById('foCat');cs.innerHTML=`<button class="btn on" data-v="">Todas</button>`+FO_CATS.map(c=>`<button class="btn" data-v="${c[0]}">${c[1]} ${c[2]}</button>`).join('');
     cs.querySelectorAll('button').forEach(b=>b.onclick=()=>{FOCAT=b.dataset.v;cs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));foRender();});
     document.querySelectorAll('#foVista button').forEach(b=>b.onclick=()=>{FOVISTA=b.dataset.v;document.querySelectorAll('#foVista button').forEach(x=>x.classList.toggle('on',x===b));foRender();});
-    document.getElementById('foPendB').onclick=foPend;document.getElementById('foRS').onclick=foRetoSave;}
+    document.getElementById('foPendB').onclick=foPend;document.getElementById('foRS').onclick=foRetoSave;igInit();}
   document.getElementById('foGal').innerHTML='<div class="card"><div class="note">Cargando fotos…</div></div>';
   await glLoad(TECH&&!!ghTok());foRender();techApply();
   const r=FOG.reto||{};document.getElementById('foRT').value=r.t||'';document.getElementById('foRD').value=r.d||'';document.getElementById('foRH').value=r.hasta||'';
@@ -3776,6 +3788,44 @@ async function foRetoSave(){const m=document.getElementById('foRM'),t=document.g
   m.textContent='Guardando…';
   try{await glEdit(G=>{G.reto=t?{t,d,hasta:h}:null;G.instagram=ig;G.hashtag=ht.length>1?ht:'#BasatiNA';},'Reto del mes e Instagram');m.textContent='✅ Guardado. Sale en todos los móviles en unos minutos.';foRender();}
   catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}}
+
+/* --- 🔧 zona técnica: subir fotos de paisajes de Instagram (provisional, noviembre 2026) ---
+   Mientras el envío de fotos de la gente está parado (por cómo tratar sus datos personales),
+   los administradores suben fotos de Instagram con permiso del autor. No se pide ni guarda
+   ningún dato personal: solo el @usuario, que es el crédito público que sale con la foto.
+   La foto va a Cloudinary con la etiqueta basatina_ig (no sale en «recibidas») y se apunta
+   directamente en fotos/galeria.json con src:'instagram'. */
+let IGCAT='paisaje',IGFOTO=null;
+function igInit(){
+  const cs=document.getElementById('igCat');cs.innerHTML=FO_CATS.map(c=>`<button class="btn${c[0]===IGCAT?' on':''}" data-v="${c[0]}">${c[1]} ${c[2]}</button>`).join('');
+  cs.querySelectorAll('button').forEach(b=>b.onclick=()=>{IGCAT=b.dataset.v;cs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));});
+  document.getElementById('igF').onchange=async e=>{const f=e.target.files[0],m=document.getElementById('igM'),pv=document.getElementById('igPrev');e.target.value='';if(!f)return;
+    m.textContent='Preparando la foto…';
+    try{IGFOTO=await shrinkTo(f,1600,.85);pv.src=IGFOTO;pv.style.display='';m.textContent='';}   // al reducirla se borran los datos ocultos (EXIF)
+    catch(x){IGFOTO=null;pv.style.display='none';m.textContent='❌ Esta foto no se puede leer. Prueba con otra.';}};
+  document.getElementById('igS').onclick=igSend;}
+async function igSend(){const m=document.getElementById('igM'),b=document.getElementById('igS');
+  const lugar=document.getElementById('igL').value.trim(),desc=document.getElementById('igD').value.trim(),link=document.getElementById('igU').value.trim(),
+    autor=document.getElementById('igA').value.trim().replace(/^@/,'').replace(/^https?:\/\/(www\.)?instagram\.com\//,'').replace(/\/.*$/,'');
+  if(!IGFOTO){m.textContent='❌ Elige primero una foto.';return;}
+  if(lugar.length<3){m.textContent='❌ Pon dónde está hecha la foto.';return;}
+  if(!/^[a-z0-9._]{1,30}$/i.test(autor)){m.textContent='❌ Pon el @usuario de Instagram del autor (letras, números, puntos y _).';return;}
+  if(link&&!/^https:\/\/(www\.)?instagram\.com\//i.test(link)){m.textContent='❌ El enlace tiene que ser de instagram.com (o déjalo vacío).';return;}
+  if(!document.getElementById('igOk').checked){m.textContent='❌ Marca la casilla del permiso: sin permiso del autor no se puede publicar.';return;}
+  if(!ghTok()){m.textContent='❌ Falta la llave de edición de GitHub en este móvil.';return;}
+  const c=await cldCfg();if(!c.cloud||!c.preset){m.textContent='❌ Falta configurar Cloudinary (en «Envía tu foto», abajo del todo).';return;}
+  b.disabled=true;m.textContent='📤 Subiendo la foto…';
+  try{const fd=new FormData();fd.append('file',IGFOTO);fd.append('upload_preset',c.preset);fd.append('tags','basatina_ig');
+    fd.append('context',Object.entries({cat:IGCAT,lugar,alias:'@'+autor,src:'instagram'}).map(([k,v])=>k+'='+ctxV(v)).join('|'));
+    const r=await fetch(`https://api.cloudinary.com/v1_1/${encodeURIComponent(c.cloud)}/image/upload`,{method:'POST',body:fd}),j=await r.json().catch(()=>({}));
+    if(!r.ok||!j.secure_url)throw new Error((j.error&&j.error.message)||('error '+r.status));
+    m.textContent='💾 Apuntándola en la galería…';
+    await glEdit(G=>{if(!G.fotos.some(f=>f.id===j.public_id))G.fotos.push({id:j.public_id,url:j.secure_url,cat:IGCAT,lugar,alias:'@'+autor,desc,d:foHoy(),
+      src:'instagram',ig:link||('https://www.instagram.com/'+autor+'/'),ok:'Permiso del autor en Instagram · subida por '+(edName()||'administrador'),ts:new Date().toISOString()});},'Foto de Instagram: '+lugar);
+    m.innerHTML='✅ <b>Publicada.</b> Sale en todos los móviles en unos minutos.';
+    IGFOTO=null;document.getElementById('igPrev').style.display='none';['igL','igA','igU','igD'].forEach(id=>document.getElementById(id).value='');document.getElementById('igOk').checked=false;foRender();}
+  catch(x){m.textContent='❌ No se pudo subir ('+x.message+').';}
+  b.disabled=false;}
 
 const FO_PRIV=['enviar','fotos'];
 const _showTabFo=showTab;showTab=function(t){if(FO_PRIV.includes(t)&&!TECH)t='sim';_showTabFo(t);if(t==='enviar')setTimeout(enInit,40);if(t==='fotos')setTimeout(foInit,40);};
