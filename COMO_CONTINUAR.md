@@ -54,7 +54,7 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 - **Cómo se entra**: tocar 5 veces el logo y meter el PIN. La primera vez en cada móvil pide la llave de edición de GitHub.
 - **Qué hay dentro**: Pueblos (en pruebas), Agenda de fiestas, Modo científico, SAIH, las casillas de claves, 📊 Descargas de la app (lee `download_count` de las releases de GitHub) y, en «Fotos de la gente», la subida de fotos de Instagram.
 - **Fotos (desde nov. 2026)**: «Fotos de la gente» es pública. «Envía tu foto» (el formulario con alias y correo) sigue solo en el modo administrador hasta resolver el tratamiento de datos personales. Mientras, los administradores suben fotos de Instagram con permiso del autor (solo se guarda el @usuario).
-- **Manuales**: `manuales/` tiene el manual de usuario y el de administrador en PDF.
+- **Manuales**: `manuales/` tiene el manual de usuario en PDF. El de administrador es interno y **no se sube aquí** (el repositorio es público): lo guardan Pedro y Sonia.
 
 ## 6. Cosas pendientes o ideas
 
