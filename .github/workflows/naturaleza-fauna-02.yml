@@ -1,0 +1,58 @@
+name: Ampliar fichas de fauna bloque 02
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/naturaleza-fauna-02.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: instalar-naturaleza
+  cancel-in-progress: false
+jobs:
+  ampliar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Incorporar fichas sin eliminar contenido
+        run: |
+          python3 - <<'PY'
+          import json,re
+          from pathlib import Path
+          irati=['Presencia en Navarra — Reserva de la Biosfera Irati, MITECO','https://www.miteco.gob.es/es/parques-nacionales-oapn/reservas-biosfera-mab/programa-mab-espana/nuestras-reservas-de-la-biosfera/irati.html']
+          base='https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/temas/inventarios-nacionales/'
+          nuevas=[
+            {'id':'zorro','nombre':'Zorro','cientifico':'Vulpes vulpes','campos':{'Identificación':'Cánido de hocico alargado, orejas prominentes y cola larga y espesa.','Tamaño':'Medidas del atlas del MITECO: cabeza y cuerpo 65–80 cm en machos y 52–72 cm en hembras; cola 33–48 cm y 32–44 cm, respectivamente. No son límites absolutos ni medidas específicas de Navarra.','Peso':'Machos 4,6–8,6 kg; hembras 3,1–7,8 kg en las medidas del atlas.','Hábitat':'Especie muy adaptable: ambientes forestales, agrícolas y humanizados.','Alimentación':'Oportunista: conejos, pequeños mamíferos, carroña, aves, frutos e invertebrados; puede aprovechar residuos en entornos humanizados.','Hábitos':'Actividad principalmente crepuscular y nocturna, con variaciones locales.','Reproducción':'Un periodo reproductor anual. En latitudes medias del hemisferio norte, la referencia consultada sitúa la reproducción entre diciembre y abril, con mayoría de cópulas en enero y febrero; no es un calendario local verificado para Navarra.'},'fuentes':[['Atlas de mamíferos — MITECO',base+'ieet_mami_vulpes_vulpes_tcm30-99887.pdf'],['Comportamiento — Enciclopedia Virtual de los Vertebrados Españoles','https://www.vertebradosibericos.org/mamiferos/comportamiento/vulvulco.html'],['Reproducción — Enciclopedia Virtual de los Vertebrados Españoles','https://vertebradosibericos.org/mamiferos/vulvul.html'],['Hábitat general — MITECO',base+'Vulpes_vulpes_tcm30-200999.pdf'],irati]},
+            {'id':'corzo','nombre':'Corzo','cientifico':'Capreolus capreolus','campos':{'Identificación':'Cérvido pequeño con grandes orejas, escudo anal blanco y extremidades traseras adaptadas al salto. Los machos desarrollan cuernas que renuevan anualmente.','Tamaño':'Atlas del MITECO: longitud cabeza-cuerpo 95–145 cm y altura a la cruz 54–83 cm. Son rangos de referencia, no una medición de la población navarra.','Peso':'16–30 kg según el atlas del MITECO.','Hábitat':'Preferencia por zonas boscosas con estrato herbáceo y arbustivo diverso; también utiliza medios agrícolas.','Alimentación':'Herbívoro selectivo: prefiere vegetales nutritivos y poco fibrosos, como brotes tiernos y hierbas. La dieta cambia según los recursos disponibles.','Hábitos':'Puede refugiarse en la cobertura del bosque y huir rápidamente ante una perturbación.','Reproducción':'Calendario y parámetros reproductivos pendientes de documentación para esta ficha.'},'fuentes':[['Atlas de mamíferos — MITECO',base+'ieet_mami_capreolus_capreolus_tcm30-99790.pdf'],['Identificación y alimentación — MITECO','https://www.miteco.gob.es/es/parques-nacionales-oapn/red-parques-nacionales/parques-nacionales/cabaneros/visita-virtual/fauna/corzo.html'],irati]},
+            {'id':'jabali','nombre':'Jabalí','cientifico':'Sus scrofa','campos':{'Identificación':'Cuerpo robusto, cuello poco aparente, cabeza alargada y orejas pequeñas y erguidas.','Tamaño':'Ejemplares adultos del Montseny citados por el atlas del MITECO: cabeza-cuerpo 133–148 cm en machos y 118–137 cm en hembras; altura a la cruz 72–85,5 cm y 71–73 cm, respectivamente. Estas medidas NO corresponden a un muestreo de Navarra y no representan límites absolutos.','Peso':'En esa misma muestra del Montseny: machos 60–118 kg y hembras 40–65 kg.','Hábitat':'Muy adaptable: bosques, humedales, agrosistemas, periferias urbanas y pastos subalpinos.','Alimentación':'Omnívoro con predominio vegetal. Consume frutos de fagáceas, productos agrícolas, raíces y hongos; también materia animal.','Huellas y señales':'Puede remover el suelo con el hocico para encontrar alimento, dejando hozaduras.','Reproducción':'Los parámetros reproductivos dependen de las condiciones ambientales; calendario local pendiente de documentación.'},'fuentes':[['Atlas de mamíferos — MITECO',base+'ieet_mami_sus_scrofa_tcm30-99882.pdf'],['Identificación, dieta y señales — Asturnatura','https://www.asturnatura.com/especie/sus-scrofa'],irati]}
+          ]
+          for f in nuevas:
+              f.update(tipo='Fauna',grupo='Mamíferos',zona='Irati: presencia documentada; no distribución exhaustiva')
+              f['campos']['Dónde se localiza en Navarra']='La ficha oficial de la Reserva de la Biosfera Irati documenta esta especie en los valles de Aezkoa y Salazar. Es un ejemplo de presencia, no su distribución completa ni una garantía de avistamiento.'
+              f['campos']['Protección']='Situación normativa vigente pendiente de contraste. Esta ficha divulgativa no autoriza captura, caza, alimentación ni manipulación de animales.'
+              f['campos']['Fotografía']='Pendiente de incorporar una imagen con identificación, licencia y atribución verificadas.'
+          p=Path('web/naturaleza-catalogo.js')
+          s=p.read_text(encoding='utf-8')
+          ancla='const fichas=['
+          if s.count(ancla)!=1:
+              raise SystemExit('Estructura inesperada: no se modifica la app')
+          pendientes=[f for f in nuevas if not re.search(r'''\bid["']?\s*:\s*["']'''+re.escape(f['id'])+r'''["']''',s)]
+          if pendientes:
+              bloque='\n'+',\n'.join(json.dumps(f,ensure_ascii=False) for f in pendientes)+',\n'
+              s=s.replace(ancla,ancla+bloque,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          node --check web/naturaleza-catalogo.js
+          python3 tools/make_version.py
+      - name: Guardar fichas
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add web/naturaleza-catalogo.js web/version.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Añadir fichas de zorro corzo y jabali con fuentes y límites'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
