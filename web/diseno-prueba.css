@@ -1,0 +1,19 @@
+/* BasatiNA · prueba visual clara · cambios de presentación exclusivamente */
+body.bna{--bg:#f7faf8;--line:#e3eae5;--txt:#20352e;--mut:#61766d;--verde:#317c52;--azul:#187fa0;background:#f7faf8}
+body.bna header{border-radius:0 0 18px 18px;box-shadow:0 5px 22px rgba(25,65,49,.07)}
+body.bna .topbar:after{height:2px;background:linear-gradient(90deg,#3c915f,#54b4cc)}
+body.bna #logo{box-shadow:none;border-radius:50%}
+body.bna #mtBox{background:#fff;border:1px solid #e3ebe5;box-shadow:0 8px 26px rgba(35,80,61,.08);border-radius:22px;padding:10px}
+body.bna #mtBox:after{display:none}
+body.bna #mtBox #mtWrap{box-shadow:none;border:1px solid #e2eae5;border-radius:16px}
+body.bna #mtBox #mtInfo{color:#61766d;opacity:1}
+body.bna #mtBar .mtb{background:rgba(255,255,255,.94)!important;color:#345548!important;border:1px solid rgba(211,227,216,.9);box-shadow:0 1px 4px rgba(0,0,0,.06);border-radius:9px}
+body.bna #mtBar .mtb.on{background:#317c52!important;color:#fff!important;border-color:#317c52}
+body.bna .bnaQ button,body.bna .bnaNow>div,body.bna .card{border:1px solid #e4ece6;box-shadow:0 3px 16px rgba(31,77,57,.05);border-radius:18px;background:#fff}
+body.bna .bnaQ button:active{transform:scale(.97)}
+body.bna #bnaNav{box-shadow:0 -4px 22px rgba(27,66,50,.07);border-top-color:#e2ebe5}
+body.bna #bnaNav button.on{color:#317c52}
+body.bna #bnaNav button.on svg{background:#e4f2e8}
+body.bna #seHome{background:#fff;border:1px solid #e4ece6;border-radius:20px;padding:12px 10px;margin-top:16px!important}
+body.bna #avBanner{border-radius:12px!important}
+@media(max-width:420px){body.bna #mtBar .mtb{font-size:11px!important;padding:6px 4px!important}body.bna #mtBox{padding:7px}body.bna .bnaQ{gap:7px}}
