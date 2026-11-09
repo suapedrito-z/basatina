@@ -1,0 +1,342 @@
+{
+"abies-alba": {
+"eusk": "izei zuria",
+"cast": "Abeto, abeto común, pinabete"
+},
+"acer-campestre": {
+"eusk": "azcarro",
+"cast": "Arce menor, moscón, arce común"
+},
+"acer-monspessulanum": {
+"eusk": "eihar frantsesa",
+"cast": "Arce de Montpellier, arce"
+},
+"acer-negundo": {
+"eusk": "negundo astigar",
+"cast": "Negundo, arce de hoja de fresno"
+},
+"acer-opalus": {
+"eusk": "astigar, eihar italiarra",
+"cast": "Acirón"
+},
+"acer-platanoides": {
+"eusk": "astigar zorrotza",
+"cast": "Arce real"
+},
+"acer-pseudoplatanus": {
+"eusk": "astigar zuria",
+"cast": "Falso plátano, arce blanco"
+},
+"ailanthus-altissima": {
+"eusk": "ailantoa",
+"cast": "Árbol del cielo, ailanto"
+},
+"alnus-glutinosa": {
+"eusk": "altza",
+"cast": "Aliso, humero"
+},
+"arbutus-unedo": {
+"eusk": "gurbitza",
+"cast": "Madroño"
+},
+"betula-pendula": {
+"eusk": "urkia",
+"cast": "Abedul"
+},
+"betula-pubescens": {
+"eusk": "urkia",
+"cast": "Abedul"
+},
+"buxus-sempervirens": {
+"eusk": "ezpel, ezpela, amaxatun",
+"cast": "Boj, boje, buje"
+},
+"carpinus-betulus": {
+"eusk": "xarma, pago lizarra",
+"cast": "Carpe"
+},
+"castanea-sativa": {
+"eusk": "gaztainondoa",
+"cast": "Castaño"
+},
+"celtis-australis": {
+"eusk": "almeza",
+"cast": "Almez, latonero"
+},
+"cornus-sanguinea": {
+"eusk": "zuhandor arrunt, zuhandorra",
+"cast": "Cornejo, sanguino"
+},
+"corylus-avellana": {
+"eusk": "urritza",
+"cast": "Avellano"
+},
+"crataegus-laevigata": {
+"eusk": "hegoaldeko elorri zuria",
+"cast": "Espino navarro, espino blanco"
+},
+"crataegus-monogyna": {
+"eusk": "iparraldeko elorri zuria",
+"cast": "Majuelo, espino albar"
+},
+"erica-arborea": {
+"eusk": "añar-zuria, zuricacha",
+"cast": "Brezo blanco, brezo, berezo"
+},
+"euonymus-europaeus": {
+"eusk": "basaerramua",
+"cast": "Bonetero, evónimo, husera"
+},
+"fagus-sylvatica": {
+"eusk": "pago",
+"cast": "Haya"
+},
+"ficus-carica": {
+"eusk": "pikotze",
+"cast": "Higuera"
+},
+"frangula-alnus": {
+"eusk": "zumalakar, oila-karana",
+"cast": "Arraclán"
+},
+"fraxinus-angustifolia": {
+"eusk": "lizar hostotxikia",
+"cast": "Fresno, fresno de hoja estrecha, fresno de la tierra"
+},
+"fraxinus-excelsior": {
+"eusk": "lizar arrunta",
+"cast": "Fresno, fresno de hoja ancha, fresno común"
+},
+"ilex-aquifolium": {
+"eusk": "gorosti, gorostia",
+"cast": "Acebo"
+},
+"juglans-regia": {
+"eusk": "intxaurrondoa",
+"cast": "Nogal, noguera"
+},
+"juniperus-communis": {
+"eusk": "ipar ipurua",
+"cast": "Enebro común, enebro real"
+},
+"juniperus-oxycedrus": {
+"eusk": "hego-ipurua",
+"cast": "Enebro, oxicedro, enebro de la miera, cada"
+},
+"juniperus-phoenicea": {
+"eusk": "miter feniciarra",
+"cast": "Sabina negral, sabina mora, sabina negra"
+},
+"juniperus-thurifera": {
+"eusk": "intzentsu-miterra",
+"cast": "Sabina albar, enebro, cedro de España"
+},
+"laurus-nobilis": {
+"eusk": "erramua, ereñotz",
+"cast": "Laurel"
+},
+"malus-sylvestris": {
+"eusk": "argamina, sagarmina",
+"cast": "Manzano silvestre, maíllo"
+},
+"morus-alba": {
+"eusk": "masustabe, marhugatze",
+"cast": "Morera, morera blanca"
+},
+"olea-europaea": {
+"eusk": "basa olivoa",
+"cast": "Acebuche, olivo silvestre"
+},
+"phillyrea-latifolia": {
+"eusk": "gartxu hostozabal",
+"cast": "Labiérnago prieto, labiérnago negro"
+},
+"pinus-halepensis": {
+"eusk": "Aleppo pinua",
+"cast": "Pino carrasco, pino de Alepo"
+},
+"pinus-nigra": {
+"eusk": "larizio pinua",
+"cast": "Pino negral, pino laricio, pino salgareño"
+},
+"pinus-pinaster": {
+"eusk": "itsas pinua",
+"cast": "Pino resinero, pino rodeno, pino marítimo, pino negral"
+},
+"pinus-radiata": {
+"eusk": "intsinis pinua",
+"cast": "Pino de Monterrey, pino insigne"
+},
+"pinus-sylvestris": {
+"eusk": "lerr, pinu gorria",
+"cast": "Pino silvestre, pino albar, pino de Valsaín"
+},
+"pinus-uncinata": {
+"eusk": "mendi pinua",
+"cast": "Pino negro, pino de ganchos"
+},
+"pistacia-lentiscus": {
+"eusk": "legeltxor, legeltxorra",
+"cast": "Lentisco, charneca, almáciga"
+},
+"pistacia-terebinthus": {
+"eusk": "ahunt-zadarra",
+"cast": "Terebinto, cornicabra"
+},
+"platanus-hispanica": {
+"eusk": "albo",
+"cast": "Plátano de sombra, plátano de paseo, plátano"
+},
+"populus-alba": {
+"eusk": "zurzuria",
+"cast": "Álamo blanco, álamo"
+},
+"populus-nigra": {
+"eusk": "makala",
+"cast": "Chopo, álamo negro, pobo"
+},
+"populus-tremula": {
+"eusk": "lertxuna",
+"cast": "Álamo temblón, temblón"
+},
+"prunus-avium": {
+"eusk": "gereziondoa",
+"cast": "Cerezo"
+},
+"prunus-lusitanica": {
+"eusk": "Portugaleko erramua",
+"cast": "Loro"
+},
+"prunus-mahaleb": {
+"eusk": "oilarana",
+"cast": "Cerezo de Santa Lucía"
+},
+"prunus-padus": {
+"eusk": "otsagereziondoa",
+"cast": "Cerezo de racimo, cerezo-aliso"
+},
+"pyrus-communis": {
+"eusk": "madariondoa, udareondoa",
+"cast": "Peral, peral común"
+},
+"pyrus-cordata": {
+"eusk": "atxereondoa, makatza",
+"cast": "Peral silvestre, peretero"
+},
+"quercus-coccifera": {
+"eusk": "abaritza",
+"cast": "Coscoja, chaparro, maraña"
+},
+"quercus-faginea": {
+"eusk": "erkametza",
+"cast": "Quejigo, roble carrasqueño, rebollo"
+},
+"quercus-ilex": {
+"eusk": "artea",
+"cast": "Encina, carrasca, chaparro"
+},
+"quercus-petraea": {
+"eusk": "haritz kandugabea",
+"cast": "Roble albar, roble"
+},
+"quercus-pubescens": {
+"eusk": "aritza, ametz ilaunduna",
+"cast": "Roble pubescente"
+},
+"quercus-pyrenaica": {
+"eusk": "ametza",
+"cast": "Roble melojo, melojo, rebollo"
+},
+"quercus-robur": {
+"eusk": "aritza",
+"cast": "Roble, roble albar, carballo"
+},
+"rhamnus-alaternus": {
+"eusk": "burrubiote, guirguirio",
+"cast": "Aladierno, carrasquilla, aladierna, ladierna, sanguino"
+},
+"rhamnus-cathartica": {
+"eusk": "hesilaharra",
+"cast": "Espino cerval"
+},
+"robinia-pseudoacacia": {
+"eusk": "azkasi",
+"cast": "Falsa acacia, robinia"
+},
+"salix-alba": {
+"eusk": "zume zuria",
+"cast": "Sauce blanco, sauce"
+},
+"salix-atrocinerea": {
+"eusk": "sahats iluna",
+"cast": "Bardaguera, sarga negra, sauce"
+},
+"salix-caprea": {
+"eusk": "ahuntz-sahatsa",
+"cast": "Sauce cabruno"
+},
+"salix-fragilis": {
+"eusk": "zume hauskorra",
+"cast": "Sauce, mimbrera"
+},
+"salix-purpurea": {
+"eusk": "zume gorria, zumarika",
+"cast": "Mimbrera, sarga, sarga fina, mimbrera fina"
+},
+"salix-triandra": {
+"eusk": "saraxa",
+"cast": "Sarga, sargatilla blanca"
+},
+"salix-viminalis": {
+"eusk": "illuncia, zume jatorra",
+"cast": "Mimbrera, mimbre"
+},
+"sambucus-nigra": {
+"eusk": "intsusa",
+"cast": "Saúco, sabuco"
+},
+"sorbus-aria": {
+"eusk": "hostazuria",
+"cast": "Mostajo"
+},
+"sorbus-aucuparia": {
+"eusk": "otsalizarra",
+"cast": "Serbal de cazadores"
+},
+"sorbus-domestica": {
+"eusk": "gurbea",
+"cast": "Serbal común, serbal doméstico"
+},
+"sorbus-torminalis": {
+"eusk": "basa-gurbea",
+"cast": "Mostajo, peral de monte"
+},
+"taxus-baccata": {
+"eusk": "hagina",
+"cast": "Tejo"
+},
+"tilia-cordata": {
+"eusk": "ezki hostotxikia",
+"cast": "Tilo, tilo de hojas pequeñas"
+},
+"tilia-platyphyllos": {
+"eusk": "ezki hostozabala",
+"cast": "Tilo, tilo de hojas grandes, tilo común"
+},
+"ulmus-glabra": {
+"eusk": "zugarr, zugarra",
+"cast": "Olmo de montaña"
+},
+"ulmus-laevis": {
+"eusk": "zumar dilindaria",
+"cast": "Olmo temblón, olmo blanco"
+},
+"ulmus-minor": {
+"eusk": "humar hostotxikia",
+"cast": "Olmo, olmo común, negrillo, álamo negro"
+},
+"ulmus-pumila": {
+"eusk": "Siberiako zumarra",
+"cast": "Olmo de Siberia, olmo siberiano"
+}
+}

@@ -9,3 +9,4 @@ local.properties
 keystore/
 *.jks
 __pycache__/
+__pycache__/
