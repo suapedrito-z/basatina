@@ -1,0 +1,76 @@
+name: Fichas de reptiles bloque 04
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/naturaleza-reptiles-04.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: instalar-naturaleza
+  cancel-in-progress: false
+jobs:
+  ampliar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Incorporar reptiles conservando fichas y filtros
+        run: |
+          python3 - <<'PY'
+          import json,re
+          from pathlib import Path
+          atlas=['Presencia histórica en Navarra — Gosá y Bergerandi, 1994, Aranzadi','https://www.aranzadi.eus/fileadmin/docs/Munibe/1994109189CN.pdf']
+          nuevas=[
+            {'id':'lagartija-roquera','nombre':'Lagartija roquera','cientifico':'Podarcis muralis','zona':'Navarra: referencia histórica de zonas rocosas y enclaves forestales','campos':{'Identificación':'Lagartija pequeña, de dorso pardo o pardo verdoso, a veces con dibujo reticulado oscuro. Costados frecuentemente oscuros; el vientre puede ser blanquecino, crema o rojizo.','Tamaño':'Longitud de cabeza y cuerpo: 48–69 mm según la Enciclopedia Virtual de los Vertebrados Españoles. Esta medida EXCLUYE la cola.','Dónde se localiza en Navarra':'El atlas navarro de 1994 cita la especie, entre otros enclaves, en los hayedos de las sierras de Izaga, Alaiz e Izko. Son referencias históricas, no un censo actual ni su distribución completa.','Hábitat':'Muros, roquedos, taludes y claros soleados. Puede utilizar bordes y zonas abiertas de hayedos y robledales.','Alimentación':'Pequeños artrópodos, incluidos arañas, coleópteros, dípteros y otros insectos, que busca activamente.','Reproducción':'Ovípara. La síntesis consultada sitúa las puestas entre abril y julio; las referencias para Asturias, País Vasco y Navarra documentan dos o tres puestas. El calendario depende de las condiciones locales.','Actividad':'Puede mantenerse activa gran parte del año en climas oceánicos; la inactividad invernal varía entre poblaciones.','Observación':'Observar a distancia en lugares soleados, sin perseguirla ni levantar piedras o deshacer muros.'},'fuentes':[['Ficha general — MNCN-CSIC, Enciclopedia Virtual de los Vertebrados Españoles','https://www.vertebradosibericos.org/reptiles/podmur.html'],['Reproducción y referencias navarras — MNCN-CSIC','https://www.vertebradosibericos.org/reptiles/reproduccion/podmurre.html'],['Actividad — MNCN-CSIC','https://www.vertebradosibericos.org/reptiles/comportamiento/podmurco.html'],atlas]},
+            {'id':'lagarto-verde-occidental','nombre':'Lagarto verde occidental','cientifico':'Lacerta bilineata','zona':'Mitad norte de Navarra','campos':{'Identificación':'Lagarto de tonos verdes. Los machos suelen presentar fino punteado oscuro; las hembras pueden tener manchas negras dispersas y líneas claras longitudinales. El vientre es amarillento.','Tamaño':'La longitud de cabeza y cuerpo puede superar los 130 mm; la cola puede llegar a duplicar esa longitud. No confundir la medida corporal sin cola con la longitud total.','Dónde se localiza en Navarra':'La síntesis de distribución consultada incluye la mitad norte de Navarra. Hay datos biométricos publicados de Beorburu. No se muestran coordenadas de ejemplares.','Hábitat':'Zonas de transición entre prados y bosques, setos, brezales y bordes de bosque con vegetación densa y humedad. También usa taludes y márgenes de caminos.','Alimentación':'Principalmente invertebrados: ortópteros, coleópteros, larvas y gasterópodos. Puede consumir ocasionalmente pequeños vertebrados y frutos.','Reproducción':'Ovíparo. Las referencias navarras recogidas por Gosá y Rubio documentan puestas de 4–17 huevos a finales de junio y eclosión a finales de agosto o en septiembre. Son observaciones publicadas, no un calendario garantizado cada año.','Actividad':'Puede asolearse sobre arbustos y usa refugios excavados por él mismo o galerías de roedores.','Observación':'Respetar setos y refugios, sin capturar animales ni despejar la vegetación para verlos.'},'fuentes':[['Ficha general — MNCN-CSIC','https://www.vertebradosibericos.org/reptiles/lacbil.html'],['Identificación y muestra de Beorburu — MNCN-CSIC','https://www.vertebradosibericos.org/reptiles/identificacion/lacbilid.html'],['Distribución navarra — MNCN-CSIC','https://www.vertebradosibericos.org/reptiles/distribucion/lacbildi.html'],['Reproducción: referencias de Navarra — MNCN-CSIC','https://www.vertebradosibericos.org/reptiles/reproduccion/lacbilre.html']]},
+            {'id':'culebra-viperina','nombre':'Culebra viperina','cientifico':'Natrix maura','zona':'Medios acuáticos; registros de Bardenas y su entorno','campos':{'Identificación':'Culebra de hábitos acuáticos y coloración variable, que puede presentar un dibujo dorsal en zigzag. El nombre y el dibujo no bastan para identificar con seguridad una serpiente.','Tamaño':'El MITECO indica que generalmente no alcanza un metro de longitud total salvo casos excepcionales, sobre todo hembras; los machos rara vez superan los 70 cm. Los recién nacidos se describen con 16–20 cm. Son medidas generales, no una muestra de Navarra.','Dónde se localiza en Navarra':'Documentada por el atlas navarro de 1994 y por el estudio de reptiles de Bardenas Reales y su entorno con observaciones de 2012–2021. No se presenta ese estudio como censo de 2026.','Hábitat':'Ríos, arroyos, lagunas, charcas, balsas y otros medios acuáticos continentales y sus orillas.','Alimentación':'Principalmente peces y anfibios capturados en el agua; también puede consumir invertebrados. La proporción de presas cambia entre localidades.','Reproducción':'Ovípara. La cópula se produce normalmente tras el periodo de inactividad invernal, con variación geográfica. El calendario específico de Navarra y el tamaño de puesta local quedan pendientes de documentación.','Actividad':'Tiene gran afinidad por el agua y capacidad para nadar y bucear.','Observación':'No manipular ninguna serpiente para identificarla. Observar desde cierta distancia y mantener libres sus rutas de escape.'},'fuentes':[['Tamaño y alimentación — MITECO','https://www.miteco.gob.es/es/parques-nacionales-oapn/red-parques-nacionales/parques-nacionales/islas-atlanticas/visita-virtual/fauna/culebra-viperina.html'],['Dieta — MNCN-CSIC','https://www.vertebradosibericos.org/reptiles/trofico/natmautr.html'],['Hábitat — MNCN-CSIC','https://www.vertebradosibericos.org/reptiles/habitat/natmauha.html'],['Síntesis de biología reproductiva — CSIC','https://digital.csic.es/bitstream/10261/109371/5/natmau_v6.pdf'],['Bardenas Reales: estudio publicado en Munibe, 2021','https://www.lacerta.de/AF/Bibliografie/BIB_15731.pdf'],atlas]}
+          ]
+          for f in nuevas:
+              f.update(tipo='Fauna',grupo='Reptiles')
+              f['campos']['Protección']='Categoría legal vigente pendiente de contraste normativo. Esta ficha no autoriza captura, tenencia, manipulación ni alteración de refugios.'
+              f['campos']['Fotografía']='Pendiente de incorporar una imagen con identificación, licencia y atribución verificadas.'
+          p=Path('web/naturaleza-catalogo.js')
+          s=p.read_text(encoding='utf-8')
+          ancla='const fichas=['
+          if s.count(ancla)!=1 or 'function bioActualizarGrupos(){' not in s:
+              raise SystemExit('Estructura inesperada o filtro no actualizado: no se modifica el catálogo')
+          pendientes=[f for f in nuevas if not re.search(r'''\bid["']?\s*:\s*["']'''+re.escape(f['id'])+r'''["']''',s)]
+          if pendientes:
+              s=s.replace(ancla,ancla+'\n'+',\n'.join(json.dumps(f,ensure_ascii=False) for f in pendientes)+',\n',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          node --check web/naturaleza-catalogo.js
+      - name: Probar reptiles y filtro de grupos
+        run: |
+          node <<'JS'
+          const fs=require('fs'),vm=require('vm'),assert=require('assert');
+          const s=fs.readFileSync('web/naturaleza-catalogo.js','utf8');
+          const a=s.indexOf('const fichas=['),b=s.indexOf('\nconst esc=',a);
+          assert(a>=0&&b>a,'No se encuentra la lista de fichas');
+          const fichas=vm.runInNewContext(s.slice(a,b)+'\nfichas;');
+          const ids=['lagartija-roquera','lagarto-verde-occidental','culebra-viperina'];
+          for(const id of ids){const rows=fichas.filter(f=>f.id===id);assert.strictEqual(rows.length,1);assert.strictEqual(rows[0].tipo,'Fauna');assert.strictEqual(rows[0].grupo,'Reptiles');}
+          assert.strictEqual(new Set(fichas.map(f=>f.id)).size,fichas.length,'Hay fichas duplicadas');
+          const inicio=s.indexOf('function bioActualizarGrupos(){'),fin=s.indexOf('\nconst wrap=',inicio);
+          assert(inicio>=0&&fin>inicio,'No se encuentra el filtro de grupos');
+          const fn=s.slice(inicio,fin)+'\nbioActualizarGrupos();';
+          for(const tipo of ['Fauna','Flora','Todos']){
+            const grupos={value:'Reptiles',options:[],replaceChildren(o){this.options=[o];this.value=o.value;},add(o){this.options.push(o);}};
+            vm.runInNewContext(fn,{tipo,fichas,grupos,Option:function(text,value){this.text=text;this.value=value;}});
+            assert.strictEqual(grupos.options.some(o=>o.value==='Reptiles'),tipo!=='Flora');
+            assert.strictEqual(grupos.value,tipo==='Flora'?'':'Reptiles');
+          }
+          JS
+          python3 tools/make_version.py
+      - name: Guardar ampliacion
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add web/naturaleza-catalogo.js web/version.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Añadir lagartija roquera lagarto verde occidental y culebra viperina'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
