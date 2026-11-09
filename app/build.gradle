@@ -4,7 +4,7 @@ android {
     namespace 'es.pedrito.controlarga'
     compileSdk 34
     defaultConfig {
-        applicationId "es.pedrito.controlarga"
+        applicationId "es.pedrito.controlarga.preview"
         minSdk 24
         targetSdk 34
         versionCode 17
