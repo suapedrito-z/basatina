@@ -2,7 +2,7 @@ terremotos 1980: respuesta vacía
 terremotos 1990-1999: 201 acumulados
 terremotos 2000-2009: 6284 acumulados
 terremotos 2010-2019: 8661 acumulados
-terremotos 2020-2029: 10147 acumulados
+terremotos 2020-2029: 10148 acumulados
 Mayores: 2004-09-18 M5.2 Pyrenees; 1998-10-27 M4.6 Spain; 2017-03-10 M4.5 Pyrenees; 2020-09-30 M4.5 Pyrenees; 2004-09-30 M4.4 Pyrenees; 2020-10-01 M4.4 Pyrenees; 2002-02-21 M4.3 Pyrenees; 2013-03-23 M4.2 Pyrenees; 2013-04-20 M4.2 Pyrenees; 2016-05-11 M4.2 Pyrenees; 2023-09-26 M4.1 Spain; 1998-09-20 M4 Spain; 2007-11-23 M4 Spain; 2013-09-02 M4.0 Pyrenees; 1999-02-16 M3.9 Pyrenees
 capas QAFI: 0=QAFI v4 faults; 1=QAFI v4 debated faults; 2=QAFI v4 discarded faults; 3=QAFIv3_NeotectonicMap
 
@@ -37,4 +37,4 @@ campos: {"FID": "0", "ELECD": "120", "EDAD": "5", "ELECEDAD": "12005", "DESCRIPC
   - 
   - prolongacion f.hasta moncayo, N, plioc sup antiguo
 
-sismo.js: 792 KB · 10147 terremotos · 22 fallas
+sismo.js: 792 KB · 10148 terremotos · 22 fallas
