@@ -1,0 +1,63 @@
+name: Ampliar naturaleza bloque 01
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/naturaleza-ampliacion-01.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: instalar-naturaleza
+  cancel-in-progress: false
+jobs:
+  ampliar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Ampliar sin reemplazar las fichas existentes
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('web/naturaleza-catalogo.js')
+          s=p.read_text(encoding='utf-8')
+          nuevas=[
+            {'id':'nutria','tipo':'Fauna','grupo':'Mamíferos','nombre':'Nutria paleártica','cientifico':'Lutra lutra','zona':'Ríos de Navarra: referencia histórica de distribución','campos':{'Tamaño':'Medidas de adultos recogidas en el atlas del MITECO: cabeza y cuerpo 60,4–75 cm en machos y 59–71 cm en hembras; cola 39–49 cm y 35,9–45 cm, respectivamente. Son medidas del atlas, no límites absolutos.','Peso':'Machos: 6,1–9,4 kg; hembras: 4,4–6,5 kg en los datos del atlas del MITECO.','Dónde se localiza en Navarra':'La referencia de Urra y Campión (2008), recogida por la Enciclopedia Virtual de los Vertebrados Españoles, documenta presencia en los grandes ríos de la vertiente mediterránea y en el Bidasoa. Es una referencia histórica, no un censo de 2026 ni una garantía de observación.','Hábitat':'Ambientes acuáticos continentales con alimento y refugio disponibles. Puede utilizar ríos, arroyos y embalses.','Alimentación':'Principalmente peces, cangrejos, anfibios y culebras de agua. También puede capturar pequeños mamíferos, aves, otros reptiles e insectos.','Identificación':'Mustélido semiacuático de cuerpo alargado, patas cortas, cola larga y musculosa y dedos unidos por membranas interdigitales.','Reproducción':'Pendiente de documentación específica para esta ficha.','Protección':'Categoría vigente en Navarra pendiente de contraste normativo. No se publican madrigueras ni coordenadas de ejemplares.'},'fuentes':[['Atlas de mamíferos — MITECO','https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/temas/inventarios-nacionales/ieet_mami_lutra_lutra_tcm30-99817.pdf'],['Distribución y referencia de 2008 — Enciclopedia Virtual de los Vertebrados Españoles','https://www.vertebradosibericos.org/mamiferos/distribucion/lutlutdi.html'],['Hábitat — Enciclopedia Virtual de los Vertebrados Españoles','https://www.vertebradosibericos.org/mamiferos/habitat/lutlutha.html'],['Identificación — MITECO','https://www.miteco.gob.es/ca/parques-nacionales-oapn/red-parques-nacionales/parques-nacionales/sierra-de-las-nieves/visita-virtual/fauna/nutria-sierra-nieves.html']]},
+            {'id':'encina','tipo':'Flora','grupo':'Árboles','nombre':'Encina o carrasca','cientifico':'Quercus ilex','zona':'Presencia documentada en Mendaza; distribución completa pendiente','campos':{'Tamaño':'Porte variable. Puede alcanzar aproximadamente 16–25 m según la descripción general consultada. El Ayuntamiento de Mendaza documenta 15,50 m en el Encino de las Tres Patas: es la medida de ese ejemplar, no un tamaño típico.','Dónde se localiza en Navarra':'Ejemplo documentado: Encino de las Tres Patas, Mendaza. No se presenta este ejemplo como distribución completa de la especie en Navarra.','Hábitat':'Bosques mediterráneos; tolera distintos tipos de suelo.','Identificación':'Copa densa y tronco grueso y oscuro. Hojas persistentes y alternas, verdes oscuras por el haz y con tomento blanquecino en el envés.','Floración':'En primavera, con flores agrupadas en amentos amarillo-ocre.','Fruto':'Bellota. Esta ficha no recomienda recolección ni consumo.','Ciclo de vida':'Árbol de hoja persistente.','Crecimiento':'Tasa anual pendiente de documentación; no se asigna una cifra fija para Navarra.','Protección':'El Ayuntamiento de Mendaza identifica el Encino de las Tres Patas como Monumento Natural. Esa protección del ejemplar no se atribuye automáticamente a toda la especie.','Especies parecidas':'Puede confundirse con la coscoja, Quercus coccifera. Identificación comparada detallada pendiente.'},'fuentes':[['Descripción, ecología y floración — Arbolapp','https://www.arbolapp.es/especies/ficha/quercus-ilex/'],['Ejemplar de Navarra — Ayuntamiento de Mendaza','https://www.mendaza.es/portal/seccion.aspx?N=25'],['Altura general — Wikipedia','https://es.wikipedia.org/wiki/Quercus_ilex']]}
+          ]
+          inicio='const fichas=['
+          if inicio not in s:
+              raise SystemExit('Estructura inesperada; no se modifica el catálogo')
+          pendientes=[f for f in nuevas if "id:'"+f['id']+"'" not in s and '"id": "'+f['id']+'"' not in s]
+          if pendientes:
+              bloque='\n'+',\n'.join(json.dumps(f,ensure_ascii=False) for f in pendientes)+',\n'
+              s=s.replace(inicio,inicio+bloque,1)
+          s=s.replace('Catálogo inicial en ampliación: 2 fichas.','Catálogo en ampliación. Consulta el número de fichas disponibles debajo de los filtros.')
+          marca='// Grupos del catálogo, sin lista fija'
+          if marca not in s:
+              ancla="const wrap=document.querySelector('.wrap');"
+              if ancla not in s:
+                  raise SystemExit('No se encuentra el punto de integración; no se modifica el catálogo')
+              extra="""// Grupos del catálogo, sin lista fija
+          fichas.sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+          const grupos=section.querySelector('#bioGrupo');
+          grupos.replaceChildren(new Option('Todos los grupos',''));
+          [...new Set(fichas.map(f=>f.grupo))].sort((a,b)=>a.localeCompare(b,'es')).forEach(g=>grupos.add(new Option(g,g)));
+          """
+              s=s.replace(ancla,extra+ancla,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          node --check web/naturaleza-catalogo.js
+          python3 tools/make_version.py
+      - name: Guardar ampliacion
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add web/naturaleza-catalogo.js web/version.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Añadir nutria y encina con fuentes y límites de cobertura'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
