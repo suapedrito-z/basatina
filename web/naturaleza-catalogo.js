@@ -78,3 +78,27 @@ const obs=new MutationObserver(()=>{if(mover())obs.disconnect();});
 obs.observe(document.body,{childList:true,subtree:true,characterData:true});
 setTimeout(()=>{obs.disconnect();if(!document.querySelector('[data-ubicacion="vida-silvestre"]')){console.warn('No se ha identificado de forma única Vida Silvestre; se conserva el acceso original.');if(typeof toast==='function')toast('No se pudo reubicar Fauna y flora: se conserva su acceso original.');}},10000);
 })();
+
+// BNA_VIDA_SOLO_IDENTIFICADOR_V1
+(()=>{
+'use strict';
+const normal=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ').trim();
+const retirar=new Set(['fauna y flora','fauna','vegetacion','arboles por zonas']);
+function limpiar(){
+  const drawer=document.getElementById('drawer');if(!drawer)return false;
+  const grupos=[...drawer.querySelectorAll('.dgroup')].filter(g=>normal(g.textContent)==='vida silvestre');
+  if(grupos.length!==1)return false;
+  const sub=grupos[0].nextElementSibling;
+  if(!sub||!sub.classList.contains('dsub'))return false;
+  const botones=[...sub.querySelectorAll('button')];
+  const identificadores=botones.filter(b=>normal(b.textContent)==='identificar plantas o aves');
+  if(identificadores.length!==1)return false;
+  botones.filter(b=>retirar.has(normal(b.textContent))).forEach(b=>b.remove());
+  sub.dataset.vidaSoloIdentificador='true';
+  return true;
+}
+if(limpiar())return;
+const obs=new MutationObserver(()=>{if(limpiar())obs.disconnect();});
+obs.observe(document.body,{childList:true,subtree:true,characterData:true});
+setTimeout(()=>{obs.disconnect();if(!document.querySelector('[data-vida-solo-identificador="true"]')){console.warn('No se pudo identificar el grupo y su identificador; no se retiraron accesos.');if(typeof toast==='function')toast('No se pudo simplificar Vida silvestre; se conserva el menú anterior.');}},10000);
+})();
