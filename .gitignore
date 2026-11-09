@@ -4,3 +4,8 @@ app/build/
 local.properties
 *.iml
 .idea/
+
+# llave de firma: va en el secreto KEYSTORE_B64, nunca en el repositorio
+keystore/
+*.jks
+__pycache__/

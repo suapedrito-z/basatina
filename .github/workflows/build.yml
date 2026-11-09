@@ -4,7 +4,7 @@
 name: Construir APK
 on:
   push:
-    paths: ['app/**', 'build.gradle', 'settings.gradle', 'gradle.properties', 'keystore/**', '.github/workflows/build.yml']
+    paths: ['app/**', 'build.gradle', 'settings.gradle', 'gradle.properties', '.github/workflows/build.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -23,20 +23,16 @@ jobs:
         with:
           gradle-version: '8.9'
       - name: Llave de firma
-        # La llave (keystore/arga2.jks) se crea una sola vez, aquí, con la contraseña del secreto
-        # KEYSTORE_PASS, y se guarda en el repositorio. Sin esa contraseña no sirve para nada.
+        # La llave ya NO está en el repositorio (es público): se guarda en el secreto KEYSTORE_B64
+        # (el archivo .jks en base64) y su contraseña en KEYSTORE_PASS. Nunca generar una nueva:
+        # con otra llave, los móviles no podrían actualizar la app.
         env:
           KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
         run: |
-          if [ -z "$KEYSTORE_PASS" ]; then echo "::error::Falta el secreto KEYSTORE_PASS (Settings → Secrets and variables → Actions)"; exit 1; fi
-          git fetch -q origin main && git checkout origin/main -- keystore/ 2>/dev/null || true
+          if [ -z "$KEYSTORE_PASS" ] || [ -z "$KEYSTORE_B64" ]; then echo "::error::Faltan los secretos KEYSTORE_PASS / KEYSTORE_B64 (Settings → Secrets and variables → Actions)"; exit 1; fi
           mkdir -p keystore
-          if [ ! -f keystore/arga2.jks ]; then
-            keytool -genkeypair -keystore keystore/arga2.jks -storetype PKCS12 -alias arga -keyalg RSA -keysize 2048 -validity 10000 \
-              -storepass "$KEYSTORE_PASS" -keypass "$KEYSTORE_PASS" -dname "CN=La Z Sortzailea, O=Pedrito Control Rio Arga, C=ES"
-            git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
-            git add keystore/arga2.jks && git commit -m "Llave de firma nueva (protegida con el secreto KEYSTORE_PASS)" && git pull -q --rebase origin main && git push
-          fi
+          echo "$KEYSTORE_B64" | base64 -d > keystore/arga2.jks
       - name: Compilar
         env:
           KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}

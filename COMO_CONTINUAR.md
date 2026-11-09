@@ -36,7 +36,7 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 5. **Internet desde la app**:
    - Las webs que no permiten CORS (SAIH, Gobierno de Navarra, Ministerio…) se piden con `netGet(url)`, que usa el puente Android y solo funciona dentro de la app (`APP===true`).
    - Las que sí lo permiten se piden con `fetch`.
-6. **No pongas contraseñas ni claves en el código.** Las claves van en `config/*.json` y se guardan desde la app (modo administrador). La firma de la APK usa el secreto `KEYSTORE_PASS` de GitHub.
+6. **No pongas contraseñas ni claves en el código.** Las claves van en `config/*.json` y se guardan desde la app (modo administrador). La firma de la APK usa los secretos de GitHub `KEYSTORE_B64` (la llave .jks en base64) y `KEYSTORE_PASS` (su contraseña). La llave NO va en el repositorio (es público). No crear nunca una llave nueva: los móviles dejarían de poder actualizar.
 7. **Siempre en español** (y euskera en `eu.js` si se puede). Mensajes claros, sin tecnicismos.
 8. **Aviso que debe seguir saliendo**: «⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES».
 
