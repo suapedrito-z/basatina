@@ -55,7 +55,12 @@ public class MainActivity extends Activity {
         s.setAllowFileAccess(true);            // leer los archivos guardados en la app
         s.setAllowFileAccessFromFileURLs(true);// necesario para leer los mapas de inundación
         s.setGeolocationEnabled(true);         // «Qué hay cerca de mí»
-        web.setWebViewClient(new WebViewClient());
+        web.setWebViewClient(new WebViewClient() {
+            @Override public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                view.evaluateJavascript("(function(){document.body.classList.add('bna');if(!document.getElementById('bna-preview-css')){var l=document.createElement('link');l.id='bna-preview-css';l.rel='stylesheet';l.href='diseno-prueba.css';document.head.appendChild(l)}})();", null);
+            }
+        });
         // Permite que la página abra la galería o la cámara para elegir fotos (<input type="file">)
         web.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -91,7 +96,7 @@ public class MainActivity extends Activity {
     }
 
     /** Dirección desde la que se descargan las actualizaciones de la pantalla (repositorio público) */
-    static final String BASE = "https://raw.githubusercontent.com/suapedrito-z/basatina/main/web/";
+    static final String BASE = "https://raw.githubusercontent.com/suapedrito-z/basatina/prueba-nuevo-diseno/web/";
 
     static String readAll(InputStream in) throws Exception {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
