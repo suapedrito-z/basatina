@@ -81,3 +81,30 @@ box.addEventListener('toggle',()=>{
 input.addEventListener('input',()=>{limite=50;render();});
 mas.addEventListener('click',()=>{limite+=50;render();});
 })();
+
+// BNA_MENU_VIDA_SILVESTRE_V1
+(()=>{
+'use strict';
+const normal=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+function mover(){
+  const drawer=document.getElementById('drawer');if(!drawer)return false;
+  const enlaces=[...drawer.querySelectorAll('button[data-t="biodiversidad"]')];
+  if(enlaces.length!==1)return false;
+  const destinos=[...drawer.querySelectorAll('button,.dgroup')].filter(e=>e!==enlaces[0]&&normal(e.textContent).includes('vida silvestre'));
+  if(destinos.length!==1)return false;
+  const destino=destinos[0],enlace=enlaces[0];
+  if(destino.classList.contains('dgroup')){
+    const sub=destino.nextElementSibling;
+    if(!sub||!sub.classList.contains('dsub'))return false;
+    sub.prepend(enlace);
+  }else{
+    destino.insertAdjacentElement('afterend',enlace);
+  }
+  enlace.dataset.ubicacion='vida-silvestre';
+  return true;
+}
+if(mover())return;
+const obs=new MutationObserver(()=>{if(mover())obs.disconnect();});
+obs.observe(document.body,{childList:true,subtree:true,characterData:true});
+setTimeout(()=>{obs.disconnect();if(!document.querySelector('[data-ubicacion="vida-silvestre"]')){console.warn('No se ha identificado de forma única Vida Silvestre; se conserva el acceso original.');if(typeof toast==='function')toast('No se pudo reubicar Fauna y flora: se conserva su acceso original.');}},10000);
+})();
