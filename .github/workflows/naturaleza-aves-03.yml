@@ -1,0 +1,54 @@
+name: Fichas de aves bloque 03
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/naturaleza-aves-03.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: instalar-naturaleza
+  cancel-in-progress: false
+jobs:
+  ampliar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Anadir fichas de aves conservando lo existente
+        run: |
+          python3 - <<'PY'
+          import json,re
+          from pathlib import Path
+          nuevas=[
+            {'id':'buitre-leonado','nombre':'Buitre leonado','cientifico':'Gyps fulvus','zona':'Navarra: cortados y áreas abiertas de alimentación','campos':{'Identificación':'Rapaz carroñera de gran tamaño, cabeza y cuello con plumón y alas amplias adaptadas al planeo.','Tamaño':'Puede superar los 2,5 m de envergadura. La envergadura es la distancia entre las puntas de las alas abiertas, no la longitud del cuerpo.','Peso':'6–9 kg en la descripción general de SEO/BirdLife; no son medidas de una muestra específica de Navarra.','Dónde se localiza en Navarra':'SEO/BirdLife sitúa Navarra entre las regiones españolas con una población importante. No se ofrece aquí un mapa exhaustivo ni ubicaciones de colonias.','Hábitat':'Cría principalmente en cortados rocosos de montaña y cañones fluviales; también hay nidificación en árboles. Para alimentarse utiliza ambientes abiertos y mosaicos agropecuarios.','Alimentación':'Carroña, especialmente cadáveres de grandes ungulados silvestres y domésticos. Puede aprovechar restos en vertederos.','Hábitos':'Utiliza el vuelo planeado para recorrer áreas amplias buscando alimento.','Reproducción':'Calendario, puesta e incubación pendientes de documentación para esta ficha.'},'fuentes':[['Descripción, medidas, distribución y ecología — SEO/BirdLife','https://seo.org/ave/buitre-leonado/'],['Atlas reproductor — SEO/BirdLife','https://atlasaves.seo.org/ave/buitre-leonado/']]},
+            {'id':'quebrantahuesos','nombre':'Quebrantahuesos','cientifico':'Gypaetus barbatus','zona':'Áreas montañosas del Pirineo navarro','campos':{'Identificación':'Rapaz grande de alas largas y relativamente estrechas, cola alargada en cuña y plumas oscuras bajo el pico que recuerdan una barba.','Tamaño':'Puede sobrepasar los 2,80 m de envergadura según SEO/BirdLife. No se confunde esta medida con la longitud del cuerpo.','Peso':'Rango de peso pendiente de documentación homogénea para esta ficha.','Dónde se localiza en Navarra':'SEO/BirdLife documenta reproducción en Navarra dentro de la distribución pirenaica. No se muestran nidos, rompederos ni coordenadas de individuos.','Hábitat':'Zonas montañosas con roquedos y cantiles donde nidificar, con disponibilidad de carroñas de ungulados y condiciones de viento adecuadas para el vuelo.','Alimentación':'Especializado en huesos de grandes ungulados. Puede romper los de mayor tamaño dejándolos caer sobre rocas; también aprovecha tendones, piel y pequeñas carroñas.','Hábitos':'Recorre territorios amplios en busca de restos animales.','Reproducción':'Documentado como reproductor en Navarra. No se trasladan las cifras de atlas antiguos como si fueran un censo de 2026.'},'fuentes':[['Descripción, alimentación y distribución — SEO/BirdLife','https://seo.org/ave/quebrantahuesos/'],['Distribución reproductora y fecha de referencia — Atlas SEO/BirdLife','https://atlasaves.seo.org/ave/quebrantahuesos/']]},
+            {'id':'ciguena-blanca','nombre':'Cigüeña blanca','cientifico':'Ciconia ciconia','zona':'Tramos bajos del Aragón y del Arga: presencia documentada','campos':{'Identificación':'Ave grande de plumaje blanco y plumas de vuelo negras.','Tamaño':'Longitud 95–110 cm y envergadura 180–218 cm según SEO/BirdLife. La longitud corporal y la envergadura son medidas distintas.','Peso':'Pendiente de documentación para esta ficha.','Dónde se localiza en Navarra':'La ficha oficial de los tramos bajos del Aragón y del Arga documenta su presencia en este corredor fluvial del sur de Navarra. Es un ejemplo, no su distribución completa.','Hábitat':'Ambientes abiertos: regadíos, pastizales, cultivos y humedales. Suele evitar zonas muy forestales o muy montañosas y puede usar entornos humanizados.','Alimentación':'Grandes insectos, lombrices y pequeños vertebrados como roedores, reptiles, anfibios y peces. Su dieta depende de la disponibilidad local; también puede aprovechar residuos.','Nidificación':'Puede construir nidos en lugares elevados, incluidos árboles y estructuras humanas. No se publican ubicaciones precisas de nidos.','Reproducción y estacionalidad':'Calendario local y situación residente o migradora pendientes de documentar para esta ficha; no se presupone que todas las aves migren.'},'fuentes':[['Medidas y ecología — SEO/BirdLife','https://seo.org/ave/ciguena-blanca/'],['Presencia en Navarra — Gobierno de Navarra','https://espaciosnaturales.navarra.es/es/tramos-bajos-del-aragon-y-el-arga'],['Nidificación — SEO/BirdLife','https://avesyedificios.seo.org/ave/ciguena-blanca/']]}
+          ]
+          for f in nuevas:
+              f.update(tipo='Fauna',grupo='Aves')
+              f['campos']['Protección']='Categoría legal vigente pendiente de contraste normativo. No acercarse a nidos ni manipular o alimentar animales basándose en esta ficha.'
+              f['campos']['Fotografía']='Pendiente de imagen con identificación, licencia y atribución verificadas.'
+          p=Path('web/naturaleza-catalogo.js')
+          s=p.read_text(encoding='utf-8')
+          ancla='const fichas=['
+          if s.count(ancla)!=1 or '// Grupos del catálogo, sin lista fija' not in s:
+              raise SystemExit('Estructura inesperada: no se modifica el catalogo')
+          pendientes=[f for f in nuevas if not re.search(r'''\bid["']?\s*:\s*["']'''+re.escape(f['id'])+r'''["']''',s)]
+          if pendientes:
+              s=s.replace(ancla,ancla+'\n'+',\n'.join(json.dumps(f,ensure_ascii=False) for f in pendientes)+',\n',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          node --check web/naturaleza-catalogo.js
+          python3 tools/make_version.py
+      - name: Guardar ampliacion
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add web/naturaleza-catalogo.js web/version.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Incorporar aves: buitre leonado quebrantahuesos y ciguena blanca'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
