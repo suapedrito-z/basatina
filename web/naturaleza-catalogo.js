@@ -33,3 +33,43 @@ const host=document.getElementById('bnaDGrid')||document.getElementById('drawer'
 if(host){const b=document.createElement('button');b.type='button';b.dataset.t='biodiversidad';b.textContent='Fauna y flora';b.addEventListener('click',()=>{if(typeof showTab==='function')showTab('biodiversidad');if(typeof menu==='function')menu(false);const t=document.getElementById('secTitle');if(t)t.textContent='Fauna y flora';});host.appendChild(b);}
 render();
 })();
+
+// BASATINA_INVENTARIO_FLORA_V1
+(()=>{
+'use strict';
+const host=document.getElementById('t-biodiversidad');
+if(!host||document.getElementById('bioInventario'))return;
+const box=document.createElement('details');box.id='bioInventario';box.className='card';
+const summary=document.createElement('summary');summary.textContent='Inventario histórico de flora (separado de las fichas detalladas)';summary.style.cursor='pointer';box.appendChild(summary);
+const aviso=document.createElement('p');aviso.className='note';aviso.textContent='Registros históricos de Navarra y su entorno, no un inventario actual confirmado. Hay citas sin fecha y limitaciones de identificación; la nomenclatura se normalizó en 2011. Los nombres pueden incluir sinónimos y categorías inferiores a especie. No se muestran coordenadas ni localidades sensibles. Este inventario NO aporta tamaños, crecimiento, toxicidad ni fichas completas.';box.appendChild(aviso);
+const origen=document.createElement('a');origen.href='https://ipt.gbif.es/resource?r=cfh-na';origen.target='_blank';origen.rel='noopener noreferrer';origen.textContent='Fuente, metodología y limitaciones — GBIF';box.appendChild(origen);
+const estado=document.createElement('p');estado.className='note';estado.setAttribute('aria-live','polite');box.appendChild(estado);
+const label=document.createElement('label');label.htmlFor='bioInvBuscar';label.textContent='Buscar nombre científico o familia';box.appendChild(label);
+const input=document.createElement('input');input.id='bioInvBuscar';input.type='search';input.className='town';input.placeholder='Ej.: Quercus o Fagaceae';input.disabled=true;box.appendChild(input);
+const lista=document.createElement('div');box.appendChild(lista);
+const mas=document.createElement('button');mas.type='button';mas.className='btn';mas.textContent='Mostrar 50 más';mas.hidden=true;box.appendChild(mas);
+const credito=document.createElement('p');credito.className='note';box.appendChild(credito);
+const licencia=document.createElement('a');licencia.href='https://creativecommons.org/licenses/by/4.0/';licencia.target='_blank';licencia.rel='noopener noreferrer';licencia.textContent='Licencia de los datos: CC BY 4.0';box.appendChild(licencia);
+host.appendChild(box);
+let data=null,iniciando=false,limite=50;
+const normal=t=>String(t).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function render(){
+  if(!data)return;
+  const q=normal(input.value);
+  const resultados=data.taxones.filter(t=>normal(t.nombre+' '+t.familia).includes(q));
+  lista.replaceChildren();
+  resultados.slice(0,limite).forEach(t=>{const row=document.createElement('div');row.className='card';const nombre=document.createElement('i');nombre.textContent=t.nombre;const detalle=document.createElement('p');detalle.className='note';detalle.textContent=(t.familia?'Familia: '+t.familia+' · ':'')+t.citas+' registros históricos. Ficha detallada no disponible en este inventario.';row.append(nombre,detalle);lista.appendChild(row);});
+  estado.textContent=resultados.length+' nombres encontrados; mostrando '+Math.min(limite,resultados.length)+'. Importación: '+data.fechaImportacion+'.';
+  mas.hidden=resultados.length<=limite;
+}
+box.addEventListener('toggle',()=>{
+  if(!box.open||data||iniciando)return;
+  iniciando=true;estado.textContent='Cargando inventario histórico…';
+  const script=document.createElement('script');script.src='flora-inventario-datos.js';
+  script.onload=()=>{data=window.BNA_FLORA_HISTORICA;iniciando=false;if(!data||!Array.isArray(data.taxones)){estado.textContent='Inventario no válido; las fichas detalladas siguen disponibles.';return;}input.disabled=false;credito.textContent=data.atribucion+' Licencia '+data.licencia+'. Transformación de BasatiNA: agrupación por nombre científico literal, recuento de registros y selección de nombre y familia, sin corrección taxonómica ni validación de presencia actual.';render();};
+  script.onerror=()=>{iniciando=false;script.remove();estado.textContent='No se ha podido cargar. Cierra y vuelve a abrir este apartado para reintentar.';};
+  document.head.appendChild(script);
+});
+input.addEventListener('input',()=>{limite=50;render();});
+mas.addEventListener('click',()=>{limite+=50;render();});
+})();
