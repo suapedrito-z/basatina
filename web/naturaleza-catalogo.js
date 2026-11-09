@@ -23,11 +23,17 @@ section.innerHTML='<h2>Fauna y flora de Navarra</h2><div class="card"><p>Catálo
 // Grupos del catálogo, sin lista fija
 fichas.sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
 const grupos=section.querySelector('#bioGrupo');
-grupos.replaceChildren(new Option('Todos los grupos',''));
-[...new Set(fichas.map(f=>f.grupo))].sort((a,b)=>a.localeCompare(b,'es')).forEach(g=>grupos.add(new Option(g,g)));
+function bioActualizarGrupos(){
+  const anterior=grupos.value;
+  const opciones=[...new Set(fichas.filter(f=>tipo==='Todos'||f.tipo===tipo).map(f=>f.grupo))].sort((a,b)=>a.localeCompare(b,'es'));
+  grupos.replaceChildren(new Option('Todos los grupos',''));
+  opciones.forEach(g=>grupos.add(new Option(g,g)));
+  grupos.value=opciones.includes(anterior)?anterior:'';
+}
 const wrap=document.querySelector('.wrap');if(!wrap)return;wrap.appendChild(section);
 let tipo='Todos';
 function render(){
+  bioActualizarGrupos();
   const q=normal(section.querySelector('#bioBuscar').value),g=section.querySelector('#bioGrupo').value;
   const list=fichas.filter(f=>(tipo==='Todos'||f.tipo===tipo)&&(!g||g===f.grupo)&&normal([f.nombre,f.cientifico,f.grupo,f.zona,...Object.values(f.campos)].join(' ')).includes(q));
   section.querySelector('#bioCuenta').textContent=list.length+' de '+fichas.length+' fichas iniciales';
