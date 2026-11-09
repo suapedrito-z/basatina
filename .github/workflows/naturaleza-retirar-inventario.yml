@@ -1,0 +1,64 @@
+name: Retirar listado de flora sin fichas
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/naturaleza-retirar-inventario.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: instalar-naturaleza
+  cancel-in-progress: false
+jobs:
+  limpiar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Retirar solo el visor del inventario sin fichas
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('web/naturaleza-catalogo.js')
+          s=p.read_text(encoding='utf-8')
+          inicio='// BASATINA_INVENTARIO_FLORA_V1'
+          siguiente='// BNA_MENU_VIDA_SILVESTRE_V1'
+          if inicio in s:
+              if s.count(inicio)!=1 or s.count(siguiente)!=1:
+                  raise SystemExit('Marcadores ambiguos: no se modifica la app')
+              a=s.index(inicio)
+              b=s.index(siguiente)
+              if b<=a or 'const fichas=[' not in s[:a]:
+                  raise SystemExit('Estructura inesperada: no se modifica la app')
+              s=s[:a]+s[b:]
+              if 'bioInventario' in s:
+                  raise SystemExit('Quedan referencias al visor: se requiere revisión')
+              p.write_text(s,encoding='utf-8')
+          PY
+          node --check web/naturaleza-catalogo.js
+      - name: Comprobar que se conservan las fichas
+        run: |
+          node <<'JS'
+          const fs=require('fs'),vm=require('vm'),assert=require('assert');
+          const s=fs.readFileSync('web/naturaleza-catalogo.js','utf8');
+          const a=s.indexOf('const fichas=['),b=s.indexOf('\nconst esc=',a);
+          assert(a>=0&&b>a,'No se encuentra el catálogo');
+          const fichas=vm.runInNewContext(s.slice(a,b)+'\nfichas;');
+          for(const id of ['haya','encina','liebre-iberica','nutria','zorro','corzo','jabali','buitre-leonado','quebrantahuesos','ciguena-blanca','lagartija-roquera','lagarto-verde-occidental','culebra-viperina'])assert(fichas.some(f=>f.id===id),'Falta la ficha '+id);
+          assert(!s.includes('bioInventario'),'Sigue presente el inventario en pantalla');
+          assert(s.includes('// BNA_MENU_VIDA_SILVESTRE_V1'),'Se ha perdido la ubicación del menú');
+          assert(s.includes('data-bio-icon'),'Se ha perdido el icono');
+          assert(s.includes('function bioActualizarGrupos(){'),'Se ha perdido el filtro de grupos');
+          JS
+          python3 tools/make_version.py
+      - name: Guardar limpieza
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add web/naturaleza-catalogo.js web/version.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Retirar listado histórico sin fichas conservando el catálogo detallado'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
