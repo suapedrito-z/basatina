@@ -272,6 +272,10 @@ body.bna .bnaEd,.bnaEd{font-family:'Lato',sans-serif;font-size:12.5px;font-weigh
 #cauSem .ok b{color:#3D7031}#cauSem .am b{color:#d18a00}#cauSem .ro b{color:#DD4826}
 body.bna .st[data-al]{border-left:4px solid var(--line);padding-left:10px}
 body.bna .st[data-al="#2e7d32"]{border-left-color:#5E8F4E}body.bna .st[data-al="#f9a825"]{border-left-color:#f2b417}body.bna .st[data-al="#ef6c00"]{border-left-color:#ef6c00}body.bna .st[data-al="#c62828"]{border-left-color:#DD4826}
+
+/* Logotipo discreto y centrado en todas las secciones de la app */
+body{padding-bottom:58px}
+#basatina-footer-logo{position:fixed;left:50%;bottom:calc(8px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);width:38px;height:38px;object-fit:contain;z-index:20;pointer-events:none;opacity:.92}
 </style>
 </head>
 <body>
@@ -4667,5 +4671,6 @@ setInterval(()=>{if(isBna()&&BNTAB==='mtiempo')bnHome();},60e3);setTimeout(bnHom
   try{typeof resizeAll==='function'&&resizeAll();}catch(e){}});}
  mm();try{new MutationObserver(mm).observe(document.body,{childList:true,subtree:true});}catch(e){}})();
 </script>
+<img id="basatina-footer-logo" src="logo.png" alt="BasatiNa" aria-hidden="true">
 </body>
 </html>
