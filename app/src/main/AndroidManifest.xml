@@ -22,7 +22,7 @@
     </queries>
 
     <application
-        android:label="BasatiNA"
+        android:label="BasatiNA Prueba"
         android:icon="@mipmap/ic_launcher"
         android:theme="@android:style/Theme.Material.NoActionBar"
         android:hardwareAccelerated="true">
