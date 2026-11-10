@@ -1,0 +1,87 @@
+// docs/arbustos.js - Módulo de Arbustos de Navarra para BasatiNA
+
+async function cargarCatalogoArbustos() {
+  const contenedor = document.getElementById("catalogo-arbustos-lista");
+  if (!contenedor) return;
+
+  contenedor.innerHTML = "<p>Cargando arbustos de Navarra...</p>";
+
+  try {
+    const res = await fetch("arbustos.json");
+    const arbustos = await res.json();
+    renderArbustos(arbustos);
+
+    const buscador = document.getElementById("buscador-arbustos");
+    if (buscador) {
+      buscador.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase();
+        const filtrados = arbustos.filter(a => 
+          a.nombreComun.toLowerCase().includes(query) ||
+          a.nombreCientifico.toLowerCase().includes(query) ||
+          (a.nombreEuskera && a.nombreEuskera.toLowerCase().includes(query)) ||
+          a.habitat.toLowerCase().includes(query)
+        );
+        renderArbustos(filtrados);
+      });
+    }
+  } catch (error) {
+    contenedor.innerHTML = "<p>Error al cargar el catálogo de arbustos.</p>";
+    console.error(error);
+  }
+}
+
+function renderArbustos(lista) {
+  const contenedor = document.getElementById("catalogo-arbustos-lista");
+  if (!contenedor) return;
+
+  if (lista.length === 0) {
+    contenedor.innerHTML = "<p>No se encontraron arbustos con ese filtro.</p>";
+    return;
+  }
+
+  contenedor.innerHTML = lista.map(item => `
+    <article class="tarjeta-arbusto" onclick="abrirFichaArbusto('${item.id}')">
+      <div class="tarjeta-cabecera">
+        <h3>${item.nombreComun} ${item.nombreEuskera ? `(${item.nombreEuskera})` : ''}</h3>
+        <span class="nombre-cientifico">${item.nombreCientifico}</span>
+      </div>
+      <p class="habitat-resumen"><strong>Hábitat:</strong> ${item.habitat}</p>
+      <button type="button" class="btn-ver-ficha">Ver ficha completa</button>
+    </article>
+  `).join("");
+
+  window.__catalogoArbustosData = lista;
+}
+
+function abrirFichaArbusto(id) {
+  const item = (window.__catalogoArbustosData || []).find(a => a.id === id);
+  if (!item) return;
+
+  const modal = document.getElementById("modal-ficha-arbusto");
+  const detalle = document.getElementById("detalle-arbusto");
+
+  if (!modal || !detalle) return;
+
+  detalle.innerHTML = `
+    <h2>${item.nombreComun} <small>(${item.nombreCientifico})</small></h2>
+    ${item.nombreEuskera ? `<p><strong>Nombre en euskera:</strong> ${item.nombreEuskera}</p>` : ''}
+    <p><strong>Familia:</strong> ${item.familia}</p>
+    <p><strong>Floración:</strong> ${item.floracion}</p>
+    <hr>
+    <p><strong>Descripción botánica:</strong> ${item.descripcion}</p>
+    <p><strong>Hábitat en Navarra:</strong> ${item.habitat}</p>
+    <p><strong>Usos y curiosidades:</strong> ${item.usos}</p>
+  `;
+
+  modal.classList.add("activo");
+}
+
+function cerrarFichaArbusto() {
+  const modal = document.getElementById("modal-ficha-arbusto");
+  if (modal) modal.classList.remove("activo");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarCatalogoArbustos();
+});
+Añadir arbustos.js
