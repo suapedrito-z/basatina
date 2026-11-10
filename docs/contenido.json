@@ -71,6 +71,12 @@
    "texto": "Setas y frutos de cada mes, fauna, vegetación y árboles de cada zona."
   },
   {
+   "icono": "🌿",
+   "titulo": "Arbustos de Navarra",
+   "texto": "Guía botánica, hábitats, floración y usos tradicionales de los arbustos forales."
+  },
+
+  {
    "icono": "📸",
    "titulo": "¿Qué planta es?",
    "texto": "Haz una foto y te dice la especie (Pl@ntNet). Para aves, enlace a Merlin."
@@ -189,3 +195,4 @@
   "nota": "También funciona en iPhone y ordenador, sin instalar nada."
  }
 }
+Añadir tarjeta Arbustos en contenido.json
