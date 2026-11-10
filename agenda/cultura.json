@@ -92,19 +92,6 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
-   "id": "paexposicionelbestiarioencuatroportadasrom20261013",
-   "t": "El bestiario en cuatro portadas románicas navarras",
-   "cat": "expo",
-   "f": "2026-10-13",
-   "ff": "2026-11-08",
-   "h": "",
-   "lugar": "Civivox Iturrama",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/exposicion-el-bestiario-en-cuatro-portadas-romanicas-navarras-civivox-iturrama",
-   "desc": "Exposición",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
    "id": "cnmirendoiz20261019",
    "t": "Miren Doiz",
    "cat": "expo",
@@ -326,19 +313,6 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
-   "id": "pateatromalqueridateatrogayarre20261106",
-   "t": "Malquerida",
-   "cat": "teatro",
-   "f": "2026-11-06",
-   "ff": "2026-11-08",
-   "h": "",
-   "lugar": "Teatro Gayarre",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/teatro-malquerida-teatro-gayarre",
-   "desc": "Teatro",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
    "id": "paexposicionmarianoroyo20261106",
    "t": "Mariano Royo",
    "cat": "expo",
@@ -365,16 +339,16 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
-   "id": "padanzaelcascanuecesbaluarte020261108",
-   "t": "El cascanueces",
-   "cat": "danza",
-   "f": "2026-11-08",
-   "ff": "",
-   "h": "18:00",
-   "lugar": "Baluarte - Palacio de Congresos y Auditorio de Navarra",
+   "id": "paxxivsemanadelpintxotxantrea20261107",
+   "t": "Txantrea",
+   "cat": "otros",
+   "f": "2026-11-07",
+   "ff": "2026-11-15",
+   "h": "",
+   "lugar": "",
    "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/danza-el-cascanueces-baluarte-0",
-   "desc": "Danza",
+   "url": "https://www.pamplona.es/actualidad/eventos/xxiv-semana-del-pintxo-txantrea",
+   "desc": "XXIV Semana del Pintxo",
    "src": "Ayuntamiento de Pamplona"
   },
   {
@@ -388,19 +362,6 @@
    "pueblo": "Pamplona",
    "url": "https://www.pamplona.es/actualidad/eventos/iii-ciclo-cultural-record-arte",
    "desc": "",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "paciclodecinecuentanellascuentanosamabibli20261109",
-   "t": "Osama",
-   "cat": "cine",
-   "f": "2026-11-09",
-   "ff": "",
-   "h": "18:00",
-   "lugar": "Biblioteca Pública de la Txantrea",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/ciclo-de-cine-cuentan-ellas-cuentan-osama-biblioteca-txantrea",
-   "desc": "Ciclo de cine Cuentan, ellas cuentan",
    "src": "Ayuntamiento de Pamplona"
   },
   {
@@ -427,19 +388,6 @@
    "pueblo": "Pamplona",
    "url": "https://www.culturanavarra.es/es/agenda/2026-11-09/exposiciones/el-txoko-de-la-cooperacion",
    "desc": "Exposición",
-   "src": "Cultura Navarra"
-  },
-  {
-   "id": "cnrepensarelclimateriosaludderechosyatenci20261109",
-   "t": "Repensar el climaterio: salud, derechos y atención integral",
-   "cat": "charla",
-   "f": "2026-11-09",
-   "ff": "",
-   "h": "",
-   "lugar": "Biblioteca de Navarra. Sala de proyecciones",
-   "pueblo": "Pamplona",
-   "url": "https://www.culturanavarra.es/es/agenda/2026-11-09/charlas-y-conferencias/repensar-el-climaterio-salud-derechos-y-atencion-integral",
-   "desc": "Charla",
    "src": "Cultura Navarra"
   },
   {
@@ -872,6 +820,32 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
+   "id": "padianacionaldeenfermedadesneuromusculares20261115",
+   "t": "Día Nacional de Enfermedades Neuromusculares 2026",
+   "cat": "otros",
+   "f": "2026-11-15",
+   "ff": "",
+   "h": "",
+   "lugar": "",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/dia-nacional-de-enfermedades-neuromusculares-2026",
+   "desc": "",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "paciclodecinerusobendicelamujercivivoxcond20261116",
+   "t": "Bendice a la mujer",
+   "cat": "cine",
+   "f": "2026-11-16",
+   "ff": "",
+   "h": "18:30",
+   "lugar": "Civivox Condestable",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/ciclo-de-cine-ruso-bendice-la-mujer-civivox-condestable",
+   "desc": "Ciclo de Cine Ruso",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
    "id": "paciclodecinecuentanellascuentanlejosdelci20261116",
    "t": "Lejos del Cielo",
    "cat": "cine",
@@ -895,6 +869,19 @@
    "pueblo": "Pamplona",
    "url": "https://www.pamplona.es/actualidad/eventos/navarrefa-2021-2027-evento-final-baluarte",
    "desc": "Navarrefa 2021-2027",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "paiisemananavarradelaciberseguridad20261116",
+   "t": "II Semana Navarra de la Ciberseguridad",
+   "cat": "otros",
+   "f": "2026-11-16",
+   "ff": "2026-11-22",
+   "h": "",
+   "lugar": "",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/ii-semana-navarra-de-la-ciberseguridad",
+   "desc": "",
    "src": "Ayuntamiento de Pamplona"
   },
   {
@@ -1065,6 +1052,19 @@
    "url": "https://www.culturanavarra.es/es/agenda/2026-11-18/charlas-y-conferencias/buscar-la-distancia-adecuada",
    "desc": "Charla",
    "src": "Cultura Navarra"
+  },
+  {
+   "id": "pajornadasgobernanzafeministaenlasadminist20261118",
+   "t": "Gobernanza feminista en las administraciones públicas",
+   "cat": "charla",
+   "f": "2026-11-18",
+   "ff": "2026-11-20",
+   "h": "",
+   "lugar": "Baluarte - Palacio de Congresos y Auditorio de Navarra",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/jornadas-gobernanza-feminista-en-las-administraciones-publicas",
+   "desc": "Jornadas",
+   "src": "Ayuntamiento de Pamplona"
   },
   {
    "id": "pacuentacuentoseneuskerakarabikarababiblio20261119",
@@ -1949,7 +1949,20 @@
    "url": "https://www.pamplona.es/actualidad/eventos/concierto-sinfonietta-baluarte",
    "desc": "Concierto",
    "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "pafestivalsantaspascuas2026conciertokiliki20261225",
+   "t": "Concierto",
+   "cat": "concierto",
+   "f": "2026-12-25",
+   "ff": "",
+   "h": "19:45",
+   "lugar": "Zentral Café Teatro",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/festival-santas-pascuas-2026-concierto-kiliki-ezezez",
+   "desc": "Festival Santas Pascuas 2026",
+   "src": "Ayuntamiento de Pamplona"
   }
  ],
- "act": "2026-11-08 23:21"
+ "act": "2026-11-10 06:20"
 }
