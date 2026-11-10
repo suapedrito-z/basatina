@@ -629,173 +629,29 @@ Los textos, fotos, marcas y logotipos de terceros son de sus dueños; si quieres
 
 <div id="natBody"></div>
 </section>
-  
 <!-- ============ ARBUSTOS DE NAVARRA ============ -->
 <section id="t-arbustos" style="display:none; padding:10px 0;">
   <div class="card" style="margin-bottom:12px;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <b style="font-size:16px; color:var(--txt);">🌿 Arbustos de Navarra</b>
-      <button type="button" class="btn" data-t="natfau" style="padding:4px 10px; font-size:12px;">Volver</button>
+      <button type="button" class="btn" onclick="document.getElementById('t-arbustos').style.display='none'; document.getElementById('t-vida').style.display='block';" style="padding:4px 10px; font-size:12px;">Volver</button>
     </div>
-    <input type="search" id="filtro-arbustos" oninput="filtrarCatalogoArbustos(this.value)" placeholder="Buscar arbusto, euskera o hábitat..." style="width:100%; box-sizing:border-box; padding:8px 10px; background:#0b1118; border:1px solid var(--line); border-radius:8px; color:var(--txt); font-size:14px;">
+    <input type="search" id="buscador-arbustos" placeholder="Buscar arbusto, euskera o hábitat..." style="width:100%; box-sizing:border-box; padding:8px 10px; background:#0b1118; border:1px solid var(--line); border-radius:8px; color:var(--txt); font-size:14px;">
   </div>
+  <div id="catalogo-arbustos-lista"></div>
+</section>
 
-  <div id="arbustos-contenedor">
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #2e7d32;" data-busq="boj ezpela buxus sempervirens montaña prepirineo carrascales">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Boj</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Ezpela</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Buxus sempervirens</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Montaña, valles prepirenaicos y carrascales calizos.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Madera codiciada para torneado y cuencos tradicionales. Planta tóxica.</div>
+<!-- ============ ARBUSTOS DE NAVARRA ============ -->
+<section id="t-arbustos" style="display:none; padding:10px 0;">
+  <div class="card" style="margin-bottom:12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <b style="font-size:16px; color:var(--txt);">🌿 Arbustos de Navarra</b>
+      <button type="button" class="btn" data-t="natarb" style="padding:4px 10px; font-size:12px;">Volver</button>
     </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #1565c0;" data-busq="endrino elorri beltza prunus spinosa pacharan patxaran frutos orlas setos">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Endrino</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Elorri beltza</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Prunus spinosa</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Orlas forestales, sotos y setos de toda Navarra.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Sus frutos se maceran en anís para elaborar el tradicional Pacharán Navarro.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #c62828;" data-busq="majuelo espino blanco elorri zuria crataegus monogyna pastizales medicinal">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Majuelo / Espino blanco</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Elorri zuria</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Crataegus monogyna</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Pastizales, setos y linderos de toda la comunidad.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Flores aromáticas y majuelas rojas. Regulador cardíaco natural en tradición.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #4a148c;" data-busq="zarzamora masustondoa larra rubus ulmifolius moras caminos barrancos">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Zarzamora</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Masustondoa / Larra</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Rubus ulmifolius</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Barrancos, caminos, bosques de ribera y ribazos.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Produce moras comestibles en verano. Hojas usadas en infusión astringente.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #37474f;" data-busq="enebro común orre arrunta juniperus communis pastizales ginebra bayas">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Enebro común</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Orre arrunta</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Juniperus communis</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Matorrales despejados y pastizales secos.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Gálbulos aromáticos usados en guisos de caza y aromatización de ginebra.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #3f51b5;" data-busq="romero erromeroa salvia rosmarinus bardenas ribera solanas cocina">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Romero</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Erromeroa</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Salvia rosmarinus</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Bardenas Reales, Ribera y solanas de la Zona Media.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Condimento culinario esencial, fricciones con alcohol de romero y melífero.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #ad1457;" data-busq="tomillo ezkaia thymus vulgaris estepas ribera pedregales infusion">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Tomillo común</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Ezkaia</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Thymus vulgaris</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Estepas áridas de la Ribera y pedregales soleados.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Antiséptico natural tradicional en infusiones respiratorias y asados.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #d81b60;" data-busq="escaramujo rosal silvestre basaarrosa arrosondoa rosa canina vitamina c">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Escaramujo / Rosal silvestre</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Basaarrosa / Arrosondoa</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Rosa canina</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Bordes de caminos y matorrales frescos.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Frutos rojos (tapaculos) con altísima concentración de vitamina C.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #283593;" data-busq="sauco negro sauco intsusa beltza sambucus nigra sotos ribera arroyos">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Saúco negro</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Intsusa beltza</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Sambucus nigra</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Sotos de ribera, arroyos y caseríos húmedos.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Flores para buñuelos e infusiones respiratorias. Bayas para jarabes.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #558b2f;" data-busq="coscoja karraskila txaparroa quercus coccifera matorrales ribera media">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Coscoja</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Karraskila / Txaparroa</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Quercus coccifera</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Matorrales secos de la Ribera baja y Zona Media árida.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Hojas punzantes coriáceas. Clave en la retención de suelos erosionables.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #ef6c00;" data-busq="madroño gurbitza arbutus unedo barrancos fruto licores silicio">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Madroño</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Gurbitza</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Arbutus unedo</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Laderas templadas y barrancos silíceos.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Frutos rojos verrugosos comestibles de sabor dulce y aptos para licores.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #8e24aa;" data-busq="brezo txilarra inarra erica vagans calluna vulgaris baztan pastos miel">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Brezo común</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Txilarra / Iñarra</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Erica vagans / Calluna vulgaris</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Brezales atlánticos, Baztan, Larraun y Quinto Real.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Campanillas moradas estivales. Origen de la apreciada miel de brezo.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #1b5e20;" data-busq="laurel erenotza laurus nobilis cocina valles guisos condimento">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Laurel</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Ereñotza</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Laurus nobilis</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Fondos de valles templados, barrancos y huertas.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Hojas aromáticas indispensables en la gastronomía y remedios digestivos.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #455a64;" data-busq="espino cerval otsalizarra karraskina rhamnus cathartica riberas quejigales">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Espino cerval</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Otsalizarra / Karraskina</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Rhamnus cathartica</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Riberas secas y orlas de quejigales.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Ramas espinosas con drupas oscuras usadas tradicionalmente en tintes.</div>
-    </div>
-
-    <div class="card arb-item" style="margin-bottom:10px; border-left:4px solid #b71c1c;" data-busq="cornejo sanguino zuhandor gorria cornus sanguinea arroyos cesteria">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <b style="font-size:15px; color:var(--txt);">Cornejo / Sanguino</b>
-        <span style="font-size:12px; color:var(--acc); font-style:italic;">Zuhandor gorria</span>
-      </div>
-      <div style="font-size:12px; color:var(--muted); font-style:italic; margin-top:2px;">Cornus sanguinea</div>
-      <div style="font-size:12px; color:var(--txt); margin-top:6px; line-height:1.4;"><b>Hábitat:</b> Bordes de arroyos y barrancos del norte y zona media.</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4;">Ramas rojas en invierno. Varas elásticas empleadas en cestería artesanal.</div>
-    </div>
+    <input type="search" id="buscador-arbustos" placeholder="Buscar arbusto, euskera o hábitat..." style="width:100%; box-sizing:border-box; padding:8px 10px; background:#0b1118; border:1px solid var(--line); border-radius:8px; color:var(--txt); font-size:14px;">
   </div>
-
-  <script>
-    function filtrarCatalogoArbustos(q) {
-      const query = (q || "").toLowerCase().trim();
-      const items = document.querySelectorAll(".arb
+  <div id="catalogo-arbustos-lista"></div>
+</section>
 <!-- ============ TERREMOTOS Y FALLAS ============ -->
 <section id="t-sismo">
 <div class="seg" id="siPer"></div>
