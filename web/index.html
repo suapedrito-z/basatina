@@ -309,6 +309,7 @@ body{padding-bottom:58px}
     <button data-t="natfau">🦌 Fauna</button>
     <button data-t="natveg">🌳 Vegetación</button>
     <button data-t="natarb">🌲 Árboles por zonas</button>
+    <button data-t="arbustos">🌿 Arbustos de Navarra</button>
     <button data-t="ident">📸 Identificar plantas o aves</button>
   </div>
   <div class="dgroup"><span>Carreteras</span><i>▸</i></div>
@@ -645,18 +646,16 @@ Los textos, fotos, marcas y logotipos de terceros son de sus dueños; si quieres
   <div id="catalogo-arbustos-lista"></div>
 </section>
 
-<!-- ============ SALIR AL MONTE ============ -->
-<section id="t-monte">
-<div class="card" id="moAv" style="border-left:5px solid #ff8a3d"><b>⚠️ Antes de salir hoy</b><div class="note">Cargando avisos…</div></div>
-<div class="card tech" style="display:none;border:2px solid #ff8a3d" id="moAvAdm"></div>
-<input id="moQ" class="town" placeholder="🔎 Buscar ruta, cueva, mirador, pueblo…" style="margin-bottom:6px;width:100%;box-sizing:border-box"><div id="moRes"></div>
-<select class="town" id="moOv" style="margin-bottom:8px"></select>
-<div style="position:relative"><canvas id="moc" height="460"></canvas>
- <div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="moIn">＋</button><button class="btn mtb" id="moOut">－</button><button class="btn mtb" id="moAll">⤢</button></div></div>
-<div class="note" id="moInfo" style="margin:6px 0"></div>
-<div id="moLay" class="note" style="line-height:1.6"></div>
-<div id="moFicha"></div>
-<div class="card" style="border-color:#ffb020"><b>⚠️ Antes de salir</b><div class="note">Mira el tiempo y los avisos, lleva agua y ropa de abrigo, avisa de tu ruta y no salgas de los caminos señalizados. Respeta las propiedades, el ganado y las normas de los espacios protegidos. En caso de emergencia, llama al 112. Datos: Gobierno de Navarra · IDENA (CC BY 4.0).</div></div>
+<!-- ============ ARBUSTOS DE NAVARRA ============ -->
+<section id="t-arbustos" style="display:none; padding:10px 0;">
+  <div class="card" style="margin-bottom:12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <b style="font-size:16px; color:var(--txt);">🌿 Arbustos de Navarra</b>
+      <button type="button" class="btn" data-t="natarb" style="padding:4px 10px; font-size:12px;">Volver</button>
+    </div>
+    <input type="search" id="buscador-arbustos" placeholder="Buscar arbusto, euskera o hábitat..." style="width:100%; box-sizing:border-box; padding:8px 10px; background:#0b1118; border:1px solid var(--line); border-radius:8px; color:var(--txt); font-size:14px;">
+  </div>
+  <div id="catalogo-arbustos-lista"></div>
 </section>
 <!-- ============ TERREMOTOS Y FALLAS ============ -->
 <section id="t-sismo">
