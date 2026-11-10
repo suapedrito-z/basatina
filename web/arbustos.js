@@ -245,13 +245,12 @@ function iniciarCatalogoArbustos() {
   if (inputBuscador && !inputBuscador.dataset.init) {
     inputBuscador.dataset.init = "1";
     inputBuscador.addEventListener("input", (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      const filtrados = ARBUSTOS_NAVARRA.filter(item => 
-        item.nombre.toLowerCase().includes(q) ||
-        item.euskera.toLowerCase().includes(q) ||
-        item.cientifico.toLowerCase().includes(q) ||
-        item.zona.toLowerCase().includes(q) ||
-        item.descripcion.toLowerCase().includes(q)
+      // Sin tildes ni mayúsculas: "pacharan" encuentra "Pacharán"
+      const norm = t => (t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const q = norm(e.target.value).trim();
+      const filtrados = ARBUSTOS_NAVARRA.filter(item =>
+        [item.nombre, item.euskera, item.cientifico, item.zona, item.descripcion, item.usos]
+          .some(campo => norm(campo).includes(q))
       );
       renderArbustos(filtrados);
     });

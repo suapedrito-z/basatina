@@ -630,28 +630,18 @@ Los textos, fotos, marcas y logotipos de terceros son de sus dueños; si quieres
 <div id="natBody"></div>
 </section>
 <!-- ============ ARBUSTOS DE NAVARRA ============ -->
-<section id="t-arbustos" style="display:none; padding:10px 0;">
+<!-- La lista la rellena arbustos.js (datos en ARBUSTOS_NAVARRA) -->
+<section id="t-arbustos">
   <div class="card" style="margin-bottom:12px;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <b style="font-size:16px; color:var(--txt);">🌿 Arbustos de Navarra</b>
-      <button type="button" class="btn" onclick="document.getElementById('t-arbustos').style.display='none'; document.getElementById('t-vida').style.display='block';" style="padding:4px 10px; font-size:12px;">Volver</button>
+      <button type="button" class="btn" onclick="showTab('natfau')" style="padding:4px 10px; font-size:12px;">Volver</button>
     </div>
-    <input type="search" id="buscador-arbustos" placeholder="Buscar arbusto, euskera o hábitat..." style="width:100%; box-sizing:border-box; padding:8px 10px; background:#0b1118; border:1px solid var(--line); border-radius:8px; color:var(--txt); font-size:14px;">
+    <input type="search" id="buscador-arbustos" placeholder="Buscar arbusto, euskera o hábitat..." style="width:100%; box-sizing:border-box; padding:8px 10px; border-radius:6px;">
   </div>
   <div id="catalogo-arbustos-lista"></div>
 </section>
 
-<!-- ============ ARBUSTOS DE NAVARRA ============ -->
-<section id="t-arbustos" style="display:none; padding:10px 0;">
-  <div class="card" style="margin-bottom:12px;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <b style="font-size:16px; color:var(--txt);">🌿 Arbustos de Navarra</b>
-      <button type="button" class="btn" data-t="natarb" style="padding:4px 10px; font-size:12px;">Volver</button>
-    </div>
-    <input type="search" id="buscador-arbustos" placeholder="Buscar arbusto, euskera o hábitat..." style="width:100%; box-sizing:border-box; padding:8px 10px; background:#0b1118; border:1px solid var(--line); border-radius:8px; color:var(--txt); font-size:14px;">
-  </div>
-  <div id="catalogo-arbustos-lista"></div>
-</section>
 <!-- ============ TERREMOTOS Y FALLAS ============ -->
 <section id="t-sismo">
 <div class="seg" id="siPer"></div>
@@ -4686,25 +4676,6 @@ setInterval(()=>{if(isBna()&&BNTAB==='mtiempo')bnHome();},60e3);setTimeout(bnHom
 <img id="basatina-footer-logo" src="logo.png" alt="BasatiNa" aria-hidden="true">
 <script src="naturaleza-catalogo.js"></script>
 <script src="fichas-arboles.js"></script>
-<!-- MÓDULO ARBUSTOS DE NAVARRA -->
-<div id="pantalla-arbustos" style="display:none; padding:15px; max-width:800px; margin:0 auto;">
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-    <h2 style="color:#e2e8f0; margin:0;">🌿 Arbustos de Navarra</h2>
-    <button onclick="document.getElementById('pantalla-arbustos').style.display='none'" style="background:#2d3748; color:#fff; border:none; border-radius:6px; padding:6px 12px; cursor:pointer;">Cerrar</button>
-  </div>
-  <input type="search" id="buscador-arbustos" placeholder="Buscar arbusto, euskera o zona..." style="width:100%; box-sizing:border-box; padding:10px; background:#1a2332; border:1px solid #2d3748; border-radius:6px; color:#fff; margin-bottom:15px;">
-  
-  <div id="catalogo-arbustos-lista"></div>
-</div>
-
-<!-- Modal detalle flotante -->
-<div id="modal-ficha-arbusto" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; align-items:center; justify-content:center; padding:15px;">
-  <div style="background:#16212c; border:1px solid #2d3748; border-radius:10px; max-width:500px; width:100%; padding:20px; position:relative; max-height:85vh; overflow-y:auto; box-sizing:border-box;">
-    <button onclick="ocultarDetalleArbusto()" style="position:absolute; top:10px; right:12px; background:none; border:none; color:#a0aec0; font-size:24px; cursor:pointer;">&times;</button>
-    <div id="detalle-arbusto"></div>
-  </div>
-</div>
-
 <script src="arbustos.js"></script>
 
 </body>
