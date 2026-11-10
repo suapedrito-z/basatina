@@ -1,0 +1,52 @@
+[
+  {
+    "id": "leontopodium-nivale",
+    "nombre_cientifico": "Leontopodium nivale",
+    "nombre_comun": "Edelweiss / Flor de nieve",
+    "familia": "Asteraceae",
+    "habitat": "Pastizales rocosos y cresteríos calizos",
+    "zona": "Pirineo (Larra, Mesa de los Tres Reyes)",
+    "floracion": "Julio - Septiembre",
+    "protegida": true
+  },
+  {
+    "id": "ramonda-myconi",
+    "nombre_cientifico": "Ramonda myconi",
+    "nombre_comun": "Hierba del pastor / Oreja de oso",
+    "familia": "Gesneriaceae",
+    "habitat": "Fisuras de roquedos calizos sombríos",
+    "zona": "Gargantas y cañones pirenaicos",
+    "floracion": "Mayo - Julio",
+    "protegida": false
+  },
+  {
+    "id": "iris-latifolia",
+    "nombre_cientifico": "Iris latifolia",
+    "nombre_comun": "Lirio azul pirenaico",
+    "familia": "Iridaceae",
+    "habitat": "Pastizales subalpinos húmedos",
+    "zona": "Macizo de Larra-Belagua",
+    "floracion": "Junio - Agosto",
+    "protegida": true
+  },
+  {
+    "id": "digitalis-purpurea",
+    "nombre_cientifico": "Digitalis purpurea",
+    "nombre_comun": "Dedalera",
+    "familia": "Plantaginaceae",
+    "habitat": "Claros de bosque ácido y brezales",
+    "zona": "Baztan, Bertiz, Cinco Villas",
+    "floracion": "Mayo - Agosto",
+    "protegida": false
+  },
+  {
+    "id": "limonium-narbonense",
+    "nombre_cientifico": "Limonium narbonense",
+    "nombre_comun": "Espantazopilotes / Limonio",
+    "familia": "Plumbaginaceae",
+    "habitat": "Saladares y arcillas salinas",
+    "zona": "Bardenas Reales, Lagunas de Pitillas",
+    "floracion": "Julio - Octubre",
+    "protegida": false
+  }
+]
