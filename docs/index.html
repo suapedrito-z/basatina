@@ -255,5 +255,30 @@ let C=JSON.parse(document.getElementById('def').textContent);
 if(location.search.includes('preview')){try{const x=JSON.parse(localStorage.getItem('sp_preview'));if(x)C=x;}catch(e){}draw(C);}
 else{draw(C);fetch('contenido.json?t='+Date.now()).then(r=>r.json()).then(x=>{C=x;draw(C);}).catch(()=>{});}
 </script>
+<!-- ============================================== -->
+<!-- CATÁLOGO DE ARBUSTOS DE NAVARRA (BASATINA)     -->
+<!-- ============================================== -->
+<section id="seccion-arbustos" class="modulo-naturaleza" style="padding: 1rem; max-width: 1100px; margin: 0 auto;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+    <h2 style="margin: 0; color: #2d3748; font-family: 'Montserrat', sans-serif;">🌿 Arbustos de Navarra</h2>
+    <input type="search" id="buscador-arbustos" placeholder="Buscar por nombre, zona o euskera..." style="padding: 0.5rem 1rem; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 0.95rem; min-width: 260px;">
+  </div>
+
+  <!-- Contenedor donde se insertan las fichas dinámicamente -->
+  <div id="catalogo-arbustos-lista" class="grid-arbustos"></div>
+
+  <!-- Modal Ficha Técnica Emergente -->
+  <div id="modal-ficha-arbusto" class="modal-dialog">
+    <div class="modal-contenido">
+      <button type="button" class="btn-cerrar" onclick="cerrarFichaArbusto()">&times;</button>
+      <div id="detalle-arbusto"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Carga del script del módulo -->
+<script src="arbustos.js"></script>
+<!-- ============================================== -->
+
 </body>
 </html>
