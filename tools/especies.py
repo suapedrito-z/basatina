@@ -21,10 +21,10 @@ G = "https://api.gbif.org/v1/"
 INFO = []
 CACHE_F = "tools/especies_cache.json"
 
-def get(url, tries=3, js=True):
+def get(url, tries=3, js=True, timeout=60):
     for i in range(tries):
         try:
-            b = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read()
+            b = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout).read()
             return json.loads(b) if js else b
         except urllib.error.HTTPError as e:
             if e.code == 404: return None
@@ -115,6 +115,7 @@ def main():
         if rango: q["rank"] = rango
         m = get(G + "species/match?" + urllib.parse.urlencode(q)) or {}
         tk = m.get("usageKey") if m.get("matchType") != "NONE" else None
+        tk = tk or {"Actinopterygii": 204}.get(taxon)
         if not tk:   # sin rango ni modo estricto
             m = get(G + "species/match?" + urllib.parse.urlencode({"name": taxon})) or {}
             tk = m.get("usageKey") if m.get("matchType") == "EXACT" else None
@@ -131,17 +132,20 @@ def main():
     INFO.append("Total especies: %d" % len(lista))
     # zonas y meses: una petición por grupo y zona (o mes) con el recuento de cada especie
     ZC = {k: {} for k in lista}; MC = {k: [0] * 12 for k in lista}
+    fallos = []
     def faceta(extra):
-        r = get(G + "occurrence/search?" + urllib.parse.urlencode([("gadmGid", gid), ("limit", 0), ("facet", "speciesKey"), ("facetLimit", 3000)] + extra)) or {}
+        r = get(G + "occurrence/search?" + urllib.parse.urlencode([("gadmGid", gid), ("limit", 0), ("facet", "speciesKey"), ("facetLimit", 3000)] + extra), tries=6, timeout=180)
+        if r is None or ("facets" not in r):
+            fallos.append(extra); return {}
         return {c["name"]: int(c["count"]) for c in ((r.get("facets") or [{}])[0].get("counts", []))}
     trabajos = [(tk, "z", zn, [("geometry", wkt)]) for tk in claves for zn, wkt in ZONAS] + [(tk, "m", m, [("month", m + 1)]) for tk in claves for m in range(12)]
-    with cf.ThreadPoolExecutor(4) as ex:
+    with cf.ThreadPoolExecutor(2) as ex:
         for (tk, tipo, key, extra), res in zip(trabajos, ex.map(lambda t: faceta([("taxonKey", t[0])] + t[3]), trabajos)):
             for sk, n in res.items():
                 if sk not in lista: continue
                 if tipo == "z": ZC[sk][key] = ZC[sk].get(key, 0) + n
                 else: MC[sk][key] += n
-    INFO.append("Recuentos por zona y mes: %d peticiones" % len(trabajos))
+    INFO.append("Recuentos por zona y mes: %d peticiones · fallidas: %d %s" % (len(trabajos), len(fallos), [str(f)[:80] for f in fallos[:10]]))
     cache.pop("_gadm", None)
 
     def ficha(k):
