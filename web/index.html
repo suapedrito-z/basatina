@@ -338,6 +338,78 @@ body.bna #bnaNav button.on svg{background:linear-gradient(150deg,#79b866,#3D7031
 body.bna section.on{animation:pvEntra .35s ease-out}
 @keyframes pvEntra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 body.bna .btn.on,body.bna .seg button.on{box-shadow:0 4px 12px -4px rgba(61,112,49,.6)}
+
+/* ===== «Navarra viva» en TODA la app ===== */
+/* cabecera viva de cada sección */
+#pvSec{display:none}
+body.bna #pvSec{display:block;position:relative;height:150px;border-radius:24px;overflow:hidden;margin:0 0 14px;color:#fff;isolation:isolate;
+  box-shadow:0 14px 32px -14px rgba(13,60,90,.45),0 2px 6px rgba(0,0,0,.06)}
+#pvSec canvas{position:absolute;inset:0;width:100%!important;height:100%!important;border-radius:0;background:none;margin:0!important}
+#pvSec .pvsT{position:absolute;left:16px;right:16px;bottom:14px;display:flex;align-items:center;gap:12px;z-index:2;text-shadow:0 1px 10px rgba(0,0,0,.35)}
+#pvSec .pvsT b{display:block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em;line-height:1.1}
+#pvSec .pvsT small{display:block;font-size:13px;font-weight:700;opacity:.92;margin-top:2px}
+#pvSec .pvsT .bt{box-shadow:0 6px 16px -4px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.4)}
+#pvSec .pvsC{position:absolute;right:12px;top:12px;z-index:2;display:flex;gap:6px}
+#pvSec .pvsC span{font-size:12px;font-weight:700;padding:5px 10px;border-radius:20px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+#pvSec:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.38))}
+body.bna #secTitle{display:none}
+/* botones */
+body.bna .btn{background:#fff;border:1px solid rgba(29,45,35,.08);box-shadow:0 1px 2px rgba(29,45,35,.06),0 4px 12px -6px rgba(29,45,35,.18);font-weight:700;padding:9px 13px;transition:transform .12s,box-shadow .2s}
+body.bna .btn:active{transform:scale(.96)}
+body.bna .btn.pri{background:linear-gradient(135deg,#4a8a3c,#3D7031 45%,#0a6f95);box-shadow:0 8px 18px -8px rgba(13,98,133,.65),inset 0 1px 0 rgba(255,255,255,.25);border:none}
+body.bna .btn.red{background:linear-gradient(135deg,#ff7a50,#d03a1a);border:none;box-shadow:0 8px 18px -8px rgba(221,72,38,.6)}
+body.bna .btn[disabled]{opacity:.45;box-shadow:none}
+/* control segmentado tipo iOS */
+body.bna .seg{background:rgba(29,45,35,.065);padding:4px;border-radius:16px;gap:3px}
+body.bna .seg button,body.bna .seg .btn{border:none;background:transparent;box-shadow:none;border-radius:12px;color:#4d5c55;padding:8px 10px}
+body.bna .seg button.on,body.bna .seg .btn.on{background:#fff;color:#1D1D1D;box-shadow:0 2px 8px rgba(29,45,35,.14),0 0 0 .5px rgba(29,45,35,.06)}
+/* formularios */
+body.bna select.town,body.bna input[type=text],body.bna input[type=search],body.bna input[type=number],body.bna input[type=email],body.bna input[type=date],body.bna input[type=time],body.bna textarea,body.bna input.town{
+  background:#fff!important;color:#1D1D1D!important;border:1px solid rgba(29,45,35,.12)!important;border-radius:14px!important;box-shadow:inset 0 1px 2px rgba(29,45,35,.05);transition:border-color .2s,box-shadow .2s}
+body.bna select.town:focus,body.bna input:focus,body.bna textarea:focus{outline:none;border-color:#3D7031!important;box-shadow:0 0 0 4px rgba(61,112,49,.15)}
+body.bna select.town{-webkit-appearance:none;appearance:none;padding-right:38px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%233D7031' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center!important}
+body.bna input[type=range]{height:28px;accent-color:#3D7031}
+/* datos */
+body.bna .kpi>div{background:linear-gradient(160deg,#f7faf6,#eef4ef)!important;border:1px solid rgba(29,45,35,.06);border-radius:16px;padding:10px 12px;color:#1D1D1D}
+body.bna .kpi b{font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:-.02em}
+body.bna .big{font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:-.03em}
+body.bna .st{border-bottom:1px solid rgba(29,45,35,.07);padding:10px 2px}
+body.bna .st .v{font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:-.02em}
+body.bna .pill{border-radius:20px;padding:5px 11px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+body.bna table.ph{border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden}
+body.bna table.ph td{border-bottom:1px solid rgba(29,45,35,.06);padding:8px 8px}body.bna table.ph tr:nth-child(odd) td{background:rgba(29,45,35,.03)}
+body.bna .dayr{border-bottom:1px solid rgba(29,45,35,.07);padding:9px 0}
+body.bna ul.hs li{border-bottom:1px solid rgba(29,45,35,.07);padding:7px 0}
+body.bna .card>b:first-child{font-size:16px;letter-spacing:-.01em}
+body.bna .hist{border-left:none;position:relative;overflow:hidden}body.bna .hist:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,#0a7aa8,#3D7031)}
+body.bna .note{line-height:1.5}
+body.bna canvas{border-radius:18px}
+body.bna section{padding-top:4px}
+/* avisos, PIN y ventanas */
+body.bna #updBar{position:fixed!important;top:auto!important;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;border-radius:18px;
+  background:rgba(20,32,40,.86)!important;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 14px 34px -10px rgba(0,0,0,.45);animation:pvEntra .3s ease-out}
+body.bna #pinBox{background:rgba(10,20,25,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+body.bna #pinBox>div{border-radius:26px;padding:22px;box-shadow:0 24px 60px -20px rgba(0,0,0,.5);border:none}
+body.bna #bnaAccBox{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+body.bna #bnaAccBox>div{border-radius:28px 28px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.2)}
+/* menú lateral */
+body.bna #drawer{background:linear-gradient(180deg,#eef4ef,#F3F6F1 40%)}
+body.bna #drawer .dhead{min-height:150px;align-items:flex-start;padding:24px 16px 50px!important}
+body.bna #drawer .dhead:after{display:none}
+body.bna #drawer .dhead svg.pvDM{position:absolute;left:0;right:0;bottom:0;width:100%;height:80px;z-index:0}
+body.bna #drawer .dhead>img,body.bna #drawer .dhead>div{position:relative;z-index:1}
+body.bna #bnaDGrid>button,body.bna #bnaDGrid>.dgroup{border:none;box-shadow:0 1px 2px rgba(29,45,35,.05),0 8px 20px -10px rgba(29,45,35,.2);transition:transform .12s}
+body.bna #bnaDGrid>button:active,body.bna #bnaDGrid>.dgroup:active{transform:scale(.97)}
+body.bna #bnaDGrid>.dsub{border:none;box-shadow:0 1px 2px rgba(29,45,35,.05),0 10px 24px -12px rgba(29,45,35,.25);animation:pvEntra .25s ease-out}
+body.bna #drawerBg{background:rgba(10,20,25,.35);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+/* fotos */
+body.bna .foGrid{gap:6px}body.bna .foGrid img{border-radius:14px;box-shadow:0 6px 14px -8px rgba(0,0,0,.4)}
+body.bna .calD{border:none;box-shadow:0 1px 2px rgba(29,45,35,.06),0 4px 10px -6px rgba(29,45,35,.2)}
+body.bna .calD.sel{background:linear-gradient(150deg,#79b866,#3D7031)}
+body.bna .dpd{background:linear-gradient(160deg,#f7faf6,#e9f0ea)}
+*{-webkit-tap-highlight-color:transparent}
+body.bna #bnaSearch input,body.bna #pinBox input{border:none!important;box-shadow:none!important;background:transparent!important}
+body.bna #pinBox input{background:#F3F6F1!important;border-radius:14px!important}
 </style>
 </head>
 <body>
@@ -704,6 +776,19 @@ Los textos, fotos, marcas y logotipos de terceros son de sus dueños; si quieres
   <div id="catalogo-arbustos-lista"></div>
 </section>
 
+<!-- ============ SALIR AL MONTE ============ -->
+<section id="t-monte">
+<div class="card" id="moAv" style="border-left:5px solid #ff8a3d"><b>⚠️ Antes de salir hoy</b><div class="note">Cargando avisos…</div></div>
+<div class="card tech" style="display:none;border:2px solid #ff8a3d" id="moAvAdm"></div>
+<input id="moQ" class="town" placeholder="🔎 Buscar ruta, cueva, mirador, pueblo…" style="margin-bottom:6px;width:100%;box-sizing:border-box"><div id="moRes"></div>
+<select class="town" id="moOv" style="margin-bottom:8px"></select>
+<div style="position:relative"><canvas id="moc" height="460"></canvas>
+ <div style="position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px"><button class="btn mtb" id="moIn">＋</button><button class="btn mtb" id="moOut">－</button><button class="btn mtb" id="moAll">⤢</button></div></div>
+<div class="note" id="moInfo" style="margin:6px 0"></div>
+<div id="moLay" class="note" style="line-height:1.6"></div>
+<div id="moFicha"></div>
+<div class="card" style="border-color:#ffb020"><b>⚠️ Antes de salir</b><div class="note">Mira el tiempo y los avisos, lleva agua y ropa de abrigo, avisa de tu ruta y no salgas de los caminos señalizados. Respeta las propiedades, el ganado y las normas de los espacios protegidos. En caso de emergencia, llama al 112. Datos: Gobierno de Navarra · IDENA (CC BY 4.0).</div></div>
+</section>
 <!-- ============ TERREMOTOS Y FALLAS ============ -->
 <section id="t-sismo">
 <div class="seg" id="siPer"></div>
@@ -4828,6 +4913,128 @@ window.addEventListener('resize',()=>{clearTimeout(window.__pvR);window.__pvR=se
 const _pvST=showTab;showTab=function(t){_pvST(t);if(t==='mtiempo')setTimeout(pvOn,60);};
 const _pvCA=cfgApply;cfgApply=function(){_pvCA();try{pvOn();}catch(e){}};
 pvOn();setInterval(()=>{if(isBna())pvLoad();},15*60e3);setInterval(()=>{if(isBna()&&!PVF)pvPaint();},5*60e3);
+
+/* ---------- 🎬 NAVARRA VIVA EN CADA SECCIÓN ----------
+   Cada sección lleva arriba una escena animada de su tema, con la luz de la hora real (amanecer/anochecer de hoy)
+   y el tiempo real de Pamplona. Una sola animación para toda la app; se para si no se ve o la app está en segundo plano.
+   Para añadir una sección nueva: ponerla en PVS_ESC con su escena (si no, sale «aurora»). */
+const PVS_ESC={tiempo:'cielo',clima:'cielo',radar:'cielo',prev:'agua',caudal:'agua',emb:'agua',libre:'agua',mapa:'agua',hist:'agua',juego:'agua',ciencia:'agua',saih:'agua',pesca:'agua',sim:'agua',
+  natfau:'bosque',natveg:'bosque',natarb:'bosque',arbustos:'bosque',ident:'bosque',natura:'bosque',monte:'bosque',caza:'bosque',arboles:'bosque',
+  incid:'carretera',gas:'carretera',puertos:'carretera',camaras:'carretera',transp:'carretera',sismo:'sismo',energia:'energia',
+  pueblos:'pueblo',patrimonio:'pueblo',dormir:'pueblo',comer:'pueblo',agenda:'fiesta',cultura:'fiesta',deporte:'fiesta',
+  cerca:'topo',diario:'topo',sitios:'topo',fotos:'bokeh',buzon:'bokeh',enviar:'bokeh'};
+const PVS_SUB={cielo:'El cielo de Navarra, en directo',agua:'El agua de Navarra',bosque:'Naturaleza de Navarra',carretera:'Carreteras de Navarra',sismo:'La tierra que pisamos',
+  energia:'La energía de Navarra, ahora',pueblo:'Pueblos y ciudades de Navarra',fiesta:'Lo que se mueve en Navarra',topo:'Tu Navarra',bokeh:'Participa en BasatiNA',aurora:'Navarra en tu bolsillo'};
+let PVS=null,PVSraf=0,PVSfr=0;
+function pvsRnd(seed){let s=seed;return()=>(s=(s*16807)%2147483647)/2147483647;}
+function pvsPts(seed,base,amp,jag){const r=pvsRnd(seed),ph=[r()*6,r()*6,r()*6],P=[];for(let i=0;i<=60;i++){const x=i/60*400;P.push(base-amp*(.55*Math.sin(x/68+ph[0])+.3*Math.sin(x/29+ph[1])+.15*Math.sin(x/11+ph[2]))-(jag?(r()-.3)*jag:0));}return P;}
+function pvsNow(){const d=new Date(),b=new Date(d);b.setHours(0,0,0,0);const sr=PVD&&PVD.sr||b.getTime()+8.2*3600e3,ss=PVD&&PVD.ss||b.getTime()+17.8*3600e3;
+  const k=pvKind(PVD?PVD.c:1),ph=pvPhase(d,sr,ss),g=PVGRIS[k]||0;
+  const grey=ph==='noche'?['#151a22','#222a35','#333c48']:['#56636f','#7a8792','#aab4bb'];
+  return{d,sr,ss,k,ph,g,sky:PVSKY[ph].map((c,i)=>pvMix(c,grey[i],g*.8)),mt:PVMT[ph].map((c,i)=>pvMix(c,ph==='noche'?'#141a22':'#6f7a80',g*.5)),dia:d>=sr&&d<=ss};}
+function pvsSky(x,W,H,L,cols){const c=cols||L.sky,gr=x.createLinearGradient(0,0,0,H);gr.addColorStop(0,c[0]);gr.addColorStop(.6,c[1]);gr.addColorStop(1,c[2]);x.fillStyle=gr;x.fillRect(0,0,W,H);}
+function pvsRidge(x,W,H,P,col,sc){x.fillStyle=col;x.beginPath();x.moveTo(0,H);P.forEach((y,i)=>x.lineTo(i/60*W,y/150*H*(sc||1)));x.lineTo(W,H);x.closePath();x.fill();}
+function pvsSun(x,W,H,L){if(L.g>=.7)return;const p=L.dia?(L.d-L.sr)/(L.ss-L.sr):.35,cx=W*(.55+p*.38),cy=H*(.62-Math.sin(Math.PI*p)*.42);x.globalAlpha=L.g>=.5?.35:1;
+  if(L.dia){const g=x.createRadialGradient(cx,cy,0,cx,cy,70);g.addColorStop(0,'#fffdf2');g.addColorStop(.18,'#fff0b8');g.addColorStop(.35,'rgba(255,226,150,.45)');g.addColorStop(1,'rgba(255,210,130,0)');x.fillStyle=g;x.fillRect(cx-70,cy-70,140,140);}
+  else{const g=x.createRadialGradient(cx,cy,0,cx,cy,40);g.addColorStop(0,'rgba(230,236,255,.35)');g.addColorStop(1,'rgba(230,236,255,0)');x.fillStyle=g;x.fillRect(cx-40,cy-40,80,80);x.fillStyle='#ecebe0';x.beginPath();x.arc(cx,cy,12,0,7);x.fill();}
+  x.globalAlpha=1;}
+function pvsStars(x,P,ts){P.forEach(e=>{x.globalAlpha=.3+.7*Math.abs(Math.sin(ts*e.s+e.f));x.fillStyle='#fff';x.fillRect(e.x,e.y,e.r,e.r);});x.globalAlpha=1;}
+function pvsInit(esc,W,H){const R=Math.random,r=pvsRnd(esc.length*977+13),S={esc,t0:performance.now()};
+  S.far=pvsPts(7,80,26,10);S.mid=pvsPts(31,100,12,2);S.near=pvsPts(97,122,6,0);
+  S.est=Array.from({length:50},()=>({x:R()*W,y:R()*H*.55,r:R()*1.6+.6,f:R()*6,s:1+R()*2}));
+  S.nubes=Array.from({length:6},()=>({x:R()*W*1.4-W*.2,y:10+R()*H*.4,w:70+R()*90,v:.12+R()*.2}));
+  S.gotas=Array.from({length:90},()=>({x:R()*W,y:R()*H,l:8+R()*8,v:7+R()*5}));
+  S.hojas=Array.from({length:16},()=>({x:R()*W,y:R()*H,v:.3+R()*.5,a:R()*6,s:3+R()*3,c:['#c8792b','#e0a33a','#8aa83d','#b5552a'][Math.floor(R()*4)]}));
+  S.luces=Array.from({length:14},()=>({x:R()*W,y:H*.3+R()*H*.6,v:.1+R()*.35,f:R()*6}));
+  S.arb=[];for(let xx=0;xx<W;xx+=6+r()*9)S.arb.push({x:xx,h:12+r()*16,w:4+r()*3});
+  S.casas=[];let cx=W*.05;while(cx<W*.95){const w=18+r()*22,h=14+r()*16;S.casas.push({x:cx,w,h,t:r()<.5,v:Array.from({length:3},()=>r()<.55),ch:r()<.4});cx+=w+r()*4;}
+  S.iglesia=W*(.3+r()*.25);S.humo=[];
+  S.mol=[[.18,.42,1],[.36,.36,.8],[.58,.44,.95],[.8,.38,.7]].map(([a,b,c])=>({x:a*W,y:b*H,s:c,ang:r()*6}));
+  S.sis=new Array(Math.ceil(W/2)).fill(0);S.amp=0;
+  S.bok=Array.from({length:22},()=>({x:R()*W,y:R()*H,r:6+R()*26,v:.08+R()*.3,f:R()*6,c:['255,190,90','255,120,80','120,200,255','160,230,140','255,90,140'][Math.floor(R()*5)]}));
+  return S;}
+function pvsDraw(S,x,W,H,ts){const L=pvsNow(),e=S.esc,sl=Math.min(3,((PVD&&PVD.w)||5)/10);
+  if(e==='sismo'){const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#132029');g.addColorStop(1,'#22343f');x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.strokeStyle='rgba(255,255,255,.06)';x.lineWidth=1;for(let i=0;i<W;i+=24){x.beginPath();x.moveTo(i,0);x.lineTo(i,H);x.stroke();}for(let j=0;j<H;j+=24){x.beginPath();x.moveTo(0,j);x.lineTo(W,j);x.stroke();}
+    [['#5b4636',.78],['#6d5440',.86],['#4a3a2e',.94]].forEach(([c,y],i)=>{x.fillStyle=c;x.beginPath();x.moveTo(0,H);for(let k=0;k<=W;k+=8)x.lineTo(k,H*y+Math.sin(k/50+i*2)*5);x.lineTo(W,H);x.fill();});
+    if(!PVLOW){if(S.amp<.5&&Math.random()<.006)S.amp=1+Math.random()*1.5;S.amp*=.985;for(let k=0;k<2;k++){S.sis.shift();S.sis.push((Math.random()-.5)*(3+S.amp*34)*(.6+.4*Math.sin(ts*9)));}}
+    x.strokeStyle='#ff6b4a';x.lineWidth=1.8;x.shadowColor='#ff6b4a';x.shadowBlur=8;x.beginPath();S.sis.forEach((v,i)=>{const yy=H*.4+v;i?x.lineTo(i*2,yy):x.moveTo(0,yy);});x.stroke();x.shadowBlur=0;
+    x.fillStyle='#ff6b4a';x.beginPath();x.arc(W-2,H*.4+S.sis[S.sis.length-1],3.5,0,7);x.fill();return;}
+  if(e==='fiesta'||e==='bokeh'||e==='topo'||e==='aurora'){
+    const C={fiesta:['#1a0f2e','#3b1748','#6a2a4a'],bokeh:['#0b4f6c','#1f6a5e','#3D7031'],topo:['#0c4a5c','#1b6a63','#3D7031'],aurora:['#06121e','#0b2236','#103a4a']}[e];pvsSky(x,W,H,L,C);
+    if(e==='aurora'){for(let b=0;b<3;b++){x.beginPath();for(let k=0;k<=W;k+=6){const y=H*(.25+b*.12)+Math.sin(k/60+ts*.4+b)*12+Math.sin(k/23+ts*.7)*5;k?x.lineTo(k,y):x.moveTo(k,y);}
+      x.lineWidth=26-b*6;x.strokeStyle=['rgba(94,200,140,.22)','rgba(60,170,210,.18)','rgba(140,230,170,.14)'][b];x.shadowColor='#5ec88c';x.shadowBlur=24;x.stroke();}x.shadowBlur=0;pvsStars(x,S.est,ts);}
+    if(e==='topo'){const cx=W*.72,cy=H*.42;x.lineWidth=1.2;for(let i=1;i<12;i++){x.beginPath();for(let a=0;a<=64;a++){const an=a/64*Math.PI*2,rr=i*14+Math.sin(an*3+i+ts*.25)*5+Math.sin(an*5-i*.7)*4;
+        const px=cx+Math.cos(an)*rr*1.25,py=cy+Math.sin(an)*rr;a?x.lineTo(px,py):x.moveTo(px,py);}x.strokeStyle=`rgba(255,255,255,${.28-i*.018})`;x.stroke();}
+      const pu=(ts%2)/2;x.strokeStyle=`rgba(255,255,255,${1-pu})`;x.lineWidth=2;x.beginPath();x.arc(cx,cy,6+pu*28,0,7);x.stroke();
+      x.fillStyle='#DD4826';x.beginPath();x.arc(cx,cy-12,8,Math.PI*.85,Math.PI*2.15);x.lineTo(cx,cy);x.closePath();x.fill();x.fillStyle='#fff';x.beginPath();x.arc(cx,cy-12,3,0,7);x.fill();}
+    if(e==='fiesta'){x.strokeStyle='rgba(255,255,255,.25)';x.lineWidth=1;const sw=Math.sin(ts*1.2)*4;x.beginPath();for(let k=0;k<=W;k+=4)x.lineTo(k,18+Math.sin(k/W*Math.PI)*26+sw*Math.sin(k/W*Math.PI));x.stroke();
+      for(let k=10;k<W;k+=26){const y=18+Math.sin(k/W*Math.PI)*26+sw*Math.sin(k/W*Math.PI)+6,on=.55+.45*Math.sin(ts*3+k);const g=x.createRadialGradient(k,y,0,k,y,14);g.addColorStop(0,`rgba(255,214,140,${on})`);g.addColorStop(1,'rgba(255,214,140,0)');x.fillStyle=g;x.fillRect(k-14,y-14,28,28);x.fillStyle=`rgba(255,240,200,${.6+on*.4})`;x.beginPath();x.arc(k,y,2.6,0,7);x.fill();}}
+    S.bok.forEach(b=>{if(!PVLOW){b.y-=b.v;b.x+=Math.sin(ts*.5+b.f)*.2;}if(b.y<-b.r){b.y=H+b.r;b.x=Math.random()*W;}
+      if(e==='aurora'||e==='topo')return;const g=x.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);const a=e==='fiesta'?.35:.22;g.addColorStop(0,`rgba(${b.c},${a})`);g.addColorStop(.7,`rgba(${b.c},${a*.6})`);g.addColorStop(1,`rgba(${b.c},0)`);x.fillStyle=g;x.beginPath();x.arc(b.x,b.y,b.r,0,7);x.fill();});
+    return;}
+  // escenas al aire libre: cielo con la luz real
+  pvsSky(x,W,H,L);if(L.ph==='noche'&&L.g<.5)pvsStars(x,S.est,ts);pvsSun(x,W,H,L);
+  const nub=L.k==='claro'?1:L.k==='nubes'?3:6,dk=L.k==='tormenta'?.5:L.k==='lluvia'?.68:L.ph==='noche'?.35:1;
+  S.nubes.slice(0,e==='cielo'?6:nub).forEach(n=>{if(!PVLOW)n.x+=n.v*(1+sl);if(n.x>W+n.w)n.x=-n.w*1.5;const g=x.createRadialGradient(n.x,n.y,0,n.x,n.y,n.w*.6);const c=Math.round(255*dk);
+    g.addColorStop(0,`rgba(${c},${c},${c},.8)`);g.addColorStop(.5,`rgba(${c},${c},${c},.35)`);g.addColorStop(1,`rgba(${c},${c},${c},0)`);x.fillStyle=g;x.save();x.translate(n.x,n.y);x.scale(1,.42);x.translate(-n.x,-n.y);x.beginPath();x.arc(n.x,n.y,n.w*.6,0,7);x.fill();x.restore();});
+  const mt=L.mt,mes=L.d.getMonth();
+  if(e==='agua'){pvsRidge(x,W,H,S.far,mt[0],.82);pvsRidge(x,W,H,S.mid,mt[1],.78);const wy=H*.6,g=x.createLinearGradient(0,wy,0,H);
+    g.addColorStop(0,pvMix(L.sky[2],'#0a5f86',.45));g.addColorStop(1,pvMix(L.sky[0],'#062c40',.6));x.fillStyle=g;x.fillRect(0,wy,W,H-wy);
+    if(L.dia&&L.g<.7){const p=(L.d-L.sr)/(L.ss-L.sr),cx=W*(.55+p*.38);for(let i=0;i<14;i++){const yy=wy+4+i*((H-wy)/14),w=(10+i*3)*(.6+.4*Math.sin(ts*3+i));x.fillStyle=`rgba(255,240,200,${.5-i*.03})`;x.fillRect(cx-w/2,yy,w,1.6);}}
+    for(let i=0;i<9;i++){const yy=wy+6+i*(H-wy)/9,am=1+i*.5,sp=.6+i*.25;x.beginPath();for(let k=0;k<=W;k+=6){const y=yy+Math.sin(k/(22+i*6)-ts*sp)*am;k?x.lineTo(k,y):x.moveTo(k,y);}x.strokeStyle=`rgba(255,255,255,${.08+i*.025})`;x.lineWidth=1;x.stroke();}}
+  else if(e==='bosque'){pvsRidge(x,W,H,S.far,mt[0],.85);pvsRidge(x,W,H,S.mid,pvMix(mt[1],'#2f5a2c',.3),.86);const by=H*.84;x.fillStyle=mt[2];x.fillRect(0,by,W,H-by);
+    S.arb.forEach(a=>{const sw=Math.sin(ts*1.3+a.x)*.8*sl;x.beginPath();x.moveTo(a.x-a.w,by+2);x.lineTo(a.x+sw,by-a.h);x.lineTo(a.x+a.w,by+2);x.fill();});
+    if(L.ph==='noche')S.luces.forEach(f=>{const a=.5+.5*Math.sin(ts*2+f.f);if(!PVLOW){f.x+=Math.sin(ts+f.f)*.3;f.y+=Math.cos(ts*.8+f.f)*.2;}const g=x.createRadialGradient(f.x,f.y,0,f.x,f.y,7);g.addColorStop(0,`rgba(220,255,120,${a})`);g.addColorStop(1,'rgba(220,255,120,0)');x.fillStyle=g;x.fillRect(f.x-7,f.y-7,14,14);});
+    else if(mes>=8&&mes<=11||L.k!=='claro')S.hojas.forEach(h=>{if(!PVLOW){h.y+=h.v;h.x+=Math.sin(ts+h.a)*.6+sl*.4;h.a+=.03;}if(h.y>H){h.y=-8;h.x=Math.random()*W;}if(h.x>W)h.x-=W;
+      x.save();x.translate(h.x,h.y);x.rotate(h.a);x.fillStyle=h.c;x.beginPath();x.ellipse(0,0,h.s,h.s*.5,0,0,7);x.fill();x.restore();});}
+  else if(e==='carretera'){pvsRidge(x,W,H,S.far,mt[0],.8);const hy=H*.5;x.fillStyle=mt[1];x.fillRect(0,hy,W,H-hy);pvsRidge(x,W,H,S.mid,mt[1],.62);
+    const vx=W*.58;x.fillStyle=L.ph==='noche'?'#1b1f24':'#41474d';x.beginPath();x.moveTo(W*.02,H);x.lineTo(W*.98,H);x.lineTo(vx+3,hy);x.lineTo(vx-3,hy);x.fill();
+    x.strokeStyle='rgba(255,255,255,.55)';x.lineWidth=1.5;x.beginPath();x.moveTo(W*.06,H);x.lineTo(vx-2,hy);x.moveTo(W*.94,H);x.lineTo(vx+2,hy);x.stroke();
+    for(let i=0;i<10;i++){const s=((i/10)+ts*.12)%1,s2=Math.min(1,s+.045),y1=hy+(H-hy)*s*s,y2=hy+(H-hy)*s2*s2,x1=vx+(W*.5-vx)*s*s,x2=vx+(W*.5-vx)*s2*s2;x.strokeStyle='#ffd34d';x.lineWidth=.5+s*4;x.beginPath();x.moveTo(x1,y1);x.lineTo(x2,y2);x.stroke();}
+    const night=L.ph!=='dia';for(let i=0;i<3;i++){const s=((i/3)+ts*.07)%1,z=s*s,y=hy+(H-hy)*z,cx=vx+(W*.36-vx)*z,w=2+z*18;x.fillStyle=night?'rgba(255,60,50,.95)':'rgba(200,40,40,.9)';
+      x.shadowColor='#ff3b30';x.shadowBlur=night?10:0;x.beginPath();x.arc(cx-w/2,y,1+z*2.5,0,7);x.arc(cx+w/2,y,1+z*2.5,0,7);x.fill();}
+    for(let i=0;i<2;i++){const s=1-((i/2)+ts*.09)%1,z=s*s,y=hy+(H-hy)*z,cx=vx+(W*.7-vx)*z,w=2+z*18;x.fillStyle='rgba(255,250,220,.95)';x.shadowColor='#fff5c0';x.shadowBlur=night?16:4;x.beginPath();x.arc(cx-w/2,y,1+z*3,0,7);x.arc(cx+w/2,y,1+z*3,0,7);x.fill();}x.shadowBlur=0;}
+  else if(e==='energia'){pvsRidge(x,W,H,S.far,mt[0],.85);pvsRidge(x,W,H,S.mid,mt[1],.9);const v=.4+((PVD&&PVD.w)||8)/25;
+    S.mol.forEach(m=>{if(!PVLOW)m.ang+=.02*v;const hh=70*m.s,bx=m.x,by=m.y+hh;x.strokeStyle='rgba(245,248,250,.95)';x.lineWidth=2.4*m.s;x.lineCap='round';x.beginPath();x.moveTo(bx,by);x.lineTo(bx,m.y);x.stroke();
+      for(let b=0;b<3;b++){const a=m.ang+b*2.094;x.lineWidth=2.8*m.s;x.beginPath();x.moveTo(bx,m.y);x.lineTo(bx+Math.cos(a)*30*m.s,m.y+Math.sin(a)*30*m.s);x.stroke();}x.fillStyle='#fff';x.beginPath();x.arc(bx,m.y,2.6*m.s,0,7);x.fill();});
+    const py=H*.86;x.fillStyle=mt[2];x.fillRect(0,py,W,H-py);for(let k=8;k<W;k+=34){x.fillStyle='#1d3d5c';x.beginPath();x.moveTo(k,py+4);x.lineTo(k+26,py+4);x.lineTo(k+22,py-8);x.lineTo(k-4,py-8);x.fill();
+      const gl=(Math.sin(ts*.8-k/60)+1)/2;x.fillStyle=`rgba(180,220,255,${gl*.5})`;x.fillRect(k+2,py-6,18,2);}}
+  else if(e==='pueblo'){pvsRidge(x,W,H,S.far,mt[0],.8);pvsRidge(x,W,H,S.mid,mt[1],.88);const gy=H*.86,lit=L.ph!=='dia';x.fillStyle=mt[2];x.fillRect(0,gy,W,H-gy);
+    S.casas.forEach(c=>{const y=gy-c.h;x.fillStyle=pvMix(mt[2],'#000',.05);x.fillRect(c.x,y,c.w,c.h+2);x.beginPath();x.moveTo(c.x-2,y);x.lineTo(c.x+c.w/2,y-(c.t?10:6));x.lineTo(c.x+c.w+2,y);x.fill();
+      c.v.forEach((on,i)=>{const wx=c.x+4+i*(c.w-8)/3;if(wx+4>c.x+c.w)return;x.fillStyle=lit&&on?`rgba(255,${200+Math.round(20*Math.sin(ts+c.x))},110,.95)`:'rgba(255,255,255,.12)';x.fillRect(wx,y+5,4,5);});
+      if(c.ch&&(mes>=10||mes<=2)&&Math.random()<.04&&!PVLOW)S.humo.push({x:c.x+c.w*.75,y:y-6,a:.5,r:2});});
+    const ix=S.iglesia;x.fillStyle=pvMix(mt[2],'#000',.1);x.fillRect(ix,gy-58,14,58);x.beginPath();x.moveTo(ix-1,gy-58);x.lineTo(ix+7,gy-74);x.lineTo(ix+15,gy-58);x.fill();x.fillRect(ix+6.2,gy-82,1.6,9);x.fillRect(ix+3.5,gy-79,7,1.6);
+    x.fillStyle=lit?'rgba(255,214,120,.9)':'rgba(255,255,255,.15)';x.beginPath();x.arc(ix+7,gy-44,3,0,7);x.fill();
+    S.humo=S.humo.filter(h=>{h.y-=.35;h.x+=.15+sl*.2;h.a-=.004;h.r+=.05;x.fillStyle=`rgba(230,230,230,${h.a})`;x.beginPath();x.arc(h.x,h.y,h.r,0,7);x.fill();return h.a>0;});}
+  else{pvsRidge(x,W,H,S.far,mt[0],1);pvsRidge(x,W,H,S.mid,mt[1],1);pvsRidge(x,W,H,S.near,mt[2],1);}
+  if(L.k==='lluvia'||L.k==='tormenta'){x.strokeStyle='rgba(220,232,245,.5)';x.lineWidth=1;x.beginPath();S.gotas.forEach(g=>{if(!PVLOW){g.y+=g.v;g.x+=sl;}if(g.y>H){g.y=-g.l;g.x=Math.random()*W;}if(g.x>W)g.x-=W;x.moveTo(g.x,g.y);x.lineTo(g.x-sl*1.5,g.y-g.l);});x.stroke();}
+  if(L.k==='nieve'){x.fillStyle='rgba(255,255,255,.9)';S.gotas.slice(0,60).forEach(g=>{if(!PVLOW){g.y+=g.v*.12;g.x+=Math.sin(ts+g.l)*.4;}if(g.y>H){g.y=-3;g.x=Math.random()*W;}x.beginPath();x.arc(g.x,g.y,1+g.l/10,0,7);x.fill();});}}
+function pvsTick(t){PVSraf=0;const S=PVS,el=document.getElementById('pvSec');if(!S||!el||!el.offsetParent||document.hidden)return;
+  PVSfr++;if(PVSfr%2===0&&!PVLOW){PVSraf=requestAnimationFrame(pvsTick);return;}   // ~30 imágenes por segundo: suficiente y gasta menos batería
+  const cv=el.querySelector('canvas'),x=cv.getContext('2d'),W=el.clientWidth,H=el.clientHeight;try{pvsDraw(S,x,W,H,t/1000);}catch(e){console.log(e);}
+  if(!PVLOW)PVSraf=requestAnimationFrame(pvsTick);}
+function pvsChip(k,esc){const c=[];if(esc==='cielo'&&PVD&&PVD.t!=null)c.push(`${wxIcon(PVD.c,new Date().getHours())} ${Math.round(PVD.t)}° Pamplona`);
+  if(esc==='agua'){try{const r=typeof cauRefQ==='function'&&CAU?cauRefQ():null;if(r)c.push(`🌊 Arga ${fmtN(r.v,1)} m³/s`);}catch(e){}}
+  if(esc==='energia'&&PVD&&PVD.w!=null)c.push(`💨 ${Math.round(PVD.w)} km/h`);
+  if(esc==='carretera'||esc==='pueblo'||esc==='bosque'){const L=pvsNow();c.push({dia:'☀️ De día',alba:'🌅 Amanece',ocaso:'🌇 Atardece',noche:'🌙 De noche'}[L.ph]);}
+  return c.map(x=>`<span>${x}</span>`).join('');}
+function pvsShow(t){const el0=document.getElementById('pvSec');if(!isBna()||t==='mtiempo'){if(el0)el0.remove();PVS=null;return;}
+  const sec=document.querySelector('section.on');if(!sec)return;const esc=PVS_ESC[t]||'aurora';
+  let el=el0;if(!el){el=document.createElement('div');el.id='pvSec';el.innerHTML='<canvas></canvas><div class="pvsC"></div><div class="pvsT"></div>';}
+  if(el.parentNode!==sec)sec.insertBefore(el,sec.firstChild);
+  const tit=(TITLES[t]||'').replace(typeof EMO!=='undefined'?EMO:/^\W+/,'').replace(/^[^\wÁÉÍÓÚÑáéíóúñ¿¡]+/,'').trim()||'BasatiNA';
+  el.querySelector('.pvsT').innerHTML=`${bnTile(t,24,46)}<div><b>${esc==='aurora'&&!TITLES[t]?'BasatiNA':arEsc(tit)}</b><small>${PVS_SUB[esc]}</small></div>`;el.querySelector('.pvsC').innerHTML=pvsChip(t,esc);
+  const cv=el.querySelector('canvas'),dpr=Math.min(2,window.devicePixelRatio||1),W=el.clientWidth||360,H=el.clientHeight||150;cv.width=W*dpr;cv.height=H*dpr;cv.getContext('2d').setTransform(dpr,0,0,dpr,0,0);
+  if(!PVS||PVS.esc!==esc||PVS.W!==W)PVS=Object.assign(pvsInit(esc,W,H),{W});
+  if(!PVSraf)PVSraf=requestAnimationFrame(pvsTick);}
+const _pvsST=showTab;showTab=function(t){_pvsST(t);try{pvsShow(t);}catch(e){console.log(e);}};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&PVS&&!PVSraf)PVSraf=requestAnimationFrame(pvsTick);});
+window.addEventListener('resize',()=>{clearTimeout(window.__pvsR);window.__pvsR=setTimeout(()=>{if(PVS)pvsShow(BNTAB);},250);});
+// menú lateral: sierras de fondo en la cabecera
+function pvsDrawer(){const h=document.querySelector('#drawer .dhead');if(!h||h.querySelector('.pvDM')||!isBna())return;
+  h.insertAdjacentHTML('afterbegin',`<svg class="pvDM" viewBox="0 0 400 150" preserveAspectRatio="none" aria-hidden="true"><path d="${pvRidge(7,80,26,10)}" fill="rgba(255,255,255,.16)"/><path d="${pvRidge(31,104,12,2)}" fill="rgba(255,255,255,.22)"/><path d="${pvRidge(97,128,6,0,true)}" fill="#eef4ef"/></svg>`);}
+pvsDrawer();const _pvsCA=cfgApply;cfgApply=function(){_pvsCA();try{pvsDrawer();pvsShow(BNTAB);}catch(e){}};
 </script>
 <img id="basatina-footer-logo" src="logo.png" alt="BasatiNa" aria-hidden="true">
 <script src="naturaleza-catalogo.js"></script>

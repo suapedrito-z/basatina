@@ -64,6 +64,8 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 - **Actualizar datos**: ya no hay botón 🔄 arriba; se desliza la pantalla hacia abajo estando arriba del todo (llama a `dRefresh`).
 - **Inicio**: debajo del mapa sale «La semana en Navarra» (`seInit` → `#seBody`), ya no hay accesos rápidos.
 - **Avisos**: cada aviso usa `avDet(principal, detalles)`: la parte en negrita a la vista y el resto en un desplegable.
+- **Diseño «Navarra viva» (nov. 2026)**: el inicio tiene un paisaje animado (`#pvBox`, funciones `pv*`) con el cielo según la hora y el tiempo real de Pamplona. Cada sección lleva arriba una escena animada de su tema (`#pvSec`, funciones `pvs*`). **Si añades una sección nueva, ponla en `PVS_ESC`** con una de estas escenas: cielo, agua, bosque, carretera, sismo, energia, pueblo, fiesta, topo, bokeh (si no, sale «aurora»). Para probar el tiempo a mano: `pvDemo(código, hora)`; `pvDemo()` vuelve a lo real.
+- **Ojo al editar a mano en GitHub**: el 10 nov. 2026 una edición borró sin querer la sección Escapadas (`t-monte`) al pegar la de Arbustos. Después de editar, comprueba que siguen estando todas las `<section id="t-…">`.
 
 ## 6. Cosas pendientes o ideas
 
