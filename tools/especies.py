@@ -10,7 +10,7 @@ De dónde sale cada dato:
   · Explicación: resumen de Wikipedia en español (CC BY-SA 4.0, con enlace al artículo).
   · Estado de amenaza: Lista Roja de la UICN (vía GBIF).
   · Las fichas revisadas a mano de web/naturaleza-catalogo.js se añaden encima.
-Las especies amenazadas no muestran los pueblos donde se han visto, solo la zona de Navarra.
+Las zonas se cuentan con 7 recuadros aproximados de Navarra (montaña atlántica, Pirineo, Sakana, Cuenca, Tierra Estella, Zona Media, Ribera).
 
 Lo ejecuta GitHub Actions (.github/workflows/especies.yml) una vez al mes.
 """
@@ -41,11 +41,11 @@ def norm(s):
 GRUPOS = [
     ("Aves", "Fauna", "Aves", "CLASS", 230),
     ("Mamíferos", "Fauna", "Mammalia", "CLASS", 80),
-    ("Reptiles", "Fauna", "Squamata", "ORDER", 30),
-    ("Reptiles", "Fauna", "Testudines", "ORDER", 6),
+    ("Reptiles", "Fauna", "Squamata", "", 30),
+    ("Reptiles", "Fauna", "Testudines", "", 6),
     ("Anfibios", "Fauna", "Amphibia", "CLASS", 22),
-    ("Peces", "Fauna", "Actinopterygii", "CLASS", 40),
-    ("Mariposas", "Fauna", "Papilionoidea", "SUPERFAMILY", 130),
+    ("Peces", "Fauna", "Actinopterygii", "", 40),
+    ("Mariposas y polillas", "Fauna", "Lepidoptera", "", 130),
     ("Libélulas", "Fauna", "Odonata", "ORDER", 55),
     ("Escarabajos", "Fauna", "Coleoptera", "ORDER", 50),
     ("Plantas con flor", "Flora", "Magnoliopsida", "CLASS", 420),
@@ -58,6 +58,16 @@ GRUPOS = [
 SENSIBLES = re.compile(r"^(Gypaetus|Ursus|Tetrao|Mustela lutreola|Galemys|Dendrocopos leucotos|Neophron|Aquila|Milvus milvus|Otis|Tetrax|"
                        r"Pterocles|Falco peregrinus|Bubo|Ciconia nigra|Lutra|Emys|Mauremys|Rosalia|Lucanus|Cypripedium|Austropotamobius)", re.I)
 FAM_SENSIBLES = {"Orchidaceae"}
+
+# zonas de Navarra (rectángulos aproximados; las observaciones ya están filtradas a Navarra)
+def _rect(w, s, e, n): return "POLYGON((%s %s,%s %s,%s %s,%s %s,%s %s))" % (w, s, e, s, e, n, w, n, w, s)
+ZONAS = [("Montaña atlántica (Baztan, Bidasoa, Malerreka, Leitzaran)", _rect(-2.6, 43.0, -1.45, 43.4)),
+         ("Pirineo (Roncesvalles, Aezkoa, Salazar, Roncal)", _rect(-1.45, 42.85, -0.6, 43.4)),
+         ("Sakana, Urbasa y Andía", _rect(-2.6, 42.72, -1.95, 43.0)),
+         ("Cuenca de Pamplona y valles prepirenaicos", "POLYGON((-1.95 42.72,-0.6 42.72,-0.6 42.85,-1.45 42.85,-1.45 43.0,-1.95 43.0,-1.95 42.72))"),
+         ("Tierra Estella", _rect(-2.6, 42.38, -1.85, 42.72)),
+         ("Zona Media (Tafalla, Olite, Sangüesa, Lumbier)", _rect(-1.85, 42.38, -0.6, 42.72)),
+         ("Ribera y Bardenas", _rect(-2.6, 41.85, -0.6, 42.38))]
 
 def zona(la, lo):
     """Zona de Navarra aproximada a partir de las coordenadas del pueblo."""
@@ -101,8 +111,13 @@ def main():
     # 2) lista de especies por grupo (las más observadas primero)
     lista = {}
     for nom, tipo, taxon, rango, lim in GRUPOS:
-        m = get(G + "species/match?" + urllib.parse.urlencode({"name": taxon, "rank": rango, "strict": "true"})) or {}
-        tk = m.get("usageKey")
+        q = {"name": taxon, "strict": "true"}
+        if rango: q["rank"] = rango
+        m = get(G + "species/match?" + urllib.parse.urlencode(q)) or {}
+        tk = m.get("usageKey") if m.get("matchType") != "NONE" else None
+        if not tk:   # sin rango ni modo estricto
+            m = get(G + "species/match?" + urllib.parse.urlencode({"name": taxon})) or {}
+            tk = m.get("usageKey") if m.get("matchType") == "EXACT" else None
         if not tk: INFO.append("%s: no encontrado en GBIF" % taxon); continue
         f = get(G + "occurrence/search?" + urllib.parse.urlencode({"gadmGid": gid, "taxonKey": tk, "limit": 0, "facet": "speciesKey",
                 "facetLimit": lim, "occurrenceStatus": "PRESENT"})) or {}
@@ -113,7 +128,7 @@ def main():
             if int(c["count"]) < 3 or k in lista: continue
             lista[k] = {"g": nom, "tipo": tipo, "c": int(c["count"])}
     INFO.append("Total especies: %d" % len(lista))
-    P = pueblos(); GN = cache.setdefault("_gadm", {})
+    cache.pop("_gadm", None)
 
     def ficha(k):
         e = lista[k]; cc = cache.get(k) or {}
@@ -139,43 +154,33 @@ def main():
             cc["w"] = w
         cache[k] = cc
         f = get(G + "occurrence/search?" + urllib.parse.urlencode([("gadmGid", gid), ("taxonKey", k), ("limit", 0), ("facet", "month"),
-                ("facet", "gadmLevel3Gid"), ("month.facetLimit", 12), ("gadmLevel3Gid.facetLimit", 80)])) or {}
+                ("month.facetLimit", 12)])) or {}
         fac = {x["field"]: x["counts"] for x in f.get("facets", [])}
         meses = [0] * 12
         for x in fac.get("MONTH", []):
             try: meses[int(x["name"]) - 1] = int(x["count"])
             except Exception: pass
-        return k, meses, fac.get("GADM_LEVEL_3_GID", [])
+        zonas = {}
+        for zn, wkt in ZONAS:
+            r = get(G + "occurrence/search?" + urllib.parse.urlencode({"gadmGid": gid, "taxonKey": k, "limit": 0, "geometry": wkt})) or {}
+            if r.get("count"): zonas[zn] = int(r["count"])
+        return k, meses, zonas
 
     out = []; hechos = 0
     with cf.ThreadPoolExecutor(6) as ex:
         res = list(ex.map(ficha, list(lista)))
-    # nombres de municipio (GADM nivel 3)
-    gids = {x["name"] for _, _, L in res for x in L} - set(GN)
-    for g in gids:
-        j = get(G + "geocode/gadm/" + g) or {}
-        GN[g] = j.get("name") or ""
-    sin_pueblo = set()
-    for k, meses, muni in res:
+    for k, meses, zonas in res:
         e = lista[k]; cc = cache[k]
         if not cc.get("s"): continue
-        zonas = {}; mus = []
-        for x in muni:
-            nm = GN.get(x["name"], ""); pt = P.get(norm(nm))
-            if not pt:
-                for parte in re.split(r"[/\-]", nm):
-                    pt = P.get(norm(parte))
-                    if pt: break
-            if not pt: sin_pueblo.add(nm); continue
-            z = zona(*pt); zonas[z] = zonas.get(z, 0) + int(x["count"]); mus.append(nm)
         sens = cc.get("iu") in ("CR", "EN", "VU") or SENSIBLES.search(cc["s"]) or cc.get("fam") in FAM_SENSIBLES
         n = cc["es"] or (cc["w"]["t"] if cc.get("w") and norm(cc["w"]["t"]) != norm(cc["s"]) else "") or cc["s"]
+        if n != cc["s"] and " " in n and all(p[:1].isupper() for p in n.split() if len(p) > 3):   # «Buitre Leonado» -> «Buitre leonado»
+            n = n.split(" ", 1)[0] + " " + n.split(" ", 1)[1].lower()
         o = {"k": int(k), "g": e["g"], "tp": e["tipo"], "s": cc["s"], "n": n[:1].upper() + n[1:], "f": cc.get("fam", ""), "c": e["c"],
              "z": sorted(zonas.items(), key=lambda z: -z[1])[:5], "m": meses}
         if cc.get("eu"): o["eu"] = cc["eu"]
         if cc.get("iu") and cc["iu"] not in ("LC", "NE", "DD"): o["iu"] = cc["iu"]
         if sens: o["sens"] = 1
-        elif mus: o["mu"] = mus[:6]
         if cc.get("w"):
             x = re.sub(r"\s+", " ", cc["w"]["x"]).strip()
             if len(x) > 520: x = x[:520].rsplit(". ", 1)[0] + "."
@@ -192,7 +197,6 @@ def main():
                         "f": "", "c": 0, "z": [], "m": [0] * 12, "rev": rev}); extra += 1
     out.sort(key=lambda o: (o["tp"], o["g"], o["n"].lower()))
     INFO.append("Fichas: %d (con texto de Wikipedia: %d) · revisadas a mano: %d (%d nuevas)" % (len(out), sum(1 for o in out if o.get("w")), len(R), extra))
-    INFO.append("Municipios GADM sin pareja en pueblos.js: %s" % sorted(sin_pueblo)[:80])
     json.dump(cache, open(CACHE_F, "w"), ensure_ascii=False, separators=(",", ":"))
     open("tools/especies_info.txt", "w").write("\n".join(INFO) + "\n")
     if len(out) < 50:
