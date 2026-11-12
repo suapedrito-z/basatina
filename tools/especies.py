@@ -44,7 +44,15 @@ GRUPOS = [
     ("Reptiles", "Fauna", "Squamata", "", 30),
     ("Reptiles", "Fauna", "Testudines", "", 6),
     ("Anfibios", "Fauna", "Amphibia", "CLASS", 22),
-    ("Peces", "Fauna", "Actinopterygii", "", 40),
+    ("Peces", "Fauna", "Cypriniformes", "", 20),
+    ("Peces", "Fauna", "Salmoniformes", "", 6),
+    ("Peces", "Fauna", "Perciformes", "", 8),
+    ("Peces", "Fauna", "Centrarchiformes", "", 4),
+    ("Peces", "Fauna", "Esociformes", "", 2),
+    ("Peces", "Fauna", "Siluriformes", "", 3),
+    ("Peces", "Fauna", "Anguilliformes", "", 1),
+    ("Peces", "Fauna", "Cyprinodontiformes", "", 2),
+    ("Peces", "Fauna", "Gobiiformes", "", 2),
     ("Mariposas y polillas", "Fauna", "Lepidoptera", "", 130),
     ("Libélulas", "Fauna", "Odonata", "ORDER", 55),
     ("Escarabajos", "Fauna", "Coleoptera", "ORDER", 50),
@@ -115,7 +123,6 @@ def main():
         if rango: q["rank"] = rango
         m = get(G + "species/match?" + urllib.parse.urlencode(q)) or {}
         tk = m.get("usageKey") if m.get("matchType") != "NONE" else None
-        tk = tk or {"Actinopterygii": 204}.get(taxon)
         if not tk:   # sin rango ni modo estricto
             m = get(G + "species/match?" + urllib.parse.urlencode({"name": taxon})) or {}
             tk = m.get("usageKey") if m.get("matchType") == "EXACT" else None
