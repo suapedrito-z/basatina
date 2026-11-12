@@ -1051,7 +1051,8 @@ Los textos, fotos, marcas y logotipos de terceros son de sus dueños; si quieres
 <!-- ============ 🎭 AGENDA CULTURAL ============ -->
 <section id="t-cultura">
 <div class="card"><b>🎭 Agenda cultural de Navarra</b><div class="note">Conciertos, teatro, charlas, exposiciones, coros, cine… Toca un día del calendario para ver qué hay. Se actualiza sola cada día con la agenda de Cultura Navarra (Gobierno de Navarra) y la del Ayuntamiento de Pamplona.</div>
- <div class="seg" id="agCat" style="margin-top:8px"></div></div>
+ <div class="seg" id="agCat" style="margin-top:8px"></div>
+ <input class="town" id="agPue" type="search" list="agPueL" placeholder="🔎 Filtrar por localidad (p. ej. Tudela, Estella…)" style="width:100%;box-sizing:border-box;margin-top:8px"><datalist id="agPueL"></datalist><div class="note" id="agPueN"></div></div>
 <div class="card"><div style="display:flex;align-items:center;gap:8px"><button class="btn" id="agPrev">◀</button><b id="agMes" style="flex:1;text-align:center"></b><button class="btn" id="agNext">▶</button></div><div id="agCal" style="margin-top:8px"></div></div>
 <div class="card" id="agDia"></div>
 <div class="card"><b>📨 ¿Conoces un evento que no sale?</b><div class="note">Mándanoslo por el buzón (qué es, dónde, cuándo y un enlace si lo hay). Lo revisamos y, si encaja, lo publicamos.</div><div class="row"><button class="btn pri" onclick="bzIr('Evento cultural','Evento: \nDónde: \nCuándo (día y hora): \nEnlace: ')">📨 Avisar de un evento</button></div></div>
@@ -4266,11 +4267,17 @@ function bzIr(tipo,plant){showTab('buzon');setTimeout(()=>{const b=[...document.
    f = día (AAAA-MM-DD), ff = último día si dura varios (exposiciones). */
 const AG_PATH='agenda/cultura.json',AG_DEF={eventos:[]};
 const AG_CATS=[['','Todo','✨'],['concierto','Conciertos','🎵'],['teatro','Teatro','🎭'],['charla','Charlas','🎤'],['expo','Exposiciones','🖼️'],['coro','Coros','🎶'],['cine','Cine','🎬'],['danza','Danza','💃'],['otros','Otros','📌']];
-let AGCAT='',AGMES=null,AGSEL=null,AGED=null;
+let AGCAT='',AGMES=null,AGSEL=null,AGED=null,AGPUE='';
+const agNorm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const agPueOk=e=>!AGPUE||agNorm((e.pueblo||'')+' '+(e.lugar||'')).includes(agNorm(AGPUE));
 const agIco=c=>(AG_CATS.find(x=>x[0]===c)||AG_CATS[8])[2];
 const agEnDia=(e,d)=>e.f===d||(e.ff&&e.f<=d&&e.ff>=d);
 async function agRender(){const G=await jsLoad(AG_PATH,AG_DEF),hoy=hoyYmd();if(!AGMES)AGMES=hoy.slice(0,7);if(!AGSEL)AGSEL=hoy;
-  const E=(G.eventos||[]).filter(e=>!AGCAT||e.cat===AGCAT);
+  const E=(G.eventos||[]).filter(e=>(!AGCAT||e.cat===AGCAT)&&agPueOk(e));
+  { const dl=document.getElementById('agPueL'),P=[...new Set((G.eventos||[]).map(e=>(e.pueblo||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+    if(dl&&dl.children.length!==P.length)dl.innerHTML=P.map(p=>`<option value="${esc(p)}">`).join('');
+    const pi=document.getElementById('agPue');if(pi&&!pi.oninput)pi.oninput=()=>{AGPUE=pi.value.trim();agRender();};
+    const pn=document.getElementById('agPueN');if(pn)pn.textContent=AGPUE?E.filter(e=>(e.ff||e.f)>=hoy).length+' eventos próximos en «'+AGPUE+'»':''; }
   const cs=document.getElementById('agCat');cs.innerHTML=AG_CATS.map(c=>`<button class="btn${c[0]===AGCAT?' on':''}" data-v="${c[0]}">${c[2]} ${c[1]}</button>`).join('');
   cs.querySelectorAll('button').forEach(b=>b.onclick=()=>{AGCAT=b.dataset.v;agRender();});
   // calendario del mes
@@ -4289,7 +4296,7 @@ async function agRender(){const G=await jsLoad(AG_PATH,AG_DEF),hoy=hoyYmd();if(!
     <div class="s">📍 ${esc(e.lugar||'')}${e.pueblo?(e.lugar?', ':'')+esc(e.pueblo):''}</div>${e.desc?`<div class="s">${esc(e.desc)}</div>`:''}
     ${urlOk(e.url)?`<div class="s"><a href="${esc(e.url)}" target="_blank">🔗 Más información / entradas</a></div>`:''}${e.src?`<div class="s" style="font-size:.85em;opacity:.75">Fuente: ${esc(e.src)}</div>`:''}
     ${TECH?`<div class="row"><button class="btn" data-ed="${esc(e.id)}">✏️ Editar</button></div>`:''}</div></div>`;
-  const fies=typeof abFiestas==='function'?abFiestas(AGSEL):[];
+  const fies=(typeof abFiestas==='function'?abFiestas(AGSEL):[]).filter(p=>!AGPUE||agNorm(p).includes(agNorm(AGPUE)));
   document.getElementById('agDia').innerHTML=`<b>📅 ${fLarga(AGSEL)}</b>${fies.length?`<div class="note" style="margin:4px 0">🎉 <b>Fiesta local</b> en ${fies.slice(0,25).map(esc).join(', ')}${fies.length>25?' y '+(fies.length-25)+' más':''} <span class="note">(calendario oficial de festivos)</span></div>`:''}${del.length?del.map(fila).join(''):'<div class="note">No tenemos nada apuntado este día.</div>'}
     ${prox.length?'<div style="margin-top:12px"><b>Próximamente</b></div>'+prox.map(fila).join(''):''}`;
   document.querySelectorAll('#agDia [data-ed]').forEach(b=>b.onclick=()=>{AGED=(G.eventos||[]).find(x=>x.id===b.dataset.ed)||null;agAdmin();document.getElementById('agAdm').scrollIntoView({behavior:'smooth'});});
@@ -5037,6 +5044,7 @@ function pvsDrawer(){const h=document.querySelector('#drawer .dhead');if(!h||h.q
 pvsDrawer();const _pvsCA=cfgApply;cfgApply=function(){_pvsCA();try{pvsDrawer();pvsShow(BNTAB);}catch(e){}};
 </script>
 <img id="basatina-footer-logo" src="logo.png" alt="BasatiNa" aria-hidden="true">
+<script src="servicios-ui.js"></script>
 <script src="naturaleza-catalogo.js"></script>
 <script src="fichas-arboles.js"></script>
 <script src="arbustos.js"></script>

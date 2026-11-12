@@ -67,6 +67,14 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 - **Diseño «Navarra viva» (nov. 2026)**: el inicio tiene un paisaje animado (`#pvBox`, funciones `pv*`) con el cielo según la hora y el tiempo real de Pamplona. Cada sección lleva arriba una escena animada de su tema (`#pvSec`, funciones `pvs*`). **Si añades una sección nueva, ponla en `PVS_ESC`** con una de estas escenas: cielo, agua, bosque, carretera, sismo, energia, pueblo, fiesta, topo, bokeh (si no, sale «aurora»). Para probar el tiempo a mano: `pvDemo(código, hora)`; `pvDemo()` vuelve a lo real.
 - **Ojo al editar a mano en GitHub**: el 10 nov. 2026 una edición borró sin querer la sección Escapadas (`t-monte`) al pegar la de Arbustos. Después de editar, comprueba que siguen estando todas las `<section id="t-…">`.
 
+- **Pantallas nuevas (12 nov. 2026)** en `web/servicios-ui.js` (se carga antes de `naturaleza-catalogo.js`):
+  - El tiempo: tarjeta `#tPP` con presión atmosférica (reloj, tendencia) y polen por tipos (Open‑Meteo / CAMS). Se pinta al envolver `extraRender`.
+  - 🔭 `astro`: fases de la Luna calculadas (Meeus), lluvias de estrellas, solsticios y eclipses (`AS_LL`, `AS_FIJOS`: **añadir ahí los de 2029 en adelante**). Aviso en el Inicio (`#asBanner`) del día del fenómeno y los 2 anteriores.
+  - Grupo «Servicios»: 💊 `farmacia` (farmacias de IDENA con su zona de guardia + enlace a las guardias oficiales), 🧺 `mercados` (lista editable `mercados/mercados.json`; si no existe, sale la lista de `MK_DEF`), 🚌 `bus` (paradas de villavesa con enlace a tiempo real, autobuses, taxis y empresas).
+  - Vida silvestre: 🦉 `biodiversidad` (sustituye al catálogo de `naturaleza-catalogo.js`, cuyas 13 fichas revisadas se añaden dentro), 🌱 `medic` (`ME_P`, texto fijo) y 🏞️ `enp` (espacios protegidos, monumentos naturales, zonas húmedas y Red Natura).
+  - Robots: `tools/servicios.py` (`servicios.yml`, día 3 de cada mes → `web/servicios.js`) y `tools/especies.py` (`especies.yml`, día 9 → `web/especies.js`; GBIF + Wikipedia, ~1.200 especies, guarda caché en `tools/especies_cache.json`).
+- **Agenda cultural**: buscador por localidad (`#agPue`, variable `AGPUE`), filtra también los festivos locales.
+
 ## 6. Cosas pendientes o ideas
 
 - **Asistente con IA dentro de la app**: solo con la clave protegida en un servidor, nunca en el repositorio público.
