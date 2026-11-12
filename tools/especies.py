@@ -109,7 +109,7 @@ def main():
         INFO.append("No se encontró Navarra en GADM"); open("tools/especies_info.txt", "w").write("\n".join(INFO)); return
     INFO.append("Navarra en GADM: %s" % gid)
     # 2) lista de especies por grupo (las más observadas primero)
-    lista = {}
+    lista = {}; claves = []
     for nom, tipo, taxon, rango, lim in GRUPOS:
         q = {"name": taxon, "strict": "true"}
         if rango: q["rank"] = rango
@@ -123,11 +123,25 @@ def main():
                 "facetLimit": lim, "occurrenceStatus": "PRESENT"})) or {}
         cnt = (f.get("facets") or [{}])[0].get("counts", [])
         INFO.append("%s (%s, clave %s): %d especies · %d observaciones en total" % (nom, taxon, tk, len(cnt), f.get("count", 0)))
+        claves.append(tk)
         for c in cnt:
             k = c["name"]
             if int(c["count"]) < 3 or k in lista: continue
             lista[k] = {"g": nom, "tipo": tipo, "c": int(c["count"])}
     INFO.append("Total especies: %d" % len(lista))
+    # zonas y meses: una petición por grupo y zona (o mes) con el recuento de cada especie
+    ZC = {k: {} for k in lista}; MC = {k: [0] * 12 for k in lista}
+    def faceta(extra):
+        r = get(G + "occurrence/search?" + urllib.parse.urlencode([("gadmGid", gid), ("limit", 0), ("facet", "speciesKey"), ("facetLimit", 3000)] + extra)) or {}
+        return {c["name"]: int(c["count"]) for c in ((r.get("facets") or [{}])[0].get("counts", []))}
+    trabajos = [(tk, "z", zn, [("geometry", wkt)]) for tk in claves for zn, wkt in ZONAS] + [(tk, "m", m, [("month", m + 1)]) for tk in claves for m in range(12)]
+    with cf.ThreadPoolExecutor(4) as ex:
+        for (tk, tipo, key, extra), res in zip(trabajos, ex.map(lambda t: faceta([("taxonKey", t[0])] + t[3]), trabajos)):
+            for sk, n in res.items():
+                if sk not in lista: continue
+                if tipo == "z": ZC[sk][key] = ZC[sk].get(key, 0) + n
+                else: MC[sk][key] += n
+    INFO.append("Recuentos por zona y mes: %d peticiones" % len(trabajos))
     cache.pop("_gadm", None)
 
     def ficha(k):
@@ -153,17 +167,7 @@ def main():
                     break
             cc["w"] = w
         cache[k] = cc
-        f = get(G + "occurrence/search?" + urllib.parse.urlencode([("gadmGid", gid), ("taxonKey", k), ("limit", 0), ("facet", "month"),
-                ("month.facetLimit", 12)])) or {}
-        fac = {x["field"]: x["counts"] for x in f.get("facets", [])}
-        meses = [0] * 12
-        for x in fac.get("MONTH", []):
-            try: meses[int(x["name"]) - 1] = int(x["count"])
-            except Exception: pass
-        zonas = {}
-        for zn, wkt in ZONAS:
-            r = get(G + "occurrence/search?" + urllib.parse.urlencode({"gadmGid": gid, "taxonKey": k, "limit": 0, "geometry": wkt})) or {}
-            if r.get("count"): zonas[zn] = int(r["count"])
+        meses, zonas = MC[k], ZC[k]
         return k, meses, zonas
 
     out = []; hechos = 0
