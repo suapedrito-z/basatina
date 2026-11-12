@@ -37,9 +37,10 @@
 - GEOM_PERI: 59 · [('4233.54', 1), ('661.12', 1), ('1893.77', 1), ('1047.39', 1), ('1701.57', 1), ('3356.55', 1), ('2584.07', 1), ('3262.16', 1)]
 - BEGINLIFE: 1 · [('19/05/2026', 59)]
 overpass https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
-overpass https://overpass.private.coffee/api/interpreter The read operation timed out
+overpass https://overpass.private.coffee/api/interpreter HTTP Error 504: Gateway Timeout
+overpass https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
 
-## OSM centrales: Counter({'hydro': 91, 'solar': 74, 'wind': 53, 'biomass': 3, 'gas': 3, 'biogas': 2, '?': 2})
+## OSM centrales: Counter({'hydro': 100, 'solar': 75, 'wind': 53, 'biomass': 3, 'gas': 3, 'biogas': 2, '?': 2})
  * {'src': 'hydro', 'n': 'Electra Cárcar', 'mw': '', 'op': '', 'pt': [42.4615, -2.338], 'w': ''}
  * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [43.1417, -1.6071], 'w': ''}
  * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.3583, -2.0527], 'w': ''}
@@ -47,19 +48,25 @@ overpass https://overpass.private.coffee/api/interpreter The read operation time
  * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.801, -1.3598], 'w': ''}
  * {'src': 'hydro', 'n': '', 'mw': '', 'op': '', 'pt': [43.1398, -1.8451], 'w': ''}
  * {'src': 'hydro', 'n': 'Central hidroeléctrica Lorente', 'mw': '0.7 MW', 'op': 'Saltos del Ega', 'pt': [42.6608, -2.0091], 'w': ''}
+ * {'src': 'hydro', 'n': 'Domikoko zentral hidroelektrikoa', 'mw': 'yes', 'op': '', 'pt': [43.2539, -1.7654], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica Irabia', 'mw': '1.36 MW', 'op': 'Acciona', 'pt': [42.985, -1.1583], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [43.278, -1.7736], 'w': ''}
  * {'src': 'hydro', 'n': 'Arranbideko zentrala', 'mw': '1.956 MW', 'op': 'Gestión de Centrales del Añarbe S.A.', 'pt': [43.2097, -1.8726], 'w': ''}
  * {'src': 'hydro', 'n': 'Arranbideko zentrala', 'mw': '1.125 MW', 'op': 'Iberdrola', 'pt': [43.2087, -1.875], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica Urroz-Oitz', 'mw': '1.12 MW', 'op': 'Iberdrola', 'pt': [43.1076, -1.6862], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Eléctrica Itoiz', 'mw': '28.40 MW', 'op': 'Canal De Navarra, S.A.', 'pt': [42.801, -1.3598], 'w': ''}
+ * {'src': 'hydro', 'n': 'Igantziko zentrala I', 'mw': '2.36 MW', 'op': 'Iberdrola', 'pt': [43.2303, -1.6765], 'w': ''}
+ * {'src': 'hydro', 'n': 'Igantzi Zantrala II', 'mw': 'yes', 'op': '', 'pt': [43.2283, -1.6801], 'w': ''}
  * {'src': 'hydro', 'n': 'Leurza-Urroz Zentrala', 'mw': '1.10 MW', 'op': 'Iberdrola', 'pt': [43.0831, -1.7005], 'w': ''}
  * {'src': 'hydro', 'n': 'Central de Betolegi', 'mw': '2.8 MW', 'op': 'Acciona Energía', 'pt': [42.9598, -1.2527], 'w': ''}
  * {'src': 'hydro', 'n': 'Central hidroeléctrica de Mourgues', 'mw': 'yes', 'op': '', 'pt': [43.2153, -1.6709], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidroeléctrica Sartaguda', 'mw': '4.2 MW', 'op': 'Acciona', 'pt': [42.3764, -2.0578], 'w': ''}
+ * {'src': 'hydro', 'n': 'Goiko zentrala', 'mw': '1.46 MW', 'op': 'Reysalde S.L.', 'pt': [43.229, -1.6223], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica El Ferial', 'mw': 'yes', 'op': '', 'pt': [42.2914, -1.5877], 'w': ''}
  * {'src': 'biogas', 'n': 'Cogeneración Cabanillas', 'mw': '', 'op': '', 'pt': [42.0478, -1.5321], 'w': ''}
  * {'src': 'hydro', 'n': 'Urkizu zentrala', 'mw': '', 'op': '', 'pt': [43.1103, -1.9191], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Hijos de Martínez', 'mw': 'yes', 'op': '', 'pt': [42.6685, -2.0232], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Saltos del Bidasoa', 'mw': '1.088 MW', 'op': 'Electra Navasturen S.A.', 'pt': [43.2616, -1.6848], 'w': ''}
  * {'src': 'hydro', 'n': 'Ituren II - Aurtitz', 'mw': '0.746 MW', 'op': 'Central y Coogeneración de Ituren S.A.', 'pt': [43.1329, -1.7247], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica Mugaire', 'mw': '1.32 MW', 'op': 'Marin Mugaire S.L.', 'pt': [43.132, -1.6079], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica de Mañeru', 'mw': '4.8 MW', 'op': 'Iberdrola', 'pt': [42.6392, -1.8607], 'w': ''}
@@ -87,8 +94,8 @@ overpass https://overpass.private.coffee/api/interpreter The read operation time
  * {'src': 'hydro', 'n': 'Central Hidráulica Artesiaga', 'mw': '1.15 MW', 'op': 'Iberdrola', 'pt': [43.1105, -1.5324], 'w': ''}
  * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.8948, -1.3012], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica Irurtzun', 'mw': '0.98 MW', 'op': 'Hidroelectrica Dos Hermanas', 'pt': [42.9249, -1.8309], 'w': ''}
- * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Olaldea', 'mw': '3.29 MW', 'op': 'Acciona', 'pt': [42.917, -1.2921], 'w': ''}
- * {'src': 'hydro', 'n': 'Central Hidráulica de Olaldea II', 'mw': '0.72 MW', 'op': 'Acciona', 'pt': [42.9161, -1.2909], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Olaldea', 'mw': '3.29 MW', 'op': 'Hidráulicas de la Cuenca del Norte', 'pt': [42.917, -1.2921], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central Hidroeléctrica Olaldea 2', 'mw': '0,75 MW', 'op': 'Hidráulicas de la Cuenca del Norte', 'pt': [42.9166, -1.2894], 'w': ''}
  * {'src': 'hydro', 'n': 'Barazpea', 'mw': 'small_installation', 'op': '', 'pt': [42.8025, -1.7784], 'w': ''}
  * {'src': 'hydro', 'n': 'Urdaizko Zentral Hidroelektrikoa', 'mw': 'small_installation', 'op': '', 'pt': [42.9089, -1.5324], 'w': ''}
  * {'src': 'hydro', 'n': 'Ubaun', 'mw': '', 'op': '', 'pt': [43.1017, -1.6212], 'w': ''}
@@ -99,6 +106,7 @@ overpass https://overpass.private.coffee/api/interpreter The read operation time
  * {'src': 'hydro', 'n': 'Central hidroeléctrica Cabués', 'mw': '2.24 MW', 'op': 'Sodena', 'pt': [42.4683, -1.8122], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidroeléctrica de Garde', 'mw': 'yes', 'op': '', 'pt': [42.7985, -0.9597], 'w': ''}
  * {'src': 'hydro', 'n': 'Zentrala', 'mw': 'yes', 'op': '', 'pt': [42.8493, -1.5847], 'w': ''}
+ * {'src': 'hydro', 'n': 'Central hidroeléctrica de Las Nazas', 'mw': '1.08 MW', 'op': 'Electra Irún Endara S.A.', 'pt': [43.2888, -1.7119], 'w': ''}
  * {'src': 'hydro', 'n': 'Granada Zentrala', 'mw': '1.16 MW', 'op': 'Andueza Generación Eléctrica S.L.', 'pt': [43.088, -1.3013], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica de Viana II', 'mw': '4.79 MW', 'op': 'Acciona', 'pt': [42.4629, -2.3378], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica de Viana I Recajo', 'mw': '3.42 MW', 'op': '', 'pt': [42.4613, -2.3381], 'w': ''}
@@ -140,6 +148,8 @@ overpass https://overpass.private.coffee/api/interpreter The read operation time
  * {'src': 'hydro', 'n': 'Central hidroeléctrica Morentín', 'mw': '0.6 MW', 'op': 'Ayuntamiento de Oteiza', 'pt': [42.5937, -1.9855], 'w': ''}
  * {'src': 'hydro', 'n': 'Central hidroeléctrica San Miguel', 'mw': '0.59 MW', 'op': '', 'pt': [42.5779, -1.8426], 'w': ''}
  * {'src': 'hydro', 'n': 'Central Hidráulica de Oronzo-Mugairi', 'mw': 'yes', 'op': '', 'pt': [43.1417, -1.607], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': '', 'pt': [42.6822, -2.0498], 'w': ''}
+ * {'src': 'hydro', 'n': '', 'mw': 'yes', 'op': 'Electra Irun-Endara', 'pt': [42.7771, -2.1299], 'w': ''}
  * {'src': 'hydro', 'n': 'Central hidroeléctrica de Andión', 'mw': '0.9 MW', 'op': 'Sociedad Corralizas y Electra', 'pt': [42.5987, -1.8542], 'w': ''}
 
 ## REE meses 92 ['2019-01'] ['2026-08'] ['Hidráulica', 'Ciclo combinado', 'Eólica', 'Solar fotovoltaica', 'Otras renovables', 'Cogeneración', 'Generación total']
