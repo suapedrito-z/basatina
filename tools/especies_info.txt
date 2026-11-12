@@ -4,7 +4,15 @@ Mamíferos (Mammalia, clave 359): 80 especies · 109937 observaciones en total
 Reptiles (Squamata, clave 11592253): 30 especies · 4437 observaciones en total
 Reptiles (Testudines, clave 11418114): 6 especies · 120 observaciones en total
 Anfibios (Amphibia, clave 131): 22 especies · 3599 observaciones en total
-Peces (Actinopterygii, clave 204): 0 especies · 0 observaciones en total
+Peces (Cypriniformes, clave 1153): 20 especies · 114207 observaciones en total
+Peces (Salmoniformes, clave 1313): 3 especies · 15362 observaciones en total
+Peces (Perciformes, clave 587): 8 especies · 84 observaciones en total
+Centrarchiformes: no encontrado en GBIF
+Peces (Esociformes, clave 548): 1 especies · 13 observaciones en total
+Peces (Siluriformes, clave 708): 2 especies · 209 observaciones en total
+Peces (Anguilliformes, clave 495): 1 especies · 308 observaciones en total
+Peces (Cyprinodontiformes, clave 547): 0 especies · 0 observaciones en total
+Gobiiformes: no encontrado en GBIF
 Mariposas y polillas (Lepidoptera, clave 797): 130 especies · 64760 observaciones en total
 Libélulas (Odonata, clave 789): 55 especies · 7517 observaciones en total
 Escarabajos (Coleoptera, clave 1470): 50 especies · 20121 observaciones en total
@@ -13,6 +21,6 @@ Plantas con flor (Liliopsida, clave 196): 130 especies · 105490 observaciones e
 Coníferas (Pinopsida, clave 194): 15 especies · 6519 observaciones en total
 Helechos (Polypodiopsida, clave 7228684): 40 especies · 15201 observaciones en total
 Setas (Agaricomycetes, clave 186): 130 especies · 53457 observaciones en total
-Total especies: 1326
-Recuentos por zona y mes: 266 peticiones · fallidas: 0 []
-Fichas: 1326 (con texto de Wikipedia: 1110) · revisadas a mano: 13 (0 nuevas)
+Total especies: 1356
+Recuentos por zona y mes: 380 peticiones · fallidas: 0 []
+Fichas: 1356 (con texto de Wikipedia: 1140) · revisadas a mano: 13 (0 nuevas)
