@@ -1,6 +1,19 @@
 {
  "eventos": [
   {
+   "id": "paexposicionmiradasdepamplonaenlacoleccion20251128",
+   "t": "Miradas de Pamplona en la colección de arte municipal",
+   "cat": "expo",
+   "f": "2025-11-28",
+   "ff": "2027-01-31",
+   "h": "",
+   "lugar": "Civivox Pompelo",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/exposicion-miradas-de-pamplona-en-la-coleccion-de-arte-municipal-civivox-pompelo",
+   "desc": "Exposición",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
    "id": "paexposicioncoleccioncigacivivoxpompelo20260214",
    "t": "Colección Ciga",
    "cat": "expo",
@@ -27,6 +40,19 @@
    "src": "Cultura Navarra"
   },
   {
+   "id": "paexposicionmuseodememoriasinconstantes20260902",
+   "t": "Museo de memorias inconstantes",
+   "cat": "expo",
+   "f": "2026-09-02",
+   "ff": "2027-01-24",
+   "h": "",
+   "lugar": "Museo Universidad de Navarra (MUN)",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/exposicion-museo-de-memorias-inconstantes",
+   "desc": "Exposición",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
    "id": "paexposicionalbadelaportillalaciudadela20260911",
    "t": "Alba de la Portilla",
    "cat": "expo",
@@ -36,6 +62,19 @@
    "lugar": "Sala del Pabellón de Mixtos de la Ciudadela - Sala de Exposiciones Municipal",
    "pueblo": "Pamplona",
    "url": "https://www.pamplona.es/actualidad/eventos/exposicion-alba-de-la-portilla-la-ciudadela",
+   "desc": "Exposición",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "paexposicionradixlarealidaddeunautopiamuse20260911",
+   "t": "Radix: la realidad de una utopía",
+   "cat": "expo",
+   "f": "2026-09-11",
+   "ff": "2027-01-31",
+   "h": "",
+   "lugar": "Museo de Navarra",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/exposicion-radix-la-realidad-de-una-utopia-museo-de-navarra",
    "desc": "Exposición",
    "src": "Ayuntamiento de Pamplona"
   },
@@ -50,6 +89,19 @@
    "pueblo": "Pamplona",
    "url": "https://www.pamplona.es/actualidad/eventos/confluencias-2026-miradas-hacia-otras-disciplinas",
    "desc": "",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "paexposicionteosabando19542011museodenavar20260925",
+   "t": "Teo Sabando (1954-2011)",
+   "cat": "expo",
+   "f": "2026-09-25",
+   "ff": "2027-02-21",
+   "h": "",
+   "lugar": "Museo de Navarra",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/exposicion-teo-sabando-1954-2011-museo-de-navarra",
+   "desc": "Exposición",
    "src": "Ayuntamiento de Pamplona"
   },
   {
@@ -76,6 +128,19 @@
    "pueblo": "Pamplona",
    "url": "https://www.pamplona.es/actualidad/eventos/encuentros-de-pamplona-exposicion-web-la-ciudadela",
    "desc": "Encuentros de Pamplona",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "pasolicituddevisitaguiadalacomparsadegigan20261001",
+   "t": "Solicitud de visita guiada a la Comparsa de Gigantes y Cabezudos de Pamplona",
+   "cat": "otros",
+   "f": "2026-10-01",
+   "ff": "2027-01-29",
+   "h": "",
+   "lugar": "Estación de autobuses",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/solicitud-de-visita-guiada-la-comparsa-de-gigantes-y-cabezudos-de-pamplona",
+   "desc": "",
    "src": "Ayuntamiento de Pamplona"
   },
   {
@@ -155,6 +220,19 @@
    "url": "https://www.culturanavarra.es/es/agenda/2026-10-31/exposiciones/territorios-pastoreados-1",
    "desc": "EXPOSICIÓN",
    "src": "Cultura Navarra"
+  },
+  {
+   "id": "paexposicionanalycastrobibliotecadeyamaguc20261101",
+   "t": "AnaLy Castro",
+   "cat": "expo",
+   "f": "2026-11-01",
+   "ff": "2026-12-31",
+   "h": "",
+   "lugar": "Biblioteca Pública de Yamaguchi",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/exposicion-analy-castro-biblioteca-de-yamaguchi",
+   "desc": "Exposición",
+   "src": "Ayuntamiento de Pamplona"
   },
   {
    "id": "paexposicionmelodiabaterakoakordeabibliote20261102",
@@ -391,71 +469,6 @@
    "src": "Cultura Navarra"
   },
   {
-   "id": "paclubdelecturalibroalbumbibliotecayamaguc20261110",
-   "t": "Biblioteca Yamaguchi",
-   "cat": "charla",
-   "f": "2026-11-10",
-   "ff": "",
-   "h": "15:30",
-   "lugar": "Biblioteca Pública de Yamaguchi",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/club-de-lectura-libro-album-biblioteca-yamaguchi",
-   "desc": "Club de lectura libro-álbum",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "patallerhaikubibliotecadeyamaguchi120261110",
-   "t": "Haiku",
-   "cat": "otros",
-   "f": "2026-11-10",
-   "ff": "",
-   "h": "18:00",
-   "lugar": "Biblioteca Pública de Yamaguchi",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/taller-haiku-biblioteca-de-yamaguchi-1",
-   "desc": "Taller",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "paconferenciacomosehaceunlibrobibliotecasa20261110",
-   "t": "¿Cómo se hace un libro?",
-   "cat": "charla",
-   "f": "2026-11-10",
-   "ff": "",
-   "h": "18:30",
-   "lugar": "Biblioteca Pública de San Francisco",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/conferencia-como-se-hace-un-libro-biblioteca-san-francisco",
-   "desc": "Conferencia",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "paiimuestradecineirlandesciclodeconferenci20261110",
-   "t": "Ciclo de conferencias Navarra y la fachada atlántica",
-   "cat": "cine",
-   "f": "2026-11-10",
-   "ff": "",
-   "h": "19:30",
-   "lugar": "Centro Cultural y de Ocio de Fundación Caja Navarra - Civican",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/ii-muestra-de-cine-irlandes-ciclo-de-conferencias-navarra-y-la-fachada-0",
-   "desc": "II Muestra de cine Irlandés",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "pateatroteoriakingkongteatrogayarre20261110",
-   "t": "Teoría king kong",
-   "cat": "teatro",
-   "f": "2026-11-10",
-   "ff": "",
-   "h": "20:00",
-   "lugar": "Teatro Gayarre",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/teatro-teoria-king-kong-teatro-gayarre",
-   "desc": "Teatro",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
    "id": "paexposicionrochapeaaquellostiemposestashi20261110",
    "t": "Rochapea: aquellos tiempos, estas historias",
    "cat": "expo",
@@ -466,32 +479,6 @@
    "pueblo": "Pamplona",
    "url": "https://www.pamplona.es/actualidad/eventos/exposicion-rochapea-aquellos-tiempos-estas-historias-biblioteca-san-pedro",
    "desc": "Exposición",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "paciclolaciudadenelcineclasicoiicinelosolv20261111",
-   "t": "Cine - Los olvidados",
-   "cat": "cine",
-   "f": "2026-11-11",
-   "ff": "",
-   "h": "19:00",
-   "lugar": "Filmoteca de Navarra",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/ciclo-la-ciudad-en-el-cine-clasico-ii-cine-los-olvidados-filmoteca-de-navarra",
-   "desc": "Ciclo La ciudad en el cine clásico II",
-   "src": "Ayuntamiento de Pamplona"
-  },
-  {
-   "id": "paciclodeconciertoseuskadikoorkestrabaluar20261111",
-   "t": "Euskadiko Orkestra - Baluarte",
-   "cat": "concierto",
-   "f": "2026-11-11",
-   "ff": "",
-   "h": "19:30",
-   "lugar": "Baluarte - Palacio de Congresos y Auditorio de Navarra",
-   "pueblo": "Pamplona",
-   "url": "https://www.pamplona.es/actualidad/eventos/ciclo-de-conciertos-euskadiko-orkestra-baluarte-111126",
-   "desc": "Ciclo de conciertos",
    "src": "Ayuntamiento de Pamplona"
   },
   {
@@ -859,6 +846,19 @@
    "src": "Ayuntamiento de Pamplona"
   },
   {
+   "id": "paexposicionempoderandopersonassanandoment20261116",
+   "t": "Empoderando personas, sanando mentes",
+   "cat": "expo",
+   "f": "2026-11-16",
+   "ff": "2026-12-12",
+   "h": "",
+   "lugar": "Civivox Milagrosa",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/exposicion-empoderando-personas-sanando-mentes-civivox-milagrosa",
+   "desc": "Exposición",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
    "id": "panavarrefa20212027eventofinalbaluarte20261116",
    "t": "Evento final",
    "cat": "otros",
@@ -947,6 +947,19 @@
    "pueblo": "Pamplona",
    "url": "https://www.pamplona.es/actualidad/eventos/conferencia-como-se-hace-un-libro-biblioteca-txantrea",
    "desc": "Conferencia",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "papresentaciondelibrotecnicasconstructivas20261117",
+   "t": "Técnicas constructivas tradicionales. Miradas desde Navarra",
+   "cat": "charla",
+   "f": "2026-11-17",
+   "ff": "",
+   "h": "19:30",
+   "lugar": "Colegio Oficial de Arquitectos Vasco-Navarro: Delegación de Navarra (COAVN Navarra)",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/presentacion-de-libro-tecnicas-constructivas-tradicionales-miradas-desde-navarra",
+   "desc": "Presentación de libro",
    "src": "Ayuntamiento de Pamplona"
   },
   {
@@ -1962,7 +1975,59 @@
    "url": "https://www.pamplona.es/actualidad/eventos/festival-santas-pascuas-2026-concierto-kiliki-ezezez",
    "desc": "Festival Santas Pascuas 2026",
    "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "paconciertochuchinibanezconelultimotragono20261226",
+   "t": "Chuchín Ibañez \"Con el último trago... nos vamos\"",
+   "cat": "concierto",
+   "f": "2026-12-26",
+   "ff": "",
+   "h": "17:00",
+   "lugar": "Teatro Gayarre",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/concierto-chuchin-ibanez-con-el-ultimo-trago-nos-vamos-teatro-gayarre",
+   "desc": "Concierto",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "paconciertoluzcasalbaluarte20261226",
+   "t": "Luz Casal",
+   "cat": "concierto",
+   "f": "2026-12-26",
+   "ff": "",
+   "h": "20:00",
+   "lugar": "Baluarte - Palacio de Congresos y Auditorio de Navarra",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/concierto-luz-casal-baluarte",
+   "desc": "Concierto",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "panavidad2026espectaculofamiliarmonpetitci20261227",
+   "t": "Espectáculo familiar - Mon petit cirque",
+   "cat": "teatro",
+   "f": "2026-12-27",
+   "ff": "",
+   "h": "17:00",
+   "lugar": "Teatro Gayarre",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/navidad-2026-espectaculo-familiar-mon-petit-cirque-teatro-gayarre",
+   "desc": "Navidad 2026",
+   "src": "Ayuntamiento de Pamplona"
+  },
+  {
+   "id": "pafestivalsantaspascuas2026conciertosaldel20261227",
+   "t": "Concierto",
+   "cat": "concierto",
+   "f": "2026-12-27",
+   "ff": "",
+   "h": "19:30",
+   "lugar": "Sal del coche + Akauzazte",
+   "pueblo": "Pamplona",
+   "url": "https://www.pamplona.es/actualidad/eventos/festival-santaspascuas-2026-concierto-sal-del-coche-akauzazte",
+   "desc": "Festival SantasPascuas 2026",
+   "src": "Ayuntamiento de Pamplona"
   }
  ],
- "act": "2026-11-11 06:23"
+ "act": "2026-11-12 06:27"
 }
