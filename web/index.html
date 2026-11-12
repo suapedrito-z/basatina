@@ -276,6 +276,68 @@ body.bna .st[data-al="#2e7d32"]{border-left-color:#5E8F4E}body.bna .st[data-al="
 /* Logotipo discreto y centrado en todas las secciones de la app */
 body{padding-bottom:58px}
 #basatina-footer-logo{position:fixed;left:50%;bottom:calc(8px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);width:38px;height:38px;object-fit:contain;z-index:20;pointer-events:none;opacity:.92}
+
+/* ===== «Navarra viva» (nov. 2026): paisaje vivo en el inicio + acabado moderno ===== */
+#pvBox{display:none}
+body.bna #pvBox{display:block;position:relative;height:270px;border-radius:28px;overflow:hidden;margin:2px 0 14px;cursor:pointer;color:#fff;isolation:isolate;
+  box-shadow:0 18px 40px -12px rgba(13,60,90,.45),0 2px 6px rgba(0,0,0,.08);transform:translateZ(0)}
+#pvBox .pvSky{position:absolute;inset:0;transition:background 1.5s}
+#pvBox .pvSun{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;transition:all 1.5s;z-index:1}
+#pvBox .pvSun.sol{width:150px;height:150px;margin:-75px 0 0 -75px;background:radial-gradient(circle,#fffdf2 0 13%,#fff0b8 17%,rgba(255,226,150,.55) 24%,rgba(255,214,130,.22) 42%,rgba(255,210,130,0) 70%)}
+#pvBox .pvSun.luna{width:34px;height:34px;margin:-17px 0 0 -17px;background:radial-gradient(circle at 38% 38%,#fbfaf4,#dcdccf 60%,#c3c3b6);box-shadow:0 0 40px 12px rgba(220,230,255,.22)}
+#pvBox .pvSun.luna:after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;left:9px;top:15px;background:rgba(150,150,140,.35);box-shadow:9px -6px 0 -2px rgba(150,150,140,.3),4px 7px 0 -3px rgba(150,150,140,.3)}
+#pvBox .pvClouds{position:absolute;inset:0;z-index:2;pointer-events:none}
+#pvBox .pvClouds i{position:absolute;display:block;border-radius:50%;filter:blur(7px);opacity:.9;animation:pvNube linear infinite;will-change:transform}
+@keyframes pvNube{from{transform:translateX(-45vw)}to{transform:translateX(140vw)}}
+#pvBox svg.pvMts{position:absolute;left:0;right:0;bottom:0;width:100%;height:150px;z-index:3;display:block}
+#pvBox svg.pvMts path{transition:fill 1.5s}
+#pvBox .pvMist{position:absolute;left:0;right:0;bottom:30px;height:90px;z-index:3;pointer-events:none;transition:opacity 1.5s}
+#pvBox canvas.pvFx{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;background:none;border-radius:0}
+#pvBox .pvFlash{position:absolute;inset:0;z-index:5;background:#eef4ff;opacity:0;pointer-events:none}
+#pvBox .pvTxt{position:absolute;inset:0;z-index:6;padding:16px 18px;display:flex;flex-direction:column;text-shadow:0 1px 12px rgba(0,0,0,.28)}
+#pvBox .pvLoc{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;letter-spacing:.02em;opacity:.95}
+#pvBox .pvLoc i{width:7px;height:7px;border-radius:50%;background:#7CFC9A;box-shadow:0 0 0 0 rgba(124,252,154,.7);animation:pvVivo 2s infinite}
+@keyframes pvVivo{70%{box-shadow:0 0 0 8px rgba(124,252,154,0)}100%{box-shadow:0 0 0 0 rgba(124,252,154,0)}}
+#pvBox .pvT{font-family:'Montserrat',sans-serif;font-weight:800;font-size:76px;line-height:.95;letter-spacing:-.04em;margin-top:6px}
+#pvBox .pvT sup{font-size:.45em;vertical-align:.95em;margin-left:2px;font-weight:700}
+#pvBox .pvD{font-size:17px;font-weight:700;margin-top:2px}
+#pvBox .pvM{font-size:13.5px;opacity:.92;margin-top:2px}
+#pvBox .pvChips{position:absolute;right:14px;top:14px;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+#pvBox .pvChips span{font-size:12px;font-weight:700;padding:5px 10px;border-radius:20px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);text-shadow:none;white-space:nowrap}
+#pvBox .pvGo{position:absolute;left:18px;bottom:14px;font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:20px;background:rgba(0,0,0,.22);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);text-shadow:none}
+@media (prefers-reduced-motion:reduce){#pvBox .pvClouds i,#pvBox .pvLoc i{animation:none}}
+
+/* acabado moderno: cristal esmerilado, iconos con color, tarjetas finas */
+body.bna{background:radial-gradient(120% 60% at 50% 0%,#e6f0ea 0%,#F3F6F1 55%) fixed,#F3F6F1}
+body.bna header{position:sticky;top:0;z-index:44;background:rgba(255,255,255,.72)!important;-webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px);
+  box-shadow:0 1px 0 rgba(0,0,0,.05),0 8px 24px -14px rgba(29,45,35,.25)}
+body.bna .topbar{background:transparent!important}
+body.bna .topbar:after{height:2px;opacity:.9}
+body.bna .bt{position:relative;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -2px 6px rgba(0,0,0,.12),0 4px 10px -3px var(--sh,rgba(0,0,0,.25))}
+body.bna .bt.g{background:linear-gradient(150deg,#79b866 0%,#3D7031 100%);--sh:rgba(61,112,49,.5)}
+body.bna .bt.b{background:linear-gradient(150deg,#3fb5e3 0%,#0a5f86 100%);--sh:rgba(9,123,164,.5)}
+body.bna .bt.r{background:linear-gradient(150deg,#ff8a5c 0%,#d03a1a 100%);--sh:rgba(221,72,38,.5)}
+body.bna .bt svg{filter:drop-shadow(0 1px 1px rgba(0,0,0,.18))}
+body.bna .card,body.bna .bnaNow>div,body.bna .dpm,body.bna #cauSem>div{border:1px solid rgba(29,45,35,.06);box-shadow:0 1px 2px rgba(29,45,35,.05),0 10px 28px -12px rgba(29,45,35,.18)}
+body.bna .card{border-radius:22px}
+body.bna .bnaQ{gap:10px}
+body.bna .bnaQ button{border:none;border-radius:20px;padding:12px 2px 10px;box-shadow:0 1px 2px rgba(29,45,35,.05),0 10px 24px -12px rgba(29,45,35,.22);transition:transform .15s}
+body.bna .bnaQ button:active{transform:scale(.94)}
+body.bna .bnaH{font-size:18px;letter-spacing:-.02em}
+body.bna #mtBox{background:#fff;border:1px solid rgba(29,45,35,.06);padding:8px;border-radius:26px;box-shadow:0 1px 2px rgba(29,45,35,.05),0 14px 32px -14px rgba(13,60,90,.3)}
+body.bna #mtBox:after{display:none}
+body.bna #mtBox #mtWrap,body.bna #mtBox #mtc{border-radius:20px}
+body.bna #mtBox #mtInfo{color:var(--mut);opacity:1}
+body.bna .mtb{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:rgba(15,24,34,.55)!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:20px!important;color:#fff}
+body.bna .mtb.on{background:#fff!important;color:#1D1D1D!important;border-color:#fff!important}
+body.bna #bnaNav{left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));border-radius:26px;border:1px solid rgba(255,255,255,.6);padding:6px 4px;
+  background:rgba(255,255,255,.78);-webkit-backdrop-filter:saturate(1.8) blur(20px);backdrop-filter:saturate(1.8) blur(20px);box-shadow:0 12px 30px -8px rgba(29,45,35,.3)}
+body.bna #bnaNav button.on svg{background:linear-gradient(150deg,#79b866,#3D7031);color:#fff;box-shadow:0 4px 10px -3px rgba(61,112,49,.6)}
+body.bna section.on{animation:pvEntra .35s ease-out}
+@keyframes pvEntra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+body.bna .btn.on,body.bna .seg button.on{box-shadow:0 4px 12px -4px rgba(61,112,49,.6)}
 </style>
 </head>
 <body>
@@ -4672,6 +4734,100 @@ setInterval(()=>{if(isBna()&&BNTAB==='mtiempo')bnHome();},60e3);setTimeout(bnHom
   if(p&&p.tagName==='DIV'&&p.style.position==='relative'&&!p.classList.contains('card'))p.classList.add('mapm');else c.classList.add('mapm');
   try{typeof resizeAll==='function'&&resizeAll();}catch(e){}});}
  mm();try{new MutationObserver(mm).observe(document.body,{childList:true,subtree:true});}catch(e){}})();
+
+/* ---------- 🌄 NAVARRA VIVA: paisaje vivo en el inicio ----------
+   El cielo, el sol/la luna, las nubes, la lluvia/nieve/rayos y los pájaros salen del tiempo REAL de Pamplona (Open‑Meteo)
+   y de la hora real (amanecer y anochecer de hoy). Las sierras son siluetas dibujadas por código (en invierno, con nieve).
+   Para probar a mano: pvDemo(código_del_tiempo, hora)  ej. pvDemo(95,22) = tormenta de noche. pvDemo() vuelve a lo real. */
+let PVD=null,PVF=null,PVraf=0,PVfx=null;
+const PVLOW=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function pvKind(c){if(c==null)return'claro';if(c>=95)return'tormenta';if((c>=71&&c<=77)||c===85||c===86)return'nieve';if(c>=51)return'lluvia';if(c===45||c===48)return'niebla';if(c===3)return'cubierto';if(c===2)return'nubes';return'claro';}
+function pvPhase(d,sr,ss){const m=d.getTime(),H=45*60e3;if(m<sr-H||m>ss+H)return'noche';if(m<sr+H)return'alba';if(m>ss-H)return'ocaso';return'dia';}
+function pvMix(a,b,t){const p=x=>[1,3,5].map(i=>parseInt(x.slice(i,i+2),16));const A=p(a),B=p(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('');}
+const PVSKY={dia:['#2a78cf','#64abe8','#cfe7f6'],alba:['#34497f','#d88d7c','#f7cf9f'],ocaso:['#283a6e','#c25d79','#f6a65a'],noche:['#04070e','#0c1830','#1f3358']};
+const PVMT={dia:['#9dbbd0','#5f8f5a','#2c5529'],alba:['#a796b4','#66657a','#2f3446'],ocaso:['#b98a8c','#6e4a60','#2f2236'],noche:['#283752','#18253a','#0b131f']};
+const PVGRIS={cubierto:.55,lluvia:.7,tormenta:.85,niebla:.75,nieve:.6,nubes:.15,claro:0};
+function pvRidge(seed,base,amp,jag,trees,snow){let s=seed;const r=()=>(s=(s*16807)%2147483647)/2147483647,ph=[r()*6,r()*6,r()*6],P=[];
+  for(let i=0;i<=100;i++){const x=i*4;P.push([x,base-amp*(.55*Math.sin(x/68+ph[0])+.3*Math.sin(x/29+ph[1])+.15*Math.sin(x/11+ph[2]))-(jag?(r()-.3)*jag:0)]);}
+  let d='M0,150 '+P.map(p=>`L${p[0]},${p[1].toFixed(1)}`).join(' ')+' L400,150Z';
+  if(trees){for(let x=2;x<400;x+=5+r()*7){const y=P[Math.min(100,Math.round(x/4))][1],h=8+r()*9,w=2.4+r()*1.6;d+=` M${(x-w).toFixed(1)},${(y+3).toFixed(1)} L${x.toFixed(1)},${(y-h).toFixed(1)} L${(x+w).toFixed(1)},${(y+3).toFixed(1)}Z`;}}
+  if(snow){let a=P.map(p=>`${p[0]},${p[1].toFixed(1)}`),b=P.slice().reverse().map(p=>`${p[0]},${(p[1]+Math.max(0,(snow-p[1]))*(.55+r()*.35)).toFixed(1)}`);return['M'+a.join(' L')+' L'+b.join(' L')+'Z',d];}
+  return d;}
+function pvBuild(){const S=document.getElementById('t-mtiempo');if(!S||document.getElementById('pvBox'))return;
+  const far=pvRidge(7,80,26,10),cum=pvRidge(7,80,26,10,false,74)[0],mid=pvRidge(31,104,12,2),near=pvRidge(97,128,6,0,true);
+  S.insertAdjacentHTML('afterbegin',`<div id="pvBox" role="button" aria-label="El tiempo ahora en Pamplona. Toca para ver la previsión">
+   <div class="pvSky"></div><div class="pvSun"></div><div class="pvClouds"></div>
+   <svg class="pvMts" viewBox="0 0 400 150" preserveAspectRatio="none" aria-hidden="true">
+    <path id="pvM1" d="${far}"/><path id="pvNv" d="${cum}" fill="#fff" opacity="0"/><path id="pvM2" d="${mid}"/><path id="pvM3" d="${near}"/></svg>
+   <div class="pvMist"></div><canvas class="pvFx"></canvas><div class="pvFlash"></div>
+   <div class="pvTxt"><div class="pvLoc"><i></i><span>Pamplona · ahora</span></div><div class="pvT">--</div><div class="pvD"></div><div class="pvM"></div>
+    <div class="pvChips"></div><div class="pvGo">Ver previsión ›</div></div></div>`);
+  document.getElementById('pvBox').onclick=()=>showTab('tiempo');}
+async function pvLoad(){const j=await getJSON(`${OM}?latitude=42.82&longitude=-1.64&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,relative_humidity_2m,cloud_cover&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&forecast_days=1${TZ}`);
+  if(!j||!j.current){setTimeout(()=>{if(!PVD)pvLoad();},30e3);return;}const c=j.current,dl=j.daily||{};
+  PVD={t:c.temperature_2m,st:c.apparent_temperature,c:c.weather_code,w:c.wind_speed_10m,wd:c.wind_direction_10m,h:c.relative_humidity_2m,cc:c.cloud_cover,
+    tx:dl.temperature_2m_max&&dl.temperature_2m_max[0],tn:dl.temperature_2m_min&&dl.temperature_2m_min[0],
+    sr:dl.sunrise?new Date(dl.sunrise[0]).getTime():null,ss:dl.sunset?new Date(dl.sunset[0]).getTime():null};
+  pvPaint();}
+function pvDemo(code,hora){if(code==null){PVF=null;}else{PVF={c:code,h:hora==null?new Date().getHours():hora};}pvPaint();}
+function pvPaint(){const B=document.getElementById('pvBox');if(!B)return;const D=PVD||{t:null,c:1,w:5,cc:20};
+  let now=new Date();if(PVF){now=new Date();now.setHours(PVF.h,PVF.h%1?30:0,0,0);}
+  const base=new Date(now);base.setHours(0,0,0,0);
+  const sr=D.sr&&!PVF?D.sr:base.getTime()+8.2*3600e3,ss=D.ss&&!PVF?D.ss:base.getTime()+17.8*3600e3;
+  const code=PVF?PVF.c:D.c,k=pvKind(code),ph=pvPhase(now,sr,ss),g=PVGRIS[k]||0;
+  const grey=ph==='noche'?['#151a22','#222a35','#333c48']:k==='niebla'?['#b8c1c7','#d3d9dc','#eceff0']:k==='nieve'?['#9eafbd','#c8d3db','#eef2f5']:['#56636f','#7a8792','#aab4bb'];
+  const sky=PVSKY[ph].map((c,i)=>pvMix(c,grey[i],g)),mt=PVMT[ph].map((c,i)=>pvMix(c,ph==='noche'?'#141a22':'#6f7a80',g*.6));
+  if(k==='niebla')mt[0]=pvMix(mt[0],'#dfe4e7',.75);
+  B.querySelector('.pvSky').style.background=`linear-gradient(180deg,${sky[0]} 0%,${sky[1]} 55%,${sky[2]} 100%)`;
+  ['pvM1','pvM2','pvM3'].forEach((id,i)=>document.getElementById(id).setAttribute('fill',mt[i]));
+  const mes=now.getMonth();document.getElementById('pvNv').setAttribute('opacity',(mes>=10||mes<=3)?(ph==='noche'?.18:.75):0);
+  // sol o luna
+  const sun=B.querySelector('.pvSun'),dia=now>=sr&&now<=ss;
+  if(dia){const p=(now-sr)/(ss-sr);sun.className='pvSun sol';sun.style.left=(48+p*42)+'%';sun.style.top=(62-Math.sin(Math.PI*p)*40)+'%';}
+  else{let p=((now-ss+864e5)%864e5)/(864e5-(ss-sr));p=Math.min(1,Math.max(0,p));sun.className='pvSun luna';sun.style.left=(50+p*38)+'%';sun.style.top=(52-Math.sin(Math.PI*p)*30)+'%';}
+  sun.style.opacity=g>=.7?0:g>=.5?.35:1;
+  // nubes
+  const nN={claro:1,nubes:4,cubierto:7,lluvia:7,tormenta:8,niebla:3,nieve:6}[k],dark=k==='tormenta'?.45:k==='lluvia'?.62:ph==='noche'?.35:k==='cubierto'?.88:1;
+  const col=ph==='ocaso'||ph==='alba'?'255,214,200':'255,255,255',CL=B.querySelector('.pvClouds');let h='';let s=11;const r=()=>(s=(s*16807)%2147483647)/2147483647;
+  for(let i=0;i<nN;i++){const w=110+r()*150,ht=w*(.32+r()*.12),dur=(70+r()*80)/(1+(D.w||0)/40),c2=`rgba(${col.split(',').map(v=>Math.round(v*dark)).join(',')},${.75+r()*.2})`;
+    h+=`<i style="width:${w}px;height:${ht}px;top:${(4+r()*38).toFixed(0)}%;left:0;background:radial-gradient(ellipse at 50% 60%,${c2} 0 40%,rgba(255,255,255,0) 70%);animation-duration:${dur.toFixed(0)}s;animation-delay:-${(r()*dur).toFixed(0)}s"></i>`;}
+  CL.innerHTML=h;
+  B.querySelector('.pvMist').style.cssText+=`;opacity:${k==='niebla'?1:ph==='alba'?.55:.25};background:linear-gradient(180deg,rgba(255,255,255,0),${ph==='noche'?'rgba(60,80,110,.35)':'rgba(255,255,255,.55)'} 60%,rgba(255,255,255,0))`;
+  // textos
+  const T=D.t;B.querySelector('.pvT').innerHTML=T!=null?`${Math.round(T)}<sup>°</sup>`:'<span style="font-size:.5em;opacity:.7">…</span>';
+  B.querySelector('.pvD').textContent=wDesc(code)+(PVF?' (prueba)':'');
+  B.querySelector('.pvM').textContent=D.tx!=null&&!PVF?`Máx ${Math.round(D.tx)}° · Mín ${Math.round(D.tn)}°`+(D.st!=null&&Math.abs(D.st-D.t)>=2?` · Sensación ${Math.round(D.st)}°`:''):'';
+  const hm=x=>new Date(x).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  B.querySelector('.pvChips').innerHTML=PVF?'':[D.sr?(dia?`🌇 ${hm(ss)}`:`🌅 ${hm(sr+(now>ss?864e5:0))}`):'',D.w!=null?`💨 ${Math.round(D.w)} km/h`:'',D.h!=null?`💧 ${Math.round(D.h)} %`:''].filter(Boolean).map(x=>`<span>${x}</span>`).join('');
+  B.style.color=k==='niebla'&&ph!=='noche'?'#1D2B33':'#fff';
+  PVfx={k,ph,wind:D.w||0,dia};pvFxInit();}
+// partículas: lluvia, nieve, estrellas, pájaros y rayos
+let PVP=null;
+function pvFxInit(){const B=document.getElementById('pvBox');if(!B||!PVfx)return;const cv=B.querySelector('.pvFx'),dpr=Math.min(2,window.devicePixelRatio||1);
+  const W=B.clientWidth,H=B.clientHeight;if(!W)return;cv.width=W*dpr;cv.height=H*dpr;const x=cv.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);
+  const {k,ph}=PVfx,R=Math.random,P={x,W,H,gotas:[],copos:[],est:[],aves:[],flash:0};
+  if(k==='lluvia'||k==='tormenta')for(let i=0;i<(k==='tormenta'?170:120);i++)P.gotas.push({x:R()*W,y:R()*H,l:10+R()*10,v:9+R()*6});
+  if(k==='nieve')for(let i=0;i<90;i++)P.copos.push({x:R()*W,y:R()*H,r:1+R()*2.2,v:.4+R()*.8,f:R()*6});
+  if(ph==='noche'&&(k==='claro'||k==='nubes'))for(let i=0;i<70;i++)P.est.push({x:R()*W,y:R()*H*.6,r:R()*1.3+.3,f:R()*6,s:1+R()*2});
+  if(ph!=='noche'&&(k==='claro'||k==='nubes'||k==='cubierto'))for(let i=0;i<4;i++)P.aves.push({x:R()*W,y:30+R()*80,v:.35+R()*.35,f:R()*6,z:.7+R()*.5});
+  PVP=P;if(!PVraf)PVraf=requestAnimationFrame(pvTick);}
+function pvTick(t){PVraf=0;const B=document.getElementById('pvBox'),P=PVP;
+  if(!B||!P||!B.offsetParent||document.hidden){setTimeout(()=>{if(!PVraf)PVraf=requestAnimationFrame(pvTick);},700);return;}
+  const {x,W,H}=P,ts=t/1000,sl=Math.min(4,(PVfx.wind||0)/8);x.clearRect(0,0,W,H);
+  P.est.forEach(e=>{x.globalAlpha=.35+.65*Math.abs(Math.sin(ts*e.s+e.f));x.fillStyle='#fff';x.beginPath();x.arc(e.x,e.y,e.r,0,7);x.fill();});x.globalAlpha=1;
+  x.strokeStyle='rgba(28,38,40,.75)';x.lineWidth=1.4;x.lineCap='round';
+  P.aves.forEach(a=>{if(!PVLOW){a.x+=a.v;a.y+=Math.sin(ts*.7+a.f)*.15;}if(a.x>W+20){a.x=-20;a.y=30+Math.random()*80;}
+    const fl=Math.sin(ts*7+a.f)*4*a.z,s=6*a.z;x.beginPath();x.moveTo(a.x-s,a.y-fl*.4);x.quadraticCurveTo(a.x-s/2,a.y-fl,a.x,a.y);x.quadraticCurveTo(a.x+s/2,a.y-fl,a.x+s,a.y-fl*.4);x.stroke();});
+  x.strokeStyle='rgba(220,232,245,.55)';x.lineWidth=1.1;x.beginPath();
+  P.gotas.forEach(g=>{if(!PVLOW){g.y+=g.v;g.x+=sl;}if(g.y>H){g.y=-g.l;g.x=Math.random()*W;}if(g.x>W)g.x-=W;x.moveTo(g.x,g.y);x.lineTo(g.x-sl*1.6,g.y-g.l);});x.stroke();
+  x.fillStyle='rgba(255,255,255,.9)';P.copos.forEach(c=>{if(!PVLOW){c.y+=c.v;c.x+=Math.sin(ts+c.f)*.5+sl*.3;}if(c.y>H){c.y=-4;c.x=Math.random()*W;}if(c.x>W)c.x-=W;x.beginPath();x.arc(c.x,c.y,c.r,0,7);x.fill();});
+  if(PVfx.k==='tormenta'&&!PVLOW){if(P.flash<=0&&Math.random()<.004)P.flash=1;const fl=B.querySelector('.pvFlash');if(P.flash>0){fl.style.opacity=(P.flash>.85||(P.flash>.55&&P.flash<.65))?.75:P.flash*.25;P.flash-=.03;}else fl.style.opacity=0;}
+  if(PVLOW)return;PVraf=requestAnimationFrame(pvTick);}
+function pvOn(){if(!isBna())return;pvBuild();pvPaint();if(!PVD)pvLoad();}
+window.addEventListener('resize',()=>{clearTimeout(window.__pvR);window.__pvR=setTimeout(pvFxInit,250);});
+const _pvST=showTab;showTab=function(t){_pvST(t);if(t==='mtiempo')setTimeout(pvOn,60);};
+const _pvCA=cfgApply;cfgApply=function(){_pvCA();try{pvOn();}catch(e){}};
+pvOn();setInterval(()=>{if(isBna())pvLoad();},15*60e3);setInterval(()=>{if(isBna()&&!PVF)pvPaint();},5*60e3);
 </script>
 <img id="basatina-footer-logo" src="logo.png" alt="BasatiNa" aria-hidden="true">
 <script src="naturaleza-catalogo.js"></script>
