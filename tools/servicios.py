@@ -28,15 +28,23 @@ FUERA = {"FEATURE", "BEGINLIFE", "GEOM_LONG", "GEOM_AREA", "GEOM_PERI", "OBJECTI
          "SHAPE_LENG", "SHAPE_AREA", "X", "Y", "XUTM", "YUTM", "COORX", "COORY"}
 
 def simplify(pts, tol):
-    """Douglas-Peucker sencillo (pts = [[lat, lon], ...])."""
-    if tol <= 0 or len(pts) < 3: return pts
+    """Douglas-Peucker sencillo (pts = [[lat, lon], ...]). Los anillos cerrados se parten en dos mitades."""
+    if tol <= 0 or len(pts) < 4: return pts
+    if pts[0] == pts[-1]:
+        m = len(pts) // 2
+        return _dp(pts[:m + 1], tol)[:-1] + _dp(pts[m:], tol)
+    return _dp(pts, tol)
+
+def _dp(pts, tol):
+    if len(pts) < 3: return pts
     a, b = pts[0], pts[-1]; dmax, idx = 0, 0
+    dx, dy = b[1] - a[1], b[0] - a[0]; L = (dx * dx + dy * dy) ** .5
     for i in range(1, len(pts) - 1):
-        p = pts[i]; dx, dy = b[1] - a[1], b[0] - a[0]
-        d = abs(dy * p[1] - dx * p[0] + b[1] * a[0] - b[0] * a[1]) / ((dx * dx + dy * dy) ** .5 or 1e-12)
+        p = pts[i]
+        d = abs(dy * p[1] - dx * p[0] + b[1] * a[0] - b[0] * a[1]) / L if L > 1e-12 else ((p[0] - a[0]) ** 2 + (p[1] - a[1]) ** 2) ** .5
         if d > dmax: dmax, idx = d, i
     if dmax > tol:
-        return simplify(pts[:idx + 1], tol)[:-1] + simplify(pts[idx:], tol)
+        return _dp(pts[:idx + 1], tol)[:-1] + _dp(pts[idx:], tol)
     return [a, b]
 
 def capa(nombre, tol=0.0015):
@@ -100,6 +108,13 @@ def catalogo():
 
 ENP_RE = re.compile(r"espacio[s]? natural|red natura|zona[s]? especial|\bZEC\b|\bZEPA\b|\bLIC\b|reserva[s]? (natural|integral)|enclave[s]? natural"
                     r"|parque[s]? natural|monumento[s]? natural|paisaje[s]? protegido|[áa]rea[s]? natural(es)? recreativa|humedal|ramsar|reserva de la biosfera", re.I)
+# capas que se descargan (nombre en IDENA, figura que se muestra en la app)
+ENP_CAPAS = [("BIODIV_Pol_ParquesNat", "Parque Natural"), ("BIODIV_Pol_ReservasInt", "Reserva Integral"), ("BIODIV_Pol_ReservasNat", "Reserva Natural"),
+             ("BIODIV_Pol_EnclavesNat", "Enclave Natural"), ("BIODIV_Pol_AreasNatRec", "Área Natural Recreativa"), ("BIODIV_Pol_PaisajesPro", "Paisaje Protegido"),
+             ("BIODIV_Sym_MonumNat", "Monumento Natural"), ("BIODIV_Pol_ZonasHumedas", "Zona Húmeda"),
+             ("BIODIV_Pol_RN2000", "Red Natura 2000 · ZEC"), ("BIODIV_Pol_ZEPA", "Red Natura 2000 · ZEPA (aves)")]
+BUS_CAPAS = [("TRAURB_Sym_TUCParadasBus", "tuc"), ("IDEMUN_Sym_Bus", "bus"), ("DOTACI_Sym_Paradas", "nbus"), ("DOTACI_Sym_EmpresasBus", "empresa"),
+             ("IDEMUN_Sym_Taxi", "taxi"), ("TRAURB_Sym_TUCTaxis", "taxi")]
 BUS_RE = re.compile(r"parada|autob[uú]s|estaci[oó]n(es)? de (tren|autob|ferro)|ferrocarril|transporte (p[uú]blico|interurbano|comarcal)", re.I)
 
 def main():
@@ -107,36 +122,59 @@ def main():
     # farmacias
     F, _ = capa("DOTACI_Sym_Farmacias")
     for at, pt, _r in F:
-        n = tit(campo(at, "NOMBRE", "DENOMIN", "RAZON", "TITULAR", "FARMACIA")) or "Farmacia"
-        d = tit(campo(at, "DIRECC", "DOMICIL", "CALLE", "VIA", "DIRE"))
-        m = campo(at, "MUNICIP", "LOCALID", "POBLAC", "ENTIDAD", "CONCEJO")
-        tel = re.sub(r"[^\d+ ]", "", campo(at, "TELEF", "TLF", "TFNO", "TEL"))[:20]
-        out["farmacias"].append({"n": n, "d": d, "m": m, "tel": tel.strip(), "pt": pt})
+        ti = campo(at, "TITULAR", "NOMBRE", "DENOMIN")
+        if "," in ti: ti = " ".join(reversed([x.strip() for x in ti.split(",", 1)]))   # «Pérez, Ana» -> «Ana Pérez»
+        d = tit(campo(at, "DIRECC", "DOMICIL"))
+        m = campo(at, "POBLAC", "MUNICIP", "LOCALID")
+        o = {"n": "Farmacia " + tit(ti) if ti else "Farmacia", "d": d, "m": m, "pt": pt}
+        if campo(at, "ZONA"): o["z"] = campo(at, "ZONA")
+        tel = re.sub(r"[^\d+ ]", "", campo(at, "TELEF", "TLF", "TFNO"))[:20].strip()
+        if tel: o["tel"] = tel
+        out["farmacias"].append(o)
     L = catalogo()
     INFO.append("\n# Capas del catálogo que parecen de espacios protegidos o transporte:")
     enp = [(n, t) for n, t in L if ENP_RE.search(t) and re.search(r"_(Pol|Sym)_", n)]
     bus = [(n, t) for n, t in L if BUS_RE.search(t) and "_Sym_" in n]
     for n, t in enp + bus: INFO.append("  %s :: %s" % (n, t))
-    vistos = set()
-    for n, t in enp[:30]:
-        if n in vistos: continue
-        vistos.add(n)
-        E, _ = capa(n, tol=0.002)
+    nombres = {n for n, t in L}
+    for n, fig in ENP_CAPAS:
+        if n not in nombres: INFO.append("  (no está en el catálogo: %s)" % n); continue
+        E, _ = capa(n, tol=0.0025 if "RN2000" in n or "ZEPA" in n else 0.0015)
         for at, pt, rings in E:
-            nom = tit(campo(at, "NOMBRE", "DENOMIN", "NOM_", "TOPONIM", "NAME", "DESCRIP")) or t
-            fig = tit(campo(at, "FIGURA", "CATEGOR", "TIPO", "CLASE")) or t
-            cod = campo(at, "CODIGO", "COD_", "CODE", "SITECODE")
-            sup = campo(at, "SUPERF", "HECT", "AREA_HA", "SUP_")
-            o = {"n": nom, "fig": fig, "capa": t, "pt": pt}
+            nom = tit(campo(at, "ESPP", "RN2000", "ZONAHUMEDA", "NOMBRE", "DENOMIN"))
+            if not nom: continue
+            o = {"n": nom, "fig": fig, "pt": pt}
+            eu = campo(at, "NOMBRE_EUS")
+            if eu and eu != nom: o["eu"] = eu
+            cod = campo(at, "IDESPP", "CRN2000", "CZONHUMEDA")
             if cod: o["cod"] = cod
-            if sup: o["ha"] = sup
+            ha = campo(at, "HECTAREAS")
+            if ha:
+                try: o["ha"] = round(float(ha))
+                except Exception: pass
+            u = campo(at, "URL_CAS", "URLDECLARA", "URL")
+            if u.startswith("http"): o["url"] = u
+            if n == "BIODIV_Sym_MonumNat":
+                o["d"] = " · ".join(x for x in [campo(at, "ESPECIE"), campo(at, "LUGAR")] if x)
             if rings: o["r"] = rings
             out["enp"].append(o)
-    for n, t in bus[:6]:
+    for n, k in BUS_CAPAS:
+        if n not in nombres: INFO.append("  (no está en el catálogo: %s)" % n); continue
         B, _ = capa(n)
         for at, pt, _r in B:
-            out["bus"].append({"n": tit(campo(at, "NOMBRE", "DENOMIN", "PARADA", "ESTACION", "DESCRIP")) or t,
-                               "d": tit(campo(at, "MUNICIP", "LOCALID", "LINEA", "OPERADOR")), "capa": t, "pt": pt})
+            o = {"k": k, "pt": pt}
+            if k == "tuc":
+                o["n"] = campo(at, "PARADA"); o["id"] = campo(at, "CPARADA"); o["url"] = campo(at, "URL")
+            elif k == "empresa":
+                o["n"] = tit(campo(at, "EMPRESA")); o["d"] = campo(at, "POBLACION"); o["tel"] = campo(at, "TELEFONO"); o["url"] = campo(at, "URL")
+            elif k == "taxi":
+                o["n"] = campo(at, "PARADATAXI", "PARADA", "NOMBRE") or "Parada de taxi"; o["d"] = campo(at, "MUNICIPIO"); o["tel"] = campo(at, "TELEFONO")
+            else:
+                o["n"] = tit(campo(at, "PARADA", "NOMBRE", "DENOMIN")) or "Parada"
+                o["d"] = " · ".join(x for x in [campo(at, "MUNICIPIO", "POBLACION"), campo(at, "EMPRESA", "OPERADOR"),
+                                                " – ".join(y for y in [campo(at, "ORIGEN"), campo(at, "DESTINO")] if y) or campo(at, "LINEA")] if x)
+                o["tel"] = campo(at, "TELEFONO"); o["url"] = campo(at, "URL")
+            out["bus"].append({x: v for x, v in o.items() if v not in ("", None)})
     # quitar duplicados exactos (el mismo espacio puede salir en varias capas)
     seen = set(); E2 = []
     for o in out["enp"]:
