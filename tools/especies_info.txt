@@ -1,0 +1,18 @@
+Navarra en GADM: ESP.9_1
+Aves (Aves, clave 212): 230 especies · 1753039 observaciones en total
+Mamíferos (Mammalia, clave 359): 80 especies · 109937 observaciones en total
+Squamata: no encontrado en GBIF
+Testudines: no encontrado en GBIF
+Anfibios (Amphibia, clave 131): 22 especies · 3599 observaciones en total
+Actinopterygii: no encontrado en GBIF
+Papilionoidea: no encontrado en GBIF
+Libélulas (Odonata, clave 789): 55 especies · 7517 observaciones en total
+Escarabajos (Coleoptera, clave 1470): 50 especies · 20121 observaciones en total
+Plantas con flor (Magnoliopsida, clave 220): 420 especies · 389621 observaciones en total
+Plantas con flor (Liliopsida, clave 196): 130 especies · 105490 observaciones en total
+Coníferas (Pinopsida, clave 194): 15 especies · 6519 observaciones en total
+Helechos (Polypodiopsida, clave 7228684): 40 especies · 15201 observaciones en total
+Setas (Agaricomycetes, clave 186): 130 especies · 53457 observaciones en total
+Total especies: 1164
+Fichas: 1167 (con texto de Wikipedia: 996) · revisadas a mano: 13 (3 nuevas)
+Municipios GADM sin pareja en pueblos.js: ['n.a. (185)', 'n.a. (186)', 'n.a. (187)', 'n.a. (188)', 'n.a. (189)', 'n.a. (190)', 'n.a. (191)', 'n.a. (192)', 'n.a. (193)']
