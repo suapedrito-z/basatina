@@ -1,5 +1,5 @@
 {
- "version": 236,
+ "version": 237,
  "apk": 17,
  "files": {
   "abiertos.js": "8e33d748e61b9dfc44bd6cfc83ff222345e546fd",
@@ -33,7 +33,7 @@
   "pnoa14.jpg": "f0f3b88c53d5b4d1b7c3c4c6a46279842323a159",
   "pueblos.js": "21c3a808994d034a33d6023ac48f99befa32f8da",
   "rios.js": "4d50b340bbe3b5703f78995c5308add42a86273e",
-  "servicios.js": "139a941a80aec9263d43431100b822f0aa44b881",
+  "servicios.js": "722f589c59fd4860d3ad6d39361a1a1da88ff97a",
   "seta.svg": "35a4b97d267a6d106f67b400620c70cd79609803",
   "sismo.js": "f5b7a905ffce923004cd0ddd254db9754eee13df",
   "sonpe2.jpg": "b15402e1a817968b2389f507df4408c69ab47047",
