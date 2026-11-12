@@ -1,0 +1,77 @@
+Generado 2026-11-12 · farmacias 602 · espacios 54 · transporte 1330
+## DOTACI_Sym_Farmacias: 602 elementos · campos ['FEATURE', 'IDFARMACIA', 'TITULAR', 'DIRECCION', 'POBLACION', 'CMUNICIPIO', 'MUNICIPIO', 'ZONA', 'HELPBIDEA', 'X25830', 'Y25830', 'BEGINLIFE']
+   ejemplo {"IDFARMACIA": "F00242", "TITULAR": "Pascual Echavarri, Miguel Angel", "DIRECCION": "CARRETERA  DE ARIZALA/ARITZALA ERREPIDEA, 1", "POBLACION": "Abárzuza / Abartzuza", "CMUNICIPIO": 2, "MUNICIPIO": "Abárzuza / Abartzuza", "ZONA": "Villatuerta", "HELPBIDEA": 325.0}
+catálogo WMS: 1303 capas
+
+# Capas del catálogo que parecen de espacios protegidos o transporte:
+  SIGPAC_Pol_Humedales :: SIGPAC. Humedales y turberas
+  BIODIV_Pol_HabitatHum :: Hábitats humedales mediterráneos. 1:5.000. Año 2007
+  BIODIV_Pol_HabitatZFlu :: Hábitats ZEC fluviales. 1:10.000. Año 2004
+  BIODIV_Pol_HabitatZTer :: Hábitats ZEC terrestres. 1:25.000. Año 2007
+  BIODIV_Sym_EAPtosInfoEspNatur :: Puntos de información de espacios naturales
+  BIODIV_Pol_AreasNatRec :: Espacios Naturales Protegidos. Áreas Naturales Recreativas
+  BIODIV_Pol_EnclavesNat :: Espacios Naturales Protegidos. Enclaves Naturales
+  BIODIV_Pol_ZonasHumedas :: Espacios Naturales Protegidos. Inventario de Zonas Húmedas.
+  BIODIV_Pol_PaisajesPro :: Espacios Naturales Protegidos. Paisajes Protegidos
+  BIODIV_Pol_ParquesNat :: Espacios Naturales Protegidos. Parques Naturales
+  BIODIV_Pol_ReservasInt :: Espacios Naturales Protegidos. Reservas Integrales
+  BIODIV_Pol_ReservasNat :: Espacios Naturales Protegidos. Reservas Naturales
+  BIODIV_Pol_ZPProtec :: Espacios Naturales Protegidos. Zonas Periféricas de Protección
+  BIODIV_Sym_MonumNat :: Monumentos Naturales
+  BIODIV_Pol_RENA :: Red de Espacios Naturales Protegidos
+  BIODIV_Pol_RN2000 :: Red Natura 2000. Zonas Especiales de Conservación (ZEC)
+  BIODIV_Pol_ZEPA :: Red Natura 2000. Zonas de Especial Protección de Aves (ZEPA)
+  IDEMUN_Sym_Taxi :: Paradas de taxi (foro EELL-SITNA)
+  IDEMUN_Sym_Bus :: Paradas de autobús (foro EELL-SITNA)
+  CARTO1_Sym_35Poste :: Cartografía 1:1.000. Símbolo de poste ferrocarril
+  CARTO1_Sym_36PKFFCC :: Cartografía 1:1.000. Símbolo de Pk de ferrocarril
+  DOTACI_Sym_EmpresasBus :: Empresas de transporte en autobús
+  TRAURB_Sym_TUCParadasBus :: TUC. Paradas de autobús
+  TRAURB_Sym_TUCTaxis :: TUC. Paradas de taxi
+  DOTACI_Sym_Paradas :: NBUS. Paradas de autobús
+## SIGPAC_Pol_Humedales: 0 elementos · campos ['FEATURE', 'CMUNICIPIO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_HabitatHum: 0 elementos · campos ['FEATURE', 'IDPOLIGONO', 'HECTAREAS', 'FUENTEINFO', 'HABITAT1', 'HABITAT2', 'HABITAT3', 'HABITAT4', 'HABITAT5', 'HABITAT6', 'HABITAT7', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_HabitatZFlu: 0 elementos · campos ['FEATURE', 'IDPOLIGONO', 'HECTAREAS', 'FUENTEINFO', 'HABITAT1', 'HABITAT2', 'HABITAT3', 'HABITAT4', 'HABITAT5', 'HABITAT6', 'HABITAT7', 'HABITAT8', 'HABITAT9', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_HabitatZTer: 0 elementos · campos ['FEATURE', 'IDPOLIGONO', 'HECTAREAS', 'FUENTEINFO', 'HABITAT1', 'HABITAT2', 'HABITAT3', 'HABITAT4', 'HABITAT5', 'HABITAT6', 'HABITAT7', 'HABITAT8', 'HABITAT9', 'HABITAT10', 'HABITAT11', 'HABITAT12', 'HABITAT13', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Sym_EAPtosInfoEspNatur: 7 elementos · campos ['FEATURE', 'NOMBRE', 'POBLACION', 'TIPO', 'IMAGEN', 'TITULAR', 'TEMATICA', 'ACTIVIDAD', 'DESTINO', 'PERIODOHAB', 'URL', 'TEMATICO', 'BEGINLIFE']
+   ejemplo {"NOMBRE": "Parque Natural Urbasa- Andia", "TIPO": "Puntos de información de espacios naturales", "IMAGEN": "image_200_auto__https://administracionelectronica.navarra.es/AccesoFicheros/DownloadFile.aspx?codigoAcceso=WS_FICH_IDENA&fichero=CIN2025/5_Parque_Natural_Urbasa_Andia.jpg", "TITULAR": "Gobierno de Navarra", "TEMATICA": "Agua, Patrimonio histórico / cultural, Geología y paleontología", "ACTIVIDAD": "Visita libre, Paseos por senderos", "DESTINO": "Público general, Centros educativos", "PERIODOHAB": "Estacional (Invierno no)", "URL": "https://urbasa-andia.navarra.es/es/", "TEMATICO": "Punt
+## BIODIV_Pol_AreasNatRec: 0 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'NOMBRE_eus', 'TIPO', 'IDEPNA', 'IDEPES', 'IDEPUE', 'IDCATEIUCN', 'CATEIUCN', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'HECTAREAS', 'X25830', 'Y25830', 'ZPPROTEC', 'CORDEN', 'TEMATICO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_EnclavesNat: 0 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'NOMBRE_eus', 'TIPO', 'IDEPNA', 'IDEPES', 'IDEPUE', 'IDCATEIUCN', 'CATEIUCN', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'HECTAREAS', 'X25830', 'Y25830', 'ZPPROTEC', 'CORDEN', 'TEMATICO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_ZonasHumedas: 0 elementos · campos ['FEATURE', 'CZONHUMEDA', 'ZONAHUMEDA', 'SINONIMO', 'IDESPP', 'IDESPP1', 'IDRN2000', 'CMUNICIP1', 'MUNICIPIO1', 'CMUNICIP2', 'MUNICIPIO2', 'CMUNICIP3', 'MUNICIPIO3', 'X25830', 'Y25830', 'ALTITUD', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_PaisajesPro: 0 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'NOMBRE_eus', 'TIPO', 'IDEPNA', 'IDEPES', 'IDEPUE', 'IDCATEIUCN', 'CATEIUCN', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'HECTAREAS', 'X25830', 'Y25830', 'ZPPROTEC', 'CORDEN', 'TEMATICO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_ParquesNat: 0 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'NOMBRE_eus', 'TIPO', 'IDEPNA', 'IDEPES', 'IDEPUE', 'IDCATEIUCN', 'CATEIUCN', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'HECTAREAS', 'X25830', 'Y25830', 'ZPPROTEC', 'CORDEN', 'TEMATICO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_ReservasInt: 0 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'NOMBRE_eus', 'TIPO', 'IDEPNA', 'IDEPES', 'IDEPUE', 'IDCATEIUCN', 'CATEIUCN', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'HECTAREAS', 'X25830', 'Y25830', 'ZPPROTEC', 'CORDEN', 'TEMATICO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_ReservasNat: 0 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'NOMBRE_eus', 'TIPO', 'IDEPNA', 'IDEPES', 'IDEPUE', 'IDCATEIUCN', 'CATEIUCN', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'HECTAREAS', 'X25830', 'Y25830', 'ZPPROTEC', 'CORDEN', 'TEMATICO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_ZPProtec: 0 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'TIPO', 'IDEPNA', 'IDEPES', 'IDEPUE', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'HECTAREAS', 'X25830', 'Y25830', 'CORDEN', 'TEMATICO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Sym_MonumNat: 47 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'NOMBRE_eus', 'LUGAR', 'ESPECIE', 'NUMEJEMP', 'YEAR', 'IDEPUE', 'IDCATEIUCN', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'URLPDF', 'BEGINLIFE']
+   ejemplo {"IDESPP": "MN39", "ESPP": "Acebo de Bera", "NOMBRE_eus": "Berako gorostia", "LUGAR": "Bera", "ESPECIE": "Ilex aquifolium L.", "NUMEJEMP": 1, "YEAR": "2009", "IDEPUE": 555545983, "IDCATEIUCN": "III", "LEGISLACIO": "DECRETO FORAL 87/2009, DE 1 DE DICIEMBRE, POR EL QUE SE DECLARAN MONUMENTO NATURAL DETERMINADOS ÁRBOLES SINGULARES DE NAVARRA Y SE ESTABLECE SU RÉGIMEN DE PROTECCIÓN", "FECHADECLG": "2009-12-01", "FECHAVIGOR": "2009-12-02", "URLDECLARA": "http://www.lexnavarra.navarra.es/detalle.asp?r=29923", "URLPDF": "http://www.navarra.es/NR/rdonlyres/97AB6700-233B-4986-8A2F-A596B8AF6249/164088/M
+## BIODIV_Pol_RENA: 0 elementos · campos ['FEATURE', 'IDESPP', 'ESPP', 'NOMBRE_eus', 'TIPO', 'IDEPNA', 'IDEPES', 'IDEPUE', 'IDCATEIUCN', 'CATEIUCN', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'URLDECLARA', 'HECTAREAS', 'X25830', 'Y25830', 'ZPPROTEC', 'CORDEN', 'TEMATICO', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_RN2000: 0 elementos · campos ['FEATURE', 'IDRN2000', 'CRN2000', 'RN2000', 'NOMBRE_eus', 'BIORREGION', 'IMAGEN', 'AUTOR', 'VIDEO', 'URL_cas', 'URL_eus', 'DECFORAL', 'TEMATICO', 'URL', 'HECTAREAS', 'ABREVIATUR', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## BIODIV_Pol_ZEPA: 0 elementos · campos ['FEATURE', 'IDRN2000', 'CRN2000', 'RN2000', 'NOMBRE_eus', 'BIORREGION', 'DECFORAL', 'TEMATICO', 'URL', 'HECTAREAS', 'ABREVIATUR', 'LEGISLACIO', 'FECHADECLG', 'FECHAVIGOR', 'GEOM_AREA', 'GEOM_PERI', 'BEGINLIFE']
+   ejemplo {}
+## IDEMUN_Sym_Taxi: 10 elementos · campos ['FEATURE', 'CMUNICIPIO', 'MUNICIPIO', 'IDOBJECT', 'PARADATAXI', 'HORARIO', 'TELEFONO', 'URL', 'BEGINLIFE']
+   ejemplo {"CMUNICIPIO": 122, "MUNICIPIO": "Huarte / Uharte", "IDOBJECT": "122.001", "PARADATAXI": "Centro Comercial Itaroa", "TELEFONO": "948 232300 / 948 351335 / 609 452191", "URL": "http://www.mcp.es/transporte/como-solicitar-un-taxi"}
+## IDEMUN_Sym_Bus: 102 elementos · campos ['FEATURE', 'CMUNICIPIO', 'MUNICIPIO', 'IDOBJECT', 'PARADA', 'EMPRESA', 'LINEABUS', 'ORIGEN', 'DESTINO', 'TELEFONO', 'URL', 'BEGINLIFE']
+   ejemplo {"CMUNICIPIO": 153, "MUNICIPIO": "Lesaka", "IDOBJECT": "153.001", "PARADA": "Calle Bitiria", "EMPRESA": "La Burundesa", "ORIGEN": "Pamplona / San Sebastian", "DESTINO": "San Sebastian / Pamplona", "TELEFONO": "948630261", "URL": "http://www.autobuseslaunion.com/es/index.asp"}
+## CARTO1_Sym_35Poste: 548 elementos · campos ['FEATURE', 'C1MOBJECT', 'C1MFEATURE', 'C1MENUM', 'C1MDGN', 'ALTITUD', 'CADANGLE', 'C1MMSLINK', 'C1MMSTABLE', 'BEGINLIFE']
+   ejemplo {"C1MOBJECT": 135, "C1MFEATURE": 1263, "C1MENUM": 3, "C1MDGN": "AIZOA", "ALTITUD": 420.004, "CADANGLE": 0.0, "C1MMSLINK": 0, "C1MMSTABLE": 0}
+## CARTO1_Sym_36PKFFCC: 19 elementos · campos ['FEATURE', 'C1MOBJECT', 'C1MFEATURE', 'C1MMSTABLE', 'C1MMSLINK', 'C1MENUM', 'C1MDGN', 'ALTITUD', 'CADANGLE', 'CTOPONIMO', 'ETIQUETA', 'CTIPO', 'BEGINLIFE']
+   ejemplo {"C1MOBJECT": 136, "C1MFEATURE": 1265, "C1MMSTABLE": 133, "C1MMSLINK": 25431, "C1MENUM": 4, "C1MDGN": "ARTIC", "ALTITUD": 424.368, "CADANGLE": 0.0}
+## DOTACI_Sym_EmpresasBus: 33 elementos · campos ['FEATURE', 'EMPRESA', 'DIRECCION', 'CODPOSTAL', 'POBLACION', 'URL', 'EMAIL', 'TELEFONO', 'TELEFONO2', 'BEGINLIFE']
+   ejemplo {"EMPRESA": "ALBERTO ELCARTE, S.L.", "DIRECCION": "PG. INDUSTRIAL 3-4", "CODPOSTAL": "31523", "POBLACION": "Ablitas", "URL": "https://autobuseselcarte.com/", "EMAIL": "comercial@autobuseselcarte.com", "TELEFONO": "948813358", "TELEFONO2": "626435889"}
+## TRAURB_Sym_TUCParadasBus: 618 elementos · campos ['FEATURE', 'CPARADA', 'PARADA', 'URL', 'BEGINLIFE']
+   ejemplo {"CPARADA": 903, "PARADA": "Plaza de Labrit (centro)", "URL": "http://www.infotuc.es/visor/v1/todasllegadas.php?parada=903"}
