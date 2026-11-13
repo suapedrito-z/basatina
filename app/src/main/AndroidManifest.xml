@@ -12,8 +12,6 @@
     <!-- cámara: hacer fotos de plantas, árboles y salidas -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <!-- actualizar la app desde dentro (Android pide permiso la primera vez) -->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!-- apps de identificación que BasatiNA puede abrir -->
     <queries>
         <package android:name="com.labs.merlinbirdid.app" />

@@ -33,8 +33,6 @@ public class MainActivity extends Activity {
     private static final int PICK = 41;
     private static final int GEO = 42;
     private static final int CAM = 43;
-    private static final int INST = 44;   // permiso «instalar apps desconocidas» para actualizar la app
-    private String apkPendiente;
     private Uri camUri; private File camFile; private boolean camMulti, pickImg = true;
     private android.webkit.GeolocationPermissions.Callback geoCb;   // «Qué hay cerca de mí»
     private String geoOrigin;
@@ -225,12 +223,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int req, int res, Intent data) {
         super.onActivityResult(req, res, data);
-        if (req == INST) {   // vuelve de la pantalla del permiso
-            String u = apkPendiente; apkPendiente = null;
-            if (u != null && puedeInstalar()) descargarEInstalar(u);
-            else apkAviso("fin", "Sin ese permiso no se puede instalar. Puedes volver a intentarlo cuando quieras.");
-            return;
-        }
         if (req != PICK || fileCb == null) return;
         Uri[] out = null;
         boolean camOk = camFile != null && camFile.exists() && camFile.length() > 0;
@@ -249,55 +241,6 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (web.canGoBack()) web.goBack(); else super.onBackPressed();
-    }
-
-    /* ===== Actualizar la app sin pasar por Chrome =====
-       1) Android pide UNA vez el permiso «instalar apps desconocidas» para BasatiNA (abre él solo el interruptor).
-       2) La app descarga BasatiNA.apk en su carpeta privada, enseñando el progreso.
-       3) Comprueba que el archivo es de verdad BasatiNA y abre el instalador de Android: solo queda tocar «Instalar». */
-    private boolean puedeInstalar() {
-        return android.os.Build.VERSION.SDK_INT < 26 || getPackageManager().canRequestPackageInstalls();
-    }
-
-    private void apkAviso(String tipo, String txt) {
-        final String js = "window.__apk&&window.__apk(" + JSONObject.quote(tipo) + "," + JSONObject.quote(txt) + ")";
-        runOnUiThread(() -> web.evaluateJavascript(js, null));
-    }
-
-    private void descargarEInstalar(final String url) {
-        new Thread(() -> {
-            File dir = new File(getCacheDir(), "fotos"); dir.mkdirs();
-            File apk = new File(dir, "BasatiNA.apk");
-            try {
-                HttpURLConnection c = (HttpURLConnection) new URL(url).openConnection();
-                c.setInstanceFollowRedirects(true); c.setConnectTimeout(20000); c.setReadTimeout(30000);
-                if (c.getResponseCode() != 200) throw new Exception("error " + c.getResponseCode());
-                long total = c.getContentLengthLong(), hecho = 0; int ultimo = -1;
-                try (InputStream in = c.getInputStream(); FileOutputStream o = new FileOutputStream(apk)) {
-                    byte[] b = new byte[65536]; int n;
-                    while ((n = in.read(b)) > 0) {
-                        o.write(b, 0, n); hecho += n;
-                        int pc = total > 0 ? (int) (hecho * 100 / total) : -1;
-                        if (pc != ultimo && pc % 5 == 0) { ultimo = pc; apkAviso("prog", String.valueOf(pc)); }
-                    }
-                }
-                // seguridad: solo se instala si el archivo es BasatiNA (el mismo nombre de paquete que esta app)
-                android.content.pm.PackageInfo pi = getPackageManager().getPackageArchiveInfo(apk.getAbsolutePath(), 0);
-                if (pi == null || !getPackageName().equals(pi.packageName)) { apk.delete(); throw new Exception("el archivo no es BasatiNA"); }
-                runOnUiThread(() -> {
-                    try {
-                        Uri u = Uri.parse("content://" + getPackageName() + ".fotos/BasatiNA.apk");
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setDataAndType(u, "application/vnd.android.package-archive");
-                        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(i);
-                        apkAviso("fin", "");
-                    } catch (Exception e) { apkAviso("fin", "No se pudo abrir el instalador: " + e.getMessage()); }
-                });
-            } catch (Exception e) {
-                apkAviso("fin", "No se pudo descargar (" + e.getMessage() + "). ¿Hay internet?");
-            }
-        }).start();
     }
 
     /** Lo que la página puede llamar como AndroidNet.get(url, id) y AndroidNet.share(texto). */
@@ -480,19 +423,6 @@ public class MainActivity extends Activity {
         @JavascriptInterface
         public int appVersion() { return apkVersion(); }
 
-        /** Descarga e instala la versión nueva de la app (solo desde las versiones publicadas en GitHub de BasatiNA). */
-        @JavascriptInterface
-        public void installApk(final String url) {
-            if (url == null || !url.startsWith("https://github.com/suapedrito-z/basatina/")) return;
-            runOnUiThread(() -> {
-                if (puedeInstalar()) { descargarEInstalar(url); return; }
-                apkPendiente = url;
-                try {
-                    startActivityForResult(new Intent(android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-                            Uri.parse("package:" + getPackageName())), INST);
-                } catch (Exception e) { apkPendiente = null; descargarEInstalar(url); }
-            });
-        }
 
         @JavascriptInterface
         public void openUrl(final String url) {
