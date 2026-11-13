@@ -233,7 +233,9 @@ if(RZ.busy||Date.now()-RZ.t<15*60e3)return;RZ.busy=true;RZ.t=Date.now();if(!CAU)
 function rzBd(r,code,v){if(r==='arga'&&v.u==='m³/s'&&typeof CFG!=='undefined'&&code==='A313')return v.v>=CFG.qRoj?['ro','Peligro',3]:v.v>=CFG.qAma?['am','Alerta',2]:['ok','Normal',0];
   if(v.al){const t=v.al[0];return /rojo/i.test(t)?['ro','Aviso rojo',3]:/naranja/i.test(t)?['ro','Aviso naranja',3]:/amarillo/i.test(t)&&!/Normal/.test(t)?['am','Aviso amarillo',2]:['ok','Normal',0];}
   return ['ok','Normal',0];}
-const RZ_ZC={alta:'Arriba',media:'Medio',baja:'Abajo'};
+// nombre de cada zona: curso alto, curso medio y desembocadura (el Ebro no desemboca en Navarra: «Curso bajo»)
+const RZ_ZC={alta:'Curso alto',media:'Curso medio',baja:'Desembocadura'};
+const rzZc=(r,z)=>r==='ebro'&&z==='baja'?'Curso bajo':RZ_ZC[z];
 // nombre corto del sitio: «Irati en Aoiz» → «Aoiz»
 const rzSitio=n=>{const p=(typeof prettyName==='function'?prettyName(n):n)||'';const m=p.match(/ en (.+)$/);return m?m[1]:p;};
 function rzDraw(){const el=$('rzTk');if(!el)return;const R=rzRios();
@@ -243,13 +245,13 @@ function rzDraw(){const el=$('rzTk');if(!el)return;const R=rzRios();
   if(!R.length){el.style.display='none';return;}el.style.display='';
   const x=R[RZ.i%R.length];let peor=['ok','Normal',0];
   const cols=x.zs.map(([z,c])=>{const v=rzValor(c),bd=rzBd(x.r,c,v);if(bd[2]>peor[2])peor=bd;const tr=/arriba/i.test(v.tr)?' ↑':/abajo/i.test(v.tr)?' ↓':'';
-    return `<div class="rzZ ${bd[0]}"><small><span>${RZ_ZC[z]}</span></small><b>${fmtN(v.v,v.u==='m'?2:v.v<10?1:0)}<i> ${v.u}</i>${tr}</b><small class="rzN">${E(rzSitio(v.name||c))}</small></div>`;}).join('');
+    return `<div class="rzZ ${bd[0]}"><small class="rzL"><span>${rzZc(x.r,z)}</span></small><b>${fmtN(v.v,v.u==='m'?2:v.v<10?1:0)}<i> ${v.u}</i>${tr}</b><small class="rzN">${E(rzSitio(v.name||c))}</small></div>`;}).join('');
   el.innerHTML=`<div class="anC"><span class="anE">${typeof bnTile==='function'?bnTile('caudal',20,34):'🌊'}</span><div><small class="anW"><span>Río</span> ${E(x.rio)} · <span>ahora</span></small><div class="rzG">${cols}</div></div><span class="bdg ${peor[0]}"><span>${peor[1]}</span></span></div>
     <div class="anF"><button class="anP" aria-label="Anterior">‹</button><span>${RZ.i%R.length+1} / ${R.length}</span><div class="anBar"><i></i></div><button class="anX" aria-label="Siguiente">›</button></div>`;
   el.querySelector('.anC').onclick=()=>{showTab('caudal');if(x.r!=='arga'&&typeof rivShow==='function')setTimeout(()=>rivShow(x.r),150);};
   el.querySelector('.anP').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i-1+R.length)%R.length;rzDraw();rzTimer();};
   el.querySelector('.anX').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i+1)%R.length;rzDraw();rzTimer();};}
-document.head.insertAdjacentHTML('beforeend','<style>#rzTk .rzG{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:5px}#rzTk .rzZ{min-width:0;border-radius:10px;padding:5px 7px;background:rgba(13,98,133,.07)}#rzTk .rzZ.am{background:rgba(255,176,32,.16)}#rzTk .rzZ.ro{background:rgba(220,50,50,.14)}#rzTk .rzZ b{font-size:15px!important;white-space:nowrap}#rzTk .rzZ b i{font-style:normal;font-size:11px;font-weight:600;color:var(--mut)}#rzTk .rzZ small{font-size:11px!important}#rzTk .rzZ .rzN{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}</style>');
+document.head.insertAdjacentHTML('beforeend','<style>#rzTk .rzG{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:5px}#rzTk .rzZ{min-width:0;border-radius:10px;padding:5px 7px;background:rgba(13,98,133,.07)}#rzTk .rzZ.am{background:rgba(255,176,32,.16)}#rzTk .rzZ.ro{background:rgba(220,50,50,.14)}#rzTk .rzZ b{font-size:15px!important;white-space:nowrap}#rzTk .rzZ b i{font-style:normal;font-size:11px;font-weight:600;color:var(--mut)}#rzTk .rzZ small{font-size:11px!important}#rzTk .rzZ .rzN,#rzTk .rzZ .rzL{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#rzTk .rzZ .rzL{font-size:10.5px!important;letter-spacing:-.15px}</style>');
 function rzTick(){const n=rzLista().length;if(n){RZ.i=(RZ.i+1)%n;rzDraw();}rzLoad();}
 // los ríos pasan más despacio (cada 7 s) y desfasados del carrusel de abajo, para que no cambien los dos a la vez
 const RZ_MS=9000;
