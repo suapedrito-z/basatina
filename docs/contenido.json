@@ -28,6 +28,12 @@
  "novedades": [
   {
    "fecha": "2026-11-13",
+   "titulo": "",
+   "texto": "",
+   "foto": ""
+  },
+  {
+   "fecha": "2026-11-13",
    "titulo": "Nueva casa: basatina.es",
    "texto": "La web de BasatiNA se muda a **basatina.es**: aquí tienes la descarga, las novedades y la versión web. Son&Pe Technology Systems se queda en sonpe-technology.es para lo que esté por venir.",
    "foto": ""
@@ -219,7 +225,7 @@
  "contacto": "Sugerencias, avisos de errores o si eres dueño de algún dato o imagen y quieres que lo cambiemos: **participa@sonpe-technology.es** o el buzón de la app.",
  "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026",
  "app_web": {
-  "visible": false,
+  "visible": true,
   "boton": "🌐 Usar en el navegador",
   "nota": "También funciona en iPhone y ordenador, sin instalar nada."
  }
