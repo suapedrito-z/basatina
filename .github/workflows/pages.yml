@@ -1,4 +1,4 @@
-# Publica la web sonpe-technology.es: la portada (docs/) y la app en versión web (web/ → /app/)
+# Publica la web basatina.es: la portada (docs/) y la app en versión web (web/ → /app/)
 name: Publicar web
 on:
   push:

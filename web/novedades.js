@@ -424,7 +424,7 @@ if(typeof svSec==='function'){
    no pasa solo. Aquí se guarda todo en un archivo .json y se recupera en la nueva.
    Lo que NO se copia: la llave de GitHub y el PIN (por seguridad, se vuelven a poner).
    ===================================================================== */
-const MU_NO=new Set(['ghTok','pinH','pinFail','tech','muAviso']),MU_NUEVA=20,MU_WEB='https://sonpe-technology.es/';
+const MU_NO=new Set(['ghTok','pinH','pinFail','tech','muAviso']),MU_NUEVA=20,MU_WEB='https://basatina.es/';
 const muVer=()=>{try{return APP&&window.AndroidNet.appVersion?+window.AndroidNet.appVersion():0;}catch(e){return 0;}};
 const muVieja=()=>APP&&muVer()>0&&muVer()<MU_NUEVA;
 function muIdb(){return new Promise((res,rej)=>{const r=indexedDB.open('basatina',1);r.onupgradeneeded=()=>r.result.createObjectStore('fotos');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}

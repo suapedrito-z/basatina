@@ -508,7 +508,7 @@ body.bna #pinBox input{background:#F3F6F1!important;border-radius:14px!important
     <button data-t="agenda" id="dAgenda" style="display:none">🎉 Agenda de fiestas (en pruebas)</button>
     <button data-t="arboles" id="dArboles" style="display:none">🌳 Árboles y plantas singulares (en pruebas)</button>
     <button data-t="editor" id="dEditor" style="display:none">✏️ Editar contenidos de la app</button>
-    <button id="dWebAdm" style="display:none">🌐 Editar la web sonpe-technology.es</button>
+    <button id="dWebAdm" style="display:none">🌐 Editar la web basatina.es</button>
     <button data-t="descargas" id="dDesc" style="display:none">📊 Descargas de la app</button>
     <button id="dTechInfo" style="display:none">ℹ️ Información técnica</button>
     <button id="dPin" style="display:none">🔑 Cambiar PIN</button>
@@ -1502,7 +1502,7 @@ if(!APP){
  document.addEventListener('DOMContentLoaded',()=>{try{if(localStorage.getItem('webBanOff'))return;}catch(e){}
   const d=document.createElement('div');d.id='webBan';
   d.style.cssText='position:fixed;left:8px;right:8px;bottom:8px;z-index:200;background:#16212c;border:1px solid #29c6f2;border-radius:14px;padding:10px 12px;font-size:13px;color:#e9f1f7;box-shadow:0 6px 24px rgba(0,0,0,.5);display:flex;gap:10px;align-items:center';
-  d.innerHTML='<div style="flex:1">🌐 <b>Versión web de BasatiNA.</b> Los caudales al minuto, las incidencias en directo y los avisos con la app cerrada solo están en la <a href="https://sonpe-technology.es" style="color:#29c6f2">app de Android</a>.</div><button style="background:#22313f;color:#fff;border:1px solid #283848;border-radius:10px;padding:6px 10px">OK</button>';
+  d.innerHTML='<div style="flex:1">🌐 <b>Versión web de BasatiNA.</b> Los caudales al minuto, las incidencias en directo y los avisos con la app cerrada solo están en la <a href="https://basatina.es" style="color:#29c6f2">app de Android</a>.</div><button style="background:#22313f;color:#fff;border:1px solid #283848;border-radius:10px;padding:6px 10px">OK</button>';
   d.querySelector('button').onclick=()=>{d.remove();try{localStorage.setItem('webBanOff','1')}catch(e){}};
   document.body.appendChild(d);});
 }
@@ -3887,7 +3887,7 @@ async function diOpen(id){const e=diL().find(x=>x.id===id);if(!e)return;DISEL=id
   if(fs.length){document.getElementById('diFotos').innerHTML=`<div class="card"><b>📷 Fotos</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">${fs.map((f,k)=>`<img src="${f}" data-k="${k}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer">`).join('')}</div></div>`;
     document.querySelectorAll('#diFotos img').forEach(im=>im.onclick=()=>pbFoto(im.src,e.tit));}
   document.getElementById('diB').onclick=diBack;document.getElementById('diEd').onclick=()=>diEdit(e);const g=document.getElementById('diGo');if(g)g.onclick=()=>openNav(e.pt[0],e.pt[1]);
-  document.getElementById('diSh').onclick=()=>{const t=`📖 ${e.tit||'Salida'} — ${e.fecha}${e.lugar?' · '+e.lugar:''}\n${w?`Tiempo: ${Math.round(w.tx)}°/${Math.round(w.tn)}°, ${fmtN(w.ll,1)} mm\n`:''}${e.vistos?'Vimos: '+e.vistos+'\n':''}${e.notas||''}\n(BasatiNA · Son&Pe Technology Systems · sonpe-technology.es)`;if(APP)window.AndroidNet.share(t);else navigator.clipboard&&navigator.clipboard.writeText(t);};
+  document.getElementById('diSh').onclick=()=>{const t=`📖 ${e.tit||'Salida'} — ${e.fecha}${e.lugar?' · '+e.lugar:''}\n${w?`Tiempo: ${Math.round(w.tx)}°/${Math.round(w.tn)}°, ${fmtN(w.ll,1)} mm\n`:''}${e.vistos?'Vimos: '+e.vistos+'\n':''}${e.notas||''}\n(BasatiNA · basatina.es)`;if(APP)window.AndroidNet.share(t);else navigator.clipboard&&navigator.clipboard.writeText(t);};
   document.getElementById('diDel').onclick=async()=>{if(!confirm('¿Borrar esta salida y sus fotos del móvil?'))return;for(let k=0;k<(e.nf||0);k++)await IDB.del(e.id+'-'+k).catch(()=>{});lsSet('diario',diL().filter(x=>x.id!==e.id));diBack();};}
 function diBack(){DISEL=null;document.getElementById('diFicha').style.display='none';document.getElementById('diListV').style.display='';diRender();setTimeout(()=>DIM&&DIM.draw(),50);}
 function diEdit(e){const nuevo=!e;e=e||{id:'d'+Date.now().toString(36),fecha:ymd(new Date())};const el=document.getElementById('diFicha');el.style.display='';document.getElementById('diListV').style.display='none';window.scrollTo(0,0);
@@ -3969,7 +3969,7 @@ const _showTabDi=showTab;showTab=function(t){_showTabDi(t);if(t==='diario')setTi
 document.querySelectorAll('.crL').forEach(a=>a.onclick=e=>{e.preventDefault();const u=a.dataset.url;if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');});
 document.querySelectorAll('.webSP').forEach(a=>a.onclick=e=>{e.preventDefault();const u='https://sonpe-technology.es';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');});
 
-document.getElementById('dWebAdm').onclick=()=>{const u='https://sonpe-technology.es/admin/';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');};
+document.getElementById('dWebAdm').onclick=()=>{const u='https://basatina.es/admin/';if(APP&&window.AndroidNet.openUrl)window.AndroidNet.openUrl(u);else window.open(u,'_blank');};
 
 /* ---------- BUZÓN DE SUGERENCIAS (llega a info@ sin mostrar la dirección; servicio Web3Forms) ---------- */
 let BZT='Sugerencia';
@@ -4020,7 +4020,7 @@ const FO_OKS=['La foto es mía: la he hecho yo.',
  'Tengo 14 años o más (o permiso de mi madre, padre o tutor) y he leído las condiciones y la privacidad.'];
 const FO_COND=`<b>Condiciones para enviar fotos (${FO_VER})</b><br>
 <b>1. Quién.</b> Son&amp;Pe Technology Systems (Sonia y Pedro), responsables de BasatiNA. Contacto: el buzón de sugerencias de la app.<br>
-<b>2. Qué nos autorizas.</b> A publicar tu foto, gratis y sin exclusividad, en la app BasatiNA, en sonpe-technology.es y en nuestras redes sociales (como Instagram), con tu nombre o alias. Podemos reducirla o recortarla para que encaje. No la vendemos ni se la damos a nadie.<br>
+<b>2. Qué nos autorizas.</b> A publicar tu foto, gratis y sin exclusividad, en la app BasatiNA, en basatina.es y en nuestras redes sociales (como Instagram), con tu nombre o alias. Podemos reducirla o recortarla para que encaje. No la vendemos ni se la damos a nadie.<br>
 <b>3. La foto sigue siendo tuya.</b> Puedes usarla donde quieras.<br>
 <b>4. Quitarla.</b> Puedes pedir cuando quieras que la quitemos, desde el buzón de sugerencias. La quitamos de la app y de la web y, si se puede, también de las redes.<br>
 <b>5. Revisión.</b> Revisamos todas las fotos y publicamos solo las que elegimos.<br>
@@ -4578,7 +4578,7 @@ async function foJustificante(d){
       L.forEach(l=>{if(y>280){doc.addPage();y=20;}doc.text(l,M+(o.i||0),y);y+=(o.s||10.5)*.45;});y+=o.after||1.5;};
     doc.setFillColor(10,122,168);doc.rect(0,0,W,9,'F');
     line('JUSTIFICANTE DE AUTORIZACIÓN PARA PUBLICAR UNA FOTO',{b:1,s:14,after:1});
-    line('App BasatiNA · Son&Pe Technology Systems · sonpe-technology.es',{s:9.5,after:5});
+    line('App BasatiNA · Son&Pe Technology Systems · basatina.es',{s:9.5,after:5});
     const im=await imgData(cldT(d.url,'c_limit,w_900,q_80,f_jpg'));
     if(im){try{const p=doc.getImageProperties(im),w=Math.min(90,90*p.width/p.height),h=w*p.height/p.width;doc.addImage(im,'JPEG',M,y,w,h);y+=h+5;}catch(e){}}
     const cat=foCat(d.cat)[2],when=d.ts?new Date(d.ts).toLocaleString('es-ES',{timeZone:'Europe/Madrid'})+' (hora de Madrid)':'(no consta: foto enviada antes de guardar la hora)';

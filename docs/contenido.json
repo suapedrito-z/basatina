@@ -28,6 +28,12 @@
  "novedades": [
   {
    "fecha": "2026-11-13",
+   "titulo": "Nueva casa: basatina.es",
+   "texto": "La web de BasatiNA se muda a **basatina.es**: aquí tienes la descarga, las novedades y la versión web. Son&Pe Technology Systems se queda en sonpe-technology.es para lo que esté por venir.",
+   "foto": ""
+  },
+  {
+   "fecha": "2026-11-13",
    "titulo": "BasatiNA 3.8: NA Salud, idiomas y «Ahora en Navarra»",
    "texto": "Nuevo apartado **NA Salud**: cómo te puede afectar el tiempo (presión y dolores de cabeza, articulaciones, calor, frío, UV, aire y polen), tu diario de dolores, plantas medicinales, farmacias y teléfonos de urgencia. En el inicio, **«Ahora en Navarra»** va pasando todo lo de hoy, mañana y pasado: conciertos, teatro, exposiciones, partidos, mercados y el cielo. Y ya puedes usar la app en **euskera, inglés y francés**.",
    "foto": ""
@@ -125,7 +131,7 @@
   },
   {
    "titulo": "🛡️ ¿Por qué salen avisos de seguridad al instalarla?",
-   "texto": "Son **normales y no significan que la app tenga nada malo**. Android avisa siempre que instalas una app que **no viene de Google Play**, porque Google no la ha revisado.\nBasatiNA no está en Google Play porque es un proyecto **gratuito y sin ánimo de lucro**. La app no pide datos personales, no tiene publicidad y su código es público en GitHub.\nLos avisos salen al instalarla. La primera vez que la app se actualice a una versión nueva, Android puede pedir el mismo permiso para BasatiNA: es el mismo caso y se acepta igual.\nGuía de instalación paso a paso en PDF: https://sonpe-technology.es/manuales/BasatiNA_Como_instalarla.pdf\nManual de la app en PDF: https://sonpe-technology.es/manuales/BasatiNA_Manual_de_usuario.pdf",
+   "texto": "Son **normales y no significan que la app tenga nada malo**. Android avisa siempre que instalas una app que **no viene de Google Play**, porque Google no la ha revisado.\nBasatiNA no está en Google Play porque es un proyecto **gratuito y sin ánimo de lucro**. La app no pide datos personales, no tiene publicidad y su código es público en GitHub.\nLos avisos salen al instalarla. La primera vez que la app se actualice a una versión nueva, Android puede pedir el mismo permiso para BasatiNA: es el mismo caso y se acepta igual.\nGuía de instalación paso a paso en PDF: https://basatina.es/manuales/BasatiNA_Como_instalarla.pdf\nManual de la app en PDF: https://basatina.es/manuales/BasatiNA_Manual_de_usuario.pdf",
    "foto": ""
   }
  ],
