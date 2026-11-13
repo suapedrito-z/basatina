@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "datos": [
+    {
+      "id": "rios-001",
+      "fecha": "04-11",
+      "anio": 1915,
+      "categoria": "rios",
+      "texto_es": "En 1915 el Arga vivió la mayor crecida de la que hay registro: en Funes llegó a llevar unos 2.049 m³ de agua por segundo.",
+      "texto_eu": null,
+      "fuente": "Boletín de la Asociación de Geógrafos Españoles (estudio sobre crecidas del Arga, datos de la CHE)",
+      "url": "https://bage.age-geografia.es/ojs/index.php/bage/article/download/1979/1892/1960"
+    },
+    {
+      "id": "rios-002",
+      "fecha": "02-04",
+      "anio": 2003,
+      "categoria": "rios",
+      "texto_es": "El 4 de febrero de 2003 el Arga alcanzó 933 m³/s en Funes. El deshielo, sumado a la lluvia, fue clave en esa crecida.",
+      "texto_eu": null,
+      "fuente": "Boletín de la Asociación de Geógrafos Españoles (estudio sobre crecidas del Arga, datos de la CHE)",
+      "url": "https://bage.age-geografia.es/ojs/index.php/bage/article/download/1979/1892/1960"
+    },
+    {
+      "id": "rios-003",
+      "fecha": "12-10",
+      "anio": 2021,
+      "categoria": "rios",
+      "texto_es": "El 10 de diciembre de 2021 el Arga rozó los 524 m³/s a su paso por Pamplona, uno de los mayores valores de su serie. La Rochapea, Burlada y Villava quedaron anegadas.",
+      "texto_eu": null,
+      "fuente": "Consorcio de Compensación de Seguros, revista nº 16 (2022)",
+      "url": "https://consorsegurosdigital.com/en/numero-16/front-page/flooding-in-navarre-the-basque-country-aragon-and-burgos-2021"
+    },
+    {
+      "id": "rios-004",
+      "fecha": null,
+      "categoria": "rios",
+      "texto_es": "Durante la riada de diciembre de 2021, el embalse de Eugi recibía 125 m³/s y soltaba solo 80, ayudando a rebajar la punta de la crecida aguas abajo.",
+      "texto_eu": null,
+      "fuente": "Noticias de Navarra, 10/12/2021",
+      "url": "https://www.noticiasdenavarra.com/actualidad/sociedad/2021/12/10/bidasoa-arga-ega-ponen-alerta/1208896.html"
+    },
+    {
+      "id": "rios-005",
+      "fecha": null,
+      "categoria": "rios",
+      "texto_es": "El Arga mide unos 145 km. Nace en el collado de Urkiaga, cruza Pamplona y entrega sus aguas al río Aragón pasado Funes, poco antes de que este llegue al Ebro.",
+      "texto_eu": null,
+      "fuente": "Gobierno de Navarra (dossier del documental 'Yo, el Arga')",
+      "url": "https://www.navarra.es/NR/rdonlyres/4091B509-0EDD-4422-BC59-9929B2DC40D9/372849/DocumentalsobreelrioArga.pdf"
+    },
+    {
+      "id": "rios-006",
+      "fecha": null,
+      "categoria": "rios",
+      "texto_es": "Antiguamente el Arga no tenía un único nombre: cada pueblo lo llamaba a su manera. En documentos de 1364 aparece como 'Río Mayor', y en la Antigüedad se le conocía como Runa.",
+      "texto_eu": null,
+      "fuente": "José María Jimeno Jurío, 'Arga et Runa flumen'",
+      "url": "https://hispadoc.es/descarga/articulo/26141.pdf"
+    },
+    {
+      "id": "rios-007",
+      "fecha": null,
+      "categoria": "rios",
+      "texto_es": "Junto al Molino de San Andrés, en Villava, donde el Ultzama se une al Arga, un poste metálico guarda las marcas del nivel que alcanzaron las últimas riadas.",
+      "texto_eu": null,
+      "fuente": "MITECO, Catálogo Nacional de Inundaciones Históricas",
+      "url": "https://www.miteco.gob.es/es/agua/temas/gestion-de-los-riesgos-de-inundacion/cnih/tras-huellas-agua/aprende/marcas-agua.html"
+    },
+    {
+      "id": "rios-008",
+      "fecha": null,
+      "categoria": "rios",
+      "texto_es": "Urederra significa 'agua hermosa'. Su nacedero es la salida natural del acuífero kárstico de Urbasa, y por eso sus pozas lucen ese color turquesa.",
+      "texto_eu": null,
+      "fuente": "Turismo de Navarra / spain.info",
+      "url": "https://www.spain.info/es/top/roteiros-pitorescos-parque-natural-urbasa-andia/"
+    },
+    {
+      "id": "rios-009",
+      "fecha": null,
+      "categoria": "rios",
+      "texto_es": "Hasta el siglo XX, los almadieros bajaban troncos atados en balsas por el Esca y otros ríos pirenaicos. En 2022 la UNESCO declaró este oficio Patrimonio Inmaterial de la Humanidad, y Burgui lo recuerda cada año desde 1992 con el Día de la Almadía.",
+      "texto_eu": null,
+      "fuente": "spain.info (La maderada) y Asociación Cultural de Almadieros Navarros",
+      "url": "https://www.spain.info/es/descubrir-espana/maderada/"
+    },
+    {
+      "id": "clima-001",
+      "fecha": "07-17",
+      "anio": 2022,
+      "categoria": "clima",
+      "texto_es": "El 17 de julio de 2022 la estación del aeropuerto de Noáin marcó 42,3 °C, su temperatura más alta registrada.",
+      "texto_eu": null,
+      "fuente": "AEMET (vía Onda Vasca)",
+      "url": "https://www.ondavasca.com/la-comarca-de-pamplona-roza-su-record-historico-de-calor-con-42-grados/",
+      "revisar": true
+    },
+    {
+      "id": "clima-002",
+      "fecha": "08-24",
+      "anio": 2023,
+      "categoria": "clima",
+      "texto_es": "En la noche del 23 al 24 de agosto de 2023 la temperatura no bajó de 29 °C en Goizueta: la mínima más alta jamás registrada en Navarra.",
+      "texto_eu": null,
+      "fuente": "AEMET (vía Noticias de Navarra, 24/08/2023)",
+      "url": "https://www.noticiasdenavarra.com/sociedad/2023/08/24/navarra-deja-ola-calor-registra-7180986.amp.html",
+      "revisar": true
+    },
+    {
+      "id": "clima-003",
+      "fecha": null,
+      "categoria": "clima",
+      "texto_es": "Artikutza, en Goizueta, es el lugar más lluvioso de Navarra y uno de los más lluviosos de España. Tiene datos de lluvia desde 1931.",
+      "texto_eu": null,
+      "fuente": "Estudio de la serie pluviométrica de Artikutza (core.ac.uk)",
+      "url": "https://core.ac.uk/download/217353377.pdf"
+    },
+    {
+      "id": "naturaleza-001",
+      "fecha": "07-05",
+      "anio": 2024,
+      "categoria": "naturaleza",
+      "texto_es": "El 5 de julio de 2024 la UNESCO declaró Irati Reserva de la Biosfera: 53.660 hectáreas que abarcan los valles de Aezkoa y Salazar.",
+      "texto_eu": null,
+      "fuente": "MITECO, ficha de la Reserva de la Biosfera de Irati",
+      "url": "https://www.miteco.gob.es/es/parques-nacionales-oapn/reservas-biosfera-mab/programa-mab-espana/nuestras-reservas-de-la-biosfera/irati.html"
+    },
+    {
+      "id": "naturaleza-002",
+      "fecha": "11-07",
+      "anio": 2000,
+      "categoria": "naturaleza",
+      "texto_es": "El 7 de noviembre de 2000 las Bardenas Reales se convirtieron en Reserva de la Biosfera, la primera de Navarra.",
+      "texto_eu": null,
+      "fuente": "MITECO y Comunidad de Bardenas Reales",
+      "url": "https://www.miteco.gob.es/en/parques-nacionales-oapn/reservas-biosfera-mab/programa-mab-espana/nuestras-reservas-de-la-biosfera/bardenasrealesnavarra.html"
+    },
+    {
+      "id": "naturaleza-003",
+      "fecha": "11-18",
+      "anio": 1996,
+      "categoria": "naturaleza",
+      "texto_es": "El 18 de noviembre de 1996 la Laguna de Pitillas entró en la lista Ramsar de humedales de importancia internacional. Curiosamente, a finales de los 60 se llegó a plantear desecarla para cultivar.",
+      "texto_eu": null,
+      "fuente": "Convenio de Ramsar (ficha nº 871) y Wikipedia",
+      "url": "https://rsis.ramsar.org/ris/871"
+    },
+    {
+      "id": "naturaleza-004",
+      "fecha": null,
+      "categoria": "naturaleza",
+      "texto_es": "La Selva de Irati es el segundo hayedo-abetal más grande de Europa, solo por detrás de la Selva Negra alemana.",
+      "texto_eu": null,
+      "fuente": "MITECO, ficha de la Reserva de la Biosfera de Irati",
+      "url": "https://www.miteco.gob.es/es/parques-nacionales-oapn/reservas-biosfera-mab/programa-mab-espana/nuestras-reservas-de-la-biosfera/irati.html"
+    },
+    {
+      "id": "naturaleza-005",
+      "fecha": null,
+      "categoria": "naturaleza",
+      "texto_es": "El río Salazar ha excavado la Foz de Arbayún, un cañón de unos 6 km con paredes de cientos de metros. Allí vive la mayor colonia de buitres leonados de Navarra.",
+      "texto_eu": null,
+      "fuente": "Reserva Natural RN-16 (Gobierno de Navarra) / Wikipedia",
+      "url": "https://es.hispanopedia.com/wiki/Foz_de_Arbay%C3%BAn"
+    },
+    {
+      "id": "geografia-001",
+      "fecha": null,
+      "categoria": "geografia",
+      "texto_es": "La Mesa de los Tres Reyes es el techo de Navarra, con unos 2.440 m. Su nombre viene de que allí confluían los antiguos reinos de Navarra y Aragón y el vizcondado de Bearne.",
+      "texto_eu": null,
+      "fuente": "Wikipedia (Mesa de los Tres Reyes)",
+      "url": "https://es.hispanopedia.com/wiki/Mesa_de_los_Tres_Reyes"
+    },
+    {
+      "id": "geografia-002",
+      "fecha": null,
+      "categoria": "geografia",
+      "texto_es": "Navarra baja desde unos 2.440 m en la Mesa de los Tres Reyes hasta unos 240 m a orillas del Ebro en Buñuel: más de 2.000 metros de desnivel en una sola comunidad.",
+      "texto_eu": null,
+      "fuente": "Enciclopedia Auñamendi",
+      "url": "https://aunamendi.eusko-ikaskuntza.eus/en/geography-the-basque-country/ar-75103-46663/"
+    }
+  ]
+}
