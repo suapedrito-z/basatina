@@ -47,7 +47,32 @@ public class MainActivity extends Activity {
             if (prev != null) prev.uncaughtException(t, ex);
         });
         web = new WebView(this);
-        setContentView(web);
+        // Android 15/16 dibujan la app debajo de la barra de estado y de la de botones (edge-to-edge):
+        // la WebView va dentro de un marco que deja libre ese hueco (y el del teclado).
+        final android.widget.FrameLayout marco = new android.widget.FrameLayout(this);
+        marco.setBackgroundColor(0xFFFFFFFF);
+        marco.addView(web, new android.widget.FrameLayout.LayoutParams(-1, -1));
+        setContentView(marco);
+        marco.setOnApplyWindowInsetsListener((v, ins) -> {
+            if (android.os.Build.VERSION.SDK_INT >= 30) {
+                android.graphics.Insets b = ins.getInsets(android.view.WindowInsets.Type.systemBars()
+                        | android.view.WindowInsets.Type.displayCutout() | android.view.WindowInsets.Type.ime());
+                v.setPadding(b.left, b.top, b.right, b.bottom);
+            } else {
+                v.setPadding(ins.getSystemWindowInsetLeft(), ins.getSystemWindowInsetTop(), ins.getSystemWindowInsetRight(), ins.getSystemWindowInsetBottom());
+            }
+            return ins;
+        });
+        if (android.os.Build.VERSION.SDK_INT >= 30) {
+            // iconos oscuros en las barras, que ahora tienen fondo claro
+            int claro = android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS | android.view.WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
+            getWindow().getInsetsController().setSystemBarsAppearance(claro, claro);
+        }
+        // botón/gesto «atrás»: desde Android 13 (y obligatorio en 16) se avisa así
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    () -> { if (web.canGoBack()) web.goBack(); else moveTaskToBack(true); });
+        }
 
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);          // el simulador está hecho en JavaScript
@@ -133,6 +158,16 @@ public class MainActivity extends Activity {
         if (m.exists()) try { downloaded = versionOf(new FileInputStream(m)); } catch (Exception ignored) {}
         if (downloaded > bundled) return "file://" + new File(getFilesDir(), "web/index.html").getAbsolutePath();
         return "file:///android_asset/index.html";
+    }
+
+    /** true si la app se instaló desde Google Play (entonces las versiones nuevas llegan por Play, no por el APK) */
+    private boolean fromPlay() {
+        try {
+            String i = android.os.Build.VERSION.SDK_INT >= 30
+                    ? getPackageManager().getInstallSourceInfo(getPackageName()).getInstallingPackageName()
+                    : getPackageManager().getInstallerPackageName(getPackageName());
+            return "com.android.vending".equals(i);
+        } catch (Exception e) { return false; }
     }
 
     private int apkVersion() {
@@ -290,6 +325,7 @@ public class MainActivity extends Activity {
                     res.put("web", remote.optInt("version", 0));
                     res.put("apk", remote.optInt("apk", 0)); res.put("myApk", apkVersion());
                     res.put("apkUrl", remote.optString("apkUrl", ""));
+                    res.put("play", fromPlay());
                     callback(id, 200, res.toString());
                 } catch (Exception e) {
                     callback(id, 0, "{\"ok\":false,\"error\":" + JSONObject.quote(e.toString()) + "}");
