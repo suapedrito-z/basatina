@@ -12,7 +12,7 @@
 (function(){'use strict';
 const $=id=>document.getElementById(id);
 const E=s=>(typeof esc==='function'?esc(s):String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])));
-const EF_PATH='efemerides/navarra.json',EF_DEF={dias:{},curiosidades:[],prohibidas:[]};
+const EF_PATH='efemerides/navarra.json',EF_DEF={_def:1,dias:{},curiosidades:[],prohibidas:[]};   // _def = «no se pudo leer el archivo»
 // Palabras que bloquean un dato. En MAYÚSCULAS = siglas (se miran tal cual); el resto, sin tildes y por principio de palabra.
 // OJO: si cambias esta lista, cambia también la de RiverJob.java (NO_DATO).
 const EF_NO=['elecci','electoral','partido politico','parlament','gobierno','diputacion','congreso de los diputados','senado','ministr','alcald','concejal',
@@ -53,12 +53,14 @@ document.head.insertAdjacentHTML('beforeend',`<style id="efCss">
 let EF=null,EFT=0,EFDAY='';
 async function efLoad(force){
   if(!force&&EF&&Date.now()-EFT<6*3600e3)return EF;
-  // si el archivo no se puede leer (sin internet o con un error), jsLoad devuelve la lista vacía: entonces seguimos con la última copia buena
-  try{const d=await jsLoad(EF_PATH,EF_DEF,force);if(d&&d.dias&&(Object.keys(d.dias).length||(d.curiosidades||[]).length)){EF=d;EFT=Date.now();LS.set('ef_cache',d);return EF;}}catch(e){}
+  // si el archivo no se puede leer (sin internet o con un error), jsLoad devuelve EF_DEF (_def): entonces seguimos con la última copia buena.
+  // Si el archivo está bien pero vacío, se respeta: la tarjeta se esconde.
+  try{const d=await jsLoad(EF_PATH,EF_DEF,force);if(d&&!d._def){EF=d;EFT=Date.now();LS.set('ef_cache',d);return EF;}}catch(e){}
   EF=EF||LS.get('ef_cache',null)||EF_DEF;return EF;}
 
 function efDraw(){const el=$('efCard');if(!el||!EF)return;const r=efElegir(EF);EFDAY=hoyYmd();
-  if(!r){el.innerHTML='<div class="efH"><div class="efI">📜</div><div><div class="efK">Tal día como hoy</div><b>Sin dato para hoy</b></div></div>';return;}
+  const box=$('efHome');if(box)box.style.display=r?'':'none';
+  if(!r)return;   // sin datos: no se enseña la tarjeta
   const x=r.x,hoy=new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long'});
   const cab=r.tipo==='dia'?('Tal día como hoy · '+hoy+(x.a?', '+x.a:'')):'Dato curioso de Navarra';
   el.innerHTML=`<div class="efH"><div class="efI">${CAT_IC[x.cat]||(r.tipo==='dia'?'📜':'💡')}</div><div><div class="efK">${E(cab)}</div><b>${E(x.t)}</b></div></div>
