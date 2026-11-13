@@ -33,12 +33,12 @@ NOMBRES_ARGA = {"A159": "ARGA - URDANIZ", "A152": "ARGA - EUGI", "A313": "ARGA -
 def get(path, tries=3):
     for i in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(SAIH + path, headers=UA), timeout=40) as f:
+            with urllib.request.urlopen(urllib.request.Request(SAIH + path, headers=UA), timeout=20) as f:
                 return json.loads(f.read().decode("utf-8", "replace"))
         except Exception as e:
             if i == tries - 1:
                 print("  fallo", path, e)
-            time.sleep(2 + 3 * i)
+            time.sleep(2)
     return None
 
 

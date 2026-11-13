@@ -258,7 +258,7 @@ const RZ_MS=9000;
 function rzTimer(){clearInterval(RZ.tm);clearTimeout(RZ.to);RZ.to=setTimeout(()=>{RZ.tm=setInterval(()=>{if(!document.hidden&&(typeof BNTAB==='undefined'||BNTAB==='mtiempo'))rzTick();},RZ_MS);},1500);}
 rzTimer();
 document.head.insertAdjacentHTML('beforeend','<style>#rzTk{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 8px rgba(29,45,35,.05);overflow:hidden}body:not(.bna) #rzTk{background:var(--panel)}#rzTk .anC{display:flex;align-items:center;gap:11px;padding:12px 12px 10px;cursor:pointer;animation:anIn .45s ease}#rzTk .anC>div{flex:1;min-width:0}#rzTk .anC b{display:block;font-size:14.5px}#rzTk .anC small{display:block;color:var(--mut);font-size:12.5px}#rzTk .anW{color:#0D6285!important;font-weight:800}#rzTk .anE{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex:none}#rzTk .anF{display:flex;align-items:center;gap:8px;padding:0 10px 8px}#rzTk .anF button{border:none;background:#F3F6F1;color:inherit;border-radius:12px;width:46px;height:38px;font-size:26px;font-weight:700;line-height:1;cursor:pointer;flex:none}#rzTk .anF span{font-size:11.5px;color:var(--mut)}#rzTk .anBar{flex:1;height:4px;background:rgba(127,127,127,.18);border-radius:3px;overflow:hidden}#rzTk .anBar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#097BA4,#1e88e5);animation:anProg 7s linear forwards}</style>');
-if(APP)setTimeout(rzLoad,8000);
+setTimeout(rzLoad,APP?8000:1500);   // en la web, enseguida (solo lee un archivo)
 
 /* =====================================================================
    9. ACTUALIZACIÓN SOLA de la pantalla (sin tocar «Buscar nueva versión»)

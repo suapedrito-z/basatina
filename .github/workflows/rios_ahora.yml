@@ -21,8 +21,12 @@ jobs:
       - name: Recuperar la lista de estaciones guardada
         run: |
           git fetch --depth=1 origin datos 2>/dev/null && git show origin/datos:rios-estaciones.json > rios-estaciones.json 2>/dev/null || true
+      - name: Probar la conexión con el SAIH
+        run: |
+          curl -sS -m 20 -o /tmp/b.json -w "getBusquedas: %{http_code} %{size_download} bytes %{time_total}s\n" -A "BasatiNA/1.0 (+https://basatina.es)" https://www.saihebro.com/api/common/getBusquedas || echo "sin respuesta"
+          curl -sS -m 20 -o /dev/null -w "ficha A313: %{http_code} %{size_download} bytes %{time_total}s\n" -A "BasatiNA/1.0 (+https://basatina.es)" "https://www.saihebro.com/api/ficha/procesarTablaValoresActuales?estacion=A313" || echo "sin respuesta"
       - name: Leer el SAIH
-        run: python3 tools/rios_ahora.py
+        run: python3 -u tools/rios_ahora.py
       - name: Guardar en la rama datos
         run: |
           mkdir -p /tmp/datos && cp rios-ahora.json /tmp/datos/ && cp rios-estaciones.json /tmp/datos/ 2>/dev/null || true
