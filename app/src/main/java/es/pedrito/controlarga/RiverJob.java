@@ -64,6 +64,7 @@ public class RiverJob extends JobService {
             try { checkRoads(this); } catch (Exception ignored) {}
             try { checkSnow(this); } catch (Exception ignored) {}
             try { checkFinde(this); } catch (Exception ignored) {}
+            try { checkDato(this); } catch (Exception ignored) {}
             jobFinished(p, false);
         }).start();
         return true;   // el trabajo sigue en otro hilo
@@ -212,6 +213,89 @@ public class RiverJob extends JobService {
             t.append(k > 0 ? " · " : "").append(dias[k]).append(String.format(java.util.Locale.forLanguageTag("es-ES"), " %.0f°/%.0f°%s", tx, tn, ll >= 0.5 ? String.format(java.util.Locale.forLanguageTag("es-ES"), ", %.0f mm", ll) : ""));
         }
         if (bueno) notify(c, "🥾 Buen finde para el monte en " + f.optString(0), t + ". ¡A disfrutarlo!", 410);
+    }
+
+    /* ---------- 📜 Dato del día ----------
+       Cada mañana (a la hora elegida en Ajustes) manda un dato histórico o curioso de Navarra.
+       Lee efemerides/navarra.json de GitHub (si no hay internet, usa la última copia guardada).
+       Misma lógica que web/efemerides.js: dato del día (MM-DD) o, si no hay, una curiosidad. */
+    static final String DATO_URL = "https://raw.githubusercontent.com/suapedrito-z/basatina/main/efemerides/navarra.json";
+    static final String CH_DATO = "dato_dia";
+    // OJO: la misma lista que EF_NO en web/efemerides.js. MAYÚSCULAS = siglas.
+    static final String[] NO_DATO = {"elecci", "electoral", "partido politico", "parlament", "gobierno", "diputacion", "congreso de los diputados", "senado", "ministr", "alcald", "concejal",
+            "presidente del", "presidenta del", "votacion", "referendum", "guerra", "batalla", "atentad", "terroris", "franquis", "dictadura", "golpe de estado", "fusilad",
+            "carlis", "requete", "republica", "independentis", "nacionalis", "huelga", "manifestacion", "ETA", "UPN", "PSN", "PSOE", "PNV", "EH Bildu", "Bildu", "Geroa", "Podemos", "Vox", "PP"};
+
+    static String nrm(String s) {
+        return java.text.Normalizer.normalize(s == null ? "" : s, java.text.Normalizer.Form.NFD).replaceAll("\\p{M}", "").toLowerCase(java.util.Locale.ROOT);
+    }
+
+    static boolean datoMalo(JSONObject x, org.json.JSONArray extra) {
+        String txt = x.optString("t") + " " + x.optString("txt"), n = nrm(txt);
+        java.util.List<String> L = new java.util.ArrayList<>(java.util.Arrays.asList(NO_DATO));
+        if (extra != null) for (int i = 0; i < extra.length(); i++) L.add(extra.optString(i));
+        for (String w : L) {
+            if (w == null || w.isEmpty()) continue;
+            boolean siglas = w.equals(w.toUpperCase(java.util.Locale.ROOT)) && w.matches(".*[A-Z].*");
+            if (siglas) { if (Pattern.compile("(^|[^A-Za-z])" + Pattern.quote(w) + "([^A-Za-z]|$)").matcher(txt).find()) return true; }
+            else if (Pattern.compile("(^|[^a-z])" + Pattern.quote(nrm(w))).matcher(n).find()) return true;
+        }
+        return false;
+    }
+
+    static void checkDato(Context c) throws Exception {
+        JSONObject cfg = cfg(c);
+        if (!cfg.optBoolean("dato", false)) return;
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        if (cal.get(java.util.Calendar.HOUR_OF_DAY) < cfg.optInt("datoH", 9)) return;
+        String today = String.format(java.util.Locale.US, "%tF", cal);
+        SharedPreferences sp = c.getSharedPreferences("rio", MODE_PRIVATE);
+        if (today.equals(sp.getString("datoDay", ""))) return;
+        String body;
+        try {
+            body = get(DATO_URL + "?t=" + (System.currentTimeMillis() / 3600000L));
+            new JSONObject(body);                       // comprobamos que es un JSON válido antes de guardarlo
+            sp.edit().putString("datoJson", body).apply();
+        } catch (Exception ex) {
+            body = sp.getString("datoJson", "");
+            if (body.isEmpty()) return;                  // sin internet y sin copia: ya lo intentará en 15 minutos
+        }
+        JSONObject D = new JSONObject(body);
+        org.json.JSONArray ex = D.optJSONArray("prohibidas");
+        String k = String.format(java.util.Locale.US, "%02d-%02d", cal.get(java.util.Calendar.MONTH) + 1, cal.get(java.util.Calendar.DAY_OF_MONTH));
+        java.util.List<JSONObject> L = new java.util.ArrayList<>();
+        JSONObject dias = D.optJSONObject("dias");
+        org.json.JSONArray hoy = dias == null ? null : dias.optJSONArray(k);
+        if (hoy != null) for (int i = 0; i < hoy.length(); i++) { JSONObject x = hoy.optJSONObject(i); if (x != null && !x.optString("t").isEmpty() && !datoMalo(x, ex)) L.add(x); }
+        String titulo; JSONObject x;
+        if (!L.isEmpty()) {
+            x = L.get(cal.get(java.util.Calendar.YEAR) % L.size());
+            titulo = "📜 Tal día como hoy" + (x.has("a") ? " (" + x.optInt("a") + ")" : "") + ": " + x.optString("t");
+        } else {
+            org.json.JSONArray cu = D.optJSONArray("curiosidades");
+            if (cu != null) for (int i = 0; i < cu.length(); i++) { JSONObject y = cu.optJSONObject(i); if (y != null && !y.optString("t").isEmpty() && !datoMalo(y, ex)) L.add(y); }
+            if (L.isEmpty()) return;
+            x = L.get(cal.get(java.util.Calendar.DAY_OF_YEAR) % L.size());
+            titulo = "💡 Dato curioso de Navarra: " + x.optString("t");
+        }
+        sp.edit().putString("datoDay", today).apply();
+        notifyDato(c, titulo, x.optString("txt"));
+    }
+
+    /** Canal propio y más discreto que el de los avisos del río (no suena como una alarma) */
+    static void notifyDato(Context c, String title, String text) {
+        NotificationManager nm = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= 26 && nm.getNotificationChannel(CH_DATO) == null) {
+            NotificationChannel ch = new NotificationChannel(CH_DATO, "Dato del día", NotificationManager.IMPORTANCE_DEFAULT);
+            ch.setDescription("Un dato histórico o curioso de Navarra cada mañana");
+            nm.createNotificationChannel(ch);
+        }
+        PendingIntent pi = PendingIntent.getActivity(c, 0, new Intent(c, MainActivity.class), PendingIntent.FLAG_IMMUTABLE);
+        android.app.Notification.Builder b = Build.VERSION.SDK_INT >= 26 ? new android.app.Notification.Builder(c, CH_DATO) : new android.app.Notification.Builder(c);
+        b.setSmallIcon(R.drawable.ic_stat_river).setContentTitle(title).setContentText(text)
+                .setStyle(new android.app.Notification.BigTextStyle().bigText(text))
+                .setContentIntent(pi).setAutoCancel(true);
+        try { nm.notify(500, b.build()); } catch (SecurityException ignored) {}
     }
 
     static void notify(Context c, String title, String text, int id) {

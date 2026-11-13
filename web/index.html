@@ -2068,7 +2068,7 @@ if(!CFG.tema3){CFG.tema3=1;CFG.tema='bna';LS.set('cfg',CFG);}   // nuevo diseño
 function cfgApply(){document.body.classList.toggle('alegre',CFG.tema==='alegre');document.body.classList.toggle('bna',CFG.tema==='bna');const dark=CFG.tema==='oscuro'||(CFG.tema==='auto'&&!(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches));
   document.body.classList.toggle('light',!dark);
   if(APP&&window.AndroidNet.setTextZoom)window.AndroidNet.setTextZoom(CFG.letra);
-  if(APP&&window.AndroidNet.setAlerts)window.AndroidNet.setAlerts(JSON.stringify({on:CFG.avisos,qAma:CFG.qAma,qRoj:CFG.qRoj,subida:CFG.subida,roads:CFG.roads||[],snow:CFG.snow||[],finde:CFG.finde?[TOWNS[TOWN][0],TOWNS[TOWN][1],TOWNS[TOWN][2]]:null}));}
+  if(APP&&window.AndroidNet.setAlerts)window.AndroidNet.setAlerts(JSON.stringify({on:CFG.avisos,qAma:CFG.qAma,qRoj:CFG.qRoj,subida:CFG.subida,roads:CFG.roads||[],snow:CFG.snow||[],finde:CFG.finde?[TOWNS[TOWN][0],TOWNS[TOWN][1],TOWNS[TOWN][2]]:null,dato:!!CFG.dato,datoH:CFG.datoH||9}));}
 function cfgSave(){LS.set('cfg',CFG);cfgApply();if(typeof applyIcons==='function')applyIcons((CFG.iconos||'pro')==='pro');}
 function ajustesRender(){const el=document.getElementById('ajBody'),nat=APP&&window.AndroidNet.setAlerts;
   const seg=(k,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button class="btn${CFG[k]==v?' on':''}" data-k="${k}" data-v="${v}">${l}</button>`).join('')}</div>`;
@@ -5065,6 +5065,7 @@ pvsDrawer();const _pvsCA=cfgApply;cfgApply=function(){_pvsCA();try{pvsDrawer();p
 <script src="servicios-ui.js"></script>
 <script src="arbustos.js"></script>
 <script src="novedades.js"></script>
+<script src="efemerides.js"></script>
 
 </body>
 </html>
