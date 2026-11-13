@@ -53,7 +53,8 @@ document.head.insertAdjacentHTML('beforeend',`<style id="efCss">
 let EF=null,EFT=0,EFDAY='';
 async function efLoad(force){
   if(!force&&EF&&Date.now()-EFT<6*3600e3)return EF;
-  try{const d=await jsLoad(EF_PATH,EF_DEF,force);if(d&&d.dias){EF=d;EFT=Date.now();LS.set('ef_cache',d);return EF;}}catch(e){}
+  // si el archivo no se puede leer (sin internet o con un error), jsLoad devuelve la lista vacía: entonces seguimos con la última copia buena
+  try{const d=await jsLoad(EF_PATH,EF_DEF,force);if(d&&d.dias&&(Object.keys(d.dias).length||(d.curiosidades||[]).length)){EF=d;EFT=Date.now();LS.set('ef_cache',d);return EF;}}catch(e){}
   EF=EF||LS.get('ef_cache',null)||EF_DEF;return EF;}
 
 function efDraw(){const el=$('efCard');if(!el||!EF)return;const r=efElegir(EF);EFDAY=hoyYmd();
