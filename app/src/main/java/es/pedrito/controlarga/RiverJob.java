@@ -267,8 +267,27 @@ public class RiverJob extends JobService {
         JSONObject dias = D.optJSONObject("dias");
         org.json.JSONArray hoy = dias == null ? null : dias.optJSONArray(k);
         if (hoy != null) for (int i = 0; i < hoy.length(); i++) { JSONObject x = hoy.optJSONObject(i); if (x != null && !x.optString("t").isEmpty() && !datoMalo(x, ex)) L.add(x); }
-        String titulo; JSONObject x;
-        if (!L.isEmpty()) {
+        String titulo; JSONObject x = null; String sem = null;
+        // 1º «Personaje de la semana»: semanas = [{desde:"AAAA-MM-DD" (sábado), personaje, dias:[7 datos]}]
+        org.json.JSONArray S = D.optJSONArray("semanas");
+        java.util.Calendar hoy0 = java.util.Calendar.getInstance();
+        hoy0.set(cal.get(java.util.Calendar.YEAR), cal.get(java.util.Calendar.MONTH), cal.get(java.util.Calendar.DAY_OF_MONTH), 12, 0, 0);
+        if (S != null) for (int j = 0; j < S.length() && x == null; j++) {
+            JSONObject s = S.optJSONObject(j); if (s == null) continue;
+            Matcher m = Pattern.compile("^(\\d{4})-(\\d\\d)-(\\d\\d)$").matcher(s.optString("desde"));
+            if (!m.find()) continue;
+            java.util.Calendar ini = java.util.Calendar.getInstance();
+            ini.set(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)) - 1, Integer.parseInt(m.group(3)), 12, 0, 0);
+            long i = Math.round((hoy0.getTimeInMillis() - ini.getTimeInMillis()) / 86400000.0);
+            if (i < 0 || i > 6) continue;
+            org.json.JSONArray sd = s.optJSONArray("dias");
+            JSONObject y = sd == null ? null : sd.optJSONObject((int) i);
+            String per = s.optString("personaje");
+            if (y != null && !y.optString("t").isEmpty() && !datoMalo(y, ex) && !datoMalo(new JSONObject().put("t", per), ex)) { x = y; sem = per + " (" + (i + 1) + "/7)"; }
+        }
+        if (x != null) {
+            titulo = "⭐ " + sem + ": " + x.optString("t");
+        } else if (!L.isEmpty()) {
             x = L.get(cal.get(java.util.Calendar.YEAR) % L.size());
             titulo = "📜 Tal día como hoy" + (x.has("a") ? " (" + x.optInt("a") + ")" : "") + ": " + x.optString("t");
         } else {

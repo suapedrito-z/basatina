@@ -1,7 +1,9 @@
 {
- "_info": "Dato del día de BasatiNA. dias: clave MM-DD (mes-día) con una lista de datos. a = año (opcional), t = título corto, txt = texto, cat = categoría, fuente = enlace para comprobarlo, ok = true cuando esté revisado. Si un día no tiene dato, sale uno de 'curiosidades'. NADA DE POLÍTICA. 'prohibidas' = palabras que hacen que la app se salte el dato.",
+ "_info": "Dato del día de BasatiNA. dias: clave MM-DD (mes-día) con una lista de datos. a = año (opcional), t = título corto, txt = texto, cat = categoría, fuente = enlace para comprobarlo, ok = true cuando esté revisado. semanas = personaje de la semana (desde = el sábado en que empieza, AAAA-MM-DD; dias = 7 datos, de sábado a viernes); tiene prioridad sobre dias. Si un día no tiene dato, sale uno de 'curiosidades'. NADA DE POLÍTICA. 'prohibidas' = palabras que hacen que la app se salte el dato.",
  "cats": ["naturaleza", "cultura", "música", "deporte", "ciencia", "tradiciones", "personajes", "lugares"],
  "prohibidas": [],
+ "semanas": [
+ ],
  "dias": {
  },
  "curiosidades": [

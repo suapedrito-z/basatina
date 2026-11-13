@@ -26,7 +26,14 @@ function efMalo(x,extra){const txt=[x.t,x.txt].join(' '),n=nrm(txt);
 const mmdd=d=>String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const diaAno=d=>Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);
 // devuelve {x, tipo:'dia'|'cur', k}
+// «Personaje de la semana»: semanas = [{desde:'AAAA-MM-DD' (un sábado), personaje, fuente?, dias:[7 datos, de sábado a viernes]}]
+function efSemana(D,d,ex){const hoy=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  for(const s of (D.semanas||[])){const m=/^(\d{4})-(\d\d)-(\d\d)$/.exec((s&&s.desde)||'');if(!m)continue;
+    const i=Math.round((hoy-new Date(+m[1],m[2]-1,+m[3]))/864e5);if(i<0||i>6)continue;
+    const x=(s.dias||[])[i];if(x&&x.t&&!efMalo(x,ex)&&!efMalo({t:s.personaje||''},ex))return {x,tipo:'sem',k:s.desde,i,p:s.personaje||'',fuente:x.fuente||s.fuente};}
+  return null;}
 function efElegir(D,d){d=d||new Date();const ex=D.prohibidas||[],k=mmdd(d);
+  const S=efSemana(D,d,ex);if(S)return S;
   const L=((D.dias||{})[k]||[]).filter(x=>x&&x.t&&!efMalo(x,ex));
   if(L.length)return {x:L[d.getFullYear()%L.length],tipo:'dia',k,n:L.length};
   const C=(D.curiosidades||[]).filter(x=>x&&x.t&&!efMalo(x,ex));
@@ -62,11 +69,13 @@ function efDraw(){const el=$('efCard');if(!el||!EF)return;const r=efElegir(EF);E
   const box=$('efHome');if(box)box.style.display=r?'':'none';
   if(!r)return;   // sin datos: no se enseña la tarjeta
   const x=r.x,hoy=new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long'});
-  const cab=r.tipo==='dia'?('Tal día como hoy · '+hoy+(x.a?', '+x.a:'')):'Dato curioso de Navarra';
-  el.innerHTML=`<div class="efH"><div class="efI">${CAT_IC[x.cat]||(r.tipo==='dia'?'📜':'💡')}</div><div><div class="efK">${E(cab)}</div><b>${E(x.t)}</b></div></div>
+  const cab=r.tipo==='sem'?('Personaje de la semana · día '+(r.i+1)+' de 7'):r.tipo==='dia'?('Tal día como hoy · '+hoy+(x.a?', '+x.a:'')):'Dato curioso de Navarra';
+  const fu=x.fuente||r.fuente;
+  el.innerHTML=`<div class="efH"><div class="efI">${r.tipo==='sem'?'⭐':CAT_IC[x.cat]||(r.tipo==='dia'?'📜':'💡')}</div><div><div class="efK">${E(cab)}</div>${r.tipo==='sem'?`<div class="efF" style="margin:0;font-weight:700">${E(r.p)}</div>`:''}<b>${E(x.t)}</b></div></div>
    <p class="efT">${E(x.txt)}</p>
-   <div class="efMas" style="display:none">${x.fuente&&/^https?:\/\//i.test(x.fuente)?`<div class="efF">Fuente: <a href="${E(x.fuente)}" target="_blank" rel="noopener">${E(x.fuente.replace(/^https?:\/\/(www\.)?/,'').split('/')[0])}</a></div>`:''}
-    ${typeof TECH!=='undefined'&&TECH?`<div class="efF">${x.ok?'✅ Revisado':'⚠️ Sin revisar todavía'} · clave ${r.k}${r.tipo==='cur'?' (curiosidad: hoy no hay dato propio)':''}</div>
+   <div class="efMas" style="display:none">${fu&&/^https?:\/\//i.test(fu)?`<div class="efF">Fuente: <a href="${E(fu)}" target="_blank" rel="noopener">${E(fu.replace(/^https?:\/\/(www\.)?/,'').split('/')[0])}</a></div>`:''}
+    ${typeof TECH!=='undefined'&&TECH&&r.tipo==='sem'?`<div class="efF">Personaje de la semana (desde ${E(r.k)}). Se edita en GitHub, en «semanas».</div>`:''}
+    ${typeof TECH!=='undefined'&&TECH&&r.tipo!=='sem'?`<div class="efF">${x.ok?'✅ Revisado':'⚠️ Sin revisar todavía'} · clave ${r.k}${r.tipo==='cur'?' (curiosidad: hoy no hay dato propio)':''}</div>
     <div class="efA"><button class="btn" data-a="ed">✏️ ${r.tipo==='dia'?'Editar':'Añadir'} el dato de hoy</button>${r.tipo==='dia'&&!x.ok?'<button class="btn" data-a="ok">✅ Marcar revisado</button>':''}</div><div id="efEd"></div>`:''}</div>`;
   el.onclick=ev=>{const b=ev.target.closest('button[data-a]');if(b){ev.stopPropagation();if(b.dataset.a==='ed')efForm(r);else efOk(r);return;}
     if(ev.target.closest('a,#efEd'))return;const c=el.classList.toggle('cerr');el.querySelector('.efMas').style.display=c?'none':'block';};}

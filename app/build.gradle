@@ -9,8 +9,8 @@ android {
         applicationId "es.sonpe.basatina"
         minSdk 24
         targetSdk 36  // Android 16: lo exige Google Play desde el 31/08/2026
-        versionCode 23
-        versionName "4.3"
+        versionCode 24
+        versionName "4.4"
     }
     // Firma fija: así cada versión nueva se instala encima de la anterior sin desinstalar.
     // La contraseña NO está aquí: GitHub la pasa desde el secreto KEYSTORE_PASS del repositorio.
