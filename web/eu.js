@@ -1,7 +1,8 @@
 /* =====================================================================
-   IDIOMA · HIZKUNTZA
-   Si en Ajustes se elige euskera, este archivo traduce lo que sale en pantalla
-   cambiando cada texto por su versión en euskera (diccionario EU) en cuanto aparece.
+   IDIOMA · HIZKUNTZA · LANGUAGE · LANGUE
+   Si en el menú se elige otro idioma (euskera, inglés o francés), este archivo traduce lo que sale
+   en pantalla cambiando cada texto por su versión en ese idioma en cuanto aparece.
+   Diccionarios: EU (aquí abajo) + idiomas.js (window.I18N: textos nuevos en euskera, y todo en inglés y francés).
    Los nombres propios (pueblos, ríos, embalses, especies) se dejan como están.
    ===================================================================== */
 (function () {
@@ -271,11 +272,14 @@
   window.EU_DOW = ['ig.', 'al.', 'ar.', 'az.', 'og.', 'or.', 'lr.'];
   const MESL = { enero: 'urtarrila', febrero: 'otsaila', marzo: 'martxoa', abril: 'apirila', mayo: 'maiatza', junio: 'ekaina', julio: 'uztaila', agosto: 'abuztua', septiembre: 'iraila', octubre: 'urria', noviembre: 'azaroa', diciembre: 'abendua' };
   for (const k in MESL) EU[k[0].toUpperCase() + k.slice(1)] = MESL[k][0].toUpperCase() + MESL[k].slice(1);
-  window.T = s => (L === 'eu' && EU[s]) || s;   // para textos que se dibujan en los mapas
-  if (L !== 'eu') return;
+  const X = window.I18N || {};
+  if (X.eu) for (const k in X.eu) if (!EU[k]) EU[k] = X.eu[k];
+  const D = L === 'eu' ? EU : (X[L] || null);
+  window.T = s => (D && D[s]) || s;   // para textos que se dibujan en los mapas
+  if (!D) return;
 
   // textos con números o nombres dentro: [patrón, traducción] (lo de dentro también se traduce)
-  const RX = [
+  const RX_EU = [
     [/^Artículo ([\d.]+) de la orden de vedas$/, 'Debeku-aginduaren $1. artikulua'],
     [/^Cargando el tiempo de (\d+) pueblos…$/, '$1 herritako eguraldia kargatzen…'],
     [/^Cargando el tiempo de (.+)…$/, 'Eguraldia kargatzen: $1…'],
@@ -297,13 +301,14 @@
     [/^(.+) · histórico hasta (.+)$/, '$1 · historikoa $2 arte'],
     [/^Hoy, (.+): (\d+) modalidades abiertas$/, 'Gaur, $1: $2 modalitate irekita'],
   ];
+  const RX = (L === 'eu' ? RX_EU : []).concat((window.I18N_RX && window.I18N_RX[L]) || []);
   const PRE = /^[^\p{L}\p{N}¿¡«“(]+/u, SUF = /[\s:·…,.]+$/u;
   function tr(s) {
-    if (EU[s]) return EU[s];
+    if (D[s]) return D[s];
     const p = (s.match(PRE) || [''])[0], rest = s.slice(p.length);
-    if (p && EU[rest]) return p + EU[rest];
+    if (p && D[rest]) return p + D[rest];
     const q = (rest.match(SUF) || [''])[0], core = rest.slice(0, rest.length - q.length);
-    if (q && EU[core]) return p + EU[core] + q;
+    if (q && D[core]) return p + D[core] + q;
     for (const [re, to] of RX) {
       const m = core.match(re) || rest.match(re);
       if (m) return p + to.replace(/\$(\d)/g, (_, i) => tr(m[+i]) || m[+i]) + (core.match(re) ? q : '');
@@ -314,16 +319,20 @@
   const MES3 = { ene: 'urt', feb: 'ots', mar: 'mar', abr: 'api', may: 'mai', jun: 'eka', jul: 'uzt', ago: 'abu', sep: 'ira', oct: 'urr', nov: 'aza', dic: 'abe' };
   const DIAS = { lunes: 'astelehena', martes: 'asteartea', 'miércoles': 'asteazkena', jueves: 'osteguna', viernes: 'ostirala', 'sábado': 'larunbata', domingo: 'igandea',
     lun: 'al.', mar: 'ar.', 'mié': 'az.', jue: 'og.', vie: 'or.', 'sáb': 'lr.', dom: 'ig.' };
+  const DT = L === 'eu' ? { m: MES3, d: DIAS } : ((window.I18N_DATE && window.I18N_DATE[L]) || { m: MES3, d: DIAS });
   function fecha(s) {
     if (!/\d/.test(s)) return null;
-    let o = s.replace(/(\d{1,2}) (ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)\b/g, (_, d, m) => d + ' ' + MES3[m]);
-    o = o.replace(/(^|[\s,(])(lunes|martes|miércoles|jueves|viernes|sábado|domingo|lun|mar|mié|jue|vie|sáb|dom)(?=[\s,.])/g, (_, a, d) => a + DIAS[d]);
+    let o = s.replace(/(\d{1,2}) (ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)\b/g, (_, d, m) => d + ' ' + (DT.m[m] || m));
+    o = o.replace(/(^|[\s,(])(lunes|martes|miércoles|jueves|viernes|sábado|domingo|lun|mar|mié|jue|vie|sáb|dom)(?=[\s,.])/g, (_, a, d) => a + (DT.d[d] || d));
     return o !== s ? o : null;
   }
   window.trEU = tr;
   function doText(n) {
     const v = n.nodeValue, t = v.trim();
     if (!t || t.length > 600 || !/\p{L}{2}/u.test(t)) return;
+    // los grupos del menú guardan su nombre en castellano (data-k): el código los busca por ese nombre
+    const pa = n.parentNode;
+    if (pa && pa.nodeName === 'SPAN' && pa.parentNode && pa.parentNode.classList && pa.parentNode.classList.contains('dgroup') && !pa.dataset.k) pa.dataset.k = t.replace(/^[^\p{L}]+/u, '').trim();
     const r = tr(t);
     if (r && r !== t) n.nodeValue = v.replace(t, r);
   }

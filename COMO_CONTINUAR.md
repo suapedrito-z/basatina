@@ -18,7 +18,9 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 | `web/index.html` | Toda la app: HTML, estilos y JavaScript |
 | `web/version.json` | Versión de la pantalla. **Se regenera con `python3 tools/make_version.py` después de cada cambio en `web/`** |
 | `web/*.js` (rios, pesca, caza, monte, sismo, pueblos, energia, viaje, agenda) | Datos generados por GitHub Actions. No editar a mano |
-| `web/eu.js` | Traducciones al euskera |
+| `web/eu.js` | Motor de traducción + diccionario de euskera |
+| `web/idiomas.js` | Diccionarios nuevos: euskera (textos nuevos), inglés y francés. Clave = texto exacto en castellano |
+| `web/novedades.js` | Cambios del 13 nov. 2026 (ver abajo). Se carga el último |
 | `tools/*.py` | Scripts que descargan datos (los ejecuta GitHub Actions, que sí tiene internet) |
 | `.github/workflows/*.yml` | Tareas automáticas: `build.yml` compila la APK; el resto actualiza datos |
 | `app/src/main/java/es/pedrito/controlarga/` | Código Android: `MainActivity` (WebView + puente `AndroidNet`), `RiverJob` (avisos en segundo plano), `RiverWidget` |
@@ -37,7 +39,7 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
    - Las webs que no permiten CORS (SAIH, Gobierno de Navarra, Ministerio…) se piden con `netGet(url)`, que usa el puente Android y solo funciona dentro de la app (`APP===true`).
    - Las que sí lo permiten se piden con `fetch`.
 6. **No pongas contraseñas ni claves en el código.** Las claves van en `config/*.json` y se guardan desde la app (modo administrador). La firma de la APK usa los secretos de GitHub `KEYSTORE_B64` (la llave .jks en base64) y `KEYSTORE_PASS` (su contraseña). La llave NO va en el repositorio (es público). No crear nunca una llave nueva: los móviles dejarían de poder actualizar.
-7. **Siempre en español** (y euskera en `eu.js` si se puede). Mensajes claros, sin tecnicismos.
+7. **Siempre en español**, y si puedes añade el texto en `web/idiomas.js` (euskera, inglés y francés). Pon cada palabra traducible en su propio `<span>` si va mezclada con números. Mensajes claros, sin tecnicismos.
 8. **Aviso que debe seguir saliendo**: «⚠️ ANTE EL RIESGO, HAZ CASO SIEMPRE A LOS AVISOS OFICIALES».
 
 ## 4. Funciones útiles que ya existen en `index.html`
@@ -79,3 +81,12 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
 
 - **Asistente con IA dentro de la app**: solo con la clave protegida en un servidor, nunca en el repositorio público.
 - **Radar con previsión (Rainbow.ai)**: preparado, pero sin clave, porque pide tarjeta.
+
+- **Novedades 13 nov. 2026** (`web/novedades.js`, versión de la APK 3.8 / código 18):
+  - «BasatiNA» sale siempre con la **NA en rojo** (un vigilante cambia el texto en cualquier pantalla; en la web, `naRojo()` en `docs/index.html`).
+  - Vida silvestre: «🦉 Flora y fauna» (antes «Flora, fauna y setas») con el filtro **🌿 Arbustos** dentro (las fichas de `arbustos.js` se añaden a `ESPECIES`). La pantalla `arbustos` lleva ahí.
+  - **Retirado**: «Fichas de flora» (`fichas-arboles.js` y sus datos), el script `naturaleza-catalogo.js` ya no se carga (sigue en `web/` solo como fuente de `tools/especies.py`) y se borraron los robots de parches de una sola vez (`naturaleza-*.yml`, `vida-silvestre-solo-identificador.yml`, `fichas-arboles.yml`, `verificar-fichas.yml`): podían volver a meter código viejo en `index.html`.
+  - Inicio → **«Ahora en Navarra»**: carrusel (`anLoad`/`anDraw`) con agenda cultural, deporte, mercados, cielo, tu calendario y aviso de salud de hoy, mañana y pasado. Cambia cada 10 s; filtros Todo/Cultura/Deporte/Otros.
+  - Grupo **NA Salud** (`salud`): presión y dolores de cabeza, articulaciones, calor/frío, UV, aire y polen (`saCalc`), diario de dolores (solo en el móvil, `saDiario` en localStorage), teléfonos 112 y Toxicología. Plantas medicinales y Farmacias se han movido aquí.
+  - **Idioma**: botón «Castellano · Euskara · English · Français» en Configuración. Los grupos del menú guardan su nombre en castellano en `data-k`, así el código los encuentra en cualquier idioma.
+  - **Seguridad**: los enlaces externos se abren fuera de la app; el PIN se bloquea tras 5 fallos (30 s, 1 min…); en Android, el WebView solo abre pantallas propias, `AndroidNet.get` solo acepta http/https, `openUrl` solo web/correo/teléfono/mapas y la actualización ignora nombres de archivo raros.
