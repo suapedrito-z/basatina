@@ -336,5 +336,58 @@ if(typeof svSec==='function'){
     document.body.appendChild(o);o.onclick=e=>{if(e.target===o||e.target.closest('[data-x]'))o.remove();};
     o.querySelectorAll('[data-l]').forEach(x=>x.onclick=()=>{try{localStorage.setItem('lang',x.dataset.l);}catch(e){}location.reload();});};})();
 
+
+/* =====================================================================
+   8. 📦 COPIA DE MIS DATOS y MUDANZA a la app nueva (es.sonpe.basatina, versión 20 o más)
+   La app de Google Play es otra app para el móvil: lo guardado en la antigua (es.pedrito.controlarga)
+   no pasa solo. Aquí se guarda todo en un archivo .json y se recupera en la nueva.
+   Lo que NO se copia: la llave de GitHub y el PIN (por seguridad, se vuelven a poner).
+   ===================================================================== */
+const MU_NO=new Set(['ghTok','pinH','pinFail','tech']),MU_NUEVA=20,MU_WEB='https://sonpe-technology.es/';
+const muVer=()=>{try{return APP&&window.AndroidNet.appVersion?+window.AndroidNet.appVersion():0;}catch(e){return 0;}};
+const muVieja=()=>APP&&muVer()>0&&muVer()<MU_NUEVA;
+function muIdb(){return new Promise((res,rej)=>{const r=indexedDB.open('basatina',1);r.onupgradeneeded=()=>r.result.createObjectStore('fotos');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function muFotos(){const db=await muIdb();return new Promise((res,rej)=>{const t=db.transaction('fotos','readonly'),st=t.objectStore('fotos'),o={};
+  const c=st.openCursor();c.onsuccess=()=>{const k=c.result;if(k){o[k.key]=k.value;k.continue();}else res(o);};c.onerror=()=>rej(c.error);});}
+async function muGuardar(){try{const ls={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!MU_NO.has(k))ls[k]=localStorage.getItem(k);}
+    const fotos=await muFotos().catch(()=>({})),d={app:'BasatiNA',tipo:'copia',v:1,fecha:new Date().toISOString(),ls,fotos};
+    const txt=JSON.stringify(d),nom='BasatiNA-copia-'+hoyYmd()+'.json';
+    if(APP&&window.AndroidNet.shareFile){const b=btoa(unescape(encodeURIComponent(txt)));window.AndroidNet.shareFile(nom,b,'application/json');}
+    else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'}));a.download=nom;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);}
+    try{localStorage.setItem('muHecha','1');}catch(e){}
+    const nf=Object.keys(fotos).length;toast('✅ Copia hecha'+(nf?' ('+nf+(nf===1?' foto':' fotos')+')':'')+'. Guárdala en Drive, en Archivos o mándatela por WhatsApp');}
+  catch(e){toast('❌ No se pudo hacer la copia: '+e.message);}}
+function muRecuperar(){const i=document.createElement('input');i.type='file';i.accept='.json,application/json';
+  i.onchange=()=>{const f=i.files&&i.files[0];if(!f)return;const r=new FileReader();r.onload=async()=>{try{const d=JSON.parse(r.result);
+      if(!d||d.app!=='BasatiNA'||!d.ls)throw new Error('ese archivo no es una copia de BasatiNA');
+      if(!confirm('¿Recuperar la copia del '+String(d.fecha||'').slice(0,10)+'? Se juntará con lo que tengas en este móvil y lo repetido se sustituirá.'))return;
+      Object.entries(d.ls).forEach(([k,v])=>{if(!MU_NO.has(k))try{localStorage.setItem(k,v);}catch(e){}});
+      const db=await muIdb();await new Promise((res,rej)=>{const t=db.transaction('fotos','readwrite'),st=t.objectStore('fotos');Object.entries(d.fotos||{}).forEach(([k,v])=>st.put(v,k));t.oncomplete=res;t.onerror=()=>rej(t.error);});
+      try{localStorage.setItem('muHecha','1');}catch(e){}
+      toast('✅ Datos recuperados. Se vuelve a abrir la app…');setTimeout(()=>location.reload(),1500);}
+    catch(e){toast('❌ '+e.message);}};r.readAsText(f);};
+  document.body.appendChild(i);i.click();setTimeout(()=>i.remove(),60000);}
+// tarjeta en Ajustes
+if(typeof ajustesRender==='function'){const _aj=ajustesRender;ajustesRender=function(){_aj.apply(this,arguments);const el=$('ajBody');if(!el||$('muCard'))return;
+  el.insertAdjacentHTML('beforeend',`<div class="card" id="muCard"><b>📦 Copia de mis datos</b><div class="note">Guarda en un archivo tu diario de salidas (con fotos), el diario de dolores, el calendario, las notas, los sitios secretos y los ajustes. Sirve para cambiar de móvil o para pasarte a la BasatiNA de Google Play. El archivo es tuyo: no se envía a nadie.</div>
+    <div class="row" style="flex-wrap:wrap;margin-top:8px"><button class="btn pri" id="muG">💾 Guardar copia</button><button class="btn" id="muR">📥 Recuperar copia</button></div></div>`);
+  $('muG').onclick=muGuardar;$('muR').onclick=muRecuperar;};}
+// app antigua: explicar la mudanza (también cuando avisa de versión nueva)
+function bnMudanza(){if(!muVieja())return false;if($('muBox'))return true;const o=document.createElement('div');o.id='muBox';o.className='nvMu';
+  o.innerHTML=`<div><b style="font-size:17px">📲 BasatiNA se muda</b><div class="note" style="margin-top:6px">La nueva BasatiNA (la de Google Play) es otra app para el móvil. Para no perder nada:</div>
+   <ol style="margin:8px 0 0;padding-left:20px;line-height:1.55"><li><span>Guarda tus datos en un archivo</span> <button class="btn pri" id="muG2">💾 Guardar copia</button></li>
+   <li><span>Instala la BasatiNA nueva</span> <button class="btn" id="muI">⬇️ Instalar</button></li>
+   <li><span>Ábrela y entra en Ajustes → Copia de mis datos → Recuperar copia.</span></li>
+   <li><span>Cuando lo veas todo en la nueva, desinstala esta.</span></li></ol>
+   <div class="row" style="margin-top:10px"><button class="btn" data-x="1">Más tarde</button></div></div>`;
+  document.body.appendChild(o);o.onclick=e=>{if(e.target===o||e.target.closest('[data-x]'))o.remove();};
+  $('muG2').onclick=muGuardar;$('muI').onclick=()=>{try{window.AndroidNet.openUrl(MU_WEB);}catch(e){}};return true;}
+window.bnMudanza=bnMudanza;
+setTimeout(()=>{if(muVieja()){let n=0;try{n=+(sessionStorage.getItem('muVisto')||0);sessionStorage.setItem('muVisto','1');}catch(e){}if(!n)bnMudanza();}
+  // app nueva recién instalada y vacía: recordar que se pueden recuperar los datos
+  else if(APP&&muVer()>=MU_NUEVA){let v=null;try{v=localStorage.getItem('muHecha')||localStorage.getItem('diario')||localStorage.getItem('sitios');localStorage.setItem('muHecha','1');}catch(e){}
+    if(!v)toast('📦 ¿Tenías la BasatiNA anterior? Recupera tus datos','Recuperar',muRecuperar);}},2500);
+document.head.insertAdjacentHTML('beforeend','<style>.nvMu{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.nvMu>div{background:var(--panel,#fff);color:var(--txt);border-radius:18px;padding:16px;width:min(92vw,400px);box-shadow:0 10px 40px rgba(0,0,0,.35)}.nvMu li{margin-top:8px}</style>');
+
 window.NOVEDADES={anLoad,saCalc,naScan};
 })();

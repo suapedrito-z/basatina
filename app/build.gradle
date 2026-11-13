@@ -4,11 +4,13 @@ android {
     namespace 'es.pedrito.controlarga'
     compileSdk 36
     defaultConfig {
-        applicationId "es.pedrito.controlarga"
+        // Identificador en Google Play: es.sonpe.basatina (desde la versión 4.0). NO SE PUEDE CAMBIAR NUNCA MÁS.
+        // La app anterior era es.pedrito.controlarga: para el móvil es otra app (ver «Copia de mis datos» en Ajustes).
+        applicationId "es.sonpe.basatina"
         minSdk 24
         targetSdk 36  // Android 16: lo exige Google Play desde el 31/08/2026
-        versionCode 19
-        versionName "3.9"
+        versionCode 20
+        versionName "4.0"
     }
     // Firma fija: así cada versión nueva se instala encima de la anterior sin desinstalar.
     // La contraseña NO está aquí: GitHub la pasa desde el secreto KEYSTORE_PASS del repositorio.

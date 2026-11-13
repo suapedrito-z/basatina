@@ -90,3 +90,7 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
   - Grupo **NA Salud** (`salud`): presión y dolores de cabeza, articulaciones, calor/frío, UV, aire y polen (`saCalc`), diario de dolores (solo en el móvil, `saDiario` en localStorage), teléfonos 112 y Toxicología. Plantas medicinales y Farmacias se han movido aquí.
   - **Idioma**: botón «Castellano · Euskara · English · Français» en Configuración. Los grupos del menú guardan su nombre en castellano en `data-k`, así el código los encuentra en cualquier idioma.
   - **Seguridad**: los enlaces externos se abren fuera de la app; el PIN se bloquea tras 5 fallos (30 s, 1 min…); en Android, el WebView solo abre pantallas propias, `AndroidNet.get` solo acepta http/https, `openUrl` solo web/correo/teléfono/mapas y la actualización ignora nombres de archivo raros.
+
+- **Google Play (13 nov. 2026)**: la app apunta a Android 16 (API 36) y desde la versión 4.0 (código 20) su identificador es **`es.sonpe.basatina`** (antes `es.pedrito.controlarga`). **No se puede volver a cambiar nunca.** El paquete Java sigue siendo `es.pedrito.controlarga` (eso da igual).
+  - Para el móvil es otra app: en Ajustes está **📦 Copia de mis datos** (guardar/recuperar un .json con localStorage y las fotos de IndexedDB, sin `ghTok` ni el PIN). La app antigua (código < 20) muestra «BasatiNA se muda» (`bnMudanza`).
+  - GitHub fabrica el `.aab` para Google Play (Actions → Construir APK → Artifacts). Política de privacidad: `docs/privacidad.html`.

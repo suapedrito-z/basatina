@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     private static final int PICK = 41;
     private static final int GEO = 42;
     private static final int CAM = 43;
-    private Uri camUri; private File camFile; private boolean camMulti;
+    private Uri camUri; private File camFile; private boolean camMulti, pickImg = true;
     private android.webkit.GeolocationPermissions.Callback geoCb;   // «Qué hay cerca de mí»
     private String geoOrigin;
 
@@ -98,6 +98,10 @@ public class MainActivity extends Activity {
                 if (fileCb != null) fileCb.onReceiveValue(null);
                 fileCb = cb;
                 camMulti = p.getMode() == FileChooserParams.MODE_OPEN_MULTIPLE;
+                // fotos (lo normal) o cualquier archivo (p. ej. la copia de datos .json)
+                String[] at = p.getAcceptTypes();
+                pickImg = at == null || at.length == 0 || at[0] == null || at[0].isEmpty() || at[0].startsWith("image");
+                if (!pickImg) { openPicker(); return true; }
                 // primero pedimos permiso de cámara (solo la primera vez); luego se abre el selector
                 if (checkSelfPermission(android.Manifest.permission.CAMERA) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{android.Manifest.permission.CAMERA}, CAM);
@@ -183,11 +187,11 @@ public class MainActivity extends Activity {
     private void openPicker() {
         Intent pick = new Intent(Intent.ACTION_GET_CONTENT);
         pick.addCategory(Intent.CATEGORY_OPENABLE);
-        pick.setType("image/*");
+        pick.setType(pickImg ? "image/*" : "*/*");
         pick.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, camMulti);
-        Intent chooser = Intent.createChooser(pick, "Hacer o elegir foto");
+        Intent chooser = Intent.createChooser(pick, pickImg ? "Hacer o elegir foto" : "Elegir archivo");
         camUri = null; camFile = null;
-        if (checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+        if (pickImg && checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
             try {
                 File dir = new File(getCacheDir(), "fotos"); dir.mkdirs();
                 for (File f : dir.listFiles()) if (System.currentTimeMillis() - f.lastModified() > 86400000L) f.delete();
