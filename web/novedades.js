@@ -502,6 +502,4 @@ window.NOVEDADES={anLoad,saCalc,naScan,RZ,rzDraw,rzRios};
     document.body.appendChild(o);o.onclick=e=>{if(e.target===o||e.target.closest('[data-x]'))o.remove();else if(e.target.closest('[data-d]'))location.href=URL_APK;};}
   window.nvDescargar=abrir;
   const L=document.getElementById('dLang');if(L&&!document.getElementById('dDl')){const b=document.createElement('button');b.id='dDl';b.textContent='📲 Descargar la app';b.onclick=abrir;L.parentNode.insertBefore(b,L);}
-  if(AND){let v=null;try{v=localStorage.getItem('nvDlVisto');}catch(e){}
-    if(!v)setTimeout(()=>{try{localStorage.setItem('nvDlVisto','1');}catch(e){}if(typeof toast==='function')toast('📲 BasatiNA también es una app para Android','Descargar',abrir);},3000);}
 })();

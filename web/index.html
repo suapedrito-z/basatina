@@ -1499,12 +1499,14 @@ if(!APP){
   appVersion:()=>'',webVersion:()=>'',lastCrash:()=>''
  };
  window.__WEB=true;
- document.addEventListener('DOMContentLoaded',()=>{try{if(localStorage.getItem('webBanOff'))return;}catch(e){}
-  const d=document.createElement('div');d.id='webBan';
-  d.style.cssText='position:fixed;left:8px;right:8px;bottom:8px;z-index:200;background:#16212c;border:1px solid #29c6f2;border-radius:14px;padding:10px 12px;font-size:13px;color:#e9f1f7;box-shadow:0 6px 24px rgba(0,0,0,.5);display:flex;gap:10px;align-items:center';
-  d.innerHTML='<div style="flex:1">🌐 <b>Versión web de BasatiNA.</b> Los caudales al minuto, las incidencias en directo y los avisos con la app cerrada solo están en la <a href="https://basatina.es" style="color:#29c6f2">app de Android</a>.</div><button style="background:#22313f;color:#fff;border:1px solid #283848;border-radius:10px;padding:6px 10px">OK</button>';
-  d.querySelector('button').onclick=()=>{d.remove();try{localStorage.setItem('webBanOff','1')}catch(e){}};
-  document.body.appendChild(d);});
+ // versión web: franja arriba, bajo «BasatiNA», para descargar la app en el móvil (se puede cerrar hasta la próxima visita)
+ document.addEventListener('DOMContentLoaded',()=>{try{if(sessionStorage.getItem('webDlOff'))return;}catch(e){}
+  const d=document.createElement('div');d.id='webDl';
+  d.style.cssText='display:flex;gap:10px;align-items:center;margin:8px 12px 0;padding:9px 10px 9px 12px;background:#fff;border:1px solid #d9e6d3;border-radius:14px;box-shadow:0 2px 8px rgba(29,45,35,.06);font-size:13.5px;color:#1d2d23';
+  d.innerHTML='<span style="font-size:22px">📲</span><div style="flex:1;line-height:1.3"><b>BasatiNA en tu móvil</b><br><span style="color:#5c6b61">Gratis para Android, con los ríos al minuto y avisos.</span></div><button id="webDlB" style="background:linear-gradient(150deg,#79b866,#3D7031);color:#fff;border:0;border-radius:10px;padding:8px 12px;font-weight:700;font-size:13.5px">Descargar</button><button id="webDlX" aria-label="Cerrar" style="background:none;border:0;color:#8a978e;font-size:18px;padding:2px 4px">✕</button>';
+  d.querySelector('#webDlB').onclick=()=>{if(typeof window.nvDescargar==='function')window.nvDescargar();};
+  d.querySelector('#webDlX').onclick=()=>{d.remove();try{sessionStorage.setItem('webDlOff','1')}catch(e){}};
+  const h=document.querySelector('header');if(h&&h.parentNode)h.parentNode.insertBefore(d,h.nextSibling);else document.body.prepend(d);});
 }
 function netGet(url){return new Promise(res=>{const id='n'+Date.now()+Math.random();window.__netCbs[id]=res;window.AndroidNet.get(url,id);});}
 // Previsión directa de Open-Meteo (lo mismo que hace la tarea automática, pero desde el móvil)

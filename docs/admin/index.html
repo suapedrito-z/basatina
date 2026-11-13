@@ -140,7 +140,7 @@ function render(){
  h+=sec('📰 Novedades',list(C.novedades,'Lo primero de la lista sale arriba en la web.',n=>field(n,'fecha','Fecha','date')+field(n,'titulo','Título')+field(n,'texto','Texto','area')+photo(n,'foto','Foto (opcional)'),{fecha:new Date().toISOString().slice(0,10),titulo:'',texto:'',foto:''},'novedad'),true);
  h+=sec('🏠 Portada',field(C,'portada.titulo','Titular (lo que va entre *asteriscos* sale en color)')+field(C,'portada.texto','Texto de debajo','area')+field(C,'portada.boton','Texto del botón')+field(C,'portada.enlace','Enlace del botón')+field(C,'portada.nota','Nota pequeña bajo el botón')+check(C,'portada.pausada','⏸️ Descarga en pausa (en vez del botón sale «Muy pronto para Android» y se esconden los pasos de instalación)'));
  C.app_web=C.app_web||{visible:false,boton:'🌐 Usar en el navegador',nota:''};
- h+=sec('🌐 Versión web de la app',`<div class="hint">Mientras está en pruebas, la versión web está escondida en <a style="color:var(--acc)" href="../probar-7q4m/" target="_blank">basatina.es/probar-7q4m</a> (no sale en Google ni en la portada). Cuando marquéis la casilla y publiquéis, pasa a <b>basatina.es/app</b> y sale un botón en la portada.</div>`+check(C,'app_web.visible','Mostrar la versión web en la portada')+field(C,'app_web.boton','Texto del botón')+field(C,'app_web.nota','Nota pequeña','area'));
+ h+=sec('🌐 Versión web de la app',`<div class="hint"><b>basatina.es</b> abre directamente la app en versión web, con una franja arriba para descargarla en el móvil. Esta portada (novedades, funciones, ayuda) está en <a style="color:var(--acc)" href="../portada.html" target="_blank">basatina.es/portada.html</a>.</div>`);
  h+=sec('✨ Qué tiene la app',field(C,'funciones_titulo','Título del apartado')+list(C.funciones,'Cada tarjeta: un emoji, un título y un texto corto.',f=>`<div class="row"><div style="width:80px">${field(f,'icono','Emoji')}</div><div style="flex:1">${field(f,'titulo','Título')}</div></div>`+field(f,'texto','Texto','area'),{icono:'⭐',titulo:'',texto:''},'tarjeta'));
  h+=sec('📄 Apartados propios',list(C.apartados,'Apartados libres: historia, quiénes somos, agradecimientos, fotos de salidas…',a=>field(a,'titulo','Título')+field(a,'texto','Texto','area')+photo(a,'foto','Foto (opcional)'),{titulo:'',texto:'',foto:''},'apartado'));
  h+=sec('📲 Cómo instalarla',field(C,'pasos_titulo','Título')+list(C.pasosObj,'Pasos en orden.',p=>field(p,'t','Paso','area'),{t:''},'paso'));
@@ -166,7 +166,7 @@ async function upload(file,png){
 }
 
 /* ---------- vista previa, descartar, publicar ---------- */
-$('prevB').onclick=()=>{localStorage.setItem('sp_preview',JSON.stringify(clean()));window.open('../?preview=1','_blank');};
+$('prevB').onclick=()=>{localStorage.setItem('sp_preview',JSON.stringify(clean()));window.open('../portada.html?preview=1','_blank');};
 $('undoB').onclick=()=>{if(!confirm('¿Descartar todos los cambios sin publicar?'))return;C=JSON.parse(ORIG);localStorage.removeItem('sp_draft');render();msg('↩️ Cambios descartados');};
 $('pubB').onclick=async()=>{
  const body=JSON.stringify(clean(),null,1)+'\n';

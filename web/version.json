@@ -1,5 +1,5 @@
 {
- "version": 258,
+ "version": 259,
  "apk": 22,
  "files": {
   "abiertos.js": "8e33d748e61b9dfc44bd6cfc83ff222345e546fd",
@@ -20,13 +20,13 @@
   "flood.png": "6d4fa0d5fbc339db9a3c4ffe14e433dc989066fc",
   "flood2.png": "712a7b22803bcae9b052cece1bdbe3c4ccae177e",
   "idiomas.js": "9f186a3aa4883dc61d3cfd53bdc49f03a1142283",
-  "index.html": "5b69e27cfb16afc14cc525c3d0dea47b68be9232",
+  "index.html": "6e265e73c6cedce6be1d88935c954e5af0870012",
   "jspdf.min.js": "d93ad20f62817f83e2f98822b1701a3024b55f3b",
   "logo.jpg": "442927f2c4c5495089c0bd56e454ddc6a4223411",
   "logo.png": "5a4acff3ebac8e7b2e2be74d99bf5a3652086fe3",
   "monte.js": "2b741add1b44de67b14e1270508956974812b15f",
   "naturaleza-catalogo.js": "d0b255c1220641a4c60ca0430c7ac66c43e87b12",
-  "novedades.js": "df371aa893d9eb44fb5aa8f8a425cf7a8d678383",
+  "novedades.js": "5647961dee54fba1b45e27c425b3ab063c6024c6",
   "pesca.js": "6ffc2183d1edcbecf1d0dfa9f9b4f5aa6010f986",
   "pnoa.jpg": "2ace269ed17d224cdca74f3033d27f5306e56dee",
   "pnoa14.jpg": "f0f3b88c53d5b4d1b7c3c4c6a46279842323a159",

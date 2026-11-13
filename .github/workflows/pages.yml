@@ -1,4 +1,4 @@
-# Publica la web basatina.es: la portada (docs/) y la app en versión web (web/ → /app/)
+# Publica la web basatina.es: la app en versión web en la raíz (web/) y la portada informativa en /portada.html (docs/)
 name: Publicar web
 on:
   push:
@@ -29,16 +29,17 @@ jobs:
           ref: main
       - name: Montar la web
         run: |
-          cp -r docs/. _site/ 2>/dev/null || { mkdir -p _site; cp -r docs/. _site/; }
-          # la versión web va escondida en /probar-7q4m hasta que se marque «visible» en el panel
-          VIS=$(python3 -c "import json;print(json.load(open('docs/contenido.json')).get('app_web',{}).get('visible',False))")
-          if [ "$VIS" = "True" ]; then DEST=app; else DEST=probar-7q4m; fi
-          mkdir -p _site/$DEST
-          cp -r web/. _site/$DEST/
-          if [ "$DEST" != "app" ]; then sed -i 's#<head>#<head><meta name="robots" content="noindex,nofollow">#' _site/$DEST/index.html; fi
-          echo "App web en /$DEST"
+          # basatina.es abre directamente la app en versión web; la portada informativa queda en /portada.html
+          mkdir -p _site
+          cp -r docs/. _site/
+          mv _site/index.html _site/portada.html
+          mv _site/arbustos.js _site/portada-arbustos.js
+          sed -i 's#<script src="arbustos.js">#<script src="portada-arbustos.js">#' _site/portada.html
+          cp -r web/. _site/
+          # enlaces antiguos: /app/ y /probar-7q4m/ llevan a la raíz
+          for d in app probar-7q4m; do mkdir -p _site/$d; printf '<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=/"><link rel="canonical" href="/">' > _site/$d/index.html; done
           touch _site/.nojekyll
-          ls _site | head -50
+          ls _site | head -80
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
