@@ -1,11 +1,30 @@
 {
  "_info": "Dato del día de BasatiNA. dias: clave MM-DD (mes-día) con una lista de datos. a = año (opcional), t = título corto, txt = texto, cat = categoría, fuente = enlace para comprobarlo, ok = true cuando esté revisado. semanas = personaje de la semana (desde = el sábado en que empieza, AAAA-MM-DD; dias = 7 datos, de sábado a viernes); tiene prioridad sobre dias. Si un día no tiene dato, sale uno de 'curiosidades'. NADA DE POLÍTICA. 'prohibidas' = palabras que hacen que la app se salte el dato.",
- "cats": ["naturaleza", "cultura", "música", "deporte", "ciencia", "tradiciones", "personajes", "lugares"],
+ "cats": [
+  "naturaleza",
+  "cultura",
+  "música",
+  "deporte",
+  "ciencia",
+  "tradiciones",
+  "personajes",
+  "lugares"
+ ],
  "prohibidas": [],
  "semanas": [
+  {
+   "desde": "2026-11-14",
+   "personaje": "Julián Gayarre",
+   "fuente": "https://es.wikipedia.org/wiki/Juli%C3%A1n_Gayarre",
+   "dias": [
+    {
+     "t": "De pastor en Roncal a Pamplona",
+     "txt": "Julián Gayarre nació el 9 de enero de 1844 en una familia humilde de Roncal, y sus primeros trabajos fueron de pastor. A los pocos años se fue a Pamplona como dependiente, pero lo despidieron por dejar la tienda sin atender para seguir a una banda de música. Fue su primer contacto con la música.",
+     "ok": true
+    }
+   ]
+  }
  ],
- "dias": {
- },
- "curiosidades": [
- ]
+ "dias": {},
+ "curiosidades": []
 }
