@@ -631,7 +631,7 @@ body.bna #pinBox input{background:#F3F6F1!important;border-radius:14px!important
 </section>
 <!-- ============ EL TIEMPO ============ -->
 <section id="t-tiempo">
-<div class="card"><select class="town" id="tTown"></select><div id="tNow" style="margin-top:8px"><div class="note">Cargando…</div></div><div id="tExtra" style="margin-top:12px"></div></div>
+<div class="card"><select class="town" id="tTown"></select><button class="btn" id="tNear" style="margin-top:8px;width:100%">📍 <span>El más cercano a mí</span></button><div id="tNow" style="margin-top:8px"><div class="note">Cargando…</div></div><div id="tExtra" style="margin-top:12px"></div></div>
 <div class="card" id="tAv"><b>⚠️ Avisos de AEMET en Navarra</b><div class="note">Cargando…</div></div>
 <div class="card"><b>Próximas 24 horas</b><div class="note">Línea: temperatura · barras: lluvia (mm por hora)</div><canvas id="tH" height="180"></canvas></div>
 <div class="card"><b>Próximos 7 días</b><div id="tDays"></div></div>
@@ -1810,7 +1810,8 @@ function wDesc(c){if(c==null)return'';if(c===0)return'Despejado';if(c<=2)return'
   if(c>=95)return'Tormenta';if(c>=85)return'Chubascos de nieve';if(c>=80)return'Chubascos';if(c>=71)return'Nieve';if(c>=61)return'Lluvia';if(c>=51)return'Llovizna';return'';}
 let TOWN=0;try{TOWN=+(localStorage.getItem('town')||0)||0;}catch(e){}
 function fillTowns(sel){sel.innerHTML=TOWNS.map((t,i)=>`<option value="${i}">${t[0]}</option>`).join('');sel.value=TOWN;}
-function setTown(i){TOWN=+i;try{localStorage.setItem('town',TOWN);}catch(e){}document.getElementById('tTown').value=TOWN;document.getElementById('cTown').value=TOWN;}
+function setTown(i){TOWN=+i;try{localStorage.setItem('town',TOWN);}catch(e){}document.getElementById('tTown').value=TOWN;document.getElementById('cTown').value=TOWN;
+  try{if(typeof isBna==='function'&&isBna()){PVD=null;pvLoad();}}catch(e){}}   // el tiempo del inicio sigue al pueblo elegido
 
 /* ---------- 🌦️ El tiempo ---------- */
 let TW=null;
@@ -1845,6 +1846,11 @@ function tiempoRender(){if(!TW)return;const {j,town}=TW,c=j.current,h=j.hourly,d
   I.forEach((k,n)=>{if(n%3)return;x.fillText(h.time[k].slice(11,13)+'h',X(n),Hh-8);const y=bot-(bot-top)*(T[n]-tmin)/(tmax-tmin);x.fillStyle='#ffd08a';x.fillText(Math.round(T[n])+'°',X(n),y-6);x.fillStyle='#93a4b5';});
   x.textAlign='left';x.fillText(fmtN(pmax,1)+' mm',2,top+4);}
 document.getElementById('tTown').onchange=e=>{setTown(e.target.value);tiempoFetch();};
+// elige el pueblo de la lista más cercano a donde estás (la ubicación solo se usa en el móvil, no se guarda)
+document.getElementById('tNear').onclick=async()=>{const b=document.getElementById('tNear');b.disabled=true;
+  try{const p=await myPos();let best=-1,bd=1e9;TOWNS.forEach((t,i)=>{const dx=(t[2]-p.lo)*Math.cos(p.la*Math.PI/180)*111,dy=(t[1]-p.la)*111,d=Math.hypot(dx,dy);if(d<bd){bd=d;best=i;}});
+    if(best<0||bd>40){toast('📍 Estás lejos de los pueblos de la lista: elige uno a mano');}else{setTown(best);tiempoFetch();toast('📍 '+TOWNS[best][0]+(bd>=1?' (a '+Math.round(bd)+' km)':''));}}
+  catch(e){toast('📍 '+e.message);}b.disabled=false;};
 
 
 /* ---------- ⚠️ Avisos AEMET (Meteoalarm), aire/polen/UV, sol y luna, nieve ---------- */
@@ -4839,7 +4845,7 @@ setInterval(()=>{if(isBna()&&BNTAB==='mtiempo')bnHome();},60e3);setTimeout(bnHom
  mm();try{new MutationObserver(mm).observe(document.body,{childList:true,subtree:true});}catch(e){}})();
 
 /* ---------- 🌄 NAVARRA VIVA: paisaje vivo en el inicio ----------
-   El cielo, el sol/la luna, las nubes, la lluvia/nieve/rayos y los pájaros salen del tiempo REAL de Pamplona (Open‑Meteo)
+   El cielo, el sol/la luna, las nubes, la lluvia/nieve/rayos y los pájaros salen del tiempo REAL del pueblo elegido en «El tiempo» (Pamplona si no se ha elegido; Open‑Meteo)
    y de la hora real (amanecer y anochecer de hoy). Las sierras son siluetas dibujadas por código (en invierno, con nieve).
    Para probar a mano: pvDemo(código_del_tiempo, hora)  ej. pvDemo(95,22) = tormenta de noche. pvDemo() vuelve a lo real. */
 let PVD=null,PVF=null,PVraf=0,PVfx=null;
@@ -4858,15 +4864,16 @@ function pvRidge(seed,base,amp,jag,trees,snow){let s=seed;const r=()=>(s=(s*1680
   return d;}
 function pvBuild(){const S=document.getElementById('t-mtiempo');if(!S||document.getElementById('pvBox'))return;
   const far=pvRidge(7,80,26,10),cum=pvRidge(7,80,26,10,false,74)[0],mid=pvRidge(31,104,12,2),near=pvRidge(97,128,6,0,true);
-  S.insertAdjacentHTML('afterbegin',`<div id="pvBox" role="button" aria-label="El tiempo ahora en Pamplona. Toca para ver la previsión">
+  S.insertAdjacentHTML('afterbegin',`<div id="pvBox" role="button" aria-label="El tiempo ahora. Toca para ver la previsión">
    <div class="pvSky"></div><div class="pvSun"></div><div class="pvClouds"></div>
    <svg class="pvMts" viewBox="0 0 400 150" preserveAspectRatio="none" aria-hidden="true">
     <path id="pvM1" d="${far}"/><path id="pvNv" d="${cum}" fill="#fff" opacity="0"/><path id="pvM2" d="${mid}"/><path id="pvM3" d="${near}"/></svg>
    <div class="pvMist"></div><canvas class="pvFx"></canvas><div class="pvFlash"></div>
-   <div class="pvTxt"><div class="pvLoc"><i></i><span>Pamplona · ahora</span></div><div class="pvT">--</div><div class="pvD"></div><div class="pvM"></div>
+   <div class="pvTxt"><div class="pvLoc"><i></i><span>${esc((TOWNS[TOWN]||TOWNS[0])[0])} · ahora</span></div><div class="pvT">--</div><div class="pvD"></div><div class="pvM"></div>
     <div class="pvChips"></div><div class="pvGo">Ver previsión ›</div></div></div>`);
   document.getElementById('pvBox').onclick=()=>showTab('tiempo');}
-async function pvLoad(){const j=await getJSON(`${OM}?latitude=42.82&longitude=-1.64&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,relative_humidity_2m,cloud_cover&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&forecast_days=1${TZ}`);
+async function pvLoad(){const T=TOWNS[TOWN]||TOWNS[0];const lb=document.querySelector('#pvBox .pvLoc span');if(lb)lb.textContent=T[0]+' · ahora';const bx=document.getElementById('pvBox');if(bx)bx.setAttribute('aria-label','El tiempo ahora en '+T[0]+'. Toca para ver la previsión');
+  const j=await getJSON(`${OM}?latitude=${T[1]}&longitude=${T[2]}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,relative_humidity_2m,cloud_cover&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&forecast_days=1${TZ}`);
   if(!j||!j.current){setTimeout(()=>{if(!PVD)pvLoad();},30e3);return;}const c=j.current,dl=j.daily||{};
   PVD={t:c.temperature_2m,st:c.apparent_temperature,c:c.weather_code,w:c.wind_speed_10m,wd:c.wind_direction_10m,h:c.relative_humidity_2m,cc:c.cloud_cover,
     tx:dl.temperature_2m_max&&dl.temperature_2m_max[0],tn:dl.temperature_2m_min&&dl.temperature_2m_min[0],
