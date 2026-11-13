@@ -181,7 +181,7 @@ function anDraw(){const el=$('anTk');if(!el)return;const L=anVis();
     if(x.tab==='cultura'){try{AGSEL=x.f;AGMES=x.f.slice(0,7);}catch(e){}}showTab(x.tab);};
   el.querySelector('.anP').onclick=e=>{e.stopPropagation();ANT.i=(ANT.i-1+L.length)%L.length;anDraw();anTimer();};
   el.querySelector('.anX').onclick=e=>{e.stopPropagation();ANT.i=(ANT.i+1)%L.length;anDraw();anTimer();};}
-function anTimer(){clearInterval(ANT.tm);ANT.tm=setInterval(()=>{if(!document.hidden&&(typeof BNTAB==='undefined'||BNTAB==='mtiempo')&&typeof rzTick==='function')rzTick();
+function anTimer(){clearInterval(ANT.tm);ANT.tm=setInterval(()=>{
   const n=anVis().length;if(document.hidden||!$('anTk')||!n)return;
   if(typeof BNTAB!=='undefined'&&BNTAB!=='mtiempo')return;ANT.i=(ANT.i+1)%n;anDraw();},3000);}
 // ojo: index.html llama a veces a la función original (setTimeout(bnHome,…)), así que el carrusel
@@ -232,10 +232,14 @@ function rzDraw(){const el=$('rzTk');if(!el)return;const L=rzLista();if(!L.lengt
   el.innerHTML=`<div class="anC"><span class="anE">${typeof bnTile==='function'?bnTile('caudal',20,34):'🌊'}</span><div><small class="anW"><span>Río</span> ${E(x.rio)} · <span>${RZ_ZN[x.z]}</span></small><b>${E(nom)}</b><small>${fmtN(v.v,v.u==='m'?2:1)} ${v.u}${tr} <span>ahora</span></small></div><span class="bdg ${bd[0]}"><span>${bd[1]}</span></span></div>
     <div class="anF"><button class="anP" aria-label="Anterior">‹</button><span>${RZ.i%L.length+1} / ${L.length}</span><div class="anBar"><i></i></div><button class="anX" aria-label="Siguiente">›</button></div>`;
   el.querySelector('.anC').onclick=()=>{showTab('caudal');if(x.r!=='arga'&&typeof rivShow==='function')setTimeout(()=>rivShow(x.r),150);};
-  el.querySelector('.anP').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i-1+L.length)%L.length;rzDraw();anTimer();};
-  el.querySelector('.anX').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i+1)%L.length;rzDraw();anTimer();};}
+  el.querySelector('.anP').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i-1+L.length)%L.length;rzDraw();rzTimer();};
+  el.querySelector('.anX').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i+1)%L.length;rzDraw();rzTimer();};}
 function rzTick(){const n=rzLista().length;if(n){RZ.i=(RZ.i+1)%n;rzDraw();}rzLoad();}
-document.head.insertAdjacentHTML('beforeend','<style>#rzTk{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 8px rgba(29,45,35,.05);overflow:hidden}body:not(.bna) #rzTk{background:var(--panel)}#rzTk .anC{display:flex;align-items:center;gap:11px;padding:12px 12px 10px;cursor:pointer;animation:anIn .45s ease}#rzTk .anC>div{flex:1;min-width:0}#rzTk .anC b{display:block;font-size:14.5px}#rzTk .anC small{display:block;color:var(--mut);font-size:12.5px}#rzTk .anW{color:#0D6285!important;font-weight:800}#rzTk .anE{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex:none}#rzTk .anF{display:flex;align-items:center;gap:8px;padding:0 10px 8px}#rzTk .anF button{border:none;background:#F3F6F1;color:inherit;border-radius:12px;width:46px;height:38px;font-size:26px;font-weight:700;line-height:1;cursor:pointer;flex:none}#rzTk .anF span{font-size:11.5px;color:var(--mut)}#rzTk .anBar{flex:1;height:4px;background:rgba(127,127,127,.18);border-radius:3px;overflow:hidden}#rzTk .anBar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#097BA4,#1e88e5);animation:anProg 3s linear forwards}</style>');
+// los ríos pasan más despacio (cada 7 s) y desfasados del carrusel de abajo, para que no cambien los dos a la vez
+const RZ_MS=7000;
+function rzTimer(){clearInterval(RZ.tm);clearTimeout(RZ.to);RZ.to=setTimeout(()=>{RZ.tm=setInterval(()=>{if(!document.hidden&&(typeof BNTAB==='undefined'||BNTAB==='mtiempo'))rzTick();},RZ_MS);},1500);}
+rzTimer();
+document.head.insertAdjacentHTML('beforeend','<style>#rzTk{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 8px rgba(29,45,35,.05);overflow:hidden}body:not(.bna) #rzTk{background:var(--panel)}#rzTk .anC{display:flex;align-items:center;gap:11px;padding:12px 12px 10px;cursor:pointer;animation:anIn .45s ease}#rzTk .anC>div{flex:1;min-width:0}#rzTk .anC b{display:block;font-size:14.5px}#rzTk .anC small{display:block;color:var(--mut);font-size:12.5px}#rzTk .anW{color:#0D6285!important;font-weight:800}#rzTk .anE{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex:none}#rzTk .anF{display:flex;align-items:center;gap:8px;padding:0 10px 8px}#rzTk .anF button{border:none;background:#F3F6F1;color:inherit;border-radius:12px;width:46px;height:38px;font-size:26px;font-weight:700;line-height:1;cursor:pointer;flex:none}#rzTk .anF span{font-size:11.5px;color:var(--mut)}#rzTk .anBar{flex:1;height:4px;background:rgba(127,127,127,.18);border-radius:3px;overflow:hidden}#rzTk .anBar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#097BA4,#1e88e5);animation:anProg 7s linear forwards}</style>');
 if(APP)setTimeout(rzLoad,8000);
 
 /* =====================================================================
@@ -408,7 +412,7 @@ if(typeof svSec==='function'){
    no pasa solo. Aquí se guarda todo en un archivo .json y se recupera en la nueva.
    Lo que NO se copia: la llave de GitHub y el PIN (por seguridad, se vuelven a poner).
    ===================================================================== */
-const MU_NO=new Set(['ghTok','pinH','pinFail','tech']),MU_NUEVA=20,MU_WEB='https://sonpe-technology.es/';
+const MU_NO=new Set(['ghTok','pinH','pinFail','tech','muAviso']),MU_NUEVA=20,MU_WEB='https://sonpe-technology.es/';
 const muVer=()=>{try{return APP&&window.AndroidNet.appVersion?+window.AndroidNet.appVersion():0;}catch(e){return 0;}};
 const muVieja=()=>APP&&muVer()>0&&muVer()<MU_NUEVA;
 function muIdb(){return new Promise((res,rej)=>{const r=indexedDB.open('basatina',1);r.onupgradeneeded=()=>r.result.createObjectStore('fotos');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
@@ -435,10 +439,16 @@ function muRecuperar(){const i=document.createElement('input');i.type='file';i.a
 // tarjeta en Ajustes
 if(typeof ajustesRender==='function'){const _aj=ajustesRender;ajustesRender=function(){_aj.apply(this,arguments);const el=$('ajBody');if(!el||$('muCard'))return;
   el.insertAdjacentHTML('beforeend',`<div class="card" id="muCard"><b>📦 Copia de mis datos</b><div class="note">Guarda en un archivo tu diario de salidas (con fotos), el diario de dolores, el calendario, las notas, los sitios secretos y los ajustes. Sirve para cambiar de móvil o para pasarte a la BasatiNA de Google Play. El archivo es tuyo: no se envía a nadie.</div>
-    <div class="row" style="flex-wrap:wrap;margin-top:8px"><button class="btn pri" id="muG">💾 Guardar copia</button><button class="btn" id="muR">📥 Recuperar copia</button></div></div>`);
-  $('muG').onclick=muGuardar;$('muR').onclick=muRecuperar;};}
+    <div class="row" style="flex-wrap:wrap;margin-top:8px"><button class="btn pri" id="muG">💾 Guardar copia</button><button class="btn" id="muR">📥 Recuperar copia</button>${muVieja()?'<button class="btn" id="muP">📲 <span>Pasarme a la nueva</span></button>':''}</div></div>`);
+  $('muG').onclick=muGuardar;$('muR').onclick=muRecuperar;if($('muP'))$('muP').onclick=()=>bnMudanza(true);};}
 // app antigua: explicar la mudanza (también cuando avisa de versión nueva)
-function bnMudanza(){if(!muVieja())return false;if($('muBox'))return true;const o=document.createElement('div');o.id='muBox';o.className='nvMu';
+// sale como mucho una vez cada 3 días (antes salía en cada arranque); «Más tarde» lo deja tranquilo 3 días.
+// Desde Ajustes → Copia de mis datos se puede abrir cuando se quiera (forzar=true).
+const MU_CADA=3*864e5;
+function bnMudanza(forzar){if(!muVieja())return false;if($('muBox'))return true;
+  if(!forzar){let t=0;try{t=+(localStorage.getItem('muAviso')||0);}catch(e){}if(Date.now()-t<MU_CADA)return true;}
+  try{localStorage.setItem('muAviso',String(Date.now()));}catch(e){}
+  const o=document.createElement('div');o.id='muBox';o.className='nvMu';
   o.innerHTML=`<div><b style="font-size:17px">📲 BasatiNA se muda</b><div class="note" style="margin-top:6px">La nueva BasatiNA (la de Google Play) es otra app para el móvil. Para no perder nada:</div>
    <ol style="margin:8px 0 0;padding-left:20px;line-height:1.55"><li><span>Guarda tus datos en un archivo</span> <button class="btn pri" id="muG2">💾 Guardar copia</button></li>
    <li><span>Instala la BasatiNA nueva</span> <button class="btn" id="muI">⬇️ Instalar</button></li>
@@ -448,7 +458,7 @@ function bnMudanza(){if(!muVieja())return false;if($('muBox'))return true;const 
   document.body.appendChild(o);o.onclick=e=>{if(e.target===o||e.target.closest('[data-x]'))o.remove();};
   $('muG2').onclick=muGuardar;$('muI').onclick=()=>{try{window.AndroidNet.openUrl(MU_WEB);}catch(e){}};return true;}
 window.bnMudanza=bnMudanza;
-setTimeout(()=>{if(muVieja()){let n=0;try{n=+(sessionStorage.getItem('muVisto')||0);sessionStorage.setItem('muVisto','1');}catch(e){}if(!n)bnMudanza();}
+setTimeout(()=>{if(muVieja())bnMudanza();
   // app nueva recién instalada y vacía: recordar que se pueden recuperar los datos
   else if(APP&&muVer()>=MU_NUEVA){let v=null;try{v=localStorage.getItem('muHecha')||localStorage.getItem('diario')||localStorage.getItem('sitios');localStorage.setItem('muHecha','1');}catch(e){}
     if(!v)toast('📦 ¿Tenías la BasatiNA anterior? Recupera tus datos','Recuperar',muRecuperar);}},2500);
