@@ -19,13 +19,19 @@
  },
  "portada": {
   "titulo": "El río, el tiempo y la naturaleza de *Navarra*, en una app.",
-  "texto": "Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, monte, setas, fauna, energía… Todo con datos oficiales, gratis y sin publicidad.",
+  "texto": "Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, escapadas, flora y fauna, salud, agenda, energía… Todo con datos oficiales, gratis, sin publicidad y en cuatro idiomas.",
   "boton": "⬇️ Descargar para Android",
   "enlace": "https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk",
   "nota": "Archivo APK gratuito · Android 7 o superior · se actualiza solo",
   "pausada": false
  },
  "novedades": [
+  {
+   "fecha": "2026-11-13",
+   "titulo": "BasatiNA 3.8: NA Salud, idiomas y «Ahora en Navarra»",
+   "texto": "Nuevo apartado **NA Salud**: cómo te puede afectar el tiempo (presión y dolores de cabeza, articulaciones, calor, frío, UV, aire y polen), tu diario de dolores, plantas medicinales, farmacias y teléfonos de urgencia. En el inicio, **«Ahora en Navarra»** va pasando todo lo de hoy, mañana y pasado: conciertos, teatro, exposiciones, partidos, mercados y el cielo. Y ya puedes usar la app en **euskera, inglés y francés**.",
+   "foto": ""
+  },
   {
    "fecha": "2026-11-06",
    "titulo": "¡Estrenamos web!",
@@ -62,20 +68,29 @@
   },
   {
    "icono": "🥾",
-   "titulo": "Salir al monte",
+   "titulo": "Escapadas",
    "texto": "Rutas, GR, vías verdes, Camino de Santiago, cuevas, cascadas, miradores y fuentes."
   },
   {
-   "icono": "🍄",
-   "titulo": "Naturaleza",
-   "texto": "Setas y frutos de cada mes, fauna, vegetación y árboles de cada zona."
+   "icono": "🦉",
+   "titulo": "Flora y fauna",
+   "texto": "Más de 1.300 especies de Navarra (fauna, flora, setas y arbustos), setas y frutos de cada mes y espacios protegidos."
   },
   {
-   "icono": "🌿",
-   "titulo": "Arbustos de Navarra",
-   "texto": "Guía botánica, hábitats, floración y usos tradicionales de los arbustos forales."
+   "icono": "🩺",
+   "titulo": "NA Salud",
+   "texto": "Presión y dolores de cabeza, articulaciones, calor, frío, UV, aire y polen. Diario de dolores, plantas medicinales y farmacias de guardia."
   },
-
+  {
+   "icono": "🎭",
+   "titulo": "Ahora en Navarra",
+   "texto": "Agenda cultural, deporte navarro, mercados y el cielo de hoy, mañana y pasado, pasando en la pantalla de inicio."
+  },
+  {
+   "icono": "🌐",
+   "titulo": "En tu idioma",
+   "texto": "Castellano, euskera, inglés y francés."
+  },
   {
    "icono": "📸",
    "titulo": "¿Qué planta es?",
@@ -182,12 +197,20 @@
   {
    "tema": "🌊 Riadas históricas",
    "texto": "CHE, Ayuntamiento de Pamplona y prensa local"
+  },
+  {
+   "tema": "🦉 Flora y fauna",
+   "texto": "Observaciones: GBIF.org (CC0 / CC BY) · textos: Wikipedia (CC BY‑SA 4.0) · amenaza: Lista Roja de la UICN"
+  },
+  {
+   "tema": "🎭 Agenda y deporte",
+   "texto": "Cultura Navarra · Ayuntamiento de Pamplona · federaciones deportivas · listas propias"
   }
  ],
  "fuentes_nota": "Datos CC BY 4.0 (IGN, IDENA, Open‑Meteo, Euskalmet) usados citando su origen. «Weather data by Open‑Meteo» y «Weather data by RainViewer». © AEMET. Iconos de la app: Phosphor Icons (licencia MIT). Las marcas y logotipos son de sus dueños. App gratuita, sin publicidad y sin ánimo de lucro.",
- "privacidad": "BasatiNA no recoge ni envía datos personales. El diario, las fotos y los sitios secretos se guardan solo en el móvil. La ubicación se usa en el momento para mostrar lo cercano y no se guarda ni se comparte.",
- "aviso": "⚠️ **Ante el riesgo, haz caso siempre a los avisos oficiales.** Los datos de esta app pueden variar respecto a los de la fuente original. Emergencias: 112.",
- "contacto": "",
+ "privacidad": "BasatiNA no tiene cuentas de usuario y no te pide datos personales para usarla. El diario, el diario de dolores, las fotos, el calendario y los sitios secretos se guardan **solo en tu móvil**. La ubicación se usa en el momento para mostrarte lo cercano y no se guarda. Al consultar datos (tiempo, mapas, tráfico…) el móvil se conecta directamente con esos servicios, que ven la dirección IP de tu conexión; nosotros no la recogemos. El buzón de sugerencias es anónimo (se envía a través de Web3Forms). Puedes ejercer tus derechos escribiendo a participa@sonpe-technology.es y reclamar ante la AEPD (aepd.es).",
+ "aviso": "⚠️ **Ante el riesgo, haz caso siempre a los avisos oficiales.** Los datos de esta app pueden variar respecto a los de la fuente original y la información de salud es orientativa, no un consejo médico. Emergencias: 112.",
+ "contacto": "Sugerencias, avisos de errores o si eres dueño de algún dato o imagen y quieres que lo cambiemos: **participa@sonpe-technology.es** o el buzón de la app.",
  "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026",
  "app_web": {
   "visible": false,

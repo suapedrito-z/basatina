@@ -56,8 +56,8 @@ footer img{width:120px;border-radius:10px}
       margin-top: 1rem;
     }
     .tarjeta-arbusto {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: var(--panel);
+      border: 1px solid var(--line);
       border-radius: 8px;
       padding: 1rem;
       cursor: pointer;
@@ -74,24 +74,24 @@ footer img{width:120px;border-radius:10px}
     .tarjeta-cabecera h3 {
       margin: 0 0 0.25rem 0;
       font-size: 1.1rem;
-      color: #1a202c;
+      color: var(--txt);
     }
     .tarjeta-arbusto .nombre-cientifico {
       font-style: italic;
-      color: #718096;
+      color: var(--mut);
       font-size: 0.85rem;
       display: block;
       margin-bottom: 0.5rem;
     }
     .habitat-resumen {
       font-size: 0.9rem;
-      color: #4a5568;
+      color: var(--mut);
       line-height: 1.4;
       margin: 0.5rem 0;
     }
     .btn-ver-ficha {
       margin-top: 0.75rem;
-      background: #2b6cb0;
+      background: var(--acc3);
       color: #ffffff;
       border: none;
       padding: 0.4rem 0.8rem;
@@ -116,7 +116,9 @@ footer img{width:120px;border-radius:10px}
       display: flex;
     }
     .modal-contenido {
-      background: #ffffff;
+      background: var(--panel);
+      color: var(--txt);
+      border: 1px solid var(--line);
       border-radius: 8px;
       max-width: 520px;
       width: 100%;
@@ -128,17 +130,17 @@ footer img{width:120px;border-radius:10px}
     }
     .modal-contenido h2 {
       margin-top: 0;
-      color: #2d3748;
+      color: var(--txt);
       font-size: 1.3rem;
     }
     .modal-contenido small {
       font-style: italic;
-      color: #718096;
+      color: var(--mut);
       font-size: 0.9rem;
     }
     .modal-contenido p {
       font-size: 0.95rem;
-      color: #4a5568;
+      color: var(--mut);
       line-height: 1.5;
       margin: 0.4rem 0;
     }
@@ -182,12 +184,19 @@ footer img{width:120px;border-radius:10px}
  },
  "portada": {
   "titulo": "El río, el tiempo y la naturaleza de *Navarra*, en una app.",
-  "texto": "Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, monte, setas, fauna, energía… Todo con datos oficiales, gratis y sin publicidad.",
+  "texto": "Caudales en directo, radar de lluvia, avisos, carreteras, cámaras, escapadas, flora y fauna, salud, agenda, energía… Todo con datos oficiales, gratis, sin publicidad y en cuatro idiomas.",
   "boton": "⬇️ Descargar para Android",
   "enlace": "https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk",
-  "nota": "Archivo APK gratuito · Android 7 o superior · se actualiza solo"
+  "nota": "Archivo APK gratuito · Android 7 o superior · se actualiza solo",
+  "pausada": false
  },
  "novedades": [
+  {
+   "fecha": "2026-11-13",
+   "titulo": "BasatiNA 3.8: NA Salud, idiomas y «Ahora en Navarra»",
+   "texto": "Nuevo apartado **NA Salud**: cómo te puede afectar el tiempo (presión y dolores de cabeza, articulaciones, calor, frío, UV, aire y polen), tu diario de dolores, plantas medicinales, farmacias y teléfonos de urgencia. En el inicio, **«Ahora en Navarra»** va pasando todo lo de hoy, mañana y pasado: conciertos, teatro, exposiciones, partidos, mercados y el cielo. Y ya puedes usar la app en **euskera, inglés y francés**.",
+   "foto": ""
+  },
   {
    "fecha": "2026-11-06",
    "titulo": "¡Estrenamos web!",
@@ -224,13 +233,28 @@ footer img{width:120px;border-radius:10px}
   },
   {
    "icono": "🥾",
-   "titulo": "Salir al monte",
+   "titulo": "Escapadas",
    "texto": "Rutas, GR, vías verdes, Camino de Santiago, cuevas, cascadas, miradores y fuentes."
   },
   {
-   "icono": "🍄",
-   "titulo": "Naturaleza",
-   "texto": "Setas y frutos de cada mes, fauna, vegetación y árboles de cada zona."
+   "icono": "🦉",
+   "titulo": "Flora y fauna",
+   "texto": "Más de 1.300 especies de Navarra (fauna, flora, setas y arbustos), setas y frutos de cada mes y espacios protegidos."
+  },
+  {
+   "icono": "🩺",
+   "titulo": "NA Salud",
+   "texto": "Presión y dolores de cabeza, articulaciones, calor, frío, UV, aire y polen. Diario de dolores, plantas medicinales y farmacias de guardia."
+  },
+  {
+   "icono": "🎭",
+   "titulo": "Ahora en Navarra",
+   "texto": "Agenda cultural, deporte navarro, mercados y el cielo de hoy, mañana y pasado, pasando en la pantalla de inicio."
+  },
+  {
+   "icono": "🌐",
+   "titulo": "En tu idioma",
+   "texto": "Castellano, euskera, inglés y francés."
   },
   {
    "icono": "📸",
@@ -258,12 +282,25 @@ footer img{width:120px;border-radius:10px}
    "texto": "Si sube el río, si cortan tu carretera, si nieva en un puerto o si el finde viene bueno."
   }
  ],
- "apartados": [],
+ "apartados": [
+  {
+   "titulo": "📸 Tus fotos en BasatiNA",
+   "texto": "¿Haces fotos bonitas de Navarra? Súbelas a **tu Instagram** con el hashtag **#BasatiNA**.\nSi nos gusta alguna, te escribimos por mensaje privado de Instagram para pedirte permiso. Si nos dices que sí, sale en la app, en «Fotos de la gente», con tu @usuario y un enlace a tu publicación.\nNo te pedimos ningún dato: ni nombre, ni correo.",
+   "foto": ""
+  },
+  {
+   "titulo": "🛡️ ¿Por qué salen avisos de seguridad al instalarla?",
+   "texto": "Son **normales y no significan que la app tenga nada malo**. Android avisa siempre que instalas una app que **no viene de Google Play**, porque Google no la ha revisado.\nBasatiNA no está en Google Play porque es un proyecto **gratuito y sin ánimo de lucro**. La app no pide datos personales, no tiene publicidad y su código es público en GitHub.\nLos avisos salen al instalarla. La primera vez que la app se actualice a una versión nueva, Android puede pedir el mismo permiso para BasatiNA: es el mismo caso y se acepta igual.\nGuía de instalación paso a paso en PDF: https://sonpe-technology.es/manuales/BasatiNA_Como_instalarla.pdf\nManual de la app en PDF: https://sonpe-technology.es/manuales/BasatiNA_Manual_de_usuario.pdf",
+   "foto": ""
+  }
+ ],
  "pasos_titulo": "Cómo instalarla",
  "pasos": [
-  "Desde el móvil Android, pulsa **«Descargar para Android»**.",
-  "Abre el archivo descargado. Si el móvil lo pide, permite **instalar apps de esta fuente** (solo esta vez).",
-  "Pulsa **Instalar** y ábrela. A partir de ahí se actualiza sola."
+  "Desde el móvil o la tablet Android, pulsa **«Descargar para Android»**. Si el navegador avisa de que «este tipo de archivo puede ser dañino», pulsa **Descargar de todas formas**.",
+  "Abre el archivo descargado (**BasatiNA.apk**): está en la notificación de descarga o en la carpeta **Descargas**.",
+  "Si sale «Por tu seguridad, el teléfono no puede instalar apps desconocidas de esta fuente», pulsa **Ajustes**, activa **Permitir desde esta fuente** y vuelve atrás.",
+  "Pulsa **Instalar**. Si aparece **Play Protect** («App no analizada» o «Desarrollador desconocido»), pulsa **Más detalles → Instalar de todas formas**.",
+  "Pulsa **Abrir**. A partir de ahí se actualiza sola. Puedes volver a desactivar el permiso del paso 3 si quieres."
  ],
  "fuentes": [
   {
@@ -325,12 +362,20 @@ footer img{width:120px;border-radius:10px}
   {
    "tema": "🌊 Riadas históricas",
    "texto": "CHE, Ayuntamiento de Pamplona y prensa local"
+  },
+  {
+   "tema": "🦉 Flora y fauna",
+   "texto": "Observaciones: GBIF.org (CC0 / CC BY) · textos: Wikipedia (CC BY‑SA 4.0) · amenaza: Lista Roja de la UICN"
+  },
+  {
+   "tema": "🎭 Agenda y deporte",
+   "texto": "Cultura Navarra · Ayuntamiento de Pamplona · federaciones deportivas · listas propias"
   }
  ],
  "fuentes_nota": "Datos CC BY 4.0 (IGN, IDENA, Open‑Meteo, Euskalmet) usados citando su origen. «Weather data by Open‑Meteo» y «Weather data by RainViewer». © AEMET. Iconos de la app: Phosphor Icons (licencia MIT). Las marcas y logotipos son de sus dueños. App gratuita, sin publicidad y sin ánimo de lucro.",
- "privacidad": "BasatiNA no recoge ni envía datos personales. El diario, las fotos y los sitios secretos se guardan solo en el móvil. La ubicación se usa en el momento para mostrar lo cercano y no se guarda ni se comparte.",
- "aviso": "⚠️ **Ante el riesgo, haz caso siempre a los avisos oficiales.** Los datos de esta app pueden variar respecto a los de la fuente original. Emergencias: 112.",
- "contacto": "",
+ "privacidad": "BasatiNA no tiene cuentas de usuario y no te pide datos personales para usarla. El diario, el diario de dolores, las fotos, el calendario y los sitios secretos se guardan **solo en tu móvil**. La ubicación se usa en el momento para mostrarte lo cercano y no se guarda. Al consultar datos (tiempo, mapas, tráfico…) el móvil se conecta directamente con esos servicios, que ven la dirección IP de tu conexión; nosotros no la recogemos. El buzón de sugerencias es anónimo (se envía a través de Web3Forms). Puedes ejercer tus derechos escribiendo a participa@sonpe-technology.es y reclamar ante la AEPD (aepd.es).",
+ "aviso": "⚠️ **Ante el riesgo, haz caso siempre a los avisos oficiales.** Los datos de esta app pueden variar respecto a los de la fuente original y la información de salud es orientativa, no un consejo médico. Emergencias: 112.",
+ "contacto": "Sugerencias, avisos de errores o si eres dueño de algún dato o imagen y quieres que lo cambiemos: **participa@sonpe-technology.es** o el buzón de la app.",
  "pie": "Propiedad de **Son&Pe Technology Systems** · Sonia y Pedro · Navarra, 2026",
  "app_web": {
   "visible": false,
@@ -344,6 +389,7 @@ const esc=t=>String(t??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 const md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1">$1</a>').replace(/\n/g,'<br>');
 const fd=d=>{try{return new Date(d+'T12:00').toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})}catch(e){return d}};
 function draw(c){
+ const sa=document.getElementById('seccion-arbustos');if(sa)document.body.appendChild(sa);   // se saca antes de redibujar
  const k=c.colores||{},r=document.documentElement.style;
  [['fondo','--bg'],['tarjeta','--panel'],['borde','--line'],['texto','--txt'],['suave','--mut'],['principal','--acc'],['naranja','--acc2'],['azul','--acc3']].forEach(([a,b])=>k[a]&&r.setProperty(b,k[a]));
  const m=c.marca||{},p=c.portada||{};let h='';
@@ -355,13 +401,19 @@ function draw(c){
  h+=`<h2>${esc(c.funciones_titulo)}</h2><div class="grid">`+(c.funciones||[]).map(f=>`<div class="f"><i>${esc(f.icono)}</i><b>${esc(f.titulo)}</b><p>${md(f.texto)}</p></div>`).join('')+'</div>';
  (c.apartados||[]).filter(a=>a.titulo||a.texto).forEach(a=>{h+=`<h2>${esc(a.titulo)}</h2><div class="ap${a.foto?' ft':''}"><div><p>${md(a.texto)}</p></div>${a.foto?`<img src="${esc(a.foto)}" alt="">`:''}</div>`;});
  if(!p.pausada)h+=`<h2>${esc(c.pasos_titulo)}</h2><div class="steps">`+(c.pasos||[]).map(s=>`<div>${md(s)}</div>`).join('')+'</div>';
+ h+='<div id="arbHost" style="margin-top:34px"></div>';
  h+='<h2 id="fuentes">Fuentes y créditos</h2><ul class="cred">'+(c.fuentes||[]).map(f=>`<li><b>${esc(f.tema)}:</b> ${md(f.texto)}</li>`).join('')+`</ul><p class="small">${md(c.fuentes_nota)}</p>`;
  h+=`<h2 id="privacidad">Privacidad</h2><p class="small">${md(c.privacidad)}</p>`;
  if(c.contacto)h+=`<h2 id="contacto">Contacto</h2><p>${md(c.contacto)}</p>`;
  h+=`<div class="aviso">${md(c.aviso)}</div>`;
  h+=`<footer>${m.logo_empresa?`<img src="${esc(m.logo_empresa)}" alt="">`:''}<div>${md(c.pie)}</div></footer>`;
- document.getElementById('app').innerHTML=h;document.title=(m.nombre||'BasatiNA')+' · '+(m.lema||'');
+ document.getElementById('app').innerHTML=h;
+ {const ah=document.getElementById('arbHost'),sb=document.getElementById('seccion-arbustos');if(ah&&sb)ah.appendChild(sb);}
+ naRojo(document.getElementById('app'));document.title=(m.nombre||'BasatiNA')+' · '+(m.lema||'');
 }
+// «BasatiNA» siempre con la «NA» en rojo, como en el logo (solo en el texto, nunca en enlaces ni atributos)
+function naRojo(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),L=[];let n;while((n=w.nextNode()))if(n.nodeValue.includes('BasatiNA'))L.push(n);
+ L.forEach(n=>{const f=document.createDocumentFragment();n.nodeValue.split('BasatiNA').forEach((t,i,a)=>{if(t)f.appendChild(document.createTextNode(t));if(i<a.length-1){f.appendChild(document.createTextNode('Basati'));const s=document.createElement('span');s.style.cssText='color:#DD4826;display:inline;font-size:inherit;margin:0';s.textContent='NA';f.appendChild(s);}});n.parentNode.replaceChild(f,n);});}
 let C=JSON.parse(document.getElementById('def').textContent);
 if(location.search.includes('preview')){try{const x=JSON.parse(localStorage.getItem('sp_preview'));if(x)C=x;}catch(e){}draw(C);}
 else{draw(C);fetch('contenido.json?t='+Date.now()).then(r=>r.json()).then(x=>{C=x;draw(C);}).catch(()=>{});}
@@ -369,10 +421,10 @@ else{draw(C);fetch('contenido.json?t='+Date.now()).then(r=>r.json()).then(x=>{C=
 <!-- ============================================== -->
 <!-- CATÁLOGO DE ARBUSTOS DE NAVARRA (BASATINA)     -->
 <!-- ============================================== -->
-<section id="seccion-arbustos" class="modulo-naturaleza" style="padding: 1rem; max-width: 1100px; margin: 0 auto;">
+<section id="seccion-arbustos" class="modulo-naturaleza" style="padding: 0;">
   <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-    <h2 style="margin: 0; color: #2d3748; font-family: 'Montserrat', sans-serif;">🌿 Arbustos de Navarra</h2>
-    <input type="search" id="buscador-arbustos" placeholder="Buscar por nombre, zona o euskera..." style="padding: 0.5rem 1rem; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 0.95rem; min-width: 260px;">
+    <h2 style="margin: 0;">🌿 Arbustos de Navarra</h2>
+    <input type="search" id="buscador-arbustos" placeholder="Buscar por nombre, zona o euskera..." style="padding: 0.5rem 1rem; border: 1px solid var(--line); background: var(--panel); color: var(--txt); border-radius: 10px; font-size: 0.95rem; min-width: 260px;">
   </div>
 
   <!-- Contenedor donde se insertan las fichas dinámicamente -->

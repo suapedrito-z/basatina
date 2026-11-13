@@ -55,7 +55,17 @@ public class MainActivity extends Activity {
         s.setAllowFileAccess(true);            // leer los archivos guardados en la app
         s.setAllowFileAccessFromFileURLs(true);// necesario para leer los mapas de inundación
         s.setGeolocationEnabled(true);         // «Qué hay cerca de mí»
-        web.setWebViewClient(new WebViewClient());
+        // Seguridad: dentro de la app solo se abren las pantallas propias (file://). Cualquier enlace a otra web,
+        // teléfono o correo se abre fuera (navegador, marcador...), para que ninguna web ajena use el puente AndroidNet.
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView v, android.webkit.WebResourceRequest r) {
+                return abrirFuera(r.getUrl().toString());
+            }
+            @SuppressWarnings("deprecation")
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView v, String url) { return abrirFuera(url); }
+        });
         // Permite que la página abra la galería o la cámara para elegir fotos (<input type="file">)
         web.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -88,6 +98,15 @@ public class MainActivity extends Activity {
         web.loadUrl(startUrl());
         // comprobación del río en segundo plano (widget y avisos)
         RiverJob.schedule(this);
+    }
+
+    /** true si el enlace no es una pantalla propia: se abre con otra app (y nunca dentro de BasatiNA) */
+    private boolean abrirFuera(String url) {
+        if (url == null || url.startsWith("file://") || url.startsWith("about:") || url.startsWith("javascript:")) return false;
+        if (url.matches("(?i)^(https?|mailto|tel|geo):.*")) {
+            try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); } catch (Exception ignored) {}
+        }
+        return true;   // cualquier otro tipo de enlace se bloquea
     }
 
     /** Dirección desde la que se descargan las actualizaciones de la pantalla (repositorio público) */
@@ -189,6 +208,8 @@ public class MainActivity extends Activity {
     public class Net {
         @JavascriptInterface
         public void get(final String url, final String id) {
+            // Seguridad: solo direcciones de internet (nunca archivos del propio móvil)
+            if (url == null || !url.matches("(?i)^https?://.*")) { callback(id, 0, "ERROR: solo http/https"); return; }
             // Las conexiones se hacen en segundo plano para no congelar la pantalla
             new Thread(() -> {
                 int code = 0;
@@ -241,6 +262,8 @@ public class MainActivity extends Activity {
                         java.util.Iterator<String> it = rf.keys();
                         while (it.hasNext()) {
                             String name = it.next(), sha = rf.getString(name);
+                            // Seguridad: solo nombres de archivo simples (sin carpetas ni «..»)
+                            if (!name.matches("[A-Za-z0-9._-]+") || name.contains("..")) continue;
                             File f = new File(dir, name);
                             if (lm.exists() && lf != null && sha.equals(lf.optString(name)) && f.exists()) continue;
                             InputStream in;
@@ -278,6 +301,7 @@ public class MainActivity extends Activity {
         /** Envía una foto (JPEG en base64) a un servicio como «multipart/form-data» (identificar plantas con Pl@ntNet) */
         @JavascriptInterface
         public void postImage(final String url, final String b64, final String field, final String extra, final String id) {
+            if (url == null || !url.matches("(?i)^https://.*")) { callback(id, 0, ""); return; }
             new Thread(() -> {
                 int code = 0; String body;
                 try {
@@ -361,7 +385,9 @@ public class MainActivity extends Activity {
 
         @JavascriptInterface
         public void openUrl(final String url) {
-            runOnUiThread(() -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
+            // Seguridad: solo webs, correo, teléfono y mapas
+            if (url == null || !url.matches("(?i)^(https?|mailto|tel|geo):.*")) return;
+            runOnUiThread(() -> { try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); } catch (Exception ignored) {} });
         }
 
         /** Guarda un archivo que hace la página (p. ej. un PDF) y abre «Compartir» para guardarlo en Drive, enviarlo por correo... */

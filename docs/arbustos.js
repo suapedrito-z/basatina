@@ -84,4 +84,3 @@ function cerrarFichaArbusto() {
 document.addEventListener("DOMContentLoaded", () => {
   cargarCatalogoArbustos();
 });
-Añadir arbustos.js
