@@ -28,7 +28,7 @@ public class FotoProvider extends ContentProvider {
     @Override public ParcelFileDescriptor openFile(Uri u, String mode) throws FileNotFoundException {
         return ParcelFileDescriptor.open(file(u), ParcelFileDescriptor.parseMode(mode.contains("w") ? "rw" : "r") | (mode.contains("w") ? ParcelFileDescriptor.MODE_CREATE : 0));
     }
-    @Override public String getType(Uri u) { String n = u.getLastPathSegment(); return n != null && n.endsWith(".pdf") ? "application/pdf" : "image/jpeg"; }
+    @Override public String getType(Uri u) { String n = u.getLastPathSegment(); if (n != null && n.endsWith(".apk")) return "application/vnd.android.package-archive"; return n != null && n.endsWith(".pdf") ? "application/pdf" : "image/jpeg"; }
     @Override public Cursor query(Uri u, String[] p, String s, String[] a, String o) {
         try {
             File f = file(u);

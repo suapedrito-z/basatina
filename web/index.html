@@ -1767,11 +1767,16 @@ function toast(t,btn,fn){const b=document.getElementById('updBar');document.getE
 document.getElementById('dRefresh').onclick=async()=>{menu(false);toast('Actualizando datos…');
   if(APP){await Promise.all([appForecast(),wxFetch(),cauFetch()]);toast('✅ Caudales, previsión y tiempo actualizados');}
   else{fcRender();wxRender();toast('✅ Datos al día (la previsión se renueva sola cada 3 horas)');}};
+/* actualizar la app desde dentro: Android avisa del progreso con window.__apk('prog'|'fin', texto) */
+function apkInstalar(url){toast('⬇️ Descargando la versión nueva…');window.__apk=(t,x)=>{const b=document.getElementById('updBar');
+  if(t==='prog'){document.getElementById('updTxt').textContent='⬇️ Descargando la versión nueva… '+(+x>=0?x+' %':'');document.getElementById('updBtn').style.display='none';b.style.display='flex';}
+  else if(x)toast('⚠️ '+x,'Reintentar',()=>apkInstalar(url));else b.style.display='none';};window.AndroidNet.installApk(url);}
 function updWeb(){return new Promise(res=>{const id='u'+Date.now();window.__netCbs[id]=r=>{try{res(JSON.parse(r.body));}catch(e){res({ok:false});}};window.AndroidNet.updateWeb(id);});}
 async function checkUpdate(manual){if(!APP||!window.AndroidNet.updateWeb)return;if(manual){menu(false);toast('Buscando actualizaciones…');}
   const r=await updWeb();if(!r.ok){if(manual)toast('No se pudo comprobar ahora (¿sin internet?)');return;}
   if(r.apk>r.myApk&&r.apkUrl){if(typeof bnMudanza==='function'&&bnMudanza())return;   // la app antigua (es.pedrito.controlarga) se muda a la nueva
     const u=r.play?'https://play.google.com/store/apps/details?id=es.sonpe.basatina':r.apkUrl;   // instalada desde Google Play → se actualiza allí
+    if(!r.play&&window.AndroidNet.installApk){toast('📲 Hay una versión nueva de la app ('+r.apk+')','Instalar',()=>apkInstalar(r.apkUrl));return;}   // app 21+: se descarga e instala desde dentro
     toast('📲 Hay una versión nueva de la app ('+r.apk+')',r.play?'Actualizar':'Descargar',()=>window.AndroidNet.openUrl(u));return;}
   if(r.changed>0){toast('✨ Pantalla actualizada ('+r.changed+' archivo'+(r.changed>1?'s':'')+')','Recargar',()=>window.AndroidNet.reload());return;}
   if(manual)toast('✅ Ya tienes la última versión');}
