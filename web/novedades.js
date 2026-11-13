@@ -210,33 +210,44 @@ const RZ_ZN={alta:'zona alta',media:'zona media',baja:'zona baja'};
 const RZ={i:0,t:0,busy:false,elegidas:{}};
 function rzValor(code){const st=CAU&&CAU[code];if(!st||!st.tags)return null;const q=pick(st,'q'),n=pick(st,'n');const t=q&&!isNaN(+q.VALOR_QM)?q:n&&!isNaN(+n.VALOR_QM)?n:null;
   if(!t)return null;const al=n?alertOf(n):null;return {v:+t.VALOR_QM,u:t===q?'m³/s':'m',tr:t.LS_TENDENCIA||'',al,name:st.name};}
-function rzLista(){const L=[];
-  RZ_ARGA.forEach(([z,codes])=>{const c=codes.find(x=>rzValor(x));if(c)L.push({r:'arga',rio:'Arga',z,code:c});});
-  Object.entries(RZ_RIOS).forEach(([r,d])=>{(RZ.elegidas[r]||[]).forEach(([z,c])=>{if(rzValor(c))L.push({r,rio:d.n,z,code:c});});});return L;}
+// los ríos que tienen datos, cada uno con sus zonas [zona, estación]
+function rzRios(){const R=[],a=[];
+  RZ_ARGA.forEach(([z,codes])=>{const c=codes.find(x=>rzValor(x));if(c)a.push([z,c]);});if(a.length)R.push({r:'arga',rio:'Arga',zs:a});
+  Object.entries(RZ_RIOS).forEach(([r,d])=>{const zs=(RZ.elegidas[r]||[]).filter(([z,c])=>rzValor(c));if(zs.length)R.push({r,rio:d.n,zs});});return R;}
+const rzLista=()=>rzRios();
 function rzZonas(r){let st=(typeof RIVST!=='undefined'&&RIVST[r])||(typeof LS!=='undefined'&&(LS.get(rk(r),null)||{}).st)||[];
-  st=st.filter(x=>x.lat!=null&&x.lon!=null&&!/EMBALSE|PRESA/i.test(x.name));const d=RZ_RIOS[r],pr=st.filter(x=>d.re.test(x.name));if(pr.length>=2)st=pr;
+  // solo estaciones de aforo del río (sin embalses ni las de fuera de Navarra del Ebro)
+  st=st.filter(x=>x.lat!=null&&x.lon!=null&&x.tipo!=='E'&&!x.io&&!/EMBALSE|PRESA/i.test(x.name));const d=RZ_RIOS[r],pr=st.filter(x=>d.re.test(x.name));if(pr.length>=2)st=pr;
   if(!st.length)return [];st.sort((a,b)=>d.ab(a)-d.ab(b));const n=st.length,cut=[st.slice(0,Math.ceil(n/3)),st.slice(Math.ceil(n/3),Math.ceil(2*n/3)),st.slice(Math.ceil(2*n/3))];
   const out=[];['alta','media','baja'].forEach((z,i)=>{const g=cut[i];if(g&&g.length)out.push([z,g.map(x=>x.code)]);});return out;}
 async function rzLoad(){if(!APP||RZ.busy||Date.now()-RZ.t<15*60e3)return;RZ.busy=true;RZ.t=Date.now();if(!CAU)CAU={};
-  try{for(const r of Object.keys(RZ_RIOS)){const zs=rzZonas(r);const el=[];
-      for(const [z,codes] of zs){for(const c of codes.slice(0,3)){if(!rzValor(c)){try{const x=await netGet(SAIH+'/api/ficha/procesarTablaValoresActuales?estacion='+c);
-            fichaAdd(CAU,c,JSON.parse(x.body).VALORES_ACTUALES||'');const st=(RIVST[r]||[]).find(y=>y.code===c)||((LS.get(rk(r),null)||{}).st||[]).find(y=>y.code===c);if(st&&CAU[c])CAU[c].name=st.name;}catch(e){}}
+  try{for(const r of Object.keys(RZ_RIOS)){
+      // si la app aún no conoce las estaciones de este río, las busca ella sola (luego se guardan 7 días)
+      if(!rzZonas(r).length&&typeof rivStations==='function'){try{await rivStations(r);}catch(e){}}
+      const zs=rzZonas(r),el=[],todas=[].concat(...((typeof RIVST!=='undefined'&&RIVST[r])?[RIVST[r]]:[]),((LS.get(rk(r),null)||{}).st||[]));
+      for(const [z,codes] of zs){for(const c of codes.slice(0,4)){if(!rzValor(c)){try{const x=await netGet(SAIH+'/api/ficha/procesarTablaValoresActuales?estacion='+c);
+            fichaAdd(CAU,c,JSON.parse(x.body).VALORES_ACTUALES||'');const st=todas.find(y=>y.code===c);if(st&&CAU[c])CAU[c].name=st.name;}catch(e){}}
           if(rzValor(c)){el.push([z,c]);break;}}}
       RZ.elegidas[r]=el;rzDraw();}}catch(e){console.log('rzLoad',e);}RZ.busy=false;}
-function rzDraw(){const el=$('rzTk');if(!el)return;const L=rzLista();if(!L.length){el.style.display='none';return;}el.style.display='';
-  const x=L[RZ.i%L.length],v=rzValor(x.code);
-  let bd=['ok','Normal'];if(x.r==='arga'&&v.u==='m³/s'&&typeof CFG!=='undefined'&&x.code==='A313')bd=v.v>=CFG.qRoj?['ro','Peligro']:v.v>=CFG.qAma?['am','Alerta']:['ok','Normal'];
-  else if(v.al){const t=v.al[0];bd=/rojo/i.test(t)?['ro','Aviso rojo']:/naranja/i.test(t)?['ro','Aviso naranja']:/amarillo/i.test(t)&&!/Normal/.test(t)?['am','Aviso amarillo']:['ok','Normal'];}
-  const nom=typeof prettyName==='function'?prettyName(v.name||x.code):(v.name||x.code);
-  const tr=/arriba/i.test(v.tr)?' ↑':/abajo/i.test(v.tr)?' ↓':'';
-  el.innerHTML=`<div class="anC"><span class="anE">${typeof bnTile==='function'?bnTile('caudal',20,34):'🌊'}</span><div><small class="anW"><span>Río</span> ${E(x.rio)} · <span>${RZ_ZN[x.z]}</span></small><b>${E(nom)}</b><small>${fmtN(v.v,v.u==='m'?2:1)} ${v.u}${tr} <span>ahora</span></small></div><span class="bdg ${bd[0]}"><span>${bd[1]}</span></span></div>
-    <div class="anF"><button class="anP" aria-label="Anterior">‹</button><span>${RZ.i%L.length+1} / ${L.length}</span><div class="anBar"><i></i></div><button class="anX" aria-label="Siguiente">›</button></div>`;
+function rzBd(r,code,v){if(r==='arga'&&v.u==='m³/s'&&typeof CFG!=='undefined'&&code==='A313')return v.v>=CFG.qRoj?['ro','Peligro',3]:v.v>=CFG.qAma?['am','Alerta',2]:['ok','Normal',0];
+  if(v.al){const t=v.al[0];return /rojo/i.test(t)?['ro','Aviso rojo',3]:/naranja/i.test(t)?['ro','Aviso naranja',3]:/amarillo/i.test(t)&&!/Normal/.test(t)?['am','Aviso amarillo',2]:['ok','Normal',0];}
+  return ['ok','Normal',0];}
+const RZ_ZC={alta:'Arriba',media:'Medio',baja:'Abajo'};
+// nombre corto del sitio: «Irati en Aoiz» → «Aoiz»
+const rzSitio=n=>{const p=(typeof prettyName==='function'?prettyName(n):n)||'';const m=p.match(/ en (.+)$/);return m?m[1]:p;};
+function rzDraw(){const el=$('rzTk');if(!el)return;const R=rzRios();if(!R.length){el.style.display='none';return;}el.style.display='';
+  const x=R[RZ.i%R.length];let peor=['ok','Normal',0];
+  const cols=x.zs.map(([z,c])=>{const v=rzValor(c),bd=rzBd(x.r,c,v);if(bd[2]>peor[2])peor=bd;const tr=/arriba/i.test(v.tr)?' ↑':/abajo/i.test(v.tr)?' ↓':'';
+    return `<div class="rzZ ${bd[0]}"><small><span>${RZ_ZC[z]}</span></small><b>${fmtN(v.v,v.u==='m'?2:v.v<10?1:0)}<i> ${v.u}</i>${tr}</b><small class="rzN">${E(rzSitio(v.name||c))}</small></div>`;}).join('');
+  el.innerHTML=`<div class="anC"><span class="anE">${typeof bnTile==='function'?bnTile('caudal',20,34):'🌊'}</span><div><small class="anW"><span>Río</span> ${E(x.rio)} · <span>ahora</span></small><div class="rzG">${cols}</div></div><span class="bdg ${peor[0]}"><span>${peor[1]}</span></span></div>
+    <div class="anF"><button class="anP" aria-label="Anterior">‹</button><span>${RZ.i%R.length+1} / ${R.length}</span><div class="anBar"><i></i></div><button class="anX" aria-label="Siguiente">›</button></div>`;
   el.querySelector('.anC').onclick=()=>{showTab('caudal');if(x.r!=='arga'&&typeof rivShow==='function')setTimeout(()=>rivShow(x.r),150);};
-  el.querySelector('.anP').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i-1+L.length)%L.length;rzDraw();rzTimer();};
-  el.querySelector('.anX').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i+1)%L.length;rzDraw();rzTimer();};}
+  el.querySelector('.anP').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i-1+R.length)%R.length;rzDraw();rzTimer();};
+  el.querySelector('.anX').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i+1)%R.length;rzDraw();rzTimer();};}
+document.head.insertAdjacentHTML('beforeend','<style>#rzTk .rzG{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:5px}#rzTk .rzZ{min-width:0;border-radius:10px;padding:5px 7px;background:rgba(13,98,133,.07)}#rzTk .rzZ.am{background:rgba(255,176,32,.16)}#rzTk .rzZ.ro{background:rgba(220,50,50,.14)}#rzTk .rzZ b{font-size:15px!important;white-space:nowrap}#rzTk .rzZ b i{font-style:normal;font-size:11px;font-weight:600;color:var(--mut)}#rzTk .rzZ small{font-size:11px!important}#rzTk .rzZ .rzN{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}</style>');
 function rzTick(){const n=rzLista().length;if(n){RZ.i=(RZ.i+1)%n;rzDraw();}rzLoad();}
 // los ríos pasan más despacio (cada 7 s) y desfasados del carrusel de abajo, para que no cambien los dos a la vez
-const RZ_MS=7000;
+const RZ_MS=9000;
 function rzTimer(){clearInterval(RZ.tm);clearTimeout(RZ.to);RZ.to=setTimeout(()=>{RZ.tm=setInterval(()=>{if(!document.hidden&&(typeof BNTAB==='undefined'||BNTAB==='mtiempo'))rzTick();},RZ_MS);},1500);}
 rzTimer();
 document.head.insertAdjacentHTML('beforeend','<style>#rzTk{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 8px rgba(29,45,35,.05);overflow:hidden}body:not(.bna) #rzTk{background:var(--panel)}#rzTk .anC{display:flex;align-items:center;gap:11px;padding:12px 12px 10px;cursor:pointer;animation:anIn .45s ease}#rzTk .anC>div{flex:1;min-width:0}#rzTk .anC b{display:block;font-size:14.5px}#rzTk .anC small{display:block;color:var(--mut);font-size:12.5px}#rzTk .anW{color:#0D6285!important;font-weight:800}#rzTk .anE{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex:none}#rzTk .anF{display:flex;align-items:center;gap:8px;padding:0 10px 8px}#rzTk .anF button{border:none;background:#F3F6F1;color:inherit;border-radius:12px;width:46px;height:38px;font-size:26px;font-weight:700;line-height:1;cursor:pointer;flex:none}#rzTk .anF span{font-size:11.5px;color:var(--mut)}#rzTk .anBar{flex:1;height:4px;background:rgba(127,127,127,.18);border-radius:3px;overflow:hidden}#rzTk .anBar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#097BA4,#1e88e5);animation:anProg 7s linear forwards}</style>');
@@ -257,6 +268,7 @@ if(typeof checkUpdate==='function'&&APP&&window.AndroidNet.updateWeb){let PEND=f
     const r=await updWeb().catch(()=>({ok:false}));if(!r||!r.ok)return;
     if(r.apk>r.myApk&&r.apkUrl){if(typeof bnMudanza==='function'&&bnMudanza())return;
       if(r.play)return;   // Google Play ya actualiza la app sola
+      if(window.AndroidNet.installApk&&typeof apkInstalar==='function'){toast('📲 Hay una versión nueva de la app ('+r.apk+')','Instalar',()=>apkInstalar(r.apkUrl));return;}   // app 21+: se instala desde dentro
       toast('📲 Hay una versión nueva de la app ('+r.apk+')','Descargar',()=>window.AndroidNet.openUrl(r.apkUrl));return;}
     if(r.changed>0){PEND=true;aplicar();}};
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(PEND)aplicar();else checkUpdate(false);}});
@@ -464,7 +476,7 @@ setTimeout(()=>{if(muVieja())bnMudanza();
     if(!v)toast('📦 ¿Tenías la BasatiNA anterior? Recupera tus datos','Recuperar',muRecuperar);}},2500);
 document.head.insertAdjacentHTML('beforeend','<style>.nvMu{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.nvMu>div{background:var(--panel,#fff);color:var(--txt);border-radius:18px;padding:16px;width:min(92vw,400px);box-shadow:0 10px 40px rgba(0,0,0,.35)}.nvMu li{margin-top:8px}</style>');
 
-window.NOVEDADES={anLoad,saCalc,naScan};
+window.NOVEDADES={anLoad,saCalc,naScan,RZ,rzDraw,rzRios};
 })();
 
 
