@@ -220,14 +220,8 @@ function rzZonas(r){let st=(typeof RIVST!=='undefined'&&RIVST[r])||(typeof LS!==
   st=st.filter(x=>x.lat!=null&&x.lon!=null&&x.tipo!=='E'&&!x.io&&!/EMBALSE|PRESA/i.test(x.name));const d=RZ_RIOS[r],pr=st.filter(x=>d.re.test(x.name));if(pr.length>=2)st=pr;
   if(!st.length)return [];st.sort((a,b)=>d.ab(a)-d.ab(b));const n=st.length,cut=[st.slice(0,Math.ceil(n/3)),st.slice(Math.ceil(n/3),Math.ceil(2*n/3)),st.slice(Math.ceil(2*n/3))];
   const out=[];['alta','media','baja'].forEach((z,i)=>{const g=cut[i];if(g&&g.length)out.push([z,g.map(x=>x.code)]);});return out;}
-/* versión web: el navegador no puede leer el SAIH, así que GitHub lo lee cada 20 min y deja rios-ahora.json en la rama «datos» */
-const RZ_WEB='https://raw.githubusercontent.com/suapedrito-z/basatina/datos/rios-ahora.json';
-async function rzWeb(){if(RZ.busy||Date.now()-RZ.t<10*60e3)return;RZ.busy=true;RZ.t=Date.now();
-  try{const r=await fetch(RZ_WEB+'?t='+Math.floor(Date.now()/300000),{cache:'no-store'});if(!r.ok)throw new Error(r.status);const j=await r.json();
-    if(!CAU)CAU={};Object.entries(j.fichas||{}).forEach(([c,f])=>{delete CAU[c];fichaAdd(CAU,c,f.html||'');if(CAU[c])CAU[c].name=f.name;});
-    Object.entries(j.rios||{}).forEach(([r,el])=>{if(r!=='arga')RZ.elegidas[r]=el;});RZ.webT=j.t?new Date(j.t):null;rzDraw();}catch(e){console.log('rzWeb',e);}
-  RZ.busy=false;}
-async function rzLoad(){if(!APP)return rzWeb();if(RZ.busy||Date.now()-RZ.t<15*60e3)return;RZ.busy=true;RZ.t=Date.now();if(!CAU)CAU={};
+async function rzLoad(){if(!APP)return rzDraw();   // la web no puede leer el SAIH (lo bloquea): enseña el aviso de la app
+if(RZ.busy||Date.now()-RZ.t<15*60e3)return;RZ.busy=true;RZ.t=Date.now();if(!CAU)CAU={};
   try{for(const r of Object.keys(RZ_RIOS)){
       // si la app aún no conoce las estaciones de este río, las busca ella sola (luego se guardan 7 días)
       if(!rzZonas(r).length&&typeof rivStations==='function'){try{await rivStations(r);}catch(e){}}
@@ -242,11 +236,15 @@ function rzBd(r,code,v){if(r==='arga'&&v.u==='m³/s'&&typeof CFG!=='undefined'&&
 const RZ_ZC={alta:'Arriba',media:'Medio',baja:'Abajo'};
 // nombre corto del sitio: «Irati en Aoiz» → «Aoiz»
 const rzSitio=n=>{const p=(typeof prettyName==='function'?prettyName(n):n)||'';const m=p.match(/ en (.+)$/);return m?m[1]:p;};
-function rzDraw(){const el=$('rzTk');if(!el)return;const R=rzRios();if(!R.length){el.style.display='none';return;}el.style.display='';
+function rzDraw(){const el=$('rzTk');if(!el)return;const R=rzRios();
+  if(!APP){el.style.display='';   // versión web: el SAIH no deja leer sus datos desde otra web, así que invitamos a la app
+    el.innerHTML=`<div class="anC"><span class="anE">${typeof bnTile==='function'?bnTile('caudal',20,34):'🌊'}</span><div><small class="anW"><span>Ríos en directo</span></small><b style="font-size:15px"><span>Arga, Irati, Ega, Aragón y Ebro</span></b><div class="note" style="margin-top:2px"><span>Caudal arriba, en medio y abajo, al minuto y con avisos: en la app para Android.</span></div><button class="btn pri" id="rzDl" style="margin-top:8px">📲 <span>Descargar la app</span></button></div></div>`;
+    const b=el.querySelector('#rzDl');if(b)b.onclick=e=>{e.stopPropagation();if(typeof window.nvDescargar==='function')window.nvDescargar();};return;}
+  if(!R.length){el.style.display='none';return;}el.style.display='';
   const x=R[RZ.i%R.length];let peor=['ok','Normal',0];
   const cols=x.zs.map(([z,c])=>{const v=rzValor(c),bd=rzBd(x.r,c,v);if(bd[2]>peor[2])peor=bd;const tr=/arriba/i.test(v.tr)?' ↑':/abajo/i.test(v.tr)?' ↓':'';
     return `<div class="rzZ ${bd[0]}"><small><span>${RZ_ZC[z]}</span></small><b>${fmtN(v.v,v.u==='m'?2:v.v<10?1:0)}<i> ${v.u}</i>${tr}</b><small class="rzN">${E(rzSitio(v.name||c))}</small></div>`;}).join('');
-  el.innerHTML=`<div class="anC"><span class="anE">${typeof bnTile==='function'?bnTile('caudal',20,34):'🌊'}</span><div><small class="anW"><span>Río</span> ${E(x.rio)} · ${!APP&&RZ.webT?E(RZ.webT.toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'})):'<span>ahora</span>'}</small><div class="rzG">${cols}</div></div><span class="bdg ${peor[0]}"><span>${peor[1]}</span></span></div>
+  el.innerHTML=`<div class="anC"><span class="anE">${typeof bnTile==='function'?bnTile('caudal',20,34):'🌊'}</span><div><small class="anW"><span>Río</span> ${E(x.rio)} · <span>ahora</span></small><div class="rzG">${cols}</div></div><span class="bdg ${peor[0]}"><span>${peor[1]}</span></span></div>
     <div class="anF"><button class="anP" aria-label="Anterior">‹</button><span>${RZ.i%R.length+1} / ${R.length}</span><div class="anBar"><i></i></div><button class="anX" aria-label="Siguiente">›</button></div>`;
   el.querySelector('.anC').onclick=()=>{showTab('caudal');if(x.r!=='arga'&&typeof rivShow==='function')setTimeout(()=>rivShow(x.r),150);};
   el.querySelector('.anP').onclick=e=>{e.stopPropagation();RZ.i=(RZ.i-1+R.length)%R.length;rzDraw();rzTimer();};
