@@ -396,11 +396,11 @@ if(typeof svSec==='function'){
 /* =====================================================================
    7. IDIOMA: Castellano · Euskara · English · Français
    ===================================================================== */
-(function(){const b=$('dLang');if(!b)return;const N=[['es','Castellano','🇪🇸'],['eu','Euskara','🟩'],['en','English','🇬🇧'],['fr','Français','🇫🇷']];
+(function(){const b=$('dLang');if(!b)return;const N=[['es','Castellano'],['eu','Euskara'],['en','English'],['fr','Français']];
   const L0=(typeof LANG!=='undefined'&&LANG)||'es',txt='Castellano · Euskara · English · Français';
   b.dataset.emo='🌐 ';b.dataset.txt=txt;const sp=[...b.querySelectorAll('span')].filter(x=>!x.className&&!x.querySelector('svg')).pop();if(sp)sp.textContent=txt;else b.textContent='🌐 '+txt;
   b.onclick=()=>{if(typeof menu==='function')menu(false);const o=document.createElement('div');o.id='nvLang';
-    o.innerHTML=`<div><b style="font-size:17px">🌐 Idioma · Hizkuntza · Language · Langue</b>${N.map(([k,n,f])=>`<button class="l${k===L0?' on':''}" data-l="${k}"><span style="font-size:22px">${f}</span><span style="flex:1">${n}</span>${k===L0?'✓':''}</button>`).join('')}
+    o.innerHTML=`<div><b style="font-size:17px">🌐 Idioma · Hizkuntza · Language · Langue</b>${N.map(([k,n])=>`<button class="l${k===L0?' on':''}" data-l="${k}"><span style="flex:1">${n}</span>${k===L0?'✓':''}</button>`).join('')}
       <div class="note" style="margin-top:10px">Los nombres de lugares, especies y los datos oficiales se dejan como están.</div><div class="row" style="margin-top:8px"><button class="btn" data-x="1">✕</button></div></div>`;
     document.body.appendChild(o);o.onclick=e=>{if(e.target===o||e.target.closest('[data-x]'))o.remove();};
     o.querySelectorAll('[data-l]').forEach(x=>x.onclick=()=>{try{localStorage.setItem('lang',x.dataset.l);}catch(e){}location.reload();});};})();
@@ -465,4 +465,26 @@ setTimeout(()=>{if(muVieja())bnMudanza();
 document.head.insertAdjacentHTML('beforeend','<style>.nvMu{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}.nvMu>div{background:var(--panel,#fff);color:var(--txt);border-radius:18px;padding:16px;width:min(92vw,400px);box-shadow:0 10px 40px rgba(0,0,0,.35)}.nvMu li{margin-top:8px}</style>');
 
 window.NOVEDADES={anLoad,saCalc,naScan};
+})();
+
+
+/* =====================================================================
+   9. 📲 DESCARGAR LA APP (solo en la versión web, no dentro de la app)
+   Botón en el menú + aviso una sola vez en móviles Android.
+   El enlace se lee de version.json (apkUrl); si un día está en Google Play, se cambia ahí.
+   ===================================================================== */
+(function(){if(typeof APP!=='undefined'&&APP)return;
+  const UA=navigator.userAgent||'',AND=/Android/i.test(UA),IOS=/iPhone|iPad|iPod/i.test(UA);
+  let URL_APK='https://github.com/suapedrito-z/basatina/releases/latest/download/BasatiNA.apk';
+  fetch('version.json',{cache:'no-store'}).then(r=>r.json()).then(v=>{if(v&&v.apkUrl)URL_APK=v.apkUrl;}).catch(()=>{});
+  document.head.insertAdjacentHTML('beforeend','<style>#nvDl{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}#nvDl>div{background:var(--panel,#fff);color:var(--txt);border-radius:18px;padding:16px;width:min(92vw,380px);max-height:86vh;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,.35)}#nvDl ol{padding-left:20px;margin:8px 0;line-height:1.5;font-size:14.5px}</style>');
+  function abrir(){if(typeof menu==='function')menu(false);const o=document.createElement('div');o.id='nvDl';
+    o.innerHTML=`<div><b style="font-size:17px">📲 BasatiNA en tu móvil</b>`+(IOS?`<div class="note" style="margin-top:8px">De momento la app solo existe para <b>Android</b>. En iPhone puedes seguir usando esta web: en Safari toca <b>Compartir → Añadir a pantalla de inicio</b> y tendrás un icono como si fuera una app.</div><div class="row" style="margin-top:10px"><button class="btn" data-x="1">Cerrar</button></div>`:
+    `<div class="note" style="margin-top:6px">Gratis y sin anuncios. Para móviles <b>Android</b>.</div><ol><li>Toca <b>Descargar</b>. Chrome puede avisar de que «el archivo puede ser dañino»: toca <b>Descargar de todas formas</b>.</li><li>Abre el archivo <b>BasatiNA.apk</b> (en la notificación o en Descargas).</li><li>Si te pide permiso para <b>instalar apps desconocidas</b>, actívalo para Chrome y vuelve atrás.</li><li>Si sale <b>Play Protect</b>, toca <b>Más detalles → Instalar de todas formas</b>.</li></ol><div class="note">Después se actualiza sola.</div>`+(AND?'':`<div class="note" style="margin-top:6px">💻 Estás en un ordenador: abre esta página desde el móvil Android para descargarla.</div>`)+
+    `<div class="row" style="margin-top:10px"><button class="btn pri" data-d="1">⬇️ Descargar</button><button class="btn" data-x="1">Cerrar</button></div>`)+`</div>`;
+    document.body.appendChild(o);o.onclick=e=>{if(e.target===o||e.target.closest('[data-x]'))o.remove();else if(e.target.closest('[data-d]'))location.href=URL_APK;};}
+  window.nvDescargar=abrir;
+  const L=document.getElementById('dLang');if(L&&!document.getElementById('dDl')){const b=document.createElement('button');b.id='dDl';b.textContent='📲 Descargar la app';b.onclick=abrir;L.parentNode.insertBefore(b,L);}
+  if(AND){let v=null;try{v=localStorage.getItem('nvDlVisto');}catch(e){}
+    if(!v)setTimeout(()=>{try{localStorage.setItem('nvDlVisto','1');}catch(e){}if(typeof toast==='function')toast('📲 BasatiNA también es una app para Android','Descargar',abrir);},3000);}
 })();
