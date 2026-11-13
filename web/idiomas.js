@@ -7,6 +7,14 @@
    ===================================================================== */
 window.I18N = {
   eu: {
+    "zona alta": "goiko eremua",
+    "zona media": "erdiko eremua",
+    "zona baja": "beheko eremua",
+    "Aviso amarillo": "Abisu horia",
+    "Aviso naranja": "Abisu laranja",
+    "Aviso rojo": "Abisu gorria",
+    "Peligro": "Arriskua",
+    "BasatiNA actualizada": "BasatiNA eguneratuta",
     "Copia de mis datos": "Nire datuen kopia",
     "Guarda en un archivo tu diario de salidas (con fotos), el diario de dolores, el calendario, las notas, los sitios secretos y los ajustes. Sirve para cambiar de móvil o para pasarte a la BasatiNA de Google Play. El archivo es tuyo: no se envía a nadie.": "Gorde fitxategi batean irteeren egunerokoa (argazkiekin), minen egunerokoa, egutegia, oharrak, leku sekretuak eta ezarpenak. Mugikorrez aldatzeko edo Google Playko BasatiNAra pasatzeko balio du. Fitxategia zurea da: ez zaio inori bidaltzen.",
     "Guardar copia": "Kopia gorde",
@@ -223,6 +231,14 @@ window.I18N = {
     "heladas": "izozteak"
   },
   en: {
+    "zona alta": "upper reach",
+    "zona media": "middle reach",
+    "zona baja": "lower reach",
+    "Aviso amarillo": "Yellow warning",
+    "Aviso naranja": "Orange warning",
+    "Aviso rojo": "Red warning",
+    "Peligro": "Danger",
+    "BasatiNA actualizada": "BasatiNA updated",
     "Copia de mis datos": "Backup of my data",
     "Guarda en un archivo tu diario de salidas (con fotos), el diario de dolores, el calendario, las notas, los sitios secretos y los ajustes. Sirve para cambiar de móvil o para pasarte a la BasatiNA de Google Play. El archivo es tuyo: no se envía a nadie.": "Save your outings diary (with photos), pain diary, calendar, notes, secret spots and settings to a file. Use it to change phones or to move to the Google Play BasatiNA. The file is yours: it isn't sent to anyone.",
     "Guardar copia": "Save backup",
@@ -1031,6 +1047,14 @@ window.I18N = {
     "Domingo": "Sunday"
   },
   fr: {
+    "zona alta": "zone haute",
+    "zona media": "zone moyenne",
+    "zona baja": "zone basse",
+    "Aviso amarillo": "Alerte jaune",
+    "Aviso naranja": "Alerte orange",
+    "Aviso rojo": "Alerte rouge",
+    "Peligro": "Danger",
+    "BasatiNA actualizada": "BasatiNA mise à jour",
     "Copia de mis datos": "Copie de mes données",
     "Guarda en un archivo tu diario de salidas (con fotos), el diario de dolores, el calendario, las notas, los sitios secretos y los ajustes. Sirve para cambiar de móvil o para pasarte a la BasatiNA de Google Play. El archivo es tuyo: no se envía a nadie.": "Enregistre dans un fichier ton journal de sorties (avec photos), le journal des douleurs, le calendrier, les notes, les coins secrets et les réglages. Pour changer de téléphone ou passer à la BasatiNA de Google Play. Le fichier est à toi : il n'est envoyé à personne.",
     "Guardar copia": "Enregistrer la copie",
