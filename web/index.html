@@ -212,8 +212,9 @@ body.bna .icb{box-shadow:none}
 .bdg.ok{background:#E5EFE1;color:#3D7031}.bdg.am{background:#FFF3D6;color:#a66a00}.bdg.ro{background:#FBE5DF;color:#DD4826}.bdg.az{background:#DDEFF6;color:#0D6285}
 body.bna #seHome>b{font-weight:800}
 /* barra inferior */
+:root{--sab:env(safe-area-inset-bottom,0px)}
 #bnaNav{display:none}
-body.bna #bnaNav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:45;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(29,45,35,.08);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+body.bna #bnaNav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:45;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(29,45,35,.08);padding:6px 4px calc(6px + var(--sab))}
 body.bna #bnaNav button{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;font-size:11px;font-weight:700;color:#6B7A72;padding:4px 0;cursor:pointer}
 body.bna #bnaNav button.on{color:#3D7031}
 body.bna #bnaNav button.on svg{background:#E5EFE1;border-radius:12px}
@@ -252,7 +253,7 @@ body.bna [style*="background:#0b1118"]{background:#E1E7E2!important}
 body.bna .topbar{padding-left:4px}
 body.bna .bnaEd,.bnaEd{font-family:'Lato',sans-serif;font-size:12.5px;font-weight:700;padding:4px 6px;border:none!important;background:none!important;box-shadow:none!important;color:var(--mut)!important;display:inline-flex;align-items:center;gap:4px}
 #bnaAccBox{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
-#bnaAccBox>div{background:var(--bg);width:100%;max-width:560px;max-height:86vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:16px 14px calc(18px + env(safe-area-inset-bottom));box-sizing:border-box}
+#bnaAccBox>div{background:var(--bg);width:100%;max-width:560px;max-height:86vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:16px 14px calc(18px + var(--sab));box-sizing:border-box}
 .bnaAccL{display:flex;flex-direction:column;gap:6px;margin-top:6px}
 .bnaAccR{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 8px}
 .bnaAccR>span:not(.bt){flex:1;font-weight:700;font-size:14px}.bnaAccR .btn{padding:6px 10px;font-size:13px}.bnaAccR.on{border-color:#3D7031}
@@ -275,7 +276,7 @@ body.bna .st[data-al="#2e7d32"]{border-left-color:#5E8F4E}body.bna .st[data-al="
 
 /* Logotipo discreto y centrado en todas las secciones de la app */
 body{padding-bottom:58px}
-#basatina-footer-logo{position:fixed;left:50%;bottom:calc(8px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);width:38px;height:38px;object-fit:contain;z-index:20;pointer-events:none;opacity:.92}
+#basatina-footer-logo{position:fixed;left:50%;bottom:calc(8px + var(--sab));transform:translateX(-50%);width:38px;height:38px;object-fit:contain;z-index:20;pointer-events:none;opacity:.92}
 
 /* ===== «Navarra viva» (nov. 2026): paisaje vivo en el inicio + acabado moderno ===== */
 #pvBox{display:none}
@@ -332,7 +333,7 @@ body.bna #mtBox #mtWrap,body.bna #mtBox #mtc{border-radius:20px}
 body.bna #mtBox #mtInfo{color:var(--mut);opacity:1}
 body.bna .mtb{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:rgba(15,24,34,.55)!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:20px!important;color:#fff}
 body.bna .mtb.on{background:#fff!important;color:#1D1D1D!important;border-color:#fff!important}
-body.bna #bnaNav{left:8px;right:8px;bottom:calc(2px + env(safe-area-inset-bottom));border-radius:24px;border:1px solid rgba(255,255,255,.6);padding:6px 4px;
+body.bna #bnaNav{left:8px;right:8px;bottom:calc(6px + var(--sab));border-radius:24px;border:1px solid rgba(255,255,255,.6);padding:6px 4px;
   background:rgba(255,255,255,.78);-webkit-backdrop-filter:saturate(1.8) blur(20px);backdrop-filter:saturate(1.8) blur(20px);box-shadow:0 12px 30px -8px rgba(29,45,35,.3)}
 body.bna #bnaNav button.on svg{background:linear-gradient(150deg,#79b866,#3D7031);color:#fff;box-shadow:0 4px 10px -3px rgba(61,112,49,.6)}
 body.bna section.on{animation:pvEntra .35s ease-out}
@@ -386,7 +387,7 @@ body.bna .note{line-height:1.5}
 body.bna canvas{border-radius:18px}
 body.bna section{padding-top:4px}
 /* avisos, PIN y ventanas */
-body.bna #updBar{position:fixed!important;top:auto!important;left:12px;right:12px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:60;border-radius:18px;
+body.bna #updBar{position:fixed!important;top:auto!important;left:12px;right:12px;bottom:calc(78px + var(--sab));z-index:60;border-radius:18px;
   background:rgba(20,32,40,.86)!important;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 14px 34px -10px rgba(0,0,0,.45);animation:pvEntra .3s ease-out}
 body.bna #pinBox{background:rgba(10,20,25,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 body.bna #pinBox>div{border-radius:26px;padding:22px;box-shadow:0 24px 60px -20px rgba(0,0,0,.5);border:none}
@@ -1483,7 +1484,7 @@ if(!window.AndroidNet)(async()=>{const info=document.getElementById('fcInfo');le
 /* =====================================================
    MODO APP (Android): la app añade window.AndroidNet para pedir datos a otras webs desde el móvil
    ===================================================== */
-const APP=!!window.AndroidNet;window.__netCbs={};
+const APP=!!window.AndroidNet;if(APP)document.documentElement.style.setProperty('--sab','0px');/* la app Android ya deja libre la barra del sistema: no sumarla otra vez */window.__netCbs={};
 window.__netCb=(id,code,body)=>{const f=window.__netCbs[id];delete window.__netCbs[id];if(f)f({code,body});};
 // VERSIÓN WEB (navegador, iPhone, ordenador): imitamos lo que hace la caja de Android con lo que permite el navegador
 if(!APP){
