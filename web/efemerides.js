@@ -89,7 +89,7 @@ function efForm(r){const box=$('efEd');if(!box)return;const x=r.tipo==='dia'?r.x
     const a=parseInt($('efA').value,10);if(a)n.a=a;const fu=$('efFu').value.trim();if(/^https?:\/\//i.test(fu))n.fuente=fu;
     if(!n.t||!n.txt){toast('Falta el título o el texto');return;}
     if(efMalo(n,EF.prohibidas)){toast('⛔ Parece un tema político. Cámbialo para que no se quede fuera.');return;}
-    try{EF=await jsEdit(EF_PATH,EF_DEF,d=>{d.dias=d.dias||{};const L=d.dias[r.k]=d.dias[r.k]||[];
+    try{EF=await jsEdit(EF_PATH,EF_DEF,d=>{delete d._def;d.dias=d.dias||{};const L=d.dias[r.k]=d.dias[r.k]||[];
         const i=r.tipo==='dia'?L.findIndex(y=>y.t===r.x.t):-1;if(i>=0)L[i]=n;else L.push(n);},'Dato del día '+r.k);
       LS.set('ef_cache',EF);toast('✅ Guardado. Les llegará a todos en unos minutos.');efDraw();}
     catch(err){toast('No se pudo guardar: '+err.message);}};}
