@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     private static final int PICK = 41;
     private static final int GEO = 42;
     private static final int CAM = 43;
-    private Uri camUri; private File camFile; private boolean camMulti;
+    private Uri camUri; private File camFile; private boolean camMulti, pickImg = true;
     private android.webkit.GeolocationPermissions.Callback geoCb;   // «Qué hay cerca de mí»
     private String geoOrigin;
 
@@ -47,7 +47,32 @@ public class MainActivity extends Activity {
             if (prev != null) prev.uncaughtException(t, ex);
         });
         web = new WebView(this);
-        setContentView(web);
+        // Android 15/16 dibujan la app debajo de la barra de estado y de la de botones (edge-to-edge):
+        // la WebView va dentro de un marco que deja libre ese hueco (y el del teclado).
+        final android.widget.FrameLayout marco = new android.widget.FrameLayout(this);
+        marco.setBackgroundColor(0xFFFFFFFF);
+        marco.addView(web, new android.widget.FrameLayout.LayoutParams(-1, -1));
+        setContentView(marco);
+        marco.setOnApplyWindowInsetsListener((v, ins) -> {
+            if (android.os.Build.VERSION.SDK_INT >= 30) {
+                android.graphics.Insets b = ins.getInsets(android.view.WindowInsets.Type.systemBars()
+                        | android.view.WindowInsets.Type.displayCutout() | android.view.WindowInsets.Type.ime());
+                v.setPadding(b.left, b.top, b.right, b.bottom);
+            } else {
+                v.setPadding(ins.getSystemWindowInsetLeft(), ins.getSystemWindowInsetTop(), ins.getSystemWindowInsetRight(), ins.getSystemWindowInsetBottom());
+            }
+            return ins;
+        });
+        if (android.os.Build.VERSION.SDK_INT >= 30) {
+            // iconos oscuros en las barras, que ahora tienen fondo claro
+            int claro = android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS | android.view.WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
+            getWindow().getInsetsController().setSystemBarsAppearance(claro, claro);
+        }
+        // botón/gesto «atrás»: desde Android 13 (y obligatorio en 16) se avisa así
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    () -> { if (web.canGoBack()) web.goBack(); else moveTaskToBack(true); });
+        }
 
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);          // el simulador está hecho en JavaScript
@@ -73,6 +98,10 @@ public class MainActivity extends Activity {
                 if (fileCb != null) fileCb.onReceiveValue(null);
                 fileCb = cb;
                 camMulti = p.getMode() == FileChooserParams.MODE_OPEN_MULTIPLE;
+                // fotos (lo normal) o cualquier archivo (p. ej. la copia de datos .json)
+                String[] at = p.getAcceptTypes();
+                pickImg = at == null || at.length == 0 || at[0] == null || at[0].isEmpty() || at[0].startsWith("image");
+                if (!pickImg) { openPicker(); return true; }
                 // primero pedimos permiso de cámara (solo la primera vez); luego se abre el selector
                 if (checkSelfPermission(android.Manifest.permission.CAMERA) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{android.Manifest.permission.CAMERA}, CAM);
@@ -135,6 +164,16 @@ public class MainActivity extends Activity {
         return "file:///android_asset/index.html";
     }
 
+    /** true si la app se instaló desde Google Play (entonces las versiones nuevas llegan por Play, no por el APK) */
+    private boolean fromPlay() {
+        try {
+            String i = android.os.Build.VERSION.SDK_INT >= 30
+                    ? getPackageManager().getInstallSourceInfo(getPackageName()).getInstallingPackageName()
+                    : getPackageManager().getInstallerPackageName(getPackageName());
+            return "com.android.vending".equals(i);
+        } catch (Exception e) { return false; }
+    }
+
     private int apkVersion() {
         try { return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode; } catch (Exception e) { return 0; }
     }
@@ -148,11 +187,11 @@ public class MainActivity extends Activity {
     private void openPicker() {
         Intent pick = new Intent(Intent.ACTION_GET_CONTENT);
         pick.addCategory(Intent.CATEGORY_OPENABLE);
-        pick.setType("image/*");
+        pick.setType(pickImg ? "image/*" : "*/*");
         pick.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, camMulti);
-        Intent chooser = Intent.createChooser(pick, "Hacer o elegir foto");
+        Intent chooser = Intent.createChooser(pick, pickImg ? "Hacer o elegir foto" : "Elegir archivo");
         camUri = null; camFile = null;
-        if (checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+        if (pickImg && checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
             try {
                 File dir = new File(getCacheDir(), "fotos"); dir.mkdirs();
                 for (File f : dir.listFiles()) if (System.currentTimeMillis() - f.lastModified() > 86400000L) f.delete();
@@ -290,6 +329,7 @@ public class MainActivity extends Activity {
                     res.put("web", remote.optInt("version", 0));
                     res.put("apk", remote.optInt("apk", 0)); res.put("myApk", apkVersion());
                     res.put("apkUrl", remote.optString("apkUrl", ""));
+                    res.put("play", fromPlay());
                     callback(id, 200, res.toString());
                 } catch (Exception e) {
                     callback(id, 0, "{\"ok\":false,\"error\":" + JSONObject.quote(e.toString()) + "}");

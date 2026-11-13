@@ -1769,7 +1769,9 @@ document.getElementById('dRefresh').onclick=async()=>{menu(false);toast('Actuali
 function updWeb(){return new Promise(res=>{const id='u'+Date.now();window.__netCbs[id]=r=>{try{res(JSON.parse(r.body));}catch(e){res({ok:false});}};window.AndroidNet.updateWeb(id);});}
 async function checkUpdate(manual){if(!APP||!window.AndroidNet.updateWeb)return;if(manual){menu(false);toast('Buscando actualizaciones…');}
   const r=await updWeb();if(!r.ok){if(manual)toast('No se pudo comprobar ahora (¿sin internet?)');return;}
-  if(r.apk>r.myApk&&r.apkUrl){toast('📲 Hay una versión nueva de la app ('+r.apk+')','Descargar',()=>window.AndroidNet.openUrl(r.apkUrl));return;}
+  if(r.apk>r.myApk&&r.apkUrl){if(typeof bnMudanza==='function'&&bnMudanza())return;   // la app antigua (es.pedrito.controlarga) se muda a la nueva
+    const u=r.play?'https://play.google.com/store/apps/details?id=es.sonpe.basatina':r.apkUrl;   // instalada desde Google Play → se actualiza allí
+    toast('📲 Hay una versión nueva de la app ('+r.apk+')',r.play?'Actualizar':'Descargar',()=>window.AndroidNet.openUrl(u));return;}
   if(r.changed>0){toast('✨ Pantalla actualizada ('+r.changed+' archivo'+(r.changed>1?'s':'')+')','Recargar',()=>window.AndroidNet.reload());return;}
   if(manual)toast('✅ Ya tienes la última versión');}
 if(APP){document.getElementById('dUpdate').style.display='';document.getElementById('dUpdate').onclick=()=>checkUpdate(true);setTimeout(()=>checkUpdate(false),4000);}
@@ -3847,7 +3849,7 @@ applyIcons((CFG.iconos||'pro')==='pro');
 
 
 /* =====================================================================
-   📖 DIARIO DE SALIDAS y 🔒 MIS MSTIOS SECRETOS (todo se queda en el móvil, no se publica)
+   📖 DIARIO DE SALIDAS y 🔒 MIS SITIOS SECRETOS (todo se queda en el móvil, no se publica)
    Las fotos se guardan en la base de datos del propio navegador (IndexedDB), lo demás en localStorage.
    ===================================================================== */
 const IDB=(()=>{let db=null;const open=()=>db?Promise.resolve(db):new Promise((res,rej)=>{const r=indexedDB.open('basatina',1);r.onupgradeneeded=()=>r.result.createObjectStore('fotos');r.onsuccess=()=>{db=r.result;res(db);};r.onerror=()=>rej(r.error);});
