@@ -2038,3 +2038,16 @@ window.I18N_RU.fr = ({
 });
 // al diccionario general solo pasan los textos que aún no tenía (así se traduce también el desplegable del mapa antiguo)
 for (const l of ['eu', 'en', 'fr']) for (const [k, v] of Object.entries(window.I18N_RU[l])) if (!/[{]/.test(k) && !(k in window.I18N[l])) window.I18N[l][k] = v;
+// Mejoras del 14 nov. 2026 (web/mejoras.js): menús y títulos nuevos
+Object.assign(window.I18N.eu, {"La Luna y el campo": "Ilargia eta landa", "Cocina tradicional": "Sukaldaritza tradizionala", "Supermercados y mercados": "Supermerkatuak eta merkatuak",
+  "Mi calendario deportivo": "Nire kirol egutegia", "Para los peques": "Txikientzat", "Dónde comer": "Non jan", "Flores": "Loreak", "Solo en la app del móvil": "Mugikorreko aplikazioan bakarrik",
+  "Descargar la app": "Aplikazioa deskargatu", "Recetas": "Errezetak", "Productos típicos": "Ohiko produktuak", "Supermercados": "Supermerkatuak", "Mercados": "Merkatuak", "Mercadillos": "Azokak",
+  "Sitios": "Lekuak", "Parques": "Parkeak", "Paseos": "Ibilaldiak", "Agenda": "Agenda", "Mis equipos y ligas": "Nire taldeak eta ligak", "Próximos partidos": "Hurrengo partidak"});
+Object.assign(window.I18N.en, {"La Luna y el campo": "The Moon and the countryside", "Cocina tradicional": "Traditional cooking", "Supermercados y mercados": "Supermarkets and markets",
+  "Mi calendario deportivo": "My sports calendar", "Para los peques": "For the little ones", "Dónde comer": "Where to eat", "Flores": "Flowers", "Solo en la app del móvil": "Only in the mobile app",
+  "Descargar la app": "Download the app", "Recetas": "Recipes", "Productos típicos": "Local produce", "Supermercados": "Supermarkets", "Mercados": "Markets", "Mercadillos": "Street markets",
+  "Sitios": "Places", "Parques": "Playgrounds", "Paseos": "Easy walks", "Agenda": "What's on", "Mis equipos y ligas": "My teams and leagues", "Próximos partidos": "Upcoming matches"});
+Object.assign(window.I18N.fr, {"La Luna y el campo": "La Lune et la campagne", "Cocina tradicional": "Cuisine traditionnelle", "Supermercados y mercados": "Supermarchés et marchés",
+  "Mi calendario deportivo": "Mon calendrier sportif", "Para los peques": "Pour les petits", "Dónde comer": "Où manger", "Flores": "Fleurs", "Solo en la app del móvil": "Uniquement dans l'appli mobile",
+  "Descargar la app": "Télécharger l'appli", "Recetas": "Recettes", "Productos típicos": "Produits typiques", "Supermercados": "Supermarchés", "Mercados": "Marchés", "Mercadillos": "Marchés hebdomadaires",
+  "Sitios": "Lieux", "Parques": "Aires de jeux", "Paseos": "Balades faciles", "Agenda": "Agenda", "Mis equipos y ligas": "Mes équipes et ligues", "Próximos partidos": "Prochains matchs"});

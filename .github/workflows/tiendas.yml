@@ -1,0 +1,34 @@
+# Supermercados, mercados y parques infantiles (tools/tiendas.py). Se ejecuta el día 5 de cada mes, cuando cambia tools/tiendas.py, o a mano desde la pestaña Actions.
+name: Supermercados, mercados y parques infantiles
+on:
+  push:
+    paths: ['tools/tiendas.py']
+  schedule:
+    - cron: '41 4 5 * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  tiendas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar
+        run: python3 tools/tiendas.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          for f in tools/tiendas_info.txt web/tiendas.js; do [ -f "$f" ] && git add "$f"; done
+          git commit -m "Supermercados, mercados y parques infantiles actualizados" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          for i in 1 2 3 4 5 6; do
+            git push && break
+            sleep $((i*15))
+            git pull --rebase -X theirs || true
+            python3 tools/make_version.py && git add web/version.json && git commit -m "Nueva versión de la pantalla" || true
+          done

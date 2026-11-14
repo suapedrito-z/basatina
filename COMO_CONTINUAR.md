@@ -107,3 +107,14 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
   - **Sin política**: nada de elecciones, partidos, gobiernos, guerras ni atentados. Hay un filtro de palabras (`EF_NO` en `efemerides.js` y `NO_DATO` en `RiverJob.java`, **deben ser iguales**) y una lista extra `prohibidas` en el JSON que se puede ampliar sin programar.
   - El primer lote (34 días + 19 curiosidades) está **sin revisar** (`ok:false`): comprobad fechas y textos con la fuente antes de darlo por bueno.
   - **Personaje de la semana (APK 4.4 / código 24)**: `semanas` en el JSON = `[{desde:'AAAA-MM-DD' (el sábado en que empieza), personaje, fuente?, dias:[7 datos {t, txt, fuente?}, de sábado a viernes]}]`. Tiene prioridad sobre `dias` y `curiosidades`. Lo leen `efSemana` (web) y `checkDato` (Java).
+
+- **Mejoras 14 nov. 2026** (`web/mejoras.js`, se carga el último, después de `rutas-ui.js`):
+  - **PIN común**: la huella del PIN (SHA-256 repetido 20.000 veces con «sal») va en `config/admin.json`. En un dispositivo nuevo se pide la llave de GitHub una vez y, si ya hay PIN común, entra sin crear otro. «Cambiar PIN» lo cambia para todos. Los móviles con el PIN antiguo (`pinH`, solo local) lo suben solos la primera vez que entran. El repositorio es público: el PIN solo esconde herramientas; la protección real es la llave.
+  - El tiempo: probabilidad de lluvia (hoy, próximas 3 h, cada día y línea de puntos en «Próximas 24 horas»). Gráficas con **fondo claro** y cuadrícula de puntos (`chGrid`) en el tiempo, Histórico del clima y Energía. Arreglado: la gráfica horaria de Energía no salía porque su `id="enH"` coincidía con la casilla trampa del buzón (ahora `enHc`).
+  - 🌙 `lunacampo`: fases, luna ascendente/descendente (`lcDecl`, aproximada), calendario lunar de la huerta (`LC_FASE`, `LC_MES`). Todo marcado como tradición popular.
+  - Vida silvestre: la ficha se abre debajo del nombre y se cierra al cambiar de pestaña. Pestaña **🌸 Flores** (`FL_D`, zonas `FL_Z`, `flCompat`): para añadir una flor, una línea más en `FL_D`.
+  - 🍲 `cocina` (Turismo): recetas en `CO_R` (añadir una = una línea) y productos típicos de `abiertos.js`. «Dónde comer» queda solo con restaurantes.
+  - Ríos: en la web (sin `APP`) cada pantalla de Ríos muestra «Solo en la app del móvil».
+  - 🛒 `super` (Servicios) y parques infantiles: `tools/tiendas.py` (robot `tiendas.yml`, día 5 de cada mes) → `web/tiendas.js` (OpenStreetMap).
+  - Deporte: ☆ equipo favorito, ☆ seguir liga y ➕ partido suelto (`dpFav`, `dpMios` en localStorage) → **⭐ Mi calendario deportivo** (`misdep`, Mi Espacio), con enlace a Google Calendar y exportar .ics.
+  - 🧸 `peques` (Qué hacer): sitios (`PQ_S`), parques infantiles, paseos fáciles (de `rutas.js`) y agenda infantil (palabras de `PQ_KW` en `agenda/cultura.json`).

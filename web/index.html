@@ -633,7 +633,7 @@ body.bna #pinBox input{background:#F3F6F1!important;border-radius:14px!important
 <section id="t-tiempo">
 <div class="card"><select class="town" id="tTown"></select><button class="btn" id="tNear" style="margin-top:8px;width:100%">📍 <span>El más cercano a mí</span></button><div id="tNow" style="margin-top:8px"><div class="note">Cargando…</div></div><div id="tExtra" style="margin-top:12px"></div></div>
 <div class="card" id="tAv"><b>⚠️ Avisos de AEMET en Navarra</b><div class="note">Cargando…</div></div>
-<div class="card"><b>Próximas 24 horas</b><div class="note">Línea: temperatura · barras: lluvia (mm por hora)</div><canvas id="tH" height="180"></canvas></div>
+<div class="card"><b>Próximas 24 horas</b><div class="note"><span style="color:#e65100">━</span> temperatura · <span style="color:#1e88e5">▮</span> lluvia (mm por hora) · <span style="color:#2e7d32">┅</span> probabilidad de lluvia (%)</div><canvas id="tH" height="180"></canvas></div>
 <div class="card"><b>Próximos 7 días</b><div id="tDays"></div></div>
 <div class="note">Fuente: Open‑Meteo (modelos de AEMET, ECMWF y otros), se actualiza al abrir esta pantalla.</div>
 </section>
@@ -665,7 +665,7 @@ body.bna #pinBox input{background:#F3F6F1!important;border-radius:14px!important
 <div class="card"><select class="town" id="cTown"></select>
 <div class="seg" id="cSeg"><button data-p="7" class="btn on">Semana</button><button data-p="30" class="btn">Mes</button><button data-p="ytd" class="btn">Este año</button><button data-p="365" class="btn">12 meses</button></div></div>
 <div id="cKpi" class="kpi"></div>
-<div class="card"><b id="cChTit">Día a día</b><div class="note">Barras: lluvia · líneas: máxima y mínima</div><canvas id="cCh" height="200"></canvas></div>
+<div class="card"><b id="cChTit">Día a día</b><div class="note"><span style="color:#1e88e5">▮</span> lluvia · <span style="color:#d84315">━</span> máxima · <span style="color:#1565c0">┅</span> mínima</div><canvas id="cCh" height="200"></canvas></div>
 <div class="card" id="cMonCard" style="display:none"><b>Mes a mes</b><div id="cMon"></div></div>
 <div class="note">Datos de Open‑Meteo (reanálisis ERA5 y modelos), no de una estación concreta: sirven para comparar, pero pueden diferir unos grados o milímetros de lo medido en el pueblo.</div>
 </section>
@@ -1832,22 +1832,29 @@ function tiempoRender(){if(!TW)return;const {j,town}=TW,c=j.current,h=j.hourly,d
     <div class="kpi" style="margin-top:10px"><div><span class="note">Sensación</span><b>${Math.round(c.apparent_temperature)}°</b></div>
     <div><span class="note">Máx / mín hoy</span><b>${di>=0?Math.round(d.temperature_2m_max[di])+'° / '+Math.round(d.temperature_2m_min[di])+'°':'—'}</b></div>
     <div><span class="note">💧 Lluvia hoy (caída)</span><b>${fmtN(fell,1)} mm</b></div><div><span class="note">🌧️ Prevista resto del día</span><b>${fmtN(rest,1)} mm</b></div>
+    <div><span class="note">☔ Probabilidad de lluvia hoy</span><b>${di>=0&&d.precipitation_probability_max[di]!=null?d.precipitation_probability_max[di]+' %':'—'}</b><span class="note">${(()=>{const pp=h.time.map((x,i)=>x.slice(0,10)===today&&+x.slice(11,13)>hh?h.precipitation_probability[i]:null).filter(v=>v!=null);return pp.length?'resto del día: hasta '+Math.max(...pp)+' %':'';})()}</span></div>
+    <div><span class="note">⏱️ Próximas 3 horas</span><b>${(()=>{const i0=h.time.indexOf(today+'T'+String(hh).padStart(2,'0')+':00');const pp=i0<0?[]:h.precipitation_probability.slice(i0+1,i0+4).filter(v=>v!=null);return pp.length?Math.max(...pp)+' %':'—';})()}</b><span class="note">probabilidad de lluvia</span></div>
     <div><span class="note">Humedad</span><b>${c.relative_humidity_2m} %</b></div><div><span class="note">Viento (rachas)</span><b>${Math.round(c.wind_speed_10m)} (${Math.round(c.wind_gusts_10m)}) km/h</b></div></div>`;
   // 7 días
   let rows='';d.time.forEach((x,i)=>{if(x<today)return;const dt=new Date(x+'T12:00');const name=x===today?'Hoy':DOW[dt.getDay()]+' '+dt.getDate();
     const sn=(d.snowfall_sum&&d.snowfall_sum[i])||0;let cota='';if(d.precipitation_sum[i]>0.5&&h.freezing_level_height){const fl=h.time.map((tt,k)=>tt.slice(0,10)===x&&(h.precipitation[k]||0)>0.1?h.freezing_level_height[k]:null).filter(v=>v!=null);if(fl.length){const c=Math.max(0,Math.round((Math.min(...fl)-300)/100)*100);if(c<1800)cota=` · ❄️ cota de nieve ≈ ${c} m`;}}
-    rows+=`<div class="dayr"><b>${name}</b><span style="font-size:24px">${wxIcon(d.weather_code[i],12)}</span><span class="s note">${wDesc(d.weather_code[i])}${d.precipitation_sum[i]>0.1?` · 💧 ${fmtN(d.precipitation_sum[i],1)} mm (${d.precipitation_probability_max[i]??'?'} %)`:''}${sn>0?` · ❄️ ${fmtN(sn,1)} cm`:''}${cota}</span><b>${Math.round(d.temperature_2m_max[i])}° <span class="note">${Math.round(d.temperature_2m_min[i])}°</span></b></div>`;});
+    rows+=`<div class="dayr"><b>${name}</b><span style="font-size:24px">${wxIcon(d.weather_code[i],12)}</span><span class="s note">${wDesc(d.weather_code[i])}${` · ☔ ${d.precipitation_probability_max[i]??'?'} %`}${d.precipitation_sum[i]>0.1?` · 💧 ${fmtN(d.precipitation_sum[i],1)} mm`:''}${sn>0?` · ❄️ ${fmtN(sn,1)} cm`:''}${cota}</span><b>${Math.round(d.temperature_2m_max[i])}° <span class="note">${Math.round(d.temperature_2m_min[i])}°</span></b></div>`;});
   document.getElementById('tDays').innerHTML=rows;
   // gráfica 24 h
-  const cv=document.getElementById('tH');if(cv.clientWidth<10)return;const x=fitCanvas(cv),W=cv.clientWidth,Hh=LH(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,Hh);
+  const cv=document.getElementById('tH');if(cv.clientWidth<10)return;const x=fitCanvas(cv),W=cv.clientWidth,Hh=LH(cv);cv.style.background='#fff';x.fillStyle='#ffffff';x.fillRect(0,0,W,Hh);
   const key=today+'T'+String(hh).padStart(2,'0')+':00';let i0=h.time.indexOf(key);if(i0<0)i0=0;const I=[...Array(25).keys()].map(k=>i0+k).filter(k=>k<h.time.length);
   const T=I.map(k=>h.temperature_2m[k]),P=I.map(k=>h.precipitation[k]||0),tmin=Math.floor(Math.min(...T))-1,tmax=Math.ceil(Math.max(...T))+1,pmax=Math.max(2,...P);
   const L=28,R=W-28,top=14,bot=Hh-24,X=k=>L+(R-L)*k/(I.length-1);
-  x.fillStyle='rgba(47,143,216,.75)';P.forEach((v,k)=>{const bh=(bot-top)*v/pmax;x.fillRect(X(k)-4,bot-bh,8,bh);});
-  x.strokeStyle='#ffb020';x.lineWidth=2;x.beginPath();T.forEach((v,k)=>{const y=bot-(bot-top)*(v-tmin)/(tmax-tmin);k?x.lineTo(X(k),y):x.moveTo(X(k),y);});x.stroke();
-  x.fillStyle='#93a4b5';x.font='11px system-ui';x.textAlign='center';
-  I.forEach((k,n)=>{if(n%3)return;x.fillText(h.time[k].slice(11,13)+'h',X(n),Hh-8);const y=bot-(bot-top)*(T[n]-tmin)/(tmax-tmin);x.fillStyle='#ffd08a';x.fillText(Math.round(T[n])+'°',X(n),y-6);x.fillStyle='#93a4b5';});
-  x.textAlign='left';x.fillText(fmtN(pmax,1)+' mm',2,top+4);}
+  chGrid(x,L,R,top,bot,4);
+  x.fillStyle='rgba(30,136,229,.55)';P.forEach((v,k)=>{const bh=(bot-top)*v/pmax;x.fillRect(X(k)-4,bot-bh,8,bh);});
+  // probabilidad de lluvia (0-100 %): línea de puntos verde
+  const PR=I.map(k=>h.precipitation_probability?h.precipitation_probability[k]:null);x.save();x.setLineDash([3,4]);x.strokeStyle='#2e7d32';x.lineWidth=2;x.beginPath();let f=0;PR.forEach((v,k)=>{if(v==null)return;const y=bot-(bot-top)*v/100;f?x.lineTo(X(k),y):x.moveTo(X(k),y);f=1;});x.stroke();x.restore();
+  x.strokeStyle='#e65100';x.lineWidth=2.2;x.beginPath();T.forEach((v,k)=>{const y=bot-(bot-top)*(v-tmin)/(tmax-tmin);k?x.lineTo(X(k),y):x.moveTo(X(k),y);});x.stroke();
+  x.fillStyle='#455a64';x.font='11px system-ui';x.textAlign='center';
+  I.forEach((k,n)=>{if(n%3)return;x.fillText(h.time[k].slice(11,13)+'h',X(n),Hh-8);const y=bot-(bot-top)*(T[n]-tmin)/(tmax-tmin);x.fillStyle='#bf360c';x.fillText(Math.round(T[n])+'°',X(n),y-6);if(PR[n]!=null){x.fillStyle='#2e7d32';x.fillText(PR[n]+'%',X(n),bot-(bot-top)*PR[n]/100+12);}x.fillStyle='#455a64';});
+  x.textAlign='left';x.fillText(fmtN(pmax,1)+' mm',2,top+4);x.textAlign='right';x.fillStyle='#2e7d32';x.fillText('100 %',W-2,top+4);}
+// cuadrícula de puntos para las gráficas de fondo claro
+function chGrid(x,L,R,top,bot,n){x.save();x.setLineDash([2,4]);x.strokeStyle='#b0bec5';x.lineWidth=1;for(let i=0;i<=n;i++){const y=top+(bot-top)*i/n;x.beginPath();x.moveTo(L,y);x.lineTo(R,y);x.stroke();}x.restore();}
 document.getElementById('tTown').onchange=e=>{setTown(e.target.value);tiempoFetch();};
 // elige el pueblo de la lista más cercano a donde estás (la ubicación solo se usa en el móvil, no se guarda)
 document.getElementById('tNear').onclick=async()=>{const b=document.getElementById('tNear');b.disabled=true;
@@ -1995,12 +2002,14 @@ function climaRender(){if(!CL)return;const {dates,D,prev}=CL,V=dates.map(x=>D[x]
   let G=dates.map((x,i)=>({lab:fd(x),p:V[i].p||0,mx:V[i].mx,mn:V[i].mn}));const wk=dates.length>62;
   if(wk){const g=[];for(let i=0;i<dates.length;i+=7){const s=V.slice(i,i+7);g.push({lab:fd(dates[i]),p:ok(s.map(v=>v.p)).reduce((a,b)=>a+b,0),mx:Math.max(...ok(s.map(v=>v.mx))),mn:Math.min(...ok(s.map(v=>v.mn)))});}G=g;}
   document.getElementById('cChTit').textContent=wk?'Semana a semana':'Día a día';
-  const cv=document.getElementById('cCh');if(cv.clientWidth>10){const x=fitCanvas(cv),W=cv.clientWidth,H=LH(cv);x.fillStyle='#0b1118';x.fillRect(0,0,W,H);
+  const cv=document.getElementById('cCh');if(cv.clientWidth>10){const x=fitCanvas(cv),W=cv.clientWidth,H=LH(cv);cv.style.background='#fff';x.fillStyle='#ffffff';x.fillRect(0,0,W,H);
     const L=30,R=W-8,top=12,bot=H-22,n=G.length,bw=Math.max(2,(R-L)/n*.7),X=i=>L+(R-L)*(i+.5)/n;
     const pmax=Math.max(5,...G.map(g=>g.p)),tl=ok(G.flatMap(g=>[g.mx,g.mn])),tmin=Math.floor(Math.min(...tl))-1,tmax=Math.ceil(Math.max(...tl))+1,Y=v=>bot-(bot-top)*(v-tmin)/(tmax-tmin);
-    x.fillStyle='rgba(47,143,216,.8)';G.forEach((g,i)=>{const h=(bot-top)*g.p/pmax;x.fillRect(X(i)-bw/2,bot-h,bw,h);});
-    [['mx','#ff7a1a'],['mn','#7cc4ff']].forEach(([k,c])=>{x.strokeStyle=c;x.lineWidth=2;x.beginPath();let f=0;G.forEach((g,i)=>{if(g[k]==null||!isFinite(g[k]))return;f?x.lineTo(X(i),Y(g[k])):x.moveTo(X(i),Y(g[k]));f=1;});x.stroke();});
-    x.fillStyle='#93a4b5';x.font='10px system-ui';x.textAlign='center';const step=Math.ceil(n/7);G.forEach((g,i)=>{if(i%step===0)x.fillText(g.lab,X(i),H-6);});
+    chGrid(x,L,R,top,bot,4);
+    x.fillStyle='rgba(30,136,229,.45)';G.forEach((g,i)=>{const h=(bot-top)*g.p/pmax;x.fillRect(X(i)-bw/2,bot-h,bw,h);});
+    [['mx','#d84315',[]],['mn','#1565c0',[5,4]]].forEach(([k,c,da])=>{x.save();x.setLineDash(da);x.strokeStyle=c;x.lineWidth=2.2;x.beginPath();let f=0;G.forEach((g,i)=>{if(g[k]==null||!isFinite(g[k]))return;f?x.lineTo(X(i),Y(g[k])):x.moveTo(X(i),Y(g[k]));f=1;});x.stroke();
+      x.setLineDash([]);x.fillStyle=c;if(n<=40)G.forEach((g,i)=>{if(g[k]==null||!isFinite(g[k]))return;x.beginPath();x.arc(X(i),Y(g[k]),2.6,0,7);x.fill();});x.restore();});
+    x.fillStyle='#455a64';x.font='10px system-ui';x.textAlign='center';const step=Math.ceil(n/7);G.forEach((g,i)=>{if(i%step===0)x.fillText(g.lab,X(i),H-6);});
     x.textAlign='left';x.fillText(fmtN(pmax,0)+' mm',2,top+2);x.fillText(tmax+'°',2,top+14);x.fillText(tmin+'°',2,bot);}
   // tabla mes a mes (este año / 12 meses)
   const mc=document.getElementById('cMonCard');if(dates.length>62){const M={};dates.forEach((x,i)=>{const k=x.slice(0,7);(M[k]=M[k]||[]).push(V[i]);});
@@ -2027,12 +2036,35 @@ function techApply(){['dgApp','dMapa','dCiencia','dSaih','dAgenda','dArboles','d
   document.querySelectorAll('.tech').forEach(el=>el.style.display=TECH?'':'none');
   try{if(!TECH){const c=document.getElementById('pbCfg');if(c)c.style.display='none';}if(PBSEL)pbMine(PBSEL);}catch(e){}}
 let pinMode='enter',pinFirst='';
-function pinOpen(mode){pinMode=mode;pinFirst='';const has=(()=>{try{return !!localStorage.getItem('pinH');}catch(e){return false;}})();
-  // primera vez en un móvil: sin PIN guardado, solo entra quien tenga la llave de edición de GitHub
-  if(mode==='enter'&&!has)pinMode='key';
+/* PIN común a todos los dispositivos (nov. 2026): su huella va en config/admin.json, así basta con crearlo una vez.
+   Huella = SHA-256 repetido PIN_IT veces con una «sal» al azar. El repositorio es público: el PIN solo esconde
+   las herramientas; lo que de verdad protege es la llave de GitHub, que se sigue pidiendo una vez en cada dispositivo. */
+const PIN_IT=20000;
+function sha256hex(str){const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const b=unescape(encodeURIComponent(str)),n=b.length,L=((n+9+63)>>6)<<4,W=new Array(L).fill(0);
+  for(let i=0;i<n;i++)W[i>>2]|=b.charCodeAt(i)<<(24-(i%4)*8);W[n>>2]|=0x80<<(24-(n%4)*8);W[L-1]=n*8;
+  let H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const w=new Array(64),r=(x,k)=>(x>>>k)|(x<<(32-k));
+  for(let o=0;o<L;o+=16){for(let t=0;t<64;t++){if(t<16)w[t]=W[o+t]|0;else{const a=w[t-15],c=w[t-2];w[t]=(w[t-16]+(r(a,7)^r(a,18)^(a>>>3))+w[t-7]+(r(c,17)^r(c,19)^(c>>>10)))|0;}}
+    let [a,bb,c,d,e,f,g,h]=H;for(let t=0;t<64;t++){const t1=(h+(r(e,6)^r(e,11)^r(e,25))+((e&f)^(~e&g))+K[t]+w[t])|0,t2=((r(a,2)^r(a,13)^r(a,22))+((a&bb)^(a&c)^(bb&c)))|0;h=g;g=f;f=e;e=(d+t1)|0;d=c;c=bb;bb=a;a=(t1+t2)|0;}
+    H=H.map((v,k)=>(v+[a,bb,c,d,e,f,g,h][k])|0);}
+  return H.map(v=>(v>>>0).toString(16).padStart(8,'0')).join('');}
+function pinHash2(p,salt,it){let h=salt+':'+p;for(let k=0;k<(it||PIN_IT);k++)h=sha256hex(h+':'+p);return h;}
+const pinLocal=()=>{try{return JSON.parse(localStorage.getItem('pinS')||'null');}catch(e){return null;}};
+// lee la huella común (y la guarda en el dispositivo para poder entrar sin conexión)
+async function pinShared(){try{const tk=ghTok(),r=tk?await fetch(GH_API+'config/admin.json?ref=main&t='+Date.now(),{headers:{Authorization:'Bearer '+tk,Accept:'application/vnd.github.raw+json'}}):await fetch(GH_RAW+'config/admin.json?t='+Date.now());if(r.ok){const j=await r.json();if(j&&j.pin&&j.pin.h){try{localStorage.setItem('pinS',JSON.stringify(j.pin));}catch(e){}return j.pin;}}
+    else if(r.status===404){try{localStorage.removeItem('pinS');}catch(e){}return null;}}catch(e){}return pinLocal();}
+// guarda la huella del PIN en el repositorio para todos los dispositivos
+async function pinSave(v){const salt=[...crypto.getRandomValues(new Uint8Array(12))].map(x=>x.toString(16).padStart(2,'0')).join(''),pin={s:salt,i:PIN_IT,h:pinHash2(v,salt,PIN_IT)};
+  try{localStorage.setItem('pinS',JSON.stringify(pin));localStorage.removeItem('pinH');}catch(e){}
+  let sha=null;try{const r=await fetch(GH_API+'config/admin.json?ref=main',{headers:{Authorization:'Bearer '+ghTok()}});if(r.ok)sha=(await r.json()).sha;}catch(e){}
+  await ghPut('config/admin.json',b64u(JSON.stringify({pin},null,1)),'PIN de administrador (huella)',sha);}
+function pinEnter(t){TECH=true;try{sessionStorage.setItem('tech','1');}catch(e){}techApply();pinClose();toast(t);}
+function pinOpen(mode){pinMode=mode;pinFirst='';
+  // en un dispositivo nuevo hace falta la llave de edición de GitHub (una sola vez); el PIN es el mismo en todos
+  if(mode==='enter'&&!ghTok())pinMode='key';
   const pi=document.getElementById('pinIn');pi.maxLength=pinMode==='key'?200:8;pi.inputMode=pinMode==='key'?'text':'numeric';
-  document.getElementById('pinTit').textContent=pinMode==='enter'?'🔧 Administrador':pinMode==='key'?'🔑 Primera vez en este móvil':'🔑 Nuevo PIN';
-  document.getElementById('pinMsg').textContent=pinMode==='enter'?'Escribe el PIN':pinMode==='key'?'Pega la llave de edición de GitHub (empieza por github_pat_)':'Elige un PIN de 4 a 8 cifras';
+  document.getElementById('pinTit').textContent=pinMode==='enter'?'🔧 Administrador':pinMode==='key'?'🔑 Primera vez en este dispositivo':'🔑 Nuevo PIN';
+  document.getElementById('pinMsg').textContent=pinMode==='enter'?'Escribe el PIN':pinMode==='key'?'Pega la llave de edición de GitHub (empieza por github_pat_)':'Elige un PIN de 4 a 8 cifras. Servirá en todos los móviles y ordenadores';
   document.getElementById('pinIn').value='';document.getElementById('pinBox').style.display='flex';setTimeout(()=>document.getElementById('pinIn').focus(),50);}
 function pinClose(){document.getElementById('pinBox').style.display='none';}
 document.getElementById('pinNo').onclick=pinClose;
@@ -2041,14 +2073,24 @@ document.getElementById('pinOk').onclick=async()=>{const v=document.getElementBy
   if(pinMode==='key'){msg.textContent='Comprobando la llave…';let ok=false;
     try{const r=await fetch('https://api.github.com/repos/'+GH_REPO,{headers:{Authorization:'Bearer '+v,Accept:'application/vnd.github+json'}});const j=await r.json();ok=r.ok&&j.permissions&&j.permissions.push;}catch(e){msg.textContent='❌ Sin conexión. Prueba otra vez';return;}
     if(!ok){msg.textContent='❌ Llave no válida';document.getElementById('pinIn').value='';return;}
-    try{localStorage.setItem('ghTok',v);}catch(e){}pinOpen('new');document.getElementById('pinMsg').textContent='✅ Llave correcta. Ahora elige un PIN de 4 a 8 cifras para las próximas veces';return;}
-  if(pinMode==='enter'){let ok=false;try{ok=localStorage.getItem('pinH')===pinHash(v);}catch(e){}
-    if(ok){TECH=true;try{sessionStorage.setItem('tech','1');}catch(e){}techApply();pinClose();toast('🔧 Modo administrador abierto (en el menú)');}
+    try{localStorage.setItem('ghTok',v);}catch(e){}
+    const sh=await pinShared();
+    // ya hay un PIN común: con la llave basta, no hay que crear otro
+    if(sh){pinEnter('✅ Llave guardada · la próxima vez usa vuestro PIN de siempre');return;}
+    pinOpen('new');document.getElementById('pinMsg').textContent='✅ Llave correcta. Ahora elige un PIN de 4 a 8 cifras: valdrá en todos los móviles y ordenadores';return;}
+  if(pinMode==='enter'){msg.textContent='Comprobando…';await new Promise(r=>setTimeout(r,20));let ok=false;const sh=await pinShared();
+    if(sh)ok=pinHash2(v,sh.s,sh.i)===sh.h;
+    else{let old=null;try{old=localStorage.getItem('pinH');}catch(e){}
+      if(old&&old===pinHash(v)){ok=true;try{await pinSave(v);toast('✅ Tu PIN ya vale en todos los dispositivos');}catch(e){}}}
+    if(ok){pinEnter('🔧 Modo administrador abierto (en el menú)');}
+    else if(!sh&&!(()=>{try{return localStorage.getItem('pinH');}catch(e){return null;}})()){pinOpen('new');}
     else{msg.textContent='❌ PIN incorrecto';document.getElementById('pinIn').value='';}return;}
   if(!/^\d{4,8}$/.test(v)){msg.textContent='Tienen que ser de 4 a 8 cifras';return;}
   if(!pinFirst){pinFirst=v;msg.textContent='Repítelo para confirmar';document.getElementById('pinIn').value='';return;}
   if(v!==pinFirst){pinFirst='';msg.textContent='No coinciden. Empieza otra vez';document.getElementById('pinIn').value='';return;}
-  try{localStorage.setItem('pinH',pinHash(v));}catch(e){}TECH=true;try{sessionStorage.setItem('tech','1');}catch(e){}techApply();pinClose();toast('✅ PIN guardado · modo administrador abierto');};
+  msg.textContent='💾 Guardando el PIN para todos los dispositivos…';await new Promise(r=>setTimeout(r,20));
+  try{await pinSave(v);pinEnter('✅ PIN guardado en todos los dispositivos · modo administrador abierto');}
+  catch(e){pinEnter('⚠️ PIN guardado solo en este dispositivo (no se pudo subir: '+e.message.slice(0,60)+')');}};
 let logoTaps=[];document.getElementById('logo').addEventListener('click',()=>{const n=Date.now();logoTaps=logoTaps.filter(t=>n-t<2500);logoTaps.push(n);
   if(logoTaps.length>=5){logoTaps=[];if(TECH){menu(true);}else pinOpen('enter');}});
 document.getElementById('dLock').onclick=()=>{TECH=false;try{sessionStorage.removeItem('tech');}catch(e){}techApply();menu(false);showTab('mapa');toast('🔒 Modo administrador cerrado');};
@@ -3160,21 +3202,21 @@ async function enNow(){const el=document.getElementById('enNow'),E=window.ENERGI
    <div class="kpi" style="margin-top:8px"><div><span class="note">🌬️ Eólica</span><b>${fMW(e)} MW</b><span class="note">${fmtN(100*e/MWe,0)} % de ${fMW(MWe)} MW · viento ${fmtN(W.vm[i]*3.6,0)} km/h</span></div>
    <div><span class="note">☀️ Solar</span><b>${fMW(s)} MW</b><span class="note">${fmtN(100*s/MWs,0)} % de ${fMW(MWs)} MW</span></div></div>
    <div class="row" id="enDays" style="margin-top:10px">${['Ayer','Hoy','Mañana'].map((t,k)=>`<button class="btn${k===ENDAY?' pri':''}" data-k="${k}">${t}</button>`).join('')}</div>
-   <canvas id="enH" height="190" style="width:100%;margin-top:6px"></canvas>
+   <canvas id="enHc" height="190" style="width:100%;margin-top:6px;background:#fff;border:1px solid #e0e6e2"></canvas>
    <div style="display:flex;gap:14px;font-size:12px;margin:2px 0 6px"><span><b style="color:#1e88e5">■</b> Eólica</span><span><b style="color:#ffb300">■</b> Solar</span><span class="note">MW cada hora</span></div>
    <div id="enDayTot"></div>
    <div class="note">Estimación hecha con la previsión de viento y sol en cada parque, ajustada para que cuadre con la producción real que publica Red Eléctrica (ajuste eólica ×${fmtN(E.cal.eol||1.04,2)}, solar ×${fmtN(E.cal.sol||.75,2)}). No es la medida real de cada hora.</div>`;
   el.querySelectorAll('#enDays button').forEach(b=>b.onclick=()=>{ENDAY=+b.dataset.k;el.querySelectorAll('#enDays button').forEach(x=>x.classList.toggle('pri',x===b));enHours();});
   enHours();enFicha();}
-function enHours(){const W=ENW;if(!W)return;const cv=document.getElementById('enH');if(!cv)return;const x=fitCanvas(cv),Wd=cv.clientWidth,H=LH(cv);
+function enHours(){const W=ENW;if(!W)return;const cv=document.getElementById('enHc');if(!cv)return;const x=fitCanvas(cv),Wd=cv.clientWidth,H=LH(cv);x.fillStyle='#fff';x.fillRect(0,0,Wd,H);
   const d0=new Date();d0.setDate(d0.getDate()+ENDAY-1);const day=ymd(d0),I=W.time.map((t,i)=>t.startsWith(day)?i:-1).filter(i=>i>=0);
   const MWe=enMWt('par'),MWs=enMWt('sol'),max=Math.max(200,...I.map(i=>W.eol[i]+W.sol[i]))*1.1,L=34,B=18,bw=(Wd-L-4)/24;
-  x.font='10px sans-serif';x.fillStyle='#93a4b5';x.strokeStyle='rgba(147,164,181,.2)';
-  for(let k=0;k<=4;k++){const v=max*k/4,y=H-B-(H-B-6)*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(Wd,y);x.stroke();x.fillText(Math.round(v),2,y+3);}
+  x.font='10px sans-serif';x.fillStyle='#455a64';x.strokeStyle='#b0bec5';x.setLineDash([2,4]);
+  for(let k=0;k<=4;k++){const v=max*k/4,y=H-B-(H-B-6)*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(Wd,y);x.stroke();x.fillText(Math.round(v),2,y+3);}x.setLineDash([]);
   const now=enHourIdx();
   I.forEach((i,k)=>{const he=(H-B-6)*W.eol[i]/max,hs=(H-B-6)*W.sol[i]/max,px=L+k*bw;x.fillStyle='#1e88e5';x.fillRect(px+1,H-B-he,bw-2,he);x.fillStyle='#ffb300';x.fillRect(px+1,H-B-he-hs,bw-2,hs);
-    if(i===now){x.strokeStyle='#fff';x.lineWidth=1.5;x.strokeRect(px+.5,6,bw-1,H-B-6);x.strokeStyle='rgba(147,164,181,.2)';x.lineWidth=1;}
-    if(k%3===0){x.fillStyle='#93a4b5';x.fillText(String(k).padStart(2,'0'),px,H-5);}});
+    if(i===now){x.strokeStyle='#263238';x.lineWidth=1.5;x.setLineDash([3,3]);x.strokeRect(px+.5,6,bw-1,H-B-6);x.setLineDash([]);x.lineWidth=1;}
+    if(k%3===0){x.fillStyle='#455a64';x.fillText(String(k).padStart(2,'0'),px,H-5);}});
   const se=I.reduce((s,i)=>s+W.eol[i],0),ss=I.reduce((s,i)=>s+W.sol[i],0),n=I.length||24;
   document.getElementById('enDayTot').innerHTML=`<div class="st"><span>🌬️ Eólica ${['ayer','hoy','mañana'][ENDAY]}</span><span><b>${fmtN(se,0)} MWh</b> <span class="note">· factor ${fmtN(100*se/(MWe*n),0)} %</span></span></div>
    <div class="st"><span>☀️ Solar ${['ayer','hoy','mañana'][ENDAY]}</span><span><b>${fmtN(ss,0)} MWh</b> <span class="note">· factor ${fmtN(100*ss/(MWs*n),0)} %</span></span></div>
@@ -3188,7 +3230,7 @@ function enReal(){const E=window.ENERGIA,R=E.ree,el=document.getElementById('enR
   const ren=['Eólica','Solar fotovoltaica','Hidráulica','Otras renovables'].reduce((s,t)=>s+((R.tec[t]||[])[ENMES]||0),0);
   const yr=R.meses.map((x,i)=>[x,i]).filter(([x])=>x.startsWith(String(yy))).map(([,i])=>i);
   el.innerHTML=`<b>📊 Producción real en Navarra</b><div class="note">Datos de Red Eléctrica (REE), por meses. Toca una barra para ver ese mes.</div>
-   <canvas id="enM" height="200" style="width:100%;margin-top:6px"></canvas>
+   <canvas id="enM" height="200" style="width:100%;margin-top:6px;background:#fff;border:1px solid #e0e6e2"></canvas>
    <div style="display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;margin:4px 0 8px">${tecs.map(t=>`<span><b style="color:${ENC[t]||'#ccc'}">■</b> ${t}</span>`).join('')}</div>
    <div class="row" style="align-items:center"><button class="btn" id="enPrev">‹</button><b style="flex:1;text-align:center">${MES[mm-1]} ${yy}</b><button class="btn" id="enNext">›</button></div>
    <div class="kpi" style="margin:8px 0"><div><span class="note">Producción total</span><b>${fGWh(tot)} GWh</b></div><div><span class="note">Renovable</span><b>${fmtN(100*ren/tot,0)} %</b></div></div>
@@ -3199,12 +3241,12 @@ function enReal(){const E=window.ENERGIA,R=E.ree,el=document.getElementById('enR
   document.getElementById('enPrev').onclick=()=>{if(ENMES>0){ENMES--;enReal();}};document.getElementById('enNext').onclick=()=>{if(ENMES<R.meses.length-1){ENMES++;enReal();}};
   const cv=document.getElementById('enM'),x=fitCanvas(cv),Wd=cv.clientWidth,H=LH(cv),N=Math.min(24,R.meses.length),i0=R.meses.length-N,L=30,B=16,bw=(Wd-L-2)/N;
   const tots=R.meses.map((_,i)=>tecs.reduce((s,t)=>s+((R.tec[t]||[])[i]||0),0)),max=Math.max(...tots.slice(i0))*1.08;
-  x.font='10px sans-serif';x.strokeStyle='rgba(147,164,181,.2)';x.fillStyle='#93a4b5';
-  for(let k=0;k<=4;k++){const y=H-B-(H-B-6)*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(Wd,y);x.stroke();x.fillText(Math.round(max*k/4/1000),2,y+3);}
+  x.fillStyle='#fff';x.fillRect(0,0,Wd,H);x.font='10px sans-serif';x.strokeStyle='#b0bec5';x.fillStyle='#455a64';x.setLineDash([2,4]);
+  for(let k=0;k<=4;k++){const y=H-B-(H-B-6)*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(Wd,y);x.stroke();x.fillText(Math.round(max*k/4/1000),2,y+3);}x.setLineDash([]);
   x.fillText('GWh',2,10);
   for(let j=0;j<N;j++){const i=i0+j;let y=H-B;for(const t of tecs){const v=(R.tec[t]||[])[i]||0,h=(H-B-6)*v/max;x.fillStyle=ENC[t]||'#ccc';x.fillRect(L+j*bw+1,y-h,bw-2,h);y-=h;}
-    if(i===ENMES){x.strokeStyle='#fff';x.lineWidth=1.5;x.strokeRect(L+j*bw+.5,6,bw-1,H-B-6);x.strokeStyle='rgba(147,164,181,.2)';x.lineWidth=1;}
-    const [a,b]=R.meses[i].split('-');if(b==='01'||j===0){x.fillStyle='#93a4b5';x.fillText(a,L+j*bw,H-4);}}
+    if(i===ENMES){x.strokeStyle='#263238';x.lineWidth=1.5;x.setLineDash([3,3]);x.strokeRect(L+j*bw+.5,6,bw-1,H-B-6);x.setLineDash([]);x.lineWidth=1;}
+    const [a,b]=R.meses[i].split('-');if(b==='01'||j===0){x.fillStyle='#455a64';x.fillText(a,L+j*bw,H-4);}}
   cv.onclick=e=>{const j=Math.floor((e.offsetX-L)/bw);if(j>=0&&j<N){ENMES=i0+j;enReal();}};}
 // ---------- mapa de parques ----------
 function enDraw(x,P,b,M){const E=window.ENERGIA;if(!E)return;
@@ -4372,12 +4414,12 @@ async function dpRender(){const G=await jsLoad(DP_PATH,DP_DEF),hoy=hoyYmd();
   const eq=n=>`<div class="dpn"><span class="dpe" style="background:${col(n)}">${esc(ini(n))}</span><span>${esc(n)}</span></div>`;
   const nivel=(d,c,o)=>/vasco|país vasco/i.test(c)?['v','Vasco-navarra']:(d!=='pelota'&&!/fase navarra/i.test(c)&&o<=3)?['n','Nacional']:['','Navarra'];
   const filaB=x=>{const dt=new Date(x.f+'T12:00');return `<div class="dpm"><div class="dpd"><small>${dt.toLocaleDateString('es-ES',{weekday:'short'}).replace('.','')}</small><b>${dt.getDate()}</b><small>${dt.toLocaleDateString('es-ES',{month:'short'}).replace('.','')}</small></div>
-    <div class="dpt">${eq(x.loc)}${eq(x.vis)}${x.lugar?`<div class="s">📍 ${esc(x.lugar)}</div>`:''}${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">Más información / clasificación ›</a></div>`:''}
+    <div class="dpt">${eq(x.loc)}${eq(x.vis)}${x.lugar?`<div class="s">📍 ${esc(x.lugar)}</div>`:''}${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">Más información / clasificación ›</a></div>`:''}${typeof dpMineBtns==='function'?dpMineBtns(x):''}
     ${TECH?`<div class="row"><button class="btn" data-ed="${esc(x.id)}">✏️ Editar / poner resultado</button></div>`:''}</div>
     ${x.res?`<div class="dph res">${esc(x.res)}<small>Final</small></div>`:`<div class="dph">${x.h?esc(x.h):'--:--'}<small>${x.h?'hora':'pendiente'}</small></div>`}</div>`;};
   const fila=(x,conComp)=>isBna()?filaB(x):`<div class="st" style="align-items:flex-start"><div style="flex:1"><b>${dpIco(x.dep)} ${esc(x.loc)} – ${esc(x.vis)}</b>${x.res?` <b style="color:var(--acc)">${esc(x.res)}</b>`:''}
     ${conComp?`<div class="s">${esc(x.comp||'')}</div>`:''}<div class="s">📅 ${fLarga(x.f)}${x.h?' · '+esc(x.h)+' h':' · Hora pendiente'}${x.lugar?' · 📍 '+esc(x.lugar):''}</div>
-    ${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">🔗 Más información / clasificación</a></div>`:''}
+    ${urlOk(x.url)?`<div class="s"><a href="${esc(x.url)}" target="_blank">🔗 Más información / clasificación</a></div>`:''}${typeof dpMineBtns==='function'?dpMineBtns(x):''}
     ${TECH?`<div class="row"><button class="btn" data-ed="${esc(x.id)}">✏️ Editar / poner resultado</button></div>`:''}</div></div>`;
   const asc=(a,b)=>(a.f+(a.h||'99')).localeCompare(b.f+(b.h||'99')),desc=(a,b)=>asc(b,a);
   /* Si hay una liga elegida: lista entera. Si no: un bloque por liga con sus primeros partidos y «Ver todos». */
@@ -5071,6 +5113,7 @@ pvsDrawer();const _pvsCA=cfgApply;cfgApply=function(){_pvsCA();try{pvsDrawer();p
 <script src="novedades.js"></script>
 <script src="efemerides.js"></script>
 <script src="rutas-ui.js"></script>
+<script src="mejoras.js"></script>
 
 </body>
 </html>
