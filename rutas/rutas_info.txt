@@ -1,0 +1,405 @@
+RUTAS DE NAVARRA PARA ESCAPADAS (2026-11-14)
+Total: 330 rutas · OSM recibidas 263 · IDENA 127 · repetidas quitadas 22
+Rutas de OSM descartadas: {'casi toda fuera de Navarra': 22, 'no se pudo coser': 42, 'menos de 1 km': 8}
+Senderos de IDENA sin GPX descargable (0): 
+
+## Por grupo
+- Senderos y paseos: 178
+- Grandes travesías: 114
+- Camino de Santiago: 29
+- Vías verdes: 9
+
+## Por tipo
+- Local: 114
+- GR: 88
+- SL: 37
+- Camino de Santiago: 29
+- PR: 27
+- Gran recorrido: 18
+- Vía verde: 9
+- GRT: 8
+
+## Por zona
+- Pirineo: 95
+- Plazaola-Sakana-Ultzama: 62
+- Baztan-Bidasoa: 55
+- Pamplona y Comarca: 33
+- Tierra Estella: 33
+- Zona Media: 23
+- Sangüesa-Prepirineo: 21
+- La Ribera: 8
+
+## Por dificultad (estimada)
+- Fácil: 148
+- Moderada: 112
+- Difícil: 55
+- Muy difícil: 15
+
+## Por distancia
+- menos de 5 km: 94
+- 10-20 km: 88
+- 5-10 km: 81
+- 20-30 km: 56
+- más de 30 km: 11
+
+## Circular o lineal
+- lineal: 209
+- circular: 121
+
+Tamaño de rutas.json: 981 KB
+
+## Repetidas quitadas (se queda · se quita)
+- Etapa 4. Olite / Erriberri - Larraga [idena] · Sendero Histórico: Navarra · etapa 3: Olite – Berbinzana [osm]
+- Etapa 1. Burgui / Burgi - Isaba / Izaba [idena] · E1. Errege bidea: Burgi - Izaba [osm]
+- Etapa 321.1 Ruta de los Contrabandistas / Kontrabandisteen Bidea [idena] · Kontrabandisten bidea [osm]
+- Etapa 3. Uxue / Ujué - Olite / Erriberri [idena] · Sendero Histórico: Navarra · etapa 2: Ujué – Olite [osm]
+- Etapa 1. Etxegarate - Lizarrusti [idena] · E06 Gaztaren Ibilbidea: Etzegarate - Lizarrusti [osm]
+- Etapa D.1. Burgui / Burgi - Vidángoz / Bidankoze [idena] · Errege bidea: Burgi-Bidankoze bide-adarra [osm]
+- Etapa D.2. Roncal / Erronkari - Garde [idena] · Errege bidea: Erronkari - Garde bide-adarra [osm]
+- GR 12 D. Etapa 2. Aztakarri - Sorogain-Lastur [idena] · Sorogaingo ibilbide megalitikoa [osm]
+- Etapa E.2. Ekialterrea [idena] · Errege bidea: Lotura 2. Ekialterrea [osm]
+- Etapa E.1. Martiaberroa [idena] · Errege bidea: Lotura 1. Martiaberroa [osm]
+- Ermita de la Trinidad - Acantilados de la Piedra y San Adrián - Foz de Lumbier [idena] · Foz de Lumbier [idena]
+- La Vuelta de Belate [idena] · Belateko itzulia [osm]
+- Monte Santo Domingo [idena] · Parque fluvial del río Elorz [idena]
+- Igantzi - Reserva Natural de San Juan Xar [idena] · San Juan Xar [osm]
+- Camino francés · etapa 4: Pamplona – Puente la Reina/Gares [idena] · Camino Francés - 01 · etapa 4: Puente la Reina – Pamplona [osm]
+- Camino francés · etapa 2: Orreaga/Roncesvalles – Zubiri [idena] · European long distance path E3 - part Spain [osm]
+- Camino francés · etapa 2: Orreaga/Roncesvalles – Zubiri [idena] · Camino Francés - 01 · etapa 6: Zubiri – Orreaga [osm]
+- Camino francés · etapa 5: Puente la Reina/Gares – Estella-Lizarra [idena] · Camino Francés - 01 · etapa 3: Estella-Lizarra – Puente la Reina [osm]
+- Camino francés · etapa 3: Zubiri – Pamplona [idena] · Camino Francés - 01 · etapa 5: Pamplona – Zubiri [osm]
+- Camino francés · etapa 7: Los Arcos – Viana [idena] · Camino Francés - 01 · etapa 1: Viana – Los Arcos [osm]
+- Camino Francés (Alternative) [osm] · Voie du Puy [osm]
+- Saint-Jean-Pied-de-Port – Roncesvalles [osm] · Camino Francés - 01 · etapa 7: Orreaga – Pekotxeta [osm]
+
+## Lista (grupo · zona · nombre · km · desnivel + · dificultad · sale de)
+- Camino de Santiago · Baztan-Bidasoa · Baztango Donejakue bidea · etapa 3: Irurita – Urdazubi · 20.0 km · +381 m · Difícil · Irurita
+- Camino de Santiago · Baztan-Bidasoa · Baztango Donejakue bidea · etapa 4: Urdazubi – Dantxarinea · 8.9 km · +255 m · Fácil · Urdazubi
+- Camino de Santiago · Baztan-Bidasoa · Belateko ekialdeko aldaera (Baztango Donejakue bidea) · 9.4 km · +526 m · Moderada · Berroeta
+- Camino de Santiago · Pamplona y Comarca · Baztango Donejakue bidea · etapa 1: Trinidad de Arre – Aritzu · 19.7 km · +217 m · Moderada · Trinidad de Arre
+- Camino de Santiago · Pamplona y Comarca · Camino Aragonés · etapa 2: Ezperun – Aldunate · 20.0 km · +292 m · Moderada · Ezperun
+- Camino de Santiago · Pamplona y Comarca · Camino francés · etapa 4: Pamplona – Puente la Reina/Gares · 23.8 km · +326 m · Difícil · Pamplona
+- Camino de Santiago · Pirineo · Camino Francés (Alternative) · 23.1 km · +1251 m · Difícil · Pekotxeta
+- Camino de Santiago · Pirineo · Camino francés · etapa 1: Entrada en Navarra – Orreaga/Roncesvalles · 15.8 km · +887 m · Moderada · Pekotxeta
+- Camino de Santiago · Pirineo · Camino francés · etapa 2: Orreaga/Roncesvalles – Zubiri · 20.8 km · +214 m · Difícil · Orreaga
+- Camino de Santiago · Pirineo · Camino francés · etapa 3: Zubiri – Pamplona · 19.3 km · +53 m · Moderada · Zubiri
+- Camino de Santiago · Plazaola-Sakana-Ultzama · Baztango Donejakue bidea · etapa 2: Aritzu – Irurita · 19.9 km · +500 m · Difícil · Aritzu
+- Camino de Santiago · Plazaola-Sakana-Ultzama · Camino de las Asturias · etapa 1: Ziordia – Etxarri Aranatz · 20.4 km · +108 m · Moderada · Ziordia
+- Camino de Santiago · Plazaola-Sakana-Ultzama · Camino de las Asturias · etapa 2: Etxarri Aranatz – Etxeberri · 20.0 km · +34 m · Moderada · Etxarri Aranatz
+- Camino de Santiago · Plazaola-Sakana-Ultzama · Camino de las Asturias · etapa 3: Etxeberri – Pamplona · 22.0 km · +163 m · Moderada · Etxeberri
+- Camino de Santiago · Plazaola-Sakana-Ultzama · Sakanako Donejakue bidea · etapa 1: Ziordia – Arbizu · 20.0 km · +44 m · Moderada · Ziordia
+- Camino de Santiago · Plazaola-Sakana-Ultzama · Sakanako Donejakue bidea · etapa 2: Arbizu – Irurtzun · 20.2 km · +51 m · Moderada · Arbizu
+- Camino de Santiago · Sangüesa-Prepirineo · Camino Aragonés · etapa 3: Aldunate – Urbanización Náutica de Leire · 26.4 km · +515 m · Difícil · Aldunate
+- Camino de Santiago · Sangüesa-Prepirineo · Camino aragonés · etapa 1: Entrada en Navarra – Sangüesa/Zangoza · 7.5 km · +0 m · Fácil · Javier
+- Camino de Santiago · Sangüesa-Prepirineo · Camino aragonés · etapa 2: Sangüesa/Zangoza – Monreal/Elo · 25.3 km · +433 m · Difícil · Sangüesa
+- Camino de Santiago · Sangüesa-Prepirineo · Camino aragonés · etapa 3: Monreal/Elo – Puente la Reina/Gares · 30.6 km · +153 m · Difícil · Monreal
+- Camino de Santiago · Sangüesa-Prepirineo · Camino de Santiago · 12.4 km · +319 m · Moderada · Sangüesa
+- Camino de Santiago · Tierra Estella · Camino Francés - 01 · etapa 2: Los Arcos – Estella-Lizarra · 20.1 km · +216 m · Moderada · Los Arcos
+- Camino de Santiago · Tierra Estella · Camino de Santiago · 1.2 km · +0 m · Fácil · Caserío de Echávarri
+- Camino de Santiago · Tierra Estella · Camino francés · etapa 6: Estella-Lizarra – Los Arcos · 19.7 km · +276 m · Moderada · Estella-Lizarra
+- Camino de Santiago · Tierra Estella · Camino francés · etapa 7: Los Arcos – Viana · 17.2 km · +196 m · Moderada · Los Arcos
+- Camino de Santiago · Tierra Estella · Camino francés · etapa 8: Viana – Salida de Navarra · 5.7 km · +23 m · Fácil · Viana
+- Camino de Santiago · Tierra Estella · Inaziotar bidea (Navarra): Genevilla – Meano · 28.3 km · +508 m · Difícil · Genevilla
+- Camino de Santiago · Zona Media · Camino Aragonés · etapa 1: Puente la Reina – Ezperun · 20.1 km · +356 m · Moderada · Puente la Reina
+- Camino de Santiago · Zona Media · Camino francés · etapa 5: Puente la Reina/Gares – Estella-Lizarra · 20.3 km · +252 m · Moderada · Puente la Reina
+- Grandes travesías · Baztan-Bidasoa · E.GR 11-GR 12 · Bustitza - Uztakorta · 21.3 km · +1065 m · Difícil · Aurtitz
+- Grandes travesías · Baztan-Bidasoa · E.GR 11-GR 12 · Lesaka-Bustitza · 14.3 km · +228 m · Moderada · Aurtitz
+- Grandes travesías · Baztan-Bidasoa · E11-12 · Lakaingo lepoa - Bustitza · 25.8 km · +1492 m · Muy difícil · Lakain-Apezborro
+- Grandes travesías · Baztan-Bidasoa · GR 10 · La traversée des Pyrénées - sec.9 · etapa 1: Telleria – Azkar · 20.0 km · +242 m · Difícil · Telleria
+- Grandes travesías · Baztan-Bidasoa · GR 10 · La traversée des Pyrénées - sec.9 · etapa 2: Azkar – Endarlatsa · 20.5 km · +989 m · Difícil · Azkar
+- Grandes travesías · Baztan-Bidasoa · GR 11 · Senda Pirenaica - E35 · 35.4 km · +1522 m · Muy difícil · Elizondo
+- Grandes travesías · Baztan-Bidasoa · GR 11 · Senda Pirenaica - E36 · 30.5 km · +785 m · Muy difícil · Elizondo
+- Grandes travesías · Baztan-Bidasoa · GR 11 · Senda Pirenaica - E37 · 31.6 km · +654 m · Muy difícil · Bera
+- Grandes travesías · Baztan-Bidasoa · GR 11.3 · Lesakako aldaera · 12.6 km · +305 m · Moderada · Gorosurreta
+- Grandes travesías · Baztan-Bidasoa · GR 12 · Etapa 4. Gorostieta - Belate · 14.6 km · +487 m · Moderada · Beintza-Labaien
+- Grandes travesías · Baztan-Bidasoa · GR 121 · E15 Epaipide ibilbidea: Aritxulegi - Behobia · 14.8 km · +747 m · Moderada · Endarlatsa
+- Grandes travesías · Baztan-Bidasoa · GR 285 · E04 Mendibai ibilbidea: Ereñotzu - Behobia · 36.1 km · +1074 m · Muy difícil · Endarlatsa
+- Grandes travesías · Baztan-Bidasoa · GRT 3 · Bera (GR11) - Ibardin (GR10) · 4.8 km · +356 m · Fácil · Bera
+- Grandes travesías · Baztan-Bidasoa · GRT 5 · Elizondo - Berderiz - Argibel - Elizondo · 22.8 km · +802 m · Difícil · Elizondo
+- Grandes travesías · Baztan-Bidasoa · Variante 1.1 · 3.4 km · +107 m · Fácil · Kaule
+- Grandes travesías · Baztan-Bidasoa · Variante 2.1 · 4.9 km · +773 m · Moderada · Eltzaurdia
+- Grandes travesías · Baztan-Bidasoa · Variante 2.2 · 8.2 km · +235 m · Fácil · Kaule
+- Grandes travesías · Baztan-Bidasoa · Variante 2.3 · 6.4 km · +536 m · Moderada · Arizkun
+- Grandes travesías · Baztan-Bidasoa · Étape 01 · 25.0 km · +924 m · Difícil · Garaitarreta
+- Grandes travesías · Baztan-Bidasoa · Étape 02 · 27.1 km · +699 m · Difícil · Garaitarreta
+- Grandes travesías · Baztan-Bidasoa · Étape 03 · 14.4 km · +720 m · Moderada · Elizondo
+- Grandes travesías · La Ribera · Camino Jacobeo del Ebro · etapa 1: Milagro – Castejón · 14.7 km · +23 m · Moderada · Milagro
+- Grandes travesías · La Ribera · Camino Jacobeo del Ebro · etapa 2: Castejón – Fontellas · 20.9 km · +10 m · Moderada · Castejón
+- Grandes travesías · La Ribera · Camino Jacobeo del Ebro · etapa 3: Fontellas – Cortes · 26.8 km · +35 m · Difícil · Fontellas
+- Grandes travesías · La Ribera · GR 99 · Camino natural de Ebro - Tramo central · etapa 1: Azagra – San Adrián · 15.8 km · +41 m · Moderada · Azagra
+- Grandes travesías · Pamplona y Comarca · GR 220 · Iruñerriko itzulia · etapa 1: Muniáin de Guesálaz – Arlegui · 21.7 km · +805 m · Difícil · Muniáin de Guesálaz
+- Grandes travesías · Pamplona y Comarca · GR 220 · Iruñerriko itzulia · etapa 2: Arlegui – Yelz · 20.1 km · +604 m · Difícil · Arlegui
+- Grandes travesías · Pamplona y Comarca · GR 220 · Iruñerriko itzulia · etapa 3: Yelz – Azoz · 20.0 km · +457 m · Difícil · Yelz
+- Grandes travesías · Pamplona y Comarca · GR 220 · Iruñerriko itzulia · etapa 4: Azoz – Lete · 20.0 km · +884 m · Difícil · Azoz
+- Grandes travesías · Pirineo · Donsimonmendia (GRT7) - Nabala (GR11) · 1.9 km · +63 m · Fácil · Orreaga
+- Grandes travesías · Pirineo · GR 11 · Senda Pirenaica - E31 · 10.6 km · +103 m · Moderada · Isaba
+- Grandes travesías · Pirineo · GR 11 · Senda Pirenaica - E32 · 20.9 km · +631 m · Difícil · Ochagavía
+- Grandes travesías · Pirineo · GR 11 · Senda Pirenaica - E33 · 20.4 km · +669 m · Difícil · Hiriberri
+- Grandes travesías · Pirineo · GR 11 · Senda Pirenaica - E34 · 17.2 km · +556 m · Moderada · Auritz
+- Grandes travesías · Pirineo · GR 11.4 · Variante de Ezkaurre · 12.4 km · +762 m · Difícil · Isaba
+- Grandes travesías · Pirineo · GR 12 D. Etapa 2. Aztakarri - Sorogain-Lastur · 3.4 km · +142 m · Fácil · Sorogain-Lastur
+- Grandes travesías · Pirineo · GR 12 D. Etapa 3. Orreaga / Roncesvalles - Ibañeta · 1.5 km · +0 m · Fácil · Orreaga
+- Grandes travesías · Pirineo · GR 12 · Etapa 6. Aztakarri - Azpegi · 20.8 km · +767 m · Difícil · Sorogain-Lastur
+- Grandes travesías · Pirineo · GR 12 · Etapa 7. Azpegi - Iturzaeta · 29.6 km · +1659 m · Muy difícil · Orbaizetako Ola
+- Grandes travesías · Pirineo · GR 12 · Etapa 8. Iturzaeta - Belagua · 15.8 km · +526 m · Moderada · Pikatua
+- Grandes travesías · Pirineo · GR 12 · Etapa 9. Belagua - Belagua · 21.0 km · +984 m · Difícil · Uztárroz
+- Grandes travesías · Pirineo · GR 12.1. Variante Iturbeltza - Iturrumburru - Aztakarri · 1.8 km · +79 m · Fácil · Sorogain-Lastur
+- Grandes travesías · Pirineo · GR 321 · Etapa 1. Burgui / Burgi - Isaba / Izaba · 21.2 km · +708 m · Difícil · Burgui
+- Grandes travesías · Pirineo · GR 321 · Etapa 2. Isaba / Izaba - Refugio Ángel Olorón. Belagua · 13.9 km · +825 m · Moderada · Isaba
+- Grandes travesías · Pirineo · GR 321 · Etapa 321.1 Ruta de los Contrabandistas / Kontrabandisteen Bidea · 17.4 km · +2751 m · Muy difícil · Isaba
+- Grandes travesías · Pirineo · GR 321 · Etapa 321.2 Camino Real - Errege Bidea · 6.9 km · +575 m · Moderada · Uztárroz
+- Grandes travesías · Pirineo · GR 321 · Etapa D.1. Burgui / Burgi - Vidángoz / Bidankoze · 13.0 km · +461 m · Moderada · Burgui
+- Grandes travesías · Pirineo · GR 321 · Etapa D.2. Roncal / Erronkari - Garde · 4.7 km · +218 m · Fácil · Roncal
+- Grandes travesías · Pirineo · GR 321 · Etapa D.3. Isaba / Izaba - Uztárroz / Uztarroze · 6.4 km · +590 m · Moderada · Isaba
+- Grandes travesías · Pirineo · GR 321 · Etapa E.1. Martiaberroa · 1.3 km · +271 m · Fácil · Isaba
+- Grandes travesías · Pirineo · GR 321 · Etapa E.2. Ekialterrea · 1.8 km · +316 m · Fácil · Uztárroz
+- Grandes travesías · Pirineo · GR 321 · Etapa E.3. Zarzakulea · 3.2 km · +603 m · Moderada · Uztárroz
+- Grandes travesías · Pirineo · GR 321 · Etapa E.4. Lapatia · 3.2 km · +572 m · Moderada · Uztárroz
+- Grandes travesías · Pirineo · GR 321.D.3 · Errege bidea: Izaba - Uztarroze bide-adarra · 8.1 km · +577 m · Moderada · Isaba
+- Grandes travesías · Pirineo · GR 322 · Nafarroa Xtrem · etapa 1: Kintoa – Saigots · 21.8 km · +927 m · Difícil · Kintoa
+- Grandes travesías · Pirineo · GR 322 · Nafarroa Xtrem · etapa 2: Saigots – Iragi · 14.1 km · +1058 m · Difícil · Saigots
+- Grandes travesías · Pirineo · GRT 10 · Larrau/Tunel del Ori (GR12) – Paso de las Alforjas (GR11) · 10.4 km · +320 m · Moderada · Irati
+- Grandes travesías · Pirineo · GRT 5 · Elizondo - Berderiz - Izpegi - Buztanzelaiko lepoa · 23.2 km · +482 m · Difícil · Iñarbil
+- Grandes travesías · Pirineo · GRT 7 · Lepoeder (GR12) - Auritz (GR11) · 5.9 km · +0 m · Fácil · Orreaga
+- Grandes travesías · Pirineo · GRT 8 · Txutxurieta (GR11) - Azpegi (GR12) · 8.6 km · +296 m · Fácil · Orbaizetako Ola
+- Grandes travesías · Pirineo · GRT 9 · Urbeltza (GR12) - Burdin hesiak pasabidea (GR11) · 9.3 km · +149 m · Moderada · Irati
+- Grandes travesías · Pirineo · Saint-Jean-Pied-de-Port – Roncesvalles · 24.1 km · +490 m · Difícil · Orreaga
+- Grandes travesías · Pirineo · Variante 3.1 · 12.8 km · +478 m · Moderada · Beartzun
+- Grandes travesías · Pirineo · Variante 4.2 · 3.7 km · +272 m · Fácil · Orbaizetako Ola
+- Grandes travesías · Pirineo · Via Sancti Martini - Camino de Zaragoza / Chemin de Saragosse · etapa 1: Uztárroz – San Martín · 16.2 km · +27 m · Moderada · Uztárroz
+- Grandes travesías · Pirineo · Via Sancti Martini - Camino de Zaragoza / Chemin de Saragosse · etapa 2: San Martín – Castillonuevo · 19.6 km · +587 m · Difícil · San Martín
+- Grandes travesías · Pirineo · Étape 04 · 33.3 km · +1184 m · Muy difícil · Beartzun
+- Grandes travesías · Pirineo · Étape 05 · 22.2 km · +1582 m · Muy difícil · Orbaizetako Ola
+- Grandes travesías · Pirineo · Étape 06 · 18.7 km · +836 m · Difícil · Pikatua
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 12 · Etapa 1. Etxegarate - Lizarrusti · 13.5 km · +841 m · Difícil · Altsasu
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 12 · Etapa 2. Lizarrusti - Lekunberri · 23.0 km · +695 m · Difícil · Lizarragabengoa
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 12 · Etapa 3. Lekunberri - Gorostieta · 17.5 km · +842 m · Difícil · Lekunberri
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 12 · Etapa 5. Belate - Aztakarri · 24.4 km · +1238 m · Muy difícil · Arraitz-Orkin
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 121 · E11 Epaipide ibilbidea: Lizarrusti - Amezketa · 16.8 km · +1050 m · Difícil · Azkarate
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 121 · E12 Epaipide ibilbidea: Amezketa - Berastegi · 27.2 km · +1132 m · Muy difícil · Erreka
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 121 · E13 Epaipide ibilbidea: Berastegi - Ugaldetxo · 20.4 km · +860 m · Difícil · Erreka
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 121 · E14 Epaipide ibilbidea: Ugaldetxo - Aritxulegi · 19.7 km · +943 m · Difícil · Arano
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 20 D.1 · Arbizu-Gañolarri · 6.2 km · +372 m · Fácil · Arbizu
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 20 · Aralarko bira · etapa 1: Lizarragabengoa – Madotz · 19.9 km · +816 m · Difícil · Lizarragabengoa
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 20 · Aralarko bira · etapa 2: Madotz – Errazkin · 19.9 km · +443 m · Difícil · Madotz
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 20 · Aralarko bira · etapa 3: Errazkin – Azkarate · 13.3 km · +654 m · Moderada · Errazkin
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 282 · Artzaintza naturbidea · etapa 1: Ziordia – Venta de Urbasa · 17.5 km · +67 m · Moderada · Ziordia
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 282 · Artzaintza naturbidea · etapa 2: Venta de Urbasa – Andía · 22.0 km · +667 m · Difícil · Venta de Urbasa
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 282 · Artzaintza naturbidea · etapa 4: Unanu – Gaintza · 21.2 km · +1065 m · Difícil · Unanu
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323 · Bernoako Galtzada: Etxarri Aranatz - Urdiain · 18.2 km · +387 m · Moderada · Urdiain
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323 · Bernoako Galtzada: Urdiain - Etxarri Aranatz · 14.6 km · +629 m · Moderada · Urdiain
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.1 · Bernoako Galtzada: Etxarri-Aranatz - Bakaiku · 4.5 km · +21 m · Fácil · Etxarri Aranatz
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.10 · Bernoako Galtzada: Bakaiku - Lizarragako portua · 4.7 km · +0 m · Fácil · Lizarraga
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.10 · Bernoako Galtzada: Bakaiku - Santa Marina (Iruaitzeta ondotik) · 4.2 km · +614 m · Moderada · Bakaiku
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.2 · Bernoako Galtzada: Bakaiku · 2.4 km · +77 m · Fácil · Bakaiku
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.3 · Bernoako Galtzada: Iturmendi · 3.4 km · +23 m · Fácil · Iturmendi
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.4 · Bernoako Galtzada: Iturmendi - Urdiain lotura · 2.3 km · +54 m · Fácil · Altsasu
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.5 · Bernoako Galtzada: Intxusburu lotunea · 1.4 km · +112 m · Fácil · Altsasu
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.6 · Bernoako Galtzada: Urdiain - Iturmendi - Bakaiku · 3.0 km · +0 m · Fácil · Urdiain
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.8 · Bernoako Galtzada: Iturmendi - Santa Marina · 3.6 km · +0 m · Fácil · Iturmendi
+- Grandes travesías · Plazaola-Sakana-Ultzama · GR 323.9 · Bernoako Galtzada: Bakaiku - Santa Marina · 3.6 km · +533 m · Moderada · Bakaiku
+- Grandes travesías · Sangüesa-Prepirineo · GR 1 · Etapa 1. Sos del Rey Católico / Cáseda · 18.7 km · +165 m · Moderada · Gabarderal
+- Grandes travesías · Sangüesa-Prepirineo · GR 1 · Etapa 2. Cáseda - Uxue / Ujué · 14.2 km · +697 m · Moderada · Cáseda
+- Grandes travesías · Sangüesa-Prepirineo · GR 1 · Sendero Histórico: Navarra · etapa 1: Torre de Peña – Ujué · 20.7 km · +447 m · Difícil · Torre de Peña
+- Grandes travesías · Sangüesa-Prepirineo · GR 1 · Sendero Histórico: Zaragoza (Navarra): Petilla de Aragón – Petilla de Aragón · 12.5 km · +268 m · Moderada · Petilla de Aragón
+- Grandes travesías · Tierra Estella · GR 1 · Etapa 6. Allo - Los Arcos · 22.4 km · +383 m · Difícil · Allo
+- Grandes travesías · Tierra Estella · GR 1 · Etapa 7. Los Arcos - Codés · 17.3 km · +621 m · Moderada · Los Arcos
+- Grandes travesías · Tierra Estella · GR 1 · Etapa 8. Codés - Portillo de Nazar - Santa Cruz de Campezo / Santikurutze Kanpezu · 11.5 km · +492 m · Moderada · Nuestra Señora de Codés
+- Grandes travesías · Tierra Estella · GR 1 · Ibilbide historikoa: Araba · etapa 1: Meano – Genevilla · 20.0 km · +479 m · Difícil · Meano
+- Grandes travesías · Tierra Estella · GR 1 · Ibilbide historikoa: Araba · etapa 2: Genevilla – Otiñano · 12.0 km · +703 m · Moderada · Genevilla
+- Grandes travesías · Tierra Estella · GR 282 · Artzaintza naturbidea · etapa 3: Andía – Unanu · 21.8 km · +428 m · Difícil · Andía
+- Grandes travesías · Tierra Estella · GR 99 · Camino natural de Ebro - Tramo central · etapa 2: San Adrián – Lodosa · 20.0 km · +100 m · Moderada · San Adrián
+- Grandes travesías · Tierra Estella · GR 99 · Camino natural de Ebro - Tramo central · etapa 3: Lodosa – Recajo · 26.8 km · +55 m · Difícil · Lodosa
+- Grandes travesías · Tierra Estella · GR 99 · Camino natural de Ebro - Tramo central · etapa 4: Recajo – Viana · 12.6 km · +71 m · Moderada · Recajo
+- Grandes travesías · Zona Media · GR 1 · Etapa 3. Uxue / Ujué - Olite / Erriberri · 15.0 km · +23 m · Moderada · Ujué
+- Grandes travesías · Zona Media · GR 1 · Etapa 4. Olite / Erriberri - Larraga · 26.0 km · +190 m · Difícil · Olite
+- Grandes travesías · Zona Media · GR 1 · Etapa 5. Larraga - Allo · 18.8 km · +233 m · Moderada · Larraga
+- Grandes travesías · Zona Media · GR 1 · Sendero Histórico: Navarra · etapa 4: Berbinzana – Nuestra Señora de Andión · 8.7 km · +139 m · Fácil · Berbinzana
+- Grandes travesías · Zona Media · GR 220 · Iruñerriko itzulia · etapa 5: Lete – Muniáin de Guesálaz · 11.4 km · +837 m · Moderada · Lete
+- Senderos y paseos · Baztan-Bidasoa · Arrarats - Begaña · 10.1 km · +447 m · Moderada · Arrarats
+- Senderos y paseos · Baztan-Bidasoa · Cascada de Xorroxin - Gorostapalo (Baztan) · 1.3 km · +55 m · Fácil · Gorostapalo
+- Senderos y paseos · Baztan-Bidasoa · Despoblado de Mendinueta y castillo de Legin - Cinco Villas · 8.9 km · +301 m · Moderada · Urroz-Villa
+- Senderos y paseos · Baztan-Bidasoa · Idoate - Ermita de San Miguel · 4.9 km · +181 m · Fácil · Idoate
+- Senderos y paseos · Baztan-Bidasoa · Igantzi - Reserva Natural de San Juan Xar · 4.3 km · +103 m · Fácil · Arantza
+- Senderos y paseos · Baztan-Bidasoa · PR-Gi 1007 · Artikutzako trenbide zaharra · 11.1 km · +643 m · Moderada · Endara
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 10 · Arantzako zirkoa · 14.1 km · +628 m · Moderada · Eguzkialdea
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 101: Saldias – Saldias · 12.9 km · +607 m · Moderada · Saldias
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 102 · Leurtzako basoa · 3.2 km · +229 m · Fácil · Beintza-Labaien
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 102.1 · Leurtzatik Beintza Labaienera · 4.8 km · +200 m · Fácil · Beintza-Labaien
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 11 · San Antón - Domiko · 14.5 km · +584 m · Moderada · Auzoberri
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 12 · Azkua · 9.5 km · +639 m · Moderada · Etxalar
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 15 · Atxuria · 9.8 km · +498 m · Moderada · Etxalar
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 16 · Larun · 14.2 km · +417 m · Moderada · Kaule
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 4 · Baztangoiza · 12.2 km · +219 m · Moderada · Arizkun
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 6 · Aritzakun · 13.4 km · +482 m · Moderada · Telleria
+- Senderos y paseos · Baztan-Bidasoa · PR-NA 90 · Sorginen bidea · 12.7 km · +379 m · Moderada · Zugarramurdi
+- Senderos y paseos · Baztan-Bidasoa · Parque Natural Señorío de Bertiz – Subida a Aizkolegi · 20.9 km · +658 m · Difícil · Bertiz
+- Senderos y paseos · Baztan-Bidasoa · Pottoka Urdinaren ibilbidea · 5.8 km · +66 m · Fácil · Etxartea
+- Senderos y paseos · Baztan-Bidasoa · SL-NA 12 · Xorroxin · 4.7 km · +67 m · Fácil · Erratzu
+- Senderos y paseos · Baztan-Bidasoa · SL-NA 14 · Azkarreko itzulia · 3.3 km · +0 m · Fácil · Urdazubi
+- Senderos y paseos · Baztan-Bidasoa · SL-NA 17 · Axularren txokoa · 4.9 km · +202 m · Fácil · Alkerdi
+- Senderos y paseos · Baztan-Bidasoa · SL-NA 5 · Argarata - Santa Krutz · 4.4 km · +56 m · Fácil · Urritzokieta
+- Senderos y paseos · Baztan-Bidasoa · SL-NA 7 · Leurtzako ibilbidea · 3.4 km · +56 m · Fácil · Beintza-Labaien
+- Senderos y paseos · Baztan-Bidasoa · SL-NA · Alkurruntz · 3.4 km · +11 m · Fácil · Amaiur
+- Senderos y paseos · Baztan-Bidasoa · SL-NA · Ibaineta · 5.0 km · +187 m · Fácil · Etxartea
+- Senderos y paseos · Baztan-Bidasoa · Uraren bidea · 7.5 km · +14 m · Fácil · Zubieta
+- Senderos y paseos · Baztan-Bidasoa · Vértice geodésico de Frain - Lesaka - Cinco Villas · 10.8 km · +454 m · Moderada · Lesaka
+- Senderos y paseos · Baztan-Bidasoa · Zentinelako ibilbide arkeologikoa · 4.2 km · +197 m · Fácil · Lakain-Apezborro
+- Senderos y paseos · La Ribera · Alto de Moncayuelo · 10.5 km · +123 m · Fácil · Falces
+- Senderos y paseos · La Ribera · Bardenas Reales - Castildetierra - Castillo de Peñaflor · 13.7 km · +141 m · Moderada · Arguedas
+- Senderos y paseos · La Ribera · Camino Natural del Agua Soriano. Camino Antonino · 114.5 km · +371 m · Muy difícil · Fitero
+- Senderos y paseos · Pamplona y Comarca · Alto de Ekoien desde Belascoáin · 14.7 km · +600 m · Moderada · Belascoáin
+- Senderos y paseos · Pamplona y Comarca · Alto de Santa Cruz desde Beriáin · 9.1 km · +148 m · Fácil · Beriáin
+- Senderos y paseos · Pamplona y Comarca · Alzuza · 4.4 km · +159 m · Fácil · Alzuza
+- Senderos y paseos · Pamplona y Comarca · Argako Ibai-pasealekua · 34.3 km · +82 m · Difícil · Otazu
+- Senderos y paseos · Pamplona y Comarca · Castillo de Irulegui · 3.9 km · +216 m · Fácil · Laquidáin
+- Senderos y paseos · Pamplona y Comarca · Eltxumendi desde Oteiza · 5.4 km · +347 m · Fácil · Oteiza
+- Senderos y paseos · Pamplona y Comarca · Ezkaba - San Cristóbal desde Berriozar · 8.7 km · +432 m · Moderada · Berriozar
+- Senderos y paseos · Pamplona y Comarca · Labiano - Cerro de Bizkaia - panorámicas sobre el Valle de Elorz y la sierra de Alaiz · 5.2 km · +186 m · Fácil · Labiano
+- Senderos y paseos · Pamplona y Comarca · Larragueta - cerro de La Fuente - Monte Ezkidi · 6.7 km · +279 m · Fácil · Añezkar
+- Senderos y paseos · Pamplona y Comarca · Miravalles desde Gazólaz · 3.3 km · +86 m · Fácil · Gazólaz
+- Senderos y paseos · Pamplona y Comarca · Monte Ezkaba · 5.6 km · +447 m · Moderada · Villava
+- Senderos y paseos · Pamplona y Comarca · Monte Gazolatz · 3.1 km · +51 m · Fácil · Gazólaz
+- Senderos y paseos · Pamplona y Comarca · Monte Santo Domingo · 7.5 km · +116 m · Fácil · Noáin
+- Senderos y paseos · Pamplona y Comarca · Narval - Fuente de Txindelapea y torreón · 9.1 km · +349 m · Moderada · Arre
+- Senderos y paseos · Pamplona y Comarca · Parque Arantzadi - recorrido botánico · 4.8 km · +0 m · Fácil · Pamplona
+- Senderos y paseos · Pamplona y Comarca · Paseo Elorz-Sadar · 10.9 km · +43 m · Fácil · Barañáin
+- Senderos y paseos · Pamplona y Comarca · Paseo Fluvial Río Elorz · 7.4 km · +0 m · Fácil · Salinas de Pamplona
+- Senderos y paseos · Pamplona y Comarca · Paseo del Ulzama · 6.9 km · +32 m · Fácil · Huarte
+- Senderos y paseos · Pamplona y Comarca · Peña de Etxauri desde Azanza · 7.7 km · +306 m · Fácil · Azanza
+- Senderos y paseos · Pamplona y Comarca · Recorrido botánico de la Universidad de Navarra · 4.7 km · +21 m · Fácil · Cordovilla
+- Senderos y paseos · Pamplona y Comarca · SL-NA 172 · Circular de Ezkaba · 7.2 km · +253 m · Fácil · Ezcaba
+- Senderos y paseos · Pamplona y Comarca · San Cristóbal - Ezkaba desde Berriosuso · 7.9 km · +402 m · Moderada · Berriosuso
+- Senderos y paseos · Pamplona y Comarca · Sierra del Perdón desde Subiza · 7.6 km · +389 m · Moderada · Subiza
+- Senderos y paseos · Pamplona y Comarca · Sierra del Perdón oriental - Bordatxar y Aitzkibel · 6.2 km · +396 m · Fácil · Subiza
+- Senderos y paseos · Pamplona y Comarca · Tajonar y castro de San Salvador · 5.7 km · +250 m · Fácil · Tajonar
+- Senderos y paseos · Pamplona y Comarca · Xabierraldia (Iruña - Xabierko gaztelua) · 29.8 km · +472 m · Difícil · Sarriguren
+- Senderos y paseos · Pirineo · Aintzioa - Esnotz · 2.4 km · +46 m · Fácil · Aintzioa
+- Senderos y paseos · Pirineo · Anie y Añelarra - bordeando la Reserva Natural de Larra · 15.0 km · +857 m · Difícil · Uztárroz
+- Senderos y paseos · Pirineo · Aurizberri - Esnotz ibilbidea · 10.9 km · +158 m · Moderada · Aurizberri
+- Senderos y paseos · Pirineo · Basajaunberroko basoa · 3.9 km · +44 m · Fácil · Orreaga
+- Senderos y paseos · Pirineo · Berraguko bidea · 2.9 km · +110 m · Fácil · Aurizberri
+- Senderos y paseos · Pirineo · Cascada de Garralda · 4.2 km · +98 m · Fácil · Garralda
+- Senderos y paseos · Pirineo · Cueva y cascada de Azanzorea. Vidángoz · 2.7 km · +151 m · Fácil · Vidángoz
+- Senderos y paseos · Pirineo · Dolmen de Armaria - Baratxueta - Oiartzabal - dolmen de Usetxi · 9.1 km · +346 m · Moderada · Usetxi
+- Senderos y paseos · Pirineo · Errea - Measkoitz - Castros de Measkoitz y Otamendi · 7.4 km · +228 m · Fácil · Errea
+- Senderos y paseos · Pirineo · Erro - Mezkiritz · 6.4 km · +23 m · Fácil · Mezkiritz
+- Senderos y paseos · Pirineo · Erro - Zilbeti · 6.2 km · +182 m · Fácil · Erro
+- Senderos y paseos · Pirineo · Gainekoleta – Orreaga · 7.4 km · +301 m · Fácil · Gainekoleta
+- Senderos y paseos · Pirineo · Loizu - Aintzioa · 4.6 km · +11 m · Fácil · Aintzioa
+- Senderos y paseos · Pirineo · Loizu - Ardaitz · 8.6 km · +383 m · Moderada · Ardaitz
+- Senderos y paseos · Pirineo · Migoleta desde Igal - vértice de Bioleta · 15.1 km · +690 m · Moderada · Igal
+- Senderos y paseos · Pirineo · Mirador de Zamariain desde Garaioa - Valle de Aezkoa · 6.7 km · +306 m · Fácil · Garaioa
+- Senderos y paseos · Pirineo · Muskildako hariztiaren bidexka · 4.3 km · +111 m · Fácil · Bizkarreta-Gerendiain
+- Senderos y paseos · Pirineo · Orondritz - Esnotz · 2.4 km · +0 m · Fácil · Esnotz
+- Senderos y paseos · Pirineo · PR-NA 3 · Beartzun · 13.0 km · +501 m · Moderada · Beartzun
+- Senderos y paseos · Pirineo · PR-NA 7 · Iñarbegi · 6.5 km · +10 m · Fácil · Beartzun
+- Senderos y paseos · Pirineo · Paxula – Iratiko Etxolak · 4.1 km · +52 m · Fácil · Nuestra Señora de las Nieves
+- Senderos y paseos · Pirineo · SL-NA 50 · San Frantziskoko Muinoa · 2.9 km · +0 m · Fácil · Hiriberri
+- Senderos y paseos · Pirineo · SL-NA 50A · Errondoko Behatokia · 3.2 km · +182 m · Fácil · Garralda
+- Senderos y paseos · Pirineo · SL-NA 50B · Asketaldeko Haitzuloa · 2.2 km · +12 m · Fácil · Abaurrepea
+- Senderos y paseos · Pirineo · SL-NA 51C · Azalegi-San Esteban ermita · 3.2 km · +0 m · Fácil · Irabiako Uharka
+- Senderos y paseos · Pirineo · SL-NA 53A · Garaioako milurteko haritza · 2.8 km · +76 m · Fácil · Aribe
+- Senderos y paseos · Pirineo · SL-NA 53B · Bordetako Bidea · 6.9 km · +382 m · Fácil · Orbara
+- Senderos y paseos · Pirineo · SL-NA 53C · Irabiako uharkari itzulia · 9.9 km · +172 m · Fácil · Idaibea
+- Senderos y paseos · Pirineo · SL-NA 54 · Abaurrea Bidean · 6.3 km · +230 m · Fácil · Abaurregaina
+- Senderos y paseos · Pirineo · SL-NA 54C · C Paradisuak - Erlan · 4.4 km · +138 m · Fácil · Irabiako Uharka
+- Senderos y paseos · Pirineo · SL-NA 55A · Sorginen bidea · 1.8 km · +0 m · Fácil · Hiriberri
+- Senderos y paseos · Pirineo · SL-NA 56A · Arburuko Begiratokia · 3.4 km · +250 m · Fácil · Orbaizeta
+- Senderos y paseos · Pirineo · SL-NA 57A · Arlekiko Gaztelua eta Lutoko Haitzuloak · 2.0 km · +232 m · Fácil · Orbaizetako Ola
+- Senderos y paseos · Pirineo · SL-NA 57B · Ursarioko Basoa · 3.3 km · +118 m · Fácil · Orbaizetako Ola
+- Senderos y paseos · Pirineo · SL-NA 58A · A Zamariaingo behatokia · 3.2 km · +26 m · Fácil · Olaldea
+- Senderos y paseos · Pirineo · SL-NA 59A · Artetxeko Haitzuloak · 2.0 km · +21 m · Fácil · Garaioa
+- Senderos y paseos · Pirineo · SL-NA 59B · Arlekia-Lauzaran · 5.9 km · +207 m · Fácil · Orbaizetako Ola
+- Senderos y paseos · Pirineo · SL-NA 60A · Iratiko etxeetako bide zaharra · 2.6 km · +279 m · Fácil · Irati
+- Senderos y paseos · Pirineo · SL-NA 61 · Beieguko Harria · 3.1 km · +0 m · Fácil · Oronz
+- Senderos y paseos · Pirineo · SL-NA 61A · Zentzumenen ibilbidea · 1.8 km · +78 m · Fácil · Nuestra Señora de las Nieves
+- Senderos y paseos · Pirineo · SL-NA 65 · Irati eta Muskildarako bide zaharra · 5.9 km · +272 m · Fácil · Ochagavía
+- Senderos y paseos · Pirineo · SL-NA 67 · Goñiburuko begiratokia · 2.2 km · +98 m · Fácil · Idaibea
+- Senderos y paseos · Pirineo · SL-NA 69 · Koixtako bide zaharra · 10.4 km · +375 m · Moderada · Nuestra Señora de las Nieves
+- Senderos y paseos · Pirineo · SL-NA 78 · Foz de Burgui · 1.2 km · +47 m · Fácil · Burgui
+- Senderos y paseos · Pirineo · SL-NA 79 · Artikomendia · 5.3 km · +255 m · Fácil · Isaba
+- Senderos y paseos · Pirineo · SL-NA · Elorrieta · 5.8 km · +267 m · Fácil · Iñarbil
+- Senderos y paseos · Pirineo · Selva de Irati - Malgorra · 8.2 km · +379 m · Moderada · Pikatua
+- Senderos y paseos · Pirineo · Tres hayas - Irupagoeta desde Auritz / Burguete · 7.6 km · +162 m · Fácil · Auritz
+- Senderos y paseos · Pirineo · Urepelbide zaharra · 21.5 km · +845 m · Difícil · Sorogain-Lastur
+- Senderos y paseos · Pirineo · Zilbeti - Sorogain · 7.9 km · +432 m · Moderada · Zilbeti
+- Senderos y paseos · Pirineo · Zilbeti - Tiratun · 5.2 km · +502 m · Moderada · Zilbeti
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Artikutzako antzeko trenbide arrastoak (1905-1918) · 7.8 km · +38 m · Fácil · Berazkun
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Camino de Santiago baztanés y dolmen de Lantz · 5.5 km · +190 m · Fácil · Lantz
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Castillo de Aixita - Dos Hermanas · 9.6 km · +285 m · Moderada · Etxeberri
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Egukizko Muinoa - Leitza - Ezkurra · 8.5 km · +374 m · Moderada · Gorriztaran
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Elosta y Malkorraundi desde Gorriti · 7.3 km · +375 m · Fácil · Gorriti
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Haritz monumentalak · 1.8 km · +12 m · Fácil · Jauntsarats
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Irusoko megalitoak · 2.4 km · +113 m · Fácil · Arkiskil
+- Senderos y paseos · Plazaola-Sakana-Ultzama · La Vuelta de Belate · 8.8 km · +282 m · Fácil · Almandoz
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Madalen desde Hiriberri · 11.9 km · +414 m · Moderada · Hiriberri Arakil
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Mendizaleen ibilbidea · 3.7 km · +233 m · Fácil · Olazti
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Oderizko trikuharrien ibilbidea · 2.7 km · +53 m · Fácil · Oderitz
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Orgiko basoaren ibilaldia · 3.8 km · +21 m · Fácil · Lizaso
+- Senderos y paseos · Plazaola-Sakana-Ultzama · PR-GI 2007 · Zarateko bira · 7.5 km · +344 m · Fácil · Azkarate
+- Senderos y paseos · Plazaola-Sakana-Ultzama · PR-GI 2008 · Malloetako zeharkaldia · 13.5 km · +202 m · Moderada · Gaintza
+- Senderos y paseos · Plazaola-Sakana-Ultzama · PR-NA 100 · Kornieta · 10.3 km · +531 m · Moderada · Gorriztaran
+- Senderos y paseos · Plazaola-Sakana-Ultzama · PR-NA 125 · Eskas-Pagolleta-Izu-Artikutza-Eskas · 16.0 km · +518 m · Moderada · Artikutza
+- Senderos y paseos · Plazaola-Sakana-Ultzama · PR-NA 130 · Santa Marina ermita, Urbasa · 3.9 km · +0 m · Fácil · Iturmendi
+- Senderos y paseos · Plazaola-Sakana-Ultzama · PR-NA 133.1 · Trikuharrien ibilbidea - bariantea · 4.1 km · +0 m · Fácil · Lizarragabengoa
+- Senderos y paseos · Plazaola-Sakana-Ultzama · PR-NA 82 · Aralarko Done Mikel · 18.8 km · +606 m · Difícil · Baraibar
+- Senderos y paseos · Plazaola-Sakana-Ultzama · PR-NA 86 · Albiasuko behatokia · 11.4 km · +122 m · Moderada · Lekunberri
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Roble milenario de Orkin - MN43 · 3.2 km · +22 m · Fácil · Arraitz-Orkin
+- Senderos y paseos · Plazaola-Sakana-Ultzama · SL NA-138 · 1.2 km · +69 m · Fácil · Irurtzun
+- Senderos y paseos · Plazaola-Sakana-Ultzama · SL-NA 140 · Senda de los Pescadores · 1.4 km · +31 m · Fácil · Goldaratz
+- Senderos y paseos · Plazaola-Sakana-Ultzama · SL-NA 284 · Izaieta · 6.3 km · +167 m · Fácil · Arkiskil
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Saien balkoiaren ibilbidea · 3.6 km · +228 m · Fácil · Irurtzun
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Trinidad de Erga desde Irurtzun · 7.0 km · +584 m · Moderada · Irurtzun
+- Senderos y paseos · Plazaola-Sakana-Ultzama · Uitzi - Dolmen Goldaburu - Mergelu - Atume · 8.9 km · +285 m · Fácil · Uitzi
+- Senderos y paseos · Sangüesa-Prepirineo · Alto de las Ripas y Farrandillo desde Javier · 13.6 km · +402 m · Moderada · Javier
+- Senderos y paseos · Sangüesa-Prepirineo · Ermita de San Román y el nevero de Aoiz · 8.6 km · +289 m · Fácil · Aoiz
+- Senderos y paseos · Sangüesa-Prepirineo · Ermita de la Trinidad - Acantilados de la Piedra y San Adrián - Foz de Lumbier · 12.0 km · +486 m · Moderada · Lumbier
+- Senderos y paseos · Sangüesa-Prepirineo · Foz de Aspurz y Foz de Santa Colomba SL.NA - 111 · 3.1 km · +145 m · Fácil · Aspurz
+- Senderos y paseos · Sangüesa-Prepirineo · Foz de Lumbier (ruta corta) · 1.7 km · +102 m · Fácil · Liédena
+- Senderos y paseos · Sangüesa-Prepirineo · Higa de Monreal - subida directa · 11.5 km · +751 m · Moderada · Monreal
+- Senderos y paseos · Sangüesa-Prepirineo · Monte San Pesdro - Cáseda · 11.8 km · +480 m · Moderada · Cáseda
+- Senderos y paseos · Sangüesa-Prepirineo · Nagore - Peñas de Uroa - Ermita románica de Santa María de Arce · 14.0 km · +525 m · Moderada · Nagore
+- Senderos y paseos · Sangüesa-Prepirineo · Senda de San Virila - Monasterio de Leyre · 2.0 km · +109 m · Fácil · Leire
+- Senderos y paseos · Sangüesa-Prepirineo · Torre de Celigüeta e Iglesia de Guerguitiáin desde Induráin · 10.3 km · +174 m · Moderada · Induráin
+- Senderos y paseos · Tierra Estella · Barranco de Obantzea · 10.7 km · +319 m · Moderada · Arguiñano
+- Senderos y paseos · Tierra Estella · Encina de Eraul / Eraulgo arteal - Monumento Natural 1 · 1.7 km · +41 m · Fácil · Eraul
+- Senderos y paseos · Tierra Estella · Lokizko Santiago basilika · 1.7 km · +301 m · Fácil · Ollobarren
+- Senderos y paseos · Tierra Estella · Mañeru - Markalagain - Dolmen de Morea y Menhir de Markalagain · 9.5 km · +332 m · Moderada · Mañeru
+- Senderos y paseos · Tierra Estella · Mirador de Lazkua y castro de Altikogaña · 3.6 km · +107 m · Fácil · Eraul
+- Senderos y paseos · Tierra Estella · Montejurra desde Dicastillo, descenso por Arellano · 12.0 km · +492 m · Moderada · Dicastillo
+- Senderos y paseos · Tierra Estella · PR-A 54 · Bernedo-Angostina-Quintana-Urturi · 18.4 km · +430 m · Moderada · Marañón
+- Senderos y paseos · Tierra Estella · PR-A 62 · La Torca-rako ibilbidea · 10.7 km · +142 m · Moderada · Genevilla
+- Senderos y paseos · Tierra Estella · PR-A 69 · Barrancos de Contrasta · 8.6 km · +248 m · Fácil · Larraona
+- Senderos y paseos · Tierra Estella · PR-A 72 · Ioar mendirako ibilbidea · 13.2 km · +658 m · Moderada · Genevilla
+- Senderos y paseos · Tierra Estella · Pottoka-bustoaren formako ibilaldia · 6.1 km · +247 m · Fácil · Artavia
+- Senderos y paseos · Tierra Estella · Ruta a la ermita del Calvario de Los Arcos · 2.4 km · +33 m · Fácil · Los Arcos
+- Senderos y paseos · Tierra Estella · SL-NA 180 · Irantzu ibaiaren arroila · 3.5 km · +0 m · Fácil · Urra
+- Senderos y paseos · Tierra Estella · SL-NA 185 · San Kosme eta San Damian ibilaldia · 4.6 km · +317 m · Fácil · Artavia
+- Senderos y paseos · Tierra Estella · Sima de Igúzquiza y Monte de la Purísima · 6.2 km · +143 m · Fácil · Igúzquiza
+- Senderos y paseos · Tierra Estella · Ubagua ibaiaren arroila · 4.3 km · +0 m · Fácil · Lezaun
+- Senderos y paseos · Zona Media · Arriaundi - ruinas del Monasterio de San Esteban (Osinaga) · 5.1 km · +279 m · Fácil · Osinaga
+- Senderos y paseos · Zona Media · Ascenso a Montarraga - Santa María de Eunate (Obanos - Eunate) · 6.7 km · +139 m · Fácil · Obanos
+- Senderos y paseos · Zona Media · Manantial de Arteta y cascada de Artazul · 1.9 km · +166 m · Fácil · Aizpún
+- Senderos y paseos · Zona Media · Olcoz - castro de Murugain - Ermita del Santo Cristo - Muruarte de Reta · 5.4 km · +67 m · Fácil · Olcoz
+- Senderos y paseos · Zona Media · PR-NA 170 · Ollarango Itzulia · 17.3 km · +277 m · Moderada · Arteta
+- Senderos y paseos · Zona Media · Peña de Unzué · 3.9 km · +325 m · Fácil · Unzué
+- Senderos y paseos · Zona Media · Rura por la Sierra de Bizkai - Atondo - Ochovi · 9.0 km · +315 m · Moderada · Atondo
+- Senderos y paseos · Zona Media · Ruta de Eguíllor - Castillo de Garaño · 8.2 km · +218 m · Fácil · Beasoain
+- Senderos y paseos · Zona Media · Ruta en Caparroso - Iglesia del Santo Cristo - Vértice geodésico de Caparroso · 4.5 km · +105 m · Fácil · Caparroso
+- Senderos y paseos · Zona Media · Ruta en el Valle de Ollo - Saleras, Arteta y Ultzurrun · 6.8 km · +107 m · Fácil · Arteta
+- Senderos y paseos · Zona Media · San Bernabé y Peña del Abrigo - Unzué · 6.1 km · +256 m · Fácil · Unzué
+- Senderos y paseos · Zona Media · San Pelayo y castro de Muruzar - La Valdorba · 14.2 km · +398 m · Moderada · Orísoain
+- Senderos y paseos · Zona Media · Sierra Saldise - Cima de Mortxe · 12.7 km · +680 m · Moderada · Egillor
+- Senderos y paseos · Zona Media · Sierra del Perdón - Paseo a la ermita de Santa Águeda · 5.4 km · +109 m · Fácil · Basongaitz
+- Senderos y paseos · Zona Media · Ujué - Txutxu Alto · 10.4 km · +227 m · Moderada · Ujué
+- Senderos y paseos · Zona Media · Zarrantz – Zarrantzmendi. Valle de Imotz · 5.5 km · +240 m · Fácil · Zarrantz
+- Vías verdes · Baztan-Bidasoa · Vía Verde del Bidasoa · 41.9 km · +250 m · Muy difícil · Endarlatsa
+- Vías verdes · Baztan-Bidasoa · Vía Verde del Bidasoa · 5.0 km · +192 m · Fácil · Suspelttiki
+- Vías verdes · La Ribera · Vía Verde del Tarazonica · 13.7 km · +0 m · Moderada · Barillas
+- Vías verdes · Plazaola-Sakana-Ultzama · Vía Verde del Plazaola · 49.9 km · +465 m · Muy difícil · Erreka
+- Vías verdes · Plazaola-Sakana-Ultzama · Vía Verde del Plazaola · 42.2 km · +610 m · Muy difícil · Erreka
+- Vías verdes · Sangüesa-Prepirineo · Vía Verde del Irati · 2.6 km · +122 m · Fácil · Lumbier
+- Vías verdes · Sangüesa-Prepirineo · Vía Verde del Irati · 5.5 km · +112 m · Fácil · Lumbier
+- Vías verdes · Tierra Estella · Vía Verde FC Vasco-Navarro · 1.9 km · +125 m · Fácil · Zúñiga
+- Vías verdes · Tierra Estella · Vía Verde FC Vasco-Navarro · 27.9 km · +90 m · Difícil · Zúñiga
