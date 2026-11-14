@@ -142,14 +142,25 @@ function ruCardHtml(r) {
 function ruSpark(r) {const p = r.pf, mn = Math.min(...p), mx = Math.max(...p), rg = Math.max(30, mx - mn), W = 200, H = 26;
   const pts = p.map((e, i) => `${(i / (p.length - 1) * W).toFixed(1)},${(H - 2 - (e - mn) / rg * (H - 4)).toFixed(1)}`).join(' ');
   return `<svg class="ruSpark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polygon points="0,${H} ${pts} ${W},${H}" fill="${RU_DIF[r.dif]}33"/><polyline points="${pts}" fill="none" stroke="${RU_DIF[r.dif]}" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;}
-// dibujo pequeño de la forma de la ruta (sin mapa debajo, para que la lista sea ligera)
-function ruMini(cv, r) {const W = 84, H = 84, x = (() => {const k = window.devicePixelRatio || 1; cv.width = W * k; cv.height = H * k; const c = cv.getContext('2d'); c.setTransform(k, 0, 0, k, 0, 0); return c;})();
+// recuadro de la lista: trozo del mapa del IGN con la ruta dibujada encima.
+// El mapa se pide solo cuando la ruta aparece en pantalla (para no gastar datos con las que no se ven).
+function ruMini(cv, r) {const W = 84, H = 84, k = window.devicePixelRatio || 1;
+  cv.width = W * k; cv.height = H * k; const x = cv.getContext('2d'); x.setTransform(k, 0, 0, k, 0, 0);
   const L = r.lin, la = L.map(p => p[0]), lo = L.map(p => p[1]), s = Math.min(...la), n = Math.max(...la), w = Math.min(...lo), e = Math.max(...lo);
-  const kx = Math.cos((s + n) / 2 * Math.PI / 180), sc = Math.min((W - 16) / Math.max(1e-6, (e - w) * kx), (H - 16) / Math.max(1e-6, n - s));
-  const P = p => [W / 2 + (p[1] - (w + e) / 2) * kx * sc, H / 2 - (p[0] - (s + n) / 2) * sc];
-  x.lineJoin = x.lineCap = 'round';
-  for (const [col, wd] of [['rgba(255,255,255,.85)', 5], [RU_DIF[r.dif], 2.6]]) {x.strokeStyle = col; x.lineWidth = wd; x.beginPath(); L.forEach((p, i) => {const [a, b] = P(p); i ? x.lineTo(a, b) : x.moveTo(a, b);}); x.stroke();}
-  const [a, b] = P(L[0]); x.fillStyle = '#2e9e4f'; x.strokeStyle = '#fff'; x.lineWidth = 2; x.beginPath(); x.arc(a, b, 4.5, 0, 7); x.fill(); x.stroke();
+  const cla = (s + n) / 2, clo = (w + e) / 2, kx = Math.cos(cla * Math.PI / 180);
+  // escala: que la ruta quepa con margen, pero sin acercarse más de ~1 km de lado (rutas muy cortas)
+  const sc = Math.min((W - 18) / Math.max(1e-6, (e - w) * kx), (H - 18) / Math.max(1e-6, n - s), H / 0.009);
+  const P = p => [W / 2 + (p[1] - clo) * kx * sc, H / 2 - (p[0] - cla) * sc];
+  const ruta = () => {x.lineJoin = x.lineCap = 'round';
+    for (const [col, wd] of [['rgba(255,255,255,.95)', 5.5], [RU_DIF[r.dif], 3]]) {x.strokeStyle = col; x.lineWidth = wd; x.beginPath(); L.forEach((p, i) => {const [a, b] = P(p); i ? x.lineTo(a, b) : x.moveTo(a, b);}); x.stroke();}
+    const [a, b] = P(L[0]); x.fillStyle = '#2e9e4f'; x.strokeStyle = '#fff'; x.lineWidth = 2; x.beginPath(); x.arc(a, b, 4.5, 0, 7); x.fill(); x.stroke();};
+  ruta();
+  // zona del mapa que cubre el recuadro (en grados: el IGN la estira igual que el dibujo, así encajan)
+  const dla = H / 2 / sc, dlo = W / 2 / (kx * sc), px = Math.round(W * k);
+  const u = `https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${(cla - dla).toFixed(5)},${(clo - dlo).toFixed(5)},${(cla + dla).toFixed(5)},${(clo + dlo).toFixed(5)}&WIDTH=${px}&HEIGHT=${px}&FORMAT=image/jpeg`;
+  const pide = () => {const im = new Image(); im.onload = () => {x.clearRect(0, 0, W, H); x.drawImage(im, 0, 0, W, H); ruta();}; im.src = u;};
+  if (!window.IntersectionObserver) return pide();
+  const ob = new IntersectionObserver(es => {if (es.some(q => q.isIntersecting)) {ob.disconnect(); pide();}}, {rootMargin: '200px'}); ob.observe(cv);
 }
 function ruLista(mas) {
   const L = ruFiltra(), el = document.getElementById('ruL'); if (!el) return;
