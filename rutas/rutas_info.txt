@@ -1,0 +1,339 @@
+RUTAS A PIE EN OPENSTREETMAP QUE TOCAN NAVARRA (2026-11-14)
+Total: 262 · con al menos 0,5 km dentro de Navarra: 260 · con nombre: 256
+Rutas de bici/BTT (solo contadas): 152 · bicycle: 136, mtb: 16
+
+## Por tipo (matrícula)
+- SL: 60
+- GR: 59
+- Otra (sin matrícula): 57
+- PR: 40
+- Otra de gran recorrido: 26
+- GRT (transfronterizo): 13
+- Camino de Santiago: 5
+
+## Por red OSM (iwn internacional, nwn nacional, rwn regional, lwn local)
+- lwn: 114
+- nwn: 89
+- rwn: 46
+- iwn: 7
+- (sin dato): 4
+
+## Por forma
+- lineal: 121
+- con ramales/huecos: 84
+- circular: 55
+
+## Por distancia (km dentro de Navarra)
+- menos de 5 km: 85
+- 5-10 km: 70
+- 10-20 km: 57
+- 20-40 km: 28
+- más de 40 km: 20
+
+## Por municipio de salida (los 40 con más rutas)
+- Baztan: 18
+- Ochagavía / Otsagabia: 16
+- Uztárroz / Uztarroze: 15
+- Erro: 15
+- Orbaizeta: 12
+- Isaba / Izaba: 10
+- Lesaka: 8
+- Etxarri Aranatz: 8
+- Bera: 7
+- Orreaga / Roncesvalles: 6
+- Leitza: 6
+- Etxalar: 6
+- Urdazubi / Urdax: 6
+- Araitz: 5
+- Ezcabarte: 5
+- Goizueta: 4
+- Iturmendi: 4
+- Bakaiku: 4
+- Lapoblación: 3
+- Javier: 3
+- Beintza-Labaien: 3
+- Larraun: 3
+- Hiriberri / Villanueva de Aezkoa: 3
+- Garaioa: 3
+- Irurtzun: 3
+- Urdiain: 3
+- Luzaide / Valcarlos: 2
+- Ziordia: 2
+- Arano: 2
+- Altsasu / Alsasua: 2
+- Zugarramurdi: 2
+- Cortes: 2
+- Lumbier: 2
+- Auritz / Burguete: 2
+- Orbara: 2
+- Garralda: 2
+- Abaurregaina / Abaurrea Alta: 2
+- Zubieta: 2
+- Allín / Allin: 2
+- Cizur: 2
+
+## Dificultad que trae OSM (casi siempre vacía)
+- (sin dato): 255
+- alpine_hiking: 5
+
+## Lista completa (tipo · matrícula · nombre · km en Navarra · forma · sale de)
+- Camino de Santiago · - · Camino Francés - 01 · 163.3 km · con ramales/huecos · Viana (Viana) · osm.org/relation/2163569
+- Camino de Santiago · - · Camino de Santiago · 12.5 km · con ramales/huecos · Javier (Javier) · osm.org/relation/6684758
+- Camino de Santiago · - · Camino de Santiago · 1.2 km · lineal · Caserío de Echávarri (Aberin) · osm.org/relation/14386699
+- Camino de Santiago · - · Lokizko Santiago basilika · 6.8 km · con ramales/huecos · Ollobarren (Metauten) · osm.org/relation/12178723
+- Camino de Santiago · 66216 · Camino Francés (Alternative) · 26.6 km · con ramales/huecos · Orreaga / Roncesvalles (Orreaga / Roncesvalles) · osm.org/relation/4625660
+- GR · E.GR 11-GR 12 · Bustitza - Uztakorta · 21.3 km · lineal · Aurtitz (Ituren) · osm.org/relation/6752049
+- GR · E.GR 11-GR 12 · Lesaka-Bustitza · 14.2 km · lineal · Lesaka (Lesaka) · osm.org/relation/6752051
+- GR · GR 1 · Ibilbide historikoa: Araba · 36.1 km · lineal · Otiñano (Torralba del Río) · osm.org/relation/6064692
+- GR · GR 1 · Sendero Histórico: Navarra · 133.7 km · lineal · Torre de Peña (Javier) · osm.org/relation/6064699
+- GR · GR 1 · Sendero Histórico: Zaragoza · 53.9 km · lineal · Petilla de Aragón (Petilla de Aragón) · osm.org/relation/6064701
+- GR · GR 10 · La traversée des Pyrénées - sec.9 · 86.5 km · lineal · Pekotxeta (Luzaide / Valcarlos) · osm.org/relation/548457
+- GR · GR 11 · Senda Pirenaica - E31 · 10.6 km · lineal · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/10605310
+- GR · GR 11 · Senda Pirenaica - E32 · 20.9 km · lineal · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/10605309
+- GR · GR 11 · Senda Pirenaica - E33 · 20.4 km · lineal · Ochagavía / Otsagabia (Ochagavía / Otsagabia) · osm.org/relation/10605308
+- GR · GR 11 · Senda Pirenaica - E34 · 17.2 km · lineal · Hiriberri / Villanueva de Aezkoa (Hiriberri / Villanueva de Aezkoa) · osm.org/relation/10605307
+- GR · GR 11 · Senda Pirenaica - E35 · 35.4 km · lineal · Auritz / Burguete (Auritz / Burguete) · osm.org/relation/10605306
+- GR · GR 11 · Senda Pirenaica - E36 · 30.7 km · con ramales/huecos · Elizondo (Baztan) · osm.org/relation/10605305
+- GR · GR 11 · Senda Pirenaica - E37 · 19.3 km · lineal · Bera (Bera) · osm.org/relation/10605304
+- GR · GR 11.3 · Lesakako aldaera · 12.6 km · con ramales/huecos · Katazpegi (Lesaka) · osm.org/relation/6080796
+- GR · GR 11.4 · Variante de Ezkaurre · 12.3 km · lineal · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/9736306
+- GR · GR 12 · Euskal Herriko ibilaldia · 216.8 km · con ramales/huecos · Meano (Lapoblación) · osm.org/relation/5700083
+- GR · GR 120 · Inaziotar bidea · 111.2 km · lineal · Azkarate (Araitz) · osm.org/relation/6076801
+- GR · GR 121 · E11 Epaipide ibilbidea: Lizarrusti - Amezketa · 16.8 km · lineal · Lizarragabengoa (Etxarri Aranatz) · osm.org/relation/5639547
+- GR · GR 121 · E12 Epaipide ibilbidea: Amezketa - Berastegi · 27.2 km · lineal · Azkarate (Araitz) · osm.org/relation/5683685
+- GR · GR 121 · E13 Epaipide ibilbidea: Berastegi - Ugaldetxo · 20.4 km · lineal · Erreka (Leitza) · osm.org/relation/5683711
+- GR · GR 121 · E14 Epaipide ibilbidea: Ugaldetxo - Aritxulegi · 19.7 km · lineal · Arano (Arano) · osm.org/relation/5683836
+- GR · GR 121 · E15 Epaipide ibilbidea: Aritxulegi - Behobia · 10.3 km · con ramales/huecos · Endara (Lesaka) · osm.org/relation/5640100
+- GR · GR 15 · Etapa 13: Ansó – Vértice de Algaraieta · 10.0 km · lineal · Garde (Garde) · osm.org/relation/20371371
+- GR · GR 20 · Aralarko bira · 94.0 km · circular · Azkarate (Araitz) · osm.org/relation/6545762
+- GR · GR 20 D.1 · Arbizu-Gañolarri · 6.2 km · lineal · Arbizu (Arbizu) · osm.org/relation/15628346
+- GR · GR 220 · Iruñerriko itzulia · 112.9 km · con ramales/huecos · Muniáin de Guesálaz (Guesálaz / Gesalatz) · osm.org/relation/5447260
+- GR · GR 225 · 1938ko Ezkabako Ihesa · 57.8 km · con ramales/huecos · Garrués (Ezcabarte) · osm.org/relation/10554246
+- GR · GR 282 · Artzaintza naturbidea · 202.1 km · circular · Ziordia (Ziordia) · osm.org/relation/4275896
+- GR · GR 283 · E06 Gaztaren Ibilbidea: Etzegarate - Lizarrusti · 15.3 km · lineal · Altsasu / Alsasua (Altsasu / Alsasua) · osm.org/relation/6030516
+- GR · GR 285 · E04 Mendibai ibilbidea: Ereñotzu - Behobia · 31.7 km · con ramales/huecos · Arano (Arano) · osm.org/relation/6477599
+- GR · GR 321 · E1. Errege bidea: Burgi - Izaba · 22.3 km · lineal · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/19046271
+- GR · GR 321 · E2. Errege bidea: Izaba - Belaguako aterpea · 17.5 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/19046071
+- GR · GR 321.1 · Kontrabandisten bidea · 18.0 km · lineal · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/17304058
+- GR · GR 321.2 · Errege bidea: Arrako - Belaguako aterpea · 7.3 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/19046373
+- GR · GR 321.D.1 · Errege bidea: Burgi-Bidankoze bide-adarra · 13.8 km · con ramales/huecos · Burgui / Burgi (Burgui / Burgi) · osm.org/relation/19065687
+- GR · GR 321.D.2 · Errege bidea: Erronkari - Garde bide-adarra · 4.9 km · lineal · Roncal / Erronkari (Roncal / Erronkari) · osm.org/relation/19065694
+- GR · GR 321.D.3 · Errege bidea: Izaba - Uztarroze bide-adarra · 8.1 km · con ramales/huecos · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/19065698
+- GR · GR 321.E.1 · Errege bidea: Lotura 1. Martiaberroa · 1.3 km · con ramales/huecos · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/19046385
+- GR · GR 321.E.2 · Errege bidea: Lotura 2. Ekialterrea · 2.0 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/19046395
+- GR · GR 321.E.3 · Errege bidea: Lotura 3. Zarzakulea · 3.4 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/19046398
+- GR · GR 321.E.4 · Errege bidea: Lotura 4. Lapatia · 3.4 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/19046400
+- GR · GR 322 · Nafarroa Xtrem · 67.0 km · lineal · Iragi (Esteribar) · osm.org/relation/19045968
+- GR · GR 323 · Bernoako Galtzada: Etxarri Aranatz - Urdiain · 18.2 km · lineal · Etxarri Aranatz (Etxarri Aranatz) · osm.org/relation/19064020
+- GR · GR 323 · Bernoako Galtzada: Urdiain - Etxarri Aranatz · 14.6 km · con ramales/huecos · Urdiain (Urdiain) · osm.org/relation/19064052
+- GR · GR 323.1 · Bernoako Galtzada: Etxarri-Aranatz - Bakaiku · 4.5 km · lineal · Etxarri Aranatz (Etxarri Aranatz) · osm.org/relation/19064100
+- GR · GR 323.10 · Bernoako Galtzada: Bakaiku - Lizarragako portua · 4.7 km · lineal · Bakaiku (Bakaiku) · osm.org/relation/19064178
+- GR · GR 323.10 · Bernoako Galtzada: Bakaiku - Santa Marina (Iruaitzeta ondotik) · 4.2 km · lineal · Bakaiku (Bakaiku) · osm.org/relation/19064173
+- GR · GR 323.2 · Bernoako Galtzada: Bakaiku · 2.4 km · lineal · Bakaiku (Bakaiku) · osm.org/relation/19064081
+- GR · GR 323.3 · Bernoako Galtzada: Iturmendi · 3.4 km · lineal · Iturmendi (Iturmendi) · osm.org/relation/19064106
+- GR · GR 323.4 · Bernoako Galtzada: Iturmendi - Urdiain lotura · 2.3 km · lineal · Iturmendi (Iturmendi) · osm.org/relation/19064112
+- GR · GR 323.5 · Bernoako Galtzada: Intxusburu lotunea · 1.4 km · lineal · Altsasu / Alsasua (Altsasu / Alsasua) · osm.org/relation/19064114
+- GR · GR 323.6 · Bernoako Galtzada: Urdiain - Iturmendi - Bakaiku · 3.0 km · lineal · Urdiain (Urdiain) · osm.org/relation/19064137
+- GR · GR 323.7 · Bernoako Galtzada: Urdiain - Iturmendi Lotunea · 0.6 km · lineal · Urdiain (Urdiain) · osm.org/relation/19064151
+- GR · GR 323.8 · Bernoako Galtzada: Iturmendi - Santa Marina · 3.6 km · lineal · Iturmendi (Iturmendi) · osm.org/relation/19064162
+- GR · GR 323.9 · Bernoako Galtzada: Bakaiku - Santa Marina · 3.6 km · lineal · Bakaiku (Bakaiku) · osm.org/relation/19064169
+- GR · GR 323.D.4 · Bernoako Galtzada: Etxarriko portua eta Lizarragako San Adrian ermitarako deribazioa · 0.9 km · lineal · Lizarraga (Ergoiena) · osm.org/relation/19064204
+- GR · GR 65.3 · Camino Aragonés · 90.1 km · con ramales/huecos · Castillonuevo / Gazteluberri (Castillonuevo / Gazteluberri) · osm.org/relation/2163937
+- GR · GR 99 · Camino natural de Ebro - Tramo central · 172.1 km · lineal · Meano (Lapoblación) · osm.org/relation/18814948
+- GR · GR-T 13 · Hegoaldea: Puerto de los Navarros / Argibiela - Linza - Belagua · 34.3 km · con ramales/huecos · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/3935588
+- GRT (transfronterizo) · GRT 10 · (sin nombre) · 10.4 km · lineal · Pikatua (Ochagavía / Otsagabia) · osm.org/relation/13353865
+- GRT (transfronterizo) · GRT 12 · Eraizeko lepoa - Belagua · 2.5 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/19447908
+- GRT (transfronterizo) · GRT 12 · Sainte-Engrâce - Erraitzeko Lepua · 6.8 km · con ramales/huecos · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/19447904
+- GRT (transfronterizo) · GRT 13 · Iparraldea: Intzola lepoa (GR12) - Cazette (GR10) · 1.5 km · lineal · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/19046012
+- GRT (transfronterizo) · GRT 3 · Bera (GR11) - Ibardin (GR10) · 4.8 km · lineal · Bera (Bera) · osm.org/relation/19447954
+- GRT (transfronterizo) · GRT 5 · Elizondo - Berderiz - Argibel - Elizondo · 22.8 km · circular · Elizondo (Baztan) · osm.org/relation/19448035
+- GRT (transfronterizo) · GRT 5 · Elizondo - Berderiz - Izpegi - Buztanzelaiko lepoa · 23.2 km · lineal · Elizondo (Baztan) · osm.org/relation/19448034
+- GRT (transfronterizo) · GRT 5 · Izpegi - Buztanzelaiko lepoa - Baigorri · 8.8 km · lineal · Iñarbil (Baztan) · osm.org/relation/19448033
+- GRT (transfronterizo) · GRT 5 · Izpegi - Buztanzelaiko lepoa - Iparla - Bidarrai · 13.3 km · lineal · Iñarbil (Baztan) · osm.org/relation/19448032
+- GRT (transfronterizo) · GRT 7 · Donsimonmendia (GRT7) - Nabala (GR11) · 1.9 km · lineal · Orreaga / Roncesvalles (Orreaga / Roncesvalles) · osm.org/relation/19448054
+- GRT (transfronterizo) · GRT 7 · Lepoeder (GR12) - Auritz (GR11) · 5.9 km · lineal · Auritz / Burguete (Auritz / Burguete) · osm.org/relation/19448055
+- GRT (transfronterizo) · GRT 8 · Txutxurieta (GR11) - Azpegi (GR12) · 8.6 km · lineal · Orbaizetako Ola / Fábrica de Orbaizeta (Orbaizeta) · osm.org/relation/19448060
+- GRT (transfronterizo) · GRT 9 · Urbeltza (GR12) - Burdin hesiak pasabidea (GR11) · 9.3 km · lineal · Nuestra Señora de las Nieves (Ochagavía / Otsagabia) · osm.org/relation/19448068
+- Otra (sin matrícula) · - · (sin nombre) · 7.4 km · lineal · Orreaga / Roncesvalles (Orreaga / Roncesvalles) · osm.org/relation/21030937
+- Otra (sin matrícula) · - · Alzuza · 4.4 km · con ramales/huecos · Alzuza (Valle de Egüés / Eguesibar) · osm.org/relation/11961563
+- Otra (sin matrícula) · - · Argako Ibai-pasealekua · 45.8 km · con ramales/huecos · Ansoáin / Antsoain (Ansoáin / Antsoain) · osm.org/relation/11961664
+- Otra (sin matrícula) · - · Artikutzako antzeko trenbide arrastoak (1905-1918) · 7.8 km · lineal · Artikutza (Goizueta) · osm.org/relation/12219067
+- Otra (sin matrícula) · - · Aurkidiko itzulia · 9.5 km · con ramales/huecos · Zubieta (Zubieta) · osm.org/relation/11202839
+- Otra (sin matrícula) · - · Barétous - Tête Sauvage · 9.3 km · circular · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/21191990
+- Otra (sin matrícula) · - · Basajaunberroko basoa · 3.9 km · lineal · Orreaga / Roncesvalles (Orreaga / Roncesvalles) · osm.org/relation/11948722
+- Otra (sin matrícula) · - · Belateko ekialdeko aldaera (Baztango Donejakue bidea) · 9.4 km · lineal · Almandoz (Baztan) · osm.org/relation/18003755
+- Otra (sin matrícula) · - · Belateko itzulia · 6.2 km · circular · Almandoz (Baztan) · osm.org/relation/7491448
+- Otra (sin matrícula) · - · Berraguko bidea · 6.8 km · con ramales/huecos · Aurizberri / Espinal (Erro) · osm.org/relation/11512077
+- Otra (sin matrícula) · - · Camino Natural del Agua Soriano. Camino Antonino · 25.1 km · con ramales/huecos · Fitero (Fitero) · osm.org/relation/12692873
+- Otra (sin matrícula) · - · Camiño Francés (Rutas alternativas) · 26.1 km · con ramales/huecos · Meano (Lapoblación) · osm.org/relation/1844694
+- Otra (sin matrícula) · - · Castillo de Irulegui · 3.9 km · circular · Laquidáin / Lakidain (Aranguren) · osm.org/relation/11961662
+- Otra (sin matrícula) · - · Castillo de Monjardín · 4.1 km · con ramales/huecos · Villamayor de Monjardín (Villamayor de Monjardín) · osm.org/relation/11961590
+- Otra (sin matrícula) · - · Errekaidorra · 10.1 km · circular · Irati (Ochagavía / Otsagabia) · osm.org/relation/14475718
+- Otra (sin matrícula) · - · Erro - Mezkiritz · 6.4 km · lineal · Erro (Erro) · osm.org/relation/11521052
+- Otra (sin matrícula) · - · Erro - Zilbeti · 6.2 km · lineal · Zilbeti (Erro) · osm.org/relation/11519988
+- Otra (sin matrícula) · - · Foz de Lumbier (ruta corta) · 3.3 km · circular · Lumbier (Lumbier) · osm.org/relation/8555287
+- Otra (sin matrícula) · - · Gartxoten Bidea · 11.2 km · lineal · Izalzu / Itzaltzu (Izalzu / Itzaltzu) · osm.org/relation/12180607
+- Otra (sin matrícula) · - · Gotorlekuko bidea · 4.8 km · con ramales/huecos · Erro (Erro) · osm.org/relation/11521051
+- Otra (sin matrícula) · - · Haritz monumentalak · 2.0 km · con ramales/huecos · Jauntsarats (Basaburua) · osm.org/relation/12180581
+- Otra (sin matrícula) · - · Irusoko megalitoak · 2.7 km · con ramales/huecos · Arkiskil (Leitza) · osm.org/relation/5621868
+- Otra (sin matrícula) · - · Iturburua · 6.3 km · circular · Bertiz (Bertizarana) · osm.org/relation/12179977
+- Otra (sin matrícula) · - · La grotte d'Harpéa par le cayolar · 0.5 km · lineal · Orbaizetako Ola / Fábrica de Orbaizeta (Orbaizeta) · osm.org/relation/17596034
+- Otra (sin matrícula) · - · Loizu - Ardaitz · 8.6 km · lineal · Loizu (Erro) · osm.org/relation/11519311
+- Otra (sin matrícula) · - · Mendizaleen ibilbidea · 3.7 km · lineal · Olazti / Olazagutía (Olazti / Olazagutía) · osm.org/relation/8592793
+- Otra (sin matrícula) · - · Mendrasako itzulia · 6.6 km · con ramales/huecos · Zubieta (Zubieta) · osm.org/relation/11202840
+- Otra (sin matrícula) · - · Monte Ezkaba · 9.6 km · con ramales/huecos · Garrués (Ezcabarte) · osm.org/relation/11960825
+- Otra (sin matrícula) · - · Monte Gazolatz · 5.2 km · con ramales/huecos · Gazólaz (Cizur) · osm.org/relation/11960824
+- Otra (sin matrícula) · - · Nacedero del Urederra · 5.6 km · circular · Baquedano / Bakedao (Améscoa Baja) · osm.org/relation/8593874
+- Otra (sin matrícula) · - · Oderizko trikuharrien ibilbidea · 2.7 km · con ramales/huecos · Oderitz (Larraun) · osm.org/relation/11961580
+- Otra (sin matrícula) · - · Orgiko basoaren ibilaldia · 3.8 km · lineal · Lizaso (Ultzama) · osm.org/relation/11961581
+- Otra (sin matrícula) · - · Paseo Elorz-Sadar · 16.3 km · con ramales/huecos · Barañáin / Barañain (Barañáin / Barañain) · osm.org/relation/11961665
+- Otra (sin matrícula) · - · Paseo Fluvial Río Elorz · 11.0 km · con ramales/huecos · Cizur Menor (Cizur) · osm.org/relation/16876899
+- Otra (sin matrícula) · - · Paseo del Ulzama · 13.0 km · con ramales/huecos · Sorauren (Ezcabarte) · osm.org/relation/11961663
+- Otra (sin matrícula) · - · Paxula – Iratiko Etxolak · 4.1 km · lineal · Irati (Ochagavía / Otsagabia) · osm.org/relation/11863409
+- Otra (sin matrícula) · - · Pottoka Urdinaren ibilbidea · 6.1 km · con ramales/huecos · Etxartea (Zugarramurdi) · osm.org/relation/11946101
+- Otra (sin matrícula) · - · Pottoka-bustoaren formako ibilaldia · 6.3 km · con ramales/huecos · Artavia (Allín / Allin) · osm.org/relation/11601031
+- Otra (sin matrícula) · - · Ruta de las Salinas · 2.7 km · con ramales/huecos · Valtierra (Valtierra) · osm.org/relation/8480705
+- Otra (sin matrícula) · - · SL NA-138 · 1.2 km · lineal · Irurtzun (Irurtzun) · osm.org/relation/21153028
+- Otra (sin matrícula) · - · Saien balkoiaren ibilbidea · 5.2 km · con ramales/huecos · Irurtzun (Irurtzun) · osm.org/relation/11948370
+- Otra (sin matrícula) · - · Sorogaingo ibilbide megalitikoa · 7.9 km · lineal · Sorogain-Lastur (Erro) · osm.org/relation/11522928
+- Otra (sin matrícula) · - · Ubagua ibaiaren arroila · 4.6 km · con ramales/huecos · Riezu / Errezu (Valle de Yerri / Deierri) · osm.org/relation/11052298
+- Otra (sin matrícula) · - · Uraren bidea · 7.4 km · con ramales/huecos · Doneztebe / Santesteban (Doneztebe / Santesteban) · osm.org/relation/12839944
+- Otra (sin matrícula) · - · Xabierraldia (Iruña - Xabierko gaztelua) · 56.8 km · con ramales/huecos · Sarriguren (Valle de Egüés / Eguesibar) · osm.org/relation/12082795
+- Otra (sin matrícula) · - · Zentinelako ibilbide arkeologikoa · 8.7 km · lineal · Orizki (Etxalar) · osm.org/relation/5979460
+- Otra (sin matrícula) · - · Zilbeti - Tiratun · 5.2 km · lineal · Zilbeti (Erro) · osm.org/relation/11519989
+- Otra (sin matrícula) · 2 · Aita Santuaren ibilbidea - Agur Harria · 11.5 km · con ramales/huecos · Javier (Javier) · osm.org/relation/6684782
+- Otra (sin matrícula) · 220 · Vuelta a la comarca de Pamplona · 0.9 km · lineal · Ezcaba (Ezcabarte) · osm.org/relation/5491722
+- Otra (sin matrícula) · 25 · Zilbeti - Sorogain · 7.9 km · lineal · Sorogain-Lastur (Erro) · osm.org/relation/11519990
+- Otra (sin matrícula) · 4 · Loizu - Aintzioa · 4.6 km · lineal · Aintzioa (Erro) · osm.org/relation/11519310
+- Otra (sin matrícula) · 9 · Muskildako hariztiaren bidexka · 4.3 km · circular · Bizkarreta-Gerendiain (Erro) · osm.org/relation/11522929
+- Otra (sin matrícula) · SVE 1 · Aintzioa - Esnotz · 2.4 km · lineal · Aintzioa (Erro) · osm.org/relation/11511056
+- Otra (sin matrícula) · SVE 12 · Urepelbide zaharra · 21.5 km · con ramales/huecos · Sorogain-Lastur (Erro) · osm.org/relation/7254150
+- Otra (sin matrícula) · SVE 14 · Sorogaingo pagadiaren bidexka · 2.3 km · con ramales/huecos · Sorogain-Lastur (Erro) · osm.org/relation/7258523
+- Otra (sin matrícula) · SVE 2 · Orondritz - Esnotz · 2.4 km · con ramales/huecos · Orondritz (Erro) · osm.org/relation/11511057
+- Otra (sin matrícula) · SVE 3 · Aurizberri - Esnotz ibilbidea · 10.9 km · lineal · Esnotz (Erro) · osm.org/relation/11511308
+- Otra de gran recorrido · - · (sin nombre) · 24.1 km · con ramales/huecos · Orreaga / Roncesvalles (Orreaga / Roncesvalles) · osm.org/relation/1106914
+- Otra de gran recorrido · - · Baztango Donejakue bidea · 77.2 km · con ramales/huecos · Dantxarinea (Urdazubi / Urdax) · osm.org/relation/7201036
+- Otra de gran recorrido · - · Camino Jacobeo del Ebro · 132.7 km · con ramales/huecos · Cortes (Cortes) · osm.org/relation/7335355
+- Otra de gran recorrido · - · Camino de las Asturias · 89.8 km · lineal · Pamplona / Iruña (Pamplona / Iruña) · osm.org/relation/18027801
+- Otra de gran recorrido · - · Sakanako Donejakue bidea · 45.5 km · lineal · Irurtzun (Irurtzun) · osm.org/relation/18013057
+- Otra de gran recorrido · - · Variante 3.1 · 12.8 km · lineal · Arizkun (Baztan) · osm.org/relation/5846666
+- Otra de gran recorrido · - · Via Sancti Martini - Camino de Zaragoza / Chemin de Saragosse · 154.7 km · con ramales/huecos · Cortes (Cortes) · osm.org/relation/19347081
+- Otra de gran recorrido · - · Voie du Puy · 23.7 km · lineal · Pekotxeta (Luzaide / Valcarlos) · osm.org/relation/3526652
+- Otra de gran recorrido · E11-12 · Lakaingo lepoa - Bustitza · 25.8 km · lineal · Lakain-Apezborro (Etxalar) · osm.org/relation/6752050
+- Otra de gran recorrido · E3 · European long distance path E3 - part Spain · 21.3 km · lineal · Orreaga / Roncesvalles (Orreaga / Roncesvalles) · osm.org/relation/8267744
+- Otra de gran recorrido · HRP · Étape 01 · 14.8 km · lineal · Endarlatsa (Lesaka) · osm.org/relation/3326074
+- Otra de gran recorrido · HRP · Étape 02 · 27.1 km · lineal · Garaitarreta (Bera) · osm.org/relation/3326179
+- Otra de gran recorrido · HRP · Étape 03 · 14.4 km · lineal · Elizondo (Baztan) · osm.org/relation/3326201
+- Otra de gran recorrido · HRP · Étape 04 · 33.3 km · lineal · Beartzun (Baztan) · osm.org/relation/3327266
+- Otra de gran recorrido · HRP · Étape 05 · 22.1 km · lineal · Orbaizetako Ola / Fábrica de Orbaizeta (Orbaizeta) · osm.org/relation/3328143
+- Otra de gran recorrido · HRP · Étape 06 · 18.7 km · lineal · Nuestra Señora de las Nieves (Ochagavía / Otsagabia) · osm.org/relation/3330037
+- Otra de gran recorrido · HRP · Étape 07 · 19.9 km · lineal · Pikatua (Ochagavía / Otsagabia) · osm.org/relation/3330135
+- Otra de gran recorrido · HRP · Étape 08 · 6.7 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/3330704
+- Otra de gran recorrido · HRP 8.3 · Variante 8.3 · 5.6 km · con ramales/huecos · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/5852756
+- Otra de gran recorrido · HRP Var. · Variante 1.1 · 3.4 km · lineal · Kaule (Bera) · osm.org/relation/3330795
+- Otra de gran recorrido · HRP Var. · Variante 2.1 · 2.6 km · lineal · Eltzaurdia (Bera) · osm.org/relation/5843553
+- Otra de gran recorrido · HRP Var. · Variante 2.2 · 6.7 km · lineal · Eltzaurdia (Bera) · osm.org/relation/5843567
+- Otra de gran recorrido · HRP Var. · Variante 2.3 · 6.4 km · lineal · Apaioa (Baztan) · osm.org/relation/5843814
+- Otra de gran recorrido · HRP Var. · Variante 4.2 · 3.7 km · lineal · Orbaizetako Ola / Fábrica de Orbaizeta (Orbaizeta) · osm.org/relation/5846699
+- Otra de gran recorrido · HRP Var. · Variante 7.1 · 1.7 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/5847427
+- Otra de gran recorrido · HRP Var. · Variante 7.2 · 2.3 km · lineal · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/5847436
+- PR · PR-A 54 · Bernedo-Angostina-Quintana-Urturi · 18.0 km · circular · Marañón (Marañón) · osm.org/relation/18020869
+- PR · PR-A 62 · La Torca-rako ibilbidea · 10.7 km · circular · Genevilla (Genevilla) · osm.org/relation/15084847
+- PR · PR-A 68 · Mojon Largo-rako ibilbidea · 6.3 km · circular · Gastiáin (Lana) · osm.org/relation/15085078
+- PR · PR-A 69 · Barrancos de Contrasta · 8.6 km · circular · Larraona (Larraona) · osm.org/relation/6622322
+- PR · PR-A 71 · Marquillanorako ibilbidea · 14.9 km · circular · Zúñiga (Zúñiga) · osm.org/relation/18020832
+- PR · PR-A 72 · Ioar mendirako ibilbidea · 13.2 km · circular · Genevilla (Genevilla) · osm.org/relation/18020842
+- PR · PR-GI 1010 · Aiako Harriko tontorrei bira · 10.7 km · con ramales/huecos · Endara (Lesaka) · osm.org/relation/4603835
+- PR · PR-GI 2001 · Nafar bideak · 9.8 km · lineal · Lizarragabengoa (Etxarri Aranatz) · osm.org/relation/5577342
+- PR · PR-GI 2007 · Zarateko bira · 7.5 km · circular · Azkarate (Araitz) · osm.org/relation/5595289
+- PR · PR-GI 2008 · Malloetako zeharkaldia · 13.5 km · lineal · Azkarate (Araitz) · osm.org/relation/4660791
+- PR · PR-GI 3010 · Partzoneriako basoak · 20.2 km · lineal · Ziordia (Ziordia) · osm.org/relation/5452761
+- PR · PR-Gi 1007 · Artikutzako trenbide zaharra · 11.1 km · lineal · Endara (Lesaka) · osm.org/relation/6689731
+- PR · PR-NA 1 · Abartan · 12.7 km · circular · Berroeta (Baztan) · osm.org/relation/6109758
+- PR · PR-NA 10 · Arantzako zirkoa · 14.1 km · lineal · Eguzkialdea (Arantza) · osm.org/relation/6287088
+- PR · PR-NA 100 · Ibargoiora · 9.9 km · lineal · Donamaria (Donamaria) · osm.org/relation/6653111
+- PR · PR-NA 100 · Kornieta · 10.3 km · con ramales/huecos · Leitza (Leitza) · osm.org/relation/7156218
+- PR · PR-NA 101 · (sin nombre) · 12.8 km · circular · Saldias (Saldias) · osm.org/relation/6645007
+- PR · PR-NA 102 · Leurtzako basoa · 8.9 km · circular · Beintza-Labaien (Beintza-Labaien) · osm.org/relation/6653112
+- PR · PR-NA 102.1 · Leurtzatik Beintza Labaienera · 4.8 km · lineal · Beintza-Labaien (Beintza-Labaien) · osm.org/relation/6653113
+- PR · PR-NA 11 · San Antón - Domiko · 14.6 km · con ramales/huecos · Auzoberri (Lesaka) · osm.org/relation/6090310
+- PR · PR-NA 12 · Azkua · 9.4 km · circular · Etxalar (Etxalar) · osm.org/relation/5877681
+- PR · PR-NA 124 · Eskas - Artikutza · 10.3 km · circular · Artikutza (Goizueta) · osm.org/relation/5792374
+- PR · PR-NA 125 · Eskas-Pagolleta-Izu-Artikutza-Eskas · 16.0 km · con ramales/huecos · Artikutza (Goizueta) · osm.org/relation/5792373
+- PR · PR-NA 130 · Santa Marina ermita, Urbasa · 3.9 km · lineal · Iturmendi (Iturmendi) · osm.org/relation/15636017
+- PR · PR-NA 133 · Trikuharrien ibilbidea · 14.1 km · circular · Lizarragabengoa (Etxarri Aranatz) · osm.org/relation/7857381
+- PR · PR-NA 133.1 · Trikuharrien ibilbidea - bariantea · 4.1 km · lineal · Etxarri Aranatz (Etxarri Aranatz) · osm.org/relation/7857380
+- PR · PR-NA 15 · Atxuria · 9.8 km · lineal · Etxalar (Etxalar) · osm.org/relation/5877683
+- PR · PR-NA 16 · Larun · 14.2 km · circular · Kaule (Bera) · osm.org/relation/5852778
+- PR · PR-NA 17 · Lesaka - Agina · 22.7 km · con ramales/huecos · Lesaka (Lesaka) · osm.org/relation/6090311
+- PR · PR-NA 170 · Ollarango Itzulia · 23.1 km · con ramales/huecos · Ollo (Valle de Ollo / Ollaran) · osm.org/relation/11049073
+- PR · PR-NA 183 · Lezaungo pagadia · 9.1 km · circular · Lezaun (Lezaun) · osm.org/relation/11052471
+- PR · PR-NA 193 · Leitza-Ixkibar-Aitzmurdi · 23.7 km · circular · Leitza (Leitza) · osm.org/relation/5637708
+- PR · PR-NA 203 · Mata de Haya-Larreria-Zemeto · 11.6 km · circular · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/15077037
+- PR · PR-NA 3 · Beartzun · 13.2 km · lineal · Beartzun (Baztan) · osm.org/relation/6497320
+- PR · PR-NA 4 · Baztangoiza · 12.2 km · circular · Arizkun (Baztan) · osm.org/relation/6587352
+- PR · PR-NA 6 · Aritzakun · 13.4 km · circular · Telleria (Urdazubi / Urdax) · osm.org/relation/6857688
+- PR · PR-NA 7 · Iñarbegi · 14.6 km · circular · Gorostapalo (Baztan) · osm.org/relation/6801047
+- PR · PR-NA 82 · Aralarko Done Mikel · 18.8 km · lineal · Baraibar (Larraun) · osm.org/relation/8657756
+- PR · PR-NA 86 · Albiasuko behatokia · 11.4 km · lineal · Lekunberri (Lekunberri) · osm.org/relation/8670845
+- PR · PR-NA 90 · Sorginen bidea · 12.9 km · lineal · Alkerdi (Urdazubi / Urdax) · osm.org/relation/7278640
+- SL · SL-GI 2004 · Allekupeko baso-bidea · 3.2 km · circular · Lizarragabengoa (Etxarri Aranatz) · osm.org/relation/5730766
+- SL · SL-NA · Alkurruntz · 7.0 km · circular · Amaiur / Maya (Baztan) · osm.org/relation/6857689
+- SL · SL-NA · Elorrieta · 5.8 km · circular · Iñarbil (Baztan) · osm.org/relation/6801045
+- SL · SL-NA · Ibaineta · 5.0 km · circular · Etxartea (Zugarramurdi) · osm.org/relation/7278639
+- SL · SL-NA 1 · San Juan Xar · 4.7 km · lineal · Igantzi (Igantzi) · osm.org/relation/6754394
+- SL · SL-NA 113 · Foz de Lumbier · 6.2 km · circular · Lumbier (Lumbier) · osm.org/relation/8555286
+- SL · SL-NA 12 · Xorroxin · 5.9 km · con ramales/huecos · Iñarbil (Baztan) · osm.org/relation/6801046
+- SL · SL-NA 121 · Urtegiari Bira (Artikutza) · 5.7 km · circular · Artikutza (Goizueta) · osm.org/relation/5792375
+- SL · SL-NA 131 · Aixita ibilbidea · 3.9 km · con ramales/huecos · Etxeberri (Arakil) · osm.org/relation/11021650
+- SL · SL-NA 136 · Haritz monumentalak · 7.2 km · circular · Irañeta (Irañeta) · osm.org/relation/10603248
+- SL · SL-NA 137 · Etxarriko haritz zaharren ibilbidea · 3.1 km · con ramales/huecos · Etxarri Aranatz (Etxarri Aranatz) · osm.org/relation/7857379
+- SL · SL-NA 14 · Azkarreko itzulia · 6.6 km · con ramales/huecos · Urdazubi / Urdax (Urdazubi / Urdax) · osm.org/relation/7298048
+- SL · SL-NA 140 · Senda de los Pescadores · 1.4 km · lineal · Goldaratz (Imotz) · osm.org/relation/18055965
+- SL · SL-NA 15 · Otsondottiki · 8.1 km · con ramales/huecos · Urdazubi / Urdax (Urdazubi / Urdax) · osm.org/relation/7298049
+- SL · SL-NA 17 · Axularren txokoa · 4.9 km · circular · Alkerdi (Urdazubi / Urdax) · osm.org/relation/7298047
+- SL · SL-NA 172 · Circular de Ezkaba · 7.2 km · circular · Ezcaba (Ezcabarte) · osm.org/relation/18055903
+- SL · SL-NA 180 · Irantzu ibaiaren arroila · 3.5 km · con ramales/huecos · Irantzu (Abárzuza / Abartzuza) · osm.org/relation/11058505
+- SL · SL-NA 185 · San Kosme eta San Damian ibilaldia · 5.2 km · con ramales/huecos · Galdeano (Allín / Allin) · osm.org/relation/11601032
+- SL · SL-NA 2 · Chemin des Palombières · 5.2 km · circular · Gorosurreta (Etxalar) · osm.org/relation/6080797
+- SL · SL-NA 284 · Izaieta · 6.3 km · circular · Arkiskil (Leitza) · osm.org/relation/5637709
+- SL · SL-NA 285 · Lapurren kaltzada · 6.1 km · circular · Erreka (Leitza) · osm.org/relation/5621869
+- SL · SL-NA 302 · Iribasko iturburuak · 4.6 km · con ramales/huecos · Baraibar (Larraun) · osm.org/relation/8670844
+- SL · SL-NA 5 · Argarata - Santa Krutz · 4.4 km · con ramales/huecos · Larrapil-Sarriku (Etxalar) · osm.org/relation/5877684
+- SL · SL-NA 50 · San Frantziskoko Muinoa · 4.9 km · con ramales/huecos · Hiriberri / Villanueva de Aezkoa (Hiriberri / Villanueva de Aezkoa) · osm.org/relation/11042606
+- SL · SL-NA 50A · Errondoko Behatokia · 3.2 km · con ramales/huecos · Garralda (Garralda) · osm.org/relation/11038804
+- SL · SL-NA 50B · Asketaldeko Haitzuloa · 3.6 km · con ramales/huecos · Abaurrepea / Abaurrea Baja (Abaurrepea / Abaurrea Baja) · osm.org/relation/11041315
+- SL · SL-NA 51A · Garralda-Kadea-Garralda · 3.8 km · lineal · Garralda (Garralda) · osm.org/relation/11038805
+- SL · SL-NA 51B · San Migel ermita · 0.9 km · lineal · Abaurregaina / Abaurrea Alta (Abaurregaina / Abaurrea Alta) · osm.org/relation/11042140
+- SL · SL-NA 51C · Azalegi-San Esteban ermita · 7.5 km · lineal · Larraun (Orbaizeta) · osm.org/relation/11875160
+- SL · SL-NA 52C · Beuntza Plazako bidea · 4.1 km · circular · Irabiako Uharka / Pantano de Irabia (Orbaizeta) · osm.org/relation/11035218
+- SL · SL-NA 53 · Aztapargo Errakastoa · 2.9 km · con ramales/huecos · Orbara (Orbara) · osm.org/relation/11042609
+- SL · SL-NA 53A · Garaioako milurteko haritza · 2.8 km · lineal · Aribe (Aribe) · osm.org/relation/11033257
+- SL · SL-NA 53B · Bordetako Bidea · 6.9 km · circular · Orbara (Orbara) · osm.org/relation/11034930
+- SL · SL-NA 53C · Irabiako uharkari itzulia · 9.9 km · circular · Idaibea (Ochagavía / Otsagabia) · osm.org/relation/11875198
+- SL · SL-NA 54 · Abaurrea Bidean · 7.7 km · con ramales/huecos · Abaurregaina / Abaurrea Alta (Abaurregaina / Abaurrea Alta) · osm.org/relation/11042607
+- SL · SL-NA 54C · C Paradisuak - Erlan · 4.4 km · circular · Irabiako Uharka / Pantano de Irabia (Orbaizeta) · osm.org/relation/14459465
+- SL · SL-NA 55 · Iturta Otarratz · 4.2 km · circular · Garaioa (Garaioa) · osm.org/relation/11034929
+- SL · SL-NA 55A · Sorginen bidea · 1.6 km · con ramales/huecos · Hiriberri / Villanueva de Aezkoa (Hiriberri / Villanueva de Aezkoa) · osm.org/relation/11038803
+- SL · SL-NA 56A · Arburuko Begiratokia · 3.3 km · con ramales/huecos · Orbaizeta (Orbaizeta) · osm.org/relation/11033259
+- SL · SL-NA 57A · Arlekiko Gaztelua eta Lutoko Haitzuloak · 3.2 km · con ramales/huecos · Orbaizetako Ola / Fábrica de Orbaizeta (Orbaizeta) · osm.org/relation/11041848
+- SL · SL-NA 57B · Ursarioko Basoa · 5.9 km · con ramales/huecos · Orbaizetako Ola / Fábrica de Orbaizeta (Orbaizeta) · osm.org/relation/11035296
+- SL · SL-NA 58A · A Zamariaingo behatokia · 6.5 km · circular · Garaioa (Garaioa) · osm.org/relation/11033258
+- SL · SL-NA 59A · Artetxeko Haitzuloak · 2.2 km · con ramales/huecos · Garaioa (Garaioa) · osm.org/relation/11041849
+- SL · SL-NA 59B · Arlekia-Lauzaran · 6.2 km · con ramales/huecos · Orbaizetako Ola / Fábrica de Orbaizeta (Orbaizeta) · osm.org/relation/11042608
+- SL · SL-NA 60A · Iratiko etxeetako bide zaharra · 10.6 km · con ramales/huecos · Irati (Ochagavía / Otsagabia) · osm.org/relation/11862864
+- SL · SL-NA 61 · Beieguko Harria · 4.7 km · con ramales/huecos · Jaurrieta (Jaurrieta) · osm.org/relation/11990565
+- SL · SL-NA 61A · Zentzumenen ibilbidea · 1.8 km · circular · Nuestra Señora de las Nieves (Ochagavía / Otsagabia) · osm.org/relation/14522783
+- SL · SL-NA 62A · Urbeltza ibaiaren bide-zidorra · 2.4 km · con ramales/huecos · Irati (Ochagavía / Otsagabia) · osm.org/relation/11862871
+- SL · SL-NA 63A · Zabaletako oihaneko bide-zaharra · 7.9 km · circular · Irati (Ochagavía / Otsagabia) · osm.org/relation/8522375
+- SL · SL-NA 64A · Cerrillar · 4.6 km · lineal · Pikatua (Ochagavía / Otsagabia) · osm.org/relation/11863408
+- SL · SL-NA 65 · Irati eta Muskildarako bide zaharra · 5.9 km · circular · Ochagavía / Otsagabia (Ochagavía / Otsagabia) · osm.org/relation/11863407
+- SL · SL-NA 67 · Goñiburuko begiratokia · 3.6 km · circular · Irabiako Uharka / Pantano de Irabia (Orbaizeta) · osm.org/relation/8515443
+- SL · SL-NA 68 · Abodiko gainak · 6.3 km · lineal · Idaibea (Ochagavía / Otsagabia) · osm.org/relation/11863406
+- SL · SL-NA 69 · Koixtako bide zaharra · 10.7 km · con ramales/huecos · Irati (Ochagavía / Otsagabia) · osm.org/relation/11862865
+- SL · SL-NA 7 · Leurtzako ibilbidea · 3.4 km · circular · Beintza-Labaien (Beintza-Labaien) · osm.org/relation/6653114
+- SL · SL-NA 72 · Cueva de Azanzorea · 1.1 km · con ramales/huecos · Vidángoz / Bidankoze (Vidángoz / Bidankoze) · osm.org/relation/18055974
+- SL · SL-NA 78 · Foz de Burgui · 1.2 km · lineal · Burgui / Burgi (Burgui / Burgi) · osm.org/relation/18055975
+- SL · SL-NA 79 · Artikomendia · 5.3 km · circular · Isaba / Izaba (Isaba / Izaba) · osm.org/relation/18055973
+- SL · SL-NA 80 · Arrako · 3.5 km · con ramales/huecos · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/18246645
+- SL · SL-NA 82 · Zemeto · 3.8 km · con ramales/huecos · Uztárroz / Uztarroze (Uztárroz / Uztarroze) · osm.org/relation/12969407
