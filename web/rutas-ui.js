@@ -19,6 +19,20 @@ const RU_WMS = {
   sat: b => `https://www.ign.es/wms-inspire/pnoa-ma?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=OI.OrthoimageCoverage&STYLES=&CRS=EPSG:4326&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${Math.round(b.W * 1.5)}&HEIGHT=${Math.round(b.H * 1.5)}&FORMAT=image/jpeg`,
   mapa: null};
 
+// ---------- idiomas: textos de esta pantalla en web/idiomas.js (window.I18N_RU) ----------
+const ruT = (s, v) => {const L = window.LANG, d = (L && L !== 'es' && window.I18N_RU && I18N_RU[L]) || {}; let t = d[s] || s;
+  if (v) t = t.replace(/\{(\w)\}/g, (_, k) => v[k] == null ? '' : v[k]); return t;};
+// descripción de la ruta: en castellano la de tools/rutas.py; en otros idiomas se monta con los datos de la ruta
+function ruDesc(r) {
+  if (!window.LANG || LANG === 'es') return r.desc;
+  const p = r.pf, a = p[0], b = p[p.length - 1], k = p.indexOf(r.mx), F = x => ruF(x);
+  let t = r.circ ? ruT('Ruta circular con salida y llegada en {p} ({a} m).', {p: r.pueblo, a}) : ruT('Sale de {p} ({a} m) y llega a {f} ({b} m).', {p: r.pueblo, a, f: r.fin, b});
+  const L = (r.pasa || []).slice(0, 7); if (L.length) t += ' ' + ruT('Pasa por {l}.', {l: L.length === 1 ? L[0] : L.slice(0, -1).join(', ') + ruT(' y ') + L[L.length - 1]});
+  t += ' ' + (k <= 3 ? ruT('El punto más alto ({m} m) es la salida.', {m: r.mx}) : k >= p.length - 4 && !r.circ ? ruT('El punto más alto ({m} m) es la llegada.', {m: r.mx})
+    : ruT('Punto más alto: {m} m, hacia el km {k}.', {m: r.mx, k: F(r.km * k / (p.length - 1))}));
+  return t + ' ' + ruT('Sube {u} m y baja {d} m en {k} km.', {u: r.up, d: r.dn, k: F(r.km)});
+}
+
 // ---------- utilidades ----------
 const ruKm = (a, b) => {const r = Math.PI / 180, p1 = a[0] * r, p2 = b[0] * r, dp = p2 - p1, dl = (b[1] - a[1]) * r;
   return 12742 * Math.asin(Math.min(1, Math.sqrt(Math.sin(dp / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2)));};
@@ -65,18 +79,18 @@ document.head.insertAdjacentHTML('beforeend', `<style>
 (function () {
   const box = document.getElementById('ruBox'); if (!box) return;
   box.innerHTML = `<div id="ruLista">
-    <div class="ruBusca"><input id="ruQ" class="town" type="search" placeholder="🔎 Busca ruta, pueblo o sendero (Zubiri, PR-NA 120…)" autocomplete="off"></div>
-    <div class="ruChips" id="ruG">${RU_GRP.map(([v, t, i]) => `<button class="btn${v ? '' : ' on'}" data-g="${v}">${i} ${t}</button>`).join('')}</div>
+    <div class="ruBusca"><input id="ruQ" class="town" type="search" placeholder="🔎 ${ruT('Busca ruta, pueblo o sendero (Zubiri, PR-NA 120…)')}" autocomplete="off"></div>
+    <div class="ruChips" id="ruG">${RU_GRP.map(([v, t, i]) => `<button class="btn${v ? '' : ' on'}" data-g="${v}">${i} ${ruT(t)}</button>`).join('')}</div>
     <div class="ruFil">
-      <select id="ruZ" class="town"><option value="">📍 Todas las zonas</option>${RU_ZON.map(z => `<option>${z}</option>`).join('')}</select>
-      <select id="ruD" class="town"><option value="">💪 Cualquier dificultad</option>${Object.keys(RU_DIF).map(d => `<option>${d}</option>`).join('')}</select>
-      <select id="ruK" class="town"><option value="">📏 Cualquier distancia</option><option value="0-5">Hasta 5 km</option><option value="5-10">De 5 a 10 km</option><option value="10-20">De 10 a 20 km</option><option value="20-999">Más de 20 km</option></select>
-      <select id="ruO" class="town"><option value="nombre">↕️ Por nombre</option><option value="cerca">📍 Más cerca de mí</option><option value="km">Más cortas primero</option><option value="kmd">Más largas primero</option><option value="up">Menos desnivel primero</option></select>
-      <label><input type="checkbox" id="ruC"> 🔁 Solo rutas circulares</label>
+      <select id="ruZ" class="town"><option value="">📍 ${ruT('Todas las zonas')}</option>${RU_ZON.map(z => `<option value="${z}">${ruT(z)}</option>`).join('')}</select>
+      <select id="ruD" class="town"><option value="">💪 ${ruT('Cualquier dificultad')}</option>${Object.keys(RU_DIF).map(d => `<option value="${d}">${ruT(d)}</option>`).join('')}</select>
+      <select id="ruK" class="town"><option value="">📏 ${ruT('Cualquier distancia')}</option>${[['0-5', 'Hasta 5 km'], ['5-10', 'De 5 a 10 km'], ['10-20', 'De 10 a 20 km'], ['20-999', 'Más de 20 km']].map(([v, t]) => `<option value="${v}">${ruT(t)}</option>`).join('')}</select>
+      <select id="ruO" class="town">${[['nombre', '↕️ ', 'Por nombre'], ['cerca', '📍 ', 'Más cerca de mí'], ['km', '', 'Más cortas primero'], ['kmd', '', 'Más largas primero'], ['up', '', 'Menos desnivel primero']].map(([v, i, t]) => `<option value="${v}">${i}${ruT(t)}</option>`).join('')}</select>
+      <label><input type="checkbox" id="ruC"> 🔁 ${ruT('Solo rutas circulares')}</label>
     </div>
-    <div class="note" id="ruN">Cargando rutas…</div>
+    <div class="note" id="ruN">${ruT('Cargando rutas…')}</div>
     <div id="ruL"></div>
-    <button class="btn" id="ruMas" style="width:100%;display:none">Ver más rutas</button>
+    <button class="btn" id="ruMas" style="width:100%;display:none">${ruT('Ver más rutas')}</button>
   </div>
   <div id="ruFicha" style="display:none"></div>`;
   const $ = id => document.getElementById(id);
@@ -88,7 +102,7 @@ document.head.insertAdjacentHTML('beforeend', `<style>
   $('ruK').onchange = e => {RU.k = e.target.value; RU.n = 25; ruLista();};
   $('ruC').onchange = e => {RU.c = e.target.checked; RU.n = 25; ruLista();};
   $('ruO').onchange = async e => {RU.o = e.target.value; RU.n = 25;
-    if (RU.o === 'cerca' && !RU.pos) {$('ruN').textContent = '📍 Buscando dónde estás…';
+    if (RU.o === 'cerca' && !RU.pos) {$('ruN').textContent = '📍 ' + ruT('Buscando dónde estás…');
       try {const p = await myPos(); RU.pos = [p.la, p.lo];} catch (er) {$('ruN').textContent = '⚠️ ' + er.message; RU.o = 'nombre'; e.target.value = 'nombre';}}
     ruLista();};
   $('ruMas').onclick = () => {RU.n += 25; ruLista(true);};
@@ -100,8 +114,8 @@ document.head.insertAdjacentHTML('beforeend', `<style>
 function ruInit() {
   if (RU.todas.length) {if (!RU.sel) ruLista(); else if (RU.map) setTimeout(() => {RU.map.draw(); RU.map.base();}, 60); return;}
   svLoad('rutas.js', 'RUTAS', ok => {
-    if (!ok || !window.RUTAS) {document.getElementById('ruN').textContent = '⚠️ No se pudieron cargar las rutas. Desliza hacia abajo para reintentar.'; return;}
-    RU.todas = RUTAS.rutas.map((r, i) => Object.assign(r, {i, _s: SV_N([r.n, r.ref, r.pueblo, r.muni, r.fin, r.zona, r.tipo, r.grupo, (r.pasa || []).join(' ')].join(' '))}));
+    if (!ok || !window.RUTAS) {document.getElementById('ruN').textContent = '⚠️ ' + ruT('No se pudieron cargar las rutas. Desliza hacia abajo para reintentar.'); return;}
+    RU.todas = RUTAS.rutas.map((r, i) => Object.assign(r, {i, _s: SV_N([r.n, r.ref, r.pueblo, r.muni, r.fin, r.zona, ruT(r.zona), r.tipo, r.grupo, ruT(r.grupo), (r.pasa || []).join(' ')].join(' '))}));
     ruLista();
   });
 }
@@ -118,11 +132,11 @@ function ruFiltra() {
   return L.sort(by);
 }
 function ruCardHtml(r) {
-  const d = RU.o === 'cerca' && r._d != null ? ` · a ${ruF(r._d, r._d < 10 ? 1 : 0)} km` : '';
+  const d = RU.o === 'cerca' && r._d != null ? ' · ' + ruT('a {d} km', {d: ruF(r._d, r._d < 10 ? 1 : 0)}) : '';
   return `<div class="card ruCard" data-i="${r.i}"><canvas class="ruMini" data-i="${r.i}"></canvas>
    <div class="ruTx"><b class="ruNom">${ruE(r.n)}</b>
-    <div class="note">${RU_ICO[r.grupo] || '🥾'} ${ruE(r.zona)} · ${r.circ ? 'circular desde' : 'sale de'} ${ruE(r.pueblo)}${d}</div>
-    <div class="ruDat"><span>📏 ${ruF(r.km)} km</span><span>↗ ${r.up} m</span><span>⏱️ ${ruH(r.h)}</span><span class="ruDif" style="background:${RU_DIF[r.dif]}">${r.dif}</span></div>
+    <div class="note">${RU_ICO[r.grupo] || '🥾'} ${ruE(ruT(r.zona))} · ${ruE(ruT(r.circ ? 'circular desde {p}' : 'sale de {p}', {p: r.pueblo}))}${d}</div>
+    <div class="ruDat"><span>📏 ${ruF(r.km)} km</span><span>↗ ${r.up} m</span><span>⏱️ ${ruH(r.h)}</span><span class="ruDif" style="background:${RU_DIF[r.dif]}">${ruT(r.dif)}</span></div>
     ${ruSpark(r)}</div></div>`;
 }
 function ruSpark(r) {const p = r.pf, mn = Math.min(...p), mx = Math.max(...p), rg = Math.max(30, mx - mn), W = 200, H = 26;
@@ -139,10 +153,10 @@ function ruMini(cv, r) {const W = 84, H = 84, x = (() => {const k = window.devic
 }
 function ruLista(mas) {
   const L = ruFiltra(), el = document.getElementById('ruL'); if (!el) return;
-  document.getElementById('ruN').textContent = `${L.length} ${L.length === 1 ? 'ruta' : 'rutas'}${RU.todas.length !== L.length ? ' de ' + RU.todas.length : ' en Navarra'}`;
+  document.getElementById('ruN').textContent = RU.todas.length !== L.length ? ruT(L.length === 1 ? '{n} ruta de {t}' : '{n} rutas de {t}', {n: L.length, t: RU.todas.length}) : ruT('{n} rutas en Navarra', {n: L.length});
   const desde = mas ? el.children.length : 0, trozo = L.slice(desde, RU.n);
   if (!mas) el.innerHTML = '';
-  el.insertAdjacentHTML('beforeend', trozo.map(ruCardHtml).join('') || (mas ? '' : '<div class="card note">No hay rutas con esos filtros. Prueba a quitar alguno.</div>'));
+  el.insertAdjacentHTML('beforeend', trozo.map(ruCardHtml).join('') || (mas ? '' : `<div class="card note">${ruT('No hay rutas con esos filtros. Prueba a quitar alguno.')}</div>`));
   el.querySelectorAll('canvas.ruMini:not([data-ok])').forEach(cv => {cv.dataset.ok = 1; ruMini(cv, RU.todas[+cv.dataset.i]);});
   document.getElementById('ruMas').style.display = L.length > RU.n ? '' : 'none';
 }
@@ -156,35 +170,35 @@ function ruFicha(r) {
   const fi = document.getElementById('ruFicha'), li = document.getElementById('ruLista');
   li.style.display = 'none'; fi.style.display = '';
   const ref = r.ref && !SV_N(r.n).includes(SV_N(r.ref)) ? ruE(r.ref) + ' · ' : '';
-  fi.innerHTML = `<button class="btn" id="ruVolver">← Volver a las rutas</button>
+  fi.innerHTML = `<button class="btn" id="ruVolver">← ${ruT('Volver a las rutas')}</button>
    <h2 class="ruTit">${ruE(r.n)}</h2>
-   <div class="note">${RU_ICO[r.grupo] || '🥾'} ${ref}${ruE(r.grupo)} · ${ruE(r.zona)} · ${ruE(r.muni || r.pueblo)}</div>
+   <div class="note">${RU_ICO[r.grupo] || '🥾'} ${ref}${ruE(ruT(r.grupo))} · ${ruE(ruT(r.zona))} · ${ruE(r.muni || r.pueblo)}</div>
    <div class="ruKpi">
-    <div><span>Distancia</span><b>${ruF(r.km)} km</b></div><div><span>Desnivel +</span><b>${r.up} m</b></div>
-    <div><span>Desnivel −</span><b>${r.dn} m</b></div><div><span>Dificultad</span><b style="color:${RU_DIF[r.dif]}">${r.dif}</b></div>
-    <div><span>Altitud máx.</span><b>${r.mx} m</b></div><div><span>Altitud mín.</span><b>${r.mn} m</b></div>
-    <div><span>Tiempo</span><b>${ruH(r.h)}</b></div><div><span>Tipo</span><b>${r.circ ? '🔁 Circular' : '➡️ Lineal'}</b></div></div>
+    <div><span>${ruT('Distancia')}</span><b>${ruF(r.km)} km</b></div><div><span>${ruT('Desnivel +')}</span><b>${r.up} m</b></div>
+    <div><span>${ruT('Desnivel −')}</span><b>${r.dn} m</b></div><div><span>${ruT('Dificultad')}</span><b style="color:${RU_DIF[r.dif]}">${ruT(r.dif)}</b></div>
+    <div><span>${ruT('Altitud máx.')}</span><b>${r.mx} m</b></div><div><span>${ruT('Altitud mín.')}</span><b>${r.mn} m</b></div>
+    <div><span>${ruT('Tiempo')}</span><b>${ruH(r.h)}</b></div><div><span>${ruT('Tipo')}</span><b>${r.circ ? '🔁 ' + ruT('Circular') : '➡️ ' + ruT('Lineal')}</b></div></div>
    <div class="ruMapBox"><canvas id="ruMapa" height="300"></canvas>
     <div class="ruMapBtn"><button class="btn mtb" id="ruIn">＋</button><button class="btn mtb" id="ruOut">－</button><button class="btn mtb" id="ruAll">⤢</button></div>
-    <div class="ruBase">${[['topo', '🏔️ Topo'], ['mapa', '🗺️ Mapa'], ['sat', '🛰️ Satélite']].map(([k, t]) => `<button class="btn${RU.base === k ? ' on' : ''}" data-b="${k}">${t}</button>`).join('')}</div></div>
-   <div class="card" style="padding:10px 8px 8px"><b>⛰️ Perfil del recorrido</b>${ruPerfil(r)}
-    <div id="ruPfT" class="note" style="min-height:2.9em;margin-top:2px">👆 Desliza el dedo por la gráfica (o toca la ruta en el mapa) para ver la altitud de cada punto.</div></div>
-   <div class="card"><b>📝 La ruta</b><div style="margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--txt)">${ruE(r.desc)}</div>
-    ${r.destaca ? `<div class="note" style="margin-top:6px">⭐ Destacado: ${ruE(r.destaca)}</div>` : ''}
-    ${r.pasa && r.pasa.length ? `<div class="note" style="margin-top:8px">Pueblos por los que pasa:</div><div class="ruPasa">${r.pasa.map(p => `<span>${ruE(p)}</span>`).join('')}</div>` : ''}</div>
+    <div class="ruBase">${[['topo', '🏔️', 'Topo'], ['mapa', '🗺️', 'Mapa'], ['sat', '🛰️', 'Satélite']].map(([k, i, t]) => `<button class="btn${RU.base === k ? ' on' : ''}" data-b="${k}">${i} ${ruT(t)}</button>`).join('')}</div></div>
+   <div class="card" style="padding:10px 8px 8px"><b>⛰️ ${ruT('Perfil del recorrido')}</b>${ruPerfil(r)}
+    <div id="ruPfT" class="note" style="min-height:2.9em;margin-top:2px">👆 ${ruT('Desliza el dedo por la gráfica (o toca la ruta en el mapa) para ver la altitud de cada punto.')}</div></div>
+   <div class="card"><b>📝 ${ruT('La ruta')}</b><div style="margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--txt)">${ruE(ruDesc(r))}</div>
+    ${r.destaca ? `<div class="note" style="margin-top:6px">⭐ ${ruT('Destacado')}: ${ruE(r.destaca)}</div>` : ''}
+    ${r.pasa && r.pasa.length ? `<div class="note" style="margin-top:8px">${ruT('Pueblos por los que pasa:')}</div><div class="ruPasa">${r.pasa.map(p => `<span>${ruE(p)}</span>`).join('')}</div>` : ''}</div>
    <div class="ruBtns">
-    <button class="btn pri" id="ruGpx">⬇️ Descargar GPS (GPX)</button><button class="btn" id="ruIr">🚗 Cómo llegar a la salida</button>
-    ${r.osm ? `<button class="btn" id="ruOsm">🗺️ Ver en OpenStreetMap</button>` : ''}${r.web ? `<button class="btn" id="ruWeb">🔗 Web de la ruta</button>` : ''}
-    <button class="btn" id="ruSh">📤 Compartir</button></div>
-   <div class="card" id="ruTiempo"><b>🌦️ El tiempo en el recorrido</b><div class="note">Cargando la previsión…</div></div>
-   <div class="card" style="border-color:#ffb020"><div class="note">⚠️ Tiempo orientativo sin paradas (norma DIN 33466: 4 km/h en llano, 300 m/h subiendo, 500 m/h bajando). La dificultad está calculada con la distancia y el desnivel, no con el terreno: infórmate antes de salir, mira los avisos y lleva agua, ropa de abrigo y el móvil cargado. Emergencias: 112.<br>Datos: ${(r.fuente || []).map(ruE).join(' · ')}. Alturas: Copernicus DEM GLO-30. Mapas: © Instituto Geográfico Nacional.</div></div>`;
+    <button class="btn pri" id="ruGpx">⬇️ ${ruT('Descargar GPS (GPX)')}</button><button class="btn" id="ruIr">🚗 ${ruT('Cómo llegar a la salida')}</button>
+    ${r.osm ? `<button class="btn" id="ruOsm">🗺️ ${ruT('Ver en OpenStreetMap')}</button>` : ''}${r.web ? `<button class="btn" id="ruWeb">🔗 ${ruT('Web de la ruta')}</button>` : ''}
+    <button class="btn" id="ruSh">📤 ${ruT('Compartir')}</button></div>
+   <div class="card" id="ruTiempo"><b>🌦️ ${ruT('El tiempo en el recorrido')}</b><div class="note">${ruT('Cargando la previsión…')}</div></div>
+   <div class="card" style="border-color:#ffb020"><div class="note">⚠️ ${ruT('Tiempo orientativo sin paradas (norma DIN 33466: 4 km/h en llano, 300 m/h subiendo, 500 m/h bajando). La dificultad está calculada con la distancia y el desnivel, no con el terreno: infórmate antes de salir, mira los avisos y lleva agua, ropa de abrigo y el móvil cargado. Emergencias: 112.')}<br>${ruT('Datos:')} ${(r.fuente || []).map(ruE).join(' · ')}. ${ruT('Alturas:')} Copernicus DEM GLO-30. ${ruT('Mapas:')} © Instituto Geográfico Nacional.</div></div>`;
   const $ = id => document.getElementById(id);
   $('ruVolver').onclick = () => {if (history.state && history.state.ruta) history.back(); else ruCerrar();};
   $('ruGpx').onclick = () => ruGpx(r);
   $('ruIr').onclick = () => ruOpen(`https://www.google.com/maps/dir/?api=1&destination=${r.lin[0][0]},${r.lin[0][1]}`);
   if ($('ruOsm')) $('ruOsm').onclick = () => ruOpen(`https://www.openstreetmap.org/relation/${r.osm}`);
   if ($('ruWeb')) $('ruWeb').onclick = () => ruOpen(r.web);
-  $('ruSh').onclick = () => {const t = `🥾 ${r.n}\n📏 ${ruF(r.km)} km · ↗ ${r.up} m · ↘ ${r.dn} m · ${r.dif} · ⏱️ ${ruH(r.h)}\n📍 Salida: https://www.google.com/maps/search/?api=1&query=${r.lin[0][0]},${r.lin[0][1]}\n(BasatiNA · basatina.es)`;
+  $('ruSh').onclick = () => {const t = `🥾 ${r.n}\n📏 ${ruF(r.km)} km · ↗ ${r.up} m · ↘ ${r.dn} m · ${ruT(r.dif)} · ⏱️ ${ruH(r.h)}\n📍 ${ruT('Salida')}: https://www.google.com/maps/search/?api=1&query=${r.lin[0][0]},${r.lin[0][1]}\n(BasatiNA · basatina.es)`;
     if (APP) window.AndroidNet.share(t); else if (navigator.share) navigator.share({text: t}).catch(() => {}); else navigator.clipboard && navigator.clipboard.writeText(t);};
   fi.querySelectorAll('.ruBase button').forEach(b => b.onclick = () => {RU.base = b.dataset.b; fi.querySelectorAll('.ruBase button').forEach(x => x.classList.toggle('on', x === b));
     if (RU.map) {RU.map.wms = RU_WMS[RU.base]; RU.map.img = null; RU.map.base();}});
@@ -251,7 +265,7 @@ function ruCursor(r, fr) {
   const B = document.getElementById('ruPfB'); document.getElementById('ruPfR').setAttribute('width', bw); document.getElementById('ruPfX').textContent = tx;
   document.getElementById('ruPfX').setAttribute('x', 5); B.setAttribute('transform', `translate(${bx.toFixed(1)},${by.toFixed(1)})`); B.setAttribute('visibility', 'visible');
   const dk = r.km / (n - 1) * 1000, a = Math.max(0, i - 2), b = Math.min(n - 1, i + 2), g = (p[b] - p[a]) / ((b - a) * dk) * 100;
-  document.getElementById('ruPfT').innerHTML = `📍 Km <b>${ruF(i / (n - 1) * r.km)}</b> de ${ruF(r.km)} · altitud <b>${p[i]} m</b> · pendiente <b>${g > 0 ? '+' : ''}${Math.round(g)} %</b>`;
+  document.getElementById('ruPfT').innerHTML = '📍 ' + ruT('Km {a} de {b} · altitud {c} · pendiente {d}', {a: `<b>${ruF(i / (n - 1) * r.km)}</b>`, b: ruF(r.km), c: `<b>${p[i]} m</b>`, d: `<b>${g > 0 ? '+' : ''}${Math.round(g)} %</b>`});
   RU.pt = ruPunto(r, i / (n - 1)); if (RU.map) RU.map.draw();
 }
 function ruPerfilTouch(r) {
@@ -267,8 +281,8 @@ function ruGpx(r) {
   const ele = i => {const f = tot ? RU.cum[i] / tot * (n - 1) : 0, a = Math.floor(f), b = Math.min(n - 1, a + 1); return Math.round(p[a] + (p[b] - p[a]) * (f - a));};
   const x = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="BasatiNA (basatina.es)" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>${x(r.n)}</name><desc>${x((r.fuente || []).join(' · '))}</desc></metadata>\n`
-    + `<wpt lat="${L[0][0]}" lon="${L[0][1]}"><ele>${ele(0)}</ele><name>Salida</name></wpt>\n`
-    + (r.circ ? '' : `<wpt lat="${L[L.length - 1][0]}" lon="${L[L.length - 1][1]}"><ele>${ele(L.length - 1)}</ele><name>Llegada</name></wpt>\n`)
+    + `<wpt lat="${L[0][0]}" lon="${L[0][1]}"><ele>${ele(0)}</ele><name>${x(ruT('Salida'))}</name></wpt>\n`
+    + (r.circ ? '' : `<wpt lat="${L[L.length - 1][0]}" lon="${L[L.length - 1][1]}"><ele>${ele(L.length - 1)}</ele><name>${x(ruT('Llegada'))}</name></wpt>\n`)
     + `<trk><name>${x(r.n)}</name><trkseg>\n${L.map((q, i) => `<trkpt lat="${q[0]}" lon="${q[1]}"><ele>${ele(i)}</ele></trkpt>`).join('\n')}\n</trkseg></trk>\n</gpx>\n`;
   const nom = SV_N(r.n).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) + '.gpx';
   if (APP && window.AndroidNet.shareFile) {window.AndroidNet.shareFile(nom, btoa(unescape(encodeURIComponent(gpx))), 'application/gpx+xml'); return;}
@@ -280,18 +294,18 @@ function ruGpx(r) {
 async function ruTiempo(r) {
   const el = document.getElementById('ruTiempo'); if (!el) return;
   const L = r.lin, k = r.pf.indexOf(r.mx), cima = ruPunto(r, k / (r.pf.length - 1));
-  const P = [['🟢 Salida · ' + r.pueblo, L[0], r.pf[0]]];
-  if (k > 2 && k < r.pf.length - 3 && r.mx - Math.max(r.pf[0], r.pf[r.pf.length - 1]) > 80) P.push(['⛰️ Punto más alto', cima, r.mx]);
-  if (!r.circ && ruKm(L[0], L[L.length - 1]) > 2) P.push(['🏁 Llegada · ' + r.fin, L[L.length - 1], r.pf[r.pf.length - 1]]);
+  const P = [['🟢 ' + ruT('Salida') + ' · ' + r.pueblo, L[0], r.pf[0]]];
+  if (k > 2 && k < r.pf.length - 3 && r.mx - Math.max(r.pf[0], r.pf[r.pf.length - 1]) > 80) P.push(['⛰️ ' + ruT('Punto más alto'), cima, r.mx]);
+  if (!r.circ && ruKm(L[0], L[L.length - 1]) > 2) P.push(['🏁 ' + ruT('Llegada') + ' · ' + r.fin, L[L.length - 1], r.pf[r.pf.length - 1]]);
   const J = await Promise.all(P.map(([, q, alt]) => getJSON(`${OM}?latitude=${q[0].toFixed(4)}&longitude=${q[1].toFixed(4)}&elevation=${alt}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max&forecast_days=4${TZ}`)));
   if (RU.sel !== r || !document.getElementById('ruTiempo')) return;
-  if (J.every(j => !j || !j.daily)) {el.innerHTML = '<b>🌦️ El tiempo en el recorrido</b><div class="note">No se pudo cargar la previsión ahora.</div>'; return;}
+  if (J.every(j => !j || !j.daily)) {el.innerHTML = `<b>🌦️ ${ruT('El tiempo en el recorrido')}</b><div class="note">${ruT('No se pudo cargar la previsión ahora.')}</div>`; return;}
   const h = new Date().getHours();
-  el.innerHTML = '<b>🌦️ El tiempo en el recorrido</b>' + P.map(([t, , alt], n) => {const j = J[n]; if (!j || !j.daily) return ''; const d = j.daily;
-    return `<div style="margin-top:8px;font-size:13.5px;color:var(--txt)"><b>${ruE(t)}</b> <span class="note">(${alt} m) · ahora ${wxIcon(j.current.weather_code, h)} ${Math.round(j.current.temperature_2m)}°</span></div>
-     <div class="ruWx">${d.time.map((x, i) => {const dt = new Date(x + 'T12:00'); return `<div><b>${i ? DOW[dt.getDay()] + ' ' + dt.getDate() : 'Hoy'}</b><span class="i">${wxIcon(d.weather_code[i], 12)}</span>
-      <b>${Math.round(d.temperature_2m_max[i])}°</b> <span class="note">${Math.round(d.temperature_2m_min[i])}°</span><br><span class="note">${d.precipitation_sum[i] > 0.1 ? '💧' + ruF(d.precipitation_sum[i]) + ' mm' : '☀️ seco'}</span><br><span class="note">💨 ${Math.round(d.wind_speed_10m_max[i])} km/h</span></div>`;}).join('')}</div>`;}).join('')
-    + '<div class="note">Previsión de Open-Meteo para la altitud de cada punto.</div>';
+  el.innerHTML = `<b>🌦️ ${ruT('El tiempo en el recorrido')}</b>` + P.map(([t, , alt], n) => {const j = J[n]; if (!j || !j.daily) return ''; const d = j.daily;
+    return `<div style="margin-top:8px;font-size:13.5px;color:var(--txt)"><b>${ruE(t)}</b> <span class="note">(${alt} m) · ${ruT('ahora')} ${wxIcon(j.current.weather_code, h)} ${Math.round(j.current.temperature_2m)}°</span></div>
+     <div class="ruWx">${d.time.map((x, i) => {const dt = new Date(x + 'T12:00'); return `<div><b>${i ? DOW[dt.getDay()] + ' ' + dt.getDate() : ruT('Hoy')}</b><span class="i">${wxIcon(d.weather_code[i], 12)}</span>
+      <b>${Math.round(d.temperature_2m_max[i])}°</b> <span class="note">${Math.round(d.temperature_2m_min[i])}°</span><br><span class="note">${d.precipitation_sum[i] > 0.1 ? '💧' + ruF(d.precipitation_sum[i]) + ' mm' : '☀️ ' + ruT('seco')}</span><br><span class="note">💨 ${Math.round(d.wind_speed_10m_max[i])} km/h</span></div>`;}).join('')}</div>`;}).join('')
+    + `<div class="note">${ruT('Previsión de Open-Meteo para la altitud de cada punto.')}</div>`;
 }
 
 window.addEventListener('popstate', e => {if (RU.sel && !(e.state && e.state.ruta)) ruCerrar();});

@@ -5,6 +5,8 @@ on:
   push:
     paths: ['tools/rutas.py', '.github/workflows/rutas.yml']
   workflow_dispatch:
+  schedule:
+    - cron: '17 4 1 * *'   # el día 1 de cada mes, para recoger las rutas nuevas de OpenStreetMap
 permissions:
   contents: write
 jobs:
