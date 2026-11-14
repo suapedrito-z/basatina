@@ -1,0 +1,23 @@
+# Cuenta y clasifica las rutas a pie de Navarra en OpenStreetMap (tools/rutas.py → rutas/).
+# Por ahora no toca la app (web/). Se ejecuta cuando cambia tools/rutas.py o a mano desde Actions.
+name: Rutas OSM
+on:
+  push:
+    paths: ['tools/rutas.py', '.github/workflows/rutas.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rutas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar y contar las rutas
+        run: python3 tools/rutas.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add rutas/
+          git commit -m "Rutas de Navarra en OpenStreetMap (recuento)" || exit 0
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 15; done
