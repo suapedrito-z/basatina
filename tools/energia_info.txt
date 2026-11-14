@@ -36,6 +36,9 @@
 - GEOM_AREA: 59 · [('486133.25', 1), ('17251.13', 1), ('142889.27', 1), ('38129.83', 1), ('43893.75', 1), ('631924.97', 1), ('109776.98', 1), ('253088.89', 1)]
 - GEOM_PERI: 59 · [('4233.54', 1), ('661.12', 1), ('1893.77', 1), ('1047.39', 1), ('1701.57', 1), ('3356.55', 1), ('2584.07', 1), ('3262.16', 1)]
 - BEGINLIFE: 1 · [('19/05/2026', 59)]
+overpass https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+overpass https://overpass.private.coffee/api/interpreter HTTP Error 504: Gateway Timeout
+overpass https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
 
 ## OSM centrales: Counter({'hydro': 100, 'solar': 75, 'wind': 53, 'biomass': 3, 'gas': 3, 'biogas': 2, '?': 2})
  * {'src': 'hydro', 'n': 'Electra Cárcar', 'mw': '', 'op': '', 'pt': [42.4615, -2.338], 'w': ''}
