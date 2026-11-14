@@ -3557,11 +3557,11 @@ async function keySave(n,v,test){const m=document.getElementById('kyMsg');if(!v)
   catch(e){m.textContent='❌ No se pudo guardar: '+e.message;}}
 const rbTest=async v=>{const r=await httpText('https://api.rainbow.ai/tiles/v1/snapshot?token='+encodeURIComponent(v));return r.code===200&&/snapshot/.test(r.body);};
 const aeTest=async v=>{const r=await httpText('https://opendata.aemet.es/opendata/api/red/rayos/mapa?api_key='+encodeURIComponent(v));try{return JSON.parse(r.body).estado===200;}catch(e){return false;}};
-document.getElementById('kyRainS').onclick=()=>keySave('rainbow',document.getElementById('kyRain').value.trim(),rbTest);
+document.getElementById('kyRainS').onclick=()=>{if(!APP){document.getElementById('kyMsg').textContent='ℹ️ La clave de Rainbow se guarda desde la app del móvil (el navegador no deja comprobarla).';return;}keySave('rainbow',document.getElementById('kyRain').value.trim(),rbTest);};
 document.getElementById('kyAemS').onclick=()=>keySave('aemet',document.getElementById('kyAem').value.trim(),aeTest);
 // el radar usa Rainbow si hay clave (más detalle y previsión de 4 h); si no, RainViewer
 const _rdLoad0=rdLoad;
-rdLoad=async function(){const k=await keyGet('rainbow');if(!k)return _rdLoad0();
+rdLoad=async function(){if(!APP)return _rdLoad0();/* en la web el navegador no deja leer a Rainbow (CORS): RainViewer y sin gastar cupo */const k=await keyGet('rainbow');if(!k)return _rdLoad0();
   const r=await httpText('https://api.rainbow.ai/tiles/v1/snapshot?token='+encodeURIComponent(k));let snap=null;try{snap=JSON.parse(r.body).snapshot;}catch(e){}
   if(!snap)return _rdLoad0();
   const u=(s,ft)=>(z,X,Y)=>`https://api.rainbow.ai/tiles/v1/precip/${s}/${ft}/${z}/${X}/${Y}?token=${encodeURIComponent(k)}`;

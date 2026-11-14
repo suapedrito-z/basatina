@@ -7,6 +7,7 @@
    ===================================================================== */
 window.I18N = {
   eu: {
+    "La clave de Rainbow se guarda desde la app del móvil (el navegador no deja comprobarla).": "Rainbow-en gakoa mugikorreko aplikaziotik gordetzen da (nabigatzaileak ez du egiaztatzen uzten).",
     "zona alta": "goiko eremua",
     "zona media": "erdiko eremua",
     "zona baja": "beheko eremua",
@@ -236,6 +237,7 @@ window.I18N = {
     "heladas": "izozteak"
   },
   en: {
+    "La clave de Rainbow se guarda desde la app del móvil (el navegador no deja comprobarla).": "The Rainbow key is saved from the phone app (the browser does not allow checking it).",
     "zona alta": "upper reach",
     "zona media": "middle reach",
     "zona baja": "lower reach",
@@ -1057,6 +1059,7 @@ window.I18N = {
     "Domingo": "Sunday"
   },
   fr: {
+    "La clave de Rainbow se guarda desde la app del móvil (el navegador no deja comprobarla).": "La clé Rainbow s'enregistre depuis l'application mobile (le navigateur ne permet pas de la vérifier).",
     "zona alta": "zone haute",
     "zona media": "zone moyenne",
     "zona baja": "zone basse",
