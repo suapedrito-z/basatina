@@ -406,7 +406,7 @@ function draw(c){
  h+=`<h2 id="privacidad">Privacidad</h2><p class="small">${md(c.privacidad)}</p>`;
  if(c.contacto)h+=`<h2 id="contacto">Contacto</h2><p>${md(c.contacto)}</p>`;
  h+=`<div class="aviso">${md(c.aviso)}</div>`;
- h+=`<footer>${m.logo_empresa?`<img src="${esc(m.logo_empresa)}" alt="">`:''}<div>${md(c.pie)}</div></footer>`;
+ h+=`<footer>${m.logo_empresa?`<img src="${esc(m.logo_empresa)}" alt="">`:''}<div>${md(c.pie)}<br><a href="privacidad.html">Privacidad</a> · <a href="normas-comunidad.html">Normas de la comunidad</a> · <a href="aviso-legal.html">Aviso legal</a></div></footer>`;
  document.getElementById('app').innerHTML=h;
  {const ah=document.getElementById('arbHost'),sb=document.getElementById('seccion-arbustos');if(ah&&sb)ah.appendChild(sb);}
  naRojo(document.getElementById('app'));document.title=(m.nombre||'BasatiNA')+' · '+(m.lema||'');

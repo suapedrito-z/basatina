@@ -118,3 +118,9 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
   - 🛒 `super` (Servicios) y parques infantiles: `tools/tiendas.py` (robot `tiendas.yml`, día 5 de cada mes) → `web/tiendas.js` (OpenStreetMap).
   - Deporte: ☆ equipo favorito, ☆ seguir liga y ➕ partido suelto (`dpFav`, `dpMios` en localStorage) → **⭐ Mi calendario deportivo** (`misdep`, Mi Espacio), con enlace a Google Calendar y exportar .ics.
   - 🧸 `peques` (Qué hacer): sitios (`PQ_S`), parques infantiles, paseos fáciles (de `rutas.js`) y agenda infantil (palabras de `PQ_KW` en `agenda/cultura.json`).
+
+- **Paquete legal (14 nov. 2026)**, preparado para la futura **Comunidad de avisos**:
+  - Públicos (web, `docs/`): `privacidad.html` (actualizada: comunidad, fotos, buzón, menores 14, derechos), `normas-comunidad.html`, `aviso-legal.html`. Enlazados en el pie de basatina.es y en la tarjeta de Privacidad de la app.
+  - Internos (`legal/`): 1 registro de actividades (RAT), 2 riesgos y medidas, 3 guía de moderación, derechos y plantillas de respuesta, 4 Google Play (contenido de usuarios + formulario «Seguridad de los datos») y textos de la pantalla de enviar aviso.
+  - Diseño acordado para la comunidad: anónima (código de colaborador al azar), Firebase Firestore en Madrid (europe-southwest1), veneno y accidentes con revisión previa, caducidad 6 h–7 días y borrado a los 30 días, botones 🚩 Denunciar y 🙈 Ocultar colaborador (los exige Google Play).
+  - Pendiente de confirmar: responsable (Pedro solo o Pedro y Sonia como corresponsables) y si se quiere NIF/domicilio en el aviso legal.
