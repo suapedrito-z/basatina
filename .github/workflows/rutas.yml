@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Descargar y contar las rutas
+      - name: Preparar
+        run: pip install rasterio numpy
+      - name: Descargar y preparar las rutas
         run: python3 tools/rutas.py
       - name: Guardar en el repositorio
         run: |

@@ -197,30 +197,56 @@ def coser(tramos, junta=1.5):
     return lin, km(lin[0], lin[-1]) < 0.3
 
 
-# ------------------------------------------------------------------ alturas (Open-Meteo) con caché
-CACHE_F = "rutas/alturas_cache.json"
+# ------------------------------------------------------------------ alturas: modelo del terreno Copernicus (30 m)
+# Open-Meteo corta si se le piden muchas alturas seguidas (error 429). Por eso se descargan las hojas del modelo
+# del terreno Copernicus GLO-30 (gratuito, en Amazon S3) que cubren Navarra y las alturas se leen aquí mismo.
+# Cada hoja es 1° x 1°: Navarra (lat 41,9-43,3; lon -2,5 a -0,7) necesita N41-N43 x W003-W001.
 os.makedirs("rutas", exist_ok=True)
-CACHE = json.load(open(CACHE_F)) if os.path.exists(CACHE_F) else {}
+HOJAS = {}
+
+
+def hoja(la, lo):
+    k = (math.floor(la), math.floor(lo))
+    if k not in HOJAS:
+        HOJAS[k] = None
+        try:
+            import rasterio
+            n = f"Copernicus_DSM_COG_10_{'N' if k[0] >= 0 else 'S'}{abs(k[0]):02d}_00_{'W' if k[1] < 0 else 'E'}{abs(k[1]):03d}_00_DEM"
+            ds = rasterio.open(f"https://copernicus-dem-30m.s3.amazonaws.com/{n}/{n}.tif")
+            HOJAS[k] = (ds, ds.read(1)); log("hoja del terreno cargada:", n)
+        except Exception as e:
+            log("hoja del terreno no disponible", k, e)
+    return HOJAS[k]
+
+
+def om_alturas(pts):  # plan B: Open-Meteo, despacio
+    out = []
+    for i in range(0, len(pts), 100):
+        ch = pts[i:i + 100]
+        u = ("https://api.open-meteo.com/v1/elevation?latitude=" + ",".join(f"{p[0]:.5f}" for p in ch)
+             + "&longitude=" + ",".join(f"{p[1]:.5f}" for p in ch))
+        for intento in range(4):
+            try:
+                out += json.loads(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read())["elevation"]; break
+            except Exception:
+                if intento == 3: raise
+                time.sleep(30 * (intento + 1))
+        time.sleep(2)
+    return out
 
 
 def alturas(pts):
-    clave = [f"{p[0]:.4f},{p[1]:.4f}" for p in pts]
     if PRUEBA: return [500 + 300 * math.sin(i / 20) for i in range(len(pts))]
-    faltan = sorted({k for k in clave if k not in CACHE})
-    for i in range(0, len(faltan), 100):
-        ch = faltan[i:i + 100]
-        u = ("https://api.open-meteo.com/v1/elevation?latitude=" + ",".join(k.split(",")[0] for k in ch)
-             + "&longitude=" + ",".join(k.split(",")[1] for k in ch))
-        for intento in range(5):
-            try:
-                el = json.loads(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read())["elevation"]
-                for k, e in zip(ch, el): CACHE[k] = e
-                break
-            except Exception:
-                if intento == 4: raise
-                time.sleep(10 * (intento + 1))
-        time.sleep(0.4)
-    return [CACHE[k] for k in clave]
+    out, faltan = [], []
+    for i, p in enumerate(pts):
+        h = hoja(p[0], p[1])
+        if h:
+            ds, z = h; r, c = ds.index(p[1], p[0])
+            if 0 <= r < z.shape[0] and 0 <= c < z.shape[1] and z[r, c] > -100: out.append(float(z[r, c])); continue
+        out.append(None); faltan.append(i)
+    if faltan:
+        for i, e in zip(faltan, om_alturas([pts[i] for i in faltan])): out[i] = e
+    return out
 
 
 def ficha_alturas(lin, pf=None):
@@ -290,7 +316,7 @@ GRUPO = {"Camino de Santiago": "Camino de Santiago", "GR": "Grandes travesías",
 pie = [] if PRUEBA else overpass(Q_PIE)["elements"]
 log("Relaciones de OSM recibidas:", len(pie))
 if not pie and not PRUEBA: raise SystemExit("Overpass no devolvió ninguna ruta")
-osm = []
+osm = []; descartes = collections.Counter()
 for el in pie:
     tg = el.get("tags", {})
     tramos = [[[p["lat"], p["lon"]] for p in m["geometry"] if p] for m in el.get("members", [])
@@ -298,7 +324,12 @@ for el in pie:
     tramos = [t for t in tramos if len(t) >= 2]
     if not tramos: continue
     lin, circ = coser(tramos)
-    if not lin or largo(lin) < 1: continue
+    if not lin: descartes["no se pudo coser"] += 1; continue
+    if largo(lin) < 1: descartes["menos de 1 km"] += 1; continue
+    # parte del recorrido que va por Navarra: si es menos de la mitad, es una ruta de fuera que solo la roza
+    # (las largas, de más de 40 km, se recortan después a su trozo navarro)
+    dentro = sum(en_navarra(p) for p in muestrear(lin, paso=0.5)) / len(muestrear(lin, paso=0.5))
+    if dentro < 0.5 and largo(lin) <= 40: descartes["casi toda fuera de Navarra"] += 1; continue
     nombre = (tg.get("name") or tg.get("name:es") or tg.get("name:eu") or "").strip()
     if not nombre and tg.get("from") and tg.get("to"): nombre = f"{tg['from']} – {tg['to']}"
     osm.append({"fuente": "osm", "osm": el["id"], "n": nombre, "ref": tg.get("ref", "").strip(),
@@ -306,7 +337,7 @@ for el in pie:
                 "desde": tg.get("from", ""), "hasta": tg.get("to", ""),
                 "txt": (tg.get("description") or tg.get("description:es") or "").strip(),
                 "web": tg.get("website") or tg.get("url") or ""})
-log("Rutas de OSM con línea:", len(osm))
+log("Rutas de OSM con línea:", len(osm), "· descartes:", dict(descartes))
 
 # ------------------------------------------------------------------ 2. IDENA (desde web/monte.js)
 MON = carga_js("web/monte.js")
@@ -450,8 +481,7 @@ for n_, r in enumerate(finales, 1):
         pf, up, dn = ficha_alturas(lin, r.get("pf0"))
     except Exception as e:
         log("sin alturas:", r["n"], e); continue
-    if n_ % 25 == 0:
-        log("fichas", n_, "/", len(finales)); json.dump(CACHE, open(CACHE_F, "w"))
+    if n_ % 25 == 0: log("fichas", n_, "/", len(finales))
     kms = r["km"]; horas = tiempo_din(kms, up, dn); mx, mn = max(pf), min(pf)
     p0, d0 = pueblo_cerca(lin[0]); p1, d1 = pueblo_cerca(lin[-1])
     # pueblos por los que pasa, en orden (a menos de 500 m del camino), sin el de salida ni el de llegada
@@ -482,7 +512,6 @@ for n_, r in enumerate(finales, 1):
         "web": r.get("web", ""), "osm": r.get("osm") or "", "gpx_oficial": r.get("gpx", ""), "fuente": fuentes,
         "lin": [[round(p[0], 5), round(p[1], 5)] for p in simplificar(lin, 0.00008)], "pf": pf,
     })
-if not PRUEBA: json.dump(CACHE, open(CACHE_F, "w"))
 salida.sort(key=lambda x: (x["grupo"], x["zona"], x["n"]))
 json.dump({"t": time.strftime("%Y-%m-%d"), "rutas": salida}, open("rutas/rutas.json", "w", encoding="utf-8"),
           ensure_ascii=False, separators=(",", ":"))
@@ -491,6 +520,7 @@ json.dump({"t": time.strftime("%Y-%m-%d"), "rutas": salida}, open("rutas/rutas.j
 C = collections.Counter; L = []
 L.append(f"RUTAS DE NAVARRA PARA ESCAPADAS ({time.strftime('%Y-%m-%d')})")
 L.append(f"Total: {len(salida)} rutas · OSM recibidas {len(pie)} · IDENA {len(idena)} · repetidas quitadas {len(repes)}")
+L.append(f"Rutas de OSM descartadas: {dict(descartes)}")
 L.append(f"Senderos de IDENA sin GPX descargable ({len(sin_gpx)}): " + "; ".join(sin_gpx))
 
 
