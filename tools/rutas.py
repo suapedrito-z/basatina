@@ -19,13 +19,13 @@ UA = {"User-Agent": "BasatiNA/1.0 (+https://github.com/suapedrito-z/basatina)"}
 SERVIDORES = ["https://overpass-api.de/api/interpreter",
               "https://overpass.private.coffee/api/interpreter",
               "https://maps.mail.ru/osm/tools/overpass/api/interpreter"]
-# Navarra en OSM: la región con código ISO ES-NA. «out geom» trae también el dibujo de cada tramo.
+# Navarra en OSM: la comunidad lleva el código ISO ES-NC y la provincia ES-NA; se aceptan los dos. «out geom» trae también el dibujo de cada tramo.
 Q_PIE = """[out:json][timeout:600];
-area["ISO3166-2"="ES-NA"]["admin_level"="4"]->.na;
+area["ISO3166-2"~"^ES-N[AC]$"]["boundary"="administrative"]->.na;
 rel["type"="route"]["route"~"^(hiking|foot|walking)$"](area.na);
 out geom;"""
 Q_BICI = """[out:json][timeout:300];
-area["ISO3166-2"="ES-NA"]["admin_level"="4"]->.na;
+area["ISO3166-2"~"^ES-N[AC]$"]["boundary"="administrative"]->.na;
 rel["type"="route"]["route"~"^(bicycle|mtb)$"](area.na);
 out tags;"""
 # Caja aproximada de Navarra, para saber cuántos km de cada ruta caen dentro (las largas como el GR 11 siguen fuera)
@@ -78,6 +78,8 @@ def tipo_ref(ref, red, nombre):
 
 
 pie = overpass(Q_PIE)["elements"]
+print("Relaciones a pie recibidas:", len(pie), flush=True)
+if not pie: raise SystemExit("Overpass no devolvió ninguna ruta: revisar la búsqueda de Navarra")
 rutas = []
 for el in pie:
     tg = el.get("tags", {})
