@@ -511,8 +511,12 @@ for n_, r in enumerate(finales, 1):
     else: t = f"Sale {sal} ({pf[0]} m) y llega {lle} ({pf[-1]} m)."
     if paso_por:
         pp = paso_por[:7]; t += " Pasa por " + (pp[0] if len(pp) == 1 else ", ".join(pp[:-1]) + " y " + pp[-1]) + "."
-    k = pf.index(mx); t += f" Punto más alto: {mx} m, hacia el km {round(kms * k / 149, 1)}."
-    t += f" Sube {up} m y baja {dn} m en {round(kms, 1)} km."
+    coma = lambda x: f"{x:.1f}".replace(".", ",")
+    k = pf.index(mx)
+    if k <= 3: t += f" El punto más alto ({mx} m) es la salida."
+    elif k >= len(pf) - 4 and not r["circ"]: t += f" El punto más alto ({mx} m) es la llegada."
+    else: t += f" Punto más alto: {mx} m, hacia el km {coma(kms * k / 149)}."
+    t += f" Sube {up} m y baja {dn} m en {coma(kms)} km."
     if r["txt"] and r["txt"].lower() not in t.lower(): t += " " + r["txt"].rstrip(".") + "."
     nombre = r["n"] or (f"{r['ref']}: {ini} – {fin}" if r["ref"] else (f"Circular desde {ini}" if r["circ"] else f"{ini} – {fin}"))
     if r["ref"] and r["ref"].upper().replace(" ", "") not in nombre.upper().replace(" ", "") and r["tipo"] in ("GR", "GRT", "PR", "SL"):
@@ -531,6 +535,13 @@ for n_, r in enumerate(finales, 1):
 salida.sort(key=lambda x: (x["grupo"], x["zona"], x["n"]))
 json.dump({"t": time.strftime("%Y-%m-%d"), "rutas": salida}, open("rutas/rutas.json", "w", encoding="utf-8"),
           ensure_ascii=False, separators=(",", ":"))
+# Para la app: web/rutas.js (se carga solo al abrir Escapadas). Sin los campos que la pantalla no usa.
+app = [{k: v for k, v in r.items() if k not in ("gpx_oficial",) and v not in ("", [], None)} for r in salida]
+if not PRUEBA:
+    open("web/rutas.js", "w", encoding="utf-8").write(
+        "// Rutas de Navarra para Escapadas: © colaboradores de OpenStreetMap (ODbL) y © Gobierno de Navarra · IDENA (CC BY 4.0);"
+        " alturas: Copernicus DEM GLO-30. Generado por tools/rutas.py\nwindow.RUTAS=" + json.dumps({"t": time.strftime("%Y-%m-%d"), "rutas": app},
+        ensure_ascii=False, separators=(",", ":")) + ";\n")
 
 # ------------------------------------------------------------------ 6. resumen
 C = collections.Counter; L = []

@@ -781,6 +781,8 @@ Los textos, fotos, marcas y logotipos de terceros son de sus dueños; si quieres
 <section id="t-monte">
 <div class="card" id="moAv" style="border-left:5px solid #ff8a3d"><b>⚠️ Antes de salir hoy</b><div class="note">Cargando avisos…</div></div>
 <div class="card tech" style="display:none;border:2px solid #ff8a3d" id="moAvAdm"></div>
+<div id="ruBox"></div>
+<details id="moViejo" class="card"><summary><b>🗺️ Mapa de cuevas, miradores, fuentes, zonas de baño y bici</b></summary>
 <input id="moQ" class="town" placeholder="🔎 Buscar ruta, cueva, mirador, pueblo…" style="margin-bottom:6px;width:100%;box-sizing:border-box"><div id="moRes"></div>
 <select class="town" id="moOv" style="margin-bottom:8px"></select>
 <div style="position:relative"><canvas id="moc" height="460"></canvas>
@@ -788,6 +790,7 @@ Los textos, fotos, marcas y logotipos de terceros son de sus dueños; si quieres
 <div class="note" id="moInfo" style="margin:6px 0"></div>
 <div id="moLay" class="note" style="line-height:1.6"></div>
 <div id="moFicha"></div>
+</details>
 <div class="card" style="border-color:#ffb020"><b>⚠️ Antes de salir</b><div class="note">Mira el tiempo y los avisos, lleva agua y ropa de abrigo, avisa de tu ruta y no salgas de los caminos señalizados. Respeta las propiedades, el ganado y las normas de los espacios protegidos. En caso de emergencia, llama al 112. Datos: Gobierno de Navarra · IDENA (CC BY 4.0).</div></div>
 </section>
 <!-- ============ TERREMOTOS Y FALLAS ============ -->
@@ -2425,7 +2428,8 @@ function NavMap(id,draw,tap){const M={la:42.66,lo:-1.63,z:1,img:null,ib:null,t:0
   M.ovLoad=()=>{if(!M.ov){M.ovImg=null;M.draw();return;}const b=M.box(),im=new Image(),lay=M.ov;im.onload=()=>{if(M.ov===lay){M.ovImg=im;M.ovB=b;M.draw();}};im.onerror=()=>{M.ovImg=null;M.draw();};
     im.src=`https://idena.navarra.es/ogc/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=${lay}&STYLES=&CRS=EPSG:4258&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${Math.round(b.W*1.5)}&HEIGHT=${Math.round(b.H*1.5)}&FORMAT=image/png&TRANSPARENT=TRUE`;};
   M.base=()=>{clearTimeout(M.t);M.t=setTimeout(()=>{M.ovLoad();const b=M.box(),im=new Image();im.onload=()=>{M.img=im;M.ib=b;M.draw();};
-    im.src=`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${Math.round(b.W*1.5)}&HEIGHT=${Math.round(b.H*1.5)}&FORMAT=image/jpeg`;},250);};
+    /* M.wms (opcional): otra cartografía de fondo; si falla, se vuelve a la del IGN */if(M.wms)im.onerror=()=>{M.wms=null;M.base();};
+    im.src=M.wms?M.wms(b):`https://www.ign.es/wms-inspire/ign-base?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=IGNBaseTodo&STYLES=&CRS=EPSG:4326&BBOX=${b.s},${b.w},${b.n},${b.e}&WIDTH=${Math.round(b.W*1.5)}&HEIGHT=${Math.round(b.H*1.5)}&FORMAT=image/jpeg`;},250);};
   M.draw=()=>{if(cv.clientWidth<10)return;const x=fitCanvas(cv),b=M.box(),P=(la,lo)=>[b.W*(lo-b.w)/(b.e-b.w),b.H*(b.n-la)/(b.n-b.s)];
     x.fillStyle='#dfe6ec';x.fillRect(0,0,b.W,b.H);if(M.img&&M.ib){const [x0,y0]=P(M.ib.n,M.ib.w),[x1,y1]=P(M.ib.s,M.ib.e);x.globalAlpha=.85;x.drawImage(M.img,x0,y0,x1-x0,y1-y0);x.globalAlpha=1;}
     if(M.ov&&M.ovImg&&M.ovB){const [x0,y0]=P(M.ovB.n,M.ovB.w),[x1,y1]=P(M.ovB.s,M.ovB.e);x.globalAlpha=.8;x.drawImage(M.ovImg,x0,y0,x1-x0,y1-y0);x.globalAlpha=1;}
@@ -5066,6 +5070,7 @@ pvsDrawer();const _pvsCA=cfgApply;cfgApply=function(){_pvsCA();try{pvsDrawer();p
 <script src="arbustos.js"></script>
 <script src="novedades.js"></script>
 <script src="efemerides.js"></script>
+<script src="rutas-ui.js"></script>
 
 </body>
 </html>
