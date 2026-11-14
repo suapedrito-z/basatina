@@ -1,0 +1,17 @@
+RUTAS A PIE EN OPENSTREETMAP QUE TOCAN NAVARRA (2026-11-14)
+Total: 0 · con al menos 0,5 km dentro de Navarra: 0 · con nombre: 0
+Rutas de bici/BTT (solo contadas): 0 · 
+
+## Por tipo (matrícula)
+
+## Por red OSM (iwn internacional, nwn nacional, rwn regional, lwn local)
+
+## Por forma
+
+## Por distancia (km dentro de Navarra)
+
+## Por municipio de salida (los 40 con más rutas)
+
+## Dificultad que trae OSM (casi siempre vacía)
+
+## Lista completa (tipo · matrícula · nombre · km en Navarra · forma · sale de)
