@@ -181,11 +181,25 @@ def coser(tramos, junta=1.5):
         while out[-1] != a: out.append(prev[out[-1]])
         return [V[i] for i in reversed(out)]
     puntas = [i for i in vivo if len(adj[i]) == 1]
-    if not puntas:  # circular: se quita una arista y se busca el camino que da la vuelta
-        a = next(iter(vivo)); b = next(iter(adj[a]))
-        dist, prev = dijkstra(a, sin={a, b})
-        if b not in dist: return None, False
-        return camino(prev, a, b) + [V[a]], True
+    if len(puntas) <= 1:
+        # Sin puntas (circular) o con una sola (forma de lazo: ida por un camino y vuelta circular).
+        # Se prueban varias aristas: se quita una y se busca el camino más largo que da la vuelta.
+        mejor = None
+        for a in [i for i in vivo if len(adj[i]) == 2][:60] or list(vivo)[:60]:
+            for b in adj[a]:
+                dist, prev = dijkstra(a, sin={a, b})
+                if b in dist and (mejor is None or dist[b] > mejor[0]): mejor = (dist[b], a, b, prev)
+                break
+        if mejor:
+            anillo = camino(mejor[3], mejor[1], mejor[2]) + [V[mejor[1]]]
+            if not puntas: return anillo, True
+            # lazo: de la punta al anillo, la vuelta entera y regreso a la punta
+            dist, prev = dijkstra(puntas[0]); k = min(range(len(anillo)), key=lambda i: dist.get(idx[tuple(anillo[i])], 1e18))
+            ida = camino(prev, puntas[0], idx[tuple(anillo[k])]); vuelta = anillo[k:-1] + anillo[:k + 1]
+            return ida[:-1] + vuelta + ida[::-1][1:], True
+        if not puntas: return None, False
+        dist, prev = dijkstra(puntas[0]); b = max(dist, key=dist.get)
+        return (camino(prev, puntas[0], b), False) if b != puntas[0] else (None, False)
     puntas = puntas[:40]
     mejor = None
     for a in puntas:   # las dos puntas más alejadas POR EL CAMINO son el principio y el final
@@ -354,7 +368,7 @@ for capa, tipo in (("DOTACI_Lin_GR1", "GR"), ("DOTACI_Lin_GR12", "GR"), ("DOTACI
         if tipo == "Vía verde": n = a.get("NOMBRE") or n
         idena.append({"fuente": "idena", "capa": capa, "n": n, "ref": a.get("IDRUTA", ""), "tipo": tipo, "lin": lin, "circ": circ,
                       "desde": a.get("LUGARINI", ""), "hasta": a.get("LUGARFIN", ""), "txt": a.get("DESCRIPCIO", ""),
-                      "web": a.get("URL", ""), "pf0": f.get("pf") if f.get("s") and len(rs) == 1 else None})
+                      "web": a.get("URL", ""), "pf0": None})
 
 
 def gpx_pts(txt):  # puntos [lat, lon] del track (o de la ruta), con lat y lon en cualquier orden
@@ -381,7 +395,7 @@ for f in (MON.get("PATRIM_Sym_Senderismo") or {}).get("f", []):
         else: fallos[host] += 1
     if len(pts) < 2 or largo(pts) < 1: sin_gpx.append(a.get("NOMBRE", "")); continue
     idena.append({"fuente": "idena", "capa": "PATRIM_Sym_Senderismo", "n": a.get("NOMBRE", ""), "ref": "", "tipo": "Local",
-                  "lin": pts, "circ": km(pts[0], pts[-1]) < 0.3, "desde": "", "hasta": "", "txt": a.get("DESCRIPCIO", ""),
+                  "lin": pts, "circ": km(pts[0], pts[-1]) < 0.3, "desde": "", "hasta": "", "txt": "", "destaca": a.get("DESCRIPCIO", ""),
                   "web": a.get("URL", ""), "gpx": u})
 log("Rutas de IDENA con línea:", len(idena), "· senderos sin GPX:", len(sin_gpx))
 
@@ -468,9 +482,10 @@ for x, i in enumerate(orden):
         if solape(A, B) > 0.7 and solape(B, A) > 0.7:
             fuera.add(j); repes.append((A["n"], A["fuente"], B["n"], B["fuente"]))
             if not A["txt"] and B["txt"]: A["txt"] = B["txt"]
-            if not A["ref"] and B["ref"]: A["ref"] = B["ref"]
+            if not A["ref"] and B["ref"] and A["tipo"] == B["tipo"]: A["ref"] = B["ref"]
             if B["fuente"] == "osm" and not A.get("osm"): A["osm"] = B.get("osm")
-finales = [r for i, r in enumerate(todas) if i not in fuera]
+finales = [r for i, r in enumerate(todas) if i not in fuera
+           and not (GRUPO[r["tipo"]] == "Grandes travesías" and r["km"] < 3)]   # enlaces y variantes cortas de los GR
 log("Repetidas quitadas:", len(repes), "· quedan:", len(finales))
 
 # ------------------------------------------------------------------ 5. ficha de cada ruta
@@ -490,9 +505,10 @@ for n_, r in enumerate(finales, 1):
         b, d = pueblo_cerca(p)
         if d < 0.5 and b["n"] not in vistos: vistos.add(b["n"]); paso_por.append(nombre_corto(b["n"]))
     ini, fin = nombre_corto(p0["n"]), nombre_corto(p1["n"])
-    ini_t = ini if d0 < 1.5 else f"cerca de {ini}"; fin_t = fin if d1 < 1.5 else f"cerca de {fin}"
-    if r["circ"]: t = f"Ruta circular con salida y llegada en {ini_t} ({pf[0]} m)."
-    else: t = f"Sale de {r['desde'] or ini_t} ({pf[0]} m) y llega a {r['hasta'] or fin_t} ({pf[-1]} m)."
+    sal = f"de {r['desde']}" if r["desde"] else (f"de {ini}" if d0 < 1.5 else f"cerca de {ini}")
+    lle = f"a {r['hasta']}" if r["hasta"] else (f"a {fin}" if d1 < 1.5 else f"cerca de {fin}")
+    if r["circ"]: t = f"Ruta circular con salida y llegada {'en ' + ini if d0 < 1.5 else 'cerca de ' + ini} ({pf[0]} m)."
+    else: t = f"Sale {sal} ({pf[0]} m) y llega {lle} ({pf[-1]} m)."
     if paso_por:
         pp = paso_por[:7]; t += " Pasa por " + (pp[0] if len(pp) == 1 else ", ".join(pp[:-1]) + " y " + pp[-1]) + "."
     k = pf.index(mx); t += f" Punto más alto: {mx} m, hacia el km {round(kms * k / 149, 1)}."
@@ -509,7 +525,7 @@ for n_, r in enumerate(finales, 1):
         "pueblo": ini, "muni": MUNIS.get(p0["m"], {}).get("n", ""), "fin": fin,
         "km": round(kms, 1), "up": up, "dn": dn, "mx": mx, "mn": mn, "circ": 1 if r["circ"] else 0,
         "h": round(horas, 1), "dif": dificultad(horas, up, mx), "pasa": paso_por[:12], "desc": t,
-        "web": r.get("web", ""), "osm": r.get("osm") or "", "gpx_oficial": r.get("gpx", ""), "fuente": fuentes,
+        "destaca": r.get("destaca", ""), "web": r.get("web", ""), "osm": r.get("osm") or "", "gpx_oficial": r.get("gpx", ""), "fuente": fuentes,
         "lin": [[round(p[0], 5), round(p[1], 5)] for p in simplificar(lin, 0.00008)], "pf": pf,
     })
 salida.sort(key=lambda x: (x["grupo"], x["zona"], x["n"]))
