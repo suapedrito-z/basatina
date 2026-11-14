@@ -1,5 +1,5 @@
 # Cuenta y clasifica las rutas a pie de Navarra en OpenStreetMap (tools/rutas.py → rutas/).
-# Por ahora no toca la app (web/). Se ejecuta cuando cambia tools/rutas.py o a mano desde Actions.
+# Escribe web/rutas.js (los datos que usa la pantalla Escapadas). Se ejecuta cuando cambia tools/rutas.py o a mano desde Actions.
 name: Rutas OSM
 on:
   push:
@@ -20,6 +20,15 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add rutas/
-          git commit -m "Rutas de Navarra en OpenStreetMap (recuento)" || exit 0
-          for i in 1 2 3; do git pull --rebase && git push && break; sleep 15; done
+          git add rutas/ web/rutas.js
+          git commit -m "Rutas de Navarra para Escapadas (OSM + IDENA)" || exit 0
+          git pull --rebase
+          python3 tools/make_version.py
+          git add web/version.json
+          git commit -m "Nueva versión de la pantalla" || true
+          for i in 1 2 3 4 5; do
+            git push && break
+            sleep $((i*15))
+            git pull --rebase -X theirs || true
+            python3 tools/make_version.py && git add web/version.json && git commit -m "Nueva versión de la pantalla" || true
+          done
