@@ -77,6 +77,11 @@ Propiedad de **Son&Pe Technology Systems** (Sonia y Pedro).
   - Robots: `tools/servicios.py` (`servicios.yml`, día 3 de cada mes → `web/servicios.js`) y `tools/especies.py` (`especies.yml`, día 9 → `web/especies.js`; GBIF + Wikipedia, ~1.200 especies, guarda caché en `tools/especies_cache.json`).
 - **Agenda cultural**: buscador por localidad (`#agPue`, variable `AGPUE`), filtra también los festivos locales.
 
+- **Escapadas con fichas de ruta (14 nov. 2026)** (`web/rutas-ui.js`, se carga después de `efemerides.js`): buscador arriba, filtros (grupo, zona turística, dificultad, distancia, orden, circulares) y fichas al estilo Wikiloc. Cada ficha: distancia, desnivel, dificultad, altitudes, tiempo (DIN 33466), mapa solo de esa ruta (fondo IGN topográfico/mapa/satélite con `M.wms` de `NavMap`), perfil táctil que mueve el punto en el mapa, descripción, GPX (en la app con `AndroidNet.shareFile`), cómo llegar y el tiempo en salida, cima y llegada. El «atrás» del móvil cierra la ficha. El mapa antiguo (cuevas, miradores, fuentes, baño, bici) sigue debajo, en el desplegable `#moViejo`.
+  - **Datos**: `tools/rutas.py` (robot `rutas.yml`, el día 1 de cada mes o al cambiar el script) → `web/rutas.js` (~1 MB, se carga al abrir Escapadas) y `rutas/rutas.json` + `rutas/rutas_info.txt` (resumen para revisar). Junta rutas a pie de OpenStreetMap (Overpass, ODbL) con etapas de GR, Camino de Santiago, vías verdes y senderos de IDENA (lee `web/monte.js`), cose cada ruta en una sola línea, parte las largas en etapas, quita repetidas y calcula el perfil con el modelo del terreno Copernicus GLO-30 (Open-Meteo corta por exceso de peticiones). Zona turística: la de los alojamientos de `web/abiertos.js`.
+  - **No usar rutas de Wikiloc**: sus condiciones prohíben descargarlas en bloque y volver a publicarlas.
+  - **Idiomas**: los textos de esta pantalla van en `window.I18N_RU` (final de `web/idiomas.js`) y se piden con `ruT()`; en euskera, inglés y francés la descripción de la ruta se monta con sus datos (`ruDesc`).
+
 ## 6. Cosas pendientes o ideas
 
 - **Asistente con IA dentro de la app**: solo con la clave protegida en un servidor, nunca en el repositorio público.
