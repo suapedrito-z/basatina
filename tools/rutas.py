@@ -337,15 +337,17 @@ def gpx_pts(txt):  # puntos [lat, lon] del track (o de la ruta), con lat y lon e
 
 
 # Senderos recomendados: se vuelve a pedir su GPX (con más paciencia que en monte.py)
-sin_gpx = []
+sin_gpx = []; fallos = collections.Counter()   # fallos seguidos por servidor: a los 5 se deja de intentar
 for f in (MON.get("PATRIM_Sym_Senderismo") or {}).get("f", []):
-    a = f["a"]; u = a.get("DESCARGA", ""); pts = []
-    if re.search(r"\.gpx$", u, re.I) and not PRUEBA:
-        for intento in range(3):
+    a = f["a"]; u = a.get("DESCARGA", ""); pts = []; host = urllib.parse.urlparse(u).netloc
+    if re.search(r"\.gpx$", u, re.I) and not PRUEBA and fallos[host] < 5:
+        for intento in range(2):
             try:
-                pts = gpx_pts(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=90).read().decode("utf-8", "replace")); break
+                pts = gpx_pts(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30).read().decode("utf-8", "replace"))
+                fallos[host] = 0; break
             except Exception as e:
-                log("GPX falló", intento + 1, u, e); time.sleep(10)
+                log("GPX falló", intento + 1, u, e); time.sleep(3)
+        else: fallos[host] += 1
     if len(pts) < 2 or largo(pts) < 1: sin_gpx.append(a.get("NOMBRE", "")); continue
     idena.append({"fuente": "idena", "capa": "PATRIM_Sym_Senderismo", "n": a.get("NOMBRE", ""), "ref": "", "tipo": "Local",
                   "lin": pts, "circ": km(pts[0], pts[-1]) < 0.3, "desde": "", "hasta": "", "txt": a.get("DESCRIPCIO", ""),
