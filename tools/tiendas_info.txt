@@ -1,0 +1,56 @@
+Supermercados: 256 · Mercados: 11 · Parques infantiles: 738
+
+Marcas más repetidas:
+    41  Eroski
+    38  Dia
+    26  BM
+    11  Mercadona
+    10  Covirán
+    10  Lidl
+     8  Supermercado
+     5  Aldi
+     5  Dia Market
+     4  ALDI
+     4  Benta Peio
+     4  Unide
+     3  Proxim
+     3  Carrefour
+     3  Alcampo
+     3  Suma
+     3  BonÀrea
+     2  Coaliment
+     2  Simply Market
+     2  Caprabo
+     2  Benta Biok
+     2  Spar
+     2  Carrefour Market
+     1  Carrefour express
+     1  Ekolo
+     1  Dendaberri
+     1  Maxi Dia
+     1  Oroz
+     1  Ugari
+     1  Zurera
+     1  Tiendica de Biskarret
+     1  Cooperativa de Hostelería de Navarra
+     1  DIA
+     1  Mercando
+     1  E.Leclerc
+     1  Arondo
+     1  Co Aliment
+     1  Biok
+     1  Alimentación Adela
+     1  Aguirre
+
+Mercados:
+  Mercado (Artajona)
+  Plaza de los Fueros (Cintruénigo)
+  Mercado (Corella)
+  Placeta Abadía (Corella)
+  Mercado (Pamplona / Iruña)
+  Mercado II Ensanche (Pamplona / Iruña)
+  Mercado de Ermitagaña (Pamplona / Iruña)
+  Mercado de Santo Domingo (Pamplona / Iruña)
+  Mercado (Tafalla)
+  Mercado de Abastos (Tudela)
+  Mercadillo de Villava (Villava / Atarrabia)
